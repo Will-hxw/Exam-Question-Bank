@@ -10,8 +10,8 @@ LOCAL = "--local" in sys.argv
 ROOT = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(ROOT, "tmp")
 os.makedirs(OUT, exist_ok=True)
-_VERSION_MANUAL = "v3.6"  # 手动前缀，构建时自动拼接内容哈希
-VERSION_STR = "（测试" + _VERSION_MANUAL + "）"  # 临时值，哈希计算完成后重新赋值
+_VERSION_MANUAL = "v0.1"  # 手动前缀，构建时自动拼接内容哈希
+VERSION_STR = "（正式" + _VERSION_MANUAL + "）"  # 临时值，哈希计算完成后重新赋值
 
 # ── 读取源数据 ──────────────────────────────────────
 with open(os.path.join(ROOT, "data", "questions.json"), "r", encoding="utf-8") as f:
@@ -150,8 +150,8 @@ ai_filename = write_hashed("ai", ai_js)
 
 # ── 自动版本号：内容哈希确保任何源文件变更都触发更新通知 ──
 _version_hash = hashlib.sha256((bank_hash + ai_js + app_js + storage_js).encode()).hexdigest()[:6]
-VERSION_STR = f"（测试{_VERSION_MANUAL}.{_version_hash}）"
-DISPLAY_VERSION = f"（测试{_VERSION_MANUAL}）"  # 前端展示用，不含哈希
+VERSION_STR = f"（正式{_VERSION_MANUAL}.{_version_hash}）"
+DISPLAY_VERSION = f"（正式{_VERSION_MANUAL}）"  # 前端展示用，不含哈希
 
 # ── CSS ────────────────────────────────────────────
 CSS = """*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -526,7 +526,7 @@ app_js = app_js.replace(
     "serviceWorker.register('sw.js?v=" + sw_version + "'"
 )
 
-# ── Service Worker：cache-first + SW 自身变更驱动版本通知 ──
+# ── Service Worker：network-first HTML + cache-first 静态资源 ──
 sw_js = f"""// SW v{sw_version}
 const CACHE_NAME = 'cquccp-{bank_hash}';
 const INDEX_URL = new URL('index.html', self.registration.scope).href;
@@ -539,14 +539,16 @@ const IMMUTABLE_URLS = new Set([
 self.addEventListener('install', function(event) {{
   event.waitUntil(
     caches.open(CACHE_NAME).then(function(cache) {{
-      return Promise.all([
-        cache.add(INDEX_URL),
-        cache.add(new URL('{bank_filename}', self.registration.scope).href),
-        cache.add(new URL('{ai_filename}', self.registration.scope).href),
-        cache.add(new URL('{icon_filename}', self.registration.scope).href)
-      ]);
-    }}).catch(function(e) {{
-      console.warn('[SW] precache failed:', e);
+      var urls = [
+        new URL('{bank_filename}', self.registration.scope).href,
+        new URL('{ai_filename}', self.registration.scope).href,
+        new URL('{icon_filename}', self.registration.scope).href
+      ];
+      return Promise.all(urls.map(function(url) {{
+        return cache.add(url).catch(function(e) {{
+          console.warn('[SW] precache failed for:', url, e);
+        }});
+      }}));
     }}).then(function() {{ return self.skipWaiting(); }})
   );
 }});
@@ -558,7 +560,6 @@ self.addEventListener('activate', function(event) {{
         return k.indexOf('cquccp-') === 0;
       }});
       var isUpdate = ourKeys.filter(function(k) {{ return k !== CACHE_NAME; }}).length > 0;
-      // 删除旧版本缓存（不同 CACHE_NAME）
       return Promise.all(ourKeys.filter(function(k) {{
         return k !== CACHE_NAME;
       }}).map(function(k) {{ return caches.delete(k); }})).then(function() {{
@@ -588,11 +589,19 @@ self.addEventListener('fetch', function(event) {{
   var url = new URL(request.url);
   if (!isSameScope(url)) return;
 
-  // HTML: cache-first
+  // HTML: network-first，网络失败才降级缓存
   if (request.mode === 'navigate' || url.href === INDEX_URL) {{
     event.respondWith(
-      caches.match(INDEX_URL).then(function(cached) {{
-        return cached || fetch(request);
+      fetch(request).then(function(response) {{
+        // 网络成功 → 更新缓存 → 返回
+        var cloned = response.clone();
+        caches.open(CACHE_NAME).then(function(cache) {{
+          cache.put(INDEX_URL, cloned).catch(function() {{}});
+        }});
+        return response;
+      }}).catch(function() {{
+        // 网络失败 → 尝试缓存
+        return caches.match(INDEX_URL);
       }})
     );
     return;
@@ -606,9 +615,7 @@ self.addEventListener('fetch', function(event) {{
           if (cached) return cached;
           return fetch(request).then(function(response) {{
             if (response && response.ok) {{
-              cache.put(request, response.clone()).catch(function(e) {{
-                console.warn('[SW] cache put failed:', e);
-              }});
+              cache.put(request, response.clone()).catch(function() {{}});
             }}
             return response;
           }});
@@ -661,7 +668,7 @@ BODY = """<header id="site-header">
     <p>· 本练习网站由20230537华晓蔚制作，仅供学习参考</p>
     <p>· 如有题目错误或友情建议请联系QQ：1176843521</p>
     <p>· 请使用同一入口使用，否则数据会不同</p>
-    <p>· 推荐使用电脑端，手机端优化无果</p>
+
   </div>
   <a class="footer-sponsor-link" id="footer-sponsor-link" href="#sponsor" aria-label="打开友情赞助页面">
     <span class="footer-sponsor-icon" aria-hidden="true"><span class="footer-sponsor-emoji">💌</span></span>
@@ -674,7 +681,7 @@ BODY = """<header id="site-header">
 _full_version_hash = hashlib.sha256(
     (bank_hash + ai_js + app_js + storage_js + CSS + BODY + icon_hash).encode()
 ).hexdigest()[:6]
-VERSION_STR = f"（测试{_VERSION_MANUAL}.{_full_version_hash}）"
+VERSION_STR = f"（正式{_VERSION_MANUAL}.{_full_version_hash}）"
 
 version_str = VERSION_STR
 with open(os.path.join(OUT, "version.txt"), "w", encoding="utf-8", newline="\n") as f:

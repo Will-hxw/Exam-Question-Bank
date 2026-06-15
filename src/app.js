@@ -14,6 +14,7 @@ let _untaggedQs = [];    // 缓存：无 tag 的基础题
 var _qMap = new Map();   // id → question 哈希索引，O(1) 替代 Array.find
 
 function getQ(id) { return _qMap.get(id); }
+function _findIndexById(arr, id) { for (var i = 0; i < arr.length; i++) { if (arr[i].id === id) return i; } return -1; }
 
 // 同步 _qMap 与 questions 数组（questions 变更后调用）
 function _rebuildQMap() {
@@ -334,9 +335,11 @@ function _updateProgressText() {
   if (mode === 'topic') {
     var pool = getTopicPool();
     var idx = pool.indexOf(currentQuestion);
+    if (idx < 0) idx = _findIndexById(pool, currentQuestion.id);
     if (idx >= 0) el.textContent = '专题 · 第 ' + (idx + 1) + '/' + pool.length + ' 题';
   } else if (mode === 'sequential') {
     var i = questions.indexOf(currentQuestion);
+    if (i < 0) i = _findIndexById(questions, currentQuestion.id);
     if (i >= 0) el.textContent = '顺序 · 第 ' + (i + 1) + '/' + _totalQuestions + ' 题';
   }
 }
@@ -785,7 +788,8 @@ function prevQuestion() {
   AIPanel.close();
   // Sequential mode: go back by index, restore state from history
   if (Storage.getMode() === 'sequential' && currentQuestion) {
-    const curIdx = questions.indexOf(currentQuestion);
+    var curIdx = questions.indexOf(currentQuestion);
+    if (curIdx < 0) curIdx = _findIndexById(questions, currentQuestion.id);
     if (curIdx <= 0) return;
     Storage.setSequentialIdx(curIdx - 1);
     // 先验证历史记录有效性再移动光标
@@ -801,42 +805,39 @@ function prevQuestion() {
         return;
       }
     }
-    // Fallback: fresh state
+    // Fallback: fresh state (no history push to avoid corrupting stack)
     const prevQ = questions[curIdx - 1];
     currentQuestion = prevQ;
     userAnswers = [];
     answerLocked = false;
-    pushHistoryEntry(prevQ);
     renderQuestion(prevQ);
     return;
   }
 
-  // Topic mode: go back by index within topic pool, restore state from history
+  // Topic mode: go back by index within topic pool
   if (Storage.getMode() === 'topic' && currentQuestion) {
     var topicPool = getTopicPool();
     var curIdx = topicPool.indexOf(currentQuestion);
+    if (curIdx < 0) curIdx = _findIndexById(topicPool, currentQuestion.id);
     if (curIdx <= 0) return;
-    Storage.setTopicIdx(curIdx - 1);
-    // 先验证历史记录有效性再移动光标
+    curIdx--;
+    Storage.setTopicIdx(curIdx);
+    var expectedQ = topicPool[curIdx];
+    // 尝试从历史恢复答案状态（仅当历史条目与期望题目一致时）
     var prevEntry = PracticeHistory.peekPrev();
-    var entry = (prevEntry && prevEntry.qid && getQ(prevEntry.qid)) ? PracticeHistory.back() : null;
+    var entry = (prevEntry && prevEntry.qid && prevEntry.qid === expectedQ.id) ? PracticeHistory.back() : null;
     if (entry && entry.qid) {
-      const q = getQ(entry.qid);
-      if (q) {
-        currentQuestion = q;
-        userAnswers = entry.userAnswer || [];
-        answerLocked = entry.submitted || false;
-        renderQuestion(q, entry.submitted || false);
-        return;
-      }
+      currentQuestion = expectedQ;
+      userAnswers = entry.userAnswer || [];
+      answerLocked = entry.submitted || false;
+      renderQuestion(expectedQ, entry.submitted || false);
+      return;
     }
-    // Fallback: fresh state
-    var prevQ = topicPool[curIdx - 1];
-    currentQuestion = prevQ;
+    // 无匹配历史：直接用池子索引
+    currentQuestion = expectedQ;
     userAnswers = [];
     answerLocked = false;
-    pushHistoryEntry(prevQ);
-    renderQuestion(prevQ);
+    renderQuestion(expectedQ);
     return;
   }
 
@@ -899,6 +900,7 @@ function renderQuestion(q, showResult = false) {
   var progressHtml = esc(q.id);
   if (mode === 'sequential') {
     var seqIdx = questions.indexOf(q);
+    if (seqIdx < 0) seqIdx = _findIndexById(questions, q.id);
     var totalQ = _totalQuestions || questions.length;
     progressHtml = '顺序 · <span class="jump-info" data-mode="sequential" data-current="' + (seqIdx + 1) + '" data-total="' + totalQ + '">第 ' + (seqIdx + 1) + ' / ' + totalQ + ' 题 <span class="jump-link">跳转</span></span>';
   } else if (mode === 'wrong') {
@@ -909,6 +911,7 @@ function renderQuestion(q, showResult = false) {
     progressHtml = '收藏模式 · 共 ' + favCount + ' 题';
   } else if (mode === 'topic') {
     var topicIdx = topicPoolCache.indexOf(q);
+    if (topicIdx < 0) topicIdx = _findIndexById(topicPoolCache, q.id);
     progressHtml = '专题 · <span class="jump-info" data-mode="topic" data-current="' + (topicIdx + 1) + '" data-total="' + topicPoolCache.length + '">第 ' + (topicIdx + 1) + ' / ' + topicPoolCache.length + ' 题 <span class="jump-link">跳转</span></span>';
   }
 
