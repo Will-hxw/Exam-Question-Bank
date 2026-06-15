@@ -1,0 +1,24 @@
+.playwright-mcp/
+docs/
+Bug/*
+__pycache__/
+questions.js
+*.log
+.DS_Store
+Thumbs.db
+final/
+cert.pem
+key.pem
+.VSCodeCounter/
+ai.[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f].js
+storage.[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f].js
+app.[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f].js
+# 构建产物
+/index.html
+/sw.js
+/version.txt
+/questions-compact.json
+/questions-compact.[0-9a-f]*.json
+cloudflare-worker/.wrangler/
+cloudflare-worker/config.json
+tmp/
