@@ -152,11 +152,6 @@ ai_filename = write_hashed("ai", ai_js)
 _version_hash = hashlib.sha256((bank_hash + ai_js + app_js + storage_js).encode()).hexdigest()[:6]
 VERSION_STR = f"（测试{_VERSION_MANUAL}.{_version_hash}）"
 DISPLAY_VERSION = f"（测试{_VERSION_MANUAL}）"  # 前端展示用，不含哈希
-sw_version = hashlib.sha256((bank_hash + ai_js + app_js).encode()).hexdigest()[:8]
-app_js = app_js.replace(
-    "serviceWorker.register('sw.js'",
-    "serviceWorker.register('sw.js?v=" + sw_version + "'"
-)
 
 # ── CSS ────────────────────────────────────────────
 CSS = """*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -524,16 +519,17 @@ button { cursor: pointer; font-family: inherit; touch-action: manipulation; user
 @keyframes jump-shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
 [data-theme="dark"] .jump-input { background: var(--surface); color: var(--text); border-color: var(--accent); }"""
 
-# ── Service Worker：HTML 缓存秒开 + version.txt 探版本 ──
-sw_js = f"""const CACHE_NAME = 'cquccp-{bank_hash}';
+# ── SW 版本号：纳入所有源文件确保任何变更都触发 SW 更新 ──
+sw_version = hashlib.sha256((bank_hash + ai_js + app_js + storage_js + CSS + icon_hash).encode()).hexdigest()[:8]
+app_js = app_js.replace(
+    "serviceWorker.register('sw.js'",
+    "serviceWorker.register('sw.js?v=" + sw_version + "'"
+)
+
+# ── Service Worker：cache-first + SW 自身变更驱动版本通知 ──
+sw_js = f"""// SW v{sw_version}
+const CACHE_NAME = 'cquccp-{bank_hash}';
 const INDEX_URL = new URL('index.html', self.registration.scope).href;
-const VERSION_URL = new URL('version.txt', self.registration.scope).href;
-const PRECACHE_URLS = [
-  INDEX_URL,
-  VERSION_URL,
-  new URL('{icon_filename}', self.registration.scope).href,
-  new URL('{bank_filename}', self.registration.scope).href
-];
 const IMMUTABLE_URLS = new Set([
   new URL('{bank_filename}', self.registration.scope).href,
   new URL('{icon_filename}', self.registration.scope).href,
@@ -541,86 +537,48 @@ const IMMUTABLE_URLS = new Set([
 ]);
 
 self.addEventListener('install', function(event) {{
-  var succeeded = 0;
   event.waitUntil(
     caches.open(CACHE_NAME).then(function(cache) {{
-      // 逐个缓存，避免一个失败拖累全部
-      return Promise.all(PRECACHE_URLS.map(function(url) {{
-        return cache.add(url).then(function() {{ succeeded++; }}).catch(function(e) {{
-          console.warn('[SW] precache failed for:', url, e);
-        }});
-      }}));
-    }}).then(function() {{
-      if (succeeded > 0 || PRECACHE_URLS.length === 0) return self.skipWaiting();
-      console.warn('[SW] all precache URLs failed, not activating');
-    }})
+      return Promise.all([
+        cache.add(INDEX_URL),
+        cache.add(new URL('{bank_filename}', self.registration.scope).href),
+        cache.add(new URL('{ai_filename}', self.registration.scope).href),
+        cache.add(new URL('{icon_filename}', self.registration.scope).href)
+      ]);
+    }}).catch(function(e) {{
+      console.warn('[SW] precache failed:', e);
+    }}).then(function() {{ return self.skipWaiting(); }})
   );
 }});
 
 self.addEventListener('activate', function(event) {{
   event.waitUntil(
     caches.keys().then(function(keys) {{
-      return Promise.all(keys.map(function(key) {{
-        if (key.indexOf('cquccp-') === 0 && key !== CACHE_NAME) {{
-          return caches.delete(key);
+      var ourKeys = keys.filter(function(k) {{
+        return k.indexOf('cquccp-') === 0;
+      }});
+      var isUpdate = ourKeys.filter(function(k) {{ return k !== CACHE_NAME; }}).length > 0;
+      // 删除旧版本缓存（不同 CACHE_NAME）
+      return Promise.all(ourKeys.filter(function(k) {{
+        return k !== CACHE_NAME;
+      }}).map(function(k) {{ return caches.delete(k); }})).then(function() {{
+        return self.clients.claim();
+      }}).then(function() {{
+        if (isUpdate) {{
+          return self.clients.matchAll().then(function(clients) {{
+            clients.forEach(function(client) {{
+              client.postMessage({{ type: 'new-version' }});
+            }});
+          }});
         }}
-      }}));
-    }}).then(function() {{ return self.clients.claim(); }})
+      }});
+    }})
   );
 }});
 
 function isSameScope(url) {{
   var scopePath = new URL(self.registration.scope).pathname;
   return url.origin === location.origin && url.pathname.indexOf(scopePath) === 0;
-}}
-
-function cacheFirst(request) {{
-  return caches.open(CACHE_NAME).then(function(cache) {{
-    return cache.match(request).then(function(cached) {{
-      if (cached) return cached;
-      return fetch(request).then(function(response) {{
-        if (response && response.ok) {{
-          cache.put(request, response.clone()).catch(function(e) {{
-            console.warn('[SW] cache put failed:', request.url, e);
-          }});
-        }}
-        return response;
-      }});
-    }});
-  }});
-}}
-
-// 后台检查 version.txt，版本变化则刷新 HTML 缓存并通知客户端
-function checkVersionAndRefresh() {{
-  return fetch(VERSION_URL, {{cache: 'no-cache'}}).then(function(netRes) {{
-    if (!netRes || !netRes.ok) return;
-    return netRes.text().then(function(netVersion) {{
-      return caches.open(CACHE_NAME).then(function(cache) {{
-        return cache.match(VERSION_URL).then(function(cachedRes) {{
-          if (!cachedRes) {{
-            return cache.put(VERSION_URL, netRes.clone());
-          }}
-          return cachedRes.text().then(function(cachedVersion) {{
-            if (netVersion.trim() === cachedVersion.trim()) return;
-            // 版本变了，拉新 HTML 并更新缓存
-            return fetch(INDEX_URL, {{cache: 'no-cache'}}).then(function(htmlRes) {{
-              if (!htmlRes || !htmlRes.ok) return;
-              return Promise.all([
-                cache.put(INDEX_URL, htmlRes.clone()),
-                cache.put(VERSION_URL, netRes.clone())
-              ]).then(function() {{
-                return self.clients.matchAll().then(function(clients) {{
-                  clients.forEach(function(client) {{
-                    client.postMessage({{ type: 'new-version' }});
-                  }});
-                }});
-              }});
-            }});
-          }});
-        }});
-      }});
-    }});
-  }});
 }}
 
 self.addEventListener('fetch', function(event) {{
@@ -630,29 +588,33 @@ self.addEventListener('fetch', function(event) {{
   var url = new URL(request.url);
   if (!isSameScope(url)) return;
 
-  // HTML: 缓存秒开 + version.txt 探版本
+  // HTML: cache-first
   if (request.mode === 'navigate' || url.href === INDEX_URL) {{
     event.respondWith(
       caches.match(INDEX_URL).then(function(cached) {{
         return cached || fetch(request);
       }})
     );
-    event.waitUntil(checkVersionAndRefresh().catch(function() {{}}));
     return;
   }}
 
-  // version.txt 自身：走网络，失败才缓存
-  if (url.href === VERSION_URL) {{
+  // 静态资源: cache-first
+  if (IMMUTABLE_URLS.has(url.href)) {{
     event.respondWith(
-      fetch(request, {{cache: 'no-cache'}}).catch(function() {{
-        return caches.match(VERSION_URL);
+      caches.open(CACHE_NAME).then(function(cache) {{
+        return cache.match(request).then(function(cached) {{
+          if (cached) return cached;
+          return fetch(request).then(function(response) {{
+            if (response && response.ok) {{
+              cache.put(request, response.clone()).catch(function(e) {{
+                console.warn('[SW] cache put failed:', e);
+              }});
+            }}
+            return response;
+          }});
+        }});
       }})
     );
-    return;
-  }}
-
-  if (IMMUTABLE_URLS.has(url.href)) {{
-    event.respondWith(cacheFirst(request));
   }}
 }});
 """

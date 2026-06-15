@@ -22,3 +22,4 @@ app.[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9
 cloudflare-worker/.wrangler/
 cloudflare-worker/config.json
 tmp/
+.wrangler/

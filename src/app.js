@@ -272,9 +272,9 @@ function showUpdateBar() {
 function checkVersion() {
   fetch('version.txt?t=' + Date.now(), {cache: 'no-cache'}).then(function(r) { return r.text(); }).then(function(remoteVer) {
     remoteVer = remoteVer.trim();
-    if (remoteVer.length > 50) return; // 防404页面误报
+    if (remoteVer.length > 50 || !remoteVer) return; // 防404误报 / 空内容
     var localVer = window.__VERSION || '';
-    if (remoteVer && localVer && remoteVer !== localVer) {
+    if (localVer && remoteVer !== localVer) {
       showUpdateBar();
     }
   }).catch(function() {});

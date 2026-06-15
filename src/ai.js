@@ -162,12 +162,13 @@ var AICache = {
     if (cached.length <= this._maxSize) return;
     cached.sort(function(a, b) { return a.time - b.time; });
     var remove = cached.length - this._maxSize;
-    var trimmed = false;
     for (var i = 0; i < remove; i++) {
       var q = d.questions[cached[i].id];
-      if (q) { delete q.aiAnalysis; delete q._aiCachedAt; trimmed = true; }
+      if (q) { delete q.aiAnalysis; delete q._aiCachedAt; }
     }
-    if (trimmed) { Storage.save(); }
+    if (!Storage.save()) {
+      Storage._data = null;
+    }
   }
 };
 
