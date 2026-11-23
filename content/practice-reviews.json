@@ -545,11 +545,11 @@
   },
   {
     "questionId": "87434ecf-c0de-4d38-a09a-d7231863ff4a",
-    "digest": "a297d0533778057ea209779457cb1927e0a330eac49baf5bbcd41e5fb236a264",
-    "reviewer": "Codex platform",
-    "decision": "rewrite",
-    "reason": "草稿三个错项都套用经济处置，题干非经济利益已经提示答案形式。",
-    "proposal": "改问「对违纪取得的职称，承办纪检机关或其上级纪检机关应（ ）。」选项「自行撤销职称／先暂缓职称使用／重新组织职称评审／建议有关单位纠正」。按第四十三条复核权限动词。"
+    "digest": "4ef81adeda7f6a290f8cca73d41ece5772663fb0658fd9adf2437cb5f9d3195c",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "职称属于该款列举的其他利益。承办案件的纪检机关或其上级纪检机关采取的动作是建议有关单位按规定纠正，责令、委托和批准均与这一职权动词不同。题干明确非经济性利益对象，范围唯一。",
+    "proposal": ""
   },
   {
     "questionId": "a6dc4054-5785-40c9-88aa-e328463c497d",
@@ -1065,7 +1065,7 @@
   },
   {
     "questionId": "8b47fda8-1b5e-47f4-bcbe-4d1a457e37df",
-    "digest": "108cf4ee2ecbfac1c00b3e63244e735722ace3e6d816467b5d03add98a2dcfde",
+    "digest": "377d5ece64b96fafe1592139f4358ccb1e2a8001928487b336322193f885d00a",
     "reviewer": "Codex root",
     "decision": "keep",
     "reason": "建设强大国内市场部署统筹促消费和扩投资。此处为原文固定搭配，选项均是短政策术语。",
@@ -1221,6 +1221,118 @@
     "reviewer": "Codex sources",
     "decision": "keep",
     "reason": "在政治、组织纪律后列廉洁纪律，其他短选项均非现行条文的列举名称。广州城建Q27填6直接留空廉洁纪律，是当前四份校方矩阵中的单一原卷命中；中南大学DOCX竞赛题第48问仅为另类考法旁证。六项纪律与五种处分是不同知识点，不能合计为多校结业同题。",
+    "proposal": ""
+  },
+  {
+    "questionId": "7d20dd51-cc9e-4546-8f45-164f7fadc1f8",
+    "digest": "12f5966bb67a9195e180d6188385603a51259dd7e28976d6df3e3bf307ab407c",
+    "reviewer": "Codex root",
+    "decision": "keep",
+    "reason": "中心是经济建设。广州城建和武汉东湖公开旧卷均要求基本路线，四川大学复习资料直接留空经济建设。现行表述由党章核定。",
+    "proposal": ""
+  },
+  {
+    "questionId": "62ae990b-51fc-4ebe-93ec-e86eb564ac17",
+    "digest": "f05b033a81f4c2c4bdfa88d7fa9006d82b3957bda2383b291f402c497a9a469a",
+    "reviewer": "Codex root",
+    "decision": "keep",
+    "reason": "预备期的通常期限是1年，另有延长情形。湖北经济公开卷直接问期限，川大复习资料同考，选项均为时间长度。",
+    "proposal": ""
+  },
+  {
+    "questionId": "7b677cad-8b65-4b49-ae31-1199794bd203",
+    "digest": "8c2305fe23975c539b9c5b013ece33b413636f3689b3ac00651986574288ef2d",
+    "reviewer": "Codex root",
+    "decision": "keep",
+    "reason": "预备期满转为正式党员之日是党龄起算日。它与预备期、批准和宣布的时间不同。湖北经济和川大材料均直接复现。",
+    "proposal": ""
+  },
+  {
+    "questionId": "3cffa27d-9f00-4189-a24b-ebdfa9afafee",
+    "digest": "0cb7657fe25d3a9170283c0fd785e707621195f1e4475ba7b05f8740eb9049fc",
+    "reviewer": "Codex root",
+    "decision": "keep",
+    "reason": "条文规定两名正式党员。湖北经济卷直接问人数，川大复习资料同测人数及身份。选项都是数字。",
+    "proposal": ""
+  },
+  {
+    "questionId": "25218512-c64e-42d0-947d-d3ddfad5b912",
+    "digest": "4ab6d5cbf0917c6d44aee9ac0e80b86dd99c9bd965e8fed0ca0edcb59af08d3f",
+    "reviewer": "Codex root",
+    "decision": "keep",
+    "reason": "通常每五年举行一次。提前或延期有条文条件，题干用通常。湖北经济原卷和川大复习资料均问周期。",
+    "proposal": ""
+  },
+  {
+    "questionId": "fbe3b2cc-7d38-45d5-8d4d-659e3c08acaa",
+    "digest": "7dcbeba3a0283aadbf1afc482ccd2d8848754c66e5830334cde5a1583221034f",
+    "reviewer": "Codex root",
+    "decision": "keep",
+    "reason": "三类委员会均为三年至五年，广州城建卷直接同问。川大历史资料区分了三类和旧时长，不能搬用旧答案。",
+    "proposal": ""
+  },
+  {
+    "questionId": "ca8c7ca8-b4fd-4ae8-bce3-bb73e9a4bb4c",
+    "digest": "0ed1e23809095bbc97661b1109323687cc15266276c7d4e23cdfe2be195f28e4",
+    "reviewer": "Codex root",
+    "decision": "keep",
+    "reason": "党徽为镰刀与锤头组成的图案。湖北经济卷直接问组成，川大复习资料分别填两个构件。",
+    "proposal": ""
+  },
+  {
+    "questionId": "64a609d3-2c78-4ed3-b3fd-d15fd664204c",
+    "digest": "c40b10f9af7b20fbf34b9411222d8dab021b821de61da5d3678b540d3a8dd7e0",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "给出中央统一安排的例外后，原文直接规定个人不发贺信和贺电。请柬、慰问信、致谢信均未列于此项。题干询问一类文书，不再给出与答案同形的“贺电”提示。",
+    "proposal": ""
+  },
+  {
+    "questionId": "812c418b-8cdf-430f-a92e-0ead229bfa58",
+    "digest": "78fc0479304d2ee5aebbbf0ccfa558314d8062441c40e22132724654c56746ea",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "原处分尚未执行的影响期才与新处分影响期相加。已经执行、全部核定、追溯确认均不是该条采用的口径。现题干明确又受的是党纪处分，答案直接对应原句。",
+    "proposal": ""
+  },
+  {
+    "questionId": "909fbba8-706f-4a82-9aa1-b3a27dde0327",
+    "digest": "60a47bdd7bcecc2b44dea64cb3b5a70eadc1f3d16de6293ae0b27cb625ac51f0",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "分集文字明确天盟实业投资有限公司党支部服务义新欧班列，蓉欧、渝新欧和长安号均不是这项事迹。题干已去掉城市前缀，消除了义乌与义新欧的词形提示，节目与主体仍足以唯一定位。",
+    "proposal": ""
+  },
+  {
+    "questionId": "1e57587f-df07-4373-841b-032a4ca77d32",
+    "digest": "6bbbb8366e6405f59b1f40378b4ea55ebe38702ec0b994d230900c64b74a8108",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "同段明确列有高校毕业生等青年的就业支持政策、农民工稳岗帮扶和退役军人安置就业服务。科技领军人才没有在指定就业段被列为这一组政策支持对象。段落边界明确，四个选项都是群体名称。",
+    "proposal": ""
+  },
+  {
+    "questionId": "d910769a-9ff6-40f0-9c46-2eb91f3b7da3",
+    "digest": "132c9ac0db13507f1c4d5b42253a553f2e4bd1a3daa69699850e45b0a78ae5e2",
+    "reviewer": "Codex sources",
+    "decision": "keep",
+    "reason": "会议在2025年10月20日至23日于北京举行。A、B、D各给等长的相邻日期区间，均与公报会期不同。题面写清届次和日期维度。已有四中议程事实考通过的文件，不重复考日期；旧q_cqu_000066是相同候选，发布只保留这一版本。",
+    "proposal": ""
+  },
+  {
+    "questionId": "50915345-e2b5-4f32-a3be-9b651d2964e2",
+    "digest": "b25e6ee37afdafe6f1340835d4966eed0623fcb1e320d4c3e4bc4a641af046c0",
+    "reviewer": "Codex sources",
+    "decision": "keep",
+    "reason": "工作总基调是稳中求进。提质增效、优化结构、补齐短板都是相关工作用语，均不具备所问文件在这一处规定的总基调地位。四项同为短词，且该术语未见作独立在库知识点；既有T14指导思想题考主题、动力、目的和保障。",
+    "proposal": ""
+  },
+  {
+    "questionId": "e88aaba4-afda-4f18-8ea4-90a2e2457eee",
+    "digest": "c5d65136421f548541be91a590176e76290a542e28797715167b52cef3417d11",
+    "reviewer": "Codex sources",
+    "decision": "keep",
+    "reason": "原文明确扩大内需是战略基点，扩大出口、投资、供给均不能填这一位置。投资与供给在同段或下文已有相关部署，是可信的短干扰。T01考国内大循环主体，T05政府工作报告题考促消费与扩投资的并列，T14既有题考第五部分列出的分项任务；三者测不同事实。旧q_3_020和q_add_000013已核同一战略基点，只保留一个短项。",
     "proposal": ""
   }
 ]

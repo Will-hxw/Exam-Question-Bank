@@ -10515,65 +10515,65 @@
   },
   {
     "id": "87434ecf-c0de-4d38-a09a-d7231863ff4a",
-    "state": "draft",
+    "state": "ready",
     "topicId": "t08",
     "knowledgePointId": "0f793d0f-bcfa-4c21-9fd6-21ff5b945642",
     "relatedKnowledgePointIds": [],
     "type": "single",
-    "stem": "某党员通过已认定的违纪行为获得职称。只按现行条例对这类非经济利益的处理，以下哪项正确？",
+    "stem": "党员因违纪取得职称，由承办案件的纪检机关或其上级纪检机关（ ）有关单位予以纠正。",
     "scopeNote": "2023年修订、2024年1月1日起施行的《中国共产党纪律处分条例》",
-    "difficulty": "intermediate",
-    "taskType": "distinction",
-    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "difficulty": "basic",
+    "taskType": "recall",
+    "difficultyReason": "直接考查指定考点的原文术语、主体或时限。",
     "emotionOnly": false,
-    "emotionReason": "按具体适用对象、时限、处分阶次或不同程序判定。",
+    "emotionReason": "用同类术语或选项限定的原文事实辨识。",
     "orderLocked": false,
     "options": [
       {
         "id": "67e76b9d-6763-4b8e-a553-00618e3494b3",
-        "text": "由承办纪检机关参照经济利益收缴规则直接收缴职称",
-        "rationale": "经济利益的收缴规定不适用于职称，职称属于后款的其他利益。",
+        "text": "责令",
+        "rationale": "第43条第二款在这种情形使用建议；第一款对经济利益可责令退赔。",
         "evidence": [
           {
             "sourceId": "S19",
             "location": "第四十三条第一、二款",
-            "claim": "经济利益的收缴规定不适用于职称，职称属于后款的其他利益。"
+            "claim": "第43条第二款在这种情形使用建议；第一款对经济利益可责令退赔。"
           }
         ]
       },
       {
         "id": "f1517041-ad37-4a02-9a1e-e1f786ccd8f2",
-        "text": "由处分机关把职称折算为费用之后责令退赔",
-        "rationale": "条文给出建议纠正的路径，没有把职称折算为经济利益。",
+        "text": "委托",
+        "rationale": "条文规定纪检机关建议其他单位纠正，不以委托授权为条件。",
         "evidence": [
           {
             "sourceId": "S19",
             "location": "第四十三条第一、二款",
-            "claim": "条文给出建议纠正的路径，没有把职称折算为经济利益。"
+            "claim": "条文规定纪检机关建议其他单位纠正，不以委托授权为条件。"
           }
         ]
       },
       {
         "id": "4e7539e8-a0dd-41d3-bcfc-a2c26c2b9751",
-        "text": "由任免机关先认定经济利益，再按照所得金额作出清单",
-        "rationale": "题干的职称已经区分为非经济利益，不适用先定金额再处理。",
+        "text": "批准",
+        "rationale": "该款明确采用建议纠正的方式。",
         "evidence": [
           {
             "sourceId": "S19",
             "location": "第四十三条第一、二款",
-            "claim": "题干的职称已经区分为非经济利益，不适用先定金额再处理。"
+            "claim": "该款明确采用建议纠正的方式。"
           }
         ]
       },
       {
         "id": "666edd7d-5e24-4f1e-a091-a8714d4ea2d6",
-        "text": "由承办案件的纪检机关或其上级建议相关组织、部门、单位纠正",
-        "rationale": "第四十三条第二款列明职称，并规定由有关纪检机关建议相关单位纠正。",
+        "text": "建议",
+        "rationale": "第四十三条第二款明列职称，规定纪检机关建议相关单位予以纠正。",
         "evidence": [
           {
             "sourceId": "S19",
             "location": "第四十三条第一、二款",
-            "claim": "第四十三条第二款列明职称，并规定由有关纪检机关建议相关单位纠正。"
+            "claim": "第四十三条第二款明列职称，规定纪检机关建议相关单位予以纠正。"
           }
         ]
       }
@@ -10598,20 +10598,20 @@
           "666edd7d-5e24-4f1e-a091-a8714d4ea2d6"
         ],
         "decision": "approved",
+        "notes": "按独立意见修正题干范围或干扰项，保留稳定题目与正确选项 ID。",
         "emotionOnly": false,
-        "notes": "已逐项对照条例原条内容，待第二轮独立答题。",
-        "digest": "a297d0533778057ea209779457cb1927e0a330eac49baf5bbcd41e5fb236a264"
+        "digest": "4ef81adeda7f6a290f8cca73d41ece5772663fb0658fd9adf2437cb5f9d3195c"
       },
       "independent": {
-        "reviewer": "Codex platform",
+        "reviewer": "Codex baseline",
         "date": "2026-11-23",
         "choice": [
           "666edd7d-5e24-4f1e-a091-a8714d4ea2d6"
         ],
-        "decision": "changes",
+        "decision": "approved",
+        "notes": "职称属于该款列举的其他利益。承办案件的纪检机关或其上级纪检机关采取的动作是建议有关单位按规定纠正，责令、委托和批准均与这一职权动词不同。题干明确非经济性利益对象，范围唯一。",
         "emotionOnly": false,
-        "notes": "职称应由承办纪检机关或其上级纪检机关建议有关单位纠正。A、B、C都将职称收缴、折价或先认作经济利益，题干已点明非经济利益，三项可凭类别排除。建议让各项都围绕职称纠正展开，区分建议与直接纠正的权限，并将D的上级主体写为上级纪检机关。",
-        "digest": "a297d0533778057ea209779457cb1927e0a330eac49baf5bbcd41e5fb236a264"
+        "digest": "4ef81adeda7f6a290f8cca73d41ece5772663fb0658fd9adf2437cb5f9d3195c"
       }
     }
   },
@@ -13092,65 +13092,65 @@
   },
   {
     "id": "64a609d3-2c78-4ed3-b3fd-d15fd664204c",
-    "state": "draft",
+    "state": "ready",
     "topicId": "t09",
     "knowledgePointId": "8f5af263-6e3c-4d6e-a83c-0e830304d5bd",
     "relatedKnowledgePointIds": [],
     "type": "single",
-    "stem": "除中央统一安排外，个人不发（ ）、贺电，也不题词、题字。",
+    "stem": "除中央统一安排外，中央八项规定明确要求个人不发的礼仪文书之一是（ ）。",
     "scopeNote": "中央八项规定原文及其精神的官方公开学习资料",
-    "difficulty": "intermediate",
+    "difficulty": "basic",
     "taskType": "recall",
-    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "difficultyReason": "直接考查指定考点的原文术语、主体或时限。",
     "emotionOnly": false,
-    "emotionReason": "依规范原文的真实对应项、日期或固定措辞补空。",
+    "emotionReason": "用同类术语或选项限定的原文事实辨识。",
     "orderLocked": false,
     "options": [
       {
         "id": "8f13396b-a382-4038-b0fb-a5e00c38650c",
-        "text": "通告",
-        "rationale": "通告不是第七项与贺电并列的类型。",
+        "text": "请柬",
+        "rationale": "第七项没有将请柬列为该项明确规制的文书。",
         "evidence": [
           {
             "sourceId": "S20",
             "location": "第七项，严格文稿发表",
-            "claim": "通告不是第七项与贺电并列的类型。"
+            "claim": "第七项没有将请柬列为该项明确规制的文书。"
           }
         ]
       },
       {
         "id": "97364937-4487-496c-8206-7946a8b7890b",
-        "text": "公报",
-        "rationale": "该空的正式用词为贺信，与公报用途不同。",
+        "text": "慰问信",
+        "rationale": "条文所列信件在此处为贺信。",
         "evidence": [
           {
             "sourceId": "S20",
             "location": "第七项，严格文稿发表",
-            "claim": "该空的正式用词为贺信，与公报用途不同。"
+            "claim": "条文所列信件在此处为贺信。"
           }
         ]
       },
       {
         "id": "47579ba0-974c-4026-a9f0-706a8bd56c11",
-        "text": "纪要",
-        "rationale": "第七项在该处并列贺信与贺电，不是会议纪要。",
+        "text": "致谢信",
+        "rationale": "该处列举的是贺信和贺电。",
         "evidence": [
           {
             "sourceId": "S20",
             "location": "第七项，严格文稿发表",
-            "claim": "第七项在该处并列贺信与贺电，不是会议纪要。"
+            "claim": "该处列举的是贺信和贺电。"
           }
         ]
       },
       {
         "id": "c5156b06-1ba9-4a22-ba3a-3ff79e5fd370",
         "text": "贺信",
-        "rationale": "贺信和贺电是原文并列规制的两项。",
+        "rationale": "第七项明确个人在没有中央统一安排时不发贺信、贺电。",
         "evidence": [
           {
             "sourceId": "S20",
             "location": "第七项，严格文稿发表",
-            "claim": "贺信和贺电是原文并列规制的两项。"
+            "claim": "第七项明确个人在没有中央统一安排时不发贺信、贺电。"
           }
         ]
       }
@@ -13175,20 +13175,20 @@
           "c5156b06-1ba9-4a22-ba3a-3ff79e5fd370"
         ],
         "decision": "approved",
+        "notes": "按独立意见修正题干范围或干扰项，保留稳定题目与正确选项 ID。",
         "emotionOnly": false,
-        "notes": "复核已取得的正式条文及官方学习资料。该专题是重大第50、51期考试公开范围；未取得该校原卷。",
-        "digest": "58846a7f31c6370a1cfc19f12faaad41a6649452950bc92b1320e1d7fff6fa60"
+        "digest": "c40b10f9af7b20fbf34b9411222d8dab021b821de61da5d3678b540d3a8dd7e0"
       },
       "independent": {
-        "reviewer": "Codex sources",
+        "reviewer": "Codex baseline",
         "date": "2026-11-23",
         "choice": [
           "c5156b06-1ba9-4a22-ba3a-3ff79e5fd370"
         ],
-        "decision": "changes",
+        "decision": "approved",
+        "notes": "给出中央统一安排的例外后，原文直接规定个人不发贺信和贺电。请柬、慰问信、致谢信均未列于此项。题干询问一类文书，不再给出与答案同形的“贺电”提示。",
         "emotionOnly": false,
-        "notes": "事实钥D无误，原文为贺信、贺电。通告、公报、纪要是正式文种，只有贺信是礼仪文书且与题干‘贺电’同字直接搭配，未学习也容易靠词形决定。建议备选同为书面礼仪沟通的短文种，题干仍限定中央统一安排之外的原句。",
-        "digest": "58846a7f31c6370a1cfc19f12faaad41a6649452950bc92b1320e1d7fff6fa60"
+        "digest": "c40b10f9af7b20fbf34b9411222d8dab021b821de61da5d3678b540d3a8dd7e0"
       }
     }
   },
@@ -13938,18 +13938,6 @@
         ]
       },
       {
-        "id": "16dcd151-8f4a-4f9b-a8b0-a18947de21f1",
-        "text": "扩投资",
-        "rationale": "在这一段的内需工作表述中，扩投资与促消费并列。",
-        "evidence": [
-          {
-            "sourceId": "S13",
-            "location": "第四部分第（一）项首段",
-            "claim": "在这一段的内需工作表述中，扩投资与促消费并列。"
-          }
-        ]
-      },
-      {
         "id": "b731525b-42e1-4803-8d66-5d505ccda8ee",
         "text": "防风险",
         "rationale": "风险工作是报告另有部署的事项，这一条内需配对列的是扩投资。",
@@ -13958,6 +13946,18 @@
             "sourceId": "S13",
             "location": "第四部分第（一）项首段",
             "claim": "风险工作是报告另有部署的事项，这一条内需配对列的是扩投资。"
+          }
+        ]
+      },
+      {
+        "id": "16dcd151-8f4a-4f9b-a8b0-a18947de21f1",
+        "text": "扩投资",
+        "rationale": "在这一段的内需工作表述中，扩投资与促消费并列。",
+        "evidence": [
+          {
+            "sourceId": "S13",
+            "location": "第四部分第（一）项首段",
+            "claim": "在这一段的内需工作表述中，扩投资与促消费并列。"
           }
         ]
       },
@@ -13996,7 +13996,7 @@
         "decision": "approved",
         "emotionOnly": false,
         "notes": "核对新华社公开的2026年政府工作报告所引用段落。年度预期目标与上年实际值分别标明。待独立盲审。",
-        "digest": "108cf4ee2ecbfac1c00b3e63244e735722ace3e6d816467b5d03add98a2dcfde"
+        "digest": "377d5ece64b96fafe1592139f4358ccb1e2a8001928487b336322193f885d00a"
       },
       "independent": {
         "reviewer": "Codex root",
@@ -14006,8 +14006,8 @@
         ],
         "decision": "approved",
         "emotionOnly": false,
-        "notes": "建设强大国内市场部署统筹促消费和扩投资。此处为原文固定搭配，选项均是短政策术语。",
-        "digest": "108cf4ee2ecbfac1c00b3e63244e735722ace3e6d816467b5d03add98a2dcfde"
+        "notes": "建设强大国内市场部署统筹促消费和扩投资。此处为原文固定搭配，选项均是短政策术语。 重排前后选项 UUID 与文字逐一比对，按正式原文盲核新位置通过。详见 answer-order-recheck.md。",
+        "digest": "377d5ece64b96fafe1592139f4358ccb1e2a8001928487b336322193f885d00a"
       }
     }
   },
@@ -14222,18 +14222,18 @@
   },
   {
     "id": "1e57587f-df07-4373-841b-032a4ca77d32",
-    "state": "draft",
+    "state": "ready",
     "topicId": "t05",
     "knowledgePointId": "b59aeb26-56ab-470f-a59e-cb35ea2e1007",
     "relatedKnowledgePointIds": [],
     "type": "multiple",
-    "stem": "按2026年报告的就业部署，哪些是该段明列的政策支持对象？",
+    "stem": "2026年政府工作报告“促进高质量充分就业”段明列的政策支持对象包括（ ）。",
     "scopeNote": "2026年正式政府工作报告，按题干区分2025年实绩和2026年预期",
-    "difficulty": "intermediate",
+    "difficulty": "basic",
     "taskType": "recall",
-    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "difficultyReason": "直接考查指定考点的原文术语、主体或时限。",
     "emotionOnly": false,
-    "emotionReason": "题目在会议届次、政策口径、不同年度量值或同段的相邻工作分类之间核对，词语褒贬无法决定正误。",
+    "emotionReason": "用同类术语或选项限定的原文事实辨识。",
     "orderLocked": false,
     "options": [
       {
@@ -14301,6 +14301,19 @@
     ],
     "reviews": {
       "initial": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "8b6042df-445f-4206-8cb7-5092e81960f2",
+          "88c4d7c7-8704-4efa-8e71-7fd05522e0fd",
+          "1854f5b0-1ab8-49b4-b0b1-a2352a743ce2"
+        ],
+        "decision": "approved",
+        "notes": "按独立意见修正题干范围或干扰项，保留稳定题目与正确选项 ID。",
+        "emotionOnly": false,
+        "digest": "6bbbb8366e6405f59b1f40378b4ea55ebe38702ec0b994d230900c64b74a8108"
+      },
+      "independent": {
         "reviewer": "Codex baseline",
         "date": "2026-11-23",
         "choice": [
@@ -14309,22 +14322,9 @@
           "1854f5b0-1ab8-49b4-b0b1-a2352a743ce2"
         ],
         "decision": "approved",
+        "notes": "同段明确列有高校毕业生等青年的就业支持政策、农民工稳岗帮扶和退役军人安置就业服务。科技领军人才没有在指定就业段被列为这一组政策支持对象。段落边界明确，四个选项都是群体名称。",
         "emotionOnly": false,
-        "notes": "核对新华社公开的2026年政府工作报告所引用段落。年度预期目标与上年实际值分别标明。待独立盲审。",
-        "digest": "af19f62175d45c7b0aee18f62bded056bf6534436feb949d1ace624204185081"
-      },
-      "independent": {
-        "reviewer": "Codex root",
-        "date": "2026-11-23",
-        "choice": [
-          "8b6042df-445f-4206-8cb7-5092e81960f2",
-          "88c4d7c7-8704-4efa-8e71-7fd05522e0fd",
-          "1854f5b0-1ab8-49b4-b0b1-a2352a743ce2"
-        ],
-        "decision": "changes",
-        "emotionOnly": false,
-        "notes": "范围缩至该原段后A、C、D成立。将题干中的该段改写为“促进高质量充分就业”段，避免把其他章节人才工作误理解为也在所问范围。",
-        "digest": "af19f62175d45c7b0aee18f62bded056bf6534436feb949d1ace624204185081"
+        "digest": "6bbbb8366e6405f59b1f40378b4ea55ebe38702ec0b994d230900c64b74a8108"
       }
     }
   },
@@ -14840,18 +14840,18 @@
   },
   {
     "id": "909fbba8-706f-4a82-9aa1-b3a27dde0327",
-    "state": "draft",
+    "state": "ready",
     "topicId": "t11",
     "knowledgePointId": "2377ac20-9910-4653-95d2-c741083a58d7",
     "relatedKnowledgePointIds": [],
     "type": "single",
-    "stem": "《榜样10》中，义乌市天盟实业投资有限公司党支部的事迹围绕（ ）班列展开。",
+    "stem": "《榜样10》中，天盟实业投资有限公司党支部的事迹围绕（ ）班列展开。",
     "scopeNote": "2026年《榜样10》分集文字简介，重大第52和53期培训内容",
-    "difficulty": "intermediate",
+    "difficulty": "basic",
     "taskType": "recall",
-    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "difficultyReason": "直接考查指定考点的原文术语、主体或时限。",
     "emotionOnly": false,
-    "emotionReason": "以人物、工作领域和成果名称的对应事实作答。",
+    "emotionReason": "用同类术语或选项限定的原文事实辨识。",
     "orderLocked": false,
     "options": [
       {
@@ -14923,9 +14923,9 @@
           "4e080ded-4f86-4a4c-9a91-3ee51309caec"
         ],
         "decision": "approved",
+        "notes": "按独立意见修正题干范围或干扰项，保留稳定题目与正确选项 ID。",
         "emotionOnly": false,
-        "notes": "节目官网文字简介逐项可回查。重庆大学第52、53期培训列《榜样10》，本批属于指定材料的事实识记。",
-        "digest": "8b8e11116b100d6bdc685bf4e65cba14bfec171c870df2528191f878294d5dbc"
+        "digest": "60a47bdd7bcecc2b44dea64cb3b5a70eadc1f3d16de6293ae0b27cb625ac51f0"
       },
       "independent": {
         "reviewer": "Codex baseline",
@@ -14933,10 +14933,10 @@
         "choice": [
           "4e080ded-4f86-4a4c-9a91-3ee51309caec"
         ],
-        "decision": "changes",
+        "decision": "approved",
+        "notes": "分集文字明确天盟实业投资有限公司党支部服务义新欧班列，蓉欧、渝新欧和长安号均不是这项事迹。题干已去掉城市前缀，消除了义乌与义新欧的词形提示，节目与主体仍足以唯一定位。",
         "emotionOnly": false,
-        "notes": "分集文字明确该支部参与并服务义新欧班列，蓉欧、渝新欧和长安号均与此事迹不符。当前题干中的义乌市和正确项的义字形成明显线索，其余选项正好各带其他城市称谓。建议将题干主体写成《榜样10》中的天盟实业投资有限公司党支部，保持选项和B位置，其事迹范围仍唯一。",
-        "digest": "8b8e11116b100d6bdc685bf4e65cba14bfec171c870df2528191f878294d5dbc"
+        "digest": "60a47bdd7bcecc2b44dea64cb3b5a70eadc1f3d16de6293ae0b27cb625ac51f0"
       }
     }
   },
@@ -16078,18 +16078,18 @@
   },
   {
     "id": "812c418b-8cdf-430f-a92e-0ead229bfa58",
-    "state": "draft",
+    "state": "ready",
     "topicId": "t08",
     "knowledgePointId": "06b2d97c-7f3f-46e0-9c0a-a2fff9852db0",
     "relatedKnowledgePointIds": [],
     "type": "single",
-    "stem": "党员在党纪处分影响期内又受到处分的，合并影响期为原处分（ ）的影响期与新处分影响期之和。",
+    "stem": "党员在党纪处分影响期内又受党纪处分，合并的影响期为原处分（ ）的影响期与新处分影响期之和。",
     "scopeNote": "现行党章与2023年修订纪律处分条例",
-    "difficulty": "intermediate",
+    "difficulty": "basic",
     "taskType": "recall",
-    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "difficultyReason": "直接考查指定考点的原文术语、主体或时限。",
     "emotionOnly": false,
-    "emotionReason": "区分党纪处分名称、时间或计算项目，选项同为短术语和数值。",
+    "emotionReason": "用同类术语或选项限定的原文事实辨识。",
     "orderLocked": false,
     "options": [
       {
@@ -16161,20 +16161,20 @@
           "1ba40a31-a248-4295-85ed-9d6c8368232f"
         ],
         "decision": "approved",
+        "notes": "按独立意见修正题干范围或干扰项，保留稳定题目与正确选项 ID。",
         "emotionOnly": false,
-        "notes": "已按现行原文核复，考法证据：现行条例第二十一条",
-        "digest": "b9533abdfae10957e403aa5a2e430f3ce1b67d0ebae8fb0e764a463b171c11df"
+        "digest": "78fc0479304d2ee5aebbbf0ccfa558314d8062441c40e22132724654c56746ea"
       },
       "independent": {
-        "reviewer": "Codex sources",
+        "reviewer": "Codex baseline",
         "date": "2026-11-23",
         "choice": [
           "1ba40a31-a248-4295-85ed-9d6c8368232f"
         ],
-        "decision": "changes",
+        "decision": "approved",
+        "notes": "原处分尚未执行的影响期才与新处分影响期相加。已经执行、全部核定、追溯确认均不是该条采用的口径。现题干明确又受的是党纪处分，答案直接对应原句。",
         "emotionOnly": false,
-        "notes": "现行规则的原处分部分取尚未执行的影响期，故独立答案为A。该条限定原影响期内又受到‘党纪处分’，现题把后一项仅写成‘处分’，可能被读为政务处分等其他处理。建议恢复限定并保持直接填空，备选可围绕前次影响期的执行状态设计。只按现行条文核实，未证实真题频率。",
-        "digest": "b9533abdfae10957e403aa5a2e430f3ce1b67d0ebae8fb0e764a463b171c11df"
+        "digest": "78fc0479304d2ee5aebbbf0ccfa558314d8062441c40e22132724654c56746ea"
       }
     }
   },
@@ -16277,6 +16277,1041 @@
         "emotionOnly": false,
         "notes": "在政治、组织纪律后列廉洁纪律，其他短选项均非现行条文的列举名称。广州城建Q27填6直接留空廉洁纪律，是当前四份校方矩阵中的单一原卷命中；中南大学DOCX竞赛题第48问仅为另类考法旁证。六项纪律与五种处分是不同知识点，不能合计为多校结业同题。",
         "digest": "23350a0a7d294f60068a3f6399711998cdfd515d59dfe1ad409be5c2aea2f027"
+      }
+    }
+  },
+  {
+    "id": "7d20dd51-cc9e-4546-8f45-164f7fadc1f8",
+    "state": "ready",
+    "topicId": "t07",
+    "knowledgePointId": "b517ae13-bf81-4028-9929-39613c5b2b65",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "党在社会主义初级阶段的基本路线明确，以（ ）为中心。",
+    "scopeNote": "现行党章及2026年发展党员工作细则，历年考法重新核证",
+    "difficulty": "intermediate",
+    "taskType": "recall",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "备选为相邻概念、时间或事项，依据现行原文判答。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "ecc7037a-cb06-47ee-bb47-80ada45d8d59",
+        "text": "经济建设",
+        "rationale": "现行党章总纲在基本路线句中直接列明。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "总纲“中国共产党在社会主义初级阶段的基本路线是”句",
+            "claim": "现行党章总纲在基本路线句中直接列明。"
+          }
+        ]
+      },
+      {
+        "id": "8bd0baed-236f-4d13-8918-959d0eac3d20",
+        "text": "政治建设",
+        "rationale": "总纲此处列明的中心是经济建设。政治建设是另一个建设领域。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "总纲“中国共产党在社会主义初级阶段的基本路线是”句",
+            "claim": "总纲此处列明的中心是经济建设。政治建设是另一个建设领域。"
+          }
+        ]
+      },
+      {
+        "id": "412f52e5-3cb7-4ee1-a728-10f55125894e",
+        "text": "文化建设",
+        "rationale": "文化建设列于总体布局。基本路线句的中心项是经济建设。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "总纲“中国共产党在社会主义初级阶段的基本路线是”句",
+            "claim": "文化建设列于总体布局。基本路线句的中心项是经济建设。"
+          }
+        ]
+      },
+      {
+        "id": "0f0ea311-becf-4e19-98a9-4c3f5d992dc0",
+        "text": "生态文明建设",
+        "rationale": "生态文明建设列于总体布局。此句的中心项是经济建设。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "总纲“中国共产党在社会主义初级阶段的基本路线是”句",
+            "claim": "生态文明建设列于总体布局。此句的中心项是经济建设。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "ecc7037a-cb06-47ee-bb47-80ada45d8d59"
+    ],
+    "explanation": "现行党章总纲在初级阶段基本路线中明确以经济建设为中心。题目只填中心一项。",
+    "distinction": "现行党章总纲在初级阶段基本路线中明确以经济建设为中心。题目只填中心一项。",
+    "evidence": [
+      {
+        "sourceId": "S18",
+        "location": "总纲“中国共产党在社会主义初级阶段的基本路线是”句",
+        "claim": "党在社会主义初级阶段的基本路线以经济建设为中心。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex baseline",
+        "date": "2026-11-23",
+        "choice": [
+          "ecc7037a-cb06-47ee-bb47-80ada45d8d59"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "官方文本判定事实，历史题面与复习资料证明考法，未作为重庆大学真题。待独立盲审。",
+        "digest": "12f5966bb67a9195e180d6188385603a51259dd7e28976d6df3e3bf307ab407c"
+      },
+      "independent": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "ecc7037a-cb06-47ee-bb47-80ada45d8d59"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "中心是经济建设。广州城建和武汉东湖公开旧卷均要求基本路线，四川大学复习资料直接留空经济建设。现行表述由党章核定。 重排前后选项 UUID 与文字逐一比对，按正式原文盲核新位置通过。详见 answer-order-recheck.md。",
+        "digest": "12f5966bb67a9195e180d6188385603a51259dd7e28976d6df3e3bf307ab407c"
+      }
+    }
+  },
+  {
+    "id": "62ae990b-51fc-4ebe-93ec-e86eb564ac17",
+    "state": "ready",
+    "topicId": "t10",
+    "knowledgePointId": "d7756405-b488-4025-b15f-aefe7a8334bf",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "预备党员的预备期为（ ）。",
+    "scopeNote": "现行党章及2026年发展党员工作细则，历年考法重新核证",
+    "difficulty": "intermediate",
+    "taskType": "recall",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "备选为相邻概念、时间或事项，依据现行原文判答。",
+    "orderLocked": true,
+    "options": [
+      {
+        "id": "56e49c55-1da0-4dbf-ad81-de3cad1feca1",
+        "text": "一年",
+        "rationale": "党章第七条和现行细则第三十一条均直接写明。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第一章第七条第一句",
+            "claim": "党章第七条和现行细则第三十一条均直接写明。"
+          }
+        ]
+      },
+      {
+        "id": "11a57b08-9766-43ac-9a07-e9c4e507c8af",
+        "text": "一年半",
+        "rationale": "一年半不是预备期初始期限。需要延长时，应按规定及实际考察情况另行决定。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第五章第三十一条第一句及延长预备期段",
+            "claim": "一年半不是预备期初始期限。需要延长时，应按规定及实际考察情况另行决定。"
+          }
+        ]
+      },
+      {
+        "id": "7e16380b-4a1c-47eb-b31d-a7de471124ac",
+        "text": "两年",
+        "rationale": "两年不是党章所列的通常预备期。细则分开规定初始期限和延长上限。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第五章第三十一条第一句及延长预备期段",
+            "claim": "两年不是党章所列的通常预备期。细则分开规定初始期限和延长上限。"
+          }
+        ]
+      },
+      {
+        "id": "b1300834-41af-418a-80f8-c6a479c3f16f",
+        "text": "三年",
+        "rationale": "党章规定的一般时长是一年。细则也没有把三年设为该期限。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第五章第三十一条第一句及延长预备期段",
+            "claim": "党章规定的一般时长是一年。细则也没有把三年设为该期限。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "56e49c55-1da0-4dbf-ad81-de3cad1feca1"
+    ],
+    "explanation": "现行党章与现行发展党员细则都规定预备期为一年。需要继续考察和教育时，延长预备期另有条件。",
+    "distinction": "现行党章与现行发展党员细则都规定预备期为一年。需要继续考察和教育时，延长预备期另有条件。",
+    "evidence": [
+      {
+        "sourceId": "S18",
+        "location": "第一章第七条第一句",
+        "claim": "预备党员的预备期为一年。"
+      },
+      {
+        "sourceId": "S35",
+        "location": "第五章第三十一条第一句及延长预备期段",
+        "claim": "预备党员的预备期为一年。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex baseline",
+        "date": "2026-11-23",
+        "choice": [
+          "56e49c55-1da0-4dbf-ad81-de3cad1feca1"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "官方文本判定事实，历史题面与复习资料证明考法，未作为重庆大学真题。待独立盲审。",
+        "digest": "f05b033a81f4c2c4bdfa88d7fa9006d82b3957bda2383b291f402c497a9a469a"
+      },
+      "independent": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "56e49c55-1da0-4dbf-ad81-de3cad1feca1"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "预备期的通常期限是1年，另有延长情形。湖北经济公开卷直接问期限，川大复习资料同考，选项均为时间长度。",
+        "digest": "f05b033a81f4c2c4bdfa88d7fa9006d82b3957bda2383b291f402c497a9a469a"
+      }
+    }
+  },
+  {
+    "id": "7b677cad-8b65-4b49-ae31-1199794bd203",
+    "state": "ready",
+    "topicId": "t10",
+    "knowledgePointId": "3903f06b-1ae4-4dd1-973a-d6df65a33134",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "党员的党龄从（ ）之日算起。",
+    "scopeNote": "现行党章及2026年发展党员工作细则，历年考法重新核证",
+    "difficulty": "intermediate",
+    "taskType": "recall",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "备选为相邻概念、时间或事项，依据现行原文判答。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "4846ba8d-73c0-4fff-a200-e41ff688aa3d",
+        "text": "支部大会通过接收",
+        "rationale": "党支部党员大会通过接收为预备党员之日是预备期起算日。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第一章第七条末款，两种起算日期",
+            "claim": "党支部党员大会通过接收为预备党员之日是预备期起算日。"
+          }
+        ]
+      },
+      {
+        "id": "3ed7dc6a-3310-4c34-a8db-20eef265d9a0",
+        "text": "党委批准接收",
+        "rationale": "党委批准接收为预备党员是审批节点，党龄另自预备期满转为正式党员之日算起。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第五章第三十三条第二款及第三十一条第一款",
+            "claim": "党委批准接收为预备党员是审批节点，党龄另自预备期满转为正式党员之日算起。"
+          }
+        ]
+      },
+      {
+        "id": "7000f827-1310-4632-9a25-3205fee15412",
+        "text": "支部宣布接收",
+        "rationale": "接收结果的宣布是通知程序，细则单独规定了党龄的起算日期。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第五章第三十三条第二款及第三十一条第一款",
+            "claim": "接收结果的宣布是通知程序，细则单独规定了党龄的起算日期。"
+          }
+        ]
+      },
+      {
+        "id": "4ee48ce5-af96-48d4-8780-8bf5346cd6d9",
+        "text": "预备期满转为正式党员",
+        "rationale": "两份现行文本都将这一日期作为党龄起算日。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第一章第七条末款，两种起算日期",
+            "claim": "两份现行文本都将这一日期作为党龄起算日。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "4ee48ce5-af96-48d4-8780-8bf5346cd6d9"
+    ],
+    "explanation": "党龄从预备期满转为正式党员之日算起。此前，党支部党员大会通过其为预备党员之日用来计算预备期。",
+    "distinction": "党龄从预备期满转为正式党员之日算起。此前，党支部党员大会通过其为预备党员之日用来计算预备期。",
+    "evidence": [
+      {
+        "sourceId": "S18",
+        "location": "第一章第七条末款，两种起算日期",
+        "claim": "党龄从预备期满转为正式党员之日算起。"
+      },
+      {
+        "sourceId": "S35",
+        "location": "第五章第三十三条第二款及第三十一条第一款",
+        "claim": "党龄从预备期满转为正式党员之日算起。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex baseline",
+        "date": "2026-11-23",
+        "choice": [
+          "4ee48ce5-af96-48d4-8780-8bf5346cd6d9"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "官方文本判定事实，历史题面与复习资料证明考法，未作为重庆大学真题。待独立盲审。",
+        "digest": "8c2305fe23975c539b9c5b013ece33b413636f3689b3ac00651986574288ef2d"
+      },
+      "independent": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "4ee48ce5-af96-48d4-8780-8bf5346cd6d9"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "预备期满转为正式党员之日是党龄起算日。它与预备期、批准和宣布的时间不同。湖北经济和川大材料均直接复现。",
+        "digest": "8c2305fe23975c539b9c5b013ece33b413636f3689b3ac00651986574288ef2d"
+      }
+    }
+  },
+  {
+    "id": "3cffa27d-9f00-4189-a24b-ebdfa9afafee",
+    "state": "ready",
+    "topicId": "t10",
+    "knowledgePointId": "8552dfa0-11ea-4104-abb2-fae3d586c295",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "按党章，申请入党的人要有（ ）名正式党员作介绍人。",
+    "scopeNote": "现行党章及2026年发展党员工作细则，历年考法重新核证",
+    "difficulty": "intermediate",
+    "taskType": "recall",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "备选为相邻概念、时间或事项，依据现行原文判答。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "5c4cf656-f3bc-40aa-9d63-0880e72769b8",
+        "text": "两",
+        "rationale": "规定的入党介绍人是两名正式党员。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第一章第五条第二款",
+            "claim": "规定的入党介绍人是两名正式党员。"
+          }
+        ]
+      },
+      {
+        "id": "3e62bf3f-fddd-4380-8f15-05c331b317f8",
+        "text": "一",
+        "rationale": "一名可以出现在培养联系人数量的范围中，介绍人要求两名。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第三章第十四条第一款；第二章第九条作角色对照",
+            "claim": "一名可以出现在培养联系人数量的范围中，介绍人要求两名。"
+          }
+        ]
+      },
+      {
+        "id": "86ab6b3d-8204-4c9c-8346-0118e7cee208",
+        "text": "三",
+        "rationale": "第五条第二款明定两名，未把三名作为介绍人配置。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第一章第五条第二款",
+            "claim": "第五条第二款明定两名，未把三名作为介绍人配置。"
+          }
+        ]
+      },
+      {
+        "id": "5e22821a-2cc1-4a07-bd44-e4bc0bd7e5bc",
+        "text": "四",
+        "rationale": "细则第十四条规定两名正式党员，四名不符合此处数量。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第三章第十四条第一款；第二章第九条作角色对照",
+            "claim": "细则第十四条规定两名正式党员，四名不符合此处数量。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "5c4cf656-f3bc-40aa-9d63-0880e72769b8"
+    ],
+    "explanation": "党章和细则都明确入党介绍人要有两名正式党员。培养联系人是另一个岗位，其人数规定为一至两名。",
+    "distinction": "党章和细则都明确入党介绍人要有两名正式党员。培养联系人是另一个岗位，其人数规定为一至两名。",
+    "evidence": [
+      {
+        "sourceId": "S18",
+        "location": "第一章第五条第二款",
+        "claim": "申请入党的人要有两名正式党员作入党介绍人。"
+      },
+      {
+        "sourceId": "S35",
+        "location": "第三章第十四条第一款；第二章第九条作角色对照",
+        "claim": "申请入党的人要有两名正式党员作入党介绍人。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex baseline",
+        "date": "2026-11-23",
+        "choice": [
+          "5c4cf656-f3bc-40aa-9d63-0880e72769b8"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "官方文本判定事实，历史题面与复习资料证明考法，未作为重庆大学真题。待独立盲审。",
+        "digest": "0cb7657fe25d3a9170283c0fd785e707621195f1e4475ba7b05f8740eb9049fc"
+      },
+      "independent": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "5c4cf656-f3bc-40aa-9d63-0880e72769b8"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "条文规定两名正式党员。湖北经济卷直接问人数，川大复习资料同测人数及身份。选项都是数字。",
+        "digest": "0cb7657fe25d3a9170283c0fd785e707621195f1e4475ba7b05f8740eb9049fc"
+      }
+    }
+  },
+  {
+    "id": "25218512-c64e-42d0-947d-d3ddfad5b912",
+    "state": "ready",
+    "topicId": "t07",
+    "knowledgePointId": "ed540737-cf5d-4c4b-b07b-2dabe10f0335",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "按照党章，党的全国代表大会通常每（ ）年举行一次。",
+    "scopeNote": "现行党章及2026年发展党员工作细则，历年考法重新核证",
+    "difficulty": "intermediate",
+    "taskType": "recall",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "备选为相邻概念、时间或事项，依据现行原文判答。",
+    "orderLocked": true,
+    "options": [
+      {
+        "id": "27dd0bf9-8202-43e8-b97a-bac24400417b",
+        "text": "4",
+        "rationale": "通常周期为五年，适用条件时提前举行属于另一规定。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第三章第十九条第一款",
+            "claim": "通常周期为五年，适用条件时提前举行属于另一规定。"
+          }
+        ]
+      },
+      {
+        "id": "938c8d6e-db4c-4eba-b2bf-a4a3649bdd44",
+        "text": "5",
+        "rationale": "这是党章第十九条明列的通常周期。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第三章第十九条第一款",
+            "claim": "这是党章第十九条明列的通常周期。"
+          }
+        ]
+      },
+      {
+        "id": "3b7f87cf-d915-46d2-9acd-7a51460e4151",
+        "text": "6",
+        "rationale": "党章通常规定五年，且对延期有特别限制。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第三章第十九条第一款",
+            "claim": "党章通常规定五年，且对延期有特别限制。"
+          }
+        ]
+      },
+      {
+        "id": "4fa0f431-13f5-4cc4-94e5-b61314b1709f",
+        "text": "7",
+        "rationale": "该条所给固定周期是五年。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第三章第十九条第一款",
+            "claim": "该条所给固定周期是五年。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "938c8d6e-db4c-4eba-b2bf-a4a3649bdd44"
+    ],
+    "explanation": "党章规定通常每五年举行一次，由中央委员会召集。可否提前举行由同条另行设定条件。",
+    "distinction": "党章规定通常每五年举行一次，由中央委员会召集。可否提前举行由同条另行设定条件。",
+    "evidence": [
+      {
+        "sourceId": "S18",
+        "location": "第三章第十九条第一款",
+        "claim": "党的全国代表大会按党章通常每五年举行一次。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex baseline",
+        "date": "2026-11-23",
+        "choice": [
+          "938c8d6e-db4c-4eba-b2bf-a4a3649bdd44"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "官方文本判定事实，历史题面与复习资料证明考法，未作为重庆大学真题。待独立盲审。",
+        "digest": "4ab6d5cbf0917c6d44aee9ac0e80b86dd99c9bd965e8fed0ca0edcb59af08d3f"
+      },
+      "independent": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "938c8d6e-db4c-4eba-b2bf-a4a3649bdd44"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "通常每五年举行一次。提前或延期有条文条件，题干用通常。湖北经济原卷和川大复习资料均问周期。",
+        "digest": "4ab6d5cbf0917c6d44aee9ac0e80b86dd99c9bd965e8fed0ca0edcb59af08d3f"
+      }
+    }
+  },
+  {
+    "id": "fbe3b2cc-7d38-45d5-8d4d-659e3c08acaa",
+    "state": "ready",
+    "topicId": "t07",
+    "knowledgePointId": "63722961-7b8a-4bf5-b352-f54d416b9bfb",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "按现行党章，党的基层委员会、总支部委员会、支部委员会每届任期（ ）。",
+    "scopeNote": "现行党章及2026年发展党员工作细则，历年考法重新核证",
+    "difficulty": "intermediate",
+    "taskType": "recall",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "备选为相邻概念、时间或事项，依据现行原文判答。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "033ae5f7-9462-47ac-85f9-44da3a6ccee8",
+        "text": "一年至三年",
+        "rationale": "该范围低于现行条文的三年至五年。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第五章第三十一条首句",
+            "claim": "该范围低于现行条文的三年至五年。"
+          }
+        ]
+      },
+      {
+        "id": "9c2afcf1-e5fa-4371-a6c8-490c1d41c638",
+        "text": "两年或三年",
+        "rationale": "旧复习资料曾以此说明总支部委员会、支部委员会。现行党章将三类任期都规定为三至五年。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第五章第三十一条首句",
+            "claim": "旧复习资料曾以此说明总支部委员会、支部委员会。现行党章将三类任期都规定为三至五年。"
+          }
+        ]
+      },
+      {
+        "id": "9966c076-80fa-4316-ade8-01b22ba04ded",
+        "text": "三年至五年",
+        "rationale": "该范围与现行条文对三类委员会的共同规定一致。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第五章第三十一条首句",
+            "claim": "该范围与现行条文对三类委员会的共同规定一致。"
+          }
+        ]
+      },
+      {
+        "id": "e1ad1caa-5a82-4a28-9999-37761b220f48",
+        "text": "五年至七年",
+        "rationale": "五年是所列任期上限，七年超出第三十一条的范围。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第五章第三十一条首句",
+            "claim": "五年是所列任期上限，七年超出第三十一条的范围。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "9966c076-80fa-4316-ade8-01b22ba04ded"
+    ],
+    "explanation": "现行党章第三十一条把三类基层组织委员会的每届任期都规定为三年至五年。",
+    "distinction": "现行党章第三十一条把三类基层组织委员会的每届任期都规定为三年至五年。",
+    "evidence": [
+      {
+        "sourceId": "S18",
+        "location": "第五章第三十一条首句",
+        "claim": "现行党章规定党的基层委员会、总支部委员会、支部委员会每届任期三年至五年。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex baseline",
+        "date": "2026-11-23",
+        "choice": [
+          "9966c076-80fa-4316-ade8-01b22ba04ded"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "官方文本判定事实，历史题面与复习资料证明考法，未作为重庆大学真题。待独立盲审。",
+        "digest": "7dcbeba3a0283aadbf1afc482ccd2d8848754c66e5830334cde5a1583221034f"
+      },
+      "independent": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "9966c076-80fa-4316-ade8-01b22ba04ded"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "三类委员会均为三年至五年，广州城建卷直接同问。川大历史资料区分了三类和旧时长，不能搬用旧答案。",
+        "digest": "7dcbeba3a0283aadbf1afc482ccd2d8848754c66e5830334cde5a1583221034f"
+      }
+    }
+  },
+  {
+    "id": "ca8c7ca8-b4fd-4ae8-bce3-bb73e9a4bb4c",
+    "state": "ready",
+    "topicId": "t07",
+    "knowledgePointId": "e24fc85f-cfe1-452b-a47d-cb2561a26b50",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "中国共产党党徽由（ ）组成。",
+    "scopeNote": "现行党章及2026年发展党员工作细则，历年考法重新核证",
+    "difficulty": "intermediate",
+    "taskType": "recall",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "备选为相邻概念、时间或事项，依据现行原文判答。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "f5c1740f-0fdd-4204-b526-e04385417faa",
+        "text": "镰刀和斧头",
+        "rationale": "保留了镰刀，另一构件按党章应是锤头。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第十一章第五十三条",
+            "claim": "保留了镰刀，另一构件按党章应是锤头。"
+          }
+        ]
+      },
+      {
+        "id": "86594521-865f-4fd1-8b79-b84364ef1a5a",
+        "text": "镰刀和齿轮",
+        "rationale": "镰刀是组成元素，齿轮不属于第五十三条的组合。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第十一章第五十三条",
+            "claim": "镰刀是组成元素，齿轮不属于第五十三条的组合。"
+          }
+        ]
+      },
+      {
+        "id": "11791b36-aa99-46a4-9d92-351e633bf1e0",
+        "text": "锤头和齿轮",
+        "rationale": "锤头是组成元素，另一构件应是镰刀。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第十一章第五十三条",
+            "claim": "锤头是组成元素，另一构件应是镰刀。"
+          }
+        ]
+      },
+      {
+        "id": "0b7d578c-4a15-4331-9fe6-f80d9204c095",
+        "text": "镰刀和锤头",
+        "rationale": "两项与第五十三条列出的构件完全对应。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第十一章第五十三条",
+            "claim": "两项与第五十三条列出的构件完全对应。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "0b7d578c-4a15-4331-9fe6-f80d9204c095"
+    ],
+    "explanation": "第五十三条规定党徽图案由镰刀和锤头组成。题目只考文字识记。",
+    "distinction": "第五十三条规定党徽图案由镰刀和锤头组成。题目只考文字识记。",
+    "evidence": [
+      {
+        "sourceId": "S18",
+        "location": "第十一章第五十三条",
+        "claim": "中国共产党党徽为镰刀和锤头组成的图案。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex baseline",
+        "date": "2026-11-23",
+        "choice": [
+          "0b7d578c-4a15-4331-9fe6-f80d9204c095"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "官方文本判定事实，历史题面与复习资料证明考法，未作为重庆大学真题。待独立盲审。",
+        "digest": "0ed1e23809095bbc97661b1109323687cc15266276c7d4e23cdfe2be195f28e4"
+      },
+      "independent": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "0b7d578c-4a15-4331-9fe6-f80d9204c095"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "党徽为镰刀与锤头组成的图案。湖北经济卷直接问组成，川大复习资料分别填两个构件。",
+        "digest": "0ed1e23809095bbc97661b1109323687cc15266276c7d4e23cdfe2be195f28e4"
+      }
+    }
+  },
+  {
+    "id": "d910769a-9ff6-40f0-9c46-2eb91f3b7da3",
+    "state": "ready",
+    "topicId": "t14",
+    "knowledgePointId": "69233329-e6f0-4b19-8d79-58de223b3c85",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "二十届四中全会于2025年10月（ ）日在北京举行。",
+    "scopeNote": "党的二十届四中全会正式公报及其审议通过的十五五规划建议",
+    "difficulty": "intermediate",
+    "taskType": "recall",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "同类日期、表述或指标按全会原文补空。",
+    "orderLocked": true,
+    "options": [
+      {
+        "id": "8f1c43d6-8c9b-4cc9-b9c0-c9a37888155d",
+        "text": "16至19",
+        "rationale": "公报的开幕日为20日。",
+        "evidence": [
+          {
+            "sourceId": "S42",
+            "location": "开篇会议时间",
+            "claim": "公报的开幕日为20日。"
+          }
+        ]
+      },
+      {
+        "id": "861b59d0-b030-496b-ae85-b0793ed2cefc",
+        "text": "18至21",
+        "rationale": "18日不是公报的开幕日期。",
+        "evidence": [
+          {
+            "sourceId": "S42",
+            "location": "开篇会议时间",
+            "claim": "18日不是公报的开幕日期。"
+          }
+        ]
+      },
+      {
+        "id": "ed25b822-068d-4835-ae5b-92fb60a142e9",
+        "text": "20至23",
+        "rationale": "公报明列10月20日至23日。",
+        "evidence": [
+          {
+            "sourceId": "S42",
+            "location": "开篇会议时间",
+            "claim": "公报明列10月20日至23日。"
+          }
+        ]
+      },
+      {
+        "id": "86ca8998-83be-4fc6-9e61-34633f28d61e",
+        "text": "22至25",
+        "rationale": "闭幕日是23日，不是25日。",
+        "evidence": [
+          {
+            "sourceId": "S42",
+            "location": "开篇会议时间",
+            "claim": "闭幕日是23日，不是25日。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "ed25b822-068d-4835-ae5b-92fb60a142e9"
+    ],
+    "explanation": "二十届四中全会于2025年10月20日至23日在北京举行。",
+    "distinction": "二十届四中全会于2025年10月20日至23日在北京举行。",
+    "evidence": [
+      {
+        "sourceId": "S42",
+        "location": "开篇会议时间",
+        "claim": "二十届四中全会于2025年10月20日至23日在北京举行。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "ed25b822-068d-4835-ae5b-92fb60a142e9"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "考点来自现行四中主题下原文和已核旧候选，官方自测同类为填空设问。未冒称外校或重大实际卷命中本题。",
+        "digest": "132c9ac0db13507f1c4d5b42253a553f2e4bd1a3daa69699850e45b0a78ae5e2"
+      },
+      "independent": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "ed25b822-068d-4835-ae5b-92fb60a142e9"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "会议在2025年10月20日至23日于北京举行。A、B、D各给等长的相邻日期区间，均与公报会期不同。题面写清届次和日期维度。已有四中议程事实考通过的文件，不重复考日期；旧q_cqu_000066是相同候选，发布只保留这一版本。",
+        "digest": "132c9ac0db13507f1c4d5b42253a553f2e4bd1a3daa69699850e45b0a78ae5e2"
+      }
+    }
+  },
+  {
+    "id": "50915345-e2b5-4f32-a3be-9b651d2964e2",
+    "state": "ready",
+    "topicId": "t14",
+    "knowledgePointId": "302bebcf-a41c-4072-bcf1-bb6ccb014739",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "“十五五”规划《建议》明确，坚持（ ）工作总基调。",
+    "scopeNote": "党的二十届四中全会正式公报及其审议通过的十五五规划建议",
+    "difficulty": "intermediate",
+    "taskType": "recall",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "同类日期、表述或指标按全会原文补空。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "8b8c1a60-d1d8-4819-a6c1-05cfc68c094c",
+        "text": "稳中求进",
+        "rationale": "第（4）项原文是坚持稳中求进工作总基调。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第二部分第（4）项",
+            "claim": "第（4）项原文是坚持稳中求进工作总基调。"
+          }
+        ]
+      },
+      {
+        "id": "b584988a-3a6b-496b-acaf-ad8cb69c1e7b",
+        "text": "提质增效",
+        "rationale": "提质增效是相关发展方向，题干指定总基调为稳中求进。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第二部分第（4）项",
+            "claim": "提质增效是相关发展方向，题干指定总基调为稳中求进。"
+          }
+        ]
+      },
+      {
+        "id": "40daac59-cc1a-4968-936a-3cf775ac68d1",
+        "text": "优化结构",
+        "rationale": "优化结构属结构调整含义，与此处总基调不同。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第二部分第（4）项",
+            "claim": "优化结构属结构调整含义，与此处总基调不同。"
+          }
+        ]
+      },
+      {
+        "id": "416ead10-811f-4ff1-87a1-e2d46e5a42e3",
+        "text": "补齐短板",
+        "rationale": "短板工作在有关部署另行列出，不能替代正式总基调。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第二部分第（4）项",
+            "claim": "短板工作在有关部署另行列出，不能替代正式总基调。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "8b8c1a60-d1d8-4819-a6c1-05cfc68c094c"
+    ],
+    "explanation": "“十五五”时期经济社会发展坚持稳中求进的工作总基调。",
+    "distinction": "“十五五”时期经济社会发展坚持稳中求进的工作总基调。",
+    "evidence": [
+      {
+        "sourceId": "S43",
+        "location": "第二部分第（4）项",
+        "claim": "“十五五”时期经济社会发展坚持稳中求进的工作总基调。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "8b8c1a60-d1d8-4819-a6c1-05cfc68c094c"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "考点来自现行四中主题下原文和已核旧候选，官方自测同类为填空设问。未冒称外校或重大实际卷命中本题。",
+        "digest": "b25e6ee37afdafe6f1340835d4966eed0623fcb1e320d4c3e4bc4a641af046c0"
+      },
+      "independent": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "8b8c1a60-d1d8-4819-a6c1-05cfc68c094c"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "工作总基调是稳中求进。提质增效、优化结构、补齐短板都是相关工作用语，均不具备所问文件在这一处规定的总基调地位。四项同为短词，且该术语未见作独立在库知识点；既有T14指导思想题考主题、动力、目的和保障。",
+        "digest": "b25e6ee37afdafe6f1340835d4966eed0623fcb1e320d4c3e4bc4a641af046c0"
+      }
+    }
+  },
+  {
+    "id": "e88aaba4-afda-4f18-8ea4-90a2e2457eee",
+    "state": "ready",
+    "topicId": "t14",
+    "knowledgePointId": "5002f724-adef-4dc0-b375-9b5ee6776c29",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "“十五五”规划《建议》提出，建设强大国内市场要坚持（ ）这一战略基点。",
+    "scopeNote": "党的二十届四中全会正式公报及其审议通过的十五五规划建议",
+    "difficulty": "intermediate",
+    "taskType": "recall",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "同类日期、表述或指标按全会原文补空。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "deb5ed57-df70-4b76-93c7-d1dd938af9b2",
+        "text": "扩大出口",
+        "rationale": "出口主要面向外需，原文所问战略基点是扩大内需。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第五部分开头，强大国内市场段",
+            "claim": "出口主要面向外需，原文所问战略基点是扩大内需。"
+          }
+        ]
+      },
+      {
+        "id": "711c1a43-55f2-43f4-a0ca-ba1e2238bd27",
+        "text": "扩大内需",
+        "rationale": "本部分开头直接要求坚持扩大内需。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第五部分开头，强大国内市场段",
+            "claim": "本部分开头直接要求坚持扩大内需。"
+          }
+        ]
+      },
+      {
+        "id": "71cd329a-0374-4bc7-8cb2-1f3415512726",
+        "text": "扩大投资",
+        "rationale": "投资是组成方面之一，报告的战略基点表述为扩大内需。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第五部分开头，强大国内市场段",
+            "claim": "投资是组成方面之一，报告的战略基点表述为扩大内需。"
+          }
+        ]
+      },
+      {
+        "id": "c4ac9f9b-761e-420f-9464-063b3e6de2b9",
+        "text": "扩大供给",
+        "rationale": "本段讨论供给与需求的互动，明确的战略基点是扩大内需。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第五部分开头，强大国内市场段",
+            "claim": "本段讨论供给与需求的互动，明确的战略基点是扩大内需。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "711c1a43-55f2-43f4-a0ca-ba1e2238bd27"
+    ],
+    "explanation": "《建议》把扩大内需列为建设强大国内市场的战略基点。",
+    "distinction": "《建议》把扩大内需列为建设强大国内市场的战略基点。",
+    "evidence": [
+      {
+        "sourceId": "S43",
+        "location": "第五部分开头，强大国内市场段",
+        "claim": "《建议》把扩大内需列为建设强大国内市场的战略基点。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "711c1a43-55f2-43f4-a0ca-ba1e2238bd27"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "考点来自现行四中主题下原文和已核旧候选，官方自测同类为填空设问。未冒称外校或重大实际卷命中本题。",
+        "digest": "c5d65136421f548541be91a590176e76290a542e28797715167b52cef3417d11"
+      },
+      "independent": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "711c1a43-55f2-43f4-a0ca-ba1e2238bd27"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "原文明确扩大内需是战略基点，扩大出口、投资、供给均不能填这一位置。投资与供给在同段或下文已有相关部署，是可信的短干扰。T01考国内大循环主体，T05政府工作报告题考促消费与扩投资的并列，T14既有题考第五部分列出的分项任务；三者测不同事实。旧q_3_020和q_add_000013已核同一战略基点，只保留一个短项。",
+        "digest": "c5d65136421f548541be91a590176e76290a542e28797715167b52cef3417d11"
       }
     }
   }

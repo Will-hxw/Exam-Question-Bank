@@ -1568,5 +1568,105 @@
     "sourceId": "S18",
     "location": "第四十条第一款",
     "scopeNote": "现行党章与2023年修订纪律处分条例"
+  },
+  {
+    "id": "b517ae13-bf81-4028-9929-39613c5b2b65",
+    "topicId": "t07",
+    "factKey": "t07-basic-line-economic-center",
+    "fact": "党在社会主义初级阶段的基本路线以经济建设为中心。",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "总纲“中国共产党在社会主义初级阶段的基本路线是”句",
+    "scopeNote": "现行党章及2026年发展党员工作细则，历年考法重新核证"
+  },
+  {
+    "id": "d7756405-b488-4025-b15f-aefe7a8334bf",
+    "topicId": "t10",
+    "factKey": "t10-regular-probation-duration",
+    "fact": "预备党员的预备期为一年。",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "第一章第七条第一句",
+    "scopeNote": "现行党章及2026年发展党员工作细则，历年考法重新核证"
+  },
+  {
+    "id": "3903f06b-1ae4-4dd1-973a-d6df65a33134",
+    "topicId": "t10",
+    "factKey": "t10-party-standing-start-date",
+    "fact": "党龄从预备期满转为正式党员之日算起。",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "第一章第七条末款，两种起算日期",
+    "scopeNote": "现行党章及2026年发展党员工作细则，历年考法重新核证"
+  },
+  {
+    "id": "8552dfa0-11ea-4104-abb2-fae3d586c295",
+    "topicId": "t10",
+    "factKey": "t10-admission-sponsor-count",
+    "fact": "申请入党的人要有两名正式党员作入党介绍人。",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "第一章第五条第二款",
+    "scopeNote": "现行党章及2026年发展党员工作细则，历年考法重新核证"
+  },
+  {
+    "id": "ed540737-cf5d-4c4b-b07b-2dabe10f0335",
+    "topicId": "t07",
+    "factKey": "t07-national-congress-regular-interval",
+    "fact": "党的全国代表大会按党章通常每五年举行一次。",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "第三章第十九条第一款",
+    "scopeNote": "现行党章及2026年发展党员工作细则，历年考法重新核证"
+  },
+  {
+    "id": "63722961-7b8a-4bf5-b352-f54d416b9bfb",
+    "topicId": "t07",
+    "factKey": "t07-primary-committee-terms",
+    "fact": "现行党章规定党的基层委员会、总支部委员会、支部委员会每届任期三年至五年。",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "第五章第三十一条首句",
+    "scopeNote": "现行党章及2026年发展党员工作细则，历年考法重新核证"
+  },
+  {
+    "id": "e24fc85f-cfe1-452b-a47d-cb2561a26b50",
+    "topicId": "t07",
+    "factKey": "t07-party-emblem-components",
+    "fact": "中国共产党党徽为镰刀和锤头组成的图案。",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "第十一章第五十三条",
+    "scopeNote": "现行党章及2026年发展党员工作细则，历年考法重新核证"
+  },
+  {
+    "id": "69233329-e6f0-4b19-8d79-58de223b3c85",
+    "topicId": "t14",
+    "factKey": "t14-plenum-dates",
+    "fact": "二十届四中全会于2025年10月20日至23日在北京举行。",
+    "importance": "core",
+    "sourceId": "S42",
+    "location": "开篇会议时间",
+    "scopeNote": "党的二十届四中全会正式公报及其审议通过的十五五规划建议"
+  },
+  {
+    "id": "302bebcf-a41c-4072-bcf1-bb6ccb014739",
+    "topicId": "t14",
+    "factKey": "t14-work-tone",
+    "fact": "“十五五”时期经济社会发展坚持稳中求进的工作总基调。",
+    "importance": "core",
+    "sourceId": "S43",
+    "location": "第二部分第（4）项",
+    "scopeNote": "党的二十届四中全会正式公报及其审议通过的十五五规划建议"
+  },
+  {
+    "id": "5002f724-adef-4dc0-b375-9b5ee6776c29",
+    "topicId": "t14",
+    "factKey": "t14-expand-domestic-demand",
+    "fact": "《建议》把扩大内需列为建设强大国内市场的战略基点。",
+    "importance": "core",
+    "sourceId": "S43",
+    "location": "第五部分开头，强大国内市场段",
+    "scopeNote": "党的二十届四中全会正式公报及其审议通过的十五五规划建议"
   }
 ]
