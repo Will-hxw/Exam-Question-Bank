@@ -1,0 +1,48 @@
+{
+  "name": "cqu-exam-question-bank",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "dev": "npm run content:build && next dev",
+    "build": "npm run content:build && next build",
+    "start": "next start",
+    "typecheck": "next typegen && tsc --noEmit",
+    "lint": "eslint .",
+    "test": "node --test tests/unit/*.test.mjs",
+    "test:integration": "node --test tests/integration/*.test.mjs",
+    "test:e2e": "node tests/e2e/http-postgres.mjs",
+    "db:migrate": "node --env-file-if-exists=.env --env-file-if-exists=.env.local scripts/database/migrate.mjs",
+    "content:inventory": "python scripts/content/inventory.py",
+    "content:validate": "node scripts/content/release.mjs check",
+    "content:quality": "node scripts/content/release.mjs report",
+    "content:build": "node scripts/content/release.mjs build",
+    "content:sync": "node --env-file-if-exists=.env --env-file-if-exists=.env.local scripts/content/sync.mjs"
+  },
+  "dependencies": {
+    "@neon/auth": "0.8.2",
+    "@neon/config": "^1.14.6",
+    "@neon/env": "^2.1.9",
+    "@neondatabase/serverless": "1.2.1",
+    "next": "16.4.6",
+    "nodemailer": "10.6.1",
+    "pg": "8.23.1",
+    "react": "19.2.9",
+    "react-dom": "19.2.9",
+    "server-only": "0.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "@types/nodemailer": "8.0.2",
+    "@types/pg": "^8.15.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "16.4.6",
+    "typescript": "5.9.3",
+    "zod": "4.6.7"
+  }
+}

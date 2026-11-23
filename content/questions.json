@@ -1,0 +1,6177 @@
+[
+  {
+    "id": "65f5101c-ddb2-4ecf-b5f1-2e5f082298b4",
+    "state": "ready",
+    "topicId": "t13",
+    "knowledgePointId": "3db15c4a-d990-4d0c-8736-02eff97ece88",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "中央党的建设工作领导小组《通知》指出，习近平党建思想围绕哪组重大时代课题提出管党治党、兴党强党的新理念新思想新战略？",
+    "scopeNote": "2026年6月18日新华社公开报道中的学习贯彻通知内容",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "需要区分同一资料中的相近概念、权限或时限。",
+    "emotionOnly": false,
+    "emotionReason": "选项为同层级理论定位和相邻概念，褒贬色彩不能判定对应关系。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "006c1443-ba39-450d-8e5e-d8b43b67b476",
+        "text": "怎样建设社会主义现代化强国、怎样推进中国式现代化",
+        "rationale": "集中于现代化国家建设，题目指定的文献段落论述的是马克思主义政党建设。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》指出段",
+            "claim": "集中于现代化国家建设，题目指定的文献段落论述的是马克思主义政党建设。"
+          }
+        ]
+      },
+      {
+        "id": "bf79c55b-0f94-432b-a7b9-dba0ec8cf860",
+        "text": "新时代坚持和发展什么样的中国特色社会主义、怎样坚持和发展中国特色社会主义",
+        "rationale": "这是新时代中国特色社会主义的整体性课题，题目指定的段落将焦点落在长期执政政党的建设。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》指出段",
+            "claim": "这是新时代中国特色社会主义的整体性课题，题目指定的段落将焦点落在长期执政政党的建设。"
+          }
+        ]
+      },
+      {
+        "id": "803c72ec-fe90-4fc0-baae-295ac7ca1401",
+        "text": "建设什么样的长期执政的马克思主义政党、怎样建设长期执政的马克思主义政党",
+        "rationale": "同时回答长期执政政党建设的目标形态和实现路径，符合指定段落。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》指出段",
+            "claim": "同时回答长期执政政党建设的目标形态和实现路径，符合指定段落。"
+          }
+        ]
+      },
+      {
+        "id": "aed40f79-b0d3-46a0-a20d-aca6a7a23544",
+        "text": "建设什么样的现代化经济体系、怎样建设现代化经济体系",
+        "rationale": "现代化经济体系属于经济建设领域，题目指定的段落讨论管党治党、兴党强党。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》指出段",
+            "claim": "现代化经济体系属于经济建设领域，题目指定的段落讨论管党治党、兴党强党。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "803c72ec-fe90-4fc0-baae-295ac7ca1401"
+    ],
+    "explanation": "抓住限定词“长期执政”和“马克思主义政党”。这一对问题分别指向政党建设目标和建设路径。",
+    "distinction": "长期执政的马克思主义政党是该文明确的时代课题。",
+    "evidence": [
+      {
+        "sourceId": "S37",
+        "location": "《通知》指出段",
+        "claim": "习近平党建思想回应的重大时代课题是长期执政的马克思主义政党建设。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "803c72ec-fe90-4fc0-baae-295ac7ca1401"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "对照通知公开正文校核，待独立解题与跨专题去重复核。",
+        "digest": "e75323e4275211cc429e31f07248be107c2ca063e772ee46fd11ddef685a20b2"
+      },
+      "independent": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "803c72ec-fe90-4fc0-baae-295ac7ca1401"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "通知指出段。长期执政的马克思主义政党是该文明确的时代课题。",
+        "digest": "e75323e4275211cc429e31f07248be107c2ca063e772ee46fd11ddef685a20b2"
+      }
+    }
+  },
+  {
+    "id": "d9ec6568-a6fe-4428-976f-d566786f4b2e",
+    "state": "ready",
+    "topicId": "t13",
+    "knowledgePointId": "2ca84c43-c008-4fc4-b38a-a1f7cee827d4",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "依照 2026 年《关于学习贯彻习近平党建思想的通知》，以下哪一项准确说明习近平党建思想和习近平新时代中国特色社会主义思想的关系？",
+    "scopeNote": "2026年6月18日新华社公开报道中的学习贯彻通知内容",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "需要区分同一资料中的相近概念、权限或时限。",
+    "emotionOnly": false,
+    "emotionReason": "选项为同层级理论定位和相邻概念，褒贬色彩不能判定对应关系。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "6baa3629-1654-4995-978d-865abf0bcf8f",
+        "text": "前者属于后者的重要组成部分",
+        "rationale": "通知直接从理论体系的组成关系说明两者。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》明确段",
+            "claim": "通知直接从理论体系的组成关系说明两者。"
+          }
+        ]
+      },
+      {
+        "id": "29af1ffc-b6a0-40bb-9ad2-efeea24bc740",
+        "text": "前者与后者属于并列的两个理论体系",
+        "rationale": "通知规定的是整体与重要组成部分的关系，不能视为并列。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》明确段",
+            "claim": "通知规定的是整体与重要组成部分的关系，不能视为并列。"
+          }
+        ]
+      },
+      {
+        "id": "753d63ab-4175-47ff-8b35-8ace8591c651",
+        "text": "后者属于前者的重要组成部分",
+        "rationale": "这一判断把理论体系的整体和组成部分的方向倒置。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》明确段",
+            "claim": "这一判断把理论体系的整体和组成部分的方向倒置。"
+          }
+        ]
+      },
+      {
+        "id": "7d034aec-f636-470b-99ce-a3119a8648f5",
+        "text": "前者是后者对经济工作的专题概括",
+        "rationale": "通知围绕党的建设理论与实践定位前者，经济工作专题概括指向不同领域。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》明确段",
+            "claim": "通知围绕党的建设理论与实践定位前者，经济工作专题概括指向不同领域。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "6baa3629-1654-4995-978d-865abf0bcf8f"
+    ],
+    "explanation": "两个概念有明确的整体与组成部分关系。先辨明整体，再辨明党建思想面向的专题领域。",
+    "distinction": "两种理论的组成关系、方向和经济工作领域已区分。",
+    "evidence": [
+      {
+        "sourceId": "S37",
+        "location": "《通知》明确段",
+        "claim": "习近平党建思想是习近平新时代中国特色社会主义思想的重要组成部分。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "6baa3629-1654-4995-978d-865abf0bcf8f"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "对照通知公开正文校核，待独立解题与跨专题去重复核。",
+        "digest": "4e5f4c7d905c475ba3392f47f9e2f0279384fc459ecdd94a961788c7dc3de3f9"
+      },
+      "independent": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "6baa3629-1654-4995-978d-865abf0bcf8f"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "通知明确段。两种理论的组成关系、方向和经济工作领域已区分。",
+        "digest": "4e5f4c7d905c475ba3392f47f9e2f0279384fc459ecdd94a961788c7dc3de3f9"
+      }
+    }
+  },
+  {
+    "id": "4eda8ae9-ff2d-429c-8af6-6527951a29c3",
+    "state": "ready",
+    "topicId": "t13",
+    "knowledgePointId": "51a0c11b-c46f-443b-b6ae-f0223fa13798",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "依照 2026 年《关于学习贯彻习近平党建思想的通知》的科学内涵段，哪一要求被界定为党的领导的最高原则？",
+    "scopeNote": "2026年6月18日新华社公开报道中的学习贯彻通知内容",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "需要区分同一资料中的相近概念、权限或时限。",
+    "emotionOnly": false,
+    "emotionReason": "选项为同层级理论定位和相邻概念，褒贬色彩不能判定对应关系。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "775ea0b6-ef69-4217-bf6b-5b7f960349d3",
+        "text": "坚持以党的政治建设为统领",
+        "rationale": "通知将其界定为新时代党的建设的根本要求。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》强调，深入学习领会科学内涵段",
+            "claim": "通知将其界定为新时代党的建设的根本要求。"
+          }
+        ]
+      },
+      {
+        "id": "f1d0ba1e-28ca-4c32-9d0b-3e4b11b7e326",
+        "text": "坚持全面从严治党",
+        "rationale": "通知将其界定为新时代党的建设的战略方针。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》强调，深入学习领会科学内涵段",
+            "claim": "通知将其界定为新时代党的建设的战略方针。"
+          }
+        ]
+      },
+      {
+        "id": "399e5c19-ce03-4681-9528-70e307f5ee3d",
+        "text": "坚持党的领导是中国特色社会主义最本质的特征",
+        "rationale": "这项表述阐明党的领导在中国特色社会主义中的地位，所对应的定义不同。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》强调，深入学习领会科学内涵段",
+            "claim": "这项表述阐明党的领导在中国特色社会主义中的地位，所对应的定义不同。"
+          }
+        ]
+      },
+      {
+        "id": "8ce6acf6-4ece-4b1e-9f12-140dd50b18f1",
+        "text": "坚持党中央集中统一领导",
+        "rationale": "通知把这一项与党的领导的最高原则相对应。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》强调，深入学习领会科学内涵段",
+            "claim": "通知把这一项与党的领导的最高原则相对应。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "8ce6acf6-4ece-4b1e-9f12-140dd50b18f1"
+    ],
+    "explanation": "最高原则对应集中统一领导。政治建设的统领作用、全面从严治党的战略定位和党的领导的制度特征各有不同的含义。",
+    "distinction": "最高原则与党的领导本质特征、党建统领及从严治党方针不同。",
+    "evidence": [
+      {
+        "sourceId": "S37",
+        "location": "《通知》强调，深入学习领会科学内涵段",
+        "claim": "坚持党中央集中统一领导被界定为党的领导的最高原则。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "8ce6acf6-4ece-4b1e-9f12-140dd50b18f1"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "对照通知公开正文校核，待独立解题与跨专题去重复核。",
+        "digest": "43c2cc604adcfdd723d7f1ebe9f9850cdd5178e9223fb1d015e2b8222505bb6f"
+      },
+      "independent": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "8ce6acf6-4ece-4b1e-9f12-140dd50b18f1"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "科学内涵段第2项。最高原则与党的领导本质特征、党建统领及从严治党方针不同。",
+        "digest": "43c2cc604adcfdd723d7f1ebe9f9850cdd5178e9223fb1d015e2b8222505bb6f"
+      }
+    }
+  },
+  {
+    "id": "52d495ce-f6a3-45bc-bad8-b44b0c7d7f78",
+    "state": "ready",
+    "topicId": "t13",
+    "knowledgePointId": "5318d6b6-9348-4cda-b7f6-4173b67a0dac",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "以下哪项是《关于学习贯彻习近平党建思想的通知》所列的党的思想建设根本任务？",
+    "scopeNote": "2026年6月18日新华社公开报道中的学习贯彻通知内容",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "需要区分同一资料中的相近概念、权限或时限。",
+    "emotionOnly": false,
+    "emotionReason": "选项为同层级理论定位和相邻概念，褒贬色彩不能判定对应关系。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "969be923-d46a-4f94-9cec-24cdc839e323",
+        "text": "锤炼坚强党性",
+        "rationale": "通知将锤炼党性定位为党员、干部的终身课题。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》强调，深入学习领会科学内涵段",
+            "claim": "通知将锤炼党性定位为党员、干部的终身课题。"
+          }
+        ]
+      },
+      {
+        "id": "3b659b19-6b56-43a5-9801-3c11ca94c0f6",
+        "text": "用党的创新理论凝心铸魂",
+        "rationale": "通知将用党的创新理论凝心铸魂定位为党的思想建设的根本任务。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》强调，深入学习领会科学内涵段",
+            "claim": "通知将用党的创新理论凝心铸魂定位为党的思想建设的根本任务。"
+          }
+        ]
+      },
+      {
+        "id": "4dc57768-fc28-4058-a213-9faae1a445fd",
+        "text": "健全上下贯通、执行有力的组织体系",
+        "rationale": "通知把这一组织要求定位为党的优势所在、力量所在。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》强调，深入学习领会科学内涵段",
+            "claim": "通知把这一组织要求定位为党的优势所在、力量所在。"
+          }
+        ]
+      },
+      {
+        "id": "8b61ea1e-0fdd-4e85-bae3-ddb75ac4fff9",
+        "text": "建设堪当民族复兴重任的高素质干部队伍",
+        "rationale": "通知把干部队伍建设定位为关系党和国家事业的关键性问题。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》强调，深入学习领会科学内涵段",
+            "claim": "通知把干部队伍建设定位为关系党和国家事业的关键性问题。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "3b659b19-6b56-43a5-9801-3c11ca94c0f6"
+    ],
+    "explanation": "思想建设的根本任务聚焦创新理论武装。党性锤炼、组织体系和干部队伍建设在同一通知中各有明确定位。",
+    "distinction": "该段明确用党的创新理论凝心铸魂，另外三项另有定位。",
+    "evidence": [
+      {
+        "sourceId": "S37",
+        "location": "《通知》强调，深入学习领会科学内涵段",
+        "claim": "用党的创新理论凝心铸魂是党的思想建设的根本任务。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "3b659b19-6b56-43a5-9801-3c11ca94c0f6"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "对照通知公开正文校核，待独立解题与跨专题去重复核。",
+        "digest": "bc3ebbfd05b267b89bd4158fdcdbc1975855845771e5bc20488ac4d91837d7d6"
+      },
+      "independent": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "3b659b19-6b56-43a5-9801-3c11ca94c0f6"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "科学内涵段第6项。该段明确用党的创新理论凝心铸魂，另外三项另有定位。",
+        "digest": "bc3ebbfd05b267b89bd4158fdcdbc1975855845771e5bc20488ac4d91837d7d6"
+      }
+    }
+  },
+  {
+    "id": "9e607b66-86ad-4707-a28b-1ae53cba6153",
+    "state": "ready",
+    "topicId": "t13",
+    "knowledgePointId": "0b92bf24-eba8-473f-95e6-9640a94b79d6",
+    "relatedKnowledgePointIds": [],
+    "type": "multiple",
+    "stem": "在《关于学习贯彻习近平党建思想的通知》专门列举理论品格的一段中，以下哪些内容被列出？",
+    "scopeNote": "2026年6月18日新华社公开报道中的学习贯彻通知内容",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "需要区分同一资料中的相近概念、权限或时限。",
+    "emotionOnly": false,
+    "emotionReason": "选项为同层级理论定位和相邻概念，褒贬色彩不能判定对应关系。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "bed20bee-8ad2-4d18-887d-1352677d46e2",
+        "text": "高度的历史主动",
+        "rationale": "通知的理论品格段直接列出历史主动。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》强调，深入学习领会理论品格段",
+            "claim": "通知的理论品格段直接列出历史主动。"
+          }
+        ]
+      },
+      {
+        "id": "ffc1fdef-f720-498c-98d7-fd0fa70f414a",
+        "text": "鲜明的问题导向",
+        "rationale": "通知的理论品格段直接列出问题导向。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》强调，深入学习领会理论品格段",
+            "claim": "通知的理论品格段直接列出问题导向。"
+          }
+        ]
+      },
+      {
+        "id": "306a569a-7ab3-4f2e-b7dc-850c37cbb63b",
+        "text": "新时代全面从严治党的实践经验",
+        "rationale": "这项位于随后论述实践基础和理论渊源的段落。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》强调，深入学习领会实践基础和理论渊源段",
+            "claim": "这项位于随后论述实践基础和理论渊源的段落。"
+          }
+        ]
+      },
+      {
+        "id": "58bd9267-c305-4160-a033-ec0ba2f3e043",
+        "text": "马克思主义政党经验教训",
+        "rationale": "这项在实践基础和理论渊源段作为需要总结和镜鉴的对象。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》强调，深入学习领会实践基础和理论渊源段",
+            "claim": "这项在实践基础和理论渊源段作为需要总结和镜鉴的对象。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "bed20bee-8ad2-4d18-887d-1352677d46e2",
+      "ffc1fdef-f720-498c-98d7-fd0fa70f414a"
+    ],
+    "explanation": "题目限定在通知的理论品格段。历史主动和问题导向属于该段，另外两项用于说明思想形成的实践和理论来源。",
+    "distinction": "历史主动与问题导向属理论品格，另两项属后段。",
+    "evidence": [
+      {
+        "sourceId": "S37",
+        "location": "《通知》强调，深入学习领会理论品格段",
+        "claim": "通知在理论品格一段列有高度历史主动与鲜明问题导向。"
+      },
+      {
+        "sourceId": "S37",
+        "location": "《通知》强调，深入学习领会实践基础和理论渊源段",
+        "claim": "实践经验与马克思主义政党经验教训列在实践基础和理论渊源段。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "bed20bee-8ad2-4d18-887d-1352677d46e2",
+          "ffc1fdef-f720-498c-98d7-fd0fa70f414a"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "对照通知公开正文校核，待独立解题与跨专题去重复核。",
+        "digest": "cba69ce67b7e4170d8a42610ebe9022ba3334de165b89bff2525ee2679cc8335"
+      },
+      "independent": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "bed20bee-8ad2-4d18-887d-1352677d46e2",
+          "ffc1fdef-f720-498c-98d7-fd0fa70f414a"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "理论品格段与实践基础、理论渊源段。历史主动与问题导向属理论品格，另两项属后段。",
+        "digest": "cba69ce67b7e4170d8a42610ebe9022ba3334de165b89bff2525ee2679cc8335"
+      }
+    }
+  },
+  {
+    "id": "42d638fd-fb2e-49bf-a9bb-10ddb4f4173f",
+    "state": "draft",
+    "topicId": "t13",
+    "knowledgePointId": "52192891-a6ab-4bbe-acf3-b03827a5eb54",
+    "relatedKnowledgePointIds": [],
+    "type": "multiple",
+    "stem": "以下哪些内容出现在《关于学习贯彻习近平党建思想的通知》对实践基础和理论渊源的概括中？",
+    "scopeNote": "2026年6月18日新华社公开报道中的学习贯彻通知内容",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "需要区分同一资料中的相近概念、权限或时限。",
+    "emotionOnly": false,
+    "emotionReason": "选项为同层级理论定位和相邻概念，褒贬色彩不能判定对应关系。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "393969eb-8f5b-438a-b792-3ca167dedf00",
+        "text": "体现鲜明的问题导向",
+        "rationale": "鲜明问题导向在通知中归入理论品格段。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》强调，深入学习领会理论品格段",
+            "claim": "鲜明问题导向在通知中归入理论品格段。"
+          }
+        ]
+      },
+      {
+        "id": "62e72900-c430-4692-88e7-13bc1e412429",
+        "text": "概括新时代全面从严治党的实践经验",
+        "rationale": "通知将新时代全面从严治党的实践经验列为重要实践基础。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》强调，深入学习领会实践基础和理论渊源段",
+            "claim": "通知将新时代全面从严治党的实践经验列为重要实践基础。"
+          }
+        ]
+      },
+      {
+        "id": "d37d9260-bd33-4d6b-b795-d835bd60dd1a",
+        "text": "继承和发展马克思主义建党学说",
+        "rationale": "通知以这层继承发展关系说明理论渊源。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》强调，深入学习领会实践基础和理论渊源段",
+            "claim": "通知以这层继承发展关系说明理论渊源。"
+          }
+        ]
+      },
+      {
+        "id": "33a066f0-f6ea-496f-875f-48949a5b69d2",
+        "text": "传承和转化中华优秀传统文化",
+        "rationale": "通知将中华优秀传统文化及其传承转化列入该段。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》强调，深入学习领会实践基础和理论渊源段",
+            "claim": "通知将中华优秀传统文化及其传承转化列入该段。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "62e72900-c430-4692-88e7-13bc1e412429",
+      "d37d9260-bd33-4d6b-b795-d835bd60dd1a",
+      "33a066f0-f6ea-496f-875f-48949a5b69d2"
+    ],
+    "explanation": "以通知的段落归属辨析。全面从严治党实践、马克思主义建党学说和中华优秀传统文化均在所问段落中出现。",
+    "distinction": "首项宜改为“体现鲜明的问题导向”，原选项中“集中揭示”搭配生硬。",
+    "evidence": [
+      {
+        "sourceId": "S37",
+        "location": "《通知》强调，深入学习领会实践基础和理论渊源段",
+        "claim": "通知将新时代全面从严治党实践、马克思主义建党学说、中华优秀传统文化列入实践基础和理论渊源。"
+      },
+      {
+        "sourceId": "S37",
+        "location": "《通知》强调，深入学习领会理论品格段",
+        "claim": "问题导向列在理论品格段。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "62e72900-c430-4692-88e7-13bc1e412429",
+          "d37d9260-bd33-4d6b-b795-d835bd60dd1a",
+          "33a066f0-f6ea-496f-875f-48949a5b69d2"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "依据原文修改被退修问题，重新核对正确项与逐项解析。",
+        "digest": "3a59f731ade76db5d73bb3278a694731a052c00b957ed0c564062459e09cb603"
+      }
+    }
+  },
+  {
+    "id": "62f36c59-aeba-4b5a-a126-5f21ca45e84e",
+    "state": "ready",
+    "topicId": "t13",
+    "knowledgePointId": "f4e89260-4873-4a19-bba3-0e4f584f304c",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "根据《通知》的科学内涵段，哪一项对应“全面从严治党的治本之策”？",
+    "scopeNote": "2026年6月18日新华社公开报道中的学习贯彻通知内容",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "需要区分同一资料中的相近概念、权限或时限。",
+    "emotionOnly": false,
+    "emotionReason": "选项为同层级理论定位和相邻概念，褒贬色彩不能判定对应关系。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "309ecfa5-d99c-4219-b20e-a5b635668d90",
+        "text": "坚持一体推进不敢腐、不能腐、不想腐",
+        "rationale": "通知将其定位为全面从严治党的重要方略和反腐败斗争的基本方针。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》强调，深入学习领会科学内涵段",
+            "claim": "通知将其定位为全面从严治党的重要方略和反腐败斗争的基本方针。"
+          }
+        ]
+      },
+      {
+        "id": "db3123ce-208e-421d-82c4-513379fbbb89",
+        "text": "坚持落实管党治党政治责任",
+        "rationale": "通知用须牢牢牵住的“牛鼻子”说明这一责任的关键性。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》强调，深入学习领会科学内涵段",
+            "claim": "通知用须牢牢牵住的“牛鼻子”说明这一责任的关键性。"
+          }
+        ]
+      },
+      {
+        "id": "68578299-9d90-41c8-b0e2-bcad6503daa0",
+        "text": "坚持制度治党、依规治党",
+        "rationale": "通知将其定位为全面从严治党的长远和根本之策。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》强调，深入学习领会科学内涵段",
+            "claim": "通知将其定位为全面从严治党的长远和根本之策。"
+          }
+        ]
+      },
+      {
+        "id": "cc0bcc59-f4f7-46c5-b3a0-a19fd224e5d9",
+        "text": "坚持用严明的纪律管全党治全党",
+        "rationale": "这项与通知使用的“治本之策”表述直接对应。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》强调，深入学习领会科学内涵段",
+            "claim": "这项与通知使用的“治本之策”表述直接对应。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "cc0bcc59-f4f7-46c5-b3a0-a19fd224e5d9"
+    ],
+    "explanation": "治本之策在这里对应严明纪律。制度治党、反腐败方针和政治责任都是相关要求，通知分别作了不同定位。",
+    "distinction": "四项分别区分管党治党责任、治本、制度和反腐方略。",
+    "evidence": [
+      {
+        "sourceId": "S37",
+        "location": "《通知》强调，深入学习领会科学内涵段",
+        "claim": "用严明纪律管全党治全党是全面从严治党的治本之策。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "cc0bcc59-f4f7-46c5-b3a0-a19fd224e5d9"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "对照通知公开正文校核，待独立解题与跨专题去重复核。",
+        "digest": "546f8f7a67301bfd6ae99f738f10f95c2b4338f2a299f68213307d451c2cf55f"
+      },
+      "independent": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "cc0bcc59-f4f7-46c5-b3a0-a19fd224e5d9"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "科学内涵段第11项。四项分别区分管党治党责任、治本、制度和反腐方略。",
+        "digest": "546f8f7a67301bfd6ae99f738f10f95c2b4338f2a299f68213307d451c2cf55f"
+      }
+    }
+  },
+  {
+    "id": "618cb7f9-71d4-4191-83f8-d7adec99cffd",
+    "state": "ready",
+    "topicId": "t13",
+    "knowledgePointId": "0be38476-c81c-4b50-8fc9-273e9ce6ca6a",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "在《关于学习贯彻习近平党建思想的通知》中，“坚持以党的政治建设为统领”对应下列哪一定位？",
+    "scopeNote": "2026年6月18日新华社公开报道中的学习贯彻通知内容",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "需要区分同一资料中的相近概念、权限或时限。",
+    "emotionOnly": false,
+    "emotionReason": "选项为同层级理论定位和相邻概念，褒贬色彩不能判定对应关系。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "05096fe7-62b5-4b7a-a7c3-45b09f1860f0",
+        "text": "党的思想建设的根本任务",
+        "rationale": "通知将这一定位与党的创新理论凝心铸魂相对应。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》强调，深入学习领会科学内涵段",
+            "claim": "通知将这一定位与党的创新理论凝心铸魂相对应。"
+          }
+        ]
+      },
+      {
+        "id": "2b2ab1ca-9d7f-43e6-a76b-801b347ce1e3",
+        "text": "新时代党的建设的根本要求",
+        "rationale": "通知把政治建设的统领作用与这一定位相对应。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》强调，深入学习领会科学内涵段",
+            "claim": "通知把政治建设的统领作用与这一定位相对应。"
+          }
+        ]
+      },
+      {
+        "id": "44145c61-db7c-4bf9-81ca-a39011c966c7",
+        "text": "新时代党的建设的战略方针",
+        "rationale": "这一定位对应坚持全面从严治党。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》强调，深入学习领会科学内涵段",
+            "claim": "这一定位对应坚持全面从严治党。"
+          }
+        ]
+      },
+      {
+        "id": "ba7aec18-e806-41b7-b594-ee5dab4dcbc3",
+        "text": "党的领导的最高原则",
+        "rationale": "这一定位对应坚持党中央集中统一领导。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》强调，深入学习领会科学内涵段",
+            "claim": "这一定位对应坚持党中央集中统一领导。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "2b2ab1ca-9d7f-43e6-a76b-801b347ce1e3"
+    ],
+    "explanation": "“统领”指明政治建设在新时代党的建设中的整体作用。通知将对应表述归为根本要求。",
+    "distinction": "政治建设统领对应根本要求。",
+    "evidence": [
+      {
+        "sourceId": "S37",
+        "location": "《通知》强调，深入学习领会科学内涵段",
+        "claim": "坚持以党的政治建设为统领被界定为新时代党的建设的根本要求。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "2b2ab1ca-9d7f-43e6-a76b-801b347ce1e3"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "对照通知公开正文校核，待独立解题与跨专题去重复核。",
+        "digest": "cf43554ef860b2ea261c5c893a56e12b69538749b4c671401eea0146128e9d94"
+      },
+      "independent": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "2b2ab1ca-9d7f-43e6-a76b-801b347ce1e3"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "科学内涵段第5项。政治建设统领对应根本要求。",
+        "digest": "cf43554ef860b2ea261c5c893a56e12b69538749b4c671401eea0146128e9d94"
+      }
+    }
+  },
+  {
+    "id": "14040b58-f28f-4d46-9b76-020a479df73d",
+    "state": "ready",
+    "topicId": "t13",
+    "knowledgePointId": "ce650880-c420-4ab9-8875-3fe0fc793d9e",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "《关于学习贯彻习近平党建思想的通知》把哪项要求定位为党的优势所在、力量所在？",
+    "scopeNote": "2026年6月18日新华社公开报道中的学习贯彻通知内容",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "需要区分同一资料中的相近概念、权限或时限。",
+    "emotionOnly": false,
+    "emotionReason": "选项为同层级理论定位和相邻概念，褒贬色彩不能判定对应关系。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "e547da4f-952c-4193-a1e5-75ef8b96e4a1",
+        "text": "健全上下贯通、执行有力的组织体系",
+        "rationale": "这一定位指向组织体系的上下贯通和执行力。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》强调，深入学习领会科学内涵段",
+            "claim": "这一定位指向组织体系的上下贯通和执行力。"
+          }
+        ]
+      },
+      {
+        "id": "3a3ea0cd-71f8-42e5-a151-64f1aff14cca",
+        "text": "推进作风建设常态化长效化",
+        "rationale": "通知强调它是保持党同人民群众血肉联系的有效途径。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》强调，深入学习领会科学内涵段",
+            "claim": "通知强调它是保持党同人民群众血肉联系的有效途径。"
+          }
+        ]
+      },
+      {
+        "id": "c6466960-30ec-47f8-a7c2-0774dd957ae4",
+        "text": "锤炼坚强党性",
+        "rationale": "通知强调它是党员、干部的终身课题。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》强调，深入学习领会科学内涵段",
+            "claim": "通知强调它是党员、干部的终身课题。"
+          }
+        ]
+      },
+      {
+        "id": "ea40a8da-d74f-4239-b854-924e26356380",
+        "text": "坚持不忘初心、牢记使命",
+        "rationale": "通知将这一项定位为党的宗旨立场和价值取向。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》强调，深入学习领会科学内涵段",
+            "claim": "通知将这一项定位为党的宗旨立场和价值取向。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "e547da4f-952c-4193-a1e5-75ef8b96e4a1"
+    ],
+    "explanation": "党的组织优势和组织力量依托上下贯通、执行有力的组织体系。其他选项分别对应作风、党性和宗旨立场。",
+    "distinction": "组织体系、作风、党性和使命各有不同定位。",
+    "evidence": [
+      {
+        "sourceId": "S37",
+        "location": "《通知》强调，深入学习领会科学内涵段",
+        "claim": "健全上下贯通、执行有力的组织体系被定位为党的优势和力量所在。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "e547da4f-952c-4193-a1e5-75ef8b96e4a1"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "对照通知公开正文校核，待独立解题与跨专题去重复核。",
+        "digest": "b505dcaac17660ad751381a157c45458b3fcfee431a5ba742f9231799026a463"
+      },
+      "independent": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "e547da4f-952c-4193-a1e5-75ef8b96e4a1"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "科学内涵段第8项。组织体系、作风、党性和使命各有不同定位。",
+        "digest": "b505dcaac17660ad751381a157c45458b3fcfee431a5ba742f9231799026a463"
+      }
+    }
+  },
+  {
+    "id": "ea4e641e-d153-4c53-be3b-fa1d8040c401",
+    "state": "ready",
+    "topicId": "t13",
+    "knowledgePointId": "9854564f-c4cf-4ba3-89f6-640e5ee25b41",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "根据通知对科学内涵的逐项定位，哪项是保持党同人民群众血肉联系的有效途径？",
+    "scopeNote": "2026年6月18日新华社公开报道中的学习贯彻通知内容",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "需要区分同一资料中的相近概念、权限或时限。",
+    "emotionOnly": false,
+    "emotionReason": "选项为同层级理论定位和相邻概念，褒贬色彩不能判定对应关系。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "cf5fb4c7-c372-41f3-886f-4103d74b9852",
+        "text": "坚持不忘初心、牢记使命",
+        "rationale": "通知将其界定为党的宗旨立场和价值取向，两者有联系但具体定位不同。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》强调，深入学习领会科学内涵段",
+            "claim": "通知将其界定为党的宗旨立场和价值取向，两者有联系但具体定位不同。"
+          }
+        ]
+      },
+      {
+        "id": "22abd981-4271-4b5b-9636-45c447cb0aa1",
+        "text": "坚持锤炼坚强党性",
+        "rationale": "通知将其界定为党员、干部的终身课题。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》强调，深入学习领会科学内涵段",
+            "claim": "通知将其界定为党员、干部的终身课题。"
+          }
+        ]
+      },
+      {
+        "id": "c122aaf8-f7a8-4af5-95b7-75e0de11ebb3",
+        "text": "坚持推进作风建设常态化长效化",
+        "rationale": "通知用保持党同人民群众血肉联系说明作风建设常态化长效化的作用。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》强调，深入学习领会科学内涵段",
+            "claim": "通知用保持党同人民群众血肉联系说明作风建设常态化长效化的作用。"
+          }
+        ]
+      },
+      {
+        "id": "fb02c13e-9db1-4af8-ada3-35ee0d6f9caf",
+        "text": "坚持制度治党、依规治党",
+        "rationale": "通知将其界定为全面从严治党的长远和根本之策。",
+        "evidence": [
+          {
+            "sourceId": "S37",
+            "location": "《通知》强调，深入学习领会科学内涵段",
+            "claim": "通知将其界定为全面从严治党的长远和根本之策。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "c122aaf8-f7a8-4af5-95b7-75e0de11ebb3"
+    ],
+    "explanation": "准确对应要求与作用。作风建设常态化长效化，体现持续改进工作作风与密切联系群众之间的关系。",
+    "distinction": "作风建设的明确定位可逐项对照。",
+    "evidence": [
+      {
+        "sourceId": "S37",
+        "location": "《通知》强调，深入学习领会科学内涵段",
+        "claim": "作风建设常态化长效化是保持党同人民群众血肉联系的有效途径。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "c122aaf8-f7a8-4af5-95b7-75e0de11ebb3"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "对照通知公开正文校核，待独立解题与跨专题去重复核。",
+        "digest": "07f08c1874d829b4385e74604a43cc9eaf45643f41d0b935367acc64b79aba54"
+      },
+      "independent": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "c122aaf8-f7a8-4af5-95b7-75e0de11ebb3"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "科学内涵段第10项。作风建设的明确定位可逐项对照。",
+        "digest": "07f08c1874d829b4385e74604a43cc9eaf45643f41d0b935367acc64b79aba54"
+      }
+    }
+  },
+  {
+    "id": "96f3cb1b-f7b8-4f0c-8234-70b0db45e9e8",
+    "state": "ready",
+    "topicId": "t10",
+    "knowledgePointId": "5a419d35-1583-4e67-a5d4-8308940f85d3",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "根据 2026 年修订的《中国共产党发展党员工作细则》，党组织收到入党申请书后，派人和申请人谈话的期限如何计算？",
+    "scopeNote": "2026年5月11日起施行的《中国共产党发展党员工作细则》",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "需要区分同一资料中的相近概念、权限或时限。",
+    "emotionOnly": false,
+    "emotionReason": "选项均为相近时限、法定环节、权限范围或制度选项，需掌握条文才能作答。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "b814e3f4-f2a6-4e27-b9fe-09b287d2acf6",
+        "text": "从党支部确定其为入党积极分子之日起一个月内",
+        "rationale": "第七条谈话在申请阶段进行，起点是收到申请书。确定积极分子是第八条的后续环节。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第七条、第八条",
+            "claim": "第七条谈话在申请阶段进行，起点是收到申请书。确定积极分子是第八条的后续环节。"
+          }
+        ]
+      },
+      {
+        "id": "94c59ca9-7d16-4cb3-a414-8ed26faab5e2",
+        "text": "从收到入党申请书之日起一个月内",
+        "rationale": "第七条规定收到申请书后一个月内派人谈话。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第七条",
+            "claim": "第七条规定收到申请书后一个月内派人谈话。"
+          }
+        ]
+      },
+      {
+        "id": "7646d35b-2922-4b77-b8c6-49b3cb05cf48",
+        "text": "从收到入党申请书之日起三个月内",
+        "rationale": "起算条件正确，条文规定的期限是一个月。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第七条",
+            "claim": "起算条件正确，条文规定的期限是一个月。"
+          }
+        ]
+      },
+      {
+        "id": "398f8e4f-52df-41e0-861e-7750aa2f663e",
+        "text": "从上级党委完成入党积极分子备案之日起一个月内",
+        "rationale": "报上级党委备案属于第八条的确定积极分子环节，和申请阶段谈话期限分属不同程序。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第七条、第八条",
+            "claim": "报上级党委备案属于第八条的确定积极分子环节，和申请阶段谈话期限分属不同程序。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "94c59ca9-7d16-4cb3-a414-8ed26faab5e2"
+    ],
+    "explanation": "先确认程序处于申请阶段。第七条把收到申请书作为起点，时限为一个月。",
+    "distinction": "收到申请书是起算事件，一个月内需谈话。",
+    "evidence": [
+      {
+        "sourceId": "S35",
+        "location": "第七条",
+        "claim": "收到申请书后，党组织应在一个月内派人与申请人谈话。"
+      },
+      {
+        "sourceId": "S35",
+        "location": "第七条、第八条",
+        "claim": "收到申请后谈话与确定为积极分子报党委备案是不同环节。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "94c59ca9-7d16-4cb3-a414-8ed26faab5e2"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "已核原文、条件和错误项；独立复审未完成。",
+        "digest": "f4bc93041e08e1e008a530218e0a2ef7259ae27943708aef2c79603e676c1e18"
+      },
+      "independent": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "94c59ca9-7d16-4cb3-a414-8ed26faab5e2"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "第七条。收到申请书是起算事件，一个月内需谈话。",
+        "digest": "f4bc93041e08e1e008a530218e0a2ef7259ae27943708aef2c79603e676c1e18"
+      }
+    }
+  },
+  {
+    "id": "fec10efa-c9ad-41fa-ba6e-ae0365758f17",
+    "state": "ready",
+    "topicId": "t10",
+    "knowledgePointId": "a1306216-8f4e-4df7-8fd8-a5a35a87b46f",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "某党支部设有支部委员会，已按规定经过党员推荐或群团推优产生人选。依据 2026 年修订的细则，确定入党积极分子的下一步是什么？",
+    "scopeNote": "2026年5月11日起施行的《中国共产党发展党员工作细则》",
+    "difficulty": "intermediate",
+    "taskType": "application",
+    "difficultyReason": "按给定条件推断归属与适用规则。",
+    "emotionOnly": false,
+    "emotionReason": "选项均为相近时限、法定环节、权限范围或制度选项，需掌握条文才能作答。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "d13d94ff-8de8-41a7-a625-c0026852168e",
+        "text": "由党支部委员会会议研究决定，报上级党委备案",
+        "rationale": "支委会研究决定与上级党委备案正是第八条的流程。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第八条",
+            "claim": "支委会研究决定与上级党委备案正是第八条的流程。"
+          }
+        ]
+      },
+      {
+        "id": "a3fd7298-66b9-42cd-9f6a-120b4b5ed56d",
+        "text": "由党支部委员会会议研究决定，报上级党委审批",
+        "rationale": "决定主体正确，但上级党委环节是备案。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第八条",
+            "claim": "决定主体正确，但上级党委环节是备案。"
+          }
+        ]
+      },
+      {
+        "id": "13f74343-ac2e-45de-a7dd-fc6c2e80e69f",
+        "text": "由党支部党员大会研究决定，报上级党委备案",
+        "rationale": "党员大会是未设支委会时的决定主体，题干明确已设置支委会。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第八条",
+            "claim": "党员大会是未设支委会时的决定主体，题干明确已设置支委会。"
+          }
+        ]
+      },
+      {
+        "id": "697b1a2c-aefc-4e27-8175-28ec768e0df3",
+        "text": "由上级党委研究决定，再通知党支部办理备案",
+        "rationale": "上级党委受报备案，具体人选由本支部规定的主体研究决定。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第八条",
+            "claim": "上级党委受报备案，具体人选由本支部规定的主体研究决定。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "d13d94ff-8de8-41a7-a625-c0026852168e"
+    ],
+    "explanation": "第八条区分支部研究决定和上级党委备案。设有支委会的，由支委会会议研究决定。",
+    "distinction": "题干限定设支委会，区分研究主体和备案与审批。",
+    "evidence": [
+      {
+        "sourceId": "S35",
+        "location": "第八条",
+        "claim": "有党支部委员会的党支部，由支委会会议研究决定积极分子人选，报上级党委备案。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "d13d94ff-8de8-41a7-a625-c0026852168e"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "已核原文、条件和错误项；独立复审未完成。",
+        "digest": "f6d53ff9d7751be3e2365da856466afeaa2646c350e05f2f6b73ced260e1485f"
+      },
+      "independent": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "d13d94ff-8de8-41a7-a625-c0026852168e"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "第八条。题干限定设支委会，区分研究主体和备案与审批。",
+        "digest": "f6d53ff9d7751be3e2365da856466afeaa2646c350e05f2f6b73ced260e1485f"
+      }
+    }
+  },
+  {
+    "id": "5699ff91-9700-43d6-9369-84ded6dbe234",
+    "state": "draft",
+    "topicId": "t10",
+    "knowledgePointId": "04188715-c19f-45fa-b69e-642e1e657145",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "根据 2026 年修订的细则，上级党委已同意将一名积极分子拟列为发展对象。就此环节的公示时长，以下哪种表述准确？",
+    "scopeNote": "2026年5月11日起施行的《中国共产党发展党员工作细则》",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "需要区分同一资料中的相近概念、权限或时限。",
+    "emotionOnly": false,
+    "emotionReason": "选项均为相近时限、法定环节、权限范围或制度选项，需掌握条文才能作答。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "8d07b606-8699-4b74-b400-6f7c2ce8fd5d",
+        "text": "不少于三个工作日",
+        "rationale": "第十三条确定的最低期限为五个工作日，三个工作日不足。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第十三条",
+            "claim": "第十三条确定的最低期限为五个工作日，三个工作日不足。"
+          }
+        ]
+      },
+      {
+        "id": "b6ac390d-213c-4b73-8ae0-681cb52e1525",
+        "text": "不少于五个自然日",
+        "rationale": "数值与条文下限相同，工作日与自然日的口径不同。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第十三条",
+            "claim": "数值与条文下限相同，工作日与自然日的口径不同。"
+          }
+        ]
+      },
+      {
+        "id": "05905403-90bb-451c-b9f9-ced5a54c60fd",
+        "text": "不少于七个自然日",
+        "rationale": "规定以五个工作日计量，七个自然日在节假日期间未必达到五个工作日。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第十三条",
+            "claim": "规定以五个工作日计量，七个自然日在节假日期间未必达到五个工作日。"
+          }
+        ]
+      },
+      {
+        "id": "f4b61b6d-b778-4b9d-82b5-fb27916413be",
+        "text": "不少于五个工作日",
+        "rationale": "第十三条规定的最低时长和时间单位分别为五和工作日。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第十三条",
+            "claim": "第十三条规定的最低时长和时间单位分别为五和工作日。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "f4b61b6d-b778-4b9d-82b5-fb27916413be"
+    ],
+    "explanation": "第十三条规定的是下限。计算时保留“工作日”口径，公示结果还需按条文判断能否列为发展对象。",
+    "distinction": "三个干扰项均为五个自然日，瘦弱且同质。改为同句式的不同期限及时间单位。",
+    "evidence": [
+      {
+        "sourceId": "S35",
+        "location": "第十三条",
+        "claim": "经上级党委同意拟列为发展对象后，公示期不少于五个工作日。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "f4b61b6d-b778-4b9d-82b5-fb27916413be"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "依据原文修改被退修问题，重新核对正确项与逐项解析。",
+        "digest": "8ccdb0daf0a8333dec7e3dd166b3b5b4779351dae20c52ab9ad8c37080dd50aa"
+      }
+    }
+  },
+  {
+    "id": "8d2c71ff-11fd-4dbe-b419-5a0bc938b059",
+    "state": "ready",
+    "topicId": "t10",
+    "knowledgePointId": "1652853f-b698-4c11-bc51-d71e6c8029e1",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "按照 2026 年修订的细则，党组织开展发展对象政治审查时，关于函调或外调的要求，哪项准确？",
+    "scopeNote": "2026年5月11日起施行的《中国共产党发展党员工作细则》",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "需要区分同一资料中的相近概念、权限或时限。",
+    "emotionOnly": false,
+    "emotionReason": "选项均为相近时限、法定环节、权限范围或制度选项，需掌握条文才能作答。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "3dc605a8-75ad-4a18-9f99-8003bfdd1c1c",
+        "text": "只要发展对象书面说明，便可以省去函调和外调",
+        "rationale": "条文需要听取本人介绍并查阅有关材料，结合情况是否清楚决定。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第十六条第三款",
+            "claim": "条文需要听取本人介绍并查阅有关材料，结合情况是否清楚决定。"
+          }
+        ]
+      },
+      {
+        "id": "e6439334-82ff-4e55-ba26-4076cbc80373",
+        "text": "查阅档案后应一律开展函调或外调",
+        "rationale": "条文对掌握清楚的情况设置了可以省去的条件。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第十六条第三款",
+            "claim": "条文对掌握清楚的情况设置了可以省去的条件。"
+          }
+        ]
+      },
+      {
+        "id": "9a2ce189-de75-4af6-b544-a7a2cd210ee7",
+        "text": "听取本人介绍并查阅有关材料后，情况清楚的，可以不函调或外调",
+        "rationale": "条文列出所需前提并明确了例外。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第十六条第三款",
+            "claim": "条文列出所需前提并明确了例外。"
+          }
+        ]
+      },
+      {
+        "id": "5fdaebad-1560-4967-92d7-548488b827aa",
+        "text": "发展对象所在单位提供证明后，党委可以免除政治审查",
+        "rationale": "第十六条要求必须进行政治审查，函调、外调是审查方法中的两个可选环节。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第十六条第一款、第三款",
+            "claim": "第十六条要求必须进行政治审查，函调、外调是审查方法中的两个可选环节。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "9a2ce189-de75-4af6-b544-a7a2cd210ee7"
+    ],
+    "explanation": "政治审查必须开展。在已经听取本人介绍、查阅材料且情况清楚时，条文允许省去函调或外调。",
+    "distinction": "问函调外调例外，没有将例外扩大为免政审。",
+    "evidence": [
+      {
+        "sourceId": "S35",
+        "location": "第十六条第三款",
+        "claim": "政治审查在听取本人介绍并查阅材料后，情况已清楚的，可以不函调或外调。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "9a2ce189-de75-4af6-b544-a7a2cd210ee7"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "已核原文、条件和错误项；独立复审未完成。",
+        "digest": "bc543032a09fa930e9950d7a862442b6366aec88b7eb6f1ba0be39fe7b7bda8f"
+      },
+      "independent": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "9a2ce189-de75-4af6-b544-a7a2cd210ee7"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "第十六条第三款。问函调外调例外，没有将例外扩大为免政审。",
+        "digest": "bc543032a09fa930e9950d7a862442b6366aec88b7eb6f1ba0be39fe7b7bda8f"
+      }
+    }
+  },
+  {
+    "id": "7f9a90ed-a332-4f51-82d7-62723a552c78",
+    "state": "ready",
+    "topicId": "t10",
+    "knowledgePointId": "6bc7cbf5-b434-4563-9f1e-51fe6c65edb3",
+    "relatedKnowledgePointIds": [],
+    "type": "multiple",
+    "stem": "依据 2026 年修订的细则，下列关于党员担任入党介绍人的判断，哪些符合规定？",
+    "scopeNote": "2026年5月11日起施行的《中国共产党发展党员工作细则》",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "需要区分同一资料中的相近概念、权限或时限。",
+    "emotionOnly": false,
+    "emotionReason": "选项均为相近时限、法定环节、权限范围或制度选项，需掌握条文才能作答。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "7966ef4d-c6b8-4d30-a7c5-c5e52dc4b406",
+        "text": "受撤销党内职务处分且仍在影响期内的，不宜担任",
+        "rationale": "撤销党内职务处分处于影响期内的，属于条文规定的不宜情形。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第十四条第二款",
+            "claim": "撤销党内职务处分处于影响期内的，属于条文规定的不宜情形。"
+          }
+        ]
+      },
+      {
+        "id": "6fdc5c43-2ca6-40cf-ba21-b38a4c63dbb7",
+        "text": "受严重警告处分且仍在影响期内的，适用“不能担任”的规定",
+        "rationale": "严重警告在影响期内属于不宜，不等于条文所写的不能。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第十四条第二款",
+            "claim": "严重警告在影响期内属于不宜，不等于条文所写的不能。"
+          }
+        ]
+      },
+      {
+        "id": "d98a5998-4468-49f4-852c-fbf9c1985c57",
+        "text": "受留党察看处分且尚未恢复党员权利的，不能担任",
+        "rationale": "条文对留党察看且权利尚未恢复的党员规定不能担任。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第十四条第二款",
+            "claim": "条文对留党察看且权利尚未恢复的党员规定不能担任。"
+          }
+        ]
+      },
+      {
+        "id": "0888e9cf-d552-4adc-ba7e-6c3ba1b6cc29",
+        "text": "受警告处分且仍在影响期内的，可以不受条文所列任职限制",
+        "rationale": "警告影响期内属于不宜担任的情形。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第十四条第二款",
+            "claim": "警告影响期内属于不宜担任的情形。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "7966ef4d-c6b8-4d30-a7c5-c5e52dc4b406",
+      "d98a5998-4468-49f4-852c-fbf9c1985c57"
+    ],
+    "explanation": "用处分种类和所处阶段判定。警告、严重警告、撤销党内职务在影响期内属于不宜；留党察看期间党员权利未恢复时属于不能。",
+    "distinction": "区分影响期内不宜担任与留察且未恢复权利不能担任。",
+    "evidence": [
+      {
+        "sourceId": "S35",
+        "location": "第十四条第二款",
+        "claim": "处分影响期内的警告等三种“不宜”与留党察看权利未恢复的“不能”分开。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "7966ef4d-c6b8-4d30-a7c5-c5e52dc4b406",
+          "d98a5998-4468-49f4-852c-fbf9c1985c57"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "已核原文、条件和错误项；独立复审未完成。",
+        "digest": "9e39c1eb455468e0e0b5f923923fea40bc178910d3ad9e2ff9e745ed21e524b5"
+      },
+      "independent": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "7966ef4d-c6b8-4d30-a7c5-c5e52dc4b406",
+          "d98a5998-4468-49f4-852c-fbf9c1985c57"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "第十四条第二款。区分影响期内不宜担任与留察且未恢复权利不能担任。",
+        "digest": "9e39c1eb455468e0e0b5f923923fea40bc178910d3ad9e2ff9e745ed21e524b5"
+      }
+    }
+  },
+  {
+    "id": "a2a8b4c2-eb69-4fc5-9626-236f92513a06",
+    "state": "ready",
+    "topicId": "t10",
+    "knowledgePointId": "06ed06c0-4ad0-4988-b8ea-02a773b373e8",
+    "relatedKnowledgePointIds": [],
+    "type": "multiple",
+    "stem": "根据 2026 年修订的细则，哪些主体是条文明列的发展对象短期集中培训组织主体？",
+    "scopeNote": "2026年5月11日起施行的《中国共产党发展党员工作细则》",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "需要区分同一资料中的相近概念、权限或时限。",
+    "emotionOnly": false,
+    "emotionReason": "选项均为相近时限、法定环节、权限范围或制度选项，需掌握条文才能作答。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "a04e39b9-ff6b-459e-97b9-75e923439222",
+        "text": "发展对象所在党小组",
+        "rationale": "该条规定基层党委或县级党委组织部门，党小组未获该条授权作为组织主体。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第十七条第一款",
+            "claim": "该条规定基层党委或县级党委组织部门，党小组未获该条授权作为组织主体。"
+          }
+        ]
+      },
+      {
+        "id": "1c8a3adb-dbd2-40cd-a99a-0a96307c771a",
+        "text": "基层党委",
+        "rationale": "条文明确列出基层党委。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第十七条第一款",
+            "claim": "条文明确列出基层党委。"
+          }
+        ]
+      },
+      {
+        "id": "c016a617-b808-43b6-8486-ab03dad6a8df",
+        "text": "县级党委组织部门",
+        "rationale": "条文明确列出县级党委组织部门。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第十七条第一款",
+            "claim": "条文明确列出县级党委组织部门。"
+          }
+        ]
+      },
+      {
+        "id": "b480ee5c-1573-4563-a3c7-7f690c955f8d",
+        "text": "发展对象所在党支部委员会",
+        "rationale": "支委会参与其他程序。第十七条列出的集中培训主体是基层党委和县级党委组织部门。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第十七条第一款",
+            "claim": "支委会参与其他程序。第十七条列出的集中培训主体是基层党委和县级党委组织部门。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "1c8a3adb-dbd2-40cd-a99a-0a96307c771a",
+      "c016a617-b808-43b6-8486-ab03dad6a8df"
+    ],
+    "explanation": "第十七条讨论的是发展对象集中培训。具备这一组织职责的是基层党委或县级党委组织部门。",
+    "distinction": "主体与其他发展程序中的党小组和党支部职责不同。",
+    "evidence": [
+      {
+        "sourceId": "S35",
+        "location": "第十七条第一款",
+        "claim": "全国细则中发展对象短期集中培训由基层党委或者县级党委组织部门组织。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "1c8a3adb-dbd2-40cd-a99a-0a96307c771a",
+          "c016a617-b808-43b6-8486-ab03dad6a8df"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "已核原文、条件和错误项；独立复审未完成。",
+        "digest": "cbd3f17e316ac0d6368c1694a43d19def297b17284ef5bbe27c5e4873859e540"
+      },
+      "independent": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "1c8a3adb-dbd2-40cd-a99a-0a96307c771a",
+          "c016a617-b808-43b6-8486-ab03dad6a8df"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "第十七条第一款。主体与其他发展程序中的党小组和党支部职责不同。",
+        "digest": "cbd3f17e316ac0d6368c1694a43d19def297b17284ef5bbe27c5e4873859e540"
+      }
+    }
+  },
+  {
+    "id": "ac2dc81f-53a3-4a55-9ca4-3a66e30dc957",
+    "state": "ready",
+    "topicId": "t10",
+    "knowledgePointId": "4b374862-4cd6-4c99-835c-0628dd2021d1",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "应到会有表决权党员 20 人，实到 13 人。讨论接收一名预备党员，现场有 10 张赞成票，另有一名缺席且有表决权的党员在大会前正式向党支部提交书面赞成意见。依据 2026 年修订的细则，就到会和赞成票门槛而言，哪项正确？",
+    "scopeNote": "2026年5月11日起施行的《中国共产党发展党员工作细则》",
+    "difficulty": "intermediate",
+    "taskType": "application",
+    "difficultyReason": "按给定条件推断归属与适用规则。",
+    "emotionOnly": false,
+    "emotionReason": "选项均为相近时限、法定环节、权限范围或制度选项，需掌握条文才能作答。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "15367cc3-5396-4d32-b5dc-2c0bb7d4ee86",
+        "text": "到会人数合规，书面意见计入后获 11 票，达到决议通过的票数门槛",
+        "rationale": "13 大于 20 的一半；会前正式书面赞成意见计入，11 亦大于 20 的一半。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第十九条第二款、第二十条第（四）项",
+            "claim": "13 大于 20 的一半；会前正式书面赞成意见计入，11 亦大于 20 的一半。"
+          }
+        ]
+      },
+      {
+        "id": "8d0876c6-a27c-4b16-977d-44f34e388fae",
+        "text": "到会人数合规，但缺席党员意见一律不计，只有 10 票",
+        "rationale": "第 20 条明确规定会前正式书面意见应当计入。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第十九条第二款、第二十条第（四）项",
+            "claim": "第 20 条明确规定会前正式书面意见应当计入。"
+          }
+        ]
+      },
+      {
+        "id": "2c712876-c181-493e-af2e-b738282ce27b",
+        "text": "可以仅依据现场 10 票通过，因为判断赞成数的基数为 13 人",
+        "rationale": "赞成票门槛按应到会有表决权人数计算，基数为 20。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第十九条第二款、第二十条第（四）项",
+            "claim": "赞成票门槛按应到会有表决权人数计算，基数为 20。"
+          }
+        ]
+      },
+      {
+        "id": "ff6a7d40-4153-494c-865b-77cdc5ad54dd",
+        "text": "因实到 13 人不足 20 人的三分之二，不满足大会到会门槛",
+        "rationale": "第 19 条到会门槛为超过半数，不要求达到三分之二。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第十九条第二款、第二十条第（四）项",
+            "claim": "第 19 条到会门槛为超过半数，不要求达到三分之二。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "15367cc3-5396-4d32-b5dc-2c0bb7d4ee86"
+    ],
+    "explanation": "先检查到会人数，再用应到会有表决权人数检查赞成人数。会前正式书面赞成意见计票但不增加实际到会人数。",
+    "distinction": "13人满足到会条件，按应到20人计算，书面赞成票计入后11票通过。",
+    "evidence": [
+      {
+        "sourceId": "S35",
+        "location": "第十九条第二款、第二十条第（四）项",
+        "claim": "接收预备党员须赞成超过应到会有表决权人数一半；会前正式书面意见应计入。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "15367cc3-5396-4d32-b5dc-2c0bb7d4ee86"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "已核原文、条件和错误项；独立复审未完成。",
+        "digest": "a46e2f232d1cb080d8a7bbb39b71b4e78d959a3b93e83e5fe70a515a9b3bde31"
+      },
+      "independent": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "15367cc3-5396-4d32-b5dc-2c0bb7d4ee86"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "第十九条第二款及第二十条第四项。13人满足到会条件，按应到20人计算，书面赞成票计入后11票通过。",
+        "digest": "a46e2f232d1cb080d8a7bbb39b71b4e78d959a3b93e83e5fe70a515a9b3bde31"
+      }
+    }
+  },
+  {
+    "id": "3c7eeaf5-3b3d-4317-86f8-a85f040d66a9",
+    "state": "ready",
+    "topicId": "t10",
+    "knowledgePointId": "ce37597c-74c4-4d75-acc6-91097abceac5",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "根据 2026 年修订的细则，党委收到党支部上报的接收预备党员决议后，涉及一般审批和特殊延长的时限是哪一组？",
+    "scopeNote": "2026年5月11日起施行的《中国共产党发展党员工作细则》",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "需要区分同一资料中的相近概念、权限或时限。",
+    "emotionOnly": false,
+    "emotionReason": "选项均为相近时限、法定环节、权限范围或制度选项，需掌握条文才能作答。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "88f9810f-936c-4942-988b-7951d34b6635",
+        "text": "一般一个月内，特殊可延但最长三个月",
+        "rationale": "这一组选项同时缩短了一般审批期和特殊情况上限。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第二十五条",
+            "claim": "这一组选项同时缩短了一般审批期和特殊情况上限。"
+          }
+        ]
+      },
+      {
+        "id": "8945d51e-c37e-446a-9dce-8bcb6823c71f",
+        "text": "一般三个月内，特殊可延但最长六个月",
+        "rationale": "第二十五条规定三个月内审批，特殊情况下延长不得超过六个月。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第二十五条",
+            "claim": "第二十五条规定三个月内审批，特殊情况下延长不得超过六个月。"
+          }
+        ]
+      },
+      {
+        "id": "b04260fb-1214-4d6d-9f3b-6624d10b6209",
+        "text": "一般三个月内，特殊可延但最长十二个月",
+        "rationale": "一般期限正确，延长后的期限上限是六个月。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第二十五条",
+            "claim": "一般期限正确，延长后的期限上限是六个月。"
+          }
+        ]
+      },
+      {
+        "id": "295a1067-6925-4783-a6c1-63de58f9020a",
+        "text": "一般六个月内，特殊情况下可另行延长",
+        "rationale": "条文把六个月作为特殊情形的上限，把一般审批期定为三个月。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第二十五条",
+            "claim": "条文把六个月作为特殊情形的上限，把一般审批期定为三个月。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "8945d51e-c37e-446a-9dce-8bcb6823c71f"
+    ],
+    "explanation": "这一期限适用于接收预备党员决议的审批。一般为三个月，特殊情形的总上限为六个月。",
+    "distinction": "通常与特殊审批期限分别为三个月内和最长六个月。",
+    "evidence": [
+      {
+        "sourceId": "S35",
+        "location": "第二十五条",
+        "claim": "党委审批接收预备党员决议通常三个月内，特殊可延但最长六个月。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "8945d51e-c37e-446a-9dce-8bcb6823c71f"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "已核原文、条件和错误项；独立复审未完成。",
+        "digest": "ed0eede5fe616dc45e3e0f6bfbe3905372cbca6359ec2c754e87e08135a27cf7"
+      },
+      "independent": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "8945d51e-c37e-446a-9dce-8bcb6823c71f"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "第二十五条。通常与特殊审批期限分别为三个月内和最长六个月。",
+        "digest": "ed0eede5fe616dc45e3e0f6bfbe3905372cbca6359ec2c754e87e08135a27cf7"
+      }
+    }
+  },
+  {
+    "id": "5fd69aaf-29b9-4376-b963-c8d9aa59773a",
+    "state": "draft",
+    "topicId": "t10",
+    "knowledgePointId": "44fd7c1f-7544-4e9b-9ff9-e62ee5e9bf93",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "某发展对象预审合格日为 6 月 2 日，党支部党员大会于 6 月 18 日通过接收决议，上级党委于 7 月 8 日批准，党支部于 7 月 10 日宣布。按 2026 年修订的细则，预备期从何日开始？",
+    "scopeNote": "2026年5月11日起施行的《中国共产党发展党员工作细则》",
+    "difficulty": "intermediate",
+    "taskType": "application",
+    "difficultyReason": "按给定条件推断归属与适用规则。",
+    "emotionOnly": false,
+    "emotionReason": "选项均为相近时限、法定环节、权限范围或制度选项，需掌握条文才能作答。",
+    "orderLocked": true,
+    "options": [
+      {
+        "id": "0f390969-3b56-462d-b0e3-3581b0423234",
+        "text": "6 月 2 日",
+        "rationale": "预审合格属于接收程序前置环节，不是预备期起算事件。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第三十一条第一款",
+            "claim": "预审合格属于接收程序前置环节，不是预备期起算事件。"
+          }
+        ]
+      },
+      {
+        "id": "d5d171d0-1bca-4a45-a1c7-9c946e81c4c2",
+        "text": "6 月 18 日",
+        "rationale": "党支部党员大会通过其为预备党员之日就是条文规定的起算日。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第三十一条第一款",
+            "claim": "党支部党员大会通过其为预备党员之日就是条文规定的起算日。"
+          }
+        ]
+      },
+      {
+        "id": "d96e4284-9550-4d96-bcd6-9a380c009148",
+        "text": "7 月 8 日",
+        "rationale": "党委批准是必要审批环节，第三十一条另行规定了预备期的起算事件。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第三十一条第一款",
+            "claim": "党委批准是必要审批环节，第三十一条另行规定了预备期的起算事件。"
+          }
+        ]
+      },
+      {
+        "id": "204d06aa-25b6-4bf1-b3de-8c31138eee0c",
+        "text": "7 月 10 日",
+        "rationale": "党支部宣布系批准后的告知步骤，与起算事件不一致。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第三十一条第一款",
+            "claim": "党支部宣布系批准后的告知步骤，与起算事件不一致。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "d5d171d0-1bca-4a45-a1c7-9c946e81c4c2"
+    ],
+    "explanation": "第三十一条把党支部党员大会通过之日定为起点。把同一流程中的预审、支部通过、党委审批和结果宣布按各自作用区分。",
+    "distinction": "题目事实清楚，日期选项应按时间自然顺序排列并重新核对答案映射。",
+    "evidence": [
+      {
+        "sourceId": "S35",
+        "location": "第三十一条第一款",
+        "claim": "预备期从党支部党员大会通过其为预备党员之日开始。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "d5d171d0-1bca-4a45-a1c7-9c946e81c4c2"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "依据原文修改被退修问题，重新核对正确项与逐项解析。",
+        "digest": "81495989419e5b85f4c83a20e8f012ee75a84efff495abe130e4ac78bb7564cd"
+      }
+    }
+  },
+  {
+    "id": "db70c103-de93-4708-9f88-2c7029f418e5",
+    "state": "draft",
+    "topicId": "t10",
+    "knowledgePointId": "8e1b80cc-c811-4a5c-b92f-f1a86460dd1e",
+    "relatedKnowledgePointIds": [],
+    "type": "multiple",
+    "stem": "对于预备期已满的转入预备党员，基层党组织认为有必要推迟讨论其转正。根据 2026 年修订细则第三十一条、第三十五条，哪些表述正确？",
+    "scopeNote": "2026年5月11日起施行的《中国共产党发展党员工作细则》",
+    "difficulty": "intermediate",
+    "taskType": "application",
+    "difficultyReason": "按给定条件推断归属与适用规则。",
+    "emotionOnly": false,
+    "emotionReason": "选项均为相近时限、法定环节、权限范围或制度选项，需掌握条文才能作答。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "819bae0a-68bf-484f-97c7-f625a77141c6",
+        "text": "推迟讨论的时间最长为三个月",
+        "rationale": "第三十五条给出的讨论推迟上限为六个月。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第三十五条",
+            "claim": "第三十五条给出的讨论推迟上限为六个月。"
+          }
+        ]
+      },
+      {
+        "id": "6afa21ce-c3e8-4000-82f5-8a32d7782f0c",
+        "text": "推迟讨论的时间不能超过六个月",
+        "rationale": "这一上限适用于转入预备党员且基层组织认为有必要推迟讨论的情形。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第三十五条",
+            "claim": "这一上限适用于转入预备党员且基层组织认为有必要推迟讨论的情形。"
+          }
+        ]
+      },
+      {
+        "id": "46014094-00cc-4c3f-87cb-b66ac057662b",
+        "text": "如获转正，转正时间从其预备期满之日计算",
+        "rationale": "第三十五条明确回溯到预备期满日。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第三十五条",
+            "claim": "第三十五条明确回溯到预备期满日。"
+          }
+        ]
+      },
+      {
+        "id": "0de16bc3-ec52-4e18-a50a-1a1480567dc6",
+        "text": "推迟讨论与因需要继续考察教育而延长预备期，在细则中分别规定",
+        "rationale": "第三十五条是转入预备党员到期后的讨论推迟；第三十一条另有延长预备期的规定。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第三十一条第二款、第三十五条",
+            "claim": "第三十五条是转入预备党员到期后的讨论推迟；第三十一条另有延长预备期的规定。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "6afa21ce-c3e8-4000-82f5-8a32d7782f0c",
+      "46014094-00cc-4c3f-87cb-b66ac057662b",
+      "0de16bc3-ec52-4e18-a50a-1a1480567dc6"
+    ],
+    "explanation": "这一规则适用于转入预备党员预备期满后的讨论延期。条文分别规定延迟讨论的上限和获准转正的生效日期。",
+    "distinction": "选项 D 需两个条款，而题干只问第三十五条，可能被理解为要求该条明确写出。须明确两条共同作为依据。",
+    "evidence": [
+      {
+        "sourceId": "S35",
+        "location": "第三十五条",
+        "claim": "转入预备党员可推迟讨论转正不超过六个月，获转正的日期从原预备期满之日计算。"
+      },
+      {
+        "sourceId": "S35",
+        "location": "第三十一条第二款、第三十五条",
+        "claim": "延长预备期与转入预备党员期满后推迟讨论分别规定。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "6afa21ce-c3e8-4000-82f5-8a32d7782f0c",
+          "46014094-00cc-4c3f-87cb-b66ac057662b",
+          "0de16bc3-ec52-4e18-a50a-1a1480567dc6"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "依据原文修改被退修问题，重新核对正确项与逐项解析。",
+        "digest": "2147d4cb3211d2b0ef59846480e37b9511e408a2f92c22a9812e93f4c29058da"
+      }
+    }
+  },
+  {
+    "id": "4207f86f-1f92-42de-9bcf-2e41e66e77f6",
+    "state": "ready",
+    "topicId": "t10",
+    "knowledgePointId": "55fd8a05-d1ad-410f-bd64-cf2b38254753",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "根据 2026 年修订的细则，《中国共产党入党志愿书》的式样制定与印制职责，哪一组对应关系准确？",
+    "scopeNote": "2026年5月11日起施行的《中国共产党发展党员工作细则》",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "需要区分同一资料中的相近概念、权限或时限。",
+    "emotionOnly": false,
+    "emotionReason": "选项均为相近时限、法定环节、权限范围或制度选项，需掌握条文才能作答。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "4e5026ba-c405-48c1-883a-b55f13423846",
+        "text": "中央组织部制定，县级党委组织部门按式样统一印制",
+        "rationale": "式样制定主体正确，统一印制主体应是省级党委组织部门。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第四十二条第一款",
+            "claim": "式样制定主体正确，统一印制主体应是省级党委组织部门。"
+          }
+        ]
+      },
+      {
+        "id": "c496cfea-c08c-4d9d-811f-ce371f25f933",
+        "text": "省级党委组织部门制定，中央组织部统一印制",
+        "rationale": "这一组选项把两者职责方向对调。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第四十二条第一款",
+            "claim": "这一组选项把两者职责方向对调。"
+          }
+        ]
+      },
+      {
+        "id": "dac31041-0ede-4280-8eee-b421cb64b567",
+        "text": "中央组织部制定，省级党委组织部门按式样统一印制",
+        "rationale": "中央组织部负责式样，省级党委组织部门负责按式样印制和管理。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第四十二条第一款",
+            "claim": "中央组织部负责式样，省级党委组织部门负责按式样印制和管理。"
+          }
+        ]
+      },
+      {
+        "id": "e84a0583-a47f-4ce6-9d56-ab0978ace612",
+        "text": "省级党委组织部门制定，基层党委按式样统一印制",
+        "rationale": "式样制定、统一印制分别由中央组织部和省级党委组织部门负责。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第四十二条第一款",
+            "claim": "式样制定、统一印制分别由中央组织部和省级党委组织部门负责。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "dac31041-0ede-4280-8eee-b421cb64b567"
+    ],
+    "explanation": "把式样制定与印制职责分开。中央组织部统一样式，省级党委组织部门按式样统一印制。",
+    "distinction": "式样制定与印制是不同职责。",
+    "evidence": [
+      {
+        "sourceId": "S35",
+        "location": "第四十二条第一款",
+        "claim": "新版细则规定入党志愿书式样由中央组织部制定、省级党委组织部门按式样印制。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "dac31041-0ede-4280-8eee-b421cb64b567"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "已核原文、条件和错误项；独立复审未完成。",
+        "digest": "cd1a2ef6712fb1128cfc1e86f0407ca2b08c122ffe467e4e3fc5f15f251ca71b"
+      },
+      "independent": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "dac31041-0ede-4280-8eee-b421cb64b567"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "第四十二条第一款。式样制定与印制是不同职责。",
+        "digest": "cd1a2ef6712fb1128cfc1e86f0407ca2b08c122ffe467e4e3fc5f15f251ca71b"
+      }
+    }
+  },
+  {
+    "id": "119e23fd-cceb-4d81-963a-66b3e4828292",
+    "state": "ready",
+    "topicId": "t10",
+    "knowledgePointId": "b1ac8b32-1661-439a-b7aa-45fe1fc2833d",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "依据重庆大学第 53 期入党积极分子培训工作方案，各二级分党校制定培训计划时，该期入党积极分子培训的最低总学时为多少？",
+    "scopeNote": "重庆大学第53期入党积极分子培训工作方案",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "需要区分同一资料中的相近概念、权限或时限。",
+    "emotionOnly": false,
+    "emotionReason": "选项均为相近时限、法定环节、权限范围或制度选项，需掌握条文才能作答。",
+    "orderLocked": true,
+    "options": [
+      {
+        "id": "f5a88e43-b0ff-4cf0-8378-5307b8d40eb6",
+        "text": "不少于 16 学时",
+        "rationale": "该方案第七节把最低总学时定为 24 学时。",
+        "evidence": [
+          {
+            "sourceId": "C06",
+            "location": "第七节第 1 项（制定培训计划）",
+            "claim": "该方案第七节把最低总学时定为 24 学时。"
+          }
+        ]
+      },
+      {
+        "id": "6cd4e831-2c8b-464d-9004-8c2b862e5576",
+        "text": "不少于 20 学时",
+        "rationale": "该方案的总培训底线是 24 学时。",
+        "evidence": [
+          {
+            "sourceId": "C06",
+            "location": "第七节第 1 项（制定培训计划）",
+            "claim": "该方案的总培训底线是 24 学时。"
+          }
+        ]
+      },
+      {
+        "id": "3af2ffdb-42ac-405c-84e3-6b90bac26d88",
+        "text": "不少于 24 学时",
+        "rationale": "这是学校第 53 期方案对该期入党积极分子培训的学时规定。",
+        "evidence": [
+          {
+            "sourceId": "C06",
+            "location": "第七节第 1 项（制定培训计划）",
+            "claim": "这是学校第 53 期方案对该期入党积极分子培训的学时规定。"
+          }
+        ]
+      },
+      {
+        "id": "e9d3b1c9-6fef-45a3-8993-442e44c12306",
+        "text": "不少于 28 学时",
+        "rationale": "学校该期方案规定的最低值为 24 学时，高于下限可以开展但不可当作最低要求。",
+        "evidence": [
+          {
+            "sourceId": "C06",
+            "location": "第七节第 1 项（制定培训计划）",
+            "claim": "学校该期方案规定的最低值为 24 学时，高于下限可以开展但不可当作最低要求。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "3af2ffdb-42ac-405c-84e3-6b90bac26d88"
+    ],
+    "explanation": "此题考查特定学校和届期的培训计划。第 53 期方案要求入党积极分子培训不少于 24 学时。",
+    "distinction": "Chrome 直接取得学校方案正文，24学时为第53期校内积极分子培训安排。",
+    "evidence": [
+      {
+        "sourceId": "C06",
+        "location": "第七节第 1 项（制定培训计划）",
+        "claim": "重庆大学第53期工作方案规定入党积极分子培训不少于24学时。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "3af2ffdb-42ac-405c-84e3-6b90bac26d88"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "已核原文、条件和错误项；独立复审未完成。",
+        "digest": "b8e6f78a651f99d3a7be14cd7c9cc814da784ca03c7c66138ca0a5070ce696a9"
+      },
+      "independent": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "3af2ffdb-42ac-405c-84e3-6b90bac26d88"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "第七节第1项。Chrome 直接取得学校方案正文，24学时为第53期校内积极分子培训安排。",
+        "digest": "b8e6f78a651f99d3a7be14cd7c9cc814da784ca03c7c66138ca0a5070ce696a9"
+      }
+    }
+  },
+  {
+    "id": "df723303-6beb-410d-adc9-1346139dda23",
+    "state": "ready",
+    "topicId": "t07",
+    "knowledgePointId": "62d1585c-e43f-4275-b1bd-d6047d4208b9",
+    "relatedKnowledgePointIds": [],
+    "type": "multiple",
+    "stem": "一名预备党员参加所在支部的党员大会。依据二十大通过的现行党章，以下哪些权利不能以预备党员身份行使？",
+    "scopeNote": "二十大部分修改、2022年10月22日通过的《中国共产党章程》",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "根据题干限定的组织层级、法定职权和适用条件作比较。",
+    "emotionOnly": false,
+    "emotionReason": "选项使用同层级组织、数值或程序概念，据条文判定。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "af640620-a27e-4c13-a47a-1542bcab691c",
+        "text": "表决权",
+        "rationale": "表决权属于第七条明确排除的权利。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第七条第二款、第四条第四项",
+            "claim": "表决权属于第七条明确排除的权利。"
+          }
+        ]
+      },
+      {
+        "id": "7a09750e-ea1b-4066-93fa-c3b0772ca763",
+        "text": "批评和检举党内的违法乱纪行为",
+        "rationale": "第四条赋予党员有根据地批评、揭发和检举的权利，第七条的例外不包含它。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第七条第二款、第四条第四项",
+            "claim": "第四条赋予党员有根据地批评、揭发和检举的权利，第七条的例外不包含它。"
+          }
+        ]
+      },
+      {
+        "id": "c9a6b403-0a0c-4a23-bb02-8fc5dbe4928e",
+        "text": "被选举权",
+        "rationale": "被选举权属于第七条明确排除的权利。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第七条第二款、第四条第四项",
+            "claim": "被选举权属于第七条明确排除的权利。"
+          }
+        ]
+      },
+      {
+        "id": "8167c762-0a30-4131-afbd-9e8dd95027ab",
+        "text": "选举权",
+        "rationale": "选举权属于第七条明确排除的权利。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第七条第二款、第四条第四项",
+            "claim": "选举权属于第七条明确排除的权利。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "af640620-a27e-4c13-a47a-1542bcab691c",
+      "c9a6b403-0a0c-4a23-bb02-8fc5dbe4928e",
+      "8167c762-0a30-4131-afbd-9e8dd95027ab"
+    ],
+    "explanation": "第七条保留预备党员的其他党员权利，表决权、选举权和被选举权单列为例外。",
+    "distinction": "第七条保留预备党员的其他党员权利，表决权、选举权和被选举权单列为例外。",
+    "evidence": [
+      {
+        "sourceId": "S18",
+        "location": "第七条第二款、第四条第四项",
+        "claim": "第七条保留预备党员的其他党员权利，表决权、选举权和被选举权单列为例外。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "af640620-a27e-4c13-a47a-1542bcab691c",
+          "c9a6b403-0a0c-4a23-bb02-8fc5dbe4928e",
+          "8167c762-0a30-4131-afbd-9e8dd95027ab"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "据指定党章条文核对全部选项和解析。",
+        "digest": "a31b7984f2252a4af42e3ed678023d338f06f104b693c93c0a101096d822c721"
+      },
+      "independent": {
+        "reviewer": "Codex platform",
+        "date": "2026-11-23",
+        "choice": [
+          "af640620-a27e-4c13-a47a-1542bcab691c",
+          "c9a6b403-0a0c-4a23-bb02-8fc5dbe4928e",
+          "8167c762-0a30-4131-afbd-9e8dd95027ab"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "第七条排除表决、选举和被选举三项权利。B属于仍可行使的党员权利，批评须有根据，检举须按第四条规定向党负责地提出。四项可依据权限辨析。",
+        "digest": "a31b7984f2252a4af42e3ed678023d338f06f104b693c93c0a101096d822c721"
+      }
+    }
+  },
+  {
+    "id": "625fd245-2770-4432-be8e-a9c53555c8af",
+    "state": "ready",
+    "topicId": "t07",
+    "knowledgePointId": "2e4cca1f-985a-4c71-9375-e8b1102d2b8b",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "依据现行党章，某党员主动提出退党，支部大会已讨论其申请。与无正当理由连续六个月不交党费而自行脱党的情形相比，上报程序有何区别？",
+    "scopeNote": "二十大部分修改、2022年10月22日通过的《中国共产党章程》",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "根据题干限定的组织层级、法定职权和适用条件作比较。",
+    "emotionOnly": false,
+    "emotionReason": "选项使用同层级组织、数值或程序概念，据条文判定。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "b99e6d25-8460-4524-a73e-b3e10368b7fb",
+        "text": "主动要求退党报备案，自行脱党除名报批准",
+        "rationale": "第一款要求主动退党除名后报备案，第三款要求自行脱党的除名决定报批准。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第九条第一款、第三款",
+            "claim": "第一款要求主动退党除名后报备案，第三款要求自行脱党的除名决定报批准。"
+          }
+        ]
+      },
+      {
+        "id": "646ea714-33e6-4815-b1ec-4def81bdd73c",
+        "text": "主动要求退党报批准，自行脱党除名报备案",
+        "rationale": "两个环节的备案、批准方向对调。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第九条第一款、第三款",
+            "claim": "两个环节的备案、批准方向对调。"
+          }
+        ]
+      },
+      {
+        "id": "9aa63ebb-5564-4b78-9fe7-45879d8dfe08",
+        "text": "两种情形都由上级党组织审批",
+        "rationale": "第三款的审批要求不能用于第一款主动退党情形。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第九条第一款、第三款",
+            "claim": "第三款的审批要求不能用于第一款主动退党情形。"
+          }
+        ]
+      },
+      {
+        "id": "40c700fb-0d79-4cb0-b25b-734c62e16f64",
+        "text": "两种情形都只须报上级党组织备案",
+        "rationale": "第三款的自行脱党除名决定须报上级批准。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第九条第一款、第三款",
+            "claim": "第三款的自行脱党除名决定须报上级批准。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "b99e6d25-8460-4524-a73e-b3e10368b7fb"
+    ],
+    "explanation": "主动请求退党和法定情形下自行脱党的支部处置都涉及除名，分别对应备案和批准。",
+    "distinction": "主动请求退党和法定情形下自行脱党的支部处置都涉及除名，分别对应备案和批准。",
+    "evidence": [
+      {
+        "sourceId": "S18",
+        "location": "第九条第一款、第三款",
+        "claim": "主动请求退党和法定情形下自行脱党的支部处置都涉及除名，分别对应备案和批准。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "b99e6d25-8460-4524-a73e-b3e10368b7fb"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "据指定党章条文核对全部选项和解析。",
+        "digest": "16cd760e24fdc8888efbbc20d2af5122b94d7770db0e32f337993887b80ac542"
+      },
+      "independent": {
+        "reviewer": "Codex platform",
+        "date": "2026-11-23",
+        "choice": [
+          "b99e6d25-8460-4524-a73e-b3e10368b7fb"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "主动退党在支部大会讨论后宣布除名并报备案。符合自行脱党情形的由支部大会决定除名并报上级批准。B颠倒两者，C和D抹平了程序区别。",
+        "digest": "16cd760e24fdc8888efbbc20d2af5122b94d7770db0e32f337993887b80ac542"
+      }
+    }
+  },
+  {
+    "id": "1df01b49-89b3-46c0-a157-fafe1b3e6523",
+    "state": "ready",
+    "topicId": "t07",
+    "knowledgePointId": "a3399a0a-c7dc-4c46-9ecb-9a42aeda7ded",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "某地方党代表大会选举被发现违反党章。依据党章，在完成调查核实后，哪一层级决定选举无效，决定又须报谁审查批准？",
+    "scopeNote": "二十大部分修改、2022年10月22日通过的《中国共产党章程》",
+    "difficulty": "intermediate",
+    "taskType": "application",
+    "difficultyReason": "根据题干限定的组织层级、法定职权和适用条件作比较。",
+    "emotionOnly": false,
+    "emotionReason": "选项使用同层级组织、数值或程序概念，据条文判定。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "d1def082-edc9-477a-9bc6-1efa4cc1015f",
+        "text": "由该地方同级党委决定，报同级纪委批准",
+        "rationale": "调查后作出决定的是上一级党委，同级纪委不承担该审批。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第十一条第二款",
+            "claim": "调查后作出决定的是上一级党委，同级纪委不承担该审批。"
+          }
+        ]
+      },
+      {
+        "id": "a1f5ad06-c467-4025-8d28-b75ffd7e19a9",
+        "text": "由上一级党委决定，报再上一级党委批准",
+        "rationale": "上一级党委调查核实并决定无效，再报再上一级党委审查批准。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第十一条第二款",
+            "claim": "上一级党委调查核实并决定无效，再报再上一级党委审查批准。"
+          }
+        ]
+      },
+      {
+        "id": "da9aeb31-7d80-4873-b57b-d9ff2be0e22f",
+        "text": "由上一级纪委决定，报同级党委批准",
+        "rationale": "条文把决定权给上一级党委，机构层级不能替换为纪委。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第十一条第二款",
+            "claim": "条文把决定权给上一级党委，机构层级不能替换为纪委。"
+          }
+        ]
+      },
+      {
+        "id": "d2229194-9702-48d6-bc26-7cf74ef4cb4b",
+        "text": "由再上一级党委决定，通知上一级党委备案",
+        "rationale": "再上一级党委负责审查批准，上一级党委负责调查和决定。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第十一条第二款",
+            "claim": "再上一级党委负责审查批准，上一级党委负责调查和决定。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "a1f5ad06-c467-4025-8d28-b75ffd7e19a9"
+    ],
+    "explanation": "按两个上级层级区分作出决定与审查批准。上一级党委核实后决定，再上一级党委审查批准。",
+    "distinction": "按两个上级层级区分作出决定与审查批准。上一级党委核实后决定，再上一级党委审查批准。",
+    "evidence": [
+      {
+        "sourceId": "S18",
+        "location": "第十一条第二款",
+        "claim": "按两个上级层级区分作出决定与审查批准。上一级党委核实后决定，再上一级党委审查批准。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "a1f5ad06-c467-4025-8d28-b75ffd7e19a9"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "据指定党章条文核对全部选项和解析。",
+        "digest": "61b8d685f20e82f1b4d1f861116d835d485197763c6e6fd26f556cf6d33f5d49"
+      },
+      "independent": {
+        "reviewer": "Codex platform",
+        "date": "2026-11-23",
+        "choice": [
+          "a1f5ad06-c467-4025-8d28-b75ffd7e19a9"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "调查核实后由上一级党的委员会决定无效及相应措施，并由再上一级党的委员会审查批准。A与C错误引入纪委审批或决定，D颠倒决定和报批层级。",
+        "digest": "61b8d685f20e82f1b4d1f861116d835d485197763c6e6fd26f556cf6d33f5d49"
+      }
+    }
+  },
+  {
+    "id": "2199a3a6-5351-443d-b4ad-e4129d5e70d4",
+    "state": "ready",
+    "topicId": "t07",
+    "knowledgePointId": "0bf4c324-f856-486f-8430-94344831e4e5",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "某党组织就一个重要事项进行了讨论，支持与反对人数接近，事情不紧急，也没有需要立即上报裁决的特殊情况。按党章，下一步如何处理？",
+    "scopeNote": "二十大部分修改、2022年10月22日通过的《中国共产党章程》",
+    "difficulty": "intermediate",
+    "taskType": "application",
+    "difficultyReason": "根据题干限定的组织层级、法定职权和适用条件作比较。",
+    "emotionOnly": false,
+    "emotionReason": "选项使用同层级组织、数值或程序概念，据条文判定。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "6566f2e3-bf9b-4824-b854-2741fc883cf8",
+        "text": "由书记先作决定，会后向上级备案",
+        "rationale": "暂缓之后应进一步调查并重新表决，条文没有赋予书记代为作出决定的权力。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第十七条第一款",
+            "claim": "暂缓之后应进一步调查并重新表决，条文没有赋予书记代为作出决定的权力。"
+          }
+        ]
+      },
+      {
+        "id": "dfccf393-b057-46e7-9cda-b29c7ab0db6e",
+        "text": "按当前多数意见执行，会后再复核争议",
+        "rationale": "在人数接近且无需紧急决定时应暂缓，事后复核不能替代下次表决。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第十七条第一款",
+            "claim": "在人数接近且无需紧急决定时应暂缓，事后复核不能替代下次表决。"
+          }
+        ]
+      },
+      {
+        "id": "f91a34ac-90ab-4326-9a75-4671f9ddc175",
+        "text": "暂缓决定，进一步调查和交换意见，下次再表决",
+        "rationale": "此情形应暂缓、调查、交换意见，在下次会议再表决。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第十七条第一款",
+            "claim": "此情形应暂缓、调查、交换意见，在下次会议再表决。"
+          }
+        ]
+      },
+      {
+        "id": "8d31dd64-2a51-4e13-8789-2c6c45a6a83f",
+        "text": "由同级纪委复查争议并代为作出决议",
+        "rationale": "特殊时可请上级组织裁决，题干已排除，也不能直接交同级纪委代为决策。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第十七条第一款",
+            "claim": "特殊时可请上级组织裁决，题干已排除，也不能直接交同级纪委代为决策。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "f91a34ac-90ab-4326-9a75-4671f9ddc175"
+    ],
+    "explanation": "党组织决策中的人数接近情形有专门程序。题干排除了紧急和特殊情况，适用暂缓再议。",
+    "distinction": "党组织决策中的人数接近情形有专门程序。题干排除了紧急和特殊情况，适用暂缓再议。",
+    "evidence": [
+      {
+        "sourceId": "S18",
+        "location": "第十七条第一款",
+        "claim": "党组织决策中的人数接近情形有专门程序。题干排除了紧急和特殊情况，适用暂缓再议。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "f91a34ac-90ab-4326-9a75-4671f9ddc175"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "按第十七条重写干扰项并重新核对判定。",
+        "digest": "e2ab716db999655f978e00e58231ddc77e6f3bfc23a1c420e61133abd5113032"
+      },
+      "independent": {
+        "reviewer": "Codex baseline",
+        "date": "2026-11-23",
+        "choice": [
+          "f91a34ac-90ab-4326-9a75-4671f9ddc175"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "核对第十七条中双方人数接近时的处理程序。改写干扰项 B 后，题目仍唯一选 C，选项没有情绪线索。",
+        "digest": "e2ab716db999655f978e00e58231ddc77e6f3bfc23a1c420e61133abd5113032"
+      }
+    }
+  },
+  {
+    "id": "c2f10a34-0bc5-41e6-9d56-ee0b490df089",
+    "state": "ready",
+    "topicId": "t07",
+    "knowledgePointId": "4c129e0e-b0d9-4417-9f3c-61055df98672",
+    "relatedKnowledgePointIds": [],
+    "type": "multiple",
+    "stem": "依据党章，关于分别召开党的全国代表大会和党的地方代表大会，下列哪些做法符合规定？",
+    "scopeNote": "二十大部分修改、2022年10月22日通过的《中国共产党章程》",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "根据题干限定的组织层级、法定职权和适用条件作比较。",
+    "emotionOnly": false,
+    "emotionReason": "选项使用同层级组织、数值或程序概念，据条文判定。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "c0327a32-3fa5-42ce-b290-4a19f925ac47",
+        "text": "全国代表大会由中央委员会召集",
+        "rationale": "第十九条第一款，中央委员会召集全国代表大会。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第十九条第一、二款，第二十五条第二、三款",
+            "claim": "第十九条第一款，中央委员会召集全国代表大会。"
+          }
+        ]
+      },
+      {
+        "id": "77a440d9-815d-4b60-93d6-60d9c9ccedff",
+        "text": "地方代表大会由同级委员会召集",
+        "rationale": "第二十五条第二款，同级委员会召集地方代表大会。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第十九条第一、二款，第二十五条第二、三款",
+            "claim": "第二十五条第二款，同级委员会召集地方代表大会。"
+          }
+        ]
+      },
+      {
+        "id": "c5602a7f-9908-4451-88ec-b22d686b6a5f",
+        "text": "中央委员会决定全国代表大会代表名额及选举办法",
+        "rationale": "第十九条第二款，全国代表名额和选举办法由中央委员会决定。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第十九条第一、二款，第二十五条第二、三款",
+            "claim": "第十九条第二款，全国代表名额和选举办法由中央委员会决定。"
+          }
+        ]
+      },
+      {
+        "id": "674973c8-a03c-4f8f-84fa-184bf8632995",
+        "text": "地方党委决定地方代表大会代表名额后报同级纪委审核",
+        "rationale": "第二十五条第三款要求报上一级党委批准，审批机关不是同级纪委。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第十九条第一、二款，第二十五条第二、三款",
+            "claim": "第二十五条第三款要求报上一级党委批准，审批机关不是同级纪委。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "c0327a32-3fa5-42ce-b290-4a19f925ac47",
+      "77a440d9-815d-4b60-93d6-60d9c9ccedff",
+      "c5602a7f-9908-4451-88ec-b22d686b6a5f"
+    ],
+    "explanation": "全国和地方分别由中央委员会、同级委员会召集。地方代表名额和选举办法还需上一级党委批准。",
+    "distinction": "全国和地方分别由中央委员会、同级委员会召集。地方代表名额和选举办法还需上一级党委批准。",
+    "evidence": [
+      {
+        "sourceId": "S18",
+        "location": "第十九条第一、二款，第二十五条第二、三款",
+        "claim": "全国和地方分别由中央委员会、同级委员会召集。地方代表名额和选举办法还需上一级党委批准。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "c0327a32-3fa5-42ce-b290-4a19f925ac47",
+          "77a440d9-815d-4b60-93d6-60d9c9ccedff",
+          "c5602a7f-9908-4451-88ec-b22d686b6a5f"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "据指定党章条文核对全部选项和解析。",
+        "digest": "3718c0b4ddcd228b2503fe424280fdd84117531b727b96d3d4595e9987fc8464"
+      },
+      "independent": {
+        "reviewer": "Codex platform",
+        "date": "2026-11-23",
+        "choice": [
+          "c0327a32-3fa5-42ce-b290-4a19f925ac47",
+          "77a440d9-815d-4b60-93d6-60d9c9ccedff",
+          "c5602a7f-9908-4451-88ec-b22d686b6a5f"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "全国代表大会由中央委员会召集，代表名额和选举办法也由中央委员会决定。地方代表大会由同级委员会召集。地方代表名额与选举办法由同级委员会决定后报上一级委员会批准，D改成同级纪委审核。",
+        "digest": "3718c0b4ddcd228b2503fe424280fdd84117531b727b96d3d4595e9987fc8464"
+      }
+    }
+  },
+  {
+    "id": "53ee9644-969c-4a67-9525-f9cb1c1cd0b2",
+    "state": "ready",
+    "topicId": "t07",
+    "knowledgePointId": "7bd4eb31-fad9-49a2-b7a8-ba4fdf1d88b2",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "党的全国代表会议拟同时调整和增选中央委员、候补中央委员。依据党章，两个类别的名额上限应分别用哪个基数计算？",
+    "scopeNote": "二十大部分修改、2022年10月22日通过的《中国共产党章程》",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "根据题干限定的组织层级、法定职权和适用条件作比较。",
+    "emotionOnly": false,
+    "emotionReason": "选项使用同层级组织、数值或程序概念，据条文判定。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "128d0e37-c18f-4652-ab78-0d4ab4614dee",
+        "text": "现有中央委员和候补中央委员合计人数的四分之一",
+        "rationale": "比例应为五分之一，且两个类别分别核算。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第二十一条",
+            "claim": "比例应为五分之一，且两个类别分别核算。"
+          }
+        ]
+      },
+      {
+        "id": "4222c388-1d21-4742-8d14-70a351826708",
+        "text": "上届中央委员会全体会议实到人数的五分之一",
+        "rationale": "基数源于全国代表大会当选名单，与全体会议实到人数无关。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第二十一条",
+            "claim": "基数源于全国代表大会当选名单，与全体会议实到人数无关。"
+          }
+        ]
+      },
+      {
+        "id": "bebf7aa9-16be-4566-b300-b6d6e8cce7cc",
+        "text": "全国代表大会选出的两类委员合计人数的五分之一",
+        "rationale": "比例正确，两类人数合并则改变了两个上限。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第二十一条",
+            "claim": "比例正确，两类人数合并则改变了两个上限。"
+          }
+        ]
+      },
+      {
+        "id": "f0f115fd-faf7-436a-93e0-aee9acaade80",
+        "text": "全国代表大会选出的中央委员、候补中央委员各自人数的五分之一",
+        "rationale": "第二十一条用全国代表大会选出两类委员的各自总人数作为各自基数。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第二十一条",
+            "claim": "第二十一条用全国代表大会选出两类委员的各自总人数作为各自基数。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "f0f115fd-faf7-436a-93e0-aee9acaade80"
+    ],
+    "explanation": "计算前先区分中央委员和候补中央委员。两个类别的基数分别是全国代表大会选出的各自人数。",
+    "distinction": "计算前先区分中央委员和候补中央委员。两个类别的基数分别是全国代表大会选出的各自人数。",
+    "evidence": [
+      {
+        "sourceId": "S18",
+        "location": "第二十一条",
+        "claim": "计算前先区分中央委员和候补中央委员。两个类别的基数分别是全国代表大会选出的各自人数。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "f0f115fd-faf7-436a-93e0-aee9acaade80"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "据指定党章条文核对全部选项和解析。",
+        "digest": "e43da16ff7c52c51a3300e50cec4a955a52fc3136cc6cb1fa52ef43c9b909f93"
+      },
+      "independent": {
+        "reviewer": "Codex platform",
+        "date": "2026-11-23",
+        "choice": [
+          "f0f115fd-faf7-436a-93e0-aee9acaade80"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "两类名额分别以全国代表大会选出的对应类别总数计算五分之一。A把分母合并且比例错误，B挪用会议实到人数，C仍把两类人数合并。",
+        "digest": "e43da16ff7c52c51a3300e50cec4a955a52fc3136cc6cb1fa52ef43c9b909f93"
+      }
+    }
+  },
+  {
+    "id": "001c0b5f-5e46-4f81-b74c-034688efa29a",
+    "state": "ready",
+    "topicId": "t07",
+    "knowledgePointId": "0b152107-0bc7-4db7-a41b-f75fb0102c26",
+    "relatedKnowledgePointIds": [],
+    "type": "multiple",
+    "stem": "比较中央委员会与地方各级委员会的全体会议，依据党章，以下哪些说法成立？",
+    "scopeNote": "二十大部分修改、2022年10月22日通过的《中国共产党章程》",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "根据题干限定的组织层级、法定职权和适用条件作比较。",
+    "emotionOnly": false,
+    "emotionReason": "选项使用同层级组织、数值或程序概念，据条文判定。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "ab16bac0-e392-4533-a538-8fc70eaa97c0",
+        "text": "地方各级委员会全体会议每年至少召开两次",
+        "rationale": "第二十七条规定地方各级党委全会每年至少两次。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第二十二条中央全会段、第二十七条全体会议频次段",
+            "claim": "第二十七条规定地方各级党委全会每年至少两次。"
+          }
+        ]
+      },
+      {
+        "id": "63da44b7-aef1-4058-8033-9d98914ab475",
+        "text": "中央委员会全体会议由中央政治局召集",
+        "rationale": "第二十二条规定由中央政治局召集中央全会。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第二十二条中央全会段、第二十七条全体会议频次段",
+            "claim": "第二十二条规定由中央政治局召集中央全会。"
+          }
+        ]
+      },
+      {
+        "id": "3161a421-dad4-40c9-b10f-6aa91d29fef6",
+        "text": "中央委员会全体会议必须每半年至少召开一次",
+        "rationale": "第二十二条用每年至少一次作为下限，不能改成半年至少一次。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第二十二条中央全会段、第二十七条全体会议频次段",
+            "claim": "第二十二条用每年至少一次作为下限，不能改成半年至少一次。"
+          }
+        ]
+      },
+      {
+        "id": "fdbe5f4f-8071-4ae6-939e-dd14c1594780",
+        "text": "地方各级委员会全体会议每年召开一次即可满足党章要求",
+        "rationale": "地方全会一年一次低于党章规定的两次下限。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第二十二条中央全会段、第二十七条全体会议频次段",
+            "claim": "地方全会一年一次低于党章规定的两次下限。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "ab16bac0-e392-4533-a538-8fc70eaa97c0",
+      "63da44b7-aef1-4058-8033-9d98914ab475"
+    ],
+    "explanation": "按中央与地方分开核对。中央全会由中央政治局召集，中央一年至少一次，地方一年至少两次。",
+    "distinction": "按中央与地方分开核对。中央全会由中央政治局召集，中央一年至少一次，地方一年至少两次。",
+    "evidence": [
+      {
+        "sourceId": "S18",
+        "location": "第二十二条中央全会段、第二十七条全体会议频次段",
+        "claim": "按中央与地方分开核对。中央全会由中央政治局召集，中央一年至少一次，地方一年至少两次。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "ab16bac0-e392-4533-a538-8fc70eaa97c0",
+          "63da44b7-aef1-4058-8033-9d98914ab475"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "据指定党章条文核对全部选项和解析。",
+        "digest": "c320042109a0203290f7271974e957986f0706627caa080c7a58a7f49016f234"
+      },
+      "independent": {
+        "reviewer": "Codex platform",
+        "date": "2026-11-23",
+        "choice": [
+          "ab16bac0-e392-4533-a538-8fc70eaa97c0",
+          "63da44b7-aef1-4058-8033-9d98914ab475"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "地方各级委员会全体会议每年至少两次。中央委员会全体会议由中央政治局召集，每年至少一次。中央规则无C所述每半年要求，D低于地方门槛。",
+        "digest": "c320042109a0203290f7271974e957986f0706627caa080c7a58a7f49016f234"
+      }
+    }
+  },
+  {
+    "id": "e43e1e07-7a4b-4d2a-9d8c-23a44ad6d7d9",
+    "state": "ready",
+    "topicId": "t07",
+    "knowledgePointId": "b4d678f3-cad7-4793-9bd3-994df3359601",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "一所学校的某基层单位共有五名党员，其中正式党员二名、预备党员三名。就党章第三十条规定的人数条件，哪项判断正确？",
+    "scopeNote": "二十大部分修改、2022年10月22日通过的《中国共产党章程》",
+    "difficulty": "intermediate",
+    "taskType": "application",
+    "difficultyReason": "根据题干限定的组织层级、法定职权和适用条件作比较。",
+    "emotionOnly": false,
+    "emotionReason": "选项使用同层级组织、数值或程序概念，据条文判定。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "52c0c13e-405d-4ccd-8fde-f1c36ac2edf0",
+        "text": "该单位现有两名正式党员，尚未达到条文规定的三名正式党员门槛",
+        "rationale": "第三十条的人数条件是三名正式党员，题干数量不足。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第三十条第一款",
+            "claim": "第三十条的人数条件是三名正式党员，题干数量不足。"
+          }
+        ]
+      },
+      {
+        "id": "8082f534-67b6-42f5-89df-79ee2ee2c560",
+        "text": "党员总数已超过三名，满足条文的强制成立条件",
+        "rationale": "将正式和预备党员合计改变了条文的统计对象。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第三十条第一款",
+            "claim": "将正式和预备党员合计改变了条文的统计对象。"
+          }
+        ]
+      },
+      {
+        "id": "c0c2fd21-a5e8-4cb6-a3d6-e73f451e4a69",
+        "text": "预备党员与正式党员可合计计数，但须至少有三人来自同一党小组",
+        "rationale": "条文按基层单位正式党员人数计算，没有党小组归属要求。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第三十条第一款",
+            "claim": "条文按基层单位正式党员人数计算，没有党小组归属要求。"
+          }
+        ]
+      },
+      {
+        "id": "1b32f3c0-4b6d-4197-861f-7e5fe6e68f4b",
+        "text": "学校基层单位须有五名正式党员才适用这一条",
+        "rationale": "学校列在适用单位中，适用三名正式党员这一门槛。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第三十条第一款",
+            "claim": "学校列在适用单位中，适用三名正式党员这一门槛。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "52c0c13e-405d-4ccd-8fde-f1c36ac2edf0"
+    ],
+    "explanation": "第三十条针对列举的基层单位，以正式党员达到三人为适用门槛。题干中只有两名正式党员。",
+    "distinction": "第三十条针对列举的基层单位，以正式党员达到三人为适用门槛。题干中只有两名正式党员。",
+    "evidence": [
+      {
+        "sourceId": "S18",
+        "location": "第三十条第一款",
+        "claim": "第三十条针对列举的基层单位，以正式党员达到三人为适用门槛。题干中只有两名正式党员。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "52c0c13e-405d-4ccd-8fde-f1c36ac2edf0"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "据指定党章条文核对全部选项和解析。",
+        "digest": "f7cda5f11d9ef16148790344e7296d2354cf5860a606622bfc075b309929f0b4"
+      },
+      "independent": {
+        "reviewer": "Codex platform",
+        "date": "2026-11-23",
+        "choice": [
+          "52c0c13e-405d-4ccd-8fde-f1c36ac2edf0"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "只计正式党员，三人以上触发成立义务。B混入预备党员，C另设同一党小组条件，D改成五人。题干只问该人数条件，未对联合组建等其他情形作判断。",
+        "digest": "f7cda5f11d9ef16148790344e7296d2354cf5860a606622bfc075b309929f0b4"
+      }
+    }
+  },
+  {
+    "id": "f729dbe7-5987-4aef-a778-ad17a4a84155",
+    "state": "ready",
+    "topicId": "t07",
+    "knowledgePointId": "2405cce1-a223-40db-85d5-dec69d044433",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "某单位拟以党员代表大会选举党的基层组织委员会。依据党章，哪类委员会明确可以由党员代表大会选举产生？",
+    "scopeNote": "二十大部分修改、2022年10月22日通过的《中国共产党章程》",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "根据题干限定的组织层级、法定职权和适用条件作比较。",
+    "emotionOnly": false,
+    "emotionReason": "选项使用同层级组织、数值或程序概念，据条文判定。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "c9f7bd7e-09a2-4856-8b57-3fbf2afa49c6",
+        "text": "党的总支部委员会",
+        "rationale": "第三十条规定总支部委员会由党员大会选举。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第三十条第二款",
+            "claim": "第三十条规定总支部委员会由党员大会选举。"
+          }
+        ]
+      },
+      {
+        "id": "000fadbc-9fc0-482b-be7c-6b08c8b786c3",
+        "text": "党的基层委员会",
+        "rationale": "基层委员会可以由党员大会或代表大会选举产生。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第三十条第二款",
+            "claim": "基层委员会可以由党员大会或代表大会选举产生。"
+          }
+        ]
+      },
+      {
+        "id": "129cc7b7-ed25-45ee-a53e-4f2b534dd709",
+        "text": "党的支部委员会",
+        "rationale": "第三十条规定支部委员会由党员大会选举。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第三十条第二款",
+            "claim": "第三十条规定支部委员会由党员大会选举。"
+          }
+        ]
+      },
+      {
+        "id": "d9ef8c87-b414-4f62-aff3-af194e224f6c",
+        "text": "党的总支部委员会和支部委员会",
+        "rationale": "总支部委员会和支部委员会都适用党员大会这一选举路径。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第三十条第二款",
+            "claim": "总支部委员会和支部委员会都适用党员大会这一选举路径。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "000fadbc-9fc0-482b-be7c-6b08c8b786c3"
+    ],
+    "explanation": "基层委员会有党员大会或代表大会两种产生方式。总支部委员会和支部委员会由党员大会选举。",
+    "distinction": "基层委员会有党员大会或代表大会两种产生方式。总支部委员会和支部委员会由党员大会选举。",
+    "evidence": [
+      {
+        "sourceId": "S18",
+        "location": "第三十条第二款",
+        "claim": "基层委员会有党员大会或代表大会两种产生方式。总支部委员会和支部委员会由党员大会选举。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "000fadbc-9fc0-482b-be7c-6b08c8b786c3"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "据指定党章条文核对全部选项和解析。",
+        "digest": "b6f2bf9915c361cf0ce936955cc818b05408e915f4de9c2284ae48a9272b95a2"
+      },
+      "independent": {
+        "reviewer": "Codex platform",
+        "date": "2026-11-23",
+        "choice": [
+          "000fadbc-9fc0-482b-be7c-6b08c8b786c3"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "党的基层委员会可由党员大会或代表大会选举。总支部委员会和支部委员会均由党员大会选举，A、C、D错在以代表大会替代党员大会。",
+        "digest": "b6f2bf9915c361cf0ce936955cc818b05408e915f4de9c2284ae48a9272b95a2"
+      }
+    }
+  },
+  {
+    "id": "40ff890c-0ee6-4ff6-8639-70755753eb49",
+    "state": "ready",
+    "topicId": "t07",
+    "knowledgePointId": "0fb2ac4f-dded-410e-8705-287ebd9595fb",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "依据现行党章，某市的地方纪律检查委员会受哪两个机关领导？",
+    "scopeNote": "二十大部分修改、2022年10月22日通过的《中国共产党章程》",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "根据题干限定的组织层级、法定职权和适用条件作比较。",
+    "emotionOnly": false,
+    "emotionReason": "选项使用同层级组织、数值或程序概念，据条文判定。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "22133b84-e4f2-45cc-86dc-e4f4dee00d49",
+        "text": "该市同级党委和该市同级人大常委会",
+        "rationale": "同级党委正确，同级人大常委会不属于本条规定的另一个领导机关。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第四十五条第一款",
+            "claim": "同级党委正确，同级人大常委会不属于本条规定的另一个领导机关。"
+          }
+        ]
+      },
+      {
+        "id": "3a630401-c5d4-4ccd-b41d-c04069f6ee81",
+        "text": "上级党委和市政府党组",
+        "rationale": "两部分均改变了第四十五条规定的机关与层级。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第四十五条第一款",
+            "claim": "两部分均改变了第四十五条规定的机关与层级。"
+          }
+        ]
+      },
+      {
+        "id": "39ea7d72-ed1e-452e-89b0-b207afc5b3b5",
+        "text": "该市同级党委和上一级纪律检查委员会",
+        "rationale": "第四十五条明确规定地方纪委受同级党委和上级纪委双重领导。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第四十五条第一款",
+            "claim": "第四十五条明确规定地方纪委受同级党委和上级纪委双重领导。"
+          }
+        ]
+      },
+      {
+        "id": "0c63582a-741c-421b-8ed0-74a22f2d6df3",
+        "text": "该市同级政府党组和上一级纪律检查委员会",
+        "rationale": "上级纪委正确，同级方面应为同级党委。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第四十五条第一款",
+            "claim": "上级纪委正确，同级方面应为同级党委。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "39ea7d72-ed1e-452e-89b0-b207afc5b3b5"
+    ],
+    "explanation": "双重领导涉及同级党委和上级纪委，需同时判断机关类型与层级。",
+    "distinction": "双重领导涉及同级党委和上级纪委，需同时判断机关类型与层级。",
+    "evidence": [
+      {
+        "sourceId": "S18",
+        "location": "第四十五条第一款",
+        "claim": "双重领导涉及同级党委和上级纪委，需同时判断机关类型与层级。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "39ea7d72-ed1e-452e-89b0-b207afc5b3b5"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "据指定党章条文核对全部选项和解析。",
+        "digest": "471a2d3f3344ee14ec5bd04b56d139f62c0a67c865a3783a530547f74e0e36f0"
+      },
+      "independent": {
+        "reviewer": "Codex platform",
+        "date": "2026-11-23",
+        "choice": [
+          "39ea7d72-ed1e-452e-89b0-b207afc5b3b5"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "地方纪律检查委员会接受同级党的委员会和上级纪律检查委员会双重领导。A错用人大常委会，B错用上级党委及政府党组，D错用同级政府党组。",
+        "digest": "471a2d3f3344ee14ec5bd04b56d139f62c0a67c865a3783a530547f74e0e36f0"
+      }
+    }
+  },
+  {
+    "id": "afcaf6c6-d7d0-4ffb-b5f5-198709e37d55",
+    "state": "ready",
+    "topicId": "t07",
+    "knowledgePointId": "38bfe81b-6da9-453c-8776-9946c1b95993",
+    "relatedKnowledgePointIds": [],
+    "type": "multiple",
+    "stem": "依据现行党章，下列哪些表述正确说明党组与批准成立该党组的党组织之间的关系？",
+    "scopeNote": "二十大部分修改、2022年10月22日通过的《中国共产党章程》",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "根据题干限定的组织层级、法定职权和适用条件作比较。",
+    "emotionOnly": false,
+    "emotionReason": "选项使用同层级组织、数值或程序概念，据条文判定。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "e3092db4-682b-419b-8147-28a4d0c7a830",
+        "text": "党组成员由本单位职工代表大会选举",
+        "rationale": "第四十九条将党组成员决定权交给批准成立党组的党组织。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第四十九条第一、二款",
+            "claim": "第四十九条将党组成员决定权交给批准成立党组的党组织。"
+          }
+        ]
+      },
+      {
+        "id": "b33d5bb8-fdc9-441d-be2d-5e854142e64f",
+        "text": "党组成员由批准成立党组的党组织决定",
+        "rationale": "第四十九条第一款明确党组成员的决定机关。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第四十九条第一、二款",
+            "claim": "第四十九条第一款明确党组成员的决定机关。"
+          }
+        ]
+      },
+      {
+        "id": "b1673631-d2b3-44f0-b54d-560e8d54f9e0",
+        "text": "党组须服从批准它成立的党组织领导",
+        "rationale": "第四十九条第二款明确该党组的领导关系。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第四十九条第一、二款",
+            "claim": "第四十九条第二款明确该党组的领导关系。"
+          }
+        ]
+      },
+      {
+        "id": "6c88471e-51ea-4aa6-9d49-9e9836c9d090",
+        "text": "党组书记必须由本单位常务会议选举",
+        "rationale": "第四十九条规定党组设书记，必要时设副书记，没有规定由本单位常务会议选举书记。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第四十九条第一、二款",
+            "claim": "第四十九条规定党组设书记，必要时设副书记，没有规定由本单位常务会议选举书记。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "b33d5bb8-fdc9-441d-be2d-5e854142e64f",
+      "b1673631-d2b3-44f0-b54d-560e8d54f9e0"
+    ],
+    "explanation": "先辨明批准成立党组的党组织。它决定党组成员，也领导该党组。",
+    "distinction": "先辨明批准成立党组的党组织。它决定党组成员，也领导该党组。",
+    "evidence": [
+      {
+        "sourceId": "S18",
+        "location": "第四十九条第一、二款",
+        "claim": "先辨明批准成立党组的党组织。它决定党组成员，也领导该党组。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "b33d5bb8-fdc9-441d-be2d-5e854142e64f",
+          "b1673631-d2b3-44f0-b54d-560e8d54f9e0"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "据指定党章条文核对全部选项和解析。",
+        "digest": "860a7089b552d10261d731f55c1fe5c6cbea31adc03d92a900391706e800501e"
+      },
+      "independent": {
+        "reviewer": "Codex platform",
+        "date": "2026-11-23",
+        "choice": [
+          "b33d5bb8-fdc9-441d-be2d-5e854142e64f",
+          "b1673631-d2b3-44f0-b54d-560e8d54f9e0"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "党组成员由批准成立党组的党组织决定，党组服从其领导。职工代表大会无A所称产生党组成员的职权，D增设本单位常务会议选举书记的机制。",
+        "digest": "860a7089b552d10261d731f55c1fe5c6cbea31adc03d92a900391706e800501e"
+      }
+    }
+  },
+  {
+    "id": "3368d2f1-5566-4763-9df2-995ae2fc22f5",
+    "state": "ready",
+    "topicId": "t07",
+    "knowledgePointId": "a6459787-5da1-4f89-ab1a-4111d41802e1",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "某县团委书记是共产党员。依据现行党章，仅就这一身份及任职层级而言，他可列席哪两类同级党的会议？",
+    "scopeNote": "二十大部分修改、2022年10月22日通过的《中国共产党章程》",
+    "difficulty": "intermediate",
+    "taskType": "application",
+    "difficultyReason": "根据题干限定的组织层级、法定职权和适用条件作比较。",
+    "emotionOnly": false,
+    "emotionReason": "选项使用同层级组织、数值或程序概念，据条文判定。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "1dd4a2bb-71a6-4a16-b1fe-ba40cb175130",
+        "text": "同级党委和同级纪委的全体会议",
+        "rationale": "同级党委符合，纪委全会不属于该款列举的另一类会议。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第五十二条末段",
+            "claim": "同级党委符合，纪委全会不属于该款列举的另一类会议。"
+          }
+        ]
+      },
+      {
+        "id": "56d9e88f-8c10-402d-b44d-40377235101d",
+        "text": "同级党委和同级党员代表大会",
+        "rationale": "同级党委符合，另一类是党委常委会会议。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第五十二条末段",
+            "claim": "同级党委符合，另一类是党委常委会会议。"
+          }
+        ]
+      },
+      {
+        "id": "1d05ee11-7d60-425a-be41-9b8462da951f",
+        "text": "同级党委常委会和同级政府常务会",
+        "rationale": "党委常委会符合，同级政府常务会议未被该条纳入。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第五十二条末段",
+            "claim": "党委常委会符合，同级政府常务会议未被该条纳入。"
+          }
+        ]
+      },
+      {
+        "id": "8dd89f14-070b-4afd-950a-82392b053403",
+        "text": "同级党委和同级党委常委会会议",
+        "rationale": "第五十二条将同级党委会议和常委会会议并列为可列席范围。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "第五十二条末段",
+            "claim": "第五十二条将同级党委会议和常委会会议并列为可列席范围。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "8dd89f14-070b-4afd-950a-82392b053403"
+    ],
+    "explanation": "县级团委书记属于党章所列层级，且符合党员条件。条文给出的范围是同级党委及其常委会会议。",
+    "distinction": "县级团委书记属于党章所列层级，且符合党员条件。条文给出的范围是同级党委及其常委会会议。",
+    "evidence": [
+      {
+        "sourceId": "S18",
+        "location": "第五十二条末段",
+        "claim": "县级团委书记属于党章所列层级，且符合党员条件。条文给出的范围是同级党委及其常委会会议。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "8dd89f14-070b-4afd-950a-82392b053403"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "据指定党章条文核对全部选项和解析。",
+        "digest": "f62557799bfa54610bd2ec934830ad4fdef30a057587761b3957529524b6cfd5"
+      },
+      "independent": {
+        "reviewer": "Codex platform",
+        "date": "2026-11-23",
+        "choice": [
+          "8dd89f14-070b-4afd-950a-82392b053403"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "县级团委书记为党员时可列席同级党委及党委常委会会议。A、B、C分别代入纪委全会、党员代表大会或政府常务会，均超出这项列席权。",
+        "digest": "f62557799bfa54610bd2ec934830ad4fdef30a057587761b3957529524b6cfd5"
+      }
+    }
+  },
+  {
+    "id": "9dcf4368-c69f-42a5-a3c8-3f5151399b8f",
+    "state": "ready",
+    "topicId": "t14",
+    "knowledgePointId": "b0aa0240-4ef0-4188-81a4-f6da3a61fc81",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "在二十届四中全会公报关于听取工作报告的同一段中，哪份文件被记载为全会审议通过？",
+    "scopeNote": "二十届四中全会公报及“十五五”《建议》、说明",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "区分相近文献、阶段、政策任务或法定时限与主体。",
+    "emotionOnly": false,
+    "emotionReason": "各选项为相近的正式文件、时点、章节归属或法规要求，需要核对事实或原文结构。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "837399c5-4c6a-4611-b985-4fd6c6d70f20",
+        "text": "《中华人民共和国国民经济和社会发展第十五个五年规划纲要》",
+        "rationale": "公报在本段记载审议通过的是中共中央制定规划的建议。国务院编制的正式规划纲要是另一份文件。",
+        "evidence": [
+          {
+            "sourceId": "S42",
+            "location": "公报关于听取工作报告、审议规划建议的议程段",
+            "claim": "公报在本段记载审议通过的是中共中央制定规划的建议。国务院编制的正式规划纲要是另一份文件。"
+          }
+        ]
+      },
+      {
+        "id": "3775fb71-1e27-424b-8cb2-42f0b00dd297",
+        "text": "《中共中央关于制定国民经济和社会发展第十五个五年规划的建议》",
+        "rationale": "公报直接记载全会审议通过这一份规划建议。",
+        "evidence": [
+          {
+            "sourceId": "S42",
+            "location": "公报关于听取工作报告、审议规划建议的议程段",
+            "claim": "公报直接记载全会审议通过这一份规划建议。"
+          }
+        ]
+      },
+      {
+        "id": "986571d3-74d3-491b-9b1f-573a8e7f7da8",
+        "text": "《中共中央关于持之以恒推进全面从严治党若干重大问题的决定》",
+        "rationale": "题干指定的是四中全会公报中的议程；该议程通过规划建议。",
+        "evidence": [
+          {
+            "sourceId": "S42",
+            "location": "公报关于听取工作报告、审议规划建议的议程段",
+            "claim": "题干指定的是四中全会公报中的议程；该议程通过规划建议。"
+          }
+        ]
+      },
+      {
+        "id": "d514c66a-1eb7-4484-8397-dccba8fd7391",
+        "text": "《关于〈中共中央关于制定国民经济和社会发展第十五个五年规划的建议〉的说明》",
+        "rationale": "公报同段记录习近平就建议讨论稿作说明，会议审议通过的文件是建议。",
+        "evidence": [
+          {
+            "sourceId": "S42",
+            "location": "公报关于听取工作报告、审议规划建议的议程段",
+            "claim": "公报同段记录习近平就建议讨论稿作说明，会议审议通过的文件是建议。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "3775fb71-1e27-424b-8cb2-42f0b00dd297"
+    ],
+    "explanation": "文件名称和程序用语共同确定答案。公报将全会审议通过的建议与向全会所作的说明分别记载。",
+    "distinction": "该段明确通过《建议》。A为后来据《建议》编制的规划纲要，C是五中全会文件，D是起草说明。四项都是相关正式文献，须区分通过文件和口头说明。",
+    "evidence": [
+      {
+        "sourceId": "S42",
+        "location": "公报关于听取工作报告、审议规划建议的议程段",
+        "claim": "四中全会听取工作报告、审议通过“十五五”规划《建议》，并听取讨论稿说明。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "3775fb71-1e27-424b-8cb2-42f0b00dd297"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "初审逐项定位官方正文；待独立解题、语义去重和专题覆盖审计。",
+        "digest": "1e2d6432794f3bef1d7e8d44d64e3462b22eab117c34a955a4d7eaf796d05182"
+      },
+      "independent": {
+        "reviewer": "Codex platform",
+        "date": "2026-11-23",
+        "choice": [
+          "3775fb71-1e27-424b-8cb2-42f0b00dd297"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "该段明确通过《建议》。A为后来据《建议》编制的规划纲要，C是五中全会文件，D是起草说明。四项都是相关正式文献，须区分通过文件和口头说明。",
+        "digest": "1e2d6432794f3bef1d7e8d44d64e3462b22eab117c34a955a4d7eaf796d05182"
+      }
+    }
+  },
+  {
+    "id": "175abc7d-0559-4739-b46f-a05727d6fecd",
+    "state": "ready",
+    "topicId": "t14",
+    "knowledgePointId": "4ad11f93-bd53-4034-96c9-ad1e31fdf728",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "在二十届四中全会《建议》的说明中，“十四五”“十五五”和 2035 年按怎样的阶段关系表述？",
+    "scopeNote": "二十届四中全会公报及“十五五”《建议》、说明",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "区分相近文献、阶段、政策任务或法定时限与主体。",
+    "emotionOnly": false,
+    "emotionReason": "各选项为相近的正式文件、时点、章节归属或法规要求，需要核对事实或原文结构。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "d9a25432-0db1-4446-be40-15593d47dc2c",
+        "text": "“十四五”已打下基础，“十五五”夯实基础并全面发力，到 2035 年基本实现社会主义现代化",
+        "rationale": "说明依次区分第一个五年的良好开局、第二个五年的关键发力和2035年的目标。",
+        "evidence": [
+          {
+            "sourceId": "S44",
+            "location": "第三部分第一个重点问题，关于“十五五”时期的重要地位",
+            "claim": "说明依次区分第一个五年的良好开局、第二个五年的关键发力和2035年的目标。"
+          }
+        ]
+      },
+      {
+        "id": "ffed4bb4-6c40-48cf-8b72-39aad0384792",
+        "text": "“十四五”完成第二个百年奋斗目标，“十五五”调整现代化建设起点，2035 年启动新阶段",
+        "rationale": "说明以“十四五”为新征程的第一个五年、良好开局，2035 年有明确的基本实现现代化目标。",
+        "evidence": [
+          {
+            "sourceId": "S44",
+            "location": "第三部分第一个重点问题，关于“十五五”时期的重要地位",
+            "claim": "说明以“十四五”为新征程的第一个五年、良好开局，2035 年有明确的基本实现现代化目标。"
+          }
+        ]
+      },
+      {
+        "id": "3a8f7bfa-9653-4086-9cc6-bbf9cd011542",
+        "text": "“十四五”已打下基础，“十五五”完成基本实现现代化，到 2035 年全面建成社会主义现代化强国",
+        "rationale": "这一表述把基本实现现代化和建成现代化强国提前；说明仍把基本实现现代化放到2035年。",
+        "evidence": [
+          {
+            "sourceId": "S44",
+            "location": "第三部分第一个重点问题，关于“十五五”时期的重要地位",
+            "claim": "这一表述把基本实现现代化和建成现代化强国提前；说明仍把基本实现现代化放到2035年。"
+          }
+        ]
+      },
+      {
+        "id": "d425598b-e78f-4558-93d5-cddef946bb1d",
+        "text": "“十四五”与“十五五”均属于全面建成小康社会阶段，2035 年再进入现代化建设阶段",
+        "rationale": "说明已将两个五年阶段放在迈向基本实现社会主义现代化的过程中。",
+        "evidence": [
+          {
+            "sourceId": "S44",
+            "location": "第三部分第一个重点问题，关于“十五五”时期的重要地位",
+            "claim": "说明已将两个五年阶段放在迈向基本实现社会主义现代化的过程中。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "d9a25432-0db1-4446-be40-15593d47dc2c"
+    ],
+    "explanation": "规划阶段具有连续性。“十四五”良好开局，“十五五”承前启后、集中发力，2035 年是基本实现社会主义现代化的目标时点。",
+    "distinction": "说明将十四五定位为已经打下基础，十五五为进一步夯实基础并发力，目标是到2035年基本实现现代化。B提前完成第二个百年奋斗目标，C把基本实现和建成强国两个阶段提前，D把前两个五年误归为小康阶段。",
+    "evidence": [
+      {
+        "sourceId": "S44",
+        "location": "第三部分第一个重点问题，关于“十五五”时期的重要地位",
+        "claim": "十五五是基本实现社会主义现代化承前启后、夯实基础和全面发力的关键时期。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "d9a25432-0db1-4446-be40-15593d47dc2c"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "初审逐项定位官方正文；待独立解题、语义去重和专题覆盖审计。",
+        "digest": "2848afb5fbb0e1a2c40a18d9d83e828f1a4ee3c28db2151c7f41b81a03d3cf5a"
+      },
+      "independent": {
+        "reviewer": "Codex platform",
+        "date": "2026-11-23",
+        "choice": [
+          "d9a25432-0db1-4446-be40-15593d47dc2c"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "说明将十四五定位为已经打下基础，十五五为进一步夯实基础并发力，目标是到2035年基本实现现代化。B提前完成第二个百年奋斗目标，C把基本实现和建成强国两个阶段提前，D把前两个五年误归为小康阶段。",
+        "digest": "2848afb5fbb0e1a2c40a18d9d83e828f1a4ee3c28db2151c7f41b81a03d3cf5a"
+      }
+    }
+  },
+  {
+    "id": "2225dc87-c86f-424d-ad07-d2e707d3bf5c",
+    "state": "ready",
+    "topicId": "t14",
+    "knowledgePointId": "b6e4ed2f-cc68-484c-a288-c88f35f4cb2f",
+    "relatedKnowledgePointIds": [],
+    "type": "multiple",
+    "stem": "依据二十届四中全会《建议》第（4）项，哪些对应关系准确？",
+    "scopeNote": "二十届四中全会公报及“十五五”《建议》、说明",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "区分相近文献、阶段、政策任务或法定时限与主体。",
+    "emotionOnly": false,
+    "emotionReason": "各选项为相近的正式文件、时点、章节归属或法规要求，需要核对事实或原文结构。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "7ab744d2-2c7b-4dcf-b8be-12f47d217a55",
+        "text": "发展主题——推动高质量发展",
+        "rationale": "第（4）项把推动高质量发展列为发展主题。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第二部分第（4）项",
+            "claim": "第（4）项把推动高质量发展列为发展主题。"
+          }
+        ]
+      },
+      {
+        "id": "03170a8b-c559-410d-a8c9-88de92851562",
+        "text": "根本目的——全面从严治党",
+        "rationale": "全面从严治党对应根本保障；根本目的对应满足人民日益增长的美好生活需要。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第二部分第（4）项",
+            "claim": "全面从严治党对应根本保障；根本目的对应满足人民日益增长的美好生活需要。"
+          }
+        ]
+      },
+      {
+        "id": "469246af-afa9-4a68-846f-e60a0c399bfb",
+        "text": "根本动力——改革创新",
+        "rationale": "第（4）项将改革创新定位于根本动力。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第二部分第（4）项",
+            "claim": "第（4）项将改革创新定位于根本动力。"
+          }
+        ]
+      },
+      {
+        "id": "a2890b3c-308c-4b59-925f-f3f67223580a",
+        "text": "根本保障——全面从严治党",
+        "rationale": "全面从严治党在同段被定位为实现有关发展任务的根本保障。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第二部分第（4）项",
+            "claim": "全面从严治党在同段被定位为实现有关发展任务的根本保障。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "7ab744d2-2c7b-4dcf-b8be-12f47d217a55",
+      "469246af-afa9-4a68-846f-e60a0c399bfb",
+      "a2890b3c-308c-4b59-925f-f3f67223580a"
+    ],
+    "explanation": "把指导思想中的主题、动力、目的、保障对应到各自的具体内容。四个角色处于同段，但不能相互替代。",
+    "distinction": "高质量发展、改革创新、全面从严治党依次对应主题、动力、保障。B误把保障写为目的，原文的目的涉及满足人民对美好生活日益增长的需要。错项考的是角色归属。",
+    "evidence": [
+      {
+        "sourceId": "S43",
+        "location": "第二部分第（4）项",
+        "claim": "《建议》第（4）项将高质量发展、改革创新、人民的美好生活需要和全面从严治党分别规定为主题、动力、目的和保障。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "7ab744d2-2c7b-4dcf-b8be-12f47d217a55",
+          "469246af-afa9-4a68-846f-e60a0c399bfb",
+          "a2890b3c-308c-4b59-925f-f3f67223580a"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "初审逐项定位官方正文；待独立解题、语义去重和专题覆盖审计。",
+        "digest": "30972ddd37c9aee154134a95321d6268f2dea3300a67585b448017a5a707fe92"
+      },
+      "independent": {
+        "reviewer": "Codex platform",
+        "date": "2026-11-23",
+        "choice": [
+          "7ab744d2-2c7b-4dcf-b8be-12f47d217a55",
+          "469246af-afa9-4a68-846f-e60a0c399bfb",
+          "a2890b3c-308c-4b59-925f-f3f67223580a"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "高质量发展、改革创新、全面从严治党依次对应主题、动力、保障。B误把保障写为目的，原文的目的涉及满足人民对美好生活日益增长的需要。错项考的是角色归属。",
+        "digest": "30972ddd37c9aee154134a95321d6268f2dea3300a67585b448017a5a707fe92"
+      }
+    }
+  },
+  {
+    "id": "31ab7509-8f57-4019-9075-31cd80d1a225",
+    "state": "ready",
+    "topicId": "t14",
+    "knowledgePointId": "fe666235-56bf-419a-9b03-fe3054e08cc0",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "根据二十届四中全会《建议》的说明，《建议》第三至第十四部分是分领域的战略任务。排在该板块首项的是哪项部署？",
+    "scopeNote": "二十届四中全会公报及“十五五”《建议》、说明",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "区分相近文献、阶段、政策任务或法定时限与主体。",
+    "emotionOnly": false,
+    "emotionReason": "各选项为相近的正式文件、时点、章节归属或法规要求，需要核对事实或原文结构。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "82903a6f-17c9-41eb-9cba-a2b99a1fed95",
+        "text": "扩大高水平对外开放，开创合作共赢新局面",
+        "rationale": "说明在产业、科技、国内市场、经济体制之后列对外开放。",
+        "evidence": [
+          {
+            "sourceId": "S44",
+            "location": "第二部分关于第二板块的段落",
+            "claim": "说明在产业、科技、国内市场、经济体制之后列对外开放。"
+          }
+        ]
+      },
+      {
+        "id": "d2305a6c-6265-4d12-92dd-d5d4997bcbf2",
+        "text": "建设强大国内市场，加快构建新发展格局",
+        "rationale": "说明把国内市场列于产业发展和科技创新之后。",
+        "evidence": [
+          {
+            "sourceId": "S44",
+            "location": "第二部分关于第二板块的段落",
+            "claim": "说明把国内市场列于产业发展和科技创新之后。"
+          }
+        ]
+      },
+      {
+        "id": "c8541f33-82a9-427b-9215-93648553d186",
+        "text": "加快高水平科技自立自强，引领发展新质生产力",
+        "rationale": "说明先列产业发展，再列科技创新。",
+        "evidence": [
+          {
+            "sourceId": "S44",
+            "location": "第二部分关于第二板块的段落",
+            "claim": "说明先列产业发展，再列科技创新。"
+          }
+        ]
+      },
+      {
+        "id": "9d08648c-ccfe-4764-876b-038a7fe584d5",
+        "text": "建设现代化产业体系，巩固壮大实体经济根基",
+        "rationale": "说明把产业发展列在分论首位，正是《建议》第三部分主题。",
+        "evidence": [
+          {
+            "sourceId": "S44",
+            "location": "第二部分关于第二板块的段落",
+            "claim": "说明把产业发展列在分论首位，正是《建议》第三部分主题。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "9d08648c-ccfe-4764-876b-038a7fe584d5"
+    ],
+    "explanation": "第二板块从《建议》第三部分开始，以现代化产业体系和实体经济起笔。市场、科技和开放是此板块的其他部署。",
+    "distinction": "分论从现代化产业体系开始，紧随其后的是科技自立自强、国内市场。对外开放在第七部分。各项均为真实部署，题目限定其先后顺序。",
+    "evidence": [
+      {
+        "sourceId": "S44",
+        "location": "第二部分关于第二板块的段落",
+        "claim": "十五五建议分论首项是建设现代化产业体系、巩固壮大实体经济根基。"
+      },
+      {
+        "sourceId": "S43",
+        "location": "第三部分标题",
+        "claim": "第三部分为建设现代化产业体系，巩固壮大实体经济根基。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "9d08648c-ccfe-4764-876b-038a7fe584d5"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "初审逐项定位官方正文；待独立解题、语义去重和专题覆盖审计。",
+        "digest": "59034c4338bfa8a0c505249083b37286e1187a9611827b41420cb4936cb0e017"
+      },
+      "independent": {
+        "reviewer": "Codex platform",
+        "date": "2026-11-23",
+        "choice": [
+          "9d08648c-ccfe-4764-876b-038a7fe584d5"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "分论从现代化产业体系开始，紧随其后的是科技自立自强、国内市场。对外开放在第七部分。各项均为真实部署，题目限定其先后顺序。",
+        "digest": "59034c4338bfa8a0c505249083b37286e1187a9611827b41420cb4936cb0e017"
+      }
+    }
+  },
+  {
+    "id": "f8b2fb74-82aa-4b50-b5e2-f174d3b64b1e",
+    "state": "ready",
+    "topicId": "t14",
+    "knowledgePointId": "34264b25-3cea-4b1e-9650-096beedf573e",
+    "relatedKnowledgePointIds": [],
+    "type": "multiple",
+    "stem": "依照二十届四中全会《建议》第（5）项，哪些表述是单独列出的原则标题，而非某项原则下的展开要求？",
+    "scopeNote": "二十届四中全会公报及“十五五”《建议》、说明",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "区分相近文献、阶段、政策任务或法定时限与主体。",
+    "emotionOnly": false,
+    "emotionReason": "各选项为相近的正式文件、时点、章节归属或法规要求，需要核对事实或原文结构。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "dfcd7ac7-4a4a-4b18-b8f5-4ae280c1a4ce",
+        "text": "以新发展理念引领发展",
+        "rationale": "这一表述位于坚持高质量发展原则的详细说明中。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第二部分第（5）项第三、第五、第六则",
+            "claim": "这一表述位于坚持高质量发展原则的详细说明中。"
+          }
+        ]
+      },
+      {
+        "id": "ded4305b-8574-42c9-87fb-c470fa51b49c",
+        "text": "坚持有效市场和有为政府相结合",
+        "rationale": "这一项是第（5）项第五个单列原则。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第二部分第（5）项第三、第五、第六则",
+            "claim": "这一项是第（5）项第五个单列原则。"
+          }
+        ]
+      },
+      {
+        "id": "d77a9e3a-35f8-4956-ac03-6dfdf9767a15",
+        "text": "以新安全格局保障新发展格局",
+        "rationale": "这一表述出现在坚持统筹发展和安全原则的展开说明中。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第二部分第（5）项第三、第五、第六则",
+            "claim": "这一表述出现在坚持统筹发展和安全原则的展开说明中。"
+          }
+        ]
+      },
+      {
+        "id": "09fe2af5-02c9-4a39-9e8d-0d8fb77d78c9",
+        "text": "坚持统筹发展和安全",
+        "rationale": "这一项是第（5）项第六个单列原则。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第二部分第（5）项第三、第五、第六则",
+            "claim": "这一项是第（5）项第六个单列原则。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "ded4305b-8574-42c9-87fb-c470fa51b49c",
+      "09fe2af5-02c9-4a39-9e8d-0d8fb77d78c9"
+    ],
+    "explanation": "四项均与原文有关，题目按文件层级区分独立原则与分项说明。",
+    "distinction": "B和D是单列原则。A是高质量发展原则下的具体要求，C是统筹发展和安全原则下的具体要求。题目明确区分列项与展开内容。",
+    "evidence": [
+      {
+        "sourceId": "S43",
+        "location": "第二部分第（5）项第三、第五、第六则",
+        "claim": "《建议》第（5）项区分六项单列原则与各原则中的展开要求。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "ded4305b-8574-42c9-87fb-c470fa51b49c",
+          "09fe2af5-02c9-4a39-9e8d-0d8fb77d78c9"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "初审逐项定位官方正文；待独立解题、语义去重和专题覆盖审计。",
+        "digest": "6a89bba22041979d9da66ee3cbc233f848abf3e9172e29b8474f383a49246d82"
+      },
+      "independent": {
+        "reviewer": "Codex platform",
+        "date": "2026-11-23",
+        "choice": [
+          "ded4305b-8574-42c9-87fb-c470fa51b49c",
+          "09fe2af5-02c9-4a39-9e8d-0d8fb77d78c9"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "B和D是单列原则。A是高质量发展原则下的具体要求，C是统筹发展和安全原则下的具体要求。题目明确区分列项与展开内容。",
+        "digest": "6a89bba22041979d9da66ee3cbc233f848abf3e9172e29b8474f383a49246d82"
+      }
+    }
+  },
+  {
+    "id": "fa7decfc-3a22-47f2-b693-ee0f36df36c2",
+    "state": "ready",
+    "topicId": "t14",
+    "knowledgePointId": "7dc9d2df-2448-4d7c-87f1-f4d67ecab0af",
+    "relatedKnowledgePointIds": [],
+    "type": "multiple",
+    "stem": "下列哪些表述在二十届四中全会《建议》第（6）项中被单列为“十五五”时期经济社会发展的主要目标？",
+    "scopeNote": "二十届四中全会公报及“十五五”《建议》、说明",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "区分相近文献、阶段、政策任务或法定时限与主体。",
+    "emotionOnly": false,
+    "emotionReason": "各选项为相近的正式文件、时点、章节归属或法规要求，需要核对事实或原文结构。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "faf5365f-805a-4772-a3af-f187d583d67b",
+        "text": "国家安全屏障更加巩固",
+        "rationale": "这是该项七个目标之一，紧接绿色发展目标。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第二部分第（6）项与后续2035年远景段",
+            "claim": "这是该项七个目标之一，紧接绿色发展目标。"
+          }
+        ]
+      },
+      {
+        "id": "805d7b31-de2e-454f-9ea5-84c5b68a0d99",
+        "text": "人均国内生产总值达到中等发达国家水平",
+        "rationale": "这一指标出现在第（6）项列举之后的2035年远景段。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第二部分第（6）项与后续2035年远景段",
+            "claim": "这一指标出现在第（6）项列举之后的2035年远景段。"
+          }
+        ]
+      },
+      {
+        "id": "dc6eabe8-2d9a-4511-b9ce-bd668d3d5496",
+        "text": "基本实现社会主义现代化",
+        "rationale": "《建议》把该目标落在2035年的远景；五年指导思想用的是取得决定性进展。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第二部分第（6）项与后续2035年远景段",
+            "claim": "《建议》把该目标落在2035年的远景；五年指导思想用的是取得决定性进展。"
+          }
+        ]
+      },
+      {
+        "id": "0052fc97-3223-4cf2-93d6-e669f68b4505",
+        "text": "人民生活品质不断提高",
+        "rationale": "这是该项七个五年目标之一，有就业、收入和公共服务等具体来源。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第二部分第（6）项与后续2035年远景段",
+            "claim": "这是该项七个五年目标之一，有就业、收入和公共服务等具体来源。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "faf5365f-805a-4772-a3af-f187d583d67b",
+      "0052fc97-3223-4cf2-93d6-e669f68b4505"
+    ],
+    "explanation": "按文件明确的时点辨别。同一段落前后分别规划五年目标和再奋斗五年的2035年目标。",
+    "distinction": "A与D为十五五七项目标的单列标题。B和C位于原文单列目标之后的2035年展望，题干用「单列」排除将长期目标与阶段目标合并理解。",
+    "evidence": [
+      {
+        "sourceId": "S43",
+        "location": "第二部分第（6）项与后续2035年远景段",
+        "claim": "十五五期间七项主要目标与在其基础上到2035年的远景表述分开。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "faf5365f-805a-4772-a3af-f187d583d67b",
+          "0052fc97-3223-4cf2-93d6-e669f68b4505"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "初审逐项定位官方正文；待独立解题、语义去重和专题覆盖审计。",
+        "digest": "f0efa143077a24bd6153eaa156dcc11fa3d23bf6c3c105f911750d4d9d6e8fbb"
+      },
+      "independent": {
+        "reviewer": "Codex platform",
+        "date": "2026-11-23",
+        "choice": [
+          "faf5365f-805a-4772-a3af-f187d583d67b",
+          "0052fc97-3223-4cf2-93d6-e669f68b4505"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "A与D为十五五七项目标的单列标题。B和C位于原文单列目标之后的2035年展望，题干用「单列」排除将长期目标与阶段目标合并理解。",
+        "digest": "f0efa143077a24bd6153eaa156dcc11fa3d23bf6c3c105f911750d4d9d6e8fbb"
+      }
+    }
+  },
+  {
+    "id": "e5018df8-b6dd-4562-9cd7-93b7e9c314bb",
+    "state": "ready",
+    "topicId": "t14",
+    "knowledgePointId": "d865be13-5d55-4ff0-9f65-3aff881b8c1c",
+    "relatedKnowledgePointIds": [],
+    "type": "multiple",
+    "stem": "二十届四中全会《建议》第（8）项分两段部署新兴产业和未来产业。哪些领域被在第二段直接列举为前瞻布局的未来产业？",
+    "scopeNote": "二十届四中全会公报及“十五五”《建议》、说明",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "区分相近文献、阶段、政策任务或法定时限与主体。",
+    "emotionOnly": false,
+    "emotionReason": "各选项为相近的正式文件、时点、章节归属或法规要求，需要核对事实或原文结构。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "fea18891-a0d7-4547-8e2b-0fb9a170170c",
+        "text": "低空经济",
+        "rationale": "低空经济出现在第（8）项第一段的战略性新兴产业集群例子中。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第三部分第（8）项第一、第二段",
+            "claim": "低空经济出现在第（8）项第一段的战略性新兴产业集群例子中。"
+          }
+        ]
+      },
+      {
+        "id": "83fe5997-7791-4548-8551-18d1d81a3be1",
+        "text": "量子科技",
+        "rationale": "第二段的前瞻布局举例直接列量子科技。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第三部分第（8）项第一、第二段",
+            "claim": "第二段的前瞻布局举例直接列量子科技。"
+          }
+        ]
+      },
+      {
+        "id": "9eda0428-9aa3-4fcd-adf1-42adabb733ff",
+        "text": "第六代移动通信",
+        "rationale": "第二段把第六代移动通信列入前瞻布局。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第三部分第（8）项第一、第二段",
+            "claim": "第二段把第六代移动通信列入前瞻布局。"
+          }
+        ]
+      },
+      {
+        "id": "b974f127-4f0b-4bbd-b7e3-b63e0e68d3ab",
+        "text": "新材料",
+        "rationale": "新材料与低空经济同在第一段的战略性新兴产业集群例子中。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第三部分第（8）项第一、第二段",
+            "claim": "新材料与低空经济同在第一段的战略性新兴产业集群例子中。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "83fe5997-7791-4548-8551-18d1d81a3be1",
+      "9eda0428-9aa3-4fcd-adf1-42adabb733ff"
+    ],
+    "explanation": "以该条具体分段为准。量子科技和第六代移动通信列在未来产业部署，低空经济和新材料列在战略性新兴产业集群的句子。",
+    "distinction": "B和C列于第二段的未来产业举例。A和D列于第一段的战略性新兴产业集群。四项均见同一条，所考分类与段落边界清楚。",
+    "evidence": [
+      {
+        "sourceId": "S43",
+        "location": "第三部分第（8）项第一、第二段",
+        "claim": "《建议》第（8）项分别列举战略性新兴产业集群和前瞻布局的未来产业。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "83fe5997-7791-4548-8551-18d1d81a3be1",
+          "9eda0428-9aa3-4fcd-adf1-42adabb733ff"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "初审逐项定位官方正文；待独立解题、语义去重和专题覆盖审计。",
+        "digest": "03d41eafbe1a323f934b4ac599a692bb5c378e82142c765f854d67508f225fd9"
+      },
+      "independent": {
+        "reviewer": "Codex platform",
+        "date": "2026-11-23",
+        "choice": [
+          "83fe5997-7791-4548-8551-18d1d81a3be1",
+          "9eda0428-9aa3-4fcd-adf1-42adabb733ff"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "B和C列于第二段的未来产业举例。A和D列于第一段的战略性新兴产业集群。四项均见同一条，所考分类与段落边界清楚。",
+        "digest": "03d41eafbe1a323f934b4ac599a692bb5c378e82142c765f854d67508f225fd9"
+      }
+    }
+  },
+  {
+    "id": "66f5b6ef-9bb1-4f48-9d09-50f5a493d038",
+    "state": "ready",
+    "topicId": "t14",
+    "knowledgePointId": "101e464d-9b3d-4b5c-aa28-607303cdcc1d",
+    "relatedKnowledgePointIds": [],
+    "type": "multiple",
+    "stem": "依据二十届四中全会《建议》，下列哪些部署直接列于第（14）项“深入推进数字中国建设”？",
+    "scopeNote": "二十届四中全会公报及“十五五”《建议》、说明",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "区分相近文献、阶段、政策任务或法定时限与主体。",
+    "emotionOnly": false,
+    "emotionReason": "各选项为相近的正式文件、时点、章节归属或法规要求，需要核对事实或原文结构。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "dae3c0cc-2c5b-4040-836b-4d5b69d289f8",
+        "text": "建设开放共享安全的全国一体化数据市场",
+        "rationale": "第（14）项在健全数据要素基础制度之后提出一体化数据市场。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第四部分第（14）项与第（12）项",
+            "claim": "第（14）项在健全数据要素基础制度之后提出一体化数据市场。"
+          }
+        ]
+      },
+      {
+        "id": "758f2de9-9c63-415c-aa0f-73f904427c20",
+        "text": "全面实施“人工智能+”行动",
+        "rationale": "第（14）项提出该行动以促进技术在各领域应用。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第四部分第（14）项与第（12）项",
+            "claim": "第（14）项提出该行动以促进技术在各领域应用。"
+          }
+        ]
+      },
+      {
+        "id": "20b4dea0-de39-467b-9be7-54db02f55f41",
+        "text": "布局建设概念验证、中试验证平台",
+        "rationale": "这项在第（12）项科技创新和产业创新深度融合中，用于科技成果转化。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第四部分第（14）项与第（12）项",
+            "claim": "这项在第（12）项科技创新和产业创新深度融合中，用于科技成果转化。"
+          }
+        ]
+      },
+      {
+        "id": "e09be5e5-8273-4b6d-9ed4-8cfa0eafe27c",
+        "text": "促进实体经济和数字经济深度融合",
+        "rationale": "第（14）项对数字技术和实体经济的融合提出明确要求。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第四部分第（14）项与第（12）项",
+            "claim": "第（14）项对数字技术和实体经济的融合提出明确要求。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "dae3c0cc-2c5b-4040-836b-4d5b69d289f8",
+      "758f2de9-9c63-415c-aa0f-73f904427c20",
+      "e09be5e5-8273-4b6d-9ed4-8cfa0eafe27c"
+    ],
+    "explanation": "两项都属于科技自立自强的结构。数字中国的基础制度、应用行动、融合方向，和科技成果转化的中试验证分属不同编号。",
+    "distinction": "A、B、D分属数字中国建设中的数据市场、人工智能应用和数实融合。C属于前面的科技与产业创新融合条目。题干限定「直接列于」消除了领域相关性造成的歧义。",
+    "evidence": [
+      {
+        "sourceId": "S43",
+        "location": "第四部分第（14）项与第（12）项",
+        "claim": "数字中国部署含全国一体化数据市场、实体经济与数字经济融合和人工智能+。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "dae3c0cc-2c5b-4040-836b-4d5b69d289f8",
+          "758f2de9-9c63-415c-aa0f-73f904427c20",
+          "e09be5e5-8273-4b6d-9ed4-8cfa0eafe27c"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "初审逐项定位官方正文；待独立解题、语义去重和专题覆盖审计。",
+        "digest": "9d92eee7b3155d1f2645cdf8823dc6404029c30ef913b79f228e73d436d52a0c"
+      },
+      "independent": {
+        "reviewer": "Codex platform",
+        "date": "2026-11-23",
+        "choice": [
+          "dae3c0cc-2c5b-4040-836b-4d5b69d289f8",
+          "758f2de9-9c63-415c-aa0f-73f904427c20",
+          "e09be5e5-8273-4b6d-9ed4-8cfa0eafe27c"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "A、B、D分属数字中国建设中的数据市场、人工智能应用和数实融合。C属于前面的科技与产业创新融合条目。题干限定「直接列于」消除了领域相关性造成的歧义。",
+        "digest": "9d92eee7b3155d1f2645cdf8823dc6404029c30ef913b79f228e73d436d52a0c"
+      }
+    }
+  },
+  {
+    "id": "5f7aa4b4-da31-4d9a-9ef2-f27a217c8a09",
+    "state": "ready",
+    "topicId": "t14",
+    "knowledgePointId": "eb0c04dc-af65-497b-8e93-6d2bff423f54",
+    "relatedKnowledgePointIds": [],
+    "type": "multiple",
+    "stem": "依据二十届四中全会《建议》的编号，哪些任务属于第五部分“建设强大国内市场，加快构建新发展格局”？",
+    "scopeNote": "二十届四中全会公报及“十五五”《建议》、说明",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "区分相近文献、阶段、政策任务或法定时限与主体。",
+    "emotionOnly": false,
+    "emotionReason": "各选项为相近的正式文件、时点、章节归属或法规要求，需要核对事实或原文结构。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "27bc8df4-fe1f-481e-9240-9c575fa148d4",
+        "text": "扩大有效投资",
+        "rationale": "这是第五部分第（16）项。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第五部分第（15）至（17）项和第七部分第（21）项",
+            "claim": "这是第五部分第（16）项。"
+          }
+        ]
+      },
+      {
+        "id": "25f2658c-85f7-4a53-b6fd-d8881ab89094",
+        "text": "积极扩大自主开放",
+        "rationale": "这是第七部分扩大高水平对外开放的第（21）项。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第五部分第（15）至（17）项和第七部分第（21）项",
+            "claim": "这是第七部分扩大高水平对外开放的第（21）项。"
+          }
+        ]
+      },
+      {
+        "id": "494aebc2-335d-4525-b324-51044434b8e5",
+        "text": "坚决破除阻碍全国统一大市场建设卡点堵点",
+        "rationale": "这是第五部分第（17）项。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第五部分第（15）至（17）项和第七部分第（21）项",
+            "claim": "这是第五部分第（17）项。"
+          }
+        ]
+      },
+      {
+        "id": "f0f50118-5882-4fae-9966-7aaf34b4fd06",
+        "text": "大力提振消费",
+        "rationale": "这是第五部分第（15）项。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第五部分第（15）至（17）项和第七部分第（21）项",
+            "claim": "这是第五部分第（15）项。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "27bc8df4-fe1f-481e-9240-9c575fa148d4",
+      "494aebc2-335d-4525-b324-51044434b8e5",
+      "f0f50118-5882-4fae-9966-7aaf34b4fd06"
+    ],
+    "explanation": "第五部分按消费、投资和市场统一三个编号条目组织，自主开放在对外开放部分。",
+    "distinction": "D、A、C分别对应第五部分第（15）、（16）、（17）项。B是第七部分中扩大对外开放的具体任务。四项均按原文编号而非泛指政策关联。",
+    "evidence": [
+      {
+        "sourceId": "S43",
+        "location": "第五部分第（15）至（17）项和第七部分第（21）项",
+        "claim": "扩大有效投资、提振消费和破除统一大市场堵点同属国内市场部分。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "27bc8df4-fe1f-481e-9240-9c575fa148d4",
+          "494aebc2-335d-4525-b324-51044434b8e5",
+          "f0f50118-5882-4fae-9966-7aaf34b4fd06"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "初审逐项定位官方正文；待独立解题、语义去重和专题覆盖审计。",
+        "digest": "860f4f2a1d4c89eb01812a079377ecb0e4ae3e779e705efd9d499770674bcdcd"
+      },
+      "independent": {
+        "reviewer": "Codex platform",
+        "date": "2026-11-23",
+        "choice": [
+          "27bc8df4-fe1f-481e-9240-9c575fa148d4",
+          "494aebc2-335d-4525-b324-51044434b8e5",
+          "f0f50118-5882-4fae-9966-7aaf34b4fd06"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "D、A、C分别对应第五部分第（15）、（16）、（17）项。B是第七部分中扩大对外开放的具体任务。四项均按原文编号而非泛指政策关联。",
+        "digest": "860f4f2a1d4c89eb01812a079377ecb0e4ae3e779e705efd9d499770674bcdcd"
+      }
+    }
+  },
+  {
+    "id": "c6524a8c-05e2-401b-af43-c4f30ba76033",
+    "state": "ready",
+    "topicId": "t14",
+    "knowledgePointId": "e641d09b-ea90-468b-a12f-a690121ecce6",
+    "relatedKnowledgePointIds": [],
+    "type": "multiple",
+    "stem": "按二十届四中全会《建议》的编号划分，哪些任务归入第九部分“优化区域经济布局，促进区域协调发展”？",
+    "scopeNote": "二十届四中全会公报及“十五五”《建议》、说明",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "区分相近文献、阶段、政策任务或法定时限与主体。",
+    "emotionOnly": false,
+    "emotionReason": "各选项为相近的正式文件、时点、章节归属或法规要求，需要核对事实或原文结构。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "8f2c173a-44ef-48d5-8d97-37012aacafa9",
+        "text": "推进宜居宜业和美乡村建设",
+        "rationale": "这是第八部分农业农村现代化的第（26）项。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第九部分第（29）、第（31）项；第八部分第（26）项；第七部分第（23）项",
+            "claim": "这是第八部分农业农村现代化的第（26）项。"
+          }
+        ]
+      },
+      {
+        "id": "036281eb-3d63-40fe-8a6b-aa239b7a6851",
+        "text": "深入推进以人为本的新型城镇化",
+        "rationale": "这是第九部分第（31）项。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第九部分第（29）、第（31）项；第八部分第（26）项；第七部分第（23）项",
+            "claim": "这是第九部分第（31）项。"
+          }
+        ]
+      },
+      {
+        "id": "4bfaefed-4694-469d-a7fa-30f1bcfa075f",
+        "text": "拓展双向投资合作空间",
+        "rationale": "这是第七部分对外开放的第（23）项。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第九部分第（29）、第（31）项；第八部分第（26）项；第七部分第（23）项",
+            "claim": "这是第七部分对外开放的第（23）项。"
+          }
+        ]
+      },
+      {
+        "id": "29f61f71-9d85-4c78-b34b-04d1a9b37b91",
+        "text": "促进区域联动发展",
+        "rationale": "这是第九部分第（29）项。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第九部分第（29）、第（31）项；第八部分第（26）项；第七部分第（23）项",
+            "claim": "这是第九部分第（29）项。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "036281eb-3d63-40fe-8a6b-aa239b7a6851",
+      "29f61f71-9d85-4c78-b34b-04d1a9b37b91"
+    ],
+    "explanation": "按照文件的章节归属辨析相互有关的任务。区域联动与城镇化列于第九部分，乡村建设和双向投资列在相邻其他领域。",
+    "distinction": "B和D分别对应第九部分第（31）、（29）项。A归第八部分乡村振兴，C归第七部分对外开放。四项均为真实部署。",
+    "evidence": [
+      {
+        "sourceId": "S43",
+        "location": "第九部分第（29）、第（31）项；第八部分第（26）项；第七部分第（23）项",
+        "claim": "《建议》将联动发展和以人为本的新型城镇化列在区域布局和协调发展部分。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "036281eb-3d63-40fe-8a6b-aa239b7a6851",
+          "29f61f71-9d85-4c78-b34b-04d1a9b37b91"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "初审逐项定位官方正文；待独立解题、语义去重和专题覆盖审计。",
+        "digest": "5f036eafadc6e1df1dde1088a9554cded3d58b6b19a32c9862f199cf08354f2f"
+      },
+      "independent": {
+        "reviewer": "Codex platform",
+        "date": "2026-11-23",
+        "choice": [
+          "036281eb-3d63-40fe-8a6b-aa239b7a6851",
+          "29f61f71-9d85-4c78-b34b-04d1a9b37b91"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "B和D分别对应第九部分第（31）、（29）项。A归第八部分乡村振兴，C归第七部分对外开放。四项均为真实部署。",
+        "digest": "5f036eafadc6e1df1dde1088a9554cded3d58b6b19a32c9862f199cf08354f2f"
+      }
+    }
+  },
+  {
+    "id": "545662ed-3355-4e08-bdd8-46335e90e2e1",
+    "state": "ready",
+    "topicId": "t10",
+    "knowledgePointId": "3d599ba8-da21-48f9-bf89-60ad26e8b1c4",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "依照 2026 年修订的《中国共产党发展党员工作细则》，以下关于入党积极分子考察、队伍状况分析的表述，哪项准确？",
+    "scopeNote": "2026年修订的《中国共产党发展党员工作细则》",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "区分相近文献、阶段、政策任务或法定时限与主体。",
+    "emotionOnly": false,
+    "emotionReason": "各选项为相近的正式文件、时点、章节归属或法规要求，需要核对事实或原文结构。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "09b17cfd-277d-4255-879f-fad269b96426",
+        "text": "党支部每年考察入党积极分子；县级党委组织部门和基层党委每半年分析队伍状况",
+        "rationale": "两类工作的频次对调了。个体考察半年一次，队伍分析每年一次。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第十一条",
+            "claim": "两类工作的频次对调了。个体考察半年一次，队伍分析每年一次。"
+          }
+        ]
+      },
+      {
+        "id": "db7330d7-e462-4899-a051-2a03994f7015",
+        "text": "县级党委组织部门和基层党委每半年考察入党积极分子；党支部每年分析队伍状况",
+        "rationale": "选项把个体考察与队伍分析的责任主体互换。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第十一条",
+            "claim": "选项把个体考察与队伍分析的责任主体互换。"
+          }
+        ]
+      },
+      {
+        "id": "650c908f-0296-44c7-a89a-5949cbda7fdd",
+        "text": "党支部每半年考察入党积极分子；党支部也负责按第十一条每年分析队伍状况",
+        "rationale": "第一分句正确；第十一条规定按年分析队伍状况的主体是县级党委组织部门和基层党委。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第十一条",
+            "claim": "第一分句正确；第十一条规定按年分析队伍状况的主体是县级党委组织部门和基层党委。"
+          }
+        ]
+      },
+      {
+        "id": "3b42e2b4-40ac-4b60-afe8-8848da8d3df1",
+        "text": "党支部每半年考察入党积极分子；县级党委组织部门和基层党委每年分析队伍状况",
+        "rationale": "两种工作对象、两类责任主体、两个时限均和第十一条相符。",
+        "evidence": [
+          {
+            "sourceId": "S35",
+            "location": "第十一条",
+            "claim": "两种工作对象、两类责任主体、两个时限均和第十一条相符。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "3b42e2b4-40ac-4b60-afe8-8848da8d3df1"
+    ],
+    "explanation": "区分逐人考察与队伍整体分析。党支部按半年考察个人，两类上级主体按年分析队伍。",
+    "distinction": "党支部每半年考察个人，县级党委组织部门和基层党委每年分析队伍。B互换频次，C互换责任主体，D误将每年的队伍分析归给党支部。主体与时限均可正面核验。",
+    "evidence": [
+      {
+        "sourceId": "S35",
+        "location": "第十一条",
+        "claim": "党支部每半年考察入党积极分子；县级党委组织部门和基层党委每年分析队伍状况。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "3b42e2b4-40ac-4b60-afe8-8848da8d3df1"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "初审逐项定位官方正文；待独立解题、语义去重和专题覆盖审计。 重排沿用原选项 UUID 并核对答案集合。",
+        "digest": "872fdf43950b5cf60621a17d8dae45c8c016db88ca8dfe14fee8da040490c3c8"
+      },
+      "independent": {
+        "reviewer": "Codex platform",
+        "date": "2026-11-23",
+        "choice": [
+          "3b42e2b4-40ac-4b60-afe8-8848da8d3df1"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "党支部每半年考察个人，县级党委组织部门和基层党委每年分析队伍。B互换频次，C互换责任主体，D误将每年的队伍分析归给党支部。主体与时限均可正面核验。 已按原文独立复核重排，正确项在 D，稳定 UUID 不变。",
+        "digest": "872fdf43950b5cf60621a17d8dae45c8c016db88ca8dfe14fee8da040490c3c8"
+      }
+    }
+  },
+  {
+    "id": "19be1175-8cfa-4dee-8fb1-d0e20aeacb5f",
+    "state": "ready",
+    "topicId": "t03",
+    "knowledgePointId": "57d4c4a3-8ee6-45ec-a436-0c923df24ac6",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "二十届五中全会公报记载，这次会议在哪一时间段举行？",
+    "scopeNote": "党的二十届五中全会正式公报、《决定》及说明",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "选项为相近的时间、文件层级、议事角色或规范安排，褒贬语气无法决定答案。",
+    "orderLocked": true,
+    "options": [
+      {
+        "id": "ca6e5e38-a34b-43df-b733-a3e6129cd8a4",
+        "text": "2026年10月20日至23日",
+        "rationale": "这是另一组日期。公报开篇明确开会时间从10月26日开始。",
+        "evidence": [
+          {
+            "sourceId": "S05",
+            "location": "标题下通过题注及正文第一段",
+            "claim": "这是另一组日期。公报开篇明确开会时间从10月26日开始。"
+          }
+        ]
+      },
+      {
+        "id": "aa557709-97fb-4531-8b89-3c77b3257926",
+        "text": "2026年10月23日至26日",
+        "rationale": "10月26日是会议开始日期，选项把它写成结束日期。",
+        "evidence": [
+          {
+            "sourceId": "S05",
+            "location": "标题下通过题注及正文第一段",
+            "claim": "10月26日是会议开始日期，选项把它写成结束日期。"
+          }
+        ]
+      },
+      {
+        "id": "b9bc4f5e-22d9-430e-9ea3-579f5dc8605d",
+        "text": "2026年10月26日至29日",
+        "rationale": "公报首段明确会议起止日为10月26日和29日。",
+        "evidence": [
+          {
+            "sourceId": "S05",
+            "location": "标题下通过题注及正文第一段",
+            "claim": "公报首段明确会议起止日为10月26日和29日。"
+          }
+        ]
+      },
+      {
+        "id": "c5e2bafe-6c08-4881-b529-a74afed4b0d9",
+        "text": "2026年10月29日至11月1日",
+        "rationale": "10月29日是会议末日，也是通过公报的日期，选项把它写成了开会首日。",
+        "evidence": [
+          {
+            "sourceId": "S05",
+            "location": "标题下通过题注及正文第一段",
+            "claim": "10月29日是会议末日，也是通过公报的日期，选项把它写成了开会首日。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "b9bc4f5e-22d9-430e-9ea3-579f5dc8605d"
+    ],
+    "explanation": "会议日期从10月26日计至29日。公报通过日为29日，和会议开始日期有区别。",
+    "distinction": "会议日期从10月26日计至29日。公报通过日为29日，和会议开始日期有区别。",
+    "evidence": [
+      {
+        "sourceId": "S05",
+        "location": "标题下通过题注及正文第一段",
+        "claim": "公报2026年10月29日通过；会议10月26日至29日举行。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "b9bc4f5e-22d9-430e-9ea3-579f5dc8605d"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "依据原文逐项核证；候选等待独立解题和跨专题去重复核。",
+        "digest": "cbc8293ff007046f7a7362b6403c4608aa463fc84f434c362625ef82c14eb2c3"
+      },
+      "independent": {
+        "reviewer": "Codex platform",
+        "date": "2026-11-23",
+        "choice": [
+          "b9bc4f5e-22d9-430e-9ea3-579f5dc8605d"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "公报记载会议自2026年10月26日至29日。A和B都提前了开会日期，D从实际闭会日才算起，包含了公报与决定的分开公开节点。",
+        "digest": "cbc8293ff007046f7a7362b6403c4608aa463fc84f434c362625ef82c14eb2c3"
+      }
+    }
+  },
+  {
+    "id": "af89ead7-2a59-477a-80de-c3c43b531996",
+    "state": "ready",
+    "topicId": "t03",
+    "knowledgePointId": "b6f77c1f-775a-4fc2-9b88-01b7f520a4d8",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "依据二十届五中全会公报，工作报告、《决定》和讨论稿说明各处于什么程序环节？",
+    "scopeNote": "党的二十届五中全会正式公报、《决定》及说明",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "选项为相近的时间、文件层级、议事角色或规范安排，褒贬语气无法决定答案。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "2f8f46fe-11fe-430a-a87b-7f636b01a287",
+        "text": "听取和讨论工作报告，审议通过《决定》，听取讨论稿说明",
+        "rationale": "公报依次记录了听取并讨论工作报告，审议通过《决定》，习近平就讨论稿向全会说明。",
+        "evidence": [
+          {
+            "sourceId": "S05",
+            "location": "正文开篇记载工作报告、决定及讨论稿说明的段落",
+            "claim": "公报依次记录了听取并讨论工作报告，审议通过《决定》，习近平就讨论稿向全会说明。"
+          }
+        ]
+      },
+      {
+        "id": "74bb25dc-daa7-4c0e-a236-446e17fd6b19",
+        "text": "审议通过工作报告，听取但未审议《决定》，通过讨论稿说明",
+        "rationale": "公报对工作报告写的是听取和讨论，正式审议通过的对象是《决定》，说明是向全会作出的。",
+        "evidence": [
+          {
+            "sourceId": "S05",
+            "location": "正文开篇记载工作报告、决定及讨论稿说明的段落",
+            "claim": "公报对工作报告写的是听取和讨论，正式审议通过的对象是《决定》，说明是向全会作出的。"
+          }
+        ]
+      },
+      {
+        "id": "431ede1b-8003-4a3a-a5d6-b335125a161c",
+        "text": "听取工作报告，审议通过讨论稿说明，授权会后审议《决定》",
+        "rationale": "《决定》在五中全会上审议通过；公报没有写授权另行审议。",
+        "evidence": [
+          {
+            "sourceId": "S05",
+            "location": "正文开篇记载工作报告、决定及讨论稿说明的段落",
+            "claim": "《决定》在五中全会上审议通过；公报没有写授权另行审议。"
+          }
+        ]
+      },
+      {
+        "id": "bb8bcabf-90d9-42a9-b764-ff1439bc97ad",
+        "text": "审议通过工作报告和讨论稿说明，听取《决定》起草情况",
+        "rationale": "听取和讨论工作报告属于一项议程，但公报记载的审议通过对象为《决定》。",
+        "evidence": [
+          {
+            "sourceId": "S05",
+            "location": "正文开篇记载工作报告、决定及讨论稿说明的段落",
+            "claim": "听取和讨论工作报告属于一项议程，但公报记载的审议通过对象为《决定》。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "2f8f46fe-11fe-430a-a87b-7f636b01a287"
+    ],
+    "explanation": "公报用不同动词记录三项议程。工作报告经听取和讨论，正式决定经审议通过，说明用来介绍决定讨论稿。",
+    "distinction": "公报用不同动词记录三项议程。工作报告经听取和讨论，正式决定经审议通过，说明用来介绍决定讨论稿。",
+    "evidence": [
+      {
+        "sourceId": "S05",
+        "location": "正文开篇记载工作报告、决定及讨论稿说明的段落",
+        "claim": "区分工作报告的听取讨论、决定的审议通过和讨论稿说明的程序。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "2f8f46fe-11fe-430a-a87b-7f636b01a287"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "依据原文逐项核证；候选等待独立解题和跨专题去重复核。",
+        "digest": "15185089ee9fa40e9b5d517dd9ab8027242e6dbf4baa235e222e6d2d25769082"
+      },
+      "independent": {
+        "reviewer": "Codex platform",
+        "date": "2026-11-23",
+        "choice": [
+          "2f8f46fe-11fe-430a-a87b-7f636b01a287"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "全会听取并讨论工作报告，审议通过决定，习近平另就讨论稿作说明。B与D把报告说成审议通过，C把通过对象改成说明并虚构了会后授权环节。",
+        "digest": "15185089ee9fa40e9b5d517dd9ab8027242e6dbf4baa235e222e6d2d25769082"
+      }
+    }
+  },
+  {
+    "id": "75419025-db9d-41d3-bdf5-03b0248d5e04",
+    "state": "draft",
+    "topicId": "t03",
+    "knowledgePointId": "77e383b6-fd78-4efb-8905-effdb45abc0c",
+    "relatedKnowledgePointIds": [],
+    "type": "multiple",
+    "stem": "下列哪些判断在二十届五中全会《决定》的说明第一部分中列为确定全会议题的考虑？",
+    "scopeNote": "党的二十届五中全会正式公报、《决定》及说明",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "选项为相近的时间、文件层级、议事角色或规范安排，褒贬语气无法决定答案。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "ed0ff876-bdb9-4bc9-abc3-6a68e859e506",
+        "text": "保持党的先进性和纯洁性，巩固党的长期执政地位",
+        "rationale": "第一部分第一个方面把先进性、纯洁性和巩固长期执政地位联系起来。",
+        "evidence": [
+          {
+            "sourceId": "S07",
+            "location": "第一部分第一、第三个方面；第二部分第三、第五项",
+            "claim": "第一部分第一个方面把先进性、纯洁性和巩固长期执政地位联系起来。"
+          }
+        ]
+      },
+      {
+        "id": "034c0926-3b10-4e87-b32a-4017eb955314",
+        "text": "实现党的历史使命，推动党和国家事业行稳致远",
+        "rationale": "第一部分第三个方面从历史使命和事业长远发展说明选题必要性。",
+        "evidence": [
+          {
+            "sourceId": "S07",
+            "location": "第一部分第一、第三个方面；第二部分第三、第五项",
+            "claim": "第一部分第三个方面从历史使命和事业长远发展说明选题必要性。"
+          }
+        ]
+      },
+      {
+        "id": "59984c06-c435-4d5d-96a1-e785a7cb810a",
+        "text": "坚持严的基调，在干部管理中落实严管厚爱相结合",
+        "rationale": "这是第二部分关于起草过程的第三个着重点，属于文件形成时的把握。",
+        "evidence": [
+          {
+            "sourceId": "S07",
+            "location": "第一部分第一、第三个方面；第二部分第三、第五项",
+            "claim": "这是第二部分关于起草过程的第三个着重点，属于文件形成时的把握。"
+          }
+        ]
+      },
+      {
+        "id": "02ac7d76-eedb-4f7c-b2c3-449a0067cf9d",
+        "text": "增强党的各方面建设协同性，使有关制度和措施相互衔接",
+        "rationale": "这是第二部分关于起草过程的第五个着重点。",
+        "evidence": [
+          {
+            "sourceId": "S07",
+            "location": "第一部分第一、第三个方面；第二部分第三、第五项",
+            "claim": "这是第二部分关于起草过程的第五个着重点。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "ed0ff876-bdb9-4bc9-abc3-6a68e859e506",
+      "034c0926-3b10-4e87-b32a-4017eb955314"
+    ],
+    "explanation": "先辨明文献结构。第一部分列的是选择全会议题的现实和长期原因，第二部分说明起草工作怎样落实这些要求。",
+    "distinction": "先辨明文献结构。第一部分列的是选择全会议题的现实和长期原因，第二部分说明起草工作怎样落实这些要求。",
+    "evidence": [
+      {
+        "sourceId": "S07",
+        "location": "第一部分第一、第三个方面；第二部分第三、第五项",
+        "claim": "区别决定主题的考虑与文件起草把握的事项。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "ed0ff876-bdb9-4bc9-abc3-6a68e859e506",
+          "034c0926-3b10-4e87-b32a-4017eb955314"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "依据原文修改被退修问题，重新核对正确项与逐项解析。",
+        "digest": "c9bf06f899e056d99a975841bf2c48916c6d44c9b9804981e2e9cd1674d33702"
+      }
+    }
+  },
+  {
+    "id": "6822ca13-535c-44c8-8c4d-0ab87eaede91",
+    "state": "ready",
+    "topicId": "t03",
+    "knowledgePointId": "170888ff-3e42-4a96-90c1-5e4ca233d00f",
+    "relatedKnowledgePointIds": [],
+    "type": "multiple",
+    "stem": "根据二十届五中全会《决定》的说明，以下哪些表述符合《决定》三个板块的划分？",
+    "scopeNote": "党的二十届五中全会正式公报、《决定》及说明",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "选项为相近的时间、文件层级、议事角色或规范安排，褒贬语气无法决定答案。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "38e8d31b-20d7-447d-9b14-473ae859803f",
+        "text": "第二至第八部分划为总论，主要说明总体要求",
+        "rationale": "说明明确把第二至第八部分划为分论；总体要求属于第一部分。",
+        "evidence": [
+          {
+            "sourceId": "S07",
+            "location": "第三部分关于总论、分论和第三板块的三个段落",
+            "claim": "说明明确把第二至第八部分划为分论；总体要求属于第一部分。"
+          }
+        ]
+      },
+      {
+        "id": "66512458-473d-4645-a0ba-03baadef3528",
+        "text": "党和国家监督体系、管党治党责任并入第一板块",
+        "rationale": "它们在第三板块分别部署，第一板块是总论。",
+        "evidence": [
+          {
+            "sourceId": "S07",
+            "location": "第三部分关于总论、分论和第三板块的三个段落",
+            "claim": "它们在第三板块分别部署，第一板块是总论。"
+          }
+        ]
+      },
+      {
+        "id": "b9f1ea31-3efd-479e-94fe-7261b701fa96",
+        "text": "第一板块为第一部分，阐述重要性、紧迫性和总体要求",
+        "rationale": "说明的第三部分明确以第一部分为总论。",
+        "evidence": [
+          {
+            "sourceId": "S07",
+            "location": "第三部分关于总论、分论和第三板块的三个段落",
+            "claim": "说明的第三部分明确以第一部分为总论。"
+          }
+        ]
+      },
+      {
+        "id": "0ce6f1db-a323-4413-b771-c9569a8b11c9",
+        "text": "第二板块为第二至第八部分，部署战略任务和重大举措",
+        "rationale": "说明按第二至第八部分界定分论并说明其作用。",
+        "evidence": [
+          {
+            "sourceId": "S07",
+            "location": "第三部分关于总论、分论和第三板块的三个段落",
+            "claim": "说明按第二至第八部分界定分论并说明其作用。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "b9f1ea31-3efd-479e-94fe-7261b701fa96",
+      "0ce6f1db-a323-4413-b771-c9569a8b11c9"
+    ],
+    "explanation": "三大板块各有用途。第一部分提出总体判断和要求，第二至第八部分展开分领域任务，最后的板块部署监督和政治责任。",
+    "distinction": "三大板块各有用途。第一部分提出总体判断和要求，第二至第八部分展开分领域任务，最后的板块部署监督和政治责任。",
+    "evidence": [
+      {
+        "sourceId": "S07",
+        "location": "第三部分关于总论、分论和第三板块的三个段落",
+        "claim": "说明按三大板块列出范围和功能。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "b9f1ea31-3efd-479e-94fe-7261b701fa96",
+          "0ce6f1db-a323-4413-b771-c9569a8b11c9"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "依据原文逐项核证；候选等待独立解题和跨专题去重复核。",
+        "digest": "4c06bb617409ff1e8e909e2ef0e6ba906c376d8fb94ede6fe31fa29ad14faa2b"
+      },
+      "independent": {
+        "reviewer": "Codex platform",
+        "date": "2026-11-23",
+        "choice": [
+          "b9f1ea31-3efd-479e-94fe-7261b701fa96",
+          "0ce6f1db-a323-4413-b771-c9569a8b11c9"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "第一板块只有第一部分且为总论，第二板块包括第二至第八部分并部署分论任务。A把分论说成总论，B把第三板块的两项安排移到第一板块。",
+        "digest": "4c06bb617409ff1e8e909e2ef0e6ba906c376d8fb94ede6fe31fa29ad14faa2b"
+      }
+    }
+  },
+  {
+    "id": "8f5075c8-0abc-45a4-92f7-f44a27701bdd",
+    "state": "ready",
+    "topicId": "t03",
+    "knowledgePointId": "bb61dab9-3bb0-4dd2-a026-3ded241ac692",
+    "relatedKnowledgePointIds": [],
+    "type": "multiple",
+    "stem": "哪几项在二十届五中全会《决定》第一部分第（五）项中单列为原则标题？",
+    "scopeNote": "党的二十届五中全会正式公报、《决定》及说明",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "选项为相近的时间、文件层级、议事角色或规范安排，褒贬语气无法决定答案。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "de8b55a5-a94d-4fe6-a93c-44905acd45ad",
+        "text": "强化系统观念",
+        "rationale": "系统观念是说明里的起草着重点，也见于‘坚持全面从严’的展开内容。第（五）项没有以它作独立标题。",
+        "evidence": [
+          {
+            "sourceId": "S07",
+            "location": "第二部分关于起草过程的第三、第五项",
+            "claim": "系统观念是说明里的起草着重点，也见于‘坚持全面从严’的展开内容。第（五）项没有以它作独立标题。"
+          }
+        ]
+      },
+      {
+        "id": "49271db7-7b0c-4bdc-aae4-5b9916986883",
+        "text": "坚持问题导向",
+        "rationale": "《决定》第一部分第（五）项直接把问题导向作为一项原则。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第一部分第（五）项，尤其是全面从严、问题导向、以上率下三则",
+            "claim": "《决定》第一部分第（五）项直接把问题导向作为一项原则。"
+          }
+        ]
+      },
+      {
+        "id": "d628ff03-9c8d-4200-a2af-8320a05af476",
+        "text": "坚持以上率下",
+        "rationale": "第一部分第（五）项直接列有以上率下，展开段说明领导机关和领导干部的示范作用。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第一部分第（五）项，尤其是全面从严、问题导向、以上率下三则",
+            "claim": "第一部分第（五）项直接列有以上率下，展开段说明领导机关和领导干部的示范作用。"
+          }
+        ]
+      },
+      {
+        "id": "8515c06d-65e9-4d62-bd62-be80caa0c2fc",
+        "text": "坚持严的基调",
+        "rationale": "《说明》把这一项列为起草着重点。在决定七条原则中，对严的基调的要求展开在‘坚持全面从严’一则。",
+        "evidence": [
+          {
+            "sourceId": "S07",
+            "location": "第二部分关于起草过程的第三、第五项",
+            "claim": "《说明》把这一项列为起草着重点。在决定七条原则中，对严的基调的要求展开在‘坚持全面从严’一则。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "49271db7-7b0c-4bdc-aae4-5b9916986883",
+      "d628ff03-9c8d-4200-a2af-8320a05af476"
+    ],
+    "explanation": "题目比较实际条目的层级。多个表述都能在会议文件找到，只有原文独立列出的原则标题符合题干。",
+    "distinction": "题目比较实际条目的层级。多个表述都能在会议文件找到，只有原文独立列出的原则标题符合题干。",
+    "evidence": [
+      {
+        "sourceId": "S06",
+        "location": "第一部分第（五）项，尤其是全面从严、问题导向、以上率下三则",
+        "claim": "第（五）项明确的原则标题与其展开段必须分开辨认。"
+      },
+      {
+        "sourceId": "S07",
+        "location": "第二部分关于起草过程的第三、第五项",
+        "claim": "严的基调和强化系统观念是《说明》中起草过程的分点。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "49271db7-7b0c-4bdc-aae4-5b9916986883",
+          "d628ff03-9c8d-4200-a2af-8320a05af476"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "依据原文逐项核证；候选等待独立解题和跨专题去重复核。",
+        "digest": "1c77a09c1bf050e21b133af4169be94d69ecc27967525343ce5e3ac3f01eaa3b"
+      },
+      "independent": {
+        "reviewer": "Codex platform",
+        "date": "2026-11-23",
+        "choice": [
+          "49271db7-7b0c-4bdc-aae4-5b9916986883",
+          "d628ff03-9c8d-4200-a2af-8320a05af476"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "B和C均单独列为原则。A为全面从严原则下的具体要求，D所述严的基调见指导思想与全面从严原则展开内容，均未按该措辞单列。",
+        "digest": "1c77a09c1bf050e21b133af4169be94d69ecc27967525343ce5e3ac3f01eaa3b"
+      }
+    }
+  },
+  {
+    "id": "3bf319b2-ade4-4b42-84d0-8650c984f043",
+    "state": "ready",
+    "topicId": "t03",
+    "knowledgePointId": "7b9b6208-3911-49d4-80ee-7e75de29f98e",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "二十届五中全会《决定》对不同部署分别作了定位。哪项被表述为全面从严治党的根本性任务？",
+    "scopeNote": "党的二十届五中全会正式公报、《决定》及说明",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "选项为相近的时间、文件层级、议事角色或规范安排，褒贬语气无法决定答案。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "04f8e3d6-c317-484d-91a4-6124967ab6fa",
+        "text": "贯彻执行民主集中制",
+        "rationale": "《决定》第三部分称贯彻执行民主集中制是全面从严治党的内在要求。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第二、第三、第六、第八部分开篇",
+            "claim": "《决定》第三部分称贯彻执行民主集中制是全面从严治党的内在要求。"
+          }
+        ]
+      },
+      {
+        "id": "c60cd89d-537a-4935-8042-ef17ca5b2024",
+        "text": "驰而不息正风肃纪",
+        "rationale": "第六部分把正风肃纪定位为全面从严治党的有力举措。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第二、第三、第六、第八部分开篇",
+            "claim": "第六部分把正风肃纪定位为全面从严治党的有力举措。"
+          }
+        ]
+      },
+      {
+        "id": "260bbc7d-6fb3-4003-a9b3-082fa7f02abb",
+        "text": "加强党内法规制度建设",
+        "rationale": "第八部分将党内法规制度建设定位为全面从严治党的长远之策、根本之策。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第二、第三、第六、第八部分开篇",
+            "claim": "第八部分将党内法规制度建设定位为全面从严治党的长远之策、根本之策。"
+          }
+        ]
+      },
+      {
+        "id": "f9aca8a6-b2b3-42a5-9da6-129efeaa0efb",
+        "text": "增强共产党人的党性",
+        "rationale": "《决定》第二部分开篇明确增强党性是全面从严治党的根本性任务。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第二、第三、第六、第八部分开篇",
+            "claim": "《决定》第二部分开篇明确增强党性是全面从严治党的根本性任务。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "f9aca8a6-b2b3-42a5-9da6-129efeaa0efb"
+    ],
+    "explanation": "四项均是真实部署，根本性任务对应增强党性。民主集中制、正风肃纪和党内法规制度分别有内在要求、有力举措和长远根本之策的定位。",
+    "distinction": "四项均是真实部署，根本性任务对应增强党性。民主集中制、正风肃纪和党内法规制度分别有内在要求、有力举措和长远根本之策的定位。",
+    "evidence": [
+      {
+        "sourceId": "S06",
+        "location": "第二、第三、第六、第八部分开篇",
+        "claim": "增强党性与民主集中制、正风肃纪、党内法规制度建设分别有不同定位。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "f9aca8a6-b2b3-42a5-9da6-129efeaa0efb"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "依据原文逐项核证；候选等待独立解题和跨专题去重复核。",
+        "digest": "1d1ae39670aa2bb04afe5fdde3769354473e0a00d998c25339771d224133f413"
+      },
+      "independent": {
+        "reviewer": "Codex platform",
+        "date": "2026-11-23",
+        "choice": [
+          "f9aca8a6-b2b3-42a5-9da6-129efeaa0efb"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "增强党性被定位为根本性任务。A是内在要求，B是有力举措，C是长远之策和根本之策，四个定位可据各部分开头区分。",
+        "digest": "1d1ae39670aa2bb04afe5fdde3769354473e0a00d998c25339771d224133f413"
+      }
+    }
+  },
+  {
+    "id": "a3eab999-9b29-460b-84c7-d73c65799c6d",
+    "state": "ready",
+    "topicId": "t03",
+    "knowledgePointId": "53f108a0-8a72-4c26-a758-90b7a6e39837",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "二十届五中全会《决定》怎样规定“一把手”表态顺序及书记专题会议的决策边界？",
+    "scopeNote": "党的二十届五中全会正式公报、《决定》及说明",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "选项为相近的时间、文件层级、议事角色或规范安排，褒贬语气无法决定答案。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "9a220f94-0285-4537-93cd-a5ab13863430",
+        "text": "“一把手”末位表态，书记专题会议可以代替党委常委会会议作决策",
+        "rationale": "末位表态正确，但书记专题会议不能代替党委常委会会议作决策。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第三部分第（四）项，规范一把手履职用权",
+            "claim": "末位表态正确，但书记专题会议不能代替党委常委会会议作决策。"
+          }
+        ]
+      },
+      {
+        "id": "eabab622-62d8-473a-8d03-7fe55f1344c3",
+        "text": "“一把手”末位表态，书记专题会议不得代替党委常委会会议作决策",
+        "rationale": "两项均见第三部分关于规范一把手履职用权的条款。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第三部分第（四）项，规范一把手履职用权",
+            "claim": "两项均见第三部分关于规范一把手履职用权的条款。"
+          }
+        ]
+      },
+      {
+        "id": "0838d5dc-4c27-4baa-9af3-f5fab3c26e75",
+        "text": "“一把手”首位表态，书记专题会议不得代替党委常委会会议作决策",
+        "rationale": "会议权限表述正确，但《决定》规定的是末位表态。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第三部分第（四）项，规范一把手履职用权",
+            "claim": "会议权限表述正确，但《决定》规定的是末位表态。"
+          }
+        ]
+      },
+      {
+        "id": "1fdaa66c-cece-492b-bc9c-94cb3a92dadd",
+        "text": "“一把手”首位表态，书记专题会议可以代替党委常委会会议作决策",
+        "rationale": "原文规定末位表态，且不允许书记专题会议代替党委常委会会议决策。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第三部分第（四）项，规范一把手履职用权",
+            "claim": "原文规定末位表态，且不允许书记专题会议代替党委常委会会议决策。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "eabab622-62d8-473a-8d03-7fe55f1344c3"
+    ],
+    "explanation": "顺序要求是一把手末位表态。决策依规定的会议程序，书记专题会议不能替代有权会议。",
+    "distinction": "顺序要求是一把手末位表态。决策依规定的会议程序，书记专题会议不能替代有权会议。",
+    "evidence": [
+      {
+        "sourceId": "S06",
+        "location": "第三部分第（四）项，规范一把手履职用权",
+        "claim": "同一款分别规定表态顺序及会议代替的权限边界。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "eabab622-62d8-473a-8d03-7fe55f1344c3"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "依据原文逐项核证；候选等待独立解题和跨专题去重复核。",
+        "digest": "fa205ad533ef8ffa3ac6eb06f6bf035a053034fd732442fa0883fe1332f159a8"
+      },
+      "independent": {
+        "reviewer": "Codex platform",
+        "date": "2026-11-23",
+        "choice": [
+          "eabab622-62d8-473a-8d03-7fe55f1344c3"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "原文同时要求一把手末位表态，并禁止书记专题会议替代党委常委会决策。A改成允许代替，C改成首位表态，D两处均反转。",
+        "digest": "fa205ad533ef8ffa3ac6eb06f6bf035a053034fd732442fa0883fe1332f159a8"
+      }
+    }
+  },
+  {
+    "id": "66f86b7a-bc20-4a22-a0a0-84a9e91a2e8c",
+    "state": "ready",
+    "topicId": "t03",
+    "knowledgePointId": "0fcdd19d-4470-40f7-9160-7212950c6269",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "依据二十届五中全会公报中关于下一次全国代表大会召开的决定，中国共产党第二十一次全国代表大会计划何时召开？",
+    "scopeNote": "党的二十届五中全会正式公报、《决定》及说明",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "选项为相近的时间、文件层级、议事角色或规范安排，褒贬语气无法决定答案。",
+    "orderLocked": true,
+    "options": [
+      {
+        "id": "e7663bb8-b898-426c-9af0-1c11d49ddab8",
+        "text": "2026年下半年",
+        "rationale": "公报中2026年下半年举行的是本次中央全会，关于第二十一次全国代表大会的决定指向2027年。",
+        "evidence": [
+          {
+            "sourceId": "S05",
+            "location": "公报末段关于中国共产党第二十一次全国代表大会的决定",
+            "claim": "公报中2026年下半年举行的是本次中央全会，关于第二十一次全国代表大会的决定指向2027年。"
+          }
+        ]
+      },
+      {
+        "id": "a45ed385-cd4a-4a94-88bf-51c6c244b748",
+        "text": "2027年上半年",
+        "rationale": "年份正确，公报明确写的是下半年。",
+        "evidence": [
+          {
+            "sourceId": "S05",
+            "location": "公报末段关于中国共产党第二十一次全国代表大会的决定",
+            "claim": "年份正确，公报明确写的是下半年。"
+          }
+        ]
+      },
+      {
+        "id": "feb7d9ac-3ee1-41c5-8780-212570dbbf11",
+        "text": "2027年下半年",
+        "rationale": "公报明确第二十一次全国代表大会计划于2027年下半年在北京召开。",
+        "evidence": [
+          {
+            "sourceId": "S05",
+            "location": "公报末段关于中国共产党第二十一次全国代表大会的决定",
+            "claim": "公报明确第二十一次全国代表大会计划于2027年下半年在北京召开。"
+          }
+        ]
+      },
+      {
+        "id": "269abbce-70a1-449a-baf0-b53c6d826eef",
+        "text": "2028年上半年",
+        "rationale": "公报作出的是2027年下半年的安排。",
+        "evidence": [
+          {
+            "sourceId": "S05",
+            "location": "公报末段关于中国共产党第二十一次全国代表大会的决定",
+            "claim": "公报作出的是2027年下半年的安排。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "feb7d9ac-3ee1-41c5-8780-212570dbbf11"
+    ],
+    "explanation": "题目以五中全会公报记录的安排为准。公报明确了2027年下半年及召开地点北京。",
+    "distinction": "题目以五中全会公报记录的安排为准。公报明确了2027年下半年及召开地点北京。",
+    "evidence": [
+      {
+        "sourceId": "S05",
+        "location": "公报末段关于中国共产党第二十一次全国代表大会的决定",
+        "claim": "公报宣布第二十一次全国代表大会于2027年下半年在北京召开。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "feb7d9ac-3ee1-41c5-8780-212570dbbf11"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "依据原文逐项核证；候选等待独立解题和跨专题去重复核。",
+        "digest": "2c05c99f52b5d74ec1d6b6a0bf050f6145c8decde15e0919b97e4703395e9099"
+      },
+      "independent": {
+        "reviewer": "Codex platform",
+        "date": "2026-11-23",
+        "choice": [
+          "feb7d9ac-3ee1-41c5-8780-212570dbbf11"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "公报确定的计划时间是2027年下半年。A和B提前了时间，D延后到下一年。题干考查公报作出的安排，表述未断言大会已经召开。",
+        "digest": "2c05c99f52b5d74ec1d6b6a0bf050f6145c8decde15e0919b97e4703395e9099"
+      }
+    }
+  },
+  {
+    "id": "e4842708-22d1-4b36-bbe2-411f0f7c8e8b",
+    "state": "ready",
+    "topicId": "t03",
+    "knowledgePointId": "8c11102f-8751-4855-aca6-32a2b0f9605e",
+    "relatedKnowledgePointIds": [],
+    "type": "multiple",
+    "stem": "二十届五中全会《决定》第五部分第（四）项直接列举了三类新兴领域工作对象。下列哪些属于这三类？",
+    "scopeNote": "党的二十届五中全会正式公报、《决定》及说明",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "选项为相近的时间、文件层级、议事角色或规范安排，褒贬语气无法决定答案。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "35872e0e-44d4-428d-be6e-3681e08e1fbc",
+        "text": "新经济组织",
+        "rationale": "在第（四）项提出拓展组织覆盖和工作覆盖时，新经济组织被直接列为其中一类。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第五部分第（四）项，拓展组织覆盖和工作覆盖段",
+            "claim": "在第（四）项提出拓展组织覆盖和工作覆盖时，新经济组织被直接列为其中一类。"
+          }
+        ]
+      },
+      {
+        "id": "ed3002fc-1784-4240-9f43-6e1e8d2e75d0",
+        "text": "机关直属企事业单位",
+        "rationale": "机关直属企事业单位在第五部分第（一）项的党建同步推进机制中讨论，不是第（四）项开列的三类对象。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第五部分第（一）、第（三）项",
+            "claim": "机关直属企事业单位在第五部分第（一）项的党建同步推进机制中讨论，不是第（四）项开列的三类对象。"
+          }
+        ]
+      },
+      {
+        "id": "8ec0d470-2c78-4581-bf99-951a51cef529",
+        "text": "城市社区居民委员会",
+        "rationale": "第（三）项在城市基层党建中论及社区党组织与居民委员会的协调机制，层级不同。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第五部分第（一）、第（三）项",
+            "claim": "第（三）项在城市基层党建中论及社区党组织与居民委员会的协调机制，层级不同。"
+          }
+        ]
+      },
+      {
+        "id": "cea1e18c-49af-4e4f-8107-d126f56112f5",
+        "text": "新就业群体",
+        "rationale": "第（四）项直接列出新就业群体，并提出相应思想引领、服务管理和权益保障。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第五部分第（四）项，拓展组织覆盖和工作覆盖段",
+            "claim": "第（四）项直接列出新就业群体，并提出相应思想引领、服务管理和权益保障。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "35872e0e-44d4-428d-be6e-3681e08e1fbc",
+      "cea1e18c-49af-4e4f-8107-d126f56112f5"
+    ],
+    "explanation": "从列举对象识别章节。新经济组织、新社会组织和新就业群体属于第（四）项的三类，机关所属单位和居委会另在本章相关条款讨论。",
+    "distinction": "从列举对象识别章节。新经济组织、新社会组织和新就业群体属于第（四）项的三类，机关所属单位和居委会另在本章相关条款讨论。",
+    "evidence": [
+      {
+        "sourceId": "S06",
+        "location": "第五部分第（四）项，拓展组织覆盖和工作覆盖段",
+        "claim": "新经济组织、新社会组织和新就业群体是三类明确对象。"
+      },
+      {
+        "sourceId": "S06",
+        "location": "第五部分第（一）、第（三）项",
+        "claim": "直属企事业单位和社区居民委员会分别在机关党建和基层党建段落出现。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "35872e0e-44d4-428d-be6e-3681e08e1fbc",
+          "cea1e18c-49af-4e4f-8107-d126f56112f5"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "依据原文逐项核证；候选等待独立解题和跨专题去重复核。",
+        "digest": "8851f1f6949bdb2b8ff0276aa8422d4142f079f3a5313bc23fdf7dff63ed002d"
+      },
+      "independent": {
+        "reviewer": "Codex platform",
+        "date": "2026-11-23",
+        "choice": [
+          "35872e0e-44d4-428d-be6e-3681e08e1fbc",
+          "cea1e18c-49af-4e4f-8107-d126f56112f5"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "原文将新经济组织、新社会组织、新就业群体列为扩大组织和工作覆盖的对象。A和D来自该列举，B和C是不同类型的组织，未以这些名称被列为所述三类。",
+        "digest": "8851f1f6949bdb2b8ff0276aa8422d4142f079f3a5313bc23fdf7dff63ed002d"
+      }
+    }
+  },
+  {
+    "id": "52df4b9f-23c1-4553-b368-bc3f179ab67f",
+    "state": "ready",
+    "topicId": "t03",
+    "knowledgePointId": "ed7ce4d0-6e4b-4773-afd0-eb8a8eff97c7",
+    "relatedKnowledgePointIds": [],
+    "type": "multiple",
+    "stem": "二十届五中全会《决定》第四部分第（三）项对改进高质量发展政绩考核作出部署。下列哪些内容列于该项所述考核要求？",
+    "scopeNote": "党的二十届五中全会正式公报、《决定》及说明",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "选项为相近的时间、文件层级、议事角色或规范安排，褒贬语气无法决定答案。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "4f2e8ed3-082a-494f-9ab0-22acd263b2a4",
+        "text": "同时了解推动当前工作和处理历史遗留问题的情况",
+        "rationale": "条文把当前工作与遗留问题并列，要求深入了解和分析。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第四部分第（三）项关于政绩考核的句段",
+            "claim": "条文把当前工作与遗留问题并列，要求深入了解和分析。"
+          }
+        ]
+      },
+      {
+        "id": "f0c6c2c5-6975-43cd-bb95-7e254773dcfe",
+        "text": "兼顾考人和考事，结合已有考核成果和任前考察",
+        "rationale": "这组结合方式见于同一考核段。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第四部分第（三）项关于政绩考核的句段",
+            "claim": "这组结合方式见于同一考核段。"
+          }
+        ]
+      },
+      {
+        "id": "13b3cf84-0774-4b1d-9b6d-8eaa8ef87567",
+        "text": "了解和分析显绩与潜绩",
+        "rationale": "条文要求了解干部出显绩及重潜绩的情况。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第四部分第（三）项关于政绩考核的句段",
+            "claim": "条文要求了解干部出显绩及重潜绩的情况。"
+          }
+        ]
+      },
+      {
+        "id": "1575dc9e-b4d0-45b3-8947-1f0e7396c0da",
+        "text": "对干部开展延伸考察，注重到其原工作地方或单位了解情况",
+        "rationale": "这项做法在紧邻的第（二）项精准科学选人用人中提出，题干限定第（三）项的考核要求。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第四部分第（二）项，强化延伸考察段落",
+            "claim": "这项做法在紧邻的第（二）项精准科学选人用人中提出，题干限定第（三）项的考核要求。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "4f2e8ed3-082a-494f-9ab0-22acd263b2a4",
+      "f0c6c2c5-6975-43cd-bb95-7e254773dcfe",
+      "13b3cf84-0774-4b1d-9b6d-8eaa8ef87567"
+    ],
+    "explanation": "本题考查五中正式文件的政绩考核部署，重点是把人员、工作及不同时间尺度的结果结合起来看。延伸考察另有条目归属。",
+    "distinction": "本题考查五中正式文件的政绩考核部署，重点是把人员、工作及不同时间尺度的结果结合起来看。延伸考察另有条目归属。",
+    "evidence": [
+      {
+        "sourceId": "S06",
+        "location": "第四部分第（三）项关于政绩考核的句段",
+        "claim": "政绩考核明确考人和考事、结合已有考核成果和任前考察、兼顾当前与遗留和显绩潜绩。"
+      },
+      {
+        "sourceId": "S06",
+        "location": "第四部分第（二）项，强化延伸考察段落",
+        "claim": "到原工作地方或单位开展延伸考察属于第（二）项选人用人部署。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "4f2e8ed3-082a-494f-9ab0-22acd263b2a4",
+          "f0c6c2c5-6975-43cd-bb95-7e254773dcfe",
+          "13b3cf84-0774-4b1d-9b6d-8eaa8ef87567"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "依据原文逐项核证；候选等待独立解题和跨专题去重复核。",
+        "digest": "579aab5ab83e901b4b36f8fbc4a21ee7e7f82be579ae1dbd27ee24eab00eb150"
+      },
+      "independent": {
+        "reviewer": "Codex platform",
+        "date": "2026-11-23",
+        "choice": [
+          "4f2e8ed3-082a-494f-9ab0-22acd263b2a4",
+          "f0c6c2c5-6975-43cd-bb95-7e254773dcfe",
+          "13b3cf84-0774-4b1d-9b6d-8eaa8ef87567"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "考核需同时了解当前任务和历史遗留问题，结合考人考事及已有考核与任前考察，并关注显绩和潜绩。D是第（二）项选人用人中的延伸考察，题干限定第（三）项。",
+        "digest": "579aab5ab83e901b4b36f8fbc4a21ee7e7f82be579ae1dbd27ee24eab00eb150"
+      }
+    }
+  },
+  {
+    "id": "65efe405-119f-4475-9d00-920efaf5ca44",
+    "state": "ready",
+    "topicId": "t03",
+    "knowledgePointId": "02376779-0c20-4516-9e67-a78d9148807b",
+    "relatedKnowledgePointIds": [],
+    "type": "multiple",
+    "stem": "二十届五中全会《决定》第三部分第（三）项对领导班子决策议事有什么规定？",
+    "scopeNote": "党的二十届五中全会正式公报、《决定》及说明",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "选项为相近的时间、文件层级、议事角色或规范安排，褒贬语气无法决定答案。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "356caead-c2e4-4b2e-9f13-6a70e835420e",
+        "text": "重大问题由分管负责人充分征求意见后作个人决定",
+        "rationale": "征求意见不能替代集体讨论决定，该项强调领导班子集体的决策责任。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第三部分第（三）项，领导班子决策议事规则",
+            "claim": "征求意见不能替代集体讨论决定，该项强调领导班子集体的决策责任。"
+          }
+        ]
+      },
+      {
+        "id": "b2aa384e-251c-49ef-adf9-27d3b1fa247d",
+        "text": "重要议题出现较大意见分歧时不得强行作出决策",
+        "rationale": "原文在调查研究和决策程序的要求中明确写明这一边界。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第三部分第（三）项，领导班子决策议事规则",
+            "claim": "原文在调查研究和决策程序的要求中明确写明这一边界。"
+          }
+        ]
+      },
+      {
+        "id": "4853c8e8-109b-4860-8c93-fdc66097512c",
+        "text": "重大问题按集体领导、民主集中、个别酝酿、会议决定的原则由集体讨论决定",
+        "rationale": "这是同一项明确列出的集体议事原则。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第三部分第（三）项，领导班子决策议事规则",
+            "claim": "这是同一项明确列出的集体议事原则。"
+          }
+        ]
+      },
+      {
+        "id": "b0955bde-74b7-4b68-96a3-870c829cf4e4",
+        "text": "研究工作时充分发表意见，形成决策后在职责范围内落实",
+        "rationale": "这项同时规范领导干部研究工作时的表达和决策形成后的执行。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第三部分第（三）项，领导班子决策议事规则",
+            "claim": "这项同时规范领导干部研究工作时的表达和决策形成后的执行。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "b2aa384e-251c-49ef-adf9-27d3b1fa247d",
+      "4853c8e8-109b-4860-8c93-fdc66097512c",
+      "b0955bde-74b7-4b68-96a3-870c829cf4e4"
+    ],
+    "explanation": "议事制度区分讨论中的意见表达、集体决策和个人落实。较大分歧出现时要按程序处理，分管负责人按已经形成的集体决定履职。",
+    "distinction": "议事制度区分讨论中的意见表达、集体决策和个人落实。较大分歧出现时要按程序处理，分管负责人按已经形成的集体决定履职。",
+    "evidence": [
+      {
+        "sourceId": "S06",
+        "location": "第三部分第（三）项，领导班子决策议事规则",
+        "claim": "明确重大事项集体决策、意见分歧的处理和决策后的履职要求。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "b2aa384e-251c-49ef-adf9-27d3b1fa247d",
+          "4853c8e8-109b-4860-8c93-fdc66097512c",
+          "b0955bde-74b7-4b68-96a3-870c829cf4e4"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "依据原文逐项核证；候选等待独立解题和跨专题去重复核。",
+        "digest": "a777d201b64d3a2210f01e50ac8a4aa0ac31fa1b96d0a890329766798f1b58d1"
+      },
+      "independent": {
+        "reviewer": "Codex platform",
+        "date": "2026-11-23",
+        "choice": [
+          "b2aa384e-251c-49ef-adf9-27d3b1fa247d",
+          "4853c8e8-109b-4860-8c93-fdc66097512c",
+          "b0955bde-74b7-4b68-96a3-870c829cf4e4"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "原文规定分歧较大时不可强行决定，重大问题按规定由集体讨论决定，领导干部研究时充分发言、决定后在职责内落实。A将重大事项决策权改成了分管负责人个人权力。",
+        "digest": "a777d201b64d3a2210f01e50ac8a4aa0ac31fa1b96d0a890329766798f1b58d1"
+      }
+    }
+  },
+  {
+    "id": "0b76352a-b100-46a0-b698-9dad0f6f634a",
+    "state": "draft",
+    "topicId": "t03",
+    "knowledgePointId": "156cb77c-239e-44db-97d4-137ec8326e6c",
+    "relatedKnowledgePointIds": [],
+    "type": "multiple",
+    "stem": "按照二十届五中全会《决定》对管党治党责任的划分，哪些对应关系准确？",
+    "scopeNote": "党的二十届五中全会正式公报、《决定》及说明",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "选项为相近的时间、文件层级、议事角色或规范安排，褒贬语气无法决定答案。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "6686e2ff-83ed-40b5-a0a8-94636cb2b06a",
+        "text": "党委（党组）——主体责任",
+        "rationale": "该段明确党委（党组）承担主体责任。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第八部分之后以全党的共同政治责任开头的段落，开篇责任划分",
+            "claim": "该段明确党委（党组）承担主体责任。"
+          }
+        ]
+      },
+      {
+        "id": "5b1b97f1-1a9d-47e2-b4c3-c526dc224a04",
+        "text": "纪委——本级全面从严治党主体责任",
+        "rationale": "《决定》明确主体责任由党委（党组）承担，纪委负责监督，并协助党委推进全面从严治党。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第八部分之后以全党的共同政治责任开头的段落，开篇责任划分",
+            "claim": "《决定》明确主体责任由党委（党组）承担，纪委负责监督，并协助党委推进全面从严治党。"
+          }
+        ]
+      },
+      {
+        "id": "0818bd55-996c-453a-af4a-04a189156b90",
+        "text": "党委（党组）书记——第一责任人责任",
+        "rationale": "该段明确由党委（党组）书记履行第一责任人责任。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第八部分之后以全党的共同政治责任开头的段落，开篇责任划分",
+            "claim": "该段明确由党委（党组）书记履行第一责任人责任。"
+          }
+        ]
+      },
+      {
+        "id": "01d7c159-bd07-4ed0-821e-9ead5c331fdb",
+        "text": "领导班子其他成员——“一岗双责”",
+        "rationale": "该项将一岗双责明确对应领导班子其他成员。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第八部分之后以全党的共同政治责任开头的段落，开篇责任划分",
+            "claim": "该项将一岗双责明确对应领导班子其他成员。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "6686e2ff-83ed-40b5-a0a8-94636cb2b06a",
+      "0818bd55-996c-453a-af4a-04a189156b90",
+      "01d7c159-bd07-4ed0-821e-9ead5c331fdb"
+    ],
+    "explanation": "主体、第一责任人、监督主体和其他班子成员各有对应责任，不能把纪委监督职责和书记第一责任人职责互换。",
+    "distinction": "主体、第一责任人、监督主体和其他班子成员各有对应责任，不能把纪委监督职责和书记第一责任人职责互换。",
+    "evidence": [
+      {
+        "sourceId": "S06",
+        "location": "第八部分之后以全党的共同政治责任开头的段落，开篇责任划分",
+        "claim": "明确党委（党组）、纪委、书记及其他班子成员不同的管党治党责任。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "6686e2ff-83ed-40b5-a0a8-94636cb2b06a",
+          "0818bd55-996c-453a-af4a-04a189156b90",
+          "01d7c159-bd07-4ed0-821e-9ead5c331fdb"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "依据原文修改被退修问题，重新核对正确项与逐项解析。",
+        "digest": "db8cb32a3b334ab838324aacda4be52afedf5306423ce6689fb685fc8c48f007"
+      }
+    }
+  },
+  {
+    "id": "c323743e-4038-473d-9d53-9b2969569e0c",
+    "state": "draft",
+    "topicId": "t03",
+    "knowledgePointId": "c2700e16-9291-46f3-b033-32b0b1061d60",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "二十届五中全会《决定》第七部分第（四）项怎样要求发挥不敢腐、不能腐、不想腐的一体推进效能？",
+    "scopeNote": "党的二十届五中全会正式公报、《决定》及说明",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "选项为相近的时间、文件层级、议事角色或规范安排，褒贬语气无法决定答案。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "784e989a-05d2-479c-b772-45a4040b05ff",
+        "text": "同时发力、同向发力、综合发力",
+        "rationale": "该项直接列出三个发力方式，强调一体化。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第七部分第（四）项首段",
+            "claim": "该项直接列出三个发力方式，强调一体化。"
+          }
+        ]
+      },
+      {
+        "id": "9d029e92-d86a-4108-9389-875e32f0b0df",
+        "text": "集中发力、精准发力、持续发力",
+        "rationale": "该段明确的是同时、同向、综合发力，题中三项未对应这三个具体要求。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第七部分第（四）项首段",
+            "claim": "该段明确的是同时、同向、综合发力，题中三项未对应这三个具体要求。"
+          }
+        ]
+      },
+      {
+        "id": "c8860da4-9625-499c-b2d9-bb0c6e1d2d68",
+        "text": "同步部署、协同监督、联动问责",
+        "rationale": "这些侧重组织和监督安排。该段对三个方面一体推进具体强调同时、同向、综合发力。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第七部分第（四）项首段",
+            "claim": "这些侧重组织和监督安排。该段对三个方面一体推进具体强调同时、同向、综合发力。"
+          }
+        ]
+      },
+      {
+        "id": "63d74a2d-a2f0-4339-aee3-be488d07b071",
+        "text": "系统谋划、重点突破、分层落实",
+        "rationale": "这些是工作安排的表述。指定条文明确同时、同向、综合发力。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第七部分第（四）项首段",
+            "claim": "这些是工作安排的表述。指定条文明确同时、同向、综合发力。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "784e989a-05d2-479c-b772-45a4040b05ff"
+    ],
+    "explanation": "用时间、方向和协同三个维度辨析。文件要求同时、同向和综合发力，并配套推进协作。",
+    "distinction": "用时间、方向和协同三个维度辨析。文件要求同时、同向和综合发力，并配套推进协作。",
+    "evidence": [
+      {
+        "sourceId": "S06",
+        "location": "第七部分第（四）项首段",
+        "claim": "增强一体推进的综合效能时，三个方面同时发力、同向发力、综合发力。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex root",
+        "date": "2026-11-23",
+        "choice": [
+          "784e989a-05d2-479c-b772-45a4040b05ff"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "依据原文修改被退修问题，重新核对正确项与逐项解析。",
+        "digest": "290e69d18fcd9c7c9f00397818bdfaade3124b3cbda44716794b2e176fc55a14"
+      }
+    }
+  },
+  {
+    "id": "44c8f725-51dd-44e7-8918-f586f67e925a",
+    "state": "ready",
+    "topicId": "t03",
+    "knowledgePointId": "5c9e7e7e-8481-48a8-bbea-4bf077b3e33f",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "依照二十届五中全会《决定》关于完善纪检监察工作双重领导体制的部署，监督检查和查办腐败案件以哪一层级和主体领导为主？",
+    "scopeNote": "党的二十届五中全会正式公报、《决定》及说明",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "选项为相近的时间、文件层级、议事角色或规范安排，褒贬语气无法决定答案。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "3678a315-8726-4a38-9bf4-dc60b5011db8",
+        "text": "本级纪委监委领导为主",
+        "rationale": "主体类别相近，但该段明确由上级纪委监委领导为主。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第八部分之后监督体系段，纪检监察工作双重领导体制句",
+            "claim": "主体类别相近，但该段明确由上级纪委监委领导为主。"
+          }
+        ]
+      },
+      {
+        "id": "9aea1ff8-2b69-4fd2-9ec2-41ff1bd48004",
+        "text": "上级纪委监委领导为主",
+        "rationale": "这是关于监督检查和查办腐败案件领导关系的明确表述。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第八部分之后监督体系段，纪检监察工作双重领导体制句",
+            "claim": "这是关于监督检查和查办腐败案件领导关系的明确表述。"
+          }
+        ]
+      },
+      {
+        "id": "aaf993ae-5e6c-45a5-b5b6-20dcc1bd055a",
+        "text": "本级党委（党组）领导为主",
+        "rationale": "文件也要求做实党委（党组）全面监督，但具体到所问两项工作，明定以上级纪委监委领导为主。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第八部分之后监督体系段，纪检监察工作双重领导体制句",
+            "claim": "文件也要求做实党委（党组）全面监督，但具体到所问两项工作，明定以上级纪委监委领导为主。"
+          }
+        ]
+      },
+      {
+        "id": "5ea91929-1aa2-420c-a7a9-864895f990f3",
+        "text": "本级派驻纪检监察组领导为主",
+        "rationale": "派驻监督需要同其他监督方式统筹衔接；它未被该段设为所问两项工作的主要领导角色。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第八部分之后监督体系段，纪检监察工作双重领导体制句",
+            "claim": "派驻监督需要同其他监督方式统筹衔接；它未被该段设为所问两项工作的主要领导角色。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "9aea1ff8-2b69-4fd2-9ec2-41ff1bd48004"
+    ],
+    "explanation": "先区分党委全面监督和具体两项纪检监察工作，再确定该项规定强调的主要领导层级。",
+    "distinction": "先区分党委全面监督和具体两项纪检监察工作，再确定该项规定强调的主要领导层级。",
+    "evidence": [
+      {
+        "sourceId": "S06",
+        "location": "第八部分之后监督体系段，纪检监察工作双重领导体制句",
+        "claim": "监督检查和查办腐败案件以上级纪委监委领导为主。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "9aea1ff8-2b69-4fd2-9ec2-41ff1bd48004"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "依据原文逐项核证；候选等待独立解题和跨专题去重复核。",
+        "digest": "91ca6adede11571ac86efb49804d2824c75d72150a73e3d7d08c4a54026215b3"
+      },
+      "independent": {
+        "reviewer": "Codex platform",
+        "date": "2026-11-23",
+        "choice": [
+          "9aea1ff8-2b69-4fd2-9ec2-41ff1bd48004"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "原文把监督检查与查办腐败案件的主导领导明确放在上级纪委监委。A颠倒上下级，C和D更换了主体。题目只问该项工作安排。",
+        "digest": "91ca6adede11571ac86efb49804d2824c75d72150a73e3d7d08c4a54026215b3"
+      }
+    }
+  },
+  {
+    "id": "a1e6c2c6-a6c9-4564-bc1f-04ac604b8671",
+    "state": "ready",
+    "topicId": "t03",
+    "knowledgePointId": "d9e26c06-42f8-4ca8-9b1e-d0365f9b6903",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "依据二十届五中全会《决定》，县级以上党委（党组）听取领导班子成员的管党治党履责情况，以及下级纪委（派驻纪检监察组）就规定事项向上级报告，两个最低频次如何对应？",
+    "scopeNote": "党的二十届五中全会正式公报、《决定》及说明",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "选项为相近的时间、文件层级、议事角色或规范安排，褒贬语气无法决定答案。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "b5f7c99a-18c6-4613-b934-00322ff0c0de",
+        "text": "前者至少每半年一次，后者至少每年一次",
+        "rationale": "这组频次对调。文件把年度频次用于党委（党组）听取履责汇报。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第八部分之后政治责任段，县级以上党委和下级纪委的相邻两句",
+            "claim": "这组频次对调。文件把年度频次用于党委（党组）听取履责汇报。"
+          }
+        ]
+      },
+      {
+        "id": "f8a60630-0d6c-4bff-8fb0-059783a426fb",
+        "text": "前者和后者均至少每半年一次",
+        "rationale": "上下级纪委之间相关报告为半年频次，党委（党组）听取为年度频次。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第八部分之后政治责任段，县级以上党委和下级纪委的相邻两句",
+            "claim": "上下级纪委之间相关报告为半年频次，党委（党组）听取为年度频次。"
+          }
+        ]
+      },
+      {
+        "id": "f09dfbe5-88be-4102-84b3-f55ab32388f5",
+        "text": "前者和后者均至少每年一次",
+        "rationale": "党委（党组）听取是年度频次；下级纪委的规定报告每半年至少一次。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第八部分之后政治责任段，县级以上党委和下级纪委的相邻两句",
+            "claim": "党委（党组）听取是年度频次；下级纪委的规定报告每半年至少一次。"
+          }
+        ]
+      },
+      {
+        "id": "b3666347-3ddb-4d41-820b-ce825f9fe9d3",
+        "text": "前者至少每年一次，后者至少每半年一次",
+        "rationale": "政治责任段分别写明按年至少听取一次及按半年至少报告一次。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第八部分之后政治责任段，县级以上党委和下级纪委的相邻两句",
+            "claim": "政治责任段分别写明按年至少听取一次及按半年至少报告一次。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "b3666347-3ddb-4d41-820b-ce825f9fe9d3"
+    ],
+    "explanation": "两种动作的主体不同，最低频次也不同。党委（党组）听取履责按年，下级纪委等向相应上级报告按半年。",
+    "distinction": "两种动作的主体不同，最低频次也不同。党委（党组）听取履责按年，下级纪委等向相应上级报告按半年。",
+    "evidence": [
+      {
+        "sourceId": "S06",
+        "location": "第八部分之后政治责任段，县级以上党委和下级纪委的相邻两句",
+        "claim": "区分党委听取班子履责汇报和下级纪委向上级报告的最低频次。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex sources",
+        "date": "2026-11-23",
+        "choice": [
+          "b3666347-3ddb-4d41-820b-ce825f9fe9d3"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "依据原文逐项核证；候选等待独立解题和跨专题去重复核。",
+        "digest": "55794ec024e273aeb52d28996107410d1c31f760f0d3207e254ede6acda2660d"
+      },
+      "independent": {
+        "reviewer": "Codex platform",
+        "date": "2026-11-23",
+        "choice": [
+          "b3666347-3ddb-4d41-820b-ce825f9fe9d3"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "县级以上党委或党组至少每年听取一次班子成员履责汇报。下级纪委或派驻组至少每半年向上级纪委或派出机关报告有关履职用权和自身监督情况，A对调频次，B和C均把两种频次合并。",
+        "digest": "55794ec024e273aeb52d28996107410d1c31f760f0d3207e254ede6acda2660d"
+      }
+    }
+  }
+]

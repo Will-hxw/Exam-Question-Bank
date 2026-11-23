@@ -1,62 +1,40 @@
 # 重庆大学入党积极分子练习
 
-[exam-question-bank-1pm.pages.dev](https://exam-question-bank-1pm.pages.dev)
+专题刷题、50 题不限时模拟练习、中文搜索、错题和收藏。使用邮箱注册并验证后登录，学习数据按账号保存。
 
-## 功能
+正式域名为 `https://cqu.xiaoweihua.cn`。建设与验收进度见 [执行状态](docs/EXECUTION_STATUS.md)。
 
-| 模块 | 说明 |
-| --- | --- |
-| 刷题练习 | 按专题、随机、顺序三种模式 |
-| 模拟考试 | 随机抽题，计时作答，记录历史成绩与错题 |
-| 错题复习 | 自动间隔重复，连续答对自动移出 |
-| 收藏夹 | 收藏重点题目，单独练习 |
-| 总题库 | 全题库检索，支持关键词、题型、状态筛选 |
-| AI 解析 | DeepSeek 直连，实时解析考点、答案与逐项说明 |
-| 离线缓存 | Service Worker 缓存首页与题库，二次秒开 |
+## 本地开发
 
-数据全部存储在浏览器 `localStorage`，不上传用户数据。
+使用 Node.js 24 和 PostgreSQL 16+。邮箱登录需要隔离的 Neon Auth 开发环境。
 
-## 项目结构
-
-```
-├── build.py                 # 构建脚本
-├── src/
-│   ├── app.js               # 主应用逻辑
-│   ├── storage.js           # 本地状态管理
-│   ├── ai.js                # AI 解析（DeepSeek 直连）
-│   └── sw.js                # Service Worker 源码
-├── data/
-│   ├── questions.json       # 源题库
-│   └── json/                # 分专题题库（13 个专题）
-├── assets/
-│   ├── icon.jpg             # 原始图标
-│   └── wechat.png           # 赞助收款码
-└── cloudflare-worker/       # 已废弃，保留参考
+```sh
+npm ci
+npm run db:migrate
+npm run content:sync           # 在事务中验证并回滚
+npm run content:sync -- --apply # 将内容同步到本机数据库
+npm run dev
 ```
 
-## 本地构建与预览
+按 [环境示例](.env.example) 向本地进程配置变量。迁移使用 `DATABASE_URL`，题库同步优先使用操作方的 `CONTENT_DATABASE_URL`。邮件授权码在托管平台安全设置中配置。
 
-```powershell
-python build.py
+## 题库
 
-# 本地预览
-cd final && python -m http.server 3000 --bind 127.0.0.1
+- 在 `content/` 的 JSON 中维护题目、来源、专题和知识点。沿用题目和选项的 UUID，修订时重审，停用时保留记录。
+- `npm run content:validate` 执行结构和引用检查。`npm run content:quality` 输出覆盖、重复候选、情绪线索题、全选和答案分布。
+- `npm run content:build` 生成 CDN 分片。发布时 PostgreSQL 同步同一份内容，用于搜索、个人筛选、组卷与判分。
+- 来源以共产党员网的正式文本、重庆大学的公开通知和现行校规为主。 [考纲依据](docs/SYLLABUS_MAP.md) · [来源台账](docs/SOURCE_CATALOG.csv) · [编审和发布](docs/CONTENT_REVIEW.md)
+
+## 验证与部署
+
+```sh
+npm run lint
+npm run typecheck
+npm test
+npm run test:integration
+npm run build
 ```
 
-## 部署
+集成测试需要提供具备建库权限的开发集群 `TEST_DATABASE_URL`，测试会创建并清理独立数据库。EdgeOne Makers 从原 GitHub 仓库构建。环境配置、发布保护和回滚见 [部署手册](docs/DEPLOY.md)。
 
-见 [`cloudflare-worker/deploy.md`](cloudflare-worker/deploy.md)。
-
-## 更新题库
-
-1. 修改 `data/questions.json`
-2. `python build.py` 重新构建
-3. 重新部署
-
-## 隐私
-
-无后端，不收集任何用户数据。答题记录、错题、收藏、考试历史均仅存储在浏览器本地。清理浏览器数据会丢失。
-
-## License
-
-代码 [MIT License](LICENSE)。题库内容仅用于学习参考。
+代码采用 [MIT License](LICENSE)。题库内容仅供学习参考。

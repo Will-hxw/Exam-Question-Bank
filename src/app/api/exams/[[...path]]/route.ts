@@ -1,0 +1,28 @@
+import { createExam, examDetails, examHistory, saveExam } from '@/server/exams'
+import { HttpError, parseBody, route, uuid } from '@/server/http'
+import { account } from '@/server/learning'
+
+type Context = { params: Promise<{ path?: string[] }> }
+
+export const GET = route(async (request: Request, context: Context) => {
+  const user = await account(request)
+  const { path = [] } = await context.params
+  if (!path.length) return examHistory(user)
+  if (path.length === 1) return examDetails(user, uuid(path[0]))
+  throw new HttpError(404, '接口不存在。')
+})
+
+export const POST = route(async (request: Request, context: Context) => {
+  const user = await account(request, true)
+  const { path = [] } = await context.params
+  if (!path.length) return createExam(user)
+  if (path.length === 2 && path[1] === 'submit') return saveExam(user, uuid(path[0]), await parseBody(request), true)
+  throw new HttpError(404, '接口不存在。')
+})
+
+export const PUT = route(async (request: Request, context: Context) => {
+  const user = await account(request, true)
+  const { path = [] } = await context.params
+  if (path.length === 1) return saveExam(user, uuid(path[0]), await parseBody(request), false)
+  throw new HttpError(404, '接口不存在。')
+})

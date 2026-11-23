@@ -1,0 +1,602 @@
+[
+  {
+    "id": "3db15c4a-d990-4d0c-8736-02eff97ece88",
+    "topicId": "t13",
+    "factKey": "t13-era-question",
+    "fact": "习近平党建思想回应的重大时代课题是长期执政的马克思主义政党建设。",
+    "importance": "core",
+    "sourceId": "S37",
+    "location": "《通知》指出段",
+    "scopeNote": "2026年6月18日新华社公开报道中的学习贯彻通知内容"
+  },
+  {
+    "id": "2ca84c43-c008-4fc4-b38a-a1f7cee827d4",
+    "topicId": "t13",
+    "factKey": "t13-theory-scope",
+    "fact": "习近平党建思想是习近平新时代中国特色社会主义思想的重要组成部分。",
+    "importance": "core",
+    "sourceId": "S37",
+    "location": "《通知》明确段",
+    "scopeNote": "2026年6月18日新华社公开报道中的学习贯彻通知内容"
+  },
+  {
+    "id": "51a0c11b-c46f-443b-b6ae-f0223fa13798",
+    "topicId": "t13",
+    "factKey": "t13-leadership-principle",
+    "fact": "坚持党中央集中统一领导被界定为党的领导的最高原则。",
+    "importance": "core",
+    "sourceId": "S37",
+    "location": "《通知》强调，深入学习领会科学内涵段",
+    "scopeNote": "2026年6月18日新华社公开报道中的学习贯彻通知内容"
+  },
+  {
+    "id": "5318d6b6-9348-4cda-b7f6-4173b67a0dac",
+    "topicId": "t13",
+    "factKey": "t13-theoretical-education-task",
+    "fact": "用党的创新理论凝心铸魂是党的思想建设的根本任务。",
+    "importance": "core",
+    "sourceId": "S37",
+    "location": "《通知》强调，深入学习领会科学内涵段",
+    "scopeNote": "2026年6月18日新华社公开报道中的学习贯彻通知内容"
+  },
+  {
+    "id": "0b92bf24-eba8-473f-95e6-9640a94b79d6",
+    "topicId": "t13",
+    "factKey": "t13-characteristics",
+    "fact": "通知在理论品格一段列有高度历史主动与鲜明问题导向。",
+    "importance": "core",
+    "sourceId": "S37",
+    "location": "《通知》强调，深入学习领会理论品格段",
+    "scopeNote": "2026年6月18日新华社公开报道中的学习贯彻通知内容"
+  },
+  {
+    "id": "52192891-a6ab-4bbe-acf3-b03827a5eb54",
+    "topicId": "t13",
+    "factKey": "t13-formation-foundations",
+    "fact": "通知将新时代全面从严治党实践、马克思主义建党学说、中华优秀传统文化列入实践基础和理论渊源。",
+    "importance": "core",
+    "sourceId": "S37",
+    "location": "《通知》强调，深入学习领会实践基础和理论渊源段",
+    "scopeNote": "2026年6月18日新华社公开报道中的学习贯彻通知内容"
+  },
+  {
+    "id": "f4e89260-4873-4a19-bba3-0e4f584f304c",
+    "topicId": "t13",
+    "factKey": "t13-discipline-role",
+    "fact": "用严明纪律管全党治全党是全面从严治党的治本之策。",
+    "importance": "core",
+    "sourceId": "S37",
+    "location": "《通知》强调，深入学习领会科学内涵段",
+    "scopeNote": "2026年6月18日新华社公开报道中的学习贯彻通知内容"
+  },
+  {
+    "id": "0be38476-c81c-4b50-8fc9-273e9ce6ca6a",
+    "topicId": "t13",
+    "factKey": "t13-political-construction-role",
+    "fact": "坚持以党的政治建设为统领被界定为新时代党的建设的根本要求。",
+    "importance": "core",
+    "sourceId": "S37",
+    "location": "《通知》强调，深入学习领会科学内涵段",
+    "scopeNote": "2026年6月18日新华社公开报道中的学习贯彻通知内容"
+  },
+  {
+    "id": "ce650880-c420-4ab9-8875-3fe0fc793d9e",
+    "topicId": "t13",
+    "factKey": "t13-organization-system",
+    "fact": "健全上下贯通、执行有力的组织体系被定位为党的优势和力量所在。",
+    "importance": "core",
+    "sourceId": "S37",
+    "location": "《通知》强调，深入学习领会科学内涵段",
+    "scopeNote": "2026年6月18日新华社公开报道中的学习贯彻通知内容"
+  },
+  {
+    "id": "9854564f-c4cf-4ba3-89f6-640e5ee25b41",
+    "topicId": "t13",
+    "factKey": "t13-work-style-role",
+    "fact": "作风建设常态化长效化是保持党同人民群众血肉联系的有效途径。",
+    "importance": "core",
+    "sourceId": "S37",
+    "location": "《通知》强调，深入学习领会科学内涵段",
+    "scopeNote": "2026年6月18日新华社公开报道中的学习贯彻通知内容"
+  },
+  {
+    "id": "5a419d35-1583-4e67-a5d4-8308940f85d3",
+    "topicId": "t10",
+    "factKey": "t10-application-interview-deadline",
+    "fact": "收到申请书后，党组织应在一个月内派人与申请人谈话。",
+    "importance": "core",
+    "sourceId": "S35",
+    "location": "第七条",
+    "scopeNote": "2026年5月11日起施行的《中国共产党发展党员工作细则》"
+  },
+  {
+    "id": "a1306216-8f4e-4df7-8fd8-a5a35a87b46f",
+    "topicId": "t10",
+    "factKey": "t10-activist-selection-authority",
+    "fact": "有党支部委员会的党支部，由支委会会议研究决定积极分子人选，报上级党委备案。",
+    "importance": "core",
+    "sourceId": "S35",
+    "location": "第八条",
+    "scopeNote": "2026年5月11日起施行的《中国共产党发展党员工作细则》"
+  },
+  {
+    "id": "04188715-c19f-45fa-b69e-642e1e657145",
+    "topicId": "t10",
+    "factKey": "t10-prospective-target-publicity-duration",
+    "fact": "经上级党委同意拟列为发展对象后，公示期不少于五个工作日。",
+    "importance": "core",
+    "sourceId": "S35",
+    "location": "第十三条",
+    "scopeNote": "2026年5月11日起施行的《中国共产党发展党员工作细则》"
+  },
+  {
+    "id": "1652853f-b698-4c11-bc51-d71e6c8029e1",
+    "topicId": "t10",
+    "factKey": "t10-political-review-investigation-exception",
+    "fact": "政治审查在听取本人介绍并查阅材料后，情况已清楚的，可以不函调或外调。",
+    "importance": "core",
+    "sourceId": "S35",
+    "location": "第十六条第三款",
+    "scopeNote": "2026年5月11日起施行的《中国共产党发展党员工作细则》"
+  },
+  {
+    "id": "6bc7cbf5-b434-4563-9f1e-51fe6c65edb3",
+    "topicId": "t10",
+    "factKey": "t10-introducer-discipline",
+    "fact": "处分影响期内的警告等三种“不宜”与留党察看权利未恢复的“不能”分开。",
+    "importance": "core",
+    "sourceId": "S35",
+    "location": "第十四条第二款",
+    "scopeNote": "2026年5月11日起施行的《中国共产党发展党员工作细则》"
+  },
+  {
+    "id": "06ed06c0-4ad0-4988-b8ea-02a773b373e8",
+    "topicId": "t10",
+    "factKey": "t10-target-training-organizers",
+    "fact": "全国细则中发展对象短期集中培训由基层党委或者县级党委组织部门组织。",
+    "importance": "core",
+    "sourceId": "S35",
+    "location": "第十七条第一款",
+    "scopeNote": "2026年5月11日起施行的《中国共产党发展党员工作细则》"
+  },
+  {
+    "id": "4b374862-4cd6-4c99-835c-0628dd2021d1",
+    "topicId": "t10",
+    "factKey": "t10-reception-vote-denominator",
+    "fact": "接收预备党员须赞成超过应到会有表决权人数一半；会前正式书面意见应计入。",
+    "importance": "core",
+    "sourceId": "S35",
+    "location": "第十九条第二款、第二十条第（四）项",
+    "scopeNote": "2026年5月11日起施行的《中国共产党发展党员工作细则》"
+  },
+  {
+    "id": "ce37597c-74c4-4d75-acc6-91097abceac5",
+    "topicId": "t10",
+    "factKey": "t10-reception-approval-deadline",
+    "fact": "党委审批接收预备党员决议通常三个月内，特殊可延但最长六个月。",
+    "importance": "core",
+    "sourceId": "S35",
+    "location": "第二十五条",
+    "scopeNote": "2026年5月11日起施行的《中国共产党发展党员工作细则》"
+  },
+  {
+    "id": "44fd7c1f-7544-4e9b-9ff9-e62ee5e9bf93",
+    "topicId": "t10",
+    "factKey": "t10-probation-start",
+    "fact": "预备期从党支部党员大会通过其为预备党员之日开始。",
+    "importance": "core",
+    "sourceId": "S35",
+    "location": "第三十一条第一款",
+    "scopeNote": "2026年5月11日起施行的《中国共产党发展党员工作细则》"
+  },
+  {
+    "id": "8e1b80cc-c811-4a5c-b92f-f1a86460dd1e",
+    "topicId": "t10",
+    "factKey": "t10-transfer-probation-deferred-start-date",
+    "fact": "转入预备党员可推迟讨论转正不超过六个月，获转正的日期从原预备期满之日计算。",
+    "importance": "core",
+    "sourceId": "S35",
+    "location": "第三十五条",
+    "scopeNote": "2026年5月11日起施行的《中国共产党发展党员工作细则》"
+  },
+  {
+    "id": "55fd8a05-d1ad-410f-bd64-cf2b38254753",
+    "topicId": "t10",
+    "factKey": "t10-forms-model-authority",
+    "fact": "新版细则规定入党志愿书式样由中央组织部制定、省级党委组织部门按式样印制。",
+    "importance": "core",
+    "sourceId": "S35",
+    "location": "第四十二条第一款",
+    "scopeNote": "2026年5月11日起施行的《中国共产党发展党员工作细则》"
+  },
+  {
+    "id": "b1ac8b32-1661-439a-b7aa-45fe1fc2833d",
+    "topicId": "t10",
+    "factKey": "t10-cqu-53-training-volume",
+    "fact": "重庆大学第53期工作方案规定入党积极分子培训不少于24学时。",
+    "importance": "core",
+    "sourceId": "C06",
+    "location": "第七节第 1 项（制定培训计划）",
+    "scopeNote": "重庆大学第53期入党积极分子培训工作方案"
+  },
+  {
+    "id": "62d1585c-e43f-4275-b1bd-d6047d4208b9",
+    "topicId": "t07",
+    "factKey": "t07-probation-rights-exceptions",
+    "fact": "预备党员不享有的三项权利",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "第七条第二款、第四条第四项",
+    "scopeNote": "二十大部分修改、2022年10月22日通过的《中国共产党章程》"
+  },
+  {
+    "id": "2e4cca1f-985a-4c71-9375-e8b1102d2b8b",
+    "topicId": "t07",
+    "factKey": "t07-withdrawal-procedure",
+    "fact": "主动退党与自行脱党的除名上报程序",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "第九条第一款、第三款",
+    "scopeNote": "二十大部分修改、2022年10月22日通过的《中国共产党章程》"
+  },
+  {
+    "id": "a3399a0a-c7dc-4c46-9ecb-9a42aeda7ded",
+    "topicId": "t07",
+    "factKey": "t07-invalid-election-approval",
+    "fact": "地方与基层代表大会违规选举的处理权限",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "第十一条第二款",
+    "scopeNote": "二十大部分修改、2022年10月22日通过的《中国共产党章程》"
+  },
+  {
+    "id": "0bf4c324-f856-486f-8430-94344831e4e5",
+    "topicId": "t07",
+    "factKey": "t07-near-tie-procedure",
+    "fact": "重要问题双方人数接近时的处理程序",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "第十七条第一款",
+    "scopeNote": "二十大部分修改、2022年10月22日通过的《中国共产党章程》"
+  },
+  {
+    "id": "4c129e0e-b0d9-4417-9f3c-61055df98672",
+    "topicId": "t07",
+    "factKey": "t07-congress-convener-and-delegates",
+    "fact": "全国和地方代表大会的召集及代表名额决定机关",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "第十九条第一、二款，第二十五条第二、三款",
+    "scopeNote": "二十大部分修改、2022年10月22日通过的《中国共产党章程》"
+  },
+  {
+    "id": "7bd4eb31-fad9-49a2-b7a8-ba4fdf1d88b2",
+    "topicId": "t07",
+    "factKey": "t07-national-conference-member-limit",
+    "fact": "全国代表会议调整增选中央委员和候补中央委员的上限",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "第二十一条",
+    "scopeNote": "二十大部分修改、2022年10月22日通过的《中国共产党章程》"
+  },
+  {
+    "id": "0b152107-0bc7-4db7-a41b-f75fb0102c26",
+    "topicId": "t07",
+    "factKey": "t07-plenary-frequency-and-convener",
+    "fact": "中央和地方委员会全体会议的召集和最低频次",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "第二十二条中央全会段、第二十七条全体会议频次段",
+    "scopeNote": "二十大部分修改、2022年10月22日通过的《中国共产党章程》"
+  },
+  {
+    "id": "b4d678f3-cad7-4793-9bd3-994df3359601",
+    "topicId": "t07",
+    "factKey": "t07-basic-unit-full-members",
+    "fact": "成立党的基层组织的正式党员人数",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "第三十条第一款",
+    "scopeNote": "二十大部分修改、2022年10月22日通过的《中国共产党章程》"
+  },
+  {
+    "id": "2405cce1-a223-40db-85d5-dec69d044433",
+    "topicId": "t07",
+    "factKey": "t07-basic-committee-election-method",
+    "fact": "基层委员会、总支部委员会、支部委员会的选举方式",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "第三十条第二款",
+    "scopeNote": "二十大部分修改、2022年10月22日通过的《中国共产党章程》"
+  },
+  {
+    "id": "0fb2ac4f-dded-410e-8705-287ebd9595fb",
+    "topicId": "t07",
+    "factKey": "t07-local-discipline-leadership",
+    "fact": "地方纪律检查委员会的双重领导关系",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "第四十五条第一款",
+    "scopeNote": "二十大部分修改、2022年10月22日通过的《中国共产党章程》"
+  },
+  {
+    "id": "38bfe81b-6da9-453c-8776-9946c1b95993",
+    "topicId": "t07",
+    "factKey": "t07-party-group-authority",
+    "fact": "党组成员决定机关及领导关系",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "第四十九条第一、二款",
+    "scopeNote": "二十大部分修改、2022年10月22日通过的《中国共产党章程》"
+  },
+  {
+    "id": "a6459787-5da1-4f89-ab1a-4111d41802e1",
+    "topicId": "t07",
+    "factKey": "t07-county-league-attendance",
+    "fact": "县级团委书记为党员时可列席的同级会议",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "第五十二条末段",
+    "scopeNote": "二十大部分修改、2022年10月22日通过的《中国共产党章程》"
+  },
+  {
+    "id": "b0aa0240-4ef0-4188-81a4-f6da3a61fc81",
+    "topicId": "t14",
+    "factKey": "t14-fourth-plenum-document",
+    "fact": "四中全会听取工作报告、审议通过“十五五”规划《建议》，并听取讨论稿说明。",
+    "importance": "core",
+    "sourceId": "S42",
+    "location": "公报关于听取工作报告、审议规划建议的议程段",
+    "scopeNote": "二十届四中全会公报及“十五五”《建议》、说明"
+  },
+  {
+    "id": "4ad11f93-bd53-4034-96c9-ad1e31fdf728",
+    "topicId": "t14",
+    "factKey": "t14-fifteenth-plan-stage",
+    "fact": "十五五是基本实现社会主义现代化承前启后、夯实基础和全面发力的关键时期。",
+    "importance": "core",
+    "sourceId": "S44",
+    "location": "第三部分第一个重点问题，关于“十五五”时期的重要地位",
+    "scopeNote": "二十届四中全会公报及“十五五”《建议》、说明"
+  },
+  {
+    "id": "b6e4ed2f-cc68-484c-a288-c88f35f4cb2f",
+    "topicId": "t14",
+    "factKey": "t14-guiding-framework-roles",
+    "fact": "《建议》第（4）项将高质量发展、改革创新、人民的美好生活需要和全面从严治党分别规定为主题、动力、目的和保障。",
+    "importance": "core",
+    "sourceId": "S43",
+    "location": "第二部分第（4）项",
+    "scopeNote": "二十届四中全会公报及“十五五”《建议》、说明"
+  },
+  {
+    "id": "fe666235-56bf-419a-9b03-fe3054e08cc0",
+    "topicId": "t14",
+    "factKey": "t14-first-strategic-task",
+    "fact": "十五五建议分论首项是建设现代化产业体系、巩固壮大实体经济根基。",
+    "importance": "core",
+    "sourceId": "S44",
+    "location": "第二部分关于第二板块的段落",
+    "scopeNote": "二十届四中全会公报及“十五五”《建议》、说明"
+  },
+  {
+    "id": "34264b25-3cea-4b1e-9650-096beedf573e",
+    "topicId": "t14",
+    "factKey": "t14-development-principle-level",
+    "fact": "《建议》第（5）项区分六项单列原则与各原则中的展开要求。",
+    "importance": "core",
+    "sourceId": "S43",
+    "location": "第二部分第（5）项第三、第五、第六则",
+    "scopeNote": "二十届四中全会公报及“十五五”《建议》、说明"
+  },
+  {
+    "id": "7dc9d2df-2448-4d7c-87f1-f4d67ecab0af",
+    "topicId": "t14",
+    "factKey": "t14-plan-goals-vs-2035",
+    "fact": "十五五期间七项主要目标与在其基础上到2035年的远景表述分开。",
+    "importance": "core",
+    "sourceId": "S43",
+    "location": "第二部分第（6）项与后续2035年远景段",
+    "scopeNote": "二十届四中全会公报及“十五五”《建议》、说明"
+  },
+  {
+    "id": "d865be13-5d55-4ff0-9f65-3aff881b8c1c",
+    "topicId": "t14",
+    "factKey": "t14-future-industry-groups",
+    "fact": "《建议》第（8）项分别列举战略性新兴产业集群和前瞻布局的未来产业。",
+    "importance": "core",
+    "sourceId": "S43",
+    "location": "第三部分第（8）项第一、第二段",
+    "scopeNote": "二十届四中全会公报及“十五五”《建议》、说明"
+  },
+  {
+    "id": "101e464d-9b3d-4b5c-aa28-607303cdcc1d",
+    "topicId": "t14",
+    "factKey": "t14-digital-china-policies",
+    "fact": "数字中国部署含全国一体化数据市场、实体经济与数字经济融合和人工智能+。",
+    "importance": "core",
+    "sourceId": "S43",
+    "location": "第四部分第（14）项与第（12）项",
+    "scopeNote": "二十届四中全会公报及“十五五”《建议》、说明"
+  },
+  {
+    "id": "eb0c04dc-af65-497b-8e93-6d2bff423f54",
+    "topicId": "t14",
+    "factKey": "t14-domestic-market-headings",
+    "fact": "扩大有效投资、提振消费和破除统一大市场堵点同属国内市场部分。",
+    "importance": "core",
+    "sourceId": "S43",
+    "location": "第五部分第（15）至（17）项和第七部分第（21）项",
+    "scopeNote": "二十届四中全会公报及“十五五”《建议》、说明"
+  },
+  {
+    "id": "e641d09b-ea90-468b-a12f-a690121ecce6",
+    "topicId": "t14",
+    "factKey": "t14-regional-development-headings",
+    "fact": "《建议》将联动发展和以人为本的新型城镇化列在区域布局和协调发展部分。",
+    "importance": "core",
+    "sourceId": "S43",
+    "location": "第九部分第（29）、第（31）项；第八部分第（26）项；第七部分第（23）项",
+    "scopeNote": "二十届四中全会公报及“十五五”《建议》、说明"
+  },
+  {
+    "id": "3d599ba8-da21-48f9-bf89-60ad26e8b1c4",
+    "topicId": "t10",
+    "factKey": "t10-periodic-activist-review",
+    "fact": "党支部每半年考察入党积极分子；县级党委组织部门和基层党委每年分析队伍状况。",
+    "importance": "core",
+    "sourceId": "S35",
+    "location": "第十一条",
+    "scopeNote": "2026年修订的《中国共产党发展党员工作细则》"
+  },
+  {
+    "id": "57d4c4a3-8ee6-45ec-a436-0c923df24ac6",
+    "topicId": "t03",
+    "factKey": "t03-plenum-dates",
+    "fact": "二十届五中全会于2026年10月26日至29日在北京举行。",
+    "importance": "core",
+    "sourceId": "S05",
+    "location": "标题下通过题注及正文第一段",
+    "scopeNote": "党的二十届五中全会正式公报、《决定》及说明"
+  },
+  {
+    "id": "b6f77c1f-775a-4fc2-9b88-01b7f520a4d8",
+    "topicId": "t03",
+    "factKey": "t03-plenum-agenda-procedural-roles",
+    "fact": "五中工作报告经听取和讨论，《决定》经审议通过，讨论稿说明由习近平向全会作出。",
+    "importance": "core",
+    "sourceId": "S05",
+    "location": "正文开篇记载工作报告、决定及讨论稿说明的段落",
+    "scopeNote": "党的二十届五中全会正式公报、《决定》及说明"
+  },
+  {
+    "id": "77e383b6-fd78-4efb-8905-effdb45abc0c",
+    "topicId": "t03",
+    "factKey": "t03-agenda-rationale",
+    "fact": "《说明》第一部分列出保持先进性纯洁性与巩固长期执政地位、巩固高度团结、实现历史使命三个选题理由。",
+    "importance": "core",
+    "sourceId": "S07",
+    "location": "第一部分第一、第三个方面；第二部分第三、第五项",
+    "scopeNote": "党的二十届五中全会正式公报、《决定》及说明"
+  },
+  {
+    "id": "170888ff-3e42-4a96-90c1-5e4ca233d00f",
+    "topicId": "t03",
+    "factKey": "t03-decision-layout",
+    "fact": "《决定》总论为第一部分，分论为第二至第八部分，第三板块部署监督体系及政治责任。",
+    "importance": "core",
+    "sourceId": "S07",
+    "location": "第三部分关于总论、分论和第三板块的三个段落",
+    "scopeNote": "党的二十届五中全会正式公报、《决定》及说明"
+  },
+  {
+    "id": "bb61dab9-3bb0-4dd2-a026-3ded241ac692",
+    "topicId": "t03",
+    "factKey": "t03-principles-vs-drafting",
+    "fact": "问题导向和以上率下是《决定》第一部分第（五）项独立原则；系统观念和严的基调作为起草考虑的独立点出现。",
+    "importance": "core",
+    "sourceId": "S06",
+    "location": "第一部分第（五）项，尤其是全面从严、问题导向、以上率下三则",
+    "scopeNote": "党的二十届五中全会正式公报、《决定》及说明"
+  },
+  {
+    "id": "7b9b6208-3911-49d4-80ee-7e75de29f98e",
+    "topicId": "t03",
+    "factKey": "t03-fundamental-task",
+    "fact": "五中《决定》把增强党性界定为全面从严治党的根本性任务。",
+    "importance": "core",
+    "sourceId": "S06",
+    "location": "第二、第三、第六、第八部分开篇",
+    "scopeNote": "党的二十届五中全会正式公报、《决定》及说明"
+  },
+  {
+    "id": "53f108a0-8a72-4c26-a758-90b7a6e39837",
+    "topicId": "t03",
+    "factKey": "t03-principal-last-statement",
+    "fact": "《决定》规定一把手末位表态，书记专题会议不能代替党委常委会会议作出决策。",
+    "importance": "core",
+    "sourceId": "S06",
+    "location": "第三部分第（四）项，规范一把手履职用权",
+    "scopeNote": "党的二十届五中全会正式公报、《决定》及说明"
+  },
+  {
+    "id": "0fcdd19d-4470-40f7-9160-7212950c6269",
+    "topicId": "t03",
+    "factKey": "t03-next-congress-announcement",
+    "fact": "五中公报宣布，中国共产党第二十一次全国代表大会计划于2027年下半年在北京召开。",
+    "importance": "general",
+    "sourceId": "S05",
+    "location": "公报末段关于中国共产党第二十一次全国代表大会的决定",
+    "scopeNote": "党的二十届五中全会正式公报、《决定》及说明"
+  },
+  {
+    "id": "8c11102f-8751-4855-aca6-32a2b0f9605e",
+    "topicId": "t03",
+    "factKey": "t03-emerging-sector-coverage",
+    "fact": "新兴领域党建覆盖新经济组织、新社会组织、新就业群体的组织和工作。",
+    "importance": "general",
+    "sourceId": "S06",
+    "location": "第五部分第（四）项，拓展组织覆盖和工作覆盖段",
+    "scopeNote": "党的二十届五中全会正式公报、《决定》及说明"
+  },
+  {
+    "id": "ed7ce4d0-6e4b-4773-afd0-eb8a8eff97c7",
+    "topicId": "t03",
+    "factKey": "t03-cadre-performance-evaluation",
+    "fact": "五中《决定》的政绩考核既看人也看事、结合已有成果与任前考察，同时了解当前工作、遗留问题、显绩和潜绩。",
+    "importance": "general",
+    "sourceId": "S06",
+    "location": "第四部分第（三）项关于政绩考核的句段",
+    "scopeNote": "党的二十届五中全会正式公报、《决定》及说明"
+  },
+  {
+    "id": "02376779-0c20-4516-9e67-a78d9148807b",
+    "topicId": "t03",
+    "factKey": "t03-collective-decision-rule",
+    "fact": "领导班子重大问题由集体按议事原则决定，重要议题较大分歧时不得强行决策，研究期间充分发表意见并执行已形成的决定。",
+    "importance": "core",
+    "sourceId": "S06",
+    "location": "第三部分第（三）项，领导班子决策议事规则",
+    "scopeNote": "党的二十届五中全会正式公报、《决定》及说明"
+  },
+  {
+    "id": "156cb77c-239e-44db-97d4-137ec8326e6c",
+    "topicId": "t03",
+    "factKey": "t03-accountability-roles",
+    "fact": "党委（党组）是管党治党主体，纪委承担监督，书记为第一责任人，其他班子成员承担一岗双责。",
+    "importance": "core",
+    "sourceId": "S06",
+    "location": "第八部分之后以全党的共同政治责任开头的段落，开篇责任划分",
+    "scopeNote": "党的二十届五中全会正式公报、《决定》及说明"
+  },
+  {
+    "id": "c2700e16-9291-46f3-b033-32b0b1061d60",
+    "topicId": "t03",
+    "factKey": "t03-three-anti-corruption-angles",
+    "fact": "《决定》要求不敢腐、不能腐、不想腐同时发力、同向发力、综合发力。",
+    "importance": "core",
+    "sourceId": "S06",
+    "location": "第七部分第（四）项首段",
+    "scopeNote": "党的二十届五中全会正式公报、《决定》及说明"
+  },
+  {
+    "id": "5c9e7e7e-8481-48a8-bbea-4bf077b3e33f",
+    "topicId": "t03",
+    "factKey": "t03-supervision-dual-leadership",
+    "fact": "监督检查和查办腐败案件以上级纪委监委领导为主。",
+    "importance": "core",
+    "sourceId": "S06",
+    "location": "第八部分之后监督体系段，纪检监察工作双重领导体制句",
+    "scopeNote": "党的二十届五中全会正式公报、《决定》及说明"
+  },
+  {
+    "id": "d9e26c06-42f8-4ca8-9b1e-d0365f9b6903",
+    "topicId": "t03",
+    "factKey": "t03-accountability-reporting",
+    "fact": "县级以上党委党组至少每年听取班子成员履责一次，下级纪委或派驻纪检监察组至少每半年向相应上级报告一次。",
+    "importance": "general",
+    "sourceId": "S06",
+    "location": "第八部分之后政治责任段，县级以上党委和下级纪委的相邻两句",
+    "scopeNote": "党的二十届五中全会正式公报、《决定》及说明"
+  }
+]

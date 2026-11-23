@@ -1,0 +1,240 @@
+.screen {
+  --surface: #faf9f7;
+  --field: #fff;
+  --text: #25243a;
+  --muted: #606078;
+  --line: #d8d7e0;
+  --accent: #4d45c8;
+  --accent-hover: #3d36a9;
+  --on-accent: #fff;
+  --error: #a12532;
+  --error-surface: #fff0f1;
+  --notice-surface: #efedf9;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  min-height: 100svh;
+  padding: 2rem 1.25rem;
+  background: var(--surface);
+  color: var(--text);
+}
+
+:global(html[data-theme="dark"]) .screen {
+  --surface: #181825;
+  --field: #202032;
+  --text: #f5f3fd;
+  --muted: #b5b2cd;
+  --line: #49465f;
+  --accent: #a9a3ff;
+  --accent-hover: #c1bcff;
+  --on-accent: #181425;
+  --error: #ffb2bc;
+  --error-surface: #432432;
+  --notice-surface: #302c49;
+}
+
+.frame {
+  width: min(100%, 390px);
+  padding-block: 1.5rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: clamp(2rem, 8vh, 3.9rem);
+  font-size: 0.875rem;
+  font-weight: 650;
+  line-height: 1.45;
+}
+
+.brand img {
+  flex: none;
+  border-radius: 0.65rem;
+}
+
+.heading h1 {
+  margin: 0 0 0.75rem;
+  font-family: "Songti SC", "Noto Serif CJK SC", "SimSun", serif;
+  font-size: clamp(2.35rem, 7.5vw, 3rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.heading h1:focus {
+  outline: none;
+}
+
+.heading p {
+  margin: 0 0 0.3rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+.heading .address {
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+.form {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.75rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.field label,
+.labelRow {
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.labelRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.field input {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: 2.95rem;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 0.55rem;
+  background: var(--field);
+  color: var(--text);
+  font: inherit;
+  font-size: 1rem;
+}
+
+.field small {
+  color: var(--muted);
+  font-size: 0.81rem;
+}
+
+.field .code {
+  padding-left: 0.95rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.22em;
+}
+
+.password {
+  position: relative;
+}
+
+.password input {
+  padding-inline-end: 4.1rem;
+}
+
+.toggle,
+.link,
+.submit {
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+.toggle {
+  position: absolute;
+  inset-inline-end: 0.45rem;
+  inset-block: 0.3rem;
+  border-radius: 0.4rem;
+  padding-inline: 0.55rem;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.835rem;
+}
+
+.link {
+  border-radius: 0.2rem;
+  padding: 0;
+  background: transparent;
+  color: var(--accent);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-underline-offset: 0.2em;
+}
+
+.link:hover:not(:disabled) {
+  text-decoration: underline;
+}
+
+.submit {
+  min-height: 2.95rem;
+  padding: 0.65rem 0.9rem;
+  border-radius: 0.55rem;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-size: 0.925rem;
+  font-weight: 650;
+  transition: background 140ms ease-in-out;
+}
+
+.submit:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+.submit:disabled,
+.link:disabled {
+  cursor: default;
+  opacity: 0.75;
+}
+
+.field input:focus-visible,
+.toggle:focus-visible,
+.link:focus-visible,
+.submit:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.error,
+.notice {
+  margin: 0;
+  padding: 0.65rem 0.8rem;
+  border-radius: 0.45rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.error {
+  background: var(--error-surface);
+  color: var(--error);
+}
+
+.notice {
+  background: var(--notice-surface);
+  color: var(--text);
+}
+
+.resend {
+  margin-top: 1.25rem;
+  text-align: center;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 0.4rem;
+  margin-top: 1.75rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .submit {
+    transition: none;
+  }
+}
