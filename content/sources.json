@@ -1343,5 +1343,29 @@
     "format": "HTML",
     "status": "full",
     "rightsNote": "已读节目官方说明正文及同源1月19日播出预告，按权属引用。"
+  },
+  {
+    "id": "LH26-NPC",
+    "title": "2026年全国人民代表大会常务委员会工作报告",
+    "publisher": "新华社、共产党员网",
+    "url": "https://www.12371.cn/2026/03/15/ARTI1773556247183345.shtml",
+    "documentDate": "2026-03-09",
+    "webpageDate": "2026-03-15",
+    "retrievedOn": "2026-11-23",
+    "format": "HTML",
+    "status": "full",
+    "rightsNote": "已读新华社公布的报告完整文字，按权属引用。"
+  },
+  {
+    "id": "LH26-CPPCC",
+    "title": "2026年中国人民政治协商会议全国委员会常务委员会工作报告",
+    "publisher": "新华社、共产党员网",
+    "url": "https://www.12371.cn/2026/03/11/ARTI1773224055733985.shtml",
+    "documentDate": "2026-03-04",
+    "webpageDate": "2026-03-11",
+    "retrievedOn": "2026-11-23",
+    "format": "HTML",
+    "status": "full",
+    "rightsNote": "已读新华社公布的报告完整文字，按权属引用。"
   }
 ]

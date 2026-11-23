@@ -3008,5 +3008,855 @@
     "sourceId": "S34",
     "location": "第九章第四十三条最后一句及前句",
     "scopeNote": "对应党章党规等学习资料中独立于其他专题的现行制度。"
+  },
+  {
+    "id": "fc7818f1-a652-4641-aa65-4b1d66aea8de",
+    "topicId": "t06",
+    "factKey": "t06-zhang-side-memorial-serving-the-people",
+    "fact": "1944年毛泽东在张思德追悼会上发表《为人民服务》的讲演。",
+    "importance": "general",
+    "sourceId": "S17",
+    "location": "1944年9月张思德追悼会条目",
+    "scopeNote": "基础专题，列入第52期考试范围和第53期培训内容。"
+  },
+  {
+    "id": "6ed58d41-8b62-4411-8f53-3a4432332b9b",
+    "topicId": "t06",
+    "factKey": "t06-transition-general-line-publication-year",
+    "fact": "党在1953年提出过渡时期总路线，中央于当年12月批转有关学习宣传提纲。",
+    "importance": "general",
+    "sourceId": "S17",
+    "location": "1953年6月15日、12月28日相关条目",
+    "scopeNote": "基础专题，列入第52期考试范围和第53期培训内容。"
+  },
+  {
+    "id": "f0c095b7-6a04-4d1d-b884-ec690b3c6830",
+    "topicId": "t06",
+    "factKey": "t06-historical-issues-resolution-eleventh-sixth-plenum",
+    "fact": "1981年中共十一届六中全会通过《关于建国以来党的若干历史问题的决议》。",
+    "importance": "core",
+    "sourceId": "S17",
+    "location": "1981年6月27日至29日条目",
+    "scopeNote": "基础专题，列入第52期考试范围和第53期培训内容。"
+  },
+  {
+    "id": "99f04a8b-514c-483f-9749-019292772ef9",
+    "topicId": "t06",
+    "factKey": "t06-seven-second-plenum-two-musts-modesty-original-words",
+    "fact": "七届二中全会的第一个务必是继续保持谦虚、谨慎、不骄、不躁的作风。",
+    "importance": "core",
+    "sourceId": "S17",
+    "location": "1949年3月5日至13日七届二中全会条目",
+    "scopeNote": "基础专题，列入第52期考试范围和第53期培训内容。"
+  },
+  {
+    "id": "0fb2b78a-9203-4741-afee-cd3c918a57f9",
+    "topicId": "t06",
+    "factKey": "t06-sixteenth-congress-three-represents-guidance",
+    "fact": "党的十六大把“三个代表”重要思想确立为党的指导思想并载入党章。",
+    "importance": "core",
+    "sourceId": "S17",
+    "location": "2002年11月8日至14日党的十六大条目",
+    "scopeNote": "基础专题，列入第52期考试范围和第53期培训内容。"
+  },
+  {
+    "id": "3f272fe0-a3d0-45c7-bea5-1546d60c1710",
+    "topicId": "t07",
+    "factKey": "t07-leading-cadres-need-democratic-life-meeting",
+    "fact": "党章规定党员领导干部还必须参加党委、党组的民主生活会。",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "第一章第八条第二句",
+    "scopeNote": "基础专题，列入第52期考试范围。"
+  },
+  {
+    "id": "f6e038fb-e3da-4c76-ac54-e4317598cf38",
+    "topicId": "t07",
+    "factKey": "t07-leading-cadre-basic-qualities-dare-responsibility",
+    "fact": "党章所列领导干部要求之一为敢于担当。",
+    "importance": "general",
+    "sourceId": "S18",
+    "location": "第六章第三十六条首句",
+    "scopeNote": "基础专题，列入第52期考试范围。"
+  },
+  {
+    "id": "8fb1df57-f777-4f8d-acbb-4dacbeb292a5",
+    "topicId": "t07",
+    "factKey": "t07-party-committee-major-issues-individual-consultation",
+    "fact": "重大问题依集体领导、民主集中、个别酝酿、会议决定的原则，由委员会集体讨论。",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "第二章第十条第（五）项",
+    "scopeNote": "基础专题，列入第52期考试范围。"
+  },
+  {
+    "id": "c16b8794-716b-4bf6-86a6-f1a0524132b1",
+    "topicId": "t07",
+    "factKey": "t07-foster-chinese-national-community-consciousness",
+    "fact": "党章要求铸牢中华民族共同体意识。",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "总纲社会主义民族关系段",
+    "scopeNote": "基础专题，列入第52期考试范围。"
+  },
+  {
+    "id": "63ab9777-6a35-47c7-be6f-99a916846af0",
+    "topicId": "t07",
+    "factKey": "t07-discipline-commission-report-peer-member-investigation",
+    "fact": "纪委发现同级党委委员违纪且需立案检查，应同时报告同级党委和上一级纪委。",
+    "importance": "general",
+    "sourceId": "S18",
+    "location": "第八章第四十六条关于同级党委委员的立案报告段",
+    "scopeNote": "基础专题，列入第52期考试范围。"
+  },
+  {
+    "id": "158b0942-53e3-4c31-95f4-ac9885984a0b",
+    "topicId": "t07",
+    "factKey": "t07-democratic-participation-procedure-consultation",
+    "fact": "党章将民主协商与民主选举、民主决策、民主管理、民主监督一起列入党领导人民发展社会主义民主政治相关制度和程序。",
+    "importance": "general",
+    "sourceId": "S18",
+    "location": "总纲“中国共产党领导人民发展社会主义民主政治”段",
+    "scopeNote": "基础专题，列入第52期考试范围。"
+  },
+  {
+    "id": "908865bc-e5bc-4cf0-974c-9c43f2c523cd",
+    "topicId": "t08",
+    "factKey": "t08-discipline-impact-expiry-no-cancellation",
+    "fact": "党员受到处分，影响期满后，党组织无需另行取消对其的处分。",
+    "importance": "core",
+    "sourceId": "S19",
+    "location": "第一编第五章第四十六条",
+    "scopeNote": "基础专题，列入第52期考试范围。"
+  },
+  {
+    "id": "4903256b-185a-4d12-bc5d-20a917376b30",
+    "topicId": "t08",
+    "factKey": "t08-dismissal-from-several-positions-start-highest",
+    "fact": "决定撤销党员所任两个以上党内职务时，必须从其担任的最高职务开始依次撤销。",
+    "importance": "general",
+    "sourceId": "S19",
+    "location": "第一编第二章第十一条第一款",
+    "scopeNote": "基础专题，列入第52期考试范围。"
+  },
+  {
+    "id": "c7d3e0e4-f9a3-4f38-a93e-9e83681c41c6",
+    "topicId": "t08",
+    "factKey": "t08-disciplinary-general-rules-central-approved-exception",
+    "fact": "有党纪处分规定的其他党内法规原则上适用本条例总则，中共中央发布或者批准发布的党内法规有特别规定的除外。",
+    "importance": "general",
+    "sourceId": "S19",
+    "location": "第一编第五章第四十八条",
+    "scopeNote": "基础专题，列入第52期考试范围。"
+  },
+  {
+    "id": "a6637d98-bd57-4718-b626-64db621343e4",
+    "topicId": "t08",
+    "factKey": "t08-economic-loss-before-disposition-includes-continuing",
+    "fact": "立案后至处理前持续发生的经济损失应当一并计算在内。",
+    "importance": "general",
+    "sourceId": "S19",
+    "location": "第一编第五章第四十二条后句",
+    "scopeNote": "基础专题，列入第52期考试范围。"
+  },
+  {
+    "id": "3a0e9896-484b-4875-a97a-a4a8cda43e0f",
+    "topicId": "t08",
+    "factKey": "t08-public-employee-criminal-liability-supervisory-sanctions",
+    "fact": "党员依法受到刑事责任追究，是公职人员的，由监察机关给予相应政务处分或者由任免机关（单位）给予相应处分。",
+    "importance": "general",
+    "sourceId": "S19",
+    "location": "第一编第四章第三十五条第一款",
+    "scopeNote": "基础专题，列入第52期考试范围。"
+  },
+  {
+    "id": "d92c553f-7969-40e6-b7cb-0c994237e428",
+    "topicId": "t10",
+    "factKey": "t10-target-political-review-network-conduct",
+    "fact": "2026细则规定发展对象政审包括遵纪守法、社会公德、家庭美德及网络行为表现等。",
+    "importance": "core",
+    "sourceId": "S35",
+    "location": "第三章第十六条第二款",
+    "scopeNote": "第52期考试列有重庆大学发展党员工作要求。题目分别标明全国规定或校内规定的依据。"
+  },
+  {
+    "id": "0a533154-52ee-45f6-9349-3b713980280d",
+    "topicId": "t10",
+    "factKey": "t10-preapproval-interview-assigned-personnel",
+    "fact": "党委审批前应指派党委委员或者组织员同发展对象谈话。",
+    "importance": "core",
+    "sourceId": "S35",
+    "location": "第四章第二十三条首句",
+    "scopeNote": "第52期考试列有重庆大学发展党员工作要求。题目分别标明全国规定或校内规定的依据。"
+  },
+  {
+    "id": "8a95d515-6433-4149-b106-72519b3dcd2b",
+    "topicId": "t10",
+    "factKey": "t10-target-training-default-in-person",
+    "fact": "发展对象短期集中培训一般采取线下方式，根据需要也可采用视频方式。",
+    "importance": "general",
+    "sourceId": "S35",
+    "location": "第三章第十七条第一款首句",
+    "scopeNote": "第52期考试列有重庆大学发展党员工作要求。题目分别标明全国规定或校内规定的依据。"
+  },
+  {
+    "id": "cfa29920-9255-4ff8-9d52-9c96acab6562",
+    "topicId": "t10",
+    "factKey": "t10-target-impending-departure-reception-usual-period",
+    "fact": "发展对象未来三个月内将离开工作、学习单位的，一般不办理接收预备党员手续。",
+    "importance": "general",
+    "sourceId": "S35",
+    "location": "第四章第十八条第三款",
+    "scopeNote": "第52期考试列有重庆大学发展党员工作要求。题目分别标明全国规定或校内规定的依据。"
+  },
+  {
+    "id": "32c7d55b-6272-4f6b-a727-4f12ed5b60bc",
+    "topicId": "t12",
+    "factKey": "t12-retained-party-dues-training-and-branch-organizational-life",
+    "fact": "各级党委留存的党费主要用于教育培训党员、支持基层党组织开展组织生活。",
+    "importance": "general",
+    "sourceId": "S34",
+    "location": "第九章第四十二条第一款党费用途句",
+    "scopeNote": "对应党章党规等学习资料中独立于其他专题的现行制度。"
+  },
+  {
+    "id": "0d194f2f-39e4-4548-abf7-c621f0535a7c",
+    "topicId": "t12",
+    "factKey": "t12-branch-analysis-members-ideological-psychological-status",
+    "fact": "基层党组织应当注重分析党员思想状况和心理状态。",
+    "importance": "general",
+    "sourceId": "S34",
+    "location": "第四章第十九条",
+    "scopeNote": "对应党章党规等学习资料中独立于其他专题的现行制度。"
+  },
+  {
+    "id": "0e985060-93aa-496d-b9de-a89051d54405",
+    "topicId": "t12",
+    "factKey": "t12-education-policy-current-affairs-content-category",
+    "fact": "党员教育管理条例将宣讲党的路线方针政策、解读世情国情党情作为形势政策教育的内容。",
+    "importance": "core",
+    "sourceId": "S34",
+    "location": "第三章第十四条首句",
+    "scopeNote": "对应党章党规等学习资料中独立于其他专题的现行制度。"
+  },
+  {
+    "id": "d5d82229-97f5-4c40-add0-48d2eaa2423e",
+    "topicId": "t12",
+    "factKey": "t12-mobile-members-democratic-evaluation-local-option",
+    "fact": "流动党员可以在流入地党组织或者流动党员党组织参加民主评议。",
+    "importance": "general",
+    "sourceId": "S34",
+    "location": "第七章第三十二条第二、三款",
+    "scopeNote": "对应党章党规等学习资料中独立于其他专题的现行制度。"
+  },
+  {
+    "id": "772882c7-665f-4213-a40f-25eea56e3a75",
+    "topicId": "t12",
+    "factKey": "t12-organizational-life-emphasis-political-education-training",
+    "fact": "党员教育管理条例要求突出政治教育和政治训练，严格党内政治生活锻炼。",
+    "importance": "core",
+    "sourceId": "S34",
+    "location": "第三章第十条首句",
+    "scopeNote": "对应党章党规等学习资料中独立于其他专题的现行制度。"
+  },
+  {
+    "id": "1bbd5a8b-39e5-491b-a8c4-30daf39e2f4c",
+    "topicId": "t01",
+    "factKey": "t01-spirit-of-times-innovation-core",
+    "fact": "以改革创新为核心的时代精神与以爱国主义为核心的民族精神并列。",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "总纲中国特色社会主义文化段关于民族精神与时代精神的句子",
+    "scopeNote": "基础专题，列入第52期考试范围和第53期培训内容。"
+  },
+  {
+    "id": "ecf9754b-c127-41d8-acb0-e4cc118c001d",
+    "topicId": "t01",
+    "factKey": "t01-common-prosperity-essential-requirement",
+    "fact": "二十大报告指出，共同富裕是中国特色社会主义的本质要求，也是一个长期的历史过程。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第三部分中国式现代化的中国特色第二项，关于共同富裕的段落",
+    "scopeNote": "基础专题，列入第52期考试范围和第53期培训内容。"
+  },
+  {
+    "id": "0e3a1f59-68e8-48c6-9f42-9419713fbc72",
+    "topicId": "t01",
+    "factKey": "t01-peoples-practice-source-of-innovation",
+    "fact": "二十大报告指出，人民的创造性实践是理论创新的不竭源泉。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第二部分‘必须坚持人民至上’，关于人民的创造性实践的句子",
+    "scopeNote": "基础专题，列入第52期考试范围和第53期培训内容。"
+  },
+  {
+    "id": "27c9c2e3-b2ee-4141-bf35-decda23c4836",
+    "topicId": "t02",
+    "factKey": "t02-intra-party-supervision-leading-role",
+    "fact": "二十大报告提出以党内监督为主导，促进各类监督贯通协调。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第十五部分第（三）项党和国家监督体系部署段",
+    "scopeNote": "基础专题，列入第52期考试范围和第53期培训内容。"
+  },
+  {
+    "id": "a947f51a-0ecb-402b-a18c-ba3e23b021a2",
+    "topicId": "t02",
+    "factKey": "t02-four-tests-external-environment",
+    "fact": "二十大报告列举的第四项考验为外部环境考验。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第十五部分开头对长期存在的考验和危险的列举",
+    "scopeNote": "基础专题，列入第52期考试范围和第53期培训内容。"
+  },
+  {
+    "id": "241b1d77-3987-4ef1-82ef-892bbdc824d8",
+    "topicId": "t02",
+    "factKey": "t02-four-dangers-mental-slack",
+    "fact": "二十大报告所列四种危险还包括精神懈怠危险。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第十五部分开头对长期存在四种危险的列举",
+    "scopeNote": "基础专题，列入第52期考试范围和第53期培训内容。"
+  },
+  {
+    "id": "8b1de6b7-ca57-4789-8cc7-c75acce2ddc1",
+    "topicId": "t02",
+    "factKey": "t02-indispensable-way-national-rejuvenation",
+    "fact": "二十大报告在五个必由之路中，把中国特色社会主义定位为实现中华民族伟大复兴的必由之路。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "报告结语‘全党必须牢记’五个必由之路段",
+    "scopeNote": "基础专题，列入第52期考试范围和第53期培训内容。"
+  },
+  {
+    "id": "8e883684-fad0-4d8f-9a72-e13892fb205a",
+    "topicId": "t02",
+    "factKey": "t02-united-front-rallying-strength",
+    "fact": "二十大报告指出，统一战线是凝聚人心、汇聚力量的强大法宝。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第六部分第（四）项‘巩固和发展最广泛的爱国统一战线’首句",
+    "scopeNote": "基础专题，列入第52期考试范围和第53期培训内容。"
+  },
+  {
+    "id": "d5f2a1d1-fe0d-4eeb-84ab-2ebdeb5d0904",
+    "topicId": "t03",
+    "factKey": "t03-central-organs-first-rank",
+    "fact": "五中全会《决定》要求中央和国家机关各级党组织和党员、干部走好第一方阵。",
+    "importance": "general",
+    "sourceId": "S06",
+    "location": "第五部分第（一）项‘发挥中央和国家机关党组织表率作用’段",
+    "scopeNote": "网站当前全会复习专题。"
+  },
+  {
+    "id": "149c38c4-aebb-409c-9dd5-45ef6e70cb15",
+    "topicId": "t03",
+    "factKey": "t03-inspection-mode-cross-level",
+    "fact": "五中全会《决定》明确提出用好常规巡视、专项巡视、机动巡视、提级巡视等方式。",
+    "importance": "core",
+    "sourceId": "S06",
+    "location": "《决定》末段关于完善党和国家监督体系及用好巡视方式的句子",
+    "scopeNote": "网站当前全会复习专题。"
+  },
+  {
+    "id": "a8d43688-6d5e-489b-b256-f23bda4436cf",
+    "topicId": "t03",
+    "factKey": "t03-rule-enforcement-no-exception",
+    "fact": "五中全会《决定》强调执行制度没有例外。",
+    "importance": "core",
+    "sourceId": "S06",
+    "location": "第八部分第（二）项关于制度刚性约束首句",
+    "scopeNote": "网站当前全会复习专题。"
+  },
+  {
+    "id": "bcb363f5-b79a-4c16-bb62-9734a6a58505",
+    "topicId": "t03",
+    "factKey": "t03-party-regulations-interpretation-cycle",
+    "fact": "五中全会《决定》要求统筹党内法规立改废释。",
+    "importance": "core",
+    "sourceId": "S06",
+    "location": "第八部分第（一）项关于统筹党内法规立改废释的句子",
+    "scopeNote": "网站当前全会复习专题。"
+  },
+  {
+    "id": "2cd86806-4e11-4ec4-82b9-c5bd3511fce5",
+    "topicId": "t04",
+    "factKey": "t04-power-performance-career-outlook",
+    "fact": "习近平2020年5月22日讲话要求领导干部树立正确的权力观、政绩观、事业观。",
+    "importance": "core",
+    "sourceId": "S49",
+    "location": "第十一则，2020年5月22日内蒙古代表团审议讲话",
+    "scopeNote": "2026年学习教育，列入第52期考试范围和第53期培训内容。"
+  },
+  {
+    "id": "1c6a3da8-ee3b-4770-a224-7d662e31963a",
+    "topicId": "t04",
+    "factKey": "t04-who-to-rely-on-young-cadres",
+    "fact": "习近平2021年3月1日讲话提出年轻干部要首先解决我是谁、为了谁、依靠谁的问题。",
+    "importance": "core",
+    "sourceId": "S49",
+    "location": "第十三则，2021年3月1日中青年干部培训班开班式讲话",
+    "scopeNote": "2026年学习教育，列入第52期考试范围和第53期培训内容。"
+  },
+  {
+    "id": "47d917bc-83c3-4845-8423-e51a24faaffc",
+    "topicId": "t05",
+    "factKey": "t05-2026-public-budget-expenditure-scale",
+    "fact": "2026年《政府工作报告》提出，一般公共预算支出规模将首次达到30万亿元。",
+    "importance": "general",
+    "sourceId": "S13",
+    "location": "第三部分宏观政策中继续实施更加积极财政政策的段落",
+    "scopeNote": "网站当前两会专题，列入第52期培训内容。"
+  },
+  {
+    "id": "31c8b713-2dcd-4efb-8626-c6ed9c35491e",
+    "topicId": "t05",
+    "factKey": "t05-2026-international-payments-target",
+    "fact": "2026年《政府工作报告》明确国际收支基本平衡是当年发展主要预期目标。",
+    "importance": "core",
+    "sourceId": "S13",
+    "location": "第三部分当年经济社会发展主要预期目标列举段",
+    "scopeNote": "网站当前两会专题，列入第52期培训内容。"
+  },
+  {
+    "id": "dbbfc59a-fb8a-468d-bd1e-575990ee8fb1",
+    "topicId": "t05",
+    "factKey": "t05-2026-basic-old-age-pension-increase",
+    "fact": "2026年《政府工作报告》提出，城乡居民基础养老金月最低标准再提高20元。",
+    "importance": "general",
+    "sourceId": "S13",
+    "location": "第四部分‘着力保障和改善民生’中‘加强社会保障和服务’首句",
+    "scopeNote": "网站当前两会专题，列入第52期培训内容。"
+  },
+  {
+    "id": "18b48d88-96dc-44c1-968e-d24000c68181",
+    "topicId": "t09",
+    "factKey": "t09-four-winds-extravagance",
+    "fact": "二十大报告回顾长期积累的作风问题时，列举形式主义、官僚主义、享乐主义和奢靡之风。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第一部分‘十年前’问题回顾中列举四种不良风气的句子",
+    "scopeNote": "基础专题，列入第50和51期考试范围。"
+  },
+  {
+    "id": "1fbf76b0-e724-4493-9975-52f7091dba36",
+    "topicId": "t09",
+    "factKey": "t09-concise-conferences-short-remarks",
+    "fact": "中央八项规定第二项提出开短会、讲短话，提高会议实效。",
+    "importance": "core",
+    "sourceId": "S20",
+    "location": "第二项‘精简会议活动’末句",
+    "scopeNote": "基础专题，列入第50和51期考试范围。"
+  },
+  {
+    "id": "a26b0e39-1b52-47b7-bec7-cea57d4d2651",
+    "topicId": "t09",
+    "factKey": "t09-research-study-typical-cases",
+    "fact": "中央八项规定第一项列出改进调查研究的方法，其中要求多解剖典型。",
+    "importance": "core",
+    "sourceId": "S20",
+    "location": "第一项‘改进调查研究’列举具体做法的段落",
+    "scopeNote": "基础专题，列入第50和51期考试范围。"
+  },
+  {
+    "id": "00f69916-b27d-4971-967d-d652dd640629",
+    "topicId": "t09",
+    "factKey": "t09-tolerance-distinguishing-three-cases",
+    "fact": "二十大报告要求落实‘三个区分开来’，激励干部敢于担当、积极作为。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第十五部分第（四）项关于严管厚爱、激励干部担当作为的句子",
+    "scopeNote": "基础专题，列入第50和51期考试范围。"
+  },
+  {
+    "id": "cb49c55f-72fa-4c8c-ac94-b7dbc8036468",
+    "topicId": "t13",
+    "factKey": "t13-self-revolution-second-answer",
+    "fact": "二十大报告明确，自我革命是跳出治乱兴衰历史周期率的第二个答案。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第一部分新时代十年党的建设、自我革命成效段",
+    "scopeNote": "第53期培训方案单列内容。"
+  },
+  {
+    "id": "701e89cd-cd92-4fcf-954d-d656eae48dcf",
+    "topicId": "t13",
+    "factKey": "t13-anti-corruption-three-nots-basic-guideline",
+    "fact": "一体推进不敢腐不能腐不想腐是全面从严治党的重要方略和反腐败斗争的基本方针。",
+    "importance": "core",
+    "sourceId": "S37",
+    "location": "新华社公开报道中深入学习领会科学内涵一段",
+    "scopeNote": "第53期培训方案单列内容。"
+  },
+  {
+    "id": "6afc15f3-77fb-450b-a4ba-3c8f41338d11",
+    "topicId": "t13",
+    "factKey": "t13-self-improvement-four-abilities",
+    "fact": "二十大报告列举党自我净化、自我完善、自我革新、自我提高四种能力。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第一部分新时代十年党的建设成效段中自我革命四种能力的列举",
+    "scopeNote": "第53期培训方案单列内容。"
+  },
+  {
+    "id": "031787aa-a7a8-42a6-a726-7af97f2b6116",
+    "topicId": "t14",
+    "factKey": "t14-safe-china-overall-national-security",
+    "fact": "“十五五”规划《建议》部署建设平安中国，明确要求坚定不移贯彻总体国家安全观。",
+    "importance": "core",
+    "sourceId": "S43",
+    "location": "第十三部分关于推进国家安全体系和能力现代化的开篇",
+    "scopeNote": "列入第52期正式考试范围和第53期培训内容。"
+  },
+  {
+    "id": "fdde7f24-d59f-4506-b1ef-8835c1136008",
+    "topicId": "t14",
+    "factKey": "t14-resident-location-basic-public-services",
+    "fact": "“十五五”规划《建议》在推进新型城镇化时提出推行由常住地登记户口提供基本公共服务制度。",
+    "importance": "core",
+    "sourceId": "S43",
+    "location": "第九部分第（31）项‘深入推进以人为本的新型城镇化’开头",
+    "scopeNote": "列入第52期正式考试范围和第53期培训内容。"
+  },
+  {
+    "id": "f991cd66-f760-4b9e-b8a4-ba3e4f7bcf9a",
+    "topicId": "t04",
+    "factKey": "t04-fujian-public-reputation",
+    "fact": "该次福建考察讲话把老百姓口碑作为衡量干部业绩好坏的关键。",
+    "importance": "general",
+    "sourceId": "S49",
+    "location": "第二十一节，2024年10月15日在福建考察时的讲话",
+    "scopeNote": "2026年学习教育，列入第52期考试范围和第53期培训内容。"
+  },
+  {
+    "id": "7e8d16f4-531d-4f2a-9d02-eb447f9cf2d0",
+    "topicId": "t04",
+    "factKey": "t04-data-driven-promotion-loop",
+    "fact": "该讲话提出完善差异化考核，防止“数字出官、官出数字”的恶性循环。",
+    "importance": "general",
+    "sourceId": "S49",
+    "location": "第二十五节第二段后部，2026年1月20日讲话",
+    "scopeNote": "2026年学习教育，列入第52期考试范围和第53期培训内容。"
+  },
+  {
+    "id": "ccdcb6d8-7ab3-44e9-aa2a-fa77f90c00ec",
+    "topicId": "t04",
+    "factKey": "t04-two-guides-rectifying",
+    "fact": "整改政绩观突出问题，要坚持目标导向和问题导向相结合。",
+    "importance": "general",
+    "sourceId": "S49",
+    "location": "第二十七节第二点首段，2026年2月5日指示",
+    "scopeNote": "2026年学习教育，列入第52期考试范围和第53期培训内容。"
+  },
+  {
+    "id": "3319994e-c39b-409f-9072-f3989d64464b",
+    "topicId": "t04",
+    "factKey": "t04-institution-guidance-constraint",
+    "fact": "正确政绩观学习教育立好规矩，制度应充分发挥引导激励与规范约束作用。",
+    "importance": "general",
+    "sourceId": "S49",
+    "location": "第二十七节第三点首段，2026年2月5日指示",
+    "scopeNote": "2026年学习教育，列入第52期考试范围和第53期培训内容。"
+  },
+  {
+    "id": "604d20c0-aa53-4e66-a548-19d6bd96aadb",
+    "topicId": "t04",
+    "factKey": "t04-local-conditions-bottlenecks",
+    "fact": "根据自身条件和可能，各地区贯彻新发展理念时应抓住短板弱项重点推进。",
+    "importance": "general",
+    "sourceId": "S49",
+    "location": "第十二节，2021年1月28日中央政治局集体学习讲话",
+    "scopeNote": "2026年学习教育，列入第52期考试范围和第53期培训内容。"
+  },
+  {
+    "id": "57dc9c60-78ff-4f3a-856a-85d7e58e521e",
+    "topicId": "t05",
+    "factKey": "t05-single-market-regulation",
+    "fact": "2026年政府工作报告提出制定全国统一大市场建设条例。",
+    "importance": "general",
+    "sourceId": "S13",
+    "location": "第四部分第（三）项“纵深推进全国统一大市场建设”段",
+    "scopeNote": "网站当前两会专题，列入第52期培训内容。"
+  },
+  {
+    "id": "0ef2e846-8f98-4bce-9fd0-573bfe14b62a",
+    "topicId": "t05",
+    "factKey": "t05-ai-open-source-community",
+    "fact": "2026年政府工作报告提出支持人工智能开源社区建设。",
+    "importance": "general",
+    "sourceId": "S13",
+    "location": "第四部分第（二）项“打造智能经济新形态”段",
+    "scopeNote": "网站当前两会专题，列入第52期培训内容。"
+  },
+  {
+    "id": "ebef371a-08e8-411f-a3e1-82556c1a086b",
+    "topicId": "t05",
+    "factKey": "t05-eldercare-subsidy-target",
+    "fact": "报告提出实施中度以上失能老年人养老服务消费补贴项目。",
+    "importance": "general",
+    "sourceId": "S13",
+    "location": "第四部分第（八）项，落实积极应对人口老龄化国家战略段",
+    "scopeNote": "网站当前两会专题，列入第52期培训内容。"
+  },
+  {
+    "id": "8e61d7e4-e5ad-4c99-af63-0fdd589d09b9",
+    "topicId": "t05",
+    "factKey": "t05-integrated-childcare-service",
+    "fact": "报告在托育服务补助示范试点后提出发展普惠托育和托幼一体化服务。",
+    "importance": "general",
+    "sourceId": "S13",
+    "location": "第四部分第（八）项，完善生育支持政策段",
+    "scopeNote": "网站当前两会专题，列入第52期培训内容。"
+  },
+  {
+    "id": "babf09bc-23d3-45f5-a0e7-676726120bc9",
+    "topicId": "t05",
+    "factKey": "t05-npc-national-planning-law-submission",
+    "fact": "2026年全国人大常委会工作报告记载，国家发展规划法草案经常委会三次审议后提请大会审议。",
+    "importance": "general",
+    "sourceId": "LH26-NPC",
+    "location": "第二部分“加强立法工作”中“科学制定和接续实施五年规划”段",
+    "scopeNote": "网站当前两会专题，列入第52期培训内容。"
+  },
+  {
+    "id": "37492e94-2bce-4335-bef5-ce2a6d222754",
+    "topicId": "t05",
+    "factKey": "t05-npc-record-review-error-correction",
+    "fact": "该报告以有件必备、有备必审、有错必纠概括依法履行备案审查职责。",
+    "importance": "general",
+    "sourceId": "LH26-NPC",
+    "location": "第一部分“提高合宪性审查、备案审查工作质量”段",
+    "scopeNote": "网站当前两会专题，列入第52期培训内容。"
+  },
+  {
+    "id": "d29757d2-ad8e-49b8-b37c-c3a1dedda63f",
+    "topicId": "t05",
+    "factKey": "t05-cppcc-two-themes-solidarity-democracy",
+    "fact": "2026年全国政协常委会工作报告把团结和民主并列为人民政协两大主题。",
+    "importance": "general",
+    "sourceId": "LH26-CPPCC",
+    "location": "第二部分“2026年主要工作安排”首段",
+    "scopeNote": "网站当前两会专题，列入第52期培训内容。"
+  },
+  {
+    "id": "b4edac53-0f72-4bc1-84be-55cf2be26ad7",
+    "topicId": "t05",
+    "factKey": "t05-cppcc-special-consultative-role",
+    "fact": "2026年报告回顾强调人民政协充分发挥专门协商机构作用。",
+    "importance": "general",
+    "sourceId": "LH26-CPPCC",
+    "location": "第一部分“2025年工作回顾”第二段，政协性质定位与作用句",
+    "scopeNote": "网站当前两会专题，列入第52期培训内容。"
+  },
+  {
+    "id": "2c0c7e51-e474-4fab-b6a4-03375dea2427",
+    "topicId": "t09",
+    "factKey": "t09-research-go-where-difficulties-concentrated",
+    "fact": "中央八项规定提出基层调研多到困难和矛盾集中、群众意见多的地方。",
+    "importance": "general",
+    "sourceId": "S20",
+    "location": "第一项“改进调查研究”前半",
+    "scopeNote": "基础专题，列入第50和51期考试范围。"
+  },
+  {
+    "id": "242c2533-837f-413e-b207-db60ba178ee7",
+    "topicId": "t09",
+    "factKey": "t09-control-nationwide-meetings-central-name",
+    "fact": "中央八项规定要求严格控制以中央名义召开的各类全国性会议和举行的重大活动。",
+    "importance": "general",
+    "sourceId": "S20",
+    "location": "第二项“精简会议活动”前半",
+    "scopeNote": "基础专题，列入第50和51期考试范围。"
+  },
+  {
+    "id": "47a25c33-18ca-4be9-a7e8-3b828e572ea0",
+    "topicId": "t09",
+    "factKey": "t09-monthly-report-two-problem-categories",
+    "fact": "官方学习资料将月报问题数据按形式主义、官僚主义与享乐主义、奢靡之风两组统计。",
+    "importance": "general",
+    "sourceId": "S21",
+    "location": "“违反中央八项规定精神有哪些具体表现”段开头",
+    "scopeNote": "基础专题，列入第50和51期考试范围。"
+  },
+  {
+    "id": "3ea23fdd-607e-42c4-a0ca-37d4fb9c8c19",
+    "topicId": "t09",
+    "factKey": "t09-2025-study-start-after-two-sessions",
+    "fact": "2025年深入贯彻中央八项规定精神学习教育自当年全国两会后至7月开展。",
+    "importance": "general",
+    "sourceId": "S21",
+    "location": "正文首段，2025年学习教育总体时段",
+    "scopeNote": "基础专题，列入第50和51期考试范围。"
+  },
+  {
+    "id": "461f79c7-c1ff-4f7e-9499-c0a99dc31942",
+    "topicId": "t11",
+    "factKey": "t11-liang-crh380a-test-railway",
+    "fact": "节目记载CRH380A于2010年12月在京沪高铁完成最高速运营试验记录。",
+    "importance": "general",
+    "sourceId": "BY10-LIANG",
+    "location": "主要内容第二段，2010年12月运营试验段",
+    "scopeNote": "列入第52和53期培训内容。"
+  },
+  {
+    "id": "8e8c5087-b6ca-44d4-b2f8-be0ae1d4c197",
+    "topicId": "t11",
+    "factKey": "t11-leng-localize-industry-chain",
+    "fact": "冷晓琨联动产业上下游企业，协同突破人形机器人的核心零部件国产化难题。",
+    "importance": "general",
+    "sourceId": "BY10-LENG",
+    "location": "主要内容第二段，“攻克关键难题”后半",
+    "scopeNote": "列入第52和53期培训内容。"
+  },
+  {
+    "id": "a9ce307f-888d-411c-aba4-36dcad407fb0",
+    "topicId": "t11",
+    "factKey": "t11-tian-chern-prize",
+    "fact": "《榜样10》田野专题列出中国数学会陈省身数学奖为其获得的荣誉。",
+    "importance": "general",
+    "sourceId": "BY10-TIAN",
+    "location": "主要内容末段，荣誉列表",
+    "scopeNote": "列入第52和53期培训内容。"
+  },
+  {
+    "id": "450189fb-6f6a-46e0-bd31-5aefaee12742",
+    "topicId": "t11",
+    "factKey": "t11-luo-relocation-building-coordinator",
+    "fact": "节目记载罗胤在部分腾退项目中担任楼长，负责居民动员工作。",
+    "importance": "general",
+    "sourceId": "BY10-LUO",
+    "location": "主要内容第二段，“为民谋利敢担当”腾退事迹",
+    "scopeNote": "列入第52和53期培训内容。"
+  },
+  {
+    "id": "47f5dada-182d-4704-9fb4-4c9635d2ec8d",
+    "topicId": "t11",
+    "factKey": "t11-ru-rural-production-training",
+    "fact": "节目记载茹振钢经常下乡指导农业生产并开展技术培训。",
+    "importance": "general",
+    "sourceId": "BY10-RU",
+    "location": "主要内容第二段，“无私奉献，科技服务民生”",
+    "scopeNote": "列入第52和53期培训内容。"
+  },
+  {
+    "id": "21bdc4eb-0a10-4387-82d8-9028eadd6bc2",
+    "topicId": "t08",
+    "factKey": "t08-common-intent-ringleader-disciplinary-standard",
+    "fact": "二人以上共同故意违纪，对为首者从重处分，条例另有规定的除外。",
+    "importance": "general",
+    "sourceId": "S19",
+    "location": "第一编第三章第二十二至二十三条、第二十六条第一款",
+    "scopeNote": "基础专题，列入第52期考试范围。"
+  },
+  {
+    "id": "c97b351d-3cff-4d34-9011-750c927b37f9",
+    "topicId": "t14",
+    "factKey": "t14-scientific-technological-modernization-support",
+    "fact": "二十届四中全会的十五五规划建议指出，中国式现代化要靠科技现代化作支撑。",
+    "importance": "core",
+    "sourceId": "S43",
+    "location": "第四部分标题后开篇首句",
+    "scopeNote": "列入第52期正式考试范围和第53期培训内容。"
+  },
+  {
+    "id": "02201e77-45b4-4d9b-8df8-37de6eecb369",
+    "topicId": "t14",
+    "factKey": "t14-cultural-originality-capacity",
+    "fact": "“十五五”规划建议把提升文化原创能力列为大力繁荣文化事业的要求。",
+    "importance": "core",
+    "sourceId": "S43",
+    "location": "第十部分第（34）项首句，‘大力繁荣文化事业’",
+    "scopeNote": "列入第52期正式考试范围和第53期培训内容。"
+  },
+  {
+    "id": "e34866a7-856e-4e51-826e-c7d80b693d64",
+    "topicId": "t14",
+    "factKey": "t14-services-digital-intelligent-transition",
+    "fact": "“十五五”规划建议在第（9）项提出推进服务业数智化。",
+    "importance": "core",
+    "sourceId": "S43",
+    "location": "第三部分第（9）项首段，提高融合发展水平及数智化相邻句",
+    "scopeNote": "列入第52期正式考试范围和第53期培训内容。"
+  },
+  {
+    "id": "facfc506-216f-4a3a-915f-1e20b87c6fbb",
+    "topicId": "t14",
+    "factKey": "t14-jobs-friendly-development-model",
+    "fact": "十五五规划建议在促进高质量充分就业一项提出构建就业友好型发展方式。",
+    "importance": "core",
+    "sourceId": "S43",
+    "location": "第十一部分第（37）项首句",
+    "scopeNote": "列入第52期正式考试范围和第53期培训内容。"
+  },
+  {
+    "id": "1e932231-680f-4bcd-8620-a77460543acf",
+    "topicId": "t14",
+    "factKey": "t14-party-overall-leadership-fundamental-guarantee",
+    "fact": "坚持和加强党的全面领导是推进中国式现代化的根本保证。",
+    "importance": "core",
+    "sourceId": "S43",
+    "location": "第十五部分开头首句",
+    "scopeNote": "列入第52期正式考试范围和第53期培训内容。"
+  },
+  {
+    "id": "ffc1a7b5-72f1-427e-a6ed-11722968f597",
+    "topicId": "t04",
+    "factKey": "t04-service-maximum-achievement",
+    "fact": "2022年3月1日讲话明确为民造福是最大政绩。",
+    "importance": "core",
+    "sourceId": "S49",
+    "location": "第十五则第二段开头",
+    "scopeNote": "2026年学习教育，列入第52期考试范围和第53期培训内容。"
+  },
+  {
+    "id": "6a89b7e5-8b45-43e2-bc38-10bb12cf7d20",
+    "topicId": "t04",
+    "factKey": "t04-study-central-coordinator",
+    "fact": "中央党的建设工作领导小组在党中央领导下负责该次学习教育的统筹协调。",
+    "importance": "core",
+    "sourceId": "S49",
+    "location": "第二十七则通知部署后第一段",
+    "scopeNote": "2026年学习教育，列入第52期考试范围和第53期培训内容。"
+  },
+  {
+    "id": "58035a68-d079-4a19-be5a-4a5c955cf9f0",
+    "topicId": "t05",
+    "factKey": "t05-2026-carbon-intensity-target",
+    "fact": "2026年单位国内生产总值二氧化碳排放预期降低3.8%左右。",
+    "importance": "core",
+    "sourceId": "S13",
+    "location": "第三部分主要预期目标与说明段",
+    "scopeNote": "网站当前两会专题，列入第52期培训内容。"
+  },
+  {
+    "id": "4313b484-619e-4ba7-8dd7-3cb9de511f81",
+    "topicId": "t05",
+    "factKey": "t05-hainan-island-customs-2025",
+    "fact": "2026年报告回顾海南自由贸易港于2025年启动全岛封关运作。",
+    "importance": "general",
+    "sourceId": "S13",
+    "location": "第一部分关于深化改革开放的第三项",
+    "scopeNote": "网站当前两会专题，列入第52期培训内容。"
+  },
+  {
+    "id": "214f0009-9227-413a-b845-468591da766a",
+    "topicId": "t09",
+    "factKey": "t09-publication-solo-volume",
+    "fact": "除中央统一安排外，中央政治局同志个人不公开出版讲话单行本。",
+    "importance": "general",
+    "sourceId": "S20",
+    "location": "第7项关于严格文稿发表",
+    "scopeNote": "基础专题，列入第50和51期考试范围。"
+  },
+  {
+    "id": "1c307b36-471e-4d09-8a1b-e2c3071d91c2",
+    "topicId": "t06",
+    "factKey": "t06-protracted-war-lecture",
+    "fact": "1938年毛泽东的《论持久战》讲演系统阐明抗日持久战战略总方针。",
+    "importance": "general",
+    "sourceId": "S17",
+    "location": "1938年5月26日至6月3日《论持久战》条目",
+    "scopeNote": "基础专题，列入第52期考试范围和第53期培训内容。"
   }
 ]
