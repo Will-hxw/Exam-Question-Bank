@@ -38,3 +38,36 @@ test('a style review applies only to the precise revision that was reviewed', as
   fakeIndexes.practiceIndex.set(one.questionId, { ...one, digest: '0'.repeat(64) })
   assert.equal(qualityReport(catalog, fakeIndexes).review.practiceReady, actual.review.practiceReady - 1)
 })
+
+test('single-answer position limits apply to reorderable choices while reporting locked choices', () => {
+  const questions = Array.from({ length: 12 }, (_, index) => {
+    const options = ['1', '2', '3', '4'].map(text => ({ id: `${index}-${text}`, text }))
+    const orderLocked = index < 8
+    return {
+      id: String(index),
+      state: 'ready',
+      topicId: 'topic',
+      type: 'single',
+      stem: String(index),
+      knowledgePointId: String(index),
+      relatedKnowledgePointIds: [],
+      emotionOnly: false,
+      orderLocked,
+      options,
+      answerIds: [options[orderLocked ? 0 : index - 8].id],
+    }
+  })
+  const catalog = { questions, topics: [{ id: 'topic', active: true }], points: [] }
+  const indexes = { practiceIndex: new Map(), duplicateIndex: new Map() }
+  const report = qualityReport(catalog, indexes)
+  const stats = report.stats._all.byTypeAndOptions['single/4']
+  assert.deepEqual(stats.positions, [9, 1, 1, 1])
+  assert.deepEqual(stats.unlockedPositions, [1, 1, 1, 1])
+  assert.ok(report.problems.every(problem => !problem.includes('四选单选答案位置')))
+
+  const unbalanced = questions.map(question => question.orderLocked ? question : {
+    ...question, answerIds: [question.options[0].id],
+  })
+  const actual = qualityReport({ ...catalog, questions: unbalanced }, indexes)
+  assert.equal(actual.problems.filter(problem => problem.includes('四选单选答案位置')).length, 2)
+})

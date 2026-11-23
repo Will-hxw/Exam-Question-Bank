@@ -59,12 +59,10 @@ export function qualityReport(catalog, indexes) {
     if (value.allSelected > Math.floor(value.multiple * .10)) problems.push(`${group} 多选全选题超过 10%。`)
     const fourSingle = value.byTypeAndOptions['single/4']
     if (fourSingle) {
-      for (const counts of [fourSingle.positions, fourSingle.unlockedPositions]) {
-        const total = counts.reduce((sum, count) => sum + count, 0)
-        if (counts.some(count => count < Math.floor(total / 4) - 1 || count > Math.ceil(total / 4) + 1)) {
-          problems.push(`${group} 四选单选答案位置分布超出允许偏差。`)
-          break
-        }
+      const counts = fourSingle.unlockedPositions
+      const total = counts.reduce((sum, count) => sum + count, 0)
+      if (counts.some(count => count < Math.floor(total / 4) - 1 || count > Math.ceil(total / 4) + 1)) {
+        problems.push(`${group} 四选单选答案位置分布超出允许偏差。`)
       }
     }
     const fourMulti = value.byTypeAndOptions['multiple/4']
