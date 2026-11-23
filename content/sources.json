@@ -1367,5 +1367,27 @@
     "format": "HTML",
     "status": "full",
     "rightsNote": "已读新华社公布的报告完整文字，按权属引用。"
+  },
+  {
+    "id": "BX25-ECONOMY",
+    "title": "党政机关厉行节约反对浪费条例（2025年修订）",
+    "publisher": "中共中央、国务院（共产党员网发布）",
+    "url": "https://www.12371.cn/2025/05/18/ARTI1747560633770820.shtml",
+    "webpageDate": "2025-05-18",
+    "retrievedOn": "2026-11-23",
+    "format": "HTML",
+    "status": "full",
+    "rightsNote": "核读官方全文及印发通知。题目按条例明确的党政机关具体规则，区分中央八项规定本身与其制度化落实。"
+  },
+  {
+    "id": "LH26-CLOSE",
+    "title": "十四届全国人大四次会议在京闭幕",
+    "publisher": "新华社，经共产党员网发布",
+    "url": "https://www.12371.cn/2026/03/12/ARTI1773316487610330.shtml",
+    "webpageDate": "2026-03-12",
+    "retrievedOn": "2026-11-23",
+    "format": "HTML",
+    "status": "full",
+    "rightsNote": "核读正式闭幕报道全文，引用大会通过法律及实施日期。"
   }
 ]

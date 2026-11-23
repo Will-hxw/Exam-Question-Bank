@@ -25,11 +25,11 @@
   },
   {
     "questionId": "6822ca13-535c-44c8-8c4d-0ab87eaede91",
-    "digest": "4c06bb617409ff1e8e909e2ef0e6ba906c376d8fb94ede6fe31fa29ad14faa2b",
-    "reviewer": "Codex sources",
-    "decision": "rewrite",
-    "reason": "S07第三部分的三个板块可以核证。现有选项同时套入编号、章号、性质和内容，主要靠通读工作文件分辨错位。校方实际简答有完整清单，但没有对五中说明的结构命中。仅留一个板块与内容的具体配对。",
-    "proposal": "题干「五中全会《决定》的说明指出，第三板块专门部署（ ）。」选项「监督体系和管党治党政治责任／重要性紧迫性和总体要求／增强党性和领导班子议事／组织体系和正风肃纪」。"
+    "digest": "044a2137f6e1a0e915f10fde176820e054b7b7aa8161b5d6159ae04179cd57f6",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "C为第一板块总论所讲的重要性、紧迫性和总体要求，D为第二板块分论部署的战略任务和重大举措。A监督体系、B管党治党责任均在第三板块。原台账同一组正答，解析记载第二板块为第二至第八部分，第三板块的两项内容保留，不新增另一道板块题。",
+    "proposal": ""
   },
   {
     "questionId": "8f5075c8-0abc-45a4-92f7-f44a27701bdd",
@@ -81,11 +81,11 @@
   },
   {
     "questionId": "65efe405-119f-4475-9d00-920efaf5ca44",
-    "digest": "a777d201b64d3a2210f01e50ac8a4aa0ac31fa1b96d0a890329766798f1b58d1",
-    "reviewer": "Codex sources",
-    "decision": "rewrite",
-    "reason": "S06第三部分第（三）项同时给出规则、分歧处置和执行要求。原A凡重大事项由个人决定过于明显，三项其余均真。会议决定的四步原则与党章第十条同文，优先取五中对决策分歧单独给出的触发条件。",
-    "proposal": "题干「重要议题出现（ ）时，五中全会《决定》明确不得强行作出决策。」选项「不同执行分工／会后反馈意见／较大意见分歧／个别成员异议」。写清本考点是完整原文条件，不替代党章意见接近时的处理规则。"
+    "digest": "d07cb55cea0f508dda372b4bfc018aa2d8ad88d9153fe92ff682c5aabd1509d0",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "A与重大问题由集体讨论作出决定的要求相反，C据此成立。B现明确限定重要议题有较大分歧，符合规定。D保留研究时充分发表意见和按照组织分工在职责范围内贯彻决策两项要求，原台账范围未丢失。",
+    "proposal": ""
   },
   {
     "questionId": "0b76352a-b100-46a0-b698-9dad0f6f634a",
@@ -105,11 +105,11 @@
   },
   {
     "questionId": "44c8f725-51dd-44e7-8918-f586f67e925a",
-    "digest": "91ca6adede11571ac86efb49804d2824c75d72150a73e3d7d08c4a54026215b3",
+    "digest": "d50e1d99eff917251530da981b41684ee5caa8581fdf680d9adb4bcb1848a5b8",
     "reviewer": "Codex sources",
-    "decision": "shorten",
-    "reason": "S06明确两类工作的主导层级。旧题选项分别为十至十四字并反复加‘领导为主’，只移动共同成分即可。与T07地方和基层纪委的总体双重领导关系不同，保留监督检查、查办腐败案件条件。机关名称短空与武汉选4／川大选36同形，未证五中实题。",
-    "proposal": "题干「五中全会《决定》指出，监督检查和查办腐败案件以（ ）领导为主。」选项「同级党委（党组）／上级纪委监委／本级纪委监委／派出机关」。"
+    "decision": "keep",
+    "reason": "《决定》明确监督检查和查办腐败案件以上级纪委监委领导为主。其他机关可以在各自权限内参与工作，但均非本句规定的主导主体。题干有两类工作的限定，不能把结论推广为纪检机构的所有领导关系。",
+    "proposal": ""
   },
   {
     "questionId": "a1e6c2c6-a6c9-4564-bc1f-04ac604b8671",
@@ -145,11 +145,11 @@
   },
   {
     "questionId": "8a01ee18-eab7-4b05-aea4-df35b14544b1",
-    "digest": "eca759cf89da70ada5e26321b65eb0745dfdb3dfa05ca0c6a6d22ca122f2fc4e",
-    "reviewer": "Codex root",
-    "decision": "rewrite",
-    "reason": "现题考原文概念组，四个解释句同时要求对照细节，不适合快速记忆。可沿用正确选项的词语，保留一个需记住的对应。",
-    "proposal": "题干：二十大报告用「拓展世界眼光，积极回应各国人民普遍关切」阐释（ ）。A 系统观念；B 自信自立；C 守正创新；D 胸怀天下。答D。S03 第二部分第六个必须坚持。改用一个主要对应后，将其他组含义移到知识点卡，先核已有双审题是否考同一句。"
+    "digest": "eb788cfe11e2917c29c7d61ab13b0f5e56daeeb33fd687ca5b861d1e625fb48d",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "A聚焦实践新问题属问题导向，非系统观念；B吸收优秀人类文明成果对应胸怀天下，非自信自立；C坚守方向、紧跟时代符合守正创新；D回应各国人民普遍关切符合胸怀天下。沿用t01-worldview-method-meaning，系统观念前瞻性思考等另题的正答不在本题两组正答之列。",
+    "proposal": ""
   },
   {
     "questionId": "eff22c66-9a55-4ec7-ad94-6f00568c67e0",
@@ -241,11 +241,11 @@
   },
   {
     "questionId": "acc3459e-7834-4d98-94b9-d79465233f4e",
-    "digest": "7276bf674e6e479bc04a1174d866f9c80418fe9a9a5ecedc83a9c80d5e813f66",
-    "reviewer": "Codex sources",
-    "decision": "rewrite",
-    "reason": "S03原多选核得文化数字化与两个效益要求，C/D也是相邻小项真实政策。即使压短仍在背小项编号；文化数字化战略可作独立词位，和四中数字中国的政策行动明确分开。",
-    "proposal": "题干「二十大报告提出，要实施国家（ ）战略，健全现代公共文化服务体系。」选项「文化惠民／文化数字化／文旅融合／文化遗产保护」。其余三项是邻近实际政策领域，解析另外保留社会效益优先的要求。"
+    "digest": "83d01dc61bf151058b81820a5858d46610e31a3d489df81678b61b149f1491ce",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "A国家文化数字化战略、B社会效益放在首位均直接见第（四）项。C理想信念教育常态化在第（二）项，D城乡精神文明建设融合在第（三）项。题干已使用第（四）项完整标题；如编辑习惯要求可写“在‘繁荣发展文化事业和文化产业’一项”。沿用原题，B的解析保留社会效益与经济效益相统一。",
+    "proposal": ""
   },
   {
     "questionId": "bc232b25-5378-4f87-a212-44a56280a9a8",
@@ -313,11 +313,11 @@
   },
   {
     "questionId": "ef536302-90a1-40a4-9f22-3acf2ec78f1a",
-    "digest": "0c4cfb9c9d64bd0b0561d91c40ea8ae0d647e5476a8cea0bf81a37719db6604d",
-    "reviewer": "Codex platform",
-    "decision": "rewrite",
-    "reason": "二项均具实施条件的设定让兼顾近期和长期的最长项直觉胜出。改考确切的显功、潜功并列，不要求选民生项目施工顺序。",
-    "proposal": "题干「2018年3月8日讲话指出，既要做显功，也要做（ ）。」A 当前工作；B 潜功；C 重点工程；D 基层服务。答 B。解析说明两类指当前受益的实事和打基础、利长远的好事，不把两类写成固定项目。S49 第六节。"
+    "digest": "73104906a67adcabf17dfcf256c6d00880f7302f6c293c89965e4b68c0e570d2",
+    "reviewer": "Codex sources",
+    "decision": "keep",
+    "reason": "原话为既要做显功，也要做潜功，并用群众得实惠和为后人打基础两类工作说明其意义。当前工作、重点工程、基层服务均不是固定搭配。题干已有讲话日期，与五中干部考核方式题所问不同。",
+    "proposal": ""
   },
   {
     "questionId": "0c4dc274-e448-4a34-b109-2b73dad9a5b5",
@@ -337,19 +337,19 @@
   },
   {
     "questionId": "3b0ea690-cf1b-4b5f-a20e-9a6a2f01f50a",
-    "digest": "9d6a2698d7b222f6c3ba6075d806c1bb72011b0d357de2ad4525110a7dde363c",
-    "reviewer": "Codex platform",
-    "decision": "rewrite",
-    "reason": "同题同时识别两类问题、分配责任和因事施策，且原错项靠直观拖延排除。把责任分配移入解析，其他保留为原子动作。",
-    "proposal": "题干「据2026年2月5日指示，整改突出问题时应当怎样做（多选）？」A 能改的立行立改；B 暂难解决的制定可行计划；C 同类问题一律用同一办法；D 按问题实际选择办法。答 A、B、D。解析说明历史问题须盯住直至整改到位，D取自下一个自然段。S49 第二十七节第二点。"
+    "digest": "5c92e29750bd934d34c1f6cbf83c2b6f9afd7b0413c275ff19ebf1583bb2db4b",
+    "reviewer": "Codex sources",
+    "decision": "keep",
+    "reason": "原文要求能改即改、立行立改；对历史形成且一时难以完全解决的问题制定切实可行的计划和方案；要求按实际问题选择办法，不能笼而统之搞一锅煮。A、B、D均对应，C将统一方案强加于各类实际情况。",
+    "proposal": ""
   },
   {
     "questionId": "bd0b0365-67b4-4f87-be4e-be9eba3c7969",
-    "digest": "eef009b4ee0e2191b432f2e44e989ad189a6efc8df5ed1902d48013ecb44ca6c",
-    "reviewer": "Codex platform",
-    "decision": "shorten",
-    "reason": "维护负担的例子已在题干直接提示正确选项。保留原话对眼前需要与后续影响的区分。",
-    "proposal": "题干「2022年3月1日讲话指出，判断是否是好事实事，除了群众眼前需求，还要看（ ）。」A 建设规模；B 任期内能否竣工；C 是否有后遗症；D 是否列为重点工程。答 C。S49 第十五节第2段。"
+    "digest": "6bde11176dd2dd0bbbe013747807e719cf80b790ffbc6a19307db0ee906ae7ae",
+    "reviewer": "Codex sources",
+    "decision": "keep",
+    "reason": "原文指出有些事情是不是好事实事，不能只看群众眼前需求，还要看会不会有后遗症。项目规模、任期内竣工和被列为重点工程均不是该句判断标准。题干保留与群众眼前需求相对的长期后果。",
+    "proposal": ""
   },
   {
     "questionId": "f9b1bd88-7445-4e2d-beb3-479b62d4d72c",
@@ -361,11 +361,11 @@
   },
   {
     "questionId": "c2aa5292-26e6-4cb5-b0ea-7e6f5306af4b",
-    "digest": "adc7e7f123aa9f26a065498bc60efe9d35d0e2fa6e7d5833eba85956f2eba0a2",
-    "reviewer": "Codex platform",
-    "decision": "shorten",
-    "reason": "应同时考普遍纠偏与性质恶劣时追责，原题有重复的长条件和明显将责任后置的选项。",
-    "proposal": "题干「据2025年7月1日讲话，对违规招商引资、搞地方保护等行为如何处理（多选）？」A 待年度考核再纠正；B 及时批评纠正；C 性质恶劣仅作提醒；D 性质恶劣严肃追责。答 B、D。解析注明性质恶劣不取消及时纠偏。S49 第二十二节末句。"
+    "digest": "484f1ce223e673fe54ffc13a9279df514c09bb5e5bc4c3cc29f01bea32cd4d74",
+    "reviewer": "Codex sources",
+    "decision": "keep",
+    "reason": "对违规招商引资、地方保护等行为，应及时批评纠正，对性质恶劣的严肃追究责任。B是一般要求，D保留性质恶劣的条件。A和C分别推迟纠正、弱化严重情形，均与明确要求相反。",
+    "proposal": ""
   },
   {
     "questionId": "d8124b88-9997-492e-a1b5-a5edea09ba16",
@@ -401,19 +401,19 @@
   },
   {
     "questionId": "1df01b49-89b3-46c0-a157-fafe1b3e6523",
-    "digest": "61b8d685f20e82f1b4d1f861116d835d485197763c6e6fd26f556cf6d33f5d49",
-    "reviewer": "Codex platform",
-    "decision": "shorten",
-    "reason": "不要把调查核实、无效决定和报批混成一个机关。正文也含基层代表大会，题干可选择直接列其适用范围。",
-    "proposal": "题干「地方各级或基层党代会选举违反党章，经查实，由（ ）决定选举无效，报（ ）审查批准。」A 同级党委／上一级党委；B 上一级党委／再上一级党委；C 上一级纪委／同级党委；D 再上一级党委／上一级党委。答 B。解析补上一级党委还决定相应措施，审查批准后正式宣布执行。S18 第十一条第二款。"
+    "digest": "44ee3fbc87515b496dad127205709ddfd5e7d1e74083a952195eddd613306d75",
+    "reviewer": "Codex sources",
+    "decision": "keep",
+    "reason": "党章规定，地方各级和基层代表大会选举违反党章的，上一级党的委员会调查核实后作出无效和相应措施决定，报再上一级党的委员会审查批准。两空区分决定与审查批准，不涉及纪委或同级党委。",
+    "proposal": ""
   },
   {
     "questionId": "2199a3a6-5351-443d-b4ad-e4129d5e70d4",
-    "digest": "e2ab716db999655f978e00e58231ddc77e6f3bfc23a1c420e61133abd5113032",
+    "digest": "b34efc92da75cc8fd0c2815f1d73d48db68f9c0276c6568443570585b8bf2bc9",
     "reviewer": "Codex platform",
-    "decision": "shorten",
-    "reason": "案情只需保留重要问题争论双方人数接近，并排除紧急执行与特殊上报；答案须同时保留暂缓和下次表决。",
-    "proposal": "题干「重要问题争论双方人数接近，且无紧急或特殊情况，应（ ）。」A 书记先行决定；B 立即按多数执行；C 暂缓决定、下次表决；D 同级纪委裁决。答 C。解析补调查研究、交换意见；紧急时应按多数意见执行，特殊时也可请上级组织裁决。S18 第十七条第一款。"
+    "decision": "keep",
+    "reason": "C与无紧急或特殊情况的处理一致；A书记先行无条文依据，B按多数立即执行限于紧急情况，D同级纪委不具条文中上级组织的请求裁决角色。解析保留进一步调查研究和交换意见。原题t07-near-tie-procedure的同一程序短化；一般少数服从多数及领导班子重要议题不得强决的规则各有适用条件。",
+    "proposal": ""
   },
   {
     "questionId": "c2f10a34-0bc5-41e6-9d56-ee0b490df089",
@@ -425,11 +425,11 @@
   },
   {
     "questionId": "53ee9644-969c-4a67-9525-f9cb1c1cd0b2",
-    "digest": "e43da16ff7c52c51a3300e50cec4a955a52fc3136cc6cb1fa52ef43c9b909f93",
-    "reviewer": "Codex platform",
-    "decision": "shorten",
-    "reason": "同一比例在两类人员分别计算，其余可删。必须保留分母是党的全国代表大会选出的各自总数，避免混同全国代表会议本身。",
-    "proposal": "题干「党的全国代表会议调整、增选中央委员及候补中央委员的上限，分别按（ ）计算。」A 现有两类合计的1/4；B 上届中央全会实到人数的1/5；C 全国党代会选出两类合计的1/5；D 全国党代会选出各类人数的1/5。答 D。S18 第二十一条。"
+    "digest": "5059c7451e77b8d811bffb24173233cd2bc4096ea57f3ec6956d0f44dcf0dbf0",
+    "reviewer": "Codex sources",
+    "decision": "keep",
+    "reason": "党章规定中央委员和候补中央委员的调整、增选数额，分别以全国党代会选出的相应类别总数为基数，不得超过五分之一。既不能将两类合计，也不能以现有到会人数计算。题目已区分全国代表会议和确定基数的全国代表大会。",
+    "proposal": ""
   },
   {
     "questionId": "001c0b5f-5e46-4f81-b74c-034688efa29a",
@@ -457,59 +457,59 @@
   },
   {
     "questionId": "40ff890c-0ee6-4ff6-8639-70755753eb49",
-    "digest": "471a2d3f3344ee14ec5bd04b56d139f62c0a67c865a3783a530547f74e0e36f0",
-    "reviewer": "Codex platform",
-    "decision": "shorten",
-    "reason": "一般的同级党委和上级纪委双重领导，是不同于五中《决定》中特定工作以上级纪委监委领导为主的另一个知识点。",
-    "proposal": "题干「党的地方各级纪律检查委员会受哪两个机关双重领导？」A 上级党委、上级纪委；B 同级党委、上级监委；C 同级党委、上级纪委；D 同级人大常委会、上级纪委。答 C。解析区分地方和基层纪委一般领导关系、中央纪委的领导关系及五中《决定》的特定工作主导。S18 第四十五条第一款。"
+    "digest": "f5930ba4fe49f526e93d270c70b2156fecda598bc0ec8cbfdab3b667ccaa7b38",
+    "reviewer": "Codex sources",
+    "decision": "keep",
+    "reason": "党章明确地方各级党的纪律检查委员会在同级党的委员会和上级党的纪律检查委员会双重领导下工作。其他项改变了层级或把党委、纪委换成国家机关。此题问总体领导关系，不同于A60-10问两类具体工作谁为主。",
+    "proposal": ""
   },
   {
     "questionId": "afcaf6c6-d7d0-4ffb-b5f5-198709e37d55",
-    "digest": "860a7089b552d10261d731f55c1fe5c6cbea31adc03d92a900391706e800501e",
+    "digest": "f3283c080eb3e935857f30b199d996e6fd8b751d431f56635d3b385b0bc205f5",
     "reviewer": "Codex platform",
-    "decision": "rewrite",
-    "reason": "两款都指向批准成立党组的党组织，无须增加职代会或单位常务会两套叙事。可用一个负责主体覆盖两项事实。",
-    "proposal": "改为单选「决定党组成员并对该党组实行领导的是（ ）。」A 本单位职代会；B 批准成立党组的党组织；C 本单位党组会议；D 本级党政联席会议。答 B。解析分两款确认成员决定权与服从领导，避免把组成人员的决定机关误写为选举机关。S18 第四十九条第一、二款。"
+    "decision": "keep",
+    "reason": "B是党组成员决定主体，C是党组应服从的党组织。A职代会选举和D单位行政会议选举书记都不是党章这一条列出的产生方式。沿用原题t07-party-group-authority，两个正答没有增加或改变。",
+    "proposal": ""
   },
   {
     "questionId": "3368d2f1-5566-4763-9df2-995ae2fc22f5",
-    "digest": "f62557799bfa54610bd2ec934830ad4fdef30a057587761b3957529524b6cfd5",
-    "reviewer": "Codex platform",
-    "decision": "shorten",
-    "reason": "必须保留团委书记的任职层级与党员身份。原题“全体会议”超出条文用语，应用同级党委及其常委会会议。",
-    "proposal": "题干「担任县团委书记的党员，可以列席哪两类同级会议？」A 党委、纪委会议；B 党委会议、党代会；C 党委常委会、纪委常委会会议；D 党委及其常委会会议。答 D。解析补该款还适用于县以下各级团委书记及企业事业单位团委书记；党章用“可以列席”，该款未赋予表决身份。S18 第五十二条第二款。"
+    "digest": "3c9e40dafa749c4ee9c67583434900ea280a1a4d2e279e0029a6902c7fb15b8b",
+    "reviewer": "Codex sources",
+    "decision": "keep",
+    "reason": "党章规定，县级和县级以下团委书记、企业事业单位团委书记是党员的，可以列席同级党的委员会和常务委员会会议。县团委书记符合这个范围。纪委会议或党代会不在该款所列。",
+    "proposal": ""
   },
   {
     "questionId": "ec6b046f-30b1-4f78-908a-c53e4dce78f0",
-    "digest": "3889f9514d7b0d48ccb1d0cd128e2b4372521abb555c85ced2cdf6211596bca3",
-    "reviewer": "Codex platform",
-    "decision": "shorten",
-    "reason": "甲乙丙只是将短主体换成字母，所考可以直接呈现，非党员监察对象保留为实际易混干扰。",
-    "proposal": "题干「依《条例》第六条，违犯党纪且应追究党纪责任的适用对象是（多选）。」A 党员；B 党组织；C 非党员监察对象。答 A、B。S19 第六条。"
+    "digest": "c2f0cfa9f03621bcece56a9a394aa7ef9217e1d2fa999e9a9bdd800c58da1c20",
+    "reviewer": "Codex sources",
+    "decision": "keep",
+    "reason": "条文适用于违犯党纪且应当受到党纪责任追究的党组织和党员。题干保留了适用前提。非党员监察对象的其他法律责任另有制度依据，不能由身份类别直接列入本条例的两类对象。",
+    "proposal": ""
   },
   {
     "questionId": "496a0bc0-789e-4bd9-8658-f57b71fc21bf",
-    "digest": "b4ed1604f4d9b6a1eb42cd5c1a7d9e04e062f76d0c7e9a2cd317601dcbdc9ccc",
-    "reviewer": "Codex platform",
-    "decision": "shorten",
-    "reason": "原题给出严重警告再以长选项复述排除条件。改组的例外写清楚后，可以直接识记任职结果。",
-    "proposal": "题干「党组织受到改组处理，未达到撤销党内职务以上处分程度的领导机构成员（ ）。」A 保留职务；B 自然免职；C 逐一重新登记；D 另行报批免职。答 B。解析区分第十六条解散后符合党员条件者重新登记；免职为组织处理结果，不等同逐人处分。S19 第十五条、第十六条。"
+    "digest": "2d2ac7c3cebb05d46bcd8c5f2d97566947a0bc27d8b55e03bdb579807ea60e75",
+    "reviewer": "Codex sources",
+    "decision": "keep",
+    "reason": "党组织受到改组时，其领导机构成员除应当受到撤销党内职务以上处分外，均自然免职。题干准确限定未达到上述处分程度的成员。重新登记对应解散处理时部分党员的另一步骤，不能移用。",
+    "proposal": ""
   },
   {
     "questionId": "e8dbc456-be0b-4bd7-b272-fa0d91e71e0d",
-    "digest": "b04b180afee02adb7d15d2ea2623f13a4b0671e95d6993d6bd0aec899b7a0190",
-    "reviewer": "Codex platform",
-    "decision": "shorten",
-    "reason": "数值选项已简洁，只需删去两名党员情境，并以条次区分第十一条换档例外。",
-    "proposal": "题干「依《条例》第十条，警告、严重警告处分后，不得在党内提拔或进一步使用的期限依次为（ ）。」A 一年／二年；B 六个月／一年；C 一年／一年半；D 一年半／二年。答 C。解析另列第十一条应撤销职务但本人无党内职务的特别情形及其不同任职限制。S19 第十条、第十一条。"
+    "digest": "fd040dfc541d79ef6de282d702b04b36cf98a5bb559a8d1b94ece24ab4799c29",
+    "reviewer": "Codex sources",
+    "decision": "keep",
+    "reason": "警告后的限制期为一年，严重警告后的限制期为一年半。两组限制都包括在党内不得提拔职务或者进一步使用。其他项错在至少一项的年限，不宜将第十一条撤销党内职务相关的两年限制移入。",
+    "proposal": ""
   },
   {
     "questionId": "8f4414ba-e0cb-411b-80a1-7c34b70c50a6",
-    "digest": "0ef0158104803c48cdc567615d37bcd4bd623a12d307888a884f16c8fd7f1f68",
-    "reviewer": "Codex platform",
-    "decision": "shorten",
-    "reason": "「察看一年」和拟任经过不是起算事实。起点与限制期间仍应一起考，避免误读为受处分决定后起算。",
-    "proposal": "题干「留党察看处分后的同等及以上党内职务任职限制，自何时起、持续多久（ ）？」A 作出处分／二年；B 撤销职务／二年；C 恢复党员权利／一年；D 恢复党员权利／二年。答 D。S19 第十二条第三款。"
+    "digest": "6e850253edf42ecac218458ee7a6c1d229e86b0a75f4139a04b61410a68c8513",
+    "reviewer": "Codex sources",
+    "decision": "keep",
+    "reason": "受到留党察看的党员恢复党员权利后两年内，不得在党内担任与原任相当或更高职务。处分作出日、自然撤销职务之日与恢复党员权利不是同一起算点。本题按条文问恢复权利后对相当或者更高职务的限制。",
+    "proposal": ""
   },
   {
     "questionId": "f823bff6-f3c4-490f-a51a-bc80de3bdaba",
@@ -521,27 +521,27 @@
   },
   {
     "questionId": "ce665154-f5b3-4cee-bf66-84497dddf071",
-    "digest": "b0de21654a5ba7c5e34a797e7e480f430072f1492ed3b5e9dcc77b4ac2cd1e61",
-    "reviewer": "Codex platform",
-    "decision": "shorten",
-    "reason": "所考是第十九条免予处分的书面结论。严重警告、诫勉和第十七条前提放在解析，题干保留已决定免予的条件。",
-    "proposal": "题干「依《条例》第十九条，对违纪党员免予党纪处分，应当作出（ ）。」A 书面结论；B 书面通报；C 口头结论；D 诫勉记录。答 A。解析区分可以免予的前提和已经免予时的必行程序。S19 第十九条第一款。"
+    "digest": "96916bb73abc597f861125219f244c82b7a53386326223c7d62c13f7b25b0ef8",
+    "reviewer": "Codex sources",
+    "decision": "keep",
+    "reason": "该款明确对违纪党员免予处分应作出书面结论。书面通报、口头结论及诫勉记录都是不同形式。题目限定已经适用免予党纪处分，不需要另行推定什么情况可以免予。",
+    "proposal": ""
   },
   {
     "questionId": "5b2801c9-6070-4b67-83a6-7f6f0a7b7c14",
-    "digest": "3c07f5d4731b101b61ccda427cf721c0ad8e74a31c9dae416175318b281b7ed3",
-    "reviewer": "Codex platform",
-    "decision": "rewrite",
-    "reason": "两项独立行为必须保留以区分第二十五条。当前每项复述案情；直接考合并规则比硬写某一具体处分更稳，后者还涉及有无党内职务。",
-    "proposal": "题干「两项独立违纪行为分别应受警告、严重警告，依《条例》第二十四条合并处理，应（ ）。」A 直接给予严重警告；B 以严重警告加重一档；C 两项处分分别执行；D 以警告加重一档。答 B。解析注明若有一项应开除则开除，一行为同时触犯多个条款另按第二十五条。S19 第二十四、二十五条。"
+    "digest": "02e62b726e066f5893659550bf8b612b42a75803cee1281eaf121c5cbeed1b0f",
+    "reviewer": "Codex sources",
+    "decision": "keep",
+    "reason": "两项独立违纪行为中最高的应受处分为严重警告，按第二十四条在此基础上加重一档。题中无任何一项应开除党籍。原样执行、分别执行或以较轻的一项为基础都不合规定，也不能套同一行为触犯多个条款的定性规则。",
+    "proposal": ""
   },
   {
     "questionId": "2540e02f-07b1-4501-8687-acb912c5cf49",
-    "digest": "fa98cbf61a6e31b67d67873782674483d859feb8929d4211f7c13de9d920ee50",
-    "reviewer": "Codex platform",
-    "decision": "shorten",
-    "reason": "依法改变已经生效的处罚决定、且改变影响原处理，是必须同时保留的触发条件。原先认定过程可删。",
-    "proposal": "题干「原生效行政处罚被依法改变，且影响已作出的组织处理，党组织应（ ）。」A 继续执行原处理；B 待本人申诉再办；C 重新作出相应处理；D 交行政机关改处。答 C。解析补根据改变后的生效决定重新作出，不等于行政机关直接变更党组织决定。S19 第三十五条第四款。"
+    "digest": "41545166e1007f320ee186a4c343b81bd321499cccf6f425490a4d25692c7ec1",
+    "reviewer": "Codex sources",
+    "decision": "keep",
+    "reason": "原生效行政处罚被依法改变并影响已作出的组织处理时，党组织应根据改变后的生效文书重新作出相应处理。行政机关不能替党组织更改组织处理，重新处理也不以本人申诉为预设条件。",
+    "proposal": ""
   },
   {
     "questionId": "87434ecf-c0de-4d38-a09a-d7231863ff4a",
@@ -553,11 +553,11 @@
   },
   {
     "questionId": "a6dc4054-5785-40c9-88aa-e328463c497d",
-    "digest": "0c133c347a085d967ad3643bd0e2ae12c44d52ab780ffce7f519de9cc901bd20",
-    "reviewer": "Codex platform",
-    "decision": "rewrite",
-    "reason": "主问是两个时限，旧干扰项却分别考适用对象和报告主体。保持选项同层级，减少读题负担。",
-    "proposal": "题干「依《条例》，处分决定作出后的宣布时限与执行情况上报时限，哪些表述正确（多选）？」A 宣布：一个月内；B 宣布：两个月内；C 上报：六个月内；D 上报：一个月内。答 A、C。解析注明宣布对象和报告主体在第44、45条各自规定，不把第44条特殊办理延期写成第45条的延期。S19 第四十四、四十五条。"
+    "digest": "0efca8124c3a11fe4b5c5b9bb3845e74a3d460b435d41ce40bc81a5eb8a34454",
+    "reviewer": "Codex sources",
+    "decision": "keep",
+    "reason": "处分决定作出后一个月内宣布；决定执行机关或受处分党员所在单位应在六个月内报告执行情况。涉及职务待遇的其他办理时限和特殊延期，不能当作本题所问宣布或报告的一般时限。",
+    "proposal": ""
   },
   {
     "questionId": "96f3cb1b-f7b8-4f0c-8234-70b0db45e9e8",
@@ -665,51 +665,51 @@
   },
   {
     "questionId": "65f5101c-ddb2-4ecf-b5f1-2e5f082298b4",
-    "digest": "e75323e4275211cc429e31f07248be107c2ca063e772ee46fd11ddef685a20b2",
+    "digest": "0a6a2ea57ffbd501b2e754ad6f8c65a98a5be4e7e3ddb85238a606cdb4b72d89",
     "reviewer": "Codex sources",
-    "decision": "rewrite",
-    "reason": "S37《通知》指出段、S05公报均载同一时代课题。四个选项重复两问，最长者最像原文。现有高校样本问理论关键词和角色，支持识记政党类别；未取得这一课题的实际高校题面。理论问答应由T13收录一次，T03可引证。",
-    "proposal": "题干「《通知》指出，习近平党建思想回答建设什么样的（ ）、怎样建设这样的政党。」选项「马克思主义学习型政党／长期执政的马克思主义政党／马克思主义先锋队政党／长期执政的社会主义政党」。题干明确据原文，保留长期执政和马克思主义两个限定。"
+    "decision": "keep",
+    "reason": "公开报道在‘党的十八大以来’的叙述中，明确说这一思想围绕建设什么样的、怎样建设长期执政的马克思主义政党这一时代课题形成。其余三个名称均非原文完整政党定位。题干已注明2026年《通知》，没有把形成背景误写成文件发布年份。",
+    "proposal": ""
   },
   {
     "questionId": "d9ec6568-a6fe-4428-976f-d566786f4b2e",
-    "digest": "4e5f4c7d905c475ba3392f47f9e2f0279384fc459ecdd94a961788c7dc3de3f9",
+    "digest": "5821939484c95e19a8446b4b65e92611b8c7a15bd83c01a080968a3f5242d8d4",
     "reviewer": "Codex sources",
-    "decision": "rewrite",
-    "reason": "S37《通知》明确段是固定理论隶属关系。现项将理论名称藏入‘前者／后者’，B与C侧重逻辑否定，D突转经济领域容易猜。类似校方理论题考正式定位，未实见本题。",
-    "proposal": "题干「《通知》如何表述习近平党建思想与习近平新时代中国特色社会主义思想的关系？」选项「重要组成部分／并列思想成果／历史继承关系／理论体系总纲」。解释注明前者是后者的重要组成部分。"
+    "decision": "keep",
+    "reason": "公开报道直接把习近平党建思想定位为习近平新时代中国特色社会主义思想的重要组成部分。其他三项分别改成并列、总纲与历史继承关系。此问测试思想间的组成关系，与A60-01的时代课题不同。",
+    "proposal": ""
   },
   {
     "questionId": "4eda8ae9-ff2d-429c-8af6-6527951a29c3",
-    "digest": "43c2cc604adcfdd723d7f1ebe9f9850cdd5178e9223fb1d015e2b8222505bb6f",
+    "digest": "b468852248032bc80c6723ebf164d0e1b14f45c81f757255555bfe5511cc228b",
     "reviewer": "Codex sources",
-    "decision": "shorten",
-    "reason": "S37科学内涵段直接界定最高原则。A/B/D是规范名词，C是带判断的完整句；长度和语法不齐会暴露位置。高校样本矩阵中的组织原则定位和Q26思想自测可以支持短搭配考法，不能为该题算原卷频次。",
-    "proposal": "题干「《通知》指出，党的领导的最高原则是坚持（ ）。」选项「以党的政治建设为统领／全面从严治党／党的全面领导／党中央集中统一领导」。"
+    "decision": "keep",
+    "reason": "科学内涵段直接将党中央集中统一领导界定为党的领导的最高原则。政治建设统领归于新时代党建根本要求，全面从严治党归于战略方针；党的全面领导也有其制度地位，不能替换此处特指的原则名称。",
+    "proposal": ""
   },
   {
     "questionId": "52d495ce-f6a3-45bc-bad8-b44b0c7d7f78",
-    "digest": "bc3ebbfd05b267b89bd4158fdcdbc1975855845771e5bc20488ac4d91837d7d6",
+    "digest": "e003d0c50b7352f58368697d405e707cd2cab90cae87898c9a6082c0b5f2c8bd",
     "reviewer": "Codex sources",
-    "decision": "rewrite",
-    "reason": "S37把用党的创新理论凝心铸魂定位为思想建设根本任务。原四项有理论、个人党性、组织体系、干部队伍四个大类，凭‘思想’即可避开后两项。S03以理论武装表述同一定位，跨专题宜留代表题。",
-    "proposal": "题干「《通知》指出，党的思想建设的根本任务是用党的创新理论（ ）。」选项「指导实践／凝心铸魂／锤炼党性／统一认识」。均可搭接同一主语，按通知指定词组判分。"
+    "decision": "keep",
+    "reason": "报道明确把坚持用党的创新理论凝心铸魂定位为党的思想建设根本任务。指导实践、统一认识是理论发挥作用的常见表述；锤炼坚强党性在同段对应党员干部终身课题。与A60-03的领导原则分属不同定位。",
+    "proposal": ""
   },
   {
     "questionId": "9e607b66-86ad-4707-a28b-1ae53cba6153",
-    "digest": "cba69ce67b7e4170d8a42610ebe9022ba3334de165b89bff2525ee2679cc8335",
-    "reviewer": "Codex sources",
-    "decision": "rewrite",
-    "reason": "S37理论品格段列两个正确词，C/D都是实践基础和渊源段名词。选项功能过于整齐，现题实际问段落分类，且与下一题互相泄示。Q26及Q28实证支持短术语搭配，不支持连续同文段落辨析。",
-    "proposal": "题干「《通知》把‘鲜明的（ ）’列为习近平党建思想的一项理论品格。」选项「使命担当／历史主动／问题导向／为民情怀」。四项均取同段实有表述，只考固定搭配。"
+    "digest": "50a8ca6f9cbb0b362fd587f68e4ae644bf40080331b03c7954485c5f5e611315",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "A历史主动和B问题导向均由该段列为理论品格。C实践经验与D政党经验教训分别属于后面的实践基础或理论渊源。与原题t13-characteristics同一正答，沿用原题替换；另题所考为民情怀不同。",
+    "proposal": ""
   },
   {
     "questionId": "42d638fd-fb2e-49bf-a9bb-10ddb4f4173f",
-    "digest": "3a59f731ade76db5d73bb3278a694731a052c00b957ed0c564062459e09cb603",
-    "reviewer": "Codex sources",
-    "decision": "rewrite",
-    "reason": "S37渊源段的概括、继承和传承各有对应对象，旧多选把三个有实据的复合长句和一个理论品格短句摆在一起，选句式即可排错。整套列举缺少本校公开题面命中。",
-    "proposal": "题干「《通知》称习近平党建思想是对（ ）的继承和发展。」选项「中华优秀传统文化／马克思主义政党经验教训／新时代全面从严治党实践经验／马克思主义建党学说」。其余三项分别移入传承转化、总结镜鉴、概括凝练的解析，保留自然原文完整名称。"
+    "digest": "c7d853c7f1cb92f97c7a803320abe6f09a08f85b848f5c4a8ae87009a17660a0",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "B是所概括和凝练的新时代实践经验，C是继承和发展的建党学说，D是传承和转化的中华优秀传统文化。A问题导向定位于理论品格。所问为给定选项，未称这三项是全文的完整列举。沿用t13-formation-foundations，另题单考对政党经验教训的总结和镜鉴也不重出这三项。",
+    "proposal": ""
   },
   {
     "questionId": "62f36c59-aeba-4b5a-a126-5f21ca45e84e",
@@ -777,19 +777,19 @@
   },
   {
     "questionId": "f8b2fb74-82aa-4b50-b5e2-f174d3b64b1e",
-    "digest": "6a89bba22041979d9da66ee3cbc233f848abf3e9172e29b8474f383a49246d82",
-    "reviewer": "Codex sources",
-    "decision": "rewrite",
-    "reason": "S43第（5）项可核B/D为原则标题，A/C为展开。两个正确项都从‘坚持’开头，两个干扰项都从‘以’开头，题干的‘原则标题’可被语法直接利用。弱化编号和层级分类，保留原文有实用价值的一对术语。",
-    "proposal": "题干「‘十五五’时期经济社会发展必须遵循的原则之一是坚持有效市场和（ ）相结合。」选项「法治政府／有为政府／服务型政府／责任政府」。其他原则可留在解析及知识点范围，不让同一词位重复成两题。"
+    "digest": "7146f20ef8805f0c0919be3bbb19b4541240d0a45554fc179b3240b5f13b9b26",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "B、D均为单独列明的原则标题。A新发展理念是坚持高质量发展原则中的展开要求；C以新安全格局保障新发展格局是统筹发展和安全段的展开句。第（5）项和“单独”两个范围条件保留，正答与原题一致。",
+    "proposal": ""
   },
   {
     "questionId": "fa7decfc-3a22-47f2-b693-ee0f36df36c2",
-    "digest": "f0efa143077a24bd6153eaa156dcc11fa3d23bf6c3c105f911750d4d9d6e8fbb",
-    "reviewer": "Codex sources",
-    "decision": "rewrite",
-    "reason": "S43第（6）项实际正文有七项目标，随后另有2035年远景段。现题考据此分类，2035年人均GDP是其干扰项；SQ04直接考这个指标的具体值，二者不属逐字同题，但共享同一时点知识，且旧q_add_000014已映射本ID。官方短空更接近SQ04。",
-    "proposal": "沿用本UUID采用SQ04的‘到2035年人均国内生产总值要达到（ ）’单选，不另发SQ04。解析明确‘中等发达国家水平’和‘基本实现社会主义现代化’都属于2035年远景，‘国家安全屏障更加巩固’和‘人民生活品质不断提高’属于十五五本期目标。保留原知识点的阶段边界；两组余项作为释义或待有独立考查证据后另审，不凭此题宣称整清单已考。"
+    "digest": "caaafc150a188130f51977b67bb4076c6d897b76e62c8cd8ec1f7ef82c754d86",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "A国家安全屏障、D人民生活品质是本规划期单列目标。B人均国内生产总值达到中等发达国家水平及C基本实现社会主义现代化同属在此基础上再奋斗五年后的2035年表述。用“本期”能区分两段，解析须写明期限；也可将题干“本期”明确为2026—2030年。沿用原题，不与现有单问2035年目标时点混作同题。",
+    "proposal": ""
   },
   {
     "questionId": "e5018df8-b6dd-4562-9cd7-93b7e9c314bb",
@@ -801,27 +801,27 @@
   },
   {
     "questionId": "66f5b6ef-9bb1-4f48-9d09-50f5a493d038",
-    "digest": "9d92eee7b3155d1f2645cdf8823dc6404029c30ef913b79f228e73d436d52a0c",
-    "reviewer": "Codex sources",
-    "decision": "rewrite",
-    "reason": "S43第（14）项确有数据市场、人工智能和数实融合；中试验证平台在第（12）项。四选的主要认知操作是定位文件序号，且三真一错按科技分类即可猜。Q08支持一处指名行动，不证明四中三条部署曾作为高校完整组合出现。",
-    "proposal": "题干「‘十五五’规划《建议》在数字中国建设部分提出，要全面实施‘（ ）’行动。」选项「互联网+／智能制造／数据要素×／人工智能+」。引领科研范式变革和数实融合留到解析，避免直接提示选项。"
+    "digest": "796bf42b1d666eebd3b2b5a414f71c7de2c62583a6d04070648ab4468e5caac8",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "A全国一体化数据市场、B人工智能+行动、D实体经济和数字经济深度融合同属第（14）项。C概念验证和中试验证平台隶属第（12）项科技创新与产业创新融合。题干使用该项完整标题，能定位范围。解析恢复市场的开放共享安全以及融合的“深度”。三个正答为原题同一知识组，另考人工智能开源社区的政府工作报告题范围不同。",
+    "proposal": ""
   },
   {
     "questionId": "5f7aa4b4-da31-4d9a-9ef2-f27a217c8a09",
-    "digest": "860f4f2a1d4c89eb01812a079377ecb0e4ae3e779e705efd9d499770674bcdcd",
-    "reviewer": "Codex sources",
-    "decision": "rewrite",
-    "reason": "S43第五部分各项归属准确，但原题仅考章节导航。SQ03已考扩大内需的战略基点，T05另有促消费和扩投资搭配，缩短原多选仍会扎堆。原题不入库，只有采用统一大市场条文的独立行动条件才保留该考点。",
-    "proposal": "若需覆盖此处，题干「‘十五五’规划《建议》提出建设全国统一大市场，要破除（ ）。」选项「地方保护和市场分割／地方差异和区域分工／市场准入和产权保护／信息披露和社会信用」。后两组是同段要求完善的事项，解析说明取舍依据。"
+    "digest": "9aae1607ffaf763620fa62c61c1b0761f969909fdaf6e560dee0f3a32878d278",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "D为第五部分第（15）项大力提振消费，A为第（16）项扩大有效投资，C为第（17）项破除阻碍全国统一大市场建设的卡点堵点。B在第七部分第（21）项。修订后的章节限定使范围清楚，正确项与原题一致。",
+    "proposal": ""
   },
   {
     "questionId": "c6524a8c-05e2-401b-af43-c4f30ba76033",
-    "digest": "5f036eafadc6e1df1dde1088a9554cded3d58b6b19a32c9862f199cf08354f2f",
-    "reviewer": "Codex sources",
-    "decision": "rewrite",
-    "reason": "S43准确把新型城镇化和区域联动放在第九部分，另两项确实在相邻政策章节。原题要求背章节归属，对当前找到的官方自测和校方卷面都缺直接证据，四项等长压缩仍会保留同一问题。",
-    "proposal": "原章节多选暂缓。确需覆盖一项区域部署时用「‘十五五’规划《建议》提出，深入推进（ ）的新型城镇化。」选项「以县城为重要载体／以人为本／以城市群为主体／以内涵式发展为重点」。同段有县城、城市群、内涵式发展的不同语境；只问第（31）项标题原词，区域联动留在材料。"
+    "digest": "9c14ffefb6dadd62b7b139a06afa184e13b8afaa25de9597e65f89898c1ca136",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "D促进区域联动发展为第（29）项，B以人为本的新型城镇化为第（31）项。A宜居宜业和美乡村属于第八部分，C拓展双向投资合作空间属于第七部分。已补第九部分限定，排除了按广义区域发展揣测的歧义。",
+    "proposal": ""
   },
   {
     "questionId": "10090fa6-ca3a-460a-8d17-81095a34cbb1",
@@ -2409,7 +2409,7 @@
   },
   {
     "questionId": "d177f314-4cb1-402a-bef3-014e8606e1d9",
-    "digest": "0aa4c092c3f06ff1c471577190305b866429fef9c6478fd35144e47d10ea93a8",
+    "digest": "7cfd4364d7dd1bdf360e23fbf283b9556a4876f2e0dde5979b5ca17f64e79c8b",
     "reviewer": "Codex sources",
     "decision": "keep",
     "reason": "大事记明确记载，毛泽东在张思德追悼会上发表《为人民服务》讲演。纪念白求恩有不同人物和写作情境，其余两篇也各有独立出处。四个选项均为毛泽东作品名称，设问只考讲演与事件的对应。",
@@ -3085,6 +3085,1126 @@
     "reviewer": "Codex sources",
     "decision": "keep",
     "reason": "大事记在《论持久战》一项明确记载不能速胜、不会亡国，最终胜利属于中国。其余三篇是不同语境的真实论著。已去掉原先题干的书名词面提示，现可凭讲话内容独立识记。",
+    "proposal": ""
+  },
+  {
+    "questionId": "6fa92598-f6cf-4514-a83c-757b7a2c114b",
+    "digest": "3dbc9cf39557dae9cb7ec24bf0a41ebbc83b30cfbf7cfd4facdf811f4b64b36e",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "B是陈独秀等于1920年8月建立发起组织的地方。A北京早期组织在同年10月成立；C广州和D长沙也有早期组织，但属于此后陆续建立的组织。时间与发起组织双重限定清楚。",
+    "proposal": ""
+  },
+  {
+    "questionId": "dc3a6505-47d5-47a1-8ecc-376f3b2d79b7",
+    "digest": "96460769993c4bc6dd5a6b9d1801672bb62b798d3080cea189a38d83b156f146",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "C为大会选出的中央局书记。A张国焘、B李达为出席大会的代表，原文所定书记职务是陈独秀；D李大钊未出席。人物同属建党史语境，选项适于短记忆。",
+    "proposal": ""
+  },
+  {
+    "questionId": "cdbe1ddb-e66b-49f8-8e82-c14afad1262d",
+    "digest": "6be869e8fc43a3cea1c7145d1d43a40df18a01bef13f0411bb1c6ca3324ba2eb",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "A由大事记明确标为第一次国共合作正式形成。B中共三大决定采取党内合作方式，属前期条件；C关联后来抗日合作转折；D在首次国共合作形成之后。四项均有对应历史事件。",
+    "proposal": ""
+  },
+  {
+    "questionId": "3eb68e1d-fb89-44c6-96fe-7bf5259d89c8",
+    "digest": "56f3d9e4d7062adf7ca16e773867c1dfec56aa975809a863eb8f5c3967ce7d6b",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "D为支部建在连上；军、师、团都不是该事迹所记支部设置层级。四个为真实部队层级，直接填法规史用语。",
+    "proposal": ""
+  },
+  {
+    "questionId": "0fac3c77-5003-43ba-83e3-39b9ebdf2e88",
+    "digest": "3dc6414246fef6d47a1811978e9fd9e8203f543aabc8814a4925b3f53d671449",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "C对应九一八事变后中国人民抗日战争开始。A为1927年其他革命史节点，B早于九一八事变，D1937年为全面抗战开始。明确了历史起点与全国抗战的区别。",
+    "proposal": ""
+  },
+  {
+    "questionId": "612ed0c7-5efa-417e-9df9-b65878ccda8c",
+    "digest": "8199b710e4af96c3a5d52498b68e4fae9a5805d9c4be8784e501c696f8261dd0",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "A通过抗日救国十大纲领等文件，标志全面抗战路线正式形成。B关联抗日民族统一战线策略转变；C、D为党史其他不同阶段会议。解析宜注明标志是洛川会议通过相关文件，选项定位唯一。",
+    "proposal": ""
+  },
+  {
+    "questionId": "99d851a2-3923-47e9-b8cc-a52cc2d271f4",
+    "digest": "d6cf6fcd5940c4e79564f921cd18a2f93260848505758803049f2de8893ce441",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "B为邓小平提出建设有中国特色的社会主义的开幕词所在大会。A十一大早于这一表述；C十三大、D十四大属于后续发展阶段。四个相邻大会名称同类。",
+    "proposal": ""
+  },
+  {
+    "questionId": "969d7097-b6a3-4260-b359-11eb0bb828a9",
+    "digest": "758551ce54e50ccda5076e18f73fb3c52de3c5c66fa31d070ad00eef8336cf0a",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "D明确经济体制改革目标为建立社会主义市场经济体制。A十一大、B十二大、C十三大均早于十四大正式确定的这一目标。考点与提出建设有中国特色的社会主义的党代会分开。",
+    "proposal": ""
+  },
+  {
+    "questionId": "cd6c0c73-e7c0-47f5-b258-fc512ba43eec",
+    "digest": "ec41debde4495c9fc8dcfe810f515569bbb75f65ff554b616e2586775c2b7615",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "C为恢复行使主权日期。A是中英香港问题联合声明签署时间，B提前一年，D是澳门恢复行使主权日期。备选日期顺排，真实的制度前置节点与另一回归日期可辨。",
+    "proposal": ""
+  },
+  {
+    "questionId": "72c6ff62-98ab-490a-b05e-a0e21e20c565",
+    "digest": "76c5a6306b06192d483822ca6861b94bc3bd3c7d8e977b75556021ecbc977c7d",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "B是该句末项。A把检验、发展改为继承、运用；C以理论推导取代实践；D把实践改成调查并调换行为词。各项同句式且长度相近，适合原句短识记。",
+    "proposal": ""
+  },
+  {
+    "questionId": "a357df52-4b45-4364-bc72-2401b0e78b0a",
+    "digest": "0745966d5a4fcfff4f3f171fc50a96dc6677c8ce9cf9cd444b002ea657b3dc14",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "D为宪法和法律范围。A的政策会议决定、B的地方规章、C的党内法规均不能替代党章本句所定范围，四项为同类规范依据。",
+    "proposal": ""
+  },
+  {
+    "questionId": "87949ea5-72b5-4adf-8422-dabc42eb6ae8",
+    "digest": "a67220afe51212fa856d851661a5296a5d47eb2bfc0cbb7054cc7a916e27cc7d",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "C为五年以上，两类委员同一门槛。A、B低于该门槛，D人为提高两年。题干问党龄，不与中央委员会任期混用。",
+    "proposal": ""
+  },
+  {
+    "questionId": "60bee1cc-aadf-42c6-bae4-88c3cf9ab1c6",
+    "digest": "77386cb16393e3c7bd905ef2da28524cea8f1b6a664d9fb453480f0f52092898",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "A是党章列明的有权修改党的章程的会议。B为全国代表会议，另有决定重大问题、调整和增选部分成员等职权；C、D均未在党章获此特定会议职权。真实机构名称并列，有具体条款边界。",
+    "proposal": ""
+  },
+  {
+    "questionId": "2cbf30df-638c-445b-b315-2c32a227140f",
+    "digest": "51a64506574d46a351949d6710bf8f3e549d27640406863534ac020c082cd464",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "B为这类选举的指定形式。A改成记名，C、D都不是条文规定的投票方式。题干保留代表和委员会产生这一场景，区别其他事项的表决。",
+    "proposal": ""
+  },
+  {
+    "questionId": "ff83babb-bd84-46d4-b753-8de2f742549d",
+    "digest": "b4c3c80c2ef63116c4113831804e079e7d7a7fa3a4f3ed5fb54d80250820cfe6",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "C为一届任期内，覆盖中央和省、自治区、直辖市委员会所管理的地方、部门、企事业单位党组织。A、B缩短为日历时长，D放宽到两届，均非条文明示。与市县委员会建立巡察制度的条款边界要分开。",
+    "proposal": ""
+  },
+  {
+    "questionId": "d13e1cd1-ff7b-4e40-bfeb-964c8cc5787e",
+    "digest": "3b3f5c862970459ea29ee8c8da4686c21c7fac2e17a16eb08feb45dbd968aae9",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "A为红旗旗面缀金黄色党徽图案。B颜色改白；C换成五角星；D将锤头改为麦穗并改为白色。四项聚焦图案与色彩的具体制度事实。",
+    "proposal": ""
+  },
+  {
+    "questionId": "88107768-7f19-42e4-b48a-dc3bacdf1a16",
+    "digest": "1acf7241447f2dc231f339e088c942dbb530923a90c5d3e910124f3dfe43743a",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "D是党执政后的最大危险；A、B、C分别是能力不足、精神懈怠、消极腐败的长期危险表述。题考最大危险的特定定性，区别四种危险一般列表。",
+    "proposal": ""
+  },
+  {
+    "questionId": "54cc1f0b-103d-4b2d-925a-5807254bb0d8",
+    "digest": "6c1dd7c0013755e85b25378a414258f7afc560a2fa9b12bcc8d858a8dc9d0fda",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "B为2024年1月1日施行。A为2023年12月19日发布节点；C、D均晚于明文施行日期。题面明确修订版和施行概念，日期依序排列。",
+    "proposal": ""
+  },
+  {
+    "questionId": "0acbdf03-355f-4295-9f34-f433db5fd6cd",
+    "digest": "f593296c0d8f5afb044703931045bc30d74edadf30f5e209d58e80b98270f38b",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "C为负责解释的中央纪委。A中央组织部、B中央书记处、D国家监委各有别的法定或党内职责，该附则没有列它们为解释主体。短机关名适合直接记忆。",
+    "proposal": ""
+  },
+  {
+    "questionId": "251abd02-4c0a-4ead-81ae-2192d8726824",
+    "digest": "85330aa893753304879eb1d74bdac632795179411ad298dc659d69dbc56d9e0a",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "A是第一条写明的制定依据。B党内监督条例、C问责条例及D监察法同属治理规范背景，但并非该条所列直接依据。题干已准确限定条次。",
+    "proposal": ""
+  },
+  {
+    "questionId": "ee563fdc-77fd-4b2f-b67c-7df769cd2aa6",
+    "digest": "de6e417c3e4c8b605e8543a205d837aca72883a1487c8b9ef9e5fb62bfd75915",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "D为该条所属章；不履行或履行全面从严治党监督责任不力与造成严重不良影响两项条件均落在第七十四条。A工作、B组织、C群众纪律虽也涉及履职责任，但非条文归类。",
+    "proposal": ""
+  },
+  {
+    "questionId": "6fd62b61-9e83-496b-b76e-d81b22809553",
+    "digest": "3b60ae0a14d960ab12fa1d90212ef0b7f9b057bcaba5bb9ba43b278da77db5bd",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "B对违反民主集中制原则、擅自改变党组织作出的重大决定有直接列举。A政治、C廉洁、D工作纪律均非该条所在章。题项具备民主集中制与重大决定的范围限定。",
+    "proposal": ""
+  },
+  {
+    "questionId": "45feb9e5-6da4-467b-93db-a868cdf37fa7",
+    "digest": "060d14bed71bc4a05d7fdcf199a72c8dd2f683f306a6a0cc2b9dcd0f0626f63c",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "C由社会救助和救灾救济等分配中优亲厚友、明显有失公平的明文条款直接确定。A廉洁、B工作、D生活纪律虽可能关联类似行为，指定情形所在章为群众纪律。",
+    "proposal": ""
+  },
+  {
+    "questionId": "574522f5-1341-4ad3-b3a5-c1fbac9a49e2",
+    "digest": "5c2f8d3e56a7c36ae25862a614516b126f01add69884e5cb252d40594efec310",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "A明确涵盖考试、录取工作中泄露试题等违规行为。B组织、C群众、D生活纪律均不是该条所属类别。题干限定考试录取工作，未扩展为一般保密违规的定性。",
+    "proposal": ""
+  },
+  {
+    "questionId": "8a67254a-84fc-4b30-b9eb-e908a5dd6da5",
+    "digest": "333419f468888bf24e2a622e21084c80ac563913a010e69588d2c061535a4e1e",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "D对违背社会公序良俗、在公共场所或网络空间有不当言行且造成不良影响有规定。A、B、C不是这一设问情形直接对应的章。题干保留不良影响这一条件。",
+    "proposal": ""
+  },
+  {
+    "questionId": "910b855e-3552-4d64-ae22-eb742fcefe44",
+    "digest": "30d7f84b07bf2ab7f0904fd09402208f86c9e18f36f96019d342c7e8996a022f",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "B为党支部党员大会一般每季度1次。A每月是党支部委员会会议、党小组会等易混频次，C、D放宽该规定。“一般”与“党员大会”两项限定保留完好。",
+    "proposal": ""
+  },
+  {
+    "questionId": "79b9d3f2-8f79-45bf-80b5-ac5de8c13922",
+    "digest": "73481dfbf23ca2125d7b61ad80e59684cdfbb551a55f5065e17a33360bad4371",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "C兼有召集与主持主体资格。A党支部书记一般召集支部党员大会、支委会；B单凭组织委员身份非党小组会的明定主体；D党员大会主席团不适用这一会议。不同会议机关可区分。",
+    "proposal": ""
+  },
+  {
+    "questionId": "ca832b33-a3ac-4bdc-91ee-72aad27bbb52",
+    "digest": "a5351981dac5ccd674b27968fdb82fcc53e77b7003a42a88c1bd552994893a21",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "D为村、社区党支部委员会五年；B三年一般适用于其他基层单位党支部委员会，A和C亦非村社区规则。保持党章第三十一条三至五年一般规定与该条例特定对象五年分别考查。",
+    "proposal": ""
+  },
+  {
+    "questionId": "56c9d464-f696-449f-b758-932e117f364f",
+    "digest": "50e3a2588c2e5a7317f972b73acdc6832d8aa4d2652bc36fb4d54355aaa993f9",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "A上级党组织和C党支部党员大会为两类明示述职对象。B政府主管部门和D党小组会均不在本款述职要求内。保持年份为每年，勿将一般监督主体误作述职对象。",
+    "proposal": ""
+  },
+  {
+    "questionId": "7416b9ea-e2c2-4db5-a8da-4b2b7fc08d61",
+    "digest": "0ffe7e601ec4fb6d50ba877573e49e7128ef9813e65298b26fbba25ae139c40c",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "B为因失联而停止党籍后两年仍确实无法取得联系，按自行脱党除名的规则。A过早，C晚于期限，D易与出国学习研究超过五年未返回的另款混淆。题目问停止党籍后起算，区别失联六个月以上可停止党籍的前置条件。",
+    "proposal": ""
+  },
+  {
+    "questionId": "141ed20c-95ce-4a61-9573-dc89724fcf1d",
+    "digest": "6d1540e76f0f39c86f8a3df2f197f3924cc90ce62c5bc1afe6a39054ad5dd662",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "A与有固定单位且单位已建立党组织两个条件相符。B户籍地非该款所列口径；C公共就业服务机构适用于另一类条件；D原学校并非这里一般编入的主体。主体限定和选项同类。",
+    "proposal": ""
+  },
+  {
+    "questionId": "85fe10fa-a0bd-44dd-ad73-df88891d2d8c",
+    "digest": "dd61d8e0fedadfce7e32cfee35f2c75f6270c9c9e87bc99cb4cf8bc6c150605f",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "C具有审批预备党员权限的基层党委负责建立党员档案。A党小组、B人事部门、D宣传部门均无此条所定职责；所在党委或者县级以上党委组织部门是保存主体，避免与另题“由谁保存档案”混淆。",
+    "proposal": ""
+  },
+  {
+    "questionId": "23da474f-9f1e-4705-842c-40f6515244e1",
+    "digest": "1ed52f2f5f6fd60999e6a699b7b729b65a84f876d9a12b91099368affb37df41",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "原文定位为关乎立党为公和执政为民。A推进改革、C科学决策、D依法履职是不同工作要求或方法；科学决策虽在同段后句出现，并不与立党为公并列作此处定位。",
+    "proposal": ""
+  },
+  {
+    "questionId": "699c32d4-84dc-498a-90c4-a281686fe062",
+    "digest": "11862cce0d2783f6b58335753e193cfa4facd0951ed3c26f0619a55dbd8fad43",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "提高思想认识这一段尤其要求对照正反两方面典型。A年度考核结果、B地方规划目标、C整改台账均非该句对象，整改清单属于随后解决突出问题的部署。",
+    "proposal": ""
+  },
+  {
+    "questionId": "3f279eed-4e02-482e-970b-935e2fab037c",
+    "digest": "9b35a19b17ac1c5e7c8743cfc7c4ce95fd483cd9394930d30f3587a16304f30a",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "原文是见事见人、责任到人。单位、岗位或工作组均不能替换这一明确表述。与同次指示中即知即改和历史问题制定方案分别考查。",
+    "proposal": ""
+  },
+  {
+    "questionId": "1c477f4e-334e-4acd-8e91-67494d84c7aa",
+    "digest": "0e912938212af3448dae3d0cd80a0a771a71edc7c4dcf1d8d8ecb6e6fba9188d",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "原文把功成必定有我称作历史担当，与前面的精神境界配对。价值取向、实践目标、工作标准均未用作这个并列的定语。与第54批2021年讲话身份责任提问不同。",
+    "proposal": ""
+  },
+  {
+    "questionId": "56f4d574-436c-4237-b05f-c559f96949fd",
+    "digest": "832344a309f0803880f3701839ee5175895279c4cce851381b891aa69de0ea5f",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "明确列出《中共中央关于制定国民经济和社会发展第十五个五年规划的建议》。A十四五纲要、B十五五纲要、C扩大内需战略规划纲要均不是该句列举的文件。现库问整改结合规划编制，二者行为不同。",
+    "proposal": ""
+  },
+  {
+    "questionId": "26da8d34-29f8-476f-90d8-7eed1701eca4",
+    "digest": "d1998f66491759a32c586f1baea9d6cfa33dbf28f843c0572e41c312cb189288",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "原文明确坚持高质量发展要成为领导干部政绩观的重要内容。B制度型开放、C县域经济、D城乡融合是其他领域的部署，未获该段此项定位。与高质量发展是全面建设社会主义现代化国家首要任务的答题语境不同。",
+    "proposal": ""
+  },
+  {
+    "questionId": "177c86e5-12fa-46d9-b73d-c58c67b3f04f",
+    "digest": "c76a4e2344c4e70a9de0045816bd4d94fb25c87613380946798893908fd5d225",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "报告总体要求直接列稳就业、稳企业、稳市场、稳预期。A稳物价、B稳投资、D稳外贸均可在相邻经济政策语境出现，未列于这组“四稳”。",
+    "proposal": ""
+  },
+  {
+    "questionId": "f3336b47-ec84-4c94-b075-83a251e18434",
+    "digest": "eb37e9aa2d1e98e92a0d0547efe520e89f8d8309cc82281cbf61d9f755e227e6",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "报告并列经济稳定增长与物价合理回升为货币政策的重要考量。A预算支出和C政府债券规模属财政方面，D企业投资占比不是该表述中的另一考量。",
+    "proposal": ""
+  },
+  {
+    "questionId": "6ec5dbac-4304-4891-9c46-1562f575a4fb",
+    "digest": "8221c6c5e5ccf0236eb5fad45fba64db90c0a0a75578213be18ddb68ee255d31",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "报告提出进一步完善人地钱挂钩政策。收入消费、学籍就业、住房社保均不是原文的这一政策名称。源文中的放宽流入地中考报名是同句另一措施。",
+    "proposal": ""
+  },
+  {
+    "questionId": "17d54cae-a26c-46ab-a8a1-0babac2aecca",
+    "digest": "5b6119a709e7e2df5503da147c978836115269f7987a06afc6a14e160deba17d",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "报告为规范地方政府经济促进行为明确提出招商引资鼓励和禁止事项清单。A市场准入负面清单、C专项债券项目负面清单、D公共资源交易事项清单不是这句清单。与跨境服务贸易负面清单的主体不同。",
+    "proposal": ""
+  },
+  {
+    "questionId": "def22892-db39-489a-a13f-d435e439d147",
+    "digest": "587a29dc3fddd3a08b0f2860966247e326b668d239d118244d2e4f86a99d8a4e",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "原文明确因地制宜放宽在流入地参加中考报名条件。高考、研究生招生和职业资格考试均非所列考试。解析保留“因地制宜”，不能推成全国无条件放开。",
+    "proposal": ""
+  },
+  {
+    "questionId": "bc350bbc-dfa8-4229-9d1f-50efe884e2b0",
+    "digest": "2c23a60558acb618f6f540b248017ba42cb3a35005666fc48dd8eb863bda80f5",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "报告列举加快智能电网建设、发展新型储能、扩大绿电应用。油气储备、化石能源开采和煤电装机扩容不是这一句所列并列措施。化石能源清洁高效利用在后句另述。",
+    "proposal": ""
+  },
+  {
+    "questionId": "137440db-80df-4926-9787-5885f0db39ed",
+    "digest": "b10a710bc6f8a2e4ae0f43de26a08bdfdfb485c64e094d15c83586532e93731b",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "闭幕报道明确生态环境法典自2026年8月15日起施行。A国家发展规划法自公布日起施行，B民族团结进步促进法7月1日起施行，D国家公园法不在该段所列通过的三部法律中。",
+    "proposal": ""
+  },
+  {
+    "questionId": "4c9050d9-f7f1-4356-b632-64b3de342d99",
+    "digest": "feca834e85f128d339f92eca7c4d149a47c038311154a1ec60fb8ad8eb87f484",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "报告明确把握协商式监督定位。行政执法、司法、执纪监督均是不同机关活动，不是该段对政协民主监督所给定位。与第55批政协的两大主题及机构地位分别设问。",
+    "proposal": ""
+  },
+  {
+    "questionId": "1de56a4c-a5fd-4933-9a09-a94fbe3fcad9",
+    "digest": "fedec2c4aa25c1de97324af9732b8f655fc97bf8cb76395e80b18cabd01f722f",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "原文明确不铺设迎宾地毯。展示区地毯、通道防滑垫、会场桌布均未位列这一禁项。题干指第一项原文，未扩大为其他场景物件禁用。",
+    "proposal": ""
+  },
+  {
+    "questionId": "d2842f72-9ab3-45d5-9df4-25e2fc515a70",
+    "digest": "dd10c1a4833902b42876d996748c6acd37c9def5154bbb19f21b2da6c3c28f7f",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "条例对无公函的国内公务活动明确一律不予接待。先接待后补、按最简标准接待、经办人确认后接待均未构成该条替代程序。题干已保留国内公务活动这个范围。",
+    "proposal": ""
+  },
+  {
+    "questionId": "44cb10ca-a0e1-4e34-935d-781effab542f",
+    "digest": "d81f2700ec986e1e61ff72d0931429340f130d75dbc6b91fb316f4ce3261d66e",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "国内公务接待所列经费制度是接待费支出总额控制。单次支出、逐季占比和人数比例均不是该款命名的制度。",
+    "proposal": ""
+  },
+  {
+    "questionId": "a4e7a57e-5734-4079-9360-975e89480e5e",
+    "digest": "658cf9f35b04b3266313fd9e841a919d202e3fb6c9304fbc44fa5b3c00c2a6d1",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "原文明确先有预算、后有支出。B先实施和C先报销均倒置顺序，D先执行后办调整也不是该条原则。特殊追加需要严格按规定程序报批，不能当作后补的一般规则。",
+    "proposal": ""
+  },
+  {
+    "questionId": "7c024a08-2c65-43dc-9044-1893db9cfd0b",
+    "digest": "78bb39585760aadf16360f34a9bc6dad1fb7be5b38aef436533379795420ee83",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "公务用车政府集中采购应选国产汽车，优先新能源汽车。大型燃油车、中型商务车、小排量燃油车均未被规定为这个优先类型。题干保留国产和优先两层口径。",
+    "proposal": ""
+  },
+  {
+    "questionId": "0c144acd-733a-4f04-ab56-7dad08e194f8",
+    "digest": "39a6ce93443d98876b159fcfe6b43493b6184222eb7ff94f0df514d13ab9c2a9",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "未经批准的会议费一律不予报销。标准内据实、比例核减、事后备案均非该条允许的改办方式。条文亦将超范围、超标准开支列作不予报销。",
+    "proposal": ""
+  },
+  {
+    "questionId": "1b2627df-4d51-4cc5-b6e9-f3905dc68a77",
+    "digest": "bbdb41e337a3546dc7232c6765416717392d61dbd0046503d66e5501e1d83011",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "流动人员还可以向流动党员党组织提出入党申请。行业协会党组织、县级机关工委、居住地的上一级党委均非这一款另列主体。现库未建党组织单位的申请渠道属于同条首款，条件不同。",
+    "proposal": ""
+  },
+  {
+    "questionId": "d12bb831-ea7e-4df4-a2a1-c1f9fe810c33",
+    "digest": "6dd85f2dc84f50b0d255736fee3030e9d591cddf6c82a85aa7d939da21beeebf",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "原组织移交有关材料、现组织审查并接续培养后，培养教育时间可以连续计算。重新、折半、暂停均非该句规定。题干保留“可以”，没有推成必须连续。",
+    "proposal": ""
+  },
+  {
+    "questionId": "5dca93cc-c102-42f0-9c97-f0506175fde8",
+    "digest": "82a16ca02b27f41b81d4e94e932b5fa16de2a17ce89d838861260c393058559f",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "拟列为发展对象的流动人员须在流出地和流入地同时公示。A、B、C用户籍地或一般居住地替代任一流动地，均不符合两地并列要求。现库考最短公示期，本题问特定人员的公示地点。",
+    "proposal": ""
+  },
+  {
+    "questionId": "9b85a9f2-e6b0-47d5-b3ea-3e56ad037acd",
+    "digest": "b0598e56ebe2e7d90cc3281960da50a53995945ac47eb29607337002cea489d7",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "政治审查情况应当形成结论性材料。工作方案、档案查阅记录、函调材料均可能属于过程材料，不能代替这一规定成果。现库另考在何种条件下可不函调或外调。",
+    "proposal": ""
+  },
+  {
+    "questionId": "eef88ff0-8447-4b58-96b1-6cdc2b736a05",
+    "digest": "d0f92adde3ab262fb5aef8add788591f5f99f20aa670efff2a48e18f89e660c0",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "讨论接收预备党员的党支部党员大会表决采用无记名投票。记名投票、举手表决和口头表决均非规定方式。第57批党章题问党代表和委员会选举的投票方式，分别属于选举和接收的制度环节。",
+    "proposal": ""
+  },
+  {
+    "questionId": "7db63260-1332-46f5-b39d-e0e98d1daa6d",
+    "digest": "af30e303754664801d72a2938e21f35324b774ebd8cace637ba0e76f0196d566",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "党委会审批两名以上发展对象入党时，须逐个审议和表决。B集中表决、C统一表决、D合并审议均遗漏逐个处理的环节。与支部党员大会讨论接收时的程序主体区分。",
+    "proposal": ""
+  },
+  {
+    "questionId": "6641f2ab-f99b-4a8b-b929-a344e3414b59",
+    "digest": "a9b3d3b6adc364647d00a78363ff9ed793d98a8fde0658654957433c203c18c9",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "党总支对支部党员大会已通过接收的预备党员进行审议，条文明确不能审批。A审批、B重新接收、C批准后备案均不符合其此处职责。",
+    "proposal": ""
+  },
+  {
+    "questionId": "46b368d2-ee04-41bc-b90d-3c3fe6539d25",
+    "digest": "5a9c8ef23a354293d3cb28a8f4061235c8a2757896ed5a60e4f27f986382ea1f",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "特殊情况下党的中央和省、自治区、直辖市委员会可直接接收党员，B省一级党委符合。设区的市、县、基层均不属于该特殊权限层级。题干已限定特殊情况。",
+    "proposal": ""
+  },
+  {
+    "questionId": "8f2db612-9700-448e-8538-359d5ee325b9",
+    "digest": "b8c5c427a0dab62e1fbdae79da6aea9d01274577f8dfd60f2c671adf3cdd85bb",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "追认由所在单位党组织讨论决定、上级党委审查，最后报省一级党委批准。县、市、所在单位党委均未被列为这一最终批准主体。与第二十六条特殊情况下直接接收权限是不同程序。",
+    "proposal": ""
+  },
+  {
+    "questionId": "cafabc67-1299-4fd2-beb2-50aa0de08a69",
+    "digest": "c0d347890beaccc2810eecd5c30b6566985fb9e9ae5e545a9c7a9cc21f251dd6",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "转正后无人事档案的建立党员档案，由所在党委或者县级党委组织部门保存。B培养联系人或介绍人、C党小组或工会、D本人或原单位均非规定保管主体。第57批考无人事档案者由有审批权限基层党委建立档案，保存是本题新事实。",
+    "proposal": ""
+  },
+  {
+    "questionId": "f9257970-4b21-463e-b28a-82ba3dfd8639",
+    "digest": "0a5620199aba6ea4caf44c53bb5d73401a51c6856a622916dc54d9ee3048c088",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "获批接收后的宣誓仪式由基层党委或者党支部、党总支组织。纪委监委及组织员或联系人个人未被列为主体，也不限县级党委。现库考获批后的通常期限，本题考组织者。",
+    "proposal": ""
+  },
+  {
+    "questionId": "b45af9c3-0bc6-47aa-bf32-6fea20f6e8fa",
+    "digest": "03db0acd495c3c60c10da62a67eab352f6a5460a552aade23bc6d009708bf9be",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "B是第三项提高人民的生活水平；A财政收入、C经营能力、D公共服务供给能够影响工作成效，但均非此处明确列出的第三项。三个有利于的原文识记，非另考民生指标。",
+    "proposal": ""
+  },
+  {
+    "questionId": "85ed13c0-74f4-4286-bed2-8de0bde7a6d9",
+    "digest": "765ad4c75dd9ba9d9c88d2a91ba1337e1ce2d9207a4122294819ce69399fed21",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "C对应鼓励、支持、引导；A公有制经济对应同一对照句的巩固和发展；B国有资本、D集体经济未被用作这一并列表述的对象。用所有制相关真词构成干扰。",
+    "proposal": ""
+  },
+  {
+    "questionId": "156a3d71-0367-4107-91c8-3ae9b92d4a1f",
+    "digest": "12bbeec07956a0714f2bd524322ae04ca68ab6e9d484c759dcf2435c54dc0ce3",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "A是党章明列以人民为中心的发展思想；B是基本路线中的经济建设中心，C区域协调、D产业升级是工作方向，不是发展思想的中心对象。两个中心语境不同。",
+    "proposal": ""
+  },
+  {
+    "questionId": "77292e08-bbb4-46a7-a2e1-c5ffa3778760",
+    "digest": "7871b4e8c4d3d4f3840bc1ea13f52ab9135edbb14abea83760782278b233ef1f",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "C为扩大内需战略有机结合的供给侧结构性改革。A投融资、B财税、D国资国企改革均是其他改革事项；该句明确的是供给侧结构性改革。政策组合事实独立于“十五五”建议的扩大内需战略基点。",
+    "proposal": ""
+  },
+  {
+    "questionId": "9118872f-38b2-40b5-827d-33e0b9db1483",
+    "digest": "f19296e9cafed22a1779fce8d2571a1f9c9073541579a030d4ab39658e3a9bb3",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "A由“基于自己国情的中国特色”直接核实；B发展速度、C先发经验、D人口规模均不能替代本国国情。D人口规模是随后列举的中国式现代化特征之一，和形成特色的依据分别判断。",
+    "proposal": ""
+  },
+  {
+    "questionId": "91e89860-b91f-4285-abfe-19913f0f388b",
+    "digest": "d0ef90d7fc11e797cdf93adc08968a3b0f725429f28c11f5d53b9816f5d402aa",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "D与一个中国原则并列；A和平发展是后续推进方向；B和平共处五项原则用于国家关系；C一国两制是同段另有定位的方针。按原文的协商前提作答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "5aa3a811-8cab-41ae-8be9-abf2c60abe11",
+    "digest": "fb721e10b40811f301dada564c0fa4f68e23d906421b814d5daa2c7963daf5ef",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "B是科学立法、严格执法、公正司法之后的第四项。A依法行政属于同段“共同推进”一组，C民主立法在后段另有部署，D法治监督不是此处所列。与现有两组“共同推进／一体建设”匹配题区分，后者的正确项未考这一组四个动作。",
+    "proposal": ""
+  },
+  {
+    "questionId": "b4dd5c06-562a-4df7-a352-bc57bfc57a50",
+    "digest": "bad59234cab8138a59d0b36ca253f108d315415e9a0a89783ffcea64d8e6013f",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "C明确称为全面贯彻党的教育方针所落实的根本任务。A建设高质量教育体系为同段工作目标，B科教兴国是章节战略，D学习型社会在本项另有部署。按条文的层级定位可判分。",
+    "proposal": ""
+  },
+  {
+    "questionId": "cd237c78-6c64-4943-95a9-6b5944989c63",
+    "digest": "9ad9a7cd2e3cd1757e8625df0d879f31aff63a9e89ee5dbdbec2b6b833344bf6",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "A被明确称为基本国策；B是贸易投资活动所追求的方向，C是实践推进措施，D共建一带一路属具体合作安排。四项均为真实对外工作概念。",
+    "proposal": ""
+  },
+  {
+    "questionId": "4560fd75-3261-46a4-b444-adf8a2d5d8a2",
+    "digest": "f3852e1bacdb757b23e2ac155d70058332094eeb806f569e1efb49fbe0e50af3",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "D是百花齐放之后的固定搭配。A兼收并蓄、B交流互鉴、C创新发展可用于描述文化发展，但并不是原句所列另一项。短项语法一致。",
+    "proposal": ""
+  },
+  {
+    "questionId": "e687eef2-66e6-45a7-94bd-3d37aa601c17",
+    "digest": "cb2c3423bca4a153b7c4866402a92e29ddcbd914aa135c63630b3decb11f53ef",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "B为企事业单位民主管理制度的基本形式。A属于居民自治领域，C为企业治理机构，D属于工会组织内部会议；三者均未被报告放到该定位。问法直接。",
+    "proposal": ""
+  },
+  {
+    "questionId": "797583d4-bf26-446a-add4-8c1abc136029",
+    "digest": "0c7f49e6bf91245b1372152b0c3d32a8f9eafc881ecdc61de9fded40a79fa884",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "C是报告五史列举中的社会主义发展史；A世界现代化史、B国家经济发展史、D国际工人运动史都未入这一特定列举。题面已经给出另四项，不额外推定优先顺序。",
+    "proposal": ""
+  },
+  {
+    "questionId": "c4970017-d7c7-4043-8540-0dd23229d837",
+    "digest": "15622debd28d9f029eb15acb8a19e8b40abe31ee0b9f5aa0e8c826e64b4d3138",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "A是决定明确列为政治监督重点的党中央重大决策部署落实情况；B年度培训、C基层财务公开、D地方内部议事均可能有监督安排，但该条不把它们列作此处重点。若进一步提高干扰强度，可用履行管党治党责任、执行民主集中制规定、落实干部教育培训制度，并保留指定句的文本限定。",
+    "proposal": ""
+  },
+  {
+    "questionId": "9ed89888-5c9d-4ee7-8b9b-c985a1bca9c9",
+    "digest": "283f356f364baa850b4907039ff5dcae0561784b934f1413d5c5c4b67679d578",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "B为纪在法前。A纪随法行、D纪在法后均改变原句的纪法顺序；C纪法并用泛述两种规范，非原句定型定位。后续执纪执法贯通的安排与纪在法前并列。",
+    "proposal": ""
+  },
+  {
+    "questionId": "9b1b7771-447d-4e92-859e-7df9bd7daa57",
+    "digest": "eeb2689fb539e166426b83ce5d8594b1af4a9ce67133c77a040a4b81cfa77e2a",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "C现场办公与宣传政策、调查研究、信访接待同列。A巡视督办、B年度考核、D政策评估在工作中可能开展，但不是该四项。题面给定前三项，第四项可唯一核原文。",
+    "proposal": ""
+  },
+  {
+    "questionId": "186f7ac7-0081-4929-9367-8d93b4099cbb",
+    "digest": "dafde1eb58a370502a033f2df4b729a00367d3ed59288b739eb2c4fae5445182",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "D是党委党组书记述职评议考核的“抓基层党建”。A理论教育、B干部考察、C党风监督各属其他职责。与第57批党支部书记每年向哪些主体述职相区分，这里主体是党委党组书记且考内容。",
+    "proposal": ""
+  },
+  {
+    "questionId": "5aeffd3e-3dc4-4a43-a873-ecf674dc4e73",
+    "digest": "b66f7a79b678d21d6cb2704a8d97c43d9b7736ff4b6d4f9b9a44d1c8b6e0e59e",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "A纪律提醒是决定为这些关键节点指定的工作；B组织处理须针对有依据的情形，C定期述职、D民主评议属其他程序。与已有党员干部培训必修课题的课目选择不同，本题考覆盖节点上的行为。",
+    "proposal": ""
+  },
+  {
+    "questionId": "4a37921d-b1ea-4fb1-b72c-144a42d22a71",
+    "digest": "9a38a5867b19c755a346cfb37bd02874412c8e1fd297315b87aef5e5711cf528",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "B是党务政务公开相连用词；A财务、C会务、D档案公开是其他类型表述，原句并非这三项。四个短词在文法上匹配，记忆点明确。",
+    "proposal": ""
+  },
+  {
+    "questionId": "e7350595-ba70-46c6-9c3d-3e0f68d57c63",
+    "digest": "7b88351215ec85ecd8cc76b411c1779451e24282165360710054dc3407350636",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "C是印发机构；A、B、D均是实际存在的中央机关，但通知题头和导语都明确中央党的建设工作领导小组。问正式文件署名，不问相关部门参与学习工作。",
+    "proposal": ""
+  },
+  {
+    "questionId": "13e3a099-93a3-484b-b17e-e7582343832c",
+    "digest": "1872a9363226c9f9794c3ab0fc8fdf72ead8ccb979a18d9b6734b3b572c82c20",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "D与“深厚”对应；A使命担当的措辞是“强烈”，B理想信念用“坚定”，C问题导向用“鲜明”。具备同段四组真实配对；现有多选只正向考历史主动及问题导向，本题新增为民情怀一项。题干也可改为“公开报道将哪一项理论品格表述为‘深厚’？”保持文意。",
+    "proposal": ""
+  },
+  {
+    "questionId": "4b59c250-f6c4-4b6d-84e0-93a31b16714c",
+    "digest": "86661791cb6dae706f6baf0d3e96a53f6aefe801e5e92e5fd3801c402232ae7d",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "A对应马克思主义政党经验教训；B对应新时代全面从严治党经验，C对应马克思主义建党学说，D对应中华优秀传统文化。本题考第四项的具体谓语，现有多选正向考前三项是否属于此列举，未要求此一对应。",
+    "proposal": ""
+  },
+  {
+    "questionId": "d9ee5c0e-9493-4d91-bb9e-606340521901",
+    "digest": "ef215fe1be365449ad5dd237869c9c2e0fcb10c786574b3ae860fd8eb3660950",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "B为根本遵循和行动指南；A实施细则、C操作规范、D阶段口径均非公开报道对这一理论作用的定性。与其构成习近平新时代中国特色社会主义思想重要组成部分是不同关系。",
+    "proposal": ""
+  },
+  {
+    "questionId": "2b5b7ba1-9815-4995-b1fd-a0b0ad4767f4",
+    "digest": "e246c9a61773074b8e807ff0bc370a14d920ab831554de0d8155822ee16d7e29",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "C是通知明确提出坚决防止的情况。A教条主义、B经验主义、D好人主义虽然是可讨论的问题，但不在本通知这一项要求所用术语中。题干已限定学习贯彻操作。",
+    "proposal": ""
+  },
+  {
+    "questionId": "e83e99a3-77e0-4fff-a0fa-bff9a5cf2f25",
+    "digest": "e0f81b2057bfaf90f957ad0eab35c1b36b90158fde3a621596baa6e8fbd92182",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "D与科学执政、依法执政并列。A为民是宗旨方向，B依规治党是党建治理要求，C协商民主是政治制度与方式，不属于此处三项执政方式的对应术语。",
+    "proposal": ""
+  },
+  {
+    "questionId": "1bf7432f-fcad-43bc-82f9-0cbde14a1dc8",
+    "digest": "0a6d6d28293719cd40c8b52a17b2b63a9ed0f57470be4f3c88926d858417ca69",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "D与投资于物并列。A产业、B项目、C设施都属于可能的投资对象，文件将这组宏观导向明确写为物与人结合。当前题库的扩大内需基点、提振消费等其他政策问法不覆盖这组对象。",
+    "proposal": ""
+  },
+  {
+    "questionId": "308ef240-28e1-4ac3-a8ff-3c4cb1fbee22",
+    "digest": "fbde4757545ea6aa134819ae396cdf2763384a41f15657df782c979961dfbcfe",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "A明确列为全党工作重中之重；B区域发展、C市场准入、D产业升级为其他领域任务。当前题库中“农业农村现代化关系全局和成色”是另一定位与客体，未直接回答重中之重指什么。",
+    "proposal": ""
+  },
+  {
+    "questionId": "af54e5e9-2377-4db2-b16a-c8046a95d2f6",
+    "digest": "5ed02941815146238b798c47f7ce87da0040afa60c2b51210429b78a025ec26f",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "C是扩大市场准入和开放领域的重点。A制造业、B农业均有各自开放政策；D数字贸易另列入第（22）项，不能替代本项的服务业定位。",
+    "proposal": ""
+  },
+  {
+    "questionId": "c86b1352-6fa6-40ac-abb7-2702befb1e41",
+    "digest": "71cffb418f21fa10d4500b1c8167966483b5a537d19165c2298f650687b41a25",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "B为优化政府投资结构时应提高比重的民生类政府投资；A产业、C交通、D能源不是本句提高比重的类别。与X58-11在不同文献下同考这项政策；按批次统筹保留JN31作为现代表，X58-11不再入新增。",
+    "proposal": ""
+  },
+  {
+    "questionId": "56bbcfed-c2a6-4320-be13-cc2adce157e9",
+    "digest": "6f60d7345c727677b68b0881a427078d15e2f56a7ca32a1cb037a4cbb3bd6c37",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "D是企业科技创新主体地位；A高校、B科研院所、C行业协会可以参与创新，文件在此处明确要求创新资源向企业集聚。区分第（11）项完善新型举国体制等别的政策安排。",
+    "proposal": ""
+  },
+  {
+    "questionId": "6186e821-d443-44e7-89d0-56fefe65994b",
+    "digest": "e4b4bbb46c92a5230d8def0c43c87b4d621488db34794d4a49aea2de917e2e5f",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "A为清洁低碳安全高效的最后一项；B开放、C智能、D稳定可描述能源系统其他特征，但未被放入所引目标原句。题干指规划期目标，未说该体系已全面建成。",
+    "proposal": ""
+  },
+  {
+    "questionId": "8f4ba70e-e8bb-45c2-8b2d-a0fc6ae825c1",
+    "digest": "4637ddbb750ae910fe96a0b4bace88cce9dcc8ba06d388d3b745b2bf0b595152",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "B为长期护理保险；A基本养老保险另属社会保障部署；C商业养老保险、D城乡居民基本医疗保险均非此项提出的照护保险。与X58-13在不同文献下同考推行长期护理保险；按批次统筹保留JN34，X58-13不再入新增。",
+    "proposal": ""
+  },
+  {
+    "questionId": "6a1f34de-acae-4f2c-87c2-971b2d2ed3b2",
+    "digest": "58a042be109c133f39c03e2c154092aa47fd46cde1e68d7a7afe969abae16143",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "C为跨境服务贸易负面清单管理制度；A正面清单为不同管理模式，B审批目录、D专项备案目录不在原文该项。与一般市场准入负面清单或招商引资清单的适用对象区别明确。",
+    "proposal": ""
+  },
+  {
+    "questionId": "9c4d46d7-c72a-4053-95e9-8a5779e0ea71",
+    "digest": "f4158eecdf6bb0c844b4444d74973a9da90f6f86b3fda2b27d69410132519ba7",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "A是原文明列相结合的中国工人运动。B乡村建设、C维新、D洋务是不同历史运动，均不是五四事件这一特定理论传播和社会力量结合的对象。与既有“五四运动是新民主主义革命开端”分别问历史影响与革命分期。",
+    "proposal": ""
+  },
+  {
+    "questionId": "97b66c1d-15ff-4e69-a729-02d06edb8ea8",
+    "digest": "f346ef7445725c2d3597947fe6b8ce3256a0b483f4088b60b02e2cca6339a466",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "B为以个人身份加入。A党组织身份、C党代表团身份、D工作单位身份均替换了具体规定，党仍保持政治、思想和组织独立。短项可直接复核。",
+    "proposal": ""
+  },
+  {
+    "questionId": "6025bd0f-d405-4ca6-81e7-1db70c992f6f",
+    "digest": "228bf45599df1ff74c2a0abe159bd540f02ac3b47388bcbca63c7ae0acb21795",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "C土地革命与武装反抗国民党反动派共同组成该会确定的总方针。A社会主义改造、B改革开放和D抗日民族统一战线均属其他历史阶段任务。所考会议、方针明确。",
+    "proposal": ""
+  },
+  {
+    "questionId": "60634b2e-c641-4ba7-897d-138d4d1c1453",
+    "digest": "ac045785e4d37ea0db741ca02edca68e18a70820e4aa53855aaf5ef12427c88e",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "D为开始创建农村革命根据地的地点。A瑞金关联后来中央革命根据地；B延安是其他时期的革命中心；C韶山与本次建根据地地点不符。与第57批三湾改编支部建在连上的制度事实分开。",
+    "proposal": ""
+  },
+  {
+    "questionId": "34b7ea5b-8fed-4b43-9e5c-58b64127c7a2",
+    "digest": "ba620b1da9a32010e12f9470eecf1fb2fba27b09d177d5d215c4718c897417ba",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "C为中共中央、中革军委率中央红军主力开始战略转移的记载月份。A、B在这一时间之前，D在一年之后。题干限定中央红军主力开始而非其他红军队伍出发或会师，日期顺排。",
+    "proposal": ""
+  },
+  {
+    "questionId": "9ae990de-a57a-4a46-8398-6959b36d357c",
+    "digest": "216c13e0660f9342b9b644d6d5dc0199cc0e11c6fe5623e5844ed46c647dec76",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "B被大事记称为时局转换的枢纽。A皖南事变发生在此后；C九一八与抗日战争起点相关；D卢沟桥事变是全国抗战开始的标志，均不是原文所说的和平解决事件。",
+    "proposal": ""
+  },
+  {
+    "questionId": "0a11ad43-6790-4efb-9950-4fa954e5f611",
+    "digest": "87d79aa1bf6742e21b6275072e5ea279acb8cf4b17fdfa07e510502a19d83dc2",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "D为抗日民族统一战线。A关联第一次国共合作；B、C是其他时期统一战线称谓。两件事共同标示第二次合作形成，和第57批国民党一大标志第一次合作并非复题。",
+    "proposal": ""
+  },
+  {
+    "questionId": "6ac1387e-58e3-4b77-8077-00a69477dc0e",
+    "digest": "053678918ee2f1425d089329ea3160026620b5d3345b38e564c1a961268e40cb",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "A为七大举行地延安。B西柏坡、C瑞金、D遵义均为重要党史地点，但没有承办该次大会。问题只问会议地点。",
+    "proposal": ""
+  },
+  {
+    "questionId": "0683810d-3ce4-4e9f-924c-4c64927f423d",
+    "digest": "2e7bd6004d5a80825687a1e99602ebfdbd3ccb821bb912d4c2a3478ba9aa1541",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "B一届全国人大一次会议通过1954年宪法。A全国政协一届全体会议通过共同纲领；C、D均非该次制宪会议。题干已限定1954版，并非问现行宪法的通过日期。",
+    "proposal": ""
+  },
+  {
+    "questionId": "748c496d-8e99-4c5b-a58c-42ab17fcee1e",
+    "digest": "9ea9c324845f7d201ea5f09ab6b31c1c944d5d0ca54d55388565ec909a811a2f",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "D为生产资料私有制社会主义改造基本完成的年份，大事记同条称到1956年底取得决定性胜利。A是新中国成立年；B、C均早于基本完成。问完成时间，区别开始改造或提出总路线。",
+    "proposal": ""
+  },
+  {
+    "questionId": "a8a60516-94dc-48d0-b651-067e1a55d61a",
+    "digest": "e5b2674ada22d22369eccf1aa53f86afc472d4bc42d8c670fceea74a7df010ad",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "A为周恩来在《政府工作报告》中提出题述社会主义强国目标的会议。B、C均早于这段提出记录；D为后来重申四个现代化目标的会议。题干用“提出”可据此唯一判分，解析注明1964提出与1975重申。",
+    "proposal": ""
+  },
+  {
+    "questionId": "25f5587b-8652-4ca5-b38f-d46716fb57b9",
+    "digest": "152ccd5c3f72635ff1a9aad71fcc8dcc3597739484e45e3e6cda81928850883f",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "C为阐述社会主义初级阶段理论的党代会。A十一大、B十二大是在前的会议；D十四大另有明确市场经济体制改革目标等部署。与基本纲领在十五大提出的事实分开。",
+    "proposal": ""
+  },
+  {
+    "questionId": "1e964c4c-aca4-48b4-bcb0-dfbe64693cb3",
+    "digest": "97a592bd61387e7f1ee948cd9e2c31ba7e686a99100debb5452db958bcdaf48a",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "D为提出党在社会主义初级阶段基本纲领的会议。A十二大提出建设有中国特色的社会主义的重要命题；B十三大提出初级阶段基本路线；C十四大明确经济体制改革目标。基本纲领及基本路线的名称不互换。",
+    "proposal": ""
+  },
+  {
+    "questionId": "d6845d7e-8baa-45ef-a55c-14b55498e5a4",
+    "digest": "3bd231df6a92af35f0c44df9ae26445030cc73ee22e120b2e5b57537b1f0fae2",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "B正式通过题述决定。A三中全会主要涉及党和国家机构改革；C五中、D六中不是通过该决定的会议。题干指定2019年专项决定和会议，闭合事实唯一。",
+    "proposal": ""
+  },
+  {
+    "questionId": "8e49e99e-3ac4-4f9c-97af-a928a60c6aa4",
+    "digest": "8fd241800172344caed913e0d4acb21927a9820f0ee92c5868baaf4606bc44da",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "C为一年期满且仍不符合恢复条件后的延长时长。A、B均短于明文，D两年是留党察看总期限上限，不是该条件下再延长的期限。可与现有最长时限题区分。",
+    "proposal": ""
+  },
+  {
+    "questionId": "cb1d4f6f-0d0d-4e00-b8f5-4431dd33e433",
+    "digest": "92f9ec2139899e780f1843bfff7a67abf2e594217fa84e5dee6ef0a392e378c7",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "A警告、C严重警告、D撤销党内职务在情节严重的处分列举之内，B留党察看未被该条列举。已明确党员领导干部、违规组织自发成立校友会及情节严重，不泛指所有校友交往。",
+    "proposal": ""
+  },
+  {
+    "questionId": "f71ca0b6-8c78-4ede-bfb9-cbf48d90035e",
+    "digest": "9e3d0c05c5a0ce8628425bb9bb58fb05ec2ec081afe66c7f5a2408fd6d6e3374",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "D为“可能影响公正执行公务”。A一般消费水平不是该款的判定要件；B单位经费、C交往频次也不是规定条件。题干已限定第一款，未把同条后款的情况混入。",
+    "proposal": ""
+  },
+  {
+    "questionId": "b6c745c0-b8b7-4b3e-ae54-7d586803e60d",
+    "digest": "cdcff5892dc8ef1a3591d2f6855cdbaea311044a29ea2bd3f08d11ba6a918098",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "A撤销党内职务是接待违规情节严重时对直接及领导责任者的处分。B是情节较重时的备选处分之一；C、D均未在该条用于这一档。人群和情节条件完整。",
+    "proposal": ""
+  },
+  {
+    "questionId": "cbfc6ee7-2cf0-49b1-87e3-e64a83106e26",
+    "digest": "53854f3a283b9057f21b1fadbe91101fdc09f2157d739463b99c13d443e641c6",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "C所在章明确规定违规对司法活动打招呼、说情、施加影响等行为。A廉洁、B组织、D生活纪律非这一直接条款的分类。题干有违规及施加影响条件，适合短类别辨识。",
+    "proposal": ""
+  },
+  {
+    "questionId": "5949b0e0-b6bc-49db-af5c-5c566a2213af",
+    "digest": "89132d270708bec758f13ce3b22b12e02f1e19410d39e0bf48d2f67d1e820679",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "A为隐瞒入党前严重错误的一般处理；B、C、D列在入党多年且一贯表现好，或者工作中作出突出贡献的特别处理之下。题干已明确一般规定，解析应保留例外的完整条件。",
+    "proposal": ""
+  },
+  {
+    "questionId": "cf46ea3f-a509-46a3-8ccb-8505c57cbe42",
+    "digest": "ab56ba637cae0b485050a143d2b12fb3b191506a8f3303b82c0baba681207d87",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "D是情节较重时的规定组合。A、B、C均含该项未规定的更重处分。与同条隐瞒入党前严重错误的一般除名是不同违规行为与适法条件。",
+    "proposal": ""
+  },
+  {
+    "questionId": "a0136a4a-c326-4e3e-8b1d-d7fa98bbba89",
+    "digest": "280cdd552d3f766321d0caa70a06259e7e6f565a3f37d7883aa6718d8ca37f9d",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "B为集体领导与个人分工负责相结合。A分级授权、C个人独立决定、D集中统一办理均非该制度的对应成分。此题问党章的制度两端，与《决定》关于重大议题分歧及决策落实的具体程序分开。",
+    "proposal": ""
+  },
+  {
+    "questionId": "22ac499a-2542-4845-a113-16a38ac334cd",
+    "digest": "37270c263788202bb97377f37250fc8079341add015f741a607ce0cc05d4baea",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "C符合有关党组织必须负责处理或者迅速转递、不得扣压。A拖至期满、B仅备案、D待再次提出均不能代替处理或及时转递。这一题问申诉后职责，区别处分前材料见面及听取申辩。",
+    "proposal": ""
+  },
+  {
+    "questionId": "1e8b0a4a-1129-4c57-80cf-6664f2769058",
+    "digest": "6dfa0fb86eb3be62c7e363fae6f6a6f2c9e3164f5a2b03f2db212e3a7b5287f2",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "A临时党支部是经批准成立的组织。B临时党组、C党总支部和D临时纪委都不是本条的组织形式。题干保留临时任务、组织关系不转接和上级党组织批准三项条件。",
+    "proposal": ""
+  },
+  {
+    "questionId": "08d21ed4-595d-4905-bb8e-ab01b98ef256",
+    "digest": "f76e3350e0de79339495826ec1554f9666f71fb061ba83cf1c207949d84e7523",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "B为依据党员思想状况和党建需要适时开展的专题学习教育。A换届、C纪律审查、D组织关系审核属于其他组织事务，未列为此条安排。所列省级党委及行业系统党组织与明文相符。",
+    "proposal": ""
+  },
+  {
+    "questionId": "be97f42a-c00d-4b4e-8094-62835a0275aa",
+    "digest": "0b5eac044b2ca12b37887c7440d7ff621e802982b29b71afa538955ca9dc4af6",
+    "reviewer": "Codex platform",
+    "decision": "keep",
+    "reason": "D组织生活会可与民主评议党员结合进行。A党委专题会议、B党组民主生活会及C党代会筹备会议均非本款指定会议。“可以”保留选择性，与组织生活会本身的召开频次不是同一考点。",
+    "proposal": ""
+  },
+  {
+    "questionId": "680f6a60-2941-4c40-8566-36358e5be5fe",
+    "digest": "6222527b4d1b03e7b7b7328c04fed232e0b74b29c3694deecf5999a4f4c5403c",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "五项建设中除已给四项还有生态文明建设。党的建设、国防建设、法治建设均是相关工作领域，但未列入此处五项。短补空可直接判定。",
+    "proposal": ""
+  },
+  {
+    "questionId": "9a4fa585-3330-4cb7-8289-b958b38a8eb4",
+    "digest": "b22668aa36bc66da8bdf685e4a43bfd511d57e4badfce8106d0478f03aa24e06",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "原文并列党的领导、人民当家作主、依法治国。依法执政和依法行政各有适用主体，依规治党属于党的建设要求，均未替代依法治国这一项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "4a94324e-9c82-4332-b275-4d05789d528c",
+    "digest": "d08b565928fb9329d776c195c8c4dbd8b6c704c5b21360aa5e47840b61e86423",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "报告在国家安全部署中用新安全格局保障新发展格局。新产业体系、新开放体制、新治理模式均不是该句保障主体，题干与正式原词直接对应。",
+    "proposal": ""
+  },
+  {
+    "questionId": "45b0dd4a-fde7-4249-9ca6-eb2a97041d36",
+    "digest": "9df836f2b33386e73de410037c457cb1c28fbb8788ed404caed9fb98f01e4711",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "原文并列发展为了人民、发展依靠人民、发展成果由人民共享。优先投入产业、用于扩大开放、由市场配置三项均未作为该组人民立场表述的末项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "b10069e6-7289-4a13-910f-2c9ae02cf988",
+    "digest": "43d57e585e013b5395b91ff44bbf41b143fce101405e97b554cae7bf799a9898",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "原文要求把改革开放同四项基本原则统一起来。科技战略、依法行政、基层自治虽各有政策语境，均不是此处与改革开放相统一的项。现库另考四项基本原则的组成或立国之本定位，答项所测关联不同。",
+    "proposal": ""
+  },
+  {
+    "questionId": "575d8650-a103-4504-a708-ce457fe7e07b",
+    "digest": "0ce7851ef51e0c44154c06e5a06320822cf6c186c0ebcddaec0c7970a1d70c01",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "党章的三项方针表述包含自然恢复为主，工程治理、人工恢复、污染治理均不是该并列末项。三项原词与题干相符。",
+    "proposal": ""
+  },
+  {
+    "questionId": "2498ec79-4225-446f-a6cf-9ef03225a56c",
+    "digest": "a32f545784ebdb3371857bd9e1d0e60bc2ad7755d36e900cc819fd0626876bca",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "报告将国家安全对应民族复兴的根基。前提对应同句社会稳定对于国家强盛的定位。动力和目标都不是该句给出的关系。",
+    "proposal": ""
+  },
+  {
+    "questionId": "b840038d-58e4-4630-921f-e56b2d60bffd",
+    "digest": "4f77e72c84633bca62f403cce08343cb0ed52561bcab7acd78a2649bef141012",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "原文同期列城乡发展、区域发展、经济社会发展、人与自然和谐发展及国内发展和对外开放。发展与安全、资源利用与环境保护、市场调节和社会治理均为其他相近搭配。",
+    "proposal": ""
+  },
+  {
+    "questionId": "a7e7c2ad-d4d1-4e4d-a2cb-f5e568278da1",
+    "digest": "3b124ba63e68c94950237378901f14c73a8bf8c5e7f14567ea1fddd3c284727a",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "教育、科技、人才并列属于基础性、战略性支撑。创新同段被称为第一动力，产业和文化未被列入这个三项组合。与现库三个“第一”的对应关系题区分。",
+    "proposal": ""
+  },
+  {
+    "questionId": "f40397e5-f5ce-4d34-91e3-b4728d5e4b57",
+    "digest": "d0384149f3443cc4a2e706928ec628802e39fb1d3cae7f8f1ea57a4daafdc2bc",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "利长远与固根本、稳预期并列。增活力、强治理、保落实可见不同实践语境，均非报告此句原词。符合短识记。",
+    "proposal": ""
+  },
+  {
+    "questionId": "cfb480d3-f86b-4713-a9ee-da176f6a4d1f",
+    "digest": "d3795905a957c6e0b12f20d4b26ad1583e31ef6f612fdffca6809d3ab7d2d6a7",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "报告称和平统一、一国两制方针为实现两岸统一的最佳方式。一个中国原则和九二共识属推进协商的基础，民间交流与经济文化合作属其他举措，均未获该方针定位。",
+    "proposal": ""
+  },
+  {
+    "questionId": "db703bf1-aa01-4c2a-ae9c-98f4b8cb28a7",
+    "digest": "be752e18c2eb69b37ea54c6d56bba786861e9d865f208e1b8b7b4ac49f3f310b",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "原文明定时刻保持解决大党独有难题的清醒和坚定。干部监督、制度执行、基层治理均可能涉及治理问题，但不是该句这个总体问题的正式称谓。",
+    "proposal": ""
+  },
+  {
+    "questionId": "24f887e4-5d7b-4bf6-8e4f-561a42598d98",
+    "digest": "979550fcd8c99b4b7687624c4f4c9405e01b4fe788fb426bf7b17ff8a05eee0d",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "报告的本质要求直接列有丰富人民精神世界。物质生活、公共服务、就业选择是可讨论的民生领域，却不构成本句所问的搭配。与已核本质要求成员辨认题各测一个可区别的列项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "a391d153-0c04-4529-ba8c-5a96e1465cc1",
+    "digest": "2c221ede7bd105c573882b7f92fa4ad024af868e9d034a85d69f47c72499e00f",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "原文明确支持和保证人民通过人民代表大会行使国家权力。人大常委会依法行使本机关职权，政协和基层群众自治组织各有作用，均非本句的行使国家权力渠道。",
+    "proposal": ""
+  },
+  {
+    "questionId": "404f751e-ac55-468a-a1e1-d3cda807ee75",
+    "digest": "073abe530fc8c3c365f8d03bfd5f21ae2dcb783ec2bf988cfd7a4411822a1d82",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "报告在新时代十年成就中用创造性转化、创新性发展描述中华优秀传统文化。制度化传承、整体性保护、专业化传播均不构成此处固定配对。",
+    "proposal": ""
+  },
+  {
+    "questionId": "80fb4fe4-38ee-4700-b140-f2cbb7f9c14c",
+    "digest": "d111f8c8b155dc89f792bb6cfb99c94d7909a8155380bc702ebd7b1b05c89c11",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "维护世界和平、促进共同发展是原文明确称为外交政策宗旨的配对。共商共建共享属于治理理念，独立自主、和平发展以及平等互利、相互尊重分别是相邻外交政策概念，不是该句宗旨的双项表述。",
+    "proposal": ""
+  },
+  {
+    "questionId": "2c4fab20-8756-446d-98d9-68463b477e65",
+    "digest": "c642b167b852cab3d4756c8709aba606f29efd26db9450409ceba747bd34edeb",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "贯彻执行民主集中制被定位为全面从严治党的内在要求。根本性任务对应增强党员党性，有力举措对应正风肃纪，长远和根本之策对应制度治党、依规治党。四个定位可依据相邻正式原文辨别。",
+    "proposal": ""
+  },
+  {
+    "questionId": "58f95da0-00db-4f42-ac63-281e4543fdfb",
+    "digest": "3c9a2765d54357e8556b524aa44d32b0f175db1cee0ad6e35a558e748c051d06",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "原文明确将党性作为干部考察和党员民主评议的重要内容。岗位技能、培训学时、任职资历可用于其他制度场景，但不是此处明文将两类工作的评估对象连接起来的内容。",
+    "proposal": ""
+  },
+  {
+    "questionId": "70e60a81-611b-429e-b68b-4d9a51f0a698",
+    "digest": "19cb77e6c0ab1d7023594e7f7b07aecb5282f60d35bce6224d6d1159ba56706e",
+    "reviewer": "Codex baseline",
+    "decision": "keep",
+    "reason": "原文连续使用德才兼备、以德为先、任人唯贤。以才为先、以绩为先、以资为先均与原句不符。当前选人用人题中的组织选人、公正用人、以事择人对应另一处正式部署。",
     "proposal": ""
   }
 ]
