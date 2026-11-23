@@ -372,6 +372,17 @@
     "rightsNote": "已在官方总目录定位专题入口，本轮未逐题提取。公开页面或资料入口；按权属引用。"
   },
   {
+    "id": "Q26",
+    "title": "学习贯彻习近平新时代中国特色社会主义思想知识自测答题样本",
+    "publisher": "共产党员网",
+    "url": "https://jingda.12371.cn/zice/zhuanti/index/answer/hid/437",
+    "format": "HTML",
+    "status": "partial",
+    "retrievedOn": "2026-11-23",
+    "rightsNote": "公开抽题页 HTML 已下载，当前样本有10个不同题干，未取得全库。当前样本10个题干。用于发现题型，不作为标准答案依据。",
+    "sha256": "e3a08374b283b104d385247bd0ee64e3450327b9f0aad3be1255e8290ef1fbbc"
+  },
+  {
     "id": "S01",
     "title": "科学体系学习资料",
     "publisher": "共产党员网（发布机构待逐文核对）",
@@ -396,14 +407,15 @@
   {
     "id": "S03",
     "title": "党的二十大报告全文",
-    "publisher": "共产党员网（发布机构待逐文核对）",
+    "publisher": "习近平（代表第十九届中央委员会作报告）",
     "url": "https://www.12371.cn/2022/10/25/ARTI1666705047474465.shtml",
     "documentDate": "2022-10-16",
     "retrievedOn": "2026-11-23",
     "format": "HTML",
-    "status": "partial",
+    "status": "full",
     "sha256": "aec97061200710a41cf5fd806f7f848ba8aa16a867d8e7aeb65221345bf59c49",
-    "rightsNote": "公开文件字节已取得，正文待逐段复核。公开入口或公开资料线索；按权属引用。"
+    "rightsNote": "共产党员网正式原件已下载，已读开篇、第一至第十五部分和结语。题目引用至文件具体段落。",
+    "webpageDate": "2022-10-25"
   },
   {
     "id": "S05",
@@ -457,15 +469,15 @@
   },
   {
     "id": "S10",
-    "title": "开展学习教育通知",
-    "publisher": "中共中央办公厅",
+    "title": "新华社关于树立和践行正确政绩观学习教育的公开报道",
+    "publisher": "新华社",
     "url": "https://www.12371.cn/2026/02/23/ARTI1771848099115606.shtml",
     "webpageDate": "2026-02-23",
     "retrievedOn": "2026-11-23",
     "format": "HTML",
-    "status": "partial",
+    "status": "full",
     "sha256": "35f8d4f6e28be357b3adcbf7c9a7e4b45ebf218eff8d3b29f66a4a049ae376be",
-    "rightsNote": "新华社受权报道正文部分已读。公开入口或公开资料线索；按权属引用。"
+    "rightsNote": "已取得并读完新华社公开报道的五段正文；未取得其报道所述中办通知的公文原件。用于按报道明确限定的题目。"
   },
   {
     "id": "S11",
@@ -480,16 +492,16 @@
   },
   {
     "id": "S13",
-    "title": "政府工作报告全文",
+    "title": "2026年政府工作报告",
     "publisher": "国务院",
     "url": "https://www.12371.cn/2026/03/13/ARTI1773409813628540.shtml",
     "documentDate": "2026-03-05",
     "webpageDate": "2026-03-13",
     "retrievedOn": "2026-11-23",
     "format": "HTML",
-    "status": "partial",
+    "status": "full",
     "sha256": "e85a88a168da6aa37c80ede9c3cfed1aa101cb54dc4ef4ec277eba61793a1829",
-    "rightsNote": "官方正文片段已读。公开入口或公开资料线索；按权属引用。"
+    "rightsNote": "已取得正式公开的报告完整网页。题注、2025实绩、2026预期指标和宏观取向，以及第四部分相关工作逐段核验。"
   },
   {
     "id": "S15",
@@ -513,15 +525,15 @@
   },
   {
     "id": "S17",
-    "title": "中国共产党一百年大事记",
-    "publisher": "共产党员网（发布机构待逐文核对）",
+    "title": "中国共产党一百年大事记（1921年7月－2021年6月）",
+    "publisher": "中共中央党史和文献研究院",
     "url": "https://www.12371.cn/2021/06/28/ARTI1624828749818652.shtml",
-    "documentDate": "2021-06-28",
     "retrievedOn": "2026-11-23",
     "format": "HTML",
-    "status": "partial",
+    "status": "full",
     "sha256": "e2cbb09b4433b8173a66aa3b0a0dbdbaa6725389ab0091bd2e254ff648a682e1",
-    "rightsNote": "公开文件字节已取得，正文待逐段复核。公开入口或公开资料线索；按权属引用。"
+    "rightsNote": "共产党员网刊载完整《大事记》，原件已保存，按年定位并逐条阅读本批引用事件上下文。全文可公开核回；没有以本批工作代替其余事件的逐条事实审校。",
+    "webpageDate": "2021-06-28"
   },
   {
     "id": "S18",
@@ -537,39 +549,43 @@
   },
   {
     "id": "S19",
-    "title": "纪律处分条例修订全文",
-    "publisher": "共产党员网（发布机构待逐文核对）",
+    "title": "中国共产党纪律处分条例（2023年修订）",
+    "publisher": "中共中央",
     "url": "https://www.12371.cn/2023/12/27/ARTI1703688691926144.shtml",
     "documentDate": "2023-12-19",
     "retrievedOn": "2026-11-23",
     "format": "HTML",
-    "status": "partial",
+    "status": "full",
     "sha256": "8ecc78183d87e78a29809a7cc36569a9d1df64d38f0ed616e09dcc1fb87b16b7",
-    "rightsNote": "公开文件字节已取得，正文待逐段复核。公开入口或公开资料线索；按权属引用。"
+    "rightsNote": "已取得所公布的完整条例，第一编第1至48条及施行条款已读核。本批题均据已核条文。分则逐条建表仍在进行。",
+    "webpageDate": "2023-12-27",
+    "effectiveFrom": "2024-01-01"
   },
   {
     "id": "S20",
     "title": "中央八项规定",
-    "publisher": "共产党员网（发布机构待逐文核对）",
+    "publisher": "中共中央政治局",
     "url": "https://www.12371.cn/2023/11/28/STUD1701138145177125.shtml",
     "documentDate": "2012-12-04",
     "retrievedOn": "2026-11-23",
     "format": "HTML",
-    "status": "partial",
+    "status": "full",
     "sha256": "b82beccba8eca023c869f9a90fa15e43022abc677b14da64424e73669be1f5fd",
-    "rightsNote": "公开文件字节已取得，正文待逐段复核。公开入口或公开资料线索；按权属引用。"
+    "rightsNote": "共产党员网所载八项原始要求共八条已逐条读毕。原文审议日期与网页发布日期分别记录。",
+    "webpageDate": "2023-11-28"
   },
   {
     "id": "S21",
-    "title": "中央八项规定和规定精神",
-    "publisher": "共产党员网（发布机构待逐文核对）",
+    "title": "中央八项规定和中央八项规定精神",
+    "publisher": "共产党员网",
     "url": "https://www.12371.cn/2025/03/31/ARTI1743412261487795.shtml",
     "documentDate": "2025-03-31",
     "retrievedOn": "2026-11-23",
     "format": "HTML",
-    "status": "partial",
+    "status": "full",
     "sha256": "9cc44a475b7432baa1b7379487c6d851fa637e8f84a4d73f74ab2517b176702c",
-    "rightsNote": "公开文件字节已取得，正文待逐段复核。公开入口或公开资料线索；按权属引用。"
+    "rightsNote": "公开学习资料正文已读，分别记录具体条文的原适用对象、八项规定精神和统计分类。",
+    "webpageDate": "2025-04-03"
   },
   {
     "id": "S22",
@@ -658,27 +674,31 @@
   },
   {
     "id": "S33",
-    "title": "支部工作条例试行",
-    "publisher": "共产党员网（发布机构待逐文核对）",
+    "title": "中国共产党支部工作条例（试行）",
+    "publisher": "中共中央",
     "url": "https://www.12371.cn/2018/11/25/ARTI1543146320637564.shtml",
     "documentDate": "2018-10-28",
     "retrievedOn": "2026-11-23",
     "format": "HTML",
-    "status": "partial",
+    "status": "full",
     "sha256": "bcdc08afba51c20e448b31aedcfec201521baa6ca03887238d0c1a1e3dbd5e29",
-    "rightsNote": "公开文件字节已取得，正文待逐段复核。公开入口或公开资料线索；按权属引用。"
+    "rightsNote": "中央条例全文可公开读取并已保存。逐条核对本批引用处；不将其他条目计作已经独立复审。2026年泰州市工业和信息化局仍转载2018年条例全文，未取得同名下一正式修订。",
+    "webpageDate": "2018-11-25",
+    "effectiveFrom": "2018-10-28"
   },
   {
     "id": "S34",
-    "title": "党员教育管理工作条例",
-    "publisher": "共产党员网（发布机构待逐文核对）",
+    "title": "中国共产党党员教育管理工作条例",
+    "publisher": "中共中央",
     "url": "https://www.12371.cn/2019/05/21/ARTI1558449177626771.shtml",
     "documentDate": "2019-05-06",
     "retrievedOn": "2026-11-23",
     "format": "HTML",
-    "status": "partial",
+    "status": "full",
     "sha256": "73bd8c10b75131702b3a0ae9fb3cae009b4e7d27f51db70fd0fd3d496c0cd82a",
-    "rightsNote": "公开文件字节已取得，正文待逐段复核。公开入口或公开资料线索；按权属引用。"
+    "rightsNote": "中央条例全文可公开读取并已保存。逐条核对本批引用处；不将其他条目计作已经独立复审。2026年巴彦淖尔党建网仍转载2019年条例全文，未取得同名下一正式修订。",
+    "webpageDate": "2019-05-21",
+    "effectiveFrom": "2019-05-06"
   },
   {
     "id": "S35",
@@ -849,14 +869,15 @@
   },
   {
     "id": "S49",
-    "title": "习近平：树立和践行正确政绩观",
-    "publisher": "习近平",
+    "title": "习近平：树立和践行正确政绩观（《求是》公开节录）",
+    "publisher": "《求是》",
     "url": "https://www.12371.cn/2026/03/31/ARTI1774941559957382.shtml",
     "webpageDate": "2026-03-31",
     "retrievedOn": "2026-11-23",
     "format": "HTML",
-    "status": "partial",
-    "rightsNote": "定位官方网页与索引片段，全文待逐条读。公开页面或资料入口；按权属引用。"
+    "status": "full",
+    "rightsNote": "已读完《求是》公开节录一至二十七及出处说明。各讲话、指示仍按公开节录和所注日期认定。",
+    "sha256": "9da06911a71b38f035c13dd1a499c87cf44c251a0f6b43f3f9e02991ab22c801"
   },
   {
     "id": "S50",
@@ -878,5 +899,264 @@
     "format": "HTML",
     "status": "index",
     "rightsNote": "校方网页索引可读部分内容。公开页面或资料入口；按权属引用。"
+  },
+  {
+    "id": "S52",
+    "title": "中共中央关于党的百年奋斗重大成就和历史经验的决议",
+    "publisher": "中共中央",
+    "url": "https://www.12371.cn/2021/11/16/ARTI1637053281483114.shtml",
+    "format": "HTML",
+    "status": "partial",
+    "retrievedOn": "2026-11-23",
+    "rightsNote": "官方原件已下载；本轮读核第四部分理论概括及新时代十三个成就领域标题。第四部分：理论概括和第（一）至第（十三）个领域。",
+    "documentDate": "2021-11-11",
+    "webpageDate": "2021-11-16",
+    "sha256": "d3e27c107d6bea3596dc2dc1dd1f24b78ef9ab7dc2d87ac10ba037fda14a7ee5"
+  },
+  {
+    "id": "S53",
+    "title": "习近平在中国共产党第十九次全国代表大会上的报告",
+    "publisher": "习近平（代表十八届中央委员会作报告）",
+    "url": "https://www.12371.cn/2017/10/27/ARTI1509103656574313.shtml",
+    "format": "HTML",
+    "status": "partial",
+    "retrievedOn": "2026-11-23",
+    "rightsNote": "官方原件已下载；本轮读核第三部分的十四条基本方略。第三部分第（一）至第（十四）条和结束句。",
+    "documentDate": "2017-10-18",
+    "webpageDate": "2017-10-27",
+    "sha256": "ef5444192ac10b537703e3773d29939465dca44e95df2684ebde861dbbc39755"
+  },
+  {
+    "id": "S54",
+    "title": "中国共产党第二十次全国代表大会关于十九届中央委员会报告的决议",
+    "publisher": "中国共产党第二十次全国代表大会",
+    "url": "https://www.12371.cn/2022/10/22/ARTI1666435148205124.shtml",
+    "format": "HTML",
+    "status": "full",
+    "retrievedOn": "2026-11-23",
+    "rightsNote": "共产党员网正式原件已下载，决议全文已读。通过时间题注、批准报告及其定位、回顾和未来部署、结语。",
+    "documentDate": "2022-10-22",
+    "webpageDate": "2022-10-22",
+    "sha256": "9872fc6d9bf99336f0f0a4e3b0d7c9611a4d46df2b909a9d1bba4fe766386a0c"
+  },
+  {
+    "id": "S55",
+    "title": "中国共产党第二十次全国代表大会关于《中国共产党章程（修正案）》的决议",
+    "publisher": "中国共产党第二十次全国代表大会",
+    "url": "https://www.12371.cn/2022/10/22/ARTI1666435732856157.shtml",
+    "format": "HTML",
+    "status": "full",
+    "retrievedOn": "2026-11-23",
+    "rightsNote": "共产党员网正式原件已下载，决议全文已读；修正案通过即生效。通过程序、基本经济制度、现代化中心任务、建设要求、条文修订和两个确立等段。",
+    "documentDate": "2022-10-22",
+    "webpageDate": "2022-10-22",
+    "effectiveFrom": "2022-10-22",
+    "sha256": "e1472c2b165fc85b2ebd17757b354a47fa2acb0f401b28a2171d90f44988ac84"
+  },
+  {
+    "id": "S56",
+    "title": "习近平新时代中国特色社会主义思想的主要内容",
+    "publisher": "共产党员网学习平台",
+    "url": "https://www.12371.cn/2023/11/28/STUD1701138144512885.shtml",
+    "format": "HTML",
+    "status": "partial",
+    "retrievedOn": "2026-11-23",
+    "rightsNote": "官方学习条目原件已下载；已核主要结构、十个明确及十四条标题，成就说明段未逐段审读。主要内容三组结构；十个明确1–10；十四个坚持1–14；十三个方面成就。",
+    "sha256": "49d7454bff0d0840a14d42064a96e46093478004b41985e26da86bce575ff2f9"
+  },
+  {
+    "id": "S57",
+    "title": "“六个必须坚持”",
+    "publisher": "共产党员网学习平台",
+    "url": "https://www.12371.cn/2023/11/28/STUD1701138144532887.shtml",
+    "format": "HTML",
+    "status": "full",
+    "retrievedOn": "2026-11-23",
+    "rightsNote": "官方学习页已下载并读取条目及其引文；正式答案仍可定位二十大报告原文。正文六条标题、引用出处和2023年3月30日集体学习说明。",
+    "sha256": "28a517a9b8838c58e914b34fc7160aea7d5022bf49ac738a99c5786006894dc0"
+  },
+  {
+    "id": "S58",
+    "title": "全面系统掌握习近平新时代中国特色社会主义思想的科学体系",
+    "publisher": "中央党史和文献研究院院务会理论学习中心组",
+    "url": "https://www.12371.cn/2023/05/31/ARTI1685495936400805.shtml",
+    "format": "HTML",
+    "status": "partial",
+    "retrievedOn": "2026-11-23",
+    "rightsNote": "官方问信息与全文原件已下载；文章尚未逐段审校。科学体系权威辅助解释，待逐章复核。",
+    "webpageDate": "2023-05-31",
+    "sha256": "96ad4e7f67db467b320778df5ee63b8e84f31882dde76058b166aa3673c0bc5f"
+  },
+  {
+    "id": "S59",
+    "title": "习近平在庆祝香港回归祖国25周年大会暨香港特别行政区第六届政府就职典礼上的讲话",
+    "publisher": "习近平",
+    "url": "https://www.xinhuanet.com/2022-07/01/c_1128797423.htm",
+    "format": "HTML",
+    "status": "partial",
+    "retrievedOn": "2026-11-23",
+    "rightsNote": "新华社官方页面已打开，核读关于一国两制四点经验启示的第一点。关于全面准确贯彻一国两制的第一点。",
+    "documentDate": "2022-07-01",
+    "webpageDate": "2022-07-01"
+  },
+  {
+    "id": "S60",
+    "title": "习近平在庆祝中国共产党成立100周年大会上的讲话",
+    "publisher": "习近平",
+    "url": "https://www.12371.cn/2021/07/01/ARTI1625122624003841.shtml",
+    "retrievedOn": "2026-11-23",
+    "format": "HTML",
+    "status": "partial",
+    "sha256": "db315b7e34547365580dffea53992807422806eadef4ac48fcb318d605aa8672",
+    "rightsNote": "官方全文文件已保存；本轮核读建党精神和以史为鉴、开创未来的相关段。讲话中伟大建党精神段及按项列举的要求。",
+    "documentDate": "2021-07-01",
+    "webpageDate": "2021-07-01"
+  },
+  {
+    "id": "S61",
+    "title": "习近平在党史学习教育动员大会上的讲话",
+    "publisher": "习近平",
+    "url": "https://www.12371.cn/2021/03/31/ARTI1617174802044757.shtml",
+    "retrievedOn": "2026-11-23",
+    "format": "HTML",
+    "status": "partial",
+    "sha256": "541e4a3ef88ed20961fd5bd8c9275e3f562c10631e36b4fcd063da0711cd4455",
+    "rightsNote": "官方全文文件已保存；本轮核读动员要求段。关于党史学习教育应做到的四项要求。",
+    "documentDate": "2021-02-20",
+    "webpageDate": "2021-03-31"
+  },
+  {
+    "id": "S62",
+    "title": "中国共产党人精神谱系第一批伟大精神正式发布",
+    "publisher": "新华社",
+    "url": "https://www.12371.cn/2021/09/29/ARTI1632910890789151.shtml",
+    "retrievedOn": "2026-11-23",
+    "format": "HTML",
+    "status": "full",
+    "sha256": "6262c5c21ce43091431899ca1e3a29822483add9a65bf0fb8d71cdcef6bc7c10",
+    "rightsNote": "官方公开报道正文三段已全读。第二段首批名单；梳理和批准分别由中央宣传部、党中央完成。",
+    "webpageDate": "2021-09-29"
+  },
+  {
+    "id": "S63",
+    "title": "习近平在庆祝改革开放40周年大会上的讲话",
+    "publisher": "习近平",
+    "url": "https://www.12371.cn/2018/12/18/ARTI1545134556106946.shtml",
+    "retrievedOn": "2026-11-23",
+    "format": "HTML",
+    "status": "partial",
+    "sha256": "57397ba2d8ddc6000a4c37bcd5886f228f58150a69bf7fcf3efd197725b60273",
+    "rightsNote": "原文已保存，本轮核改革开放历史意义段。“40年的实践充分证明”段对应必由之路、法宝、关键一招。",
+    "documentDate": "2018-12-18",
+    "webpageDate": "2018-12-18"
+  },
+  {
+    "id": "S64",
+    "title": "毛泽东作七大政治报告——《论联合政府》",
+    "publisher": "毛泽东",
+    "url": "https://fuwu.12371.cn/2012/09/21/ARTI1348215426480519.shtml",
+    "retrievedOn": "2026-11-23",
+    "format": "HTML",
+    "status": "partial",
+    "sha256": "41518194c1684b9fbcc41b77b6e0d03c484d139d4f92f1a19e183b430228fdad",
+    "rightsNote": "共产党员网历史文献全文已取得，本轮核读三大作风段。论中国共产党第七次全国代表大会上的报告，党的作风段。",
+    "documentDate": "1945-04-24",
+    "webpageDate": "2012-09-21"
+  },
+  {
+    "id": "S65",
+    "title": "当代中国发展进步的根本方向——关于新时代坚持和发展中国特色社会主义",
+    "publisher": "习近平新时代中国特色社会主义思想学习纲要",
+    "url": "https://www.12371.cn/2019/07/24/ARTI1563923568713762.shtml",
+    "retrievedOn": "2026-11-23",
+    "format": "HTML",
+    "status": "partial",
+    "sha256": "3dd3f9be259ebfdc2c6b54f076d9abda768b92786e6c6a85b7997b85d6ea006f",
+    "rightsNote": "纲要有关章节完整可读，本轮核读理论体系组成条目。正文第（25）条。",
+    "webpageDate": "2019-07-24"
+  },
+  {
+    "id": "S66",
+    "title": "中共中央关于加强党的政治建设的意见",
+    "publisher": "中共中央",
+    "url": "https://www.12371.cn/2019/02/27/ARTI1551263472427508.shtml",
+    "retrievedOn": "2026-11-23",
+    "format": "HTML",
+    "status": "partial",
+    "sha256": "545b3f2b16b40d54ca0c7a11b9a5b90bbac029e9e0f002675fc37f431d410ea0",
+    "rightsNote": "官方全文文件已保存，本轮核读开头关于政治建设定位的段落。正文首段，党的政治建设的根本性。",
+    "webpageDate": "2019-02-27"
+  },
+  {
+    "id": "S67",
+    "title": "党史百问｜党在过渡时期的总路线和总任务是什么？",
+    "publisher": "共产党员网刊载《党史百问》",
+    "url": "https://www.12371.cn/2022/06/27/ARTI1656319819570721.shtml",
+    "retrievedOn": "2026-11-23",
+    "format": "HTML",
+    "status": "full",
+    "sha256": "4df7a6050b73331869e75dfe80f33f71ea28f9707a6344f9687dfd74e84316fb",
+    "rightsNote": "党史百问第50题官方公开正文已全读。定义过渡时期总路线段、阐述社会主义国营经济物质基础的段落。",
+    "webpageDate": "2022-06-27"
+  },
+  {
+    "id": "BY10-RU",
+    "title": "《榜样10》茹振钢专题",
+    "url": "https://www.12371.cn/2026/01/24/VIDE1769229243066486.shtml",
+    "publisher": "共产党员网",
+    "retrievedOn": "2026-11-23",
+    "format": "HTML",
+    "status": "full",
+    "rightsNote": "已读该节目分集网页的完整文字人物简介和事迹段落；内容不声称来自未逐帧检查的视频画面。"
+  },
+  {
+    "id": "BY10-LIANG",
+    "title": "《榜样10》梁建英专题",
+    "url": "https://www.12371.cn/2026/01/24/VIDE1769229242236426.shtml",
+    "publisher": "共产党员网",
+    "retrievedOn": "2026-11-23",
+    "format": "HTML",
+    "status": "full",
+    "rightsNote": "已读该节目分集网页的完整文字人物简介和事迹段落；内容不声称来自未逐帧检查的视频画面。"
+  },
+  {
+    "id": "BY10-LENG",
+    "title": "《榜样10》冷晓琨专题",
+    "url": "https://www.12371.cn/2026/01/24/VIDE1769229121000382.shtml",
+    "publisher": "共产党员网",
+    "retrievedOn": "2026-11-23",
+    "format": "HTML",
+    "status": "full",
+    "rightsNote": "已读该节目分集网页的完整文字人物简介和事迹段落；内容不声称来自未逐帧检查的视频画面。"
+  },
+  {
+    "id": "BY10-TIAN",
+    "title": "《榜样10》田野专题",
+    "url": "https://www.12371.cn/2026/01/24/VIDE1769229242715464.shtml",
+    "publisher": "共产党员网",
+    "retrievedOn": "2026-11-23",
+    "format": "HTML",
+    "status": "full",
+    "rightsNote": "已读该节目分集网页的完整文字人物简介和事迹段落；内容不声称来自未逐帧检查的视频画面。"
+  },
+  {
+    "id": "BY10-LUO",
+    "title": "《榜样10》罗胤专题",
+    "url": "https://www.12371.cn/2026/01/24/VIDE1769229242564451.shtml",
+    "publisher": "共产党员网",
+    "retrievedOn": "2026-11-23",
+    "format": "HTML",
+    "status": "full",
+    "rightsNote": "已读该节目分集网页的完整文字人物简介和事迹段落；内容不声称来自未逐帧检查的视频画面。"
+  },
+  {
+    "id": "BY10-YIWU",
+    "title": "《榜样10》义乌市天盟实业投资有限公司党支部专题",
+    "url": "https://www.12371.cn/2026/01/24/VIDE1769229242404439.shtml",
+    "publisher": "共产党员网",
+    "retrievedOn": "2026-11-23",
+    "format": "HTML",
+    "status": "full",
+    "rightsNote": "已读该节目分集网页的完整文字人物简介和事迹段落；内容不声称来自未逐帧检查的视频画面。"
   }
 ]

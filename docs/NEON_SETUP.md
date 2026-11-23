@@ -22,6 +22,8 @@ Neon Auth JWKS                   → 200
 POST /api/auth/sign-in/email     → 401 INVALID_EMAIL_OR_PASSWORD for an unknown account
 ```
 
+后续预览同步仅发布事实和考法均通过的 82 题，共 14 个专题。实际核对 Next 的静态目录与 Neon 的内容摘要、题目数一致。在真实 Neon 事务中生成 50 题并判得 1 分，回滚后验证测试记录已清除。
+
 Node 验证使用 Neon HTTP 驱动与真实新加坡 PostgreSQL。迁移和内容同步使用直连 URL，前端和服务器从 Git 忽略的 `.env.local` 加载各自配置。新增仅供本地应用的 Cookie 签名密钥、内容失效密钥和本地站点 URL，配置值没有写入 Git。
 
 已开启邮箱 OTP、注册时必须验证且发送验证码、验证后自动登录、改密后撤销会话。现阶段确认真实分支接入和错误路径，注册、实际收码并登录、已验证会话的云端写入和自定义 QQ 投递仍需实际验收。

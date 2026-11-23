@@ -43,6 +43,11 @@ const duplicateSchema = z.array(z.strictObject({
   a: uuid, b: uuid, disposition: z.enum(['distinct', 'duplicate', 'pending']),
   reviewer: text, notes: text,
 }))
+const practiceReviewSchema = z.array(z.strictObject({
+  questionId: uuid, digest: hash, reviewer: text,
+  decision: z.enum(['keep', 'shorten', 'rewrite']), reason: text,
+  proposal: z.string(),
+}))
 
 async function read(directory, filename, schema) {
   const raw = await readFile(new URL(filename, directory), 'utf8')
@@ -50,14 +55,15 @@ async function read(directory, filename, schema) {
 }
 
 export async function readCatalog(directory = CONTENT_DIRECTORY) {
-  const [topicRows, sourceRows, pointRows, questionRows, duplicateReviews] = await Promise.all([
+  const [topicRows, sourceRows, pointRows, questionRows, duplicateReviews, practiceReviews] = await Promise.all([
     read(directory, 'topics.json', topics),
     read(directory, 'sources.json', sources),
     read(directory, 'knowledge-points.json', points),
     read(directory, 'questions.json', z.array(questionSchema)),
     read(directory, 'duplicate-reviews.json', duplicateSchema),
+    read(directory, 'practice-reviews.json', practiceReviewSchema),
   ])
-  return { topics: topicRows, sources: sourceRows, points: pointRows, questions: questionRows, duplicateReviews }
+  return { topics: topicRows, sources: sourceRows, points: pointRows, questions: questionRows, duplicateReviews, practiceReviews }
 }
 
 function stable(value) {
@@ -79,6 +85,11 @@ export function questionRevision(question) {
   delete body.state
   delete body.reviews
   return sha256(JSON.stringify(stable(body)))
+}
+
+export function practiceApproved(question, practiceIndex) {
+  const review = practiceIndex.get(question.id)
+  return question.state === 'ready' && review?.decision === 'keep' && review.digest === questionRevision(question)
 }
 
 export function mapRows(rows, key, label) {
@@ -151,7 +162,11 @@ export function validateCatalog(catalog) {
     }
     duplicateIndex.set(key, resolution)
   }
-  return { topicIndex, sourceIndex, pointIndex, questionIndex, duplicateIndex }
+  const practiceIndex = mapRows(catalog.practiceReviews, 'questionId', '考法复核题目 ID')
+  for (const review of practiceIndex.values()) {
+    if (!questionIndex.has(review.questionId)) throw new Error("考法复核对应的题目不存在：" + review.questionId)
+  }
+  return { topicIndex, sourceIndex, pointIndex, questionIndex, duplicateIndex, practiceIndex }
 }
 
 export function duplicateCandidates(questions) {

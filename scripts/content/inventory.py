@@ -73,18 +73,36 @@ def similar_pairs(questions, row_keys):
     return sorted(results)
 
 
-def write_csv(path, columns, rows, keys):
+def write_csv(path, columns, rows, keys, updates=None):
     previous = {}
     if path.exists():
         with path.open(encoding="utf-8", newline="") as source:
             for row in csv.DictReader(source):
                 previous[tuple(row[key] for key in keys)] = (row["disposition"], row["review_note"])
+    previous.update(updates or {})
     with path.open("w", encoding="utf-8", newline="") as target:
         writer = csv.writer(target, lineterminator="\n")
         writer.writerow(columns + ("disposition", "review_note"))
         for row in rows:
             status, note = previous.get(tuple(row[:len(keys)]), ("pending", ""))
             writer.writerow((*row, status, note))
+
+
+def reviewed_dispositions(directory, candidates):
+    dispositions = {}
+    for path in sorted(directory.glob("legacy-dispositions-*.csv")):
+        with path.open(encoding="utf-8-sig", newline="") as source:
+            for row in csv.DictReader(source):
+                key = (row["legacy_id"],)
+                if key[0] not in candidates:
+                    raise ValueError(f"{path.name} references an unknown candidate {key[0]}")
+                if key in dispositions:
+                    raise ValueError(f"Multiple published dispositions for {key[0]}")
+                if not all(row[field].strip() for field in ("disposition", "source_urls", "locator", "review_note")):
+                    raise ValueError(f"Disposition missing evidence or reasoning for {key[0]}")
+                note = f"{row['review_note']} 依据：{row['locator']}。详见 {path.name}。"
+                dispositions[key] = (row["disposition"], note)
+    return dispositions
 
 
 def run(output):
@@ -123,9 +141,10 @@ def run(output):
             " | ".join(name for name, _ in memberships), row.get("source", ""),
             hashlib.sha256(json.dumps(row_signature, ensure_ascii=False).encode()).hexdigest(),
         ))
+    dispositions = reviewed_dispositions(output, by_id)
     write_csv(output / "legacy-candidates.csv",
               ("legacy_id", "type", "option_count", "key_count", "legacy_sections", "legacy_source", "normalized_sha256"),
-              records, ("legacy_id",))
+              records, ("legacy_id",), dispositions)
 
     pairs = similar_pairs(rows, keys)
     write_csv(output / "legacy-similarity.csv", ("left_id", "right_id", "match", "similarity"),
@@ -144,6 +163,7 @@ def run(output):
     print("Partitions:", mirror_report)
     print("Mirror differences:", dict(baseline))
     print("Coverage:", len(rows), "main candidates,", len(set(mirrors) - set(by_id)), "additional mirror IDs")
+    print("Documented dispositions:", len(dispositions), "remaining:", len(rows) - len(dispositions))
 
 
 if __name__ == "__main__":

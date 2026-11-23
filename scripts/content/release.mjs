@@ -1,5 +1,5 @@
 import { mkdir, readdir, rename, unlink, writeFile } from 'node:fs/promises'
-import { duplicateCandidates, questionRevision, readCatalog, sha256, validateCatalog } from './catalog.mjs'
+import { duplicateCandidates, practiceApproved, questionRevision, readCatalog, sha256, validateCatalog } from './catalog.mjs'
 
 export const PAGE_SIZE = 15
 
@@ -40,8 +40,10 @@ export function qualityReport(catalog, indexes) {
   const missingCore = catalog.points.filter(point => point.importance === 'core' && !covered.has(point.id))
   const missingGeneral = catalog.points.filter(point => point.importance === 'general' && !covered.has(point.id))
   const problems = []
+  const practicePending = ready.filter(item => !practiceApproved(item, indexes.practiceIndex))
 
   if (ready.length < 50) problems.push('组卷至少需要 50 道有独立知识点的合格题。')
+  if (practicePending.length) problems.push('有 ' + practicePending.length + ' 道事实双审题尚未通过考法复核。')
   for (const topic of catalog.topics) {
     if (topic.active && !catalog.points.some(point => point.topicId === topic.id && point.importance === 'core')) {
       problems.push(`${topic.id} 缺已确认的核心知识点清单。`)
@@ -91,7 +93,8 @@ export function qualityReport(catalog, indexes) {
     stats,
     coverage: { total: catalog.points.length, covered: covered.size, missingCore, missingGeneral },
     review: { ready: ready.length, draft: catalog.questions.filter(item => item.state === 'draft').length,
-      withdrawn: catalog.questions.filter(item => item.state === 'withdrawn').length },
+      withdrawn: catalog.questions.filter(item => item.state === 'withdrawn').length,
+      practiceReady: ready.length - practicePending.length },
     duplicateCandidates: candidates,
     unresolvedDuplicates: [...unresolved],
     problems,
@@ -99,7 +102,8 @@ export function qualityReport(catalog, indexes) {
 }
 
 export function makeRelease(catalog, indexes) {
-  const published = catalog.questions.filter(item => item.state === 'ready').sort((a, b) => a.id.localeCompare(b.id))
+  const published = catalog.questions.filter(item => practiceApproved(item, indexes.practiceIndex))
+    .sort((a, b) => a.id.localeCompare(b.id))
   const questions = published.map(item => {
     const references = item.evidence.concat(item.options.flatMap(option => option.evidence))
     const sources = new Map()
@@ -169,7 +173,7 @@ if (process.argv[1]?.replaceAll('\\', '/').endsWith('/scripts/content/release.mj
         throw new Error(report.problems.join('\n'))
       }
       await writeRelease(new URL('../../public/bank/', import.meta.url), makeRelease(catalog, indexes))
-      console.log(`CDN 题库已生成，共 ${report.review.ready} 道已复审题。`)
+      console.log(`CDN 题库已生成，共 ${report.review.practiceReady} 道通过事实与考法复审的题。`)
       break
     default:
       throw new Error('Use check, report or build.')

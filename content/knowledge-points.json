@@ -598,5 +598,975 @@
     "sourceId": "S06",
     "location": "第八部分之后政治责任段，县级以上党委和下级纪委的相邻两句",
     "scopeNote": "党的二十届五中全会正式公报、《决定》及说明"
+  },
+  {
+    "id": "6171c155-227e-4c7a-bc38-66d434892eb5",
+    "topicId": "t01",
+    "factKey": "t01-core-content-framework",
+    "fact": "‘十个明确’‘十四个坚持’‘十三个方面成就’概括习近平新时代中国特色社会主义思想的主要内容。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第二部分开辟马克思主义中国化时代化新境界，理论主要内容段及立场观点方法段",
+    "scopeNote": "党的二十大报告、大会决议和本题指定现行文献"
+  },
+  {
+    "id": "c5aae1b1-59c0-45ff-98d2-7f9dc418ab05",
+    "topicId": "t01",
+    "factKey": "t01-two-integrations",
+    "fact": "理论创新要求把马克思主义基本原理同中国具体实际、同中华优秀传统文化相结合。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第二部分两个结合的总述及其后两段",
+    "scopeNote": "党的二十大报告、大会决议和本题指定现行文献"
+  },
+  {
+    "id": "4becc116-fcd8-4deb-a28c-b5fe99fa4fef",
+    "topicId": "t01",
+    "factKey": "t01-new-era-principal-contradiction",
+    "fact": "新时代我国社会主要矛盾的两端为美好生活需要与不平衡不充分的发展。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第一部分回顾新时代十年，关于科学完整战略部署的段落",
+    "scopeNote": "党的二十大报告、大会决议和本题指定现行文献"
+  },
+  {
+    "id": "3e78d830-d251-48a9-88c6-ec5fcc4dfd5f",
+    "topicId": "t01",
+    "factKey": "t01-worldview-method-meaning",
+    "fact": "六个必须坚持的具体含义按报告分别展开，守正创新说明方向与发展，自信自立和胸怀天下各有适用表述。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第二部分六个必须坚持中自信自立、守正创新、问题导向、系统观念、胸怀天下五段",
+    "scopeNote": "党的二十大报告、大会决议和本题指定现行文献"
+  },
+  {
+    "id": "cff3d0f9-9b4d-4bd2-ac6f-2345d527fb38",
+    "topicId": "t02",
+    "factKey": "t02-report-resolution-positioning",
+    "fact": "二十大《关于十九届中央委员会报告的决议》将批准的报告定位为政治宣言和行动纲领。",
+    "importance": "core",
+    "sourceId": "S54",
+    "location": "首个正文段末，批准报告后的定位",
+    "scopeNote": "党的二十大报告、大会决议和本题指定现行文献"
+  },
+  {
+    "id": "aabc6668-af43-4719-b94a-c7796a45b7e1",
+    "topicId": "t02",
+    "factKey": "t02-new-era-three-historic-events",
+    "fact": "二十大报告明确新时代十年三件大事为建党百年、进入新时代、脱贫攻坚和全面小康并完成第一个百年目标。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第一部分五年回顾段与紧接的新时代十年三件大事段",
+    "scopeNote": "党的二十大报告、大会决议和本题指定现行文献"
+  },
+  {
+    "id": "823bab30-27f7-4cc3-932c-205a0d8e14fd",
+    "topicId": "t02",
+    "factKey": "t02-modernization-essential-creation",
+    "fact": "‘创造人类文明新形态’列入中国式现代化本质要求，人口规模、两个文明协调及和平发展道路表述列入五个中国特色。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第三部分中国式现代化五个中国特色分则及其后本质要求段",
+    "scopeNote": "党的二十大报告、大会决议和本题指定现行文献"
+  },
+  {
+    "id": "f35fd5d5-c196-4ae0-bae0-51fb17c2b58b",
+    "topicId": "t02",
+    "factKey": "t02-rule-of-law-practice-structure",
+    "fact": "报告将共同推进、一体建设、全面推进三个法治表述分别对应不同对象。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第七部分总述第二段",
+    "scopeNote": "党的二十大报告、大会决议和本题指定现行文献"
+  },
+  {
+    "id": "2f124529-6d26-4151-a65a-005e4dc5d4c3",
+    "topicId": "t01",
+    "factKey": "t01-overall-vs-strategic-layout",
+    "fact": "文化建设归入五位一体总体布局，全面依法治国归入四个全面战略布局。",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "总纲以‘我国正处于并将长期处于社会主义初级阶段’起始的段落，统筹与协调推进句",
+    "scopeNote": "党的二十大报告、大会决议和本题指定现行文献"
+  },
+  {
+    "id": "797e109f-db7d-4bf7-8acb-ac8345b1b0fe",
+    "topicId": "t01",
+    "factKey": "t01-new-development-pattern",
+    "fact": "新发展格局是以国内大循环为主体、国内国际双循环相互促进。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第四部分《加快构建新发展格局，着力推动高质量发展》开头第一段",
+    "scopeNote": "党的二十大报告、大会决议和本题指定现行文献"
+  },
+  {
+    "id": "89ef5353-f6c0-4f20-8cfb-4ffb2109c986",
+    "topicId": "t01",
+    "factKey": "t01-security-orientation-roles",
+    "fact": "国家安全观中人民安全是宗旨，政治安全是根本，经济安全是基础，促进国际安全为依托。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第十一部分开头第二段，以人民安全为宗旨等定位",
+    "scopeNote": "党的二十大报告、大会决议和本题指定现行文献"
+  },
+  {
+    "id": "f2d75d31-8065-40ac-a625-df4b89e50b86",
+    "topicId": "t01",
+    "factKey": "t01-basic-economic-system",
+    "fact": "社会主义基本经济制度包含所有制结构、分配结构和社会主义市场经济体制。",
+    "importance": "core",
+    "sourceId": "S55",
+    "location": "关于中心任务和社会主义基本经济制度写入党章的段落",
+    "scopeNote": "党的二十大报告、大会决议和本题指定现行文献"
+  },
+  {
+    "id": "b67070be-cf5b-42fd-9ffd-c510cd664c0c",
+    "topicId": "t02",
+    "factKey": "t02-technology-talent-innovation-roles",
+    "fact": "科技是第一生产力、人才是第一资源、创新是第一动力。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第五部分首段，第一生产力、第一资源和第一动力句",
+    "scopeNote": "党的二十大报告、大会决议和本题指定现行文献"
+  },
+  {
+    "id": "336fb0a7-59db-47d7-a501-776d9d2ee1b9",
+    "topicId": "t02",
+    "factKey": "t02-democracy-consultation-and-local",
+    "fact": "协商民主是实践全过程人民民主的重要形式，基层民主是全过程人民民主的重要体现。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第六部分第（二）和第（三）项首句，并参照第六部分总述",
+    "scopeNote": "党的二十大报告、大会决议和本题指定现行文献"
+  },
+  {
+    "id": "40e9c83e-3be4-4822-b3f5-f1104a8228de",
+    "topicId": "t02",
+    "factKey": "t02-youth-work-position",
+    "fact": "党把青年工作作为战略性工作来抓，对青年提出有理想、敢担当、能吃苦、肯奋斗。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "报告结尾以‘青年强，则国家强’开头的段落",
+    "scopeNote": "党的二十大报告、大会决议和本题指定现行文献"
+  },
+  {
+    "id": "26781785-8010-4794-81fb-8ed4963bc6c1",
+    "topicId": "t02",
+    "factKey": "t02-cultural-industry-measures",
+    "fact": "报告在繁荣发展文化事业和文化产业条目部署社会效益优先和文化数字化。",
+    "importance": "general",
+    "sourceId": "S03",
+    "location": "第八部分第（四）项繁荣发展文化事业和文化产业",
+    "scopeNote": "党的二十大报告、大会决议和本题指定现行文献"
+  },
+  {
+    "id": "f02a18a4-1108-4775-847e-e8b26d6a0bb1",
+    "topicId": "t02",
+    "factKey": "t02-distribution-three-levels",
+    "fact": "完善分配制度的部署涵盖协调三个分配环节及提高初次分配中的劳动报酬比重。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第九部分第（一）项，完善分配制度",
+    "scopeNote": "党的二十大报告、大会决议和本题指定现行文献"
+  },
+  {
+    "id": "53d5a024-024e-4dd0-8960-c660f3603c04",
+    "topicId": "t02",
+    "factKey": "t02-world-community-paths",
+    "fact": "二十大报告将不同共同体建设方式与五种世界建设目标分别对应。",
+    "importance": "general",
+    "sourceId": "S03",
+    "location": "第十四部分关于构建人类命运共同体、逐项列出建设方式和目标的段落",
+    "scopeNote": "党的二十大报告、大会决议和本题指定现行文献"
+  },
+  {
+    "id": "2265bef6-a66d-4ede-9a9b-b1a9fd1f5c33",
+    "topicId": "t04",
+    "factKey": "t04-2026-study-priority",
+    "fact": "2026年学习教育面向全党，县处级以上领导班子和领导干部为重点，对其中主要负责人着重抓。",
+    "importance": "core",
+    "sourceId": "S10",
+    "location": "正文第2段“学习教育以”句",
+    "scopeNote": "2026年学习教育的新华社公开报道和《求是》公开节录"
+  },
+  {
+    "id": "1edbcef6-d90a-4b7d-af2b-2266d12ccb67",
+    "topicId": "t04",
+    "factKey": "t04-2026-study-window",
+    "fact": "中办通知公开报道所述安排为2026年春节假期后启动、当年7月底基本结束。",
+    "importance": "core",
+    "sourceId": "S10",
+    "location": "正文第2段末学习教育时段",
+    "scopeNote": "2026年学习教育的新华社公开报道和《求是》公开节录"
+  },
+  {
+    "id": "1ea9ddd8-7812-4196-9b12-d64ec66af157",
+    "topicId": "t04",
+    "factKey": "t04-2026-study-framework",
+    "fact": "2026年中办通知公开报道分别明确四项总要求、一体推进学查改的抓手及包含开门教育的工作安排。",
+    "importance": "core",
+    "sourceId": "S10",
+    "location": "正文第3至4段关于总要求、抓手和工作安排的句子",
+    "scopeNote": "2026年学习教育的新华社公开报道和《求是》公开节录"
+  },
+  {
+    "id": "f478f666-2f48-4db0-8820-43efe9275888",
+    "topicId": "t04",
+    "factKey": "t04-open-education-stages",
+    "fact": "开门教育安排在查摆、整改、检验三个环节分别对应群众意见、监督和评判。",
+    "importance": "core",
+    "sourceId": "S10",
+    "location": "正文第4段后部“要坚持开门教育”句",
+    "scopeNote": "2026年学习教育的新华社公开报道和《求是》公开节录"
+  },
+  {
+    "id": "2c398b58-4ce1-4110-a1d4-00ed5c94d90b",
+    "topicId": "t04",
+    "factKey": "t04-institution-review",
+    "fact": "2026年学习教育要求梳理不符合正确政绩观的现行制度规定，并按适用情形废止或修订。",
+    "importance": "core",
+    "sourceId": "S10",
+    "location": "正文第4段“做好建章立制”句",
+    "scopeNote": "2026年学习教育的新华社公开报道和《求是》公开节录"
+  },
+  {
+    "id": "31fc2742-69ee-46a8-af18-e88245bfd5fe",
+    "topicId": "t04",
+    "factKey": "t04-character-decisive",
+    "fact": "2022年3月1日讲话节录将党性作为树立和践行正确政绩观的决定性因素。",
+    "importance": "core",
+    "sourceId": "S49",
+    "location": "第十五节首段开头（2022年3月1日讲话）",
+    "scopeNote": "2026年学习教育的新华社公开报道和《求是》公开节录"
+  },
+  {
+    "id": "05c539d7-7d96-442f-99d8-ae9801bf2fd5",
+    "topicId": "t04",
+    "factKey": "t04-visible-and-foundational-work",
+    "fact": "2018年3月8日讲话要求兼顾群众及时得实惠的显功和给后续发展打基础的潜功，不以个人任期留名为评价依据。",
+    "importance": "core",
+    "sourceId": "S49",
+    "location": "第六节全文（2018年3月8日讲话）",
+    "scopeNote": "2026年学习教育的新华社公开报道和《求是》公开节录"
+  },
+  {
+    "id": "3a839f43-b71c-4645-ad68-a548a42e294f",
+    "topicId": "t04",
+    "factKey": "t04-plan-continuity-condition",
+    "fact": "2023年4月3日讲话以科学、符合新实践要求、满足群众愿望作为持续执行已有部署和规划的条件。",
+    "importance": "core",
+    "sourceId": "S49",
+    "location": "第十八节（2023年4月3日讲话）",
+    "scopeNote": "2026年学习教育的新华社公开报道和《求是》公开节录"
+  },
+  {
+    "id": "3e1af10a-ba2a-43c6-898f-a70616789fd2",
+    "topicId": "t04",
+    "factKey": "t04-classified-cadre-assessment",
+    "fact": "干部考核应按照地区资源禀赋、基础水平、发展阶段和功能定位区别内容，并按领导成员角色与岗位设置不同要求。",
+    "importance": "core",
+    "sourceId": "S49",
+    "location": "第七节“要强化分类考核”起的两句（2018年7月3日讲话）",
+    "scopeNote": "2026年学习教育的新华社公开报道和《求是》公开节录"
+  },
+  {
+    "id": "a7bc8286-1872-4bd2-9b0d-8d6ce64aa740",
+    "topicId": "t04",
+    "factKey": "t04-2026-corrective-actions",
+    "fact": "2026年2月5日指示要求精准整改，对立即能解决的问题立即改，对暂难解决的历史问题制定可行方案，按问题实际选择办法。",
+    "importance": "core",
+    "sourceId": "S49",
+    "location": "第二十七节第二点“整改突出问题”的三个工作段",
+    "scopeNote": "2026年学习教育的新华社公开报道和《求是》公开节录"
+  },
+  {
+    "id": "21c49951-cd76-402c-b130-f837426b2db4",
+    "topicId": "t04",
+    "factKey": "t04-public-benefit-long-term-check",
+    "fact": "判断好事实事须从群众切身需要出发，同时评估可能留下的长期隐患。",
+    "importance": "core",
+    "sourceId": "S49",
+    "location": "第十五节第二段后部（2022年3月1日讲话）",
+    "scopeNote": "2026年学习教育的新华社公开报道和《求是》公开节录"
+  },
+  {
+    "id": "3c2bf458-f06d-4b3a-ad92-9a566164730c",
+    "topicId": "t04",
+    "factKey": "t04-2026-first-responsible-person",
+    "fact": "2026年学习教育由各级党委（党组）作为重要任务组织，党委（党组）主要负责同志履行第一责任人责任。",
+    "importance": "core",
+    "sourceId": "S10",
+    "location": "正文第5段前两句",
+    "scopeNote": "2026年学习教育的新华社公开报道和《求是》公开节录"
+  },
+  {
+    "id": "9e4fbda4-55b0-4539-89f8-fd6ddb1ae7a8",
+    "topicId": "t04",
+    "factKey": "t04-correction-and-accountability-boundary",
+    "fact": "对违规招商引资、地方保护和新官不理旧账等及时批评纠正，对性质恶劣的严肃追究责任。",
+    "importance": "core",
+    "sourceId": "S49",
+    "location": "第二十二节末句（2025年7月1日讲话）",
+    "scopeNote": "2026年学习教育的新华社公开报道和《求是》公开节录"
+  },
+  {
+    "id": "1f628b4b-0a6d-47e3-bf7b-3c556d68ff44",
+    "topicId": "t04",
+    "factKey": "t04-public-duty-lawful-interests",
+    "fact": "衡量党性公私界限时，应承认和保障干部合理合法的利益，但不能将其与私心私利混同。",
+    "importance": "general",
+    "sourceId": "S49",
+    "location": "第三节“干部合理合法的利益”段（2013年9月23日至25日讲话）",
+    "scopeNote": "2026年学习教育的新华社公开报道和《求是》公开节录"
+  },
+  {
+    "id": "c452b95f-3102-440c-ba09-8571d9613420",
+    "topicId": "t04",
+    "factKey": "t04-2026-integrated-rectification",
+    "fact": "2026年中办通知将中央巡视整改、八项规定精神学习教育整改、十五五规划编制实施、生态环保督察整改列入结合事项。",
+    "importance": "core",
+    "sourceId": "S10",
+    "location": "正文第4段“要坚持与…相结合”句",
+    "scopeNote": "2026年学习教育的新华社公开报道和《求是》公开节录"
+  },
+  {
+    "id": "93ae9511-0b22-4a71-8b37-53dde443276d",
+    "topicId": "t08",
+    "factKey": "t08-disciplinary-scope",
+    "fact": "纪律处分条例的适用对象",
+    "importance": "core",
+    "sourceId": "S19",
+    "location": "第六条",
+    "scopeNote": "2023年修订、2024年1月1日起施行的《中国共产党纪律处分条例》"
+  },
+  {
+    "id": "f71569e1-5a0e-4b5c-bd99-db221f669610",
+    "topicId": "t08",
+    "factKey": "t08-organization-restructure",
+    "fact": "被改组党组织领导机构成员的处理",
+    "importance": "core",
+    "sourceId": "S19",
+    "location": "第九条第一款、第十五条",
+    "scopeNote": "2023年修订、2024年1月1日起施行的《中国共产党纪律处分条例》"
+  },
+  {
+    "id": "4f1298a5-9180-4f0d-ac33-9474a23d9e0f",
+    "topicId": "t08",
+    "factKey": "t08-warning-promotion-window",
+    "fact": "警告与严重警告的提拔限制时限",
+    "importance": "core",
+    "sourceId": "S19",
+    "location": "第十条",
+    "scopeNote": "2023年修订、2024年1月1日起施行的《中国共产党纪律处分条例》"
+  },
+  {
+    "id": "39dc122b-fcb3-410e-a883-48f2853b5ae0",
+    "topicId": "t08",
+    "factKey": "t08-probation-restored-office-window",
+    "fact": "留党察看恢复权利后的任职限制",
+    "importance": "core",
+    "sourceId": "S19",
+    "location": "第十二条第三款",
+    "scopeNote": "2023年修订、2024年1月1日起施行的《中国共产党纪律处分条例》"
+  },
+  {
+    "id": "db141b5d-68de-4982-95cd-6bb8361c4233",
+    "topicId": "t08",
+    "factKey": "t08-lesser-discipline-circumstances",
+    "fact": "从轻或减轻处分的可适用情形",
+    "importance": "core",
+    "sourceId": "S19",
+    "location": "第十七条第一、二、五项及第二十条第二项",
+    "scopeNote": "2023年修订、2024年1月1日起施行的《中国共产党纪律处分条例》"
+  },
+  {
+    "id": "5cdc309d-a77a-4df0-b67a-789da695ea61",
+    "topicId": "t08",
+    "factKey": "t08-exempt-written-conclusion",
+    "fact": "警告级别违纪免予处分的形式要求",
+    "importance": "core",
+    "sourceId": "S19",
+    "location": "第十九条第一款",
+    "scopeNote": "2023年修订、2024年1月1日起施行的《中国共产党纪律处分条例》"
+  },
+  {
+    "id": "55fa3f99-bbf0-4dd7-ba62-566c5f8c7813",
+    "topicId": "t08",
+    "factKey": "t08-combined-distinct-misconduct",
+    "fact": "数个违纪行为合并处理与一事触犯多条",
+    "importance": "core",
+    "sourceId": "S19",
+    "location": "第二十四条、第二十五条第一款",
+    "scopeNote": "2023年修订、2024年1月1日起施行的《中国共产党纪律处分条例》"
+  },
+  {
+    "id": "d7f954f6-edc8-4c82-82d3-eda11fc998c5",
+    "topicId": "t08",
+    "factKey": "t08-authority-retake-effect",
+    "fact": "生效行政或司法处理改变后的党纪处置",
+    "importance": "core",
+    "sourceId": "S19",
+    "location": "第三十五条第二、四款",
+    "scopeNote": "2023年修订、2024年1月1日起施行的《中国共产党纪律处分条例》"
+  },
+  {
+    "id": "0f793d0f-bcfa-4c21-9fd6-21ff5b945642",
+    "topicId": "t08",
+    "factKey": "t08-office-benefits-correction",
+    "fact": "非经济性违纪所得的纠正",
+    "importance": "core",
+    "sourceId": "S19",
+    "location": "第四十三条第一、二款",
+    "scopeNote": "2023年修订、2024年1月1日起施行的《中国共产党纪律处分条例》"
+  },
+  {
+    "id": "aac5820f-d2fc-475b-9d98-a3503f89587f",
+    "topicId": "t08",
+    "factKey": "t08-decision-announcement-and-report",
+    "fact": "处分决定宣布与执行情况报告的时限",
+    "importance": "core",
+    "sourceId": "S19",
+    "location": "第四十四条、第四十五条",
+    "scopeNote": "2023年修订、2024年1月1日起施行的《中国共产党纪律处分条例》"
+  },
+  {
+    "id": "7e9fd673-984c-4938-beb6-dbfd6c70bd55",
+    "topicId": "t07",
+    "factKey": "t07-oath-execute",
+    "fact": "入党誓词规定执行党的决定",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "第六条",
+    "scopeNote": "2022年10月22日通过的现行党章"
+  },
+  {
+    "id": "332407ec-c620-4cf7-b88c-701eb8d7b93e",
+    "topicId": "t07",
+    "factKey": "t07-highest-leading-organ",
+    "fact": "党的最高领导机关包括全国代表大会和它所产生的中央委员会",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "第十条第（三）项",
+    "scopeNote": "2022年10月22日通过的现行党章"
+  },
+  {
+    "id": "450e8a47-b98d-4981-88cd-c21de0a5de53",
+    "topicId": "t07",
+    "factKey": "t07-democratic-centralism-definition",
+    "fact": "民主集中制是民主基础上的集中和集中指导下的民主相结合",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "总纲关于民主集中制的段落",
+    "scopeNote": "2022年10月22日通过的现行党章"
+  },
+  {
+    "id": "94f56525-e43a-4d3f-9c52-3580bc0be4d1",
+    "topicId": "t07",
+    "factKey": "t07-first-task-development",
+    "fact": "发展是党执政兴国的第一要务",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "总纲关于社会主义初级阶段的段落",
+    "scopeNote": "2022年10月22日通过的现行党章"
+  },
+  {
+    "id": "943f5af7-d5d2-4b57-b073-b8ad5d6464ba",
+    "topicId": "t10",
+    "factKey": "t10-minimum-applicant-age",
+    "fact": "申请入党的年龄下限为十八周岁",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "第一条",
+    "scopeNote": "2022年10月22日通过的现行党章"
+  },
+  {
+    "id": "9e87961b-b00f-413f-a289-a285359eb955",
+    "topicId": "t10",
+    "factKey": "t10-individual-admission",
+    "fact": "发展党员通过党的支部，坚持个别吸收原则",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "第五条第一款",
+    "scopeNote": "2022年10月22日通过的现行党章"
+  },
+  {
+    "id": "552ff480-fdac-4d1e-89cc-4cc3b5f4acd4",
+    "topicId": "t07",
+    "factKey": "t07-action-guide-scientific-development",
+    "fact": "科学发展观是现行党章列举的党的行动指南之一。",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "总纲关于党的行动指南的段落",
+    "scopeNote": "2022年10月22日通过的现行党章"
+  },
+  {
+    "id": "c8954115-8cf0-44e4-99cd-2c04a5ca29df",
+    "topicId": "t07",
+    "factKey": "t07-worker-vanguard-awareness",
+    "fact": "党员是中国工人阶级的有共产主义觉悟的先锋战士",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "第二条第一款",
+    "scopeNote": "2022年10月22日通过的现行党章"
+  },
+  {
+    "id": "a29bc241-1d58-452b-bf9a-883ee5e237f8",
+    "topicId": "t06",
+    "factKey": "t06-first-congress-final-site",
+    "fact": "中共一大最后一天的会议转移到浙江嘉兴南湖游船上举行。",
+    "importance": "core",
+    "sourceId": "S17",
+    "location": "1921年7月23日条开篇，关于一大开幕地点和最后一天会址的两句",
+    "scopeNote": "中国共产党历史基础知识，依据题目指定的正式党史文献"
+  },
+  {
+    "id": "b882c5c3-4745-4294-a0aa-e8045d213ad9",
+    "topicId": "t06",
+    "factKey": "t06-first-formal-party-constitution",
+    "fact": "中共二大通过第一个党章；一大通过的是第一个纲领和决议。",
+    "importance": "core",
+    "sourceId": "S17",
+    "location": "1921年7月23日一大条、1922年7月16日至23日二大条",
+    "scopeNote": "中国共产党历史基础知识，依据题目指定的正式党史文献"
+  },
+  {
+    "id": "7d7903f6-e20c-4c27-b154-d13700528d3d",
+    "topicId": "t06",
+    "factKey": "t06-nanchang-uprising-first-shot",
+    "fact": "1927年8月1日的南昌起义打响了武装反抗国民党反动派的第一枪。",
+    "importance": "core",
+    "sourceId": "S17",
+    "location": "1927年8月1日南昌起义条、1927年9月9日秋收起义条",
+    "scopeNote": "中国共产党历史基础知识，依据题目指定的正式党史文献"
+  },
+  {
+    "id": "4aff4968-088a-4e38-be07-b05b339c3f84",
+    "topicId": "t06",
+    "factKey": "t06-gutian-principles",
+    "fact": "古田会议确立思想建党、政治建军的原则。",
+    "importance": "core",
+    "sourceId": "S17",
+    "location": "1929年12月28日至29日古田会议条",
+    "scopeNote": "中国共产党历史基础知识，依据题目指定的正式党史文献"
+  },
+  {
+    "id": "9ad6ca96-6bdc-407f-b456-9190c6698c50",
+    "topicId": "t06",
+    "factKey": "t06-zunyi-conference-turning-point",
+    "fact": "遵义会议是在长征中召开的，被历史文件认定为党的历史上生死攸关的转折点。",
+    "importance": "core",
+    "sourceId": "S17",
+    "location": "1929年12月古田、1934年12月黎平、1935年1月遵义及1937年8月洛川相关条目",
+    "scopeNote": "中国共产党历史基础知识，依据题目指定的正式党史文献"
+  },
+  {
+    "id": "33aa6272-9408-4c72-b46e-2deeb67284fb",
+    "topicId": "t06",
+    "factKey": "t06-seventh-congress-mao-guidance",
+    "fact": "中共七大把毛泽东思想确立为全党的指导思想并载入党章。",
+    "importance": "core",
+    "sourceId": "S17",
+    "location": "1945年4月23日至6月11日中共七大条，兼核1956年中共八大条",
+    "scopeNote": "中国共产党历史基础知识，依据题目指定的正式党史文献"
+  },
+  {
+    "id": "b62488f6-ff40-43f6-9cc3-fd2eb2c0b90b",
+    "topicId": "t06",
+    "factKey": "t06-three-decisive-campaigns",
+    "fact": "解放战争战略决战的三大战役是辽沈、淮海、平津。",
+    "importance": "core",
+    "sourceId": "S17",
+    "location": "1948年11月29日至翌年1月31日平津战役条末",
+    "scopeNote": "中国共产党历史基础知识，依据题目指定的正式党史文献"
+  },
+  {
+    "id": "f0a0078d-3ab3-4999-9305-072465c8b4f3",
+    "topicId": "t06",
+    "factKey": "t06-founding-central-government-date",
+    "fact": "中华人民共和国中央人民政府于1949年10月1日成立。",
+    "importance": "core",
+    "sourceId": "S17",
+    "location": "1949年10月1日条，含之后12月2日确定国庆日的记载",
+    "scopeNote": "中国共产党历史基础知识，依据题目指定的正式党史文献"
+  },
+  {
+    "id": "49752ce6-e4b6-4d02-b10d-2fcb601570d9",
+    "topicId": "t06",
+    "factKey": "t06-socialist-transformation-objects",
+    "fact": "过渡时期总路线提出逐步对农业、手工业和资本主义工商业进行社会主义改造。",
+    "importance": "core",
+    "sourceId": "S67",
+    "location": "党史百问正文‘总路线和总任务’原文段与随后列举条件的第一项",
+    "scopeNote": "中国共产党历史基础知识，依据题目指定的正式党史文献"
+  },
+  {
+    "id": "0bfbb19a-6f3b-470f-a1be-231fdff5ad85",
+    "topicId": "t06",
+    "factKey": "t06-third-plenum-work-center",
+    "fact": "十一届三中全会作出党和国家工作中心转移到经济建设上来、实行改革开放的历史性决策。",
+    "importance": "core",
+    "sourceId": "S17",
+    "location": "1978年12月18日至22日中共十一届三中全会条",
+    "scopeNote": "中国共产党历史基础知识，依据题目指定的正式党史文献"
+  },
+  {
+    "id": "b2ee8f43-e53d-4b59-add0-f3ad948eb5ba",
+    "topicId": "t09",
+    "factKey": "t09-rules-adoption-date",
+    "fact": "2012年12月4日中央政治局会议审议通过中央八项规定。",
+    "importance": "core",
+    "sourceId": "S20",
+    "location": "中央政治局会议审议通过的题注",
+    "scopeNote": "中央八项规定原文及其精神的官方公开学习资料"
+  },
+  {
+    "id": "64b93236-8e77-40cd-b878-09e4fcb2c3c3",
+    "topicId": "t09",
+    "factKey": "t09-original-scope",
+    "fact": "八项规定具体条文本身针对中央政治局，规定精神是全党共同要求。",
+    "importance": "core",
+    "sourceId": "S21",
+    "location": "中央八项规定是什么，精神是什么两节",
+    "scopeNote": "中央八项规定原文及其精神的官方公开学习资料"
+  },
+  {
+    "id": "c3e6112f-3cba-4bb2-9696-7f1e7bc88a04",
+    "topicId": "t09",
+    "factKey": "t09-security-work-principle",
+    "fact": "改进警卫工作须坚持有利于联系群众的原则。",
+    "importance": "core",
+    "sourceId": "S20",
+    "location": "第五项，改进警卫工作",
+    "scopeNote": "中央八项规定原文及其精神的官方公开学习资料"
+  },
+  {
+    "id": "807a3343-fa95-4cd5-bc81-918b1b6a1828",
+    "topicId": "t09",
+    "factKey": "t09-news-value-criteria",
+    "fact": "是否报道中央政治局同志出席活动，根据工作需要、新闻价值和社会效果决定。",
+    "importance": "core",
+    "sourceId": "S20",
+    "location": "第六项，改进新闻报道",
+    "scopeNote": "中央八项规定原文及其精神的官方公开学习资料"
+  },
+  {
+    "id": "1914099d-9f0a-4863-b208-4c2d34ef2bb6",
+    "topicId": "t09",
+    "factKey": "t09-documents-lacking-substance",
+    "fact": "没有实质内容、可发可不发的文件简报一律不发。",
+    "importance": "core",
+    "sourceId": "S20",
+    "location": "第三项，精简文件简报",
+    "scopeNote": "中央八项规定原文及其精神的官方公开学习资料"
+  },
+  {
+    "id": "8f5af263-6e3c-4d6e-a83c-0e830304d5bd",
+    "topicId": "t09",
+    "factKey": "t09-personal-publications",
+    "fact": "除中央统一安排外，个人不发贺信、贺电，不题词、题字。",
+    "importance": "core",
+    "sourceId": "S20",
+    "location": "第七项，严格文稿发表",
+    "scopeNote": "中央八项规定原文及其精神的官方公开学习资料"
+  },
+  {
+    "id": "6eec1704-07da-4927-9364-de9998ab8c87",
+    "topicId": "t09",
+    "factKey": "t09-airport-greetings",
+    "fact": "出访时一般不安排中资机构、华侨华人、留学生代表等到机场迎送。",
+    "importance": "core",
+    "sourceId": "S20",
+    "location": "第四项，规范出访活动",
+    "scopeNote": "中央八项规定原文及其精神的官方公开学习资料"
+  },
+  {
+    "id": "63f41e7d-257e-425f-935c-4cb721b94daf",
+    "topicId": "t09",
+    "factKey": "t09-housing-vehicle-benefits",
+    "fact": "住房和车辆配备等工作生活待遇规定属于厉行勤俭节约一项。",
+    "importance": "core",
+    "sourceId": "S20",
+    "location": "第八项，厉行勤俭节约",
+    "scopeNote": "中央八项规定原文及其精神的官方公开学习资料"
+  },
+  {
+    "id": "cb16b353-e70f-4afb-98ac-9f046f260d23",
+    "topicId": "t05",
+    "factKey": "t05-government-report-session",
+    "fact": "2026年《政府工作报告》于3月5日在第十四届全国人民代表大会第四次会议上作出。",
+    "importance": "core",
+    "sourceId": "S13",
+    "location": "报告副标题及开头请审议段",
+    "scopeNote": "2026年正式政府工作报告，按题干区分2025年实绩和2026年预期"
+  },
+  {
+    "id": "c44f8802-b54f-4145-a084-29674c8af09f",
+    "topicId": "t05",
+    "factKey": "t05-2026-plan-opening",
+    "fact": "报告明确2026年是“十五五”开局之年。",
+    "importance": "core",
+    "sourceId": "S13",
+    "location": "第三部分首段；第一部分开篇“十四五”收官",
+    "scopeNote": "2026年正式政府工作报告，按题干区分2025年实绩和2026年预期"
+  },
+  {
+    "id": "eab315e1-c73e-46d4-aae7-8f1be8cc27f8",
+    "topicId": "t05",
+    "factKey": "t05-2026-growth-target",
+    "fact": "2026年经济增长主要预期目标为4.5%—5%，实际工作要努力争取更好结果。",
+    "importance": "core",
+    "sourceId": "S13",
+    "location": "第三部分“今年发展主要预期目标是”段",
+    "scopeNote": "2026年正式政府工作报告，按题干区分2025年实绩和2026年预期"
+  },
+  {
+    "id": "c8a7a6ff-bb87-46ef-880d-7463fed10c9d",
+    "topicId": "t05",
+    "factKey": "t05-2026-employment-targets",
+    "fact": "报告2026年预期城镇调查失业率5.5%左右，城镇新增就业1200万人以上。",
+    "importance": "core",
+    "sourceId": "S13",
+    "location": "第一部分经济与就业实绩段；第三部分“今年发展主要预期目标是”段",
+    "scopeNote": "2026年正式政府工作报告，按题干区分2025年实绩和2026年预期"
+  },
+  {
+    "id": "d5084752-b3eb-4503-8be0-5c47aa4eb05a",
+    "topicId": "t05",
+    "factKey": "t05-2026-macro-policy-pair",
+    "fact": "2026年报告提出继续实施更加积极的财政政策与适度宽松的货币政策。",
+    "importance": "core",
+    "sourceId": "S13",
+    "location": "第三部分“继续实施更加积极的财政政策”“继续实施适度宽松的货币政策”两段",
+    "scopeNote": "2026年正式政府工作报告，按题干区分2025年实绩和2026年预期"
+  },
+  {
+    "id": "40a9b481-bd84-43b3-b327-0a3d7e603871",
+    "topicId": "t05",
+    "factKey": "t05-domestic-market-consumption-investment",
+    "fact": "报告提出坚持内需主导，统筹促消费和扩投资，着力建设强大国内市场。",
+    "importance": "general",
+    "sourceId": "S13",
+    "location": "第四部分第（一）项首段",
+    "scopeNote": "2026年正式政府工作报告，按题干区分2025年实绩和2026年预期"
+  },
+  {
+    "id": "ae164969-8c8a-47c5-a652-c0946416fe76",
+    "topicId": "t05",
+    "factKey": "t05-identified-future-industries",
+    "fact": "报告第四部分第（二）项分开列举新兴支柱产业与未来产业，量子科技和脑机接口属于所列未来产业。",
+    "importance": "core",
+    "sourceId": "S13",
+    "location": "第四部分第（二）项“培育壮大新兴产业和未来产业”段",
+    "scopeNote": "2026年正式政府工作报告，按题干区分2025年实绩和2026年预期"
+  },
+  {
+    "id": "a937c269-77d9-4794-99ac-1f748b16a150",
+    "topicId": "t05",
+    "factKey": "t05-real-economy-focus",
+    "fact": "报告在培育壮大新动能的工作部署中，明确把发展经济的着力点放在实体经济上。",
+    "importance": "core",
+    "sourceId": "S13",
+    "location": "第四部分第（二）项首段",
+    "scopeNote": "2026年正式政府工作报告，按题干区分2025年实绩和2026年预期"
+  },
+  {
+    "id": "b59aeb26-56ab-470f-a59e-cb35ea2e1007",
+    "topicId": "t05",
+    "factKey": "t05-employment-groups",
+    "fact": "报告促进高质量充分就业时明确部署高校毕业生等青年支持、农民工稳岗帮扶与退役军人安置就业服务。",
+    "importance": "core",
+    "sourceId": "S13",
+    "location": "第四部分第（八）项“促进高质量充分就业”段",
+    "scopeNote": "2026年正式政府工作报告，按题干区分2025年实绩和2026年预期"
+  },
+  {
+    "id": "9f9b1824-a515-48a8-8532-41f2879f4413",
+    "topicId": "t11",
+    "factKey": "t11-wheat-breeding",
+    "fact": "茹振钢长期从事小麦遗传育种。",
+    "importance": "core",
+    "sourceId": "BY10-RU",
+    "location": "主要内容，第二段有关育种工作",
+    "scopeNote": "2026年《榜样10》分集文字简介，重大第52和53期培训内容"
+  },
+  {
+    "id": "82561e1d-b2a8-4eba-8faf-abbce682446a",
+    "topicId": "t11",
+    "factKey": "t11-crh380a-designer",
+    "fact": "梁建英担任CRH380A高速动车组主任设计师。",
+    "importance": "core",
+    "sourceId": "BY10-LIANG",
+    "location": "主要内容，CRH380A动车组段",
+    "scopeNote": "2026年《榜样10》分集文字简介，重大第52和53期培训内容"
+  },
+  {
+    "id": "599e47bc-5948-4d7a-b11c-96c17d157c88",
+    "topicId": "t11",
+    "factKey": "t11-kuafu-robot",
+    "fact": "冷晓琨团队发布的人形机器人名为夸父。",
+    "importance": "general",
+    "sourceId": "BY10-LENG",
+    "location": "主要内容，2023年发布人形机器人段",
+    "scopeNote": "2026年《榜样10》分集文字简介，重大第52和53期培训内容"
+  },
+  {
+    "id": "3e1eca46-99d1-41ba-93bb-2ff2fa92027f",
+    "topicId": "t11",
+    "factKey": "t11-number-theory",
+    "fact": "田野从事数论及算术代数几何研究。",
+    "importance": "core",
+    "sourceId": "BY10-TIAN",
+    "location": "主要内容，有关研究领域及同余数问题段",
+    "scopeNote": "2026年《榜样10》分集文字简介，重大第52和53期培训内容"
+  },
+  {
+    "id": "1c6bdf67-8c4a-4437-a4e8-437370915103",
+    "topicId": "t11",
+    "factKey": "t11-grassroots-mediation",
+    "fact": "罗胤联合东城区人民法院在天坛街道成立诉调对接工作站。",
+    "importance": "general",
+    "sourceId": "BY10-LUO",
+    "location": "主要内容，真情服务善创新段",
+    "scopeNote": "2026年《榜样10》分集文字简介，重大第52和53期培训内容"
+  },
+  {
+    "id": "2377ac20-9910-4653-95d2-c741083a58d7",
+    "topicId": "t11",
+    "factKey": "t11-yiwu-europe-express",
+    "fact": "义乌市天盟实业投资有限公司党支部在义新欧中欧班列开行中组织党员开展攻坚。",
+    "importance": "core",
+    "sourceId": "BY10-YIWU",
+    "location": "主要内容，党支部组织党员推进班列开行的事迹段",
+    "scopeNote": "2026年《榜样10》分集文字简介，重大第52和53期培训内容"
+  },
+  {
+    "id": "9989a7b1-f4e7-498b-a631-003b9c3c0b0e",
+    "topicId": "t12",
+    "factKey": "t12-three-meetings-members",
+    "fact": "支部党员大会、党支部委员会会议和党小组会构成“三会一课”中的三会。",
+    "importance": "core",
+    "sourceId": "S33",
+    "location": "第十六条第一、二款；第十七条第一款",
+    "scopeNote": "现行支部工作条例与党员教育管理条例，全国规定"
+  },
+  {
+    "id": "2397eb84-8013-4260-938f-21310660b192",
+    "topicId": "t12",
+    "factKey": "t12-theme-party-day-frequency",
+    "fact": "党支部每月相对固定1天开展主题党日。",
+    "importance": "core",
+    "sourceId": "S33",
+    "location": "第十六条第四款，主题党日开展段",
+    "scopeNote": "现行支部工作条例与党员教育管理条例，全国规定"
+  },
+  {
+    "id": "ca53ebf0-e1ce-43db-878d-1b2e8a675c49",
+    "topicId": "t12",
+    "factKey": "t12-organizational-life-meeting-usual-quarter",
+    "fact": "党支部组织生活会一般安排在第四季度，也可根据需要随时召开。",
+    "importance": "general",
+    "sourceId": "S33",
+    "location": "第十七条第一款",
+    "scopeNote": "现行支部工作条例与党员教育管理条例，全国规定"
+  },
+  {
+    "id": "5c6ae689-05a7-4025-aef2-9625ab9d2189",
+    "topicId": "t12",
+    "factKey": "t12-democratic-evaluation-procedure",
+    "fact": "民主评议党员按个人自评、党员互评、民主测评的程序组织。",
+    "importance": "core",
+    "sourceId": "S33",
+    "location": "第十八条第二、三款，民主评议党员程序",
+    "scopeNote": "现行支部工作条例与党员教育管理条例，全国规定"
+  },
+  {
+    "id": "c4d9caa3-3a21-4733-a6c5-687733875494",
+    "topicId": "t12",
+    "factKey": "t12-organizational-relationship-definition",
+    "fact": "党员组织关系是党员对党的基层组织的隶属关系。",
+    "importance": "core",
+    "sourceId": "S34",
+    "location": "第五章第二十四、二十五条，组织关系定义句",
+    "scopeNote": "现行支部工作条例与党员教育管理条例，全国规定"
+  },
+  {
+    "id": "71dc4d66-f444-49b8-ac26-1c9ae67a219b",
+    "topicId": "t12",
+    "factKey": "t12-fixed-external-location-transfer-threshold",
+    "fact": "党员外出学习、工作、生活6个月以上且地点相对固定的，应当转移组织关系。",
+    "importance": "core",
+    "sourceId": "S34",
+    "location": "第二十五条第三款开头，组织关系转移条件",
+    "scopeNote": "现行支部工作条例与党员教育管理条例，全国规定"
+  },
+  {
+    "id": "ea38c843-96d2-421a-8692-11a44dec6437",
+    "topicId": "t12",
+    "factKey": "t12-graduate-retained-relationship-duration",
+    "fact": "组织关系已保留在学校的高校毕业生流动党员，党员组织关系保留时间一般不超过2年。",
+    "importance": "core",
+    "sourceId": "S34",
+    "location": "第七章第三十四条第一款",
+    "scopeNote": "现行支部工作条例与党员教育管理条例，全国规定"
+  },
+  {
+    "id": "62103cb0-6721-4940-aeeb-295b26c4aa05",
+    "topicId": "t12",
+    "factKey": "t12-lost-contact-membership-suspension",
+    "fact": "与党组织失去联系6个月以上，经各种方式查找仍未取得联系，应予停止党籍。",
+    "importance": "core",
+    "sourceId": "S34",
+    "location": "第五章第二十四条第三款，兼核第二十五条组织关系段",
+    "scopeNote": "现行支部工作条例与党员教育管理条例，全国规定"
+  },
+  {
+    "id": "2b86e4d7-e6a2-4315-b55a-9511ff405325",
+    "topicId": "t08",
+    "factKey": "t08-disciplinary-sanction-type",
+    "fact": "对党员的五种纪律处分包括撤销党内职务。",
+    "importance": "core",
+    "sourceId": "S19",
+    "location": "第八条",
+    "scopeNote": "现行党章与2023年修订纪律处分条例"
+  },
+  {
+    "id": "5dcafb50-a79e-47fa-b062-6a3617792b2e",
+    "topicId": "t08",
+    "factKey": "t08-max-party-sanction",
+    "fact": "开除党籍是党内的最高处分。",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "第四十一条第三款",
+    "scopeNote": "现行党章与2023年修订纪律处分条例"
+  },
+  {
+    "id": "729f901d-51e1-4879-b0cb-22c303b1b2b1",
+    "topicId": "t08",
+    "factKey": "t08-probationary-inspection-cap",
+    "fact": "留党察看期限最长不得超过二年。",
+    "importance": "core",
+    "sourceId": "S19",
+    "location": "第十二条第一款",
+    "scopeNote": "现行党章与2023年修订纪律处分条例"
+  },
+  {
+    "id": "06b2d97c-7f3f-46e0-9c0a-a2fff9852db0",
+    "topicId": "t08",
+    "factKey": "t08-overlapping-discipline-impact-period",
+    "fact": "原处分尚未执行的影响期与新处分影响期相加。",
+    "importance": "core",
+    "sourceId": "S19",
+    "location": "第二十一条",
+    "scopeNote": "现行党章与2023年修订纪律处分条例"
+  },
+  {
+    "id": "9e4c24b0-6071-48b8-a199-b4a8c443b123",
+    "topicId": "t08",
+    "factKey": "t08-six-disciplines-integrity",
+    "fact": "六项纪律包括廉洁纪律。",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "第四十条第一款",
+    "scopeNote": "现行党章与2023年修订纪律处分条例"
   }
 ]

@@ -19,6 +19,7 @@
     "content:inventory": "python scripts/content/inventory.py",
     "content:validate": "node scripts/content/release.mjs check",
     "content:quality": "node scripts/content/release.mjs report",
+    "content:review": "python scripts/content/review-export.py",
     "content:build": "node scripts/content/release.mjs build",
     "content:sync": "node --env-file-if-exists=.env --env-file-if-exists=.env.local scripts/content/sync.mjs"
   },

@@ -22,14 +22,19 @@ def dump(name, rows):
     temporary.replace(path)
 
 
-def stage(blind_path, author_path, review_path, reviewer, today, scope, task_type):
+def stage(blind_path, author_path, review_path, reviewer, today, scope, task_type, selected, practice_reviewed):
     blind, authors = jsonl(blind_path), jsonl(author_path)
     with review_path.open(encoding="utf-8", newline="") as source:
         decisions = list(csv.DictReader(source))
     if len({row["blind_id"] for row in decisions}) != len(decisions):
         raise ValueError("The review file has repeated question IDs.")
+    if selected:
+        decisions = [row for row in decisions if row["blind_id"] in selected]
+        if set(selected) != {row["blind_id"] for row in decisions}:
+            raise ValueError("A selected question has no matching independent review.")
     points = json.loads((CONTENT / "knowledge-points.json").read_text(encoding="utf-8"))
     questions = json.loads((CONTENT / "questions.json").read_text(encoding="utf-8"))
+    practice = json.loads((CONTENT / "practice-reviews.json").read_text(encoding="utf-8"))
     existing = {point["factKey"] for point in points}
     staged = 0
 
@@ -41,10 +46,13 @@ def stage(blind_path, author_path, review_path, reviewer, today, scope, task_typ
         if card["stem"] != original["stem"] or [option["text"] for option in card["options"]] != original["options"]:
             raise ValueError(f"Blind and author cards differ: {result['blind_id']}.")
         author_answer = [chr(65 + i) for i, option in enumerate(card["options"]) if option["correct"]]
-        independent = result["independent_answer"].split("+")
-        if set(author_answer) != set(independent):
-            raise ValueError(f"Resolve the answer disagreement before staging: {result['blind_id']}.")
+        independent = list(result["independent_answer"].replace("+", ""))
+        allowed_letters = {chr(65 + index) for index in range(len(card["options"]))}
+        if not independent or not set(independent) <= allowed_letters or len(set(independent)) != len(independent):
+            raise ValueError(f"Invalid independent selections: {result['blind_id']}.")
         accepted = result["decision"] == "approved"
+        if accepted and set(author_answer) != set(independent):
+            raise ValueError(f"Resolve the answer disagreement before staging: {result['blind_id']}.")
         citation = card["sources"][0]
         point_id = str(uuid.uuid4())
         points.append(dict(id=point_id, topicId=card["topic"], factKey=card["factKey"], fact=card["fact"],
@@ -71,15 +79,21 @@ def stage(blind_path, author_path, review_path, reviewer, today, scope, task_typ
         question["reviews"] = {
             "initial": dict(reviewer=card["review"]["author"], date=today, choice=answer_ids, decision="approved",
                             emotionOnly=card["emotionOnly"], notes=card["review"]["notes"], digest=digest),
-            "independent": dict(reviewer=reviewer, date=today, choice=[options[ord(letter) - 65]["id"] for letter in independent],
+            "independent": dict(reviewer=result.get("reviewer") or reviewer, date=today,
+                                choice=[options[ord(letter) - 65]["id"] for letter in independent],
                                 decision="approved" if accepted else "changes", emotionOnly=card["emotionOnly"],
                                 notes=result["review_note"], digest=digest),
         }
         questions.append(question)
+        if practice_reviewed and accepted:
+            practice.append(dict(questionId=question["id"], digest=digest, reviewer=result.get("reviewer") or reviewer,
+                                 decision="keep", reason=result["review_note"], proposal=""))
         staged += int(accepted)
 
     dump("knowledge-points.json", points)
     dump("questions.json", questions)
+    if practice_reviewed:
+        dump("practice-reviews.json", practice)
     print(f"{staged} ready, {len(decisions) - staged} returned for revision")
 
 
@@ -91,5 +105,8 @@ if __name__ == "__main__":
     parser.add_argument("--date", required=True)
     parser.add_argument("--scope", required=True)
     parser.add_argument("--task-type", choices=["recall", "distinction", "application"], default="distinction")
+    parser.add_argument("--select", nargs="+")
+    parser.add_argument("--practice-reviewed", action="store_true")
     args = parser.parse_args()
-    stage(args.blind, args.author, args.review, args.reviewer, args.date, args.scope, args.task_type)
+    stage(args.blind, args.author, args.review, args.reviewer, args.date, args.scope, args.task_type,
+          args.select, args.practice_reviewed)

@@ -22,7 +22,8 @@ npm run dev
 
 - 在 `content/` 的 JSON 中维护题目、来源、专题和知识点。沿用题目和选项的 UUID，修订时重审，停用时保留记录。
 - `npm run content:validate` 执行结构和引用检查。`npm run content:quality` 输出覆盖、重复候选、情绪线索题、全选和答案分布。
-- `npm run content:build` 生成 CDN 分片。发布时 PostgreSQL 同步同一份内容，用于搜索、个人筛选、组卷与判分。
+- `npm run content:review` 导出含全部当前选项、解析、来源和审核状态的 JSON。
+- `npm run content:build` 从事实和考法均通过的题目生成 CDN 分片。发布时 PostgreSQL 同步同一份内容，用于搜索、个人筛选、组卷与判分。
 - 来源以共产党员网的正式文本、重庆大学的公开通知和现行校规为主。 [考纲依据](docs/SYLLABUS_MAP.md) · [来源台账](docs/SOURCE_CATALOG.csv) · [编审和发布](docs/CONTENT_REVIEW.md)
 
 ## 验证与部署
@@ -35,6 +36,6 @@ npm run test:integration
 npm run build
 ```
 
-集成测试需要提供具备建库权限的开发集群 `TEST_DATABASE_URL`，测试会创建并清理独立数据库。EdgeOne Makers 从原 GitHub 仓库构建。环境配置、发布保护和回滚见 [部署手册](docs/DEPLOY.md)。
+集成测试需要提供具备建库权限的开发集群 `TEST_DATABASE_URL`，测试会创建并清理独立数据库。EdgeOne Makers 从原 GitHub 仓库构建。环境配置、发布保护和回滚见 [部署手册](docs/DEPLOY.md)。已通过和待完成的项目见 [验收证据](docs/ACCEPTANCE.md)。
 
 代码采用 [MIT License](LICENSE)。题库内容仅供学习参考。

@@ -38,7 +38,7 @@
 
 独立预览分支使用 Neon `send.otp` Webhook 接管邮箱验证和密码重置的投递。Neon Auth 内置 Custom SMTP 和 Application Name 仍可作回退。控制台里的 SMTP 发件人设置无法替换 Neon 的 HTML 模板，订阅 `send.otp` 后 Neon 会停止对应的默认邮件。认证中的验证码仍由 Neon 生成、校验和作废。[自定义邮件](https://neon.com/docs/auth/guides/customize-emails) · [Webhook 接口](https://neon.com/docs/auth/guides/webhooks)
 
-1. 在隔离预览环境迁移 `002_auth_rate_limits.sql` 和 `004_auth_otp_deliveries.sql`，按环境注入 Neon 连接和认证变量。Makers Preview 安全环境变量中设 `NEON_OTP_WEBHOOK_ENABLED=true`、`NEON_OTP_WEBHOOK_ENDPOINT_ID` 为该 Neon Auth 的签名事件 `context.endpoint_id`，`QQ_SMTP_AUTH_CODE` 为专用授权码。启用前检查预览函数产物包含 `public/brand-mark.png`。缺图时按纯文字品牌头排版，邮件仍可用。
+1. 在隔离预览环境迁移 `002_auth_rate_limits.sql` 和 `004_auth_otp_deliveries.sql`，按环境注入 Neon 连接和认证变量。Makers Preview 安全环境变量中设 `NEON_OTP_WEBHOOK_ENABLED=true`、`NEON_OTP_WEBHOOK_ENDPOINT_ID` 为该 Neon Auth 的签名事件 `context.endpoint_id`，`QQ_SMTP_AUTH_CODE` 为专用授权码。邮件页头使用纯中文站名。
 2. 在开发 Neon Auth 分支添加 Webhook `https://<独立预览域名>/api/webhooks/neon`，仅订阅 `send.otp`。单次超时可设为 10 秒，官方整个阻塞事件最多 3 次且总计不超过 15 秒。测试实际量取 JWKS、数据库、QQ SMTP 连接和投递时间，确认函数能用证书校验的 TLS 访问 `smtp.qq.com:465`。
 3. 仅用授权收件人测试 QQ/163 正常投递、验证码错误/过期/重放、重置后的旧密码及旧会话失效。同一个已投递事件重复提交应返回成功且只投递一次。重试会复用事件 ID。遇 SMTP 接受情况不明时，同一条事件不会贸然重发，接口明确返回投递失败；用户可重新请求验证码。清除试验前先关闭 Neon 的该事件订阅，使默认发信恢复，再取消预览的 Webhook 开关和 SMTP 授权码。
 

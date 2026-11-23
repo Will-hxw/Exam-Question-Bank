@@ -1,5 +1,5 @@
 import pg from 'pg'
-import { questionRevision, readCatalog, validateCatalog } from './catalog.mjs'
+import { practiceApproved, questionRevision, readCatalog, validateCatalog } from './catalog.mjs'
 import { makeRelease, qualityReport } from './release.mjs'
 
 async function updateCatalog(client, catalog) {
@@ -129,9 +129,13 @@ export async function syncCatalog(client, catalog, indexes, { dryRun = true } = 
         item->>'disposition', item->>'reviewer', item->>'notes'
       FROM jsonb_array_elements($1::jsonb) AS record(item)
     `, [JSON.stringify(catalog.duplicateReviews)])
-    const published = catalog.questions.filter(item => item.state === 'ready').map(item => item.id)
+    const ready = catalog.questions.filter(item => item.state === 'ready')
+    const published = ready.filter(item => practiceApproved(item, indexes.practiceIndex)).map(item => item.id)
+    const publishedSet = new Set(published)
+    const approved = ready.filter(item => !publishedSet.has(item.id)).map(item => item.id)
     const withdrawn = catalog.questions.filter(item => item.state === 'withdrawn').map(item => item.id)
     await client.query("UPDATE questions SET status = 'quarantined' WHERE id = ANY($1::uuid[])", [withdrawn])
+    await client.query("UPDATE questions SET status = 'approved' WHERE id = ANY($1::uuid[])", [approved])
     await client.query("UPDATE questions SET status = 'published' WHERE id = ANY($1::uuid[])", [published])
     await client.query(`
       INSERT INTO content_release (digest) VALUES ($1)
