@@ -1,9 +1,36 @@
 import assert from 'node:assert/strict'
 import { generateKeyPairSync, randomUUID, sign } from 'node:crypto'
 import test from 'node:test'
+import { AuthApiError, AuthError } from '@neon/auth/next'
+import { authErrorMessage, authIssue } from '../../src/features/auth/client-errors.ts'
 import { verifyOtpEvent } from '../../src/features/auth/neon-webhook.ts'
 import { otpTemplate } from '../../src/features/auth/otp-template.ts'
 import { isAuthPost, parseAuthPost } from '../../src/features/auth/request.ts'
+
+test('Neon 包装的认证异常保留业务码和 HTTP 状态', () => {
+  const origin = Object.assign(new AuthApiError('upstream details', 403, 'feature_not_supported'), {
+    error: { status: 403, code: 'INVALID_ORIGIN', message: 'sensitive upstream details' },
+  })
+  assert.deepEqual(authIssue(origin), { status: 403, code: 'INVALID_ORIGIN' })
+  assert.match(authErrorMessage(authIssue(origin), '注册失败'), /当前访问地址未通过认证/)
+  assert.doesNotMatch(authErrorMessage(authIssue(origin), '注册失败'), /upstream/)
+
+  const unverified = Object.assign(new AuthApiError('Email not verified', 422, 'email_not_confirmed'), {
+    error: { status: 403, code: 'EMAIL_NOT_VERIFIED' },
+  })
+  assert.deepEqual(authIssue(unverified), { status: 403, code: 'EMAIL_NOT_VERIFIED' })
+})
+
+test('验证码、限流和服务异常使用安全提示，网络异常不当作业务错误', () => {
+  const expired = Object.assign(new AuthApiError('upstream details', 400, 'validation_failed'), {
+    error: { status: 400, code: 'OTP_EXPIRED' },
+  })
+  assert.equal(authErrorMessage(authIssue(expired), '验证失败'), '验证码已过期，请重新发送。')
+  assert.equal(authErrorMessage(authIssue({ status: 429, code: 'RATE_LIMITED' }), '请求失败'), '尝试次数过多，请稍后再试。')
+  assert.equal(authErrorMessage(authIssue(new AuthError('upstream details', 503)), '请求失败'), '认证服务暂时不可用，请稍后再试。')
+  assert.equal(authErrorMessage(authIssue({ status: 401, code: 'UNKNOWN' }), '登录失败'), '登录失败')
+  assert.equal(authIssue(new TypeError('Failed to fetch')), undefined)
+})
 
 function authPost(body) {
   return new Request('https://exam.example.test/api/auth', {

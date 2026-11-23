@@ -2,53 +2,39 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react"
 import { authClient } from "./client"
+import { authErrorMessage, authIssue } from "./client-errors"
 import styles from "./auth-panel.module.css"
 
 type Step = "login" | "register" | "verify" | "forgot" | "reset"
-type AuthIssue = { status?: number; code?: string } | null | undefined
 
-const views: Record<Step, { title?: string; description?: string; action: string }> = {
-  login: { action: "继续" },
+const views: Record<Step, { title?: string; description?: string; action: string; failure: string }> = {
+  login: { action: "继续", failure: "邮箱或密码有误，请检查后重试。" },
   register: {
     title: "创建账号",
     action: "注册并验证邮箱",
+    failure: "注册请求未完成。可检查邮箱后重试，或尝试登录。",
   },
   verify: {
     title: "验证邮箱",
     description: "输入发至邮箱的 6 位验证码。",
     action: "验证邮箱",
+    failure: "邮箱验证未完成，请检查验证码后重试。",
   },
   forgot: {
     title: "找回密码",
     description: "输入注册时使用的邮箱，获取密码重置验证码。",
     action: "发送重置验证码",
+    failure: "重置请求未完成，请稍后重试。",
   },
   reset: {
     title: "重置密码",
     description: "输入邮箱验证码，并设置新密码。",
     action: "保存新密码",
+    failure: "密码重置未完成，请检查验证码后重试。",
   },
 }
 
-function messageFor(error: AuthIssue, fallback: string) {
-  if (error?.status === 429) return "尝试次数过多，请稍后再试。"
-  if (error?.status && error.status >= 500) return "认证服务暂时不可用，请稍后再试。"
-
-  switch (error?.code) {
-    case "INVALID_OTP":
-      return "验证码有误，请核对后重试。"
-    case "OTP_EXPIRED":
-      return "验证码已过期，请重新发送。"
-    case "INVALID_AUTH_INPUT":
-      return "请检查邮箱、密码和验证码的格式。"
-    case "PASSWORD_TOO_SHORT":
-      return "密码至少需要 8 个字符。"
-    case "PASSWORD_TOO_LONG":
-      return "密码最多可使用 128 个字符。"
-    default:
-      return fallback
-  }
-}
+const requireVerification = "请先完成邮箱验证。需要时可重新发送验证码。"
 
 async function sessionIsVerified() {
   const response = await fetch("/api/me/session", { cache: "no-store" })
@@ -122,14 +108,11 @@ export function AuthPanel() {
       switch (step) {
         case "login": {
           const { error } = await authClient.signIn.email({ email: address, password })
-          if (error?.code === "EMAIL_NOT_VERIFIED") {
-            changeStep("verify", "请先完成邮箱验证。需要时可重新发送验证码。")
-          } else if (error) {
-            setErrorText(messageFor(error, "邮箱或密码有误，请检查后重试。"))
-          } else if (await sessionIsVerified()) {
+          if (error) throw error
+          if (await sessionIsVerified()) {
             window.location.replace("/")
           } else {
-            changeStep("verify", "请先完成邮箱验证。需要时可重新发送验证码。")
+            changeStep("verify", requireVerification)
           }
           break
         }
@@ -139,19 +122,14 @@ export function AuthPanel() {
             password,
             name: "同学",
           })
-          if (error) {
-            setErrorText(messageFor(error, "注册请求未完成。可检查邮箱后重试，或尝试登录。"))
-          } else {
-            setRemaining(60)
-            changeStep("verify", "如果该邮箱可用于注册，请查收验证码。")
-          }
+          if (error) throw error
+          changeStep("verify", "已有验证码即可验证。如未收到，请点击重新发送。")
           break
         }
         case "verify": {
           const { error } = await authClient.emailOtp.verifyEmail({ email: address, otp })
-          if (error) {
-            setErrorText(messageFor(error, "邮箱验证未完成，请检查验证码后重试。"))
-          } else if (await sessionIsVerified()) {
+          if (error) throw error
+          if (await sessionIsVerified()) {
             window.location.replace("/")
           } else {
             changeStep("login", "邮箱已验证，请登录。")
@@ -160,12 +138,9 @@ export function AuthPanel() {
         }
         case "forgot": {
           const { error } = await authClient.forgetPassword.emailOtp({ email: address })
-          if (error) {
-            setErrorText(messageFor(error, "重置请求未完成，请稍后重试。"))
-          } else {
-            setRemaining(60)
-            changeStep("reset", "如果该邮箱已注册，请查收密码重置验证码。")
-          }
+          if (error) throw error
+          setRemaining(60)
+          changeStep("reset", "如果该邮箱已注册，请查收密码重置验证码。")
           break
         }
         case "reset": {
@@ -174,16 +149,18 @@ export function AuthPanel() {
             otp,
             password,
           })
-          if (error) {
-            setErrorText(messageFor(error, "密码重置未完成，请检查验证码后重试。"))
-          } else {
-            changeStep("login", "密码已更新，请用新密码登录。")
-          }
+          if (error) throw error
+          changeStep("login", "密码已更新，请用新密码登录。")
           break
         }
       }
-    } catch {
-      setErrorText("暂时无法完成请求，请检查网络后重试。")
+    } catch (error) {
+      const issue = authIssue(error)
+      if (step === "login" && issue?.code === "EMAIL_NOT_VERIFIED") {
+        changeStep("verify", requireVerification)
+      } else {
+        setErrorText(issue ? authErrorMessage(issue, view.failure) : "暂时无法完成请求，请检查网络后重试。")
+      }
     } finally {
       end()
     }
@@ -196,14 +173,14 @@ export function AuthPanel() {
       const { error } = step === "verify"
         ? await authClient.emailOtp.sendVerificationOtp({ email, type: "email-verification" })
         : await authClient.forgetPassword.emailOtp({ email })
-      if (error) {
-        setErrorText(messageFor(error, "验证码请求未完成，请稍后重试。"))
-      } else {
-        setRemaining(60)
-        setNotice("如果该邮箱符合发送条件，请查收邮件。")
-      }
-    } catch {
-      setErrorText("暂时无法发送验证码，请检查网络后重试。")
+      if (error) throw error
+      setRemaining(60)
+      setNotice("如果该邮箱符合发送条件，请查收邮件。")
+    } catch (error) {
+      const issue = authIssue(error)
+      setErrorText(issue
+        ? authErrorMessage(issue, "验证码请求未完成，请稍后重试。")
+        : "暂时无法发送验证码，请检查网络后重试。")
     } finally {
       end()
     }
