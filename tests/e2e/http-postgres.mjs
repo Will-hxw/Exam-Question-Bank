@@ -59,6 +59,18 @@ function authFixture() {
       response.end(JSON.stringify({ user: data.user, token, redirect: false }))
       return
     }
+    if (request.method === 'POST' && path === '/auth/sign-up/email') {
+      const chunks = []
+      for await (const chunk of request) chunks.push(chunk)
+      const { email } = JSON.parse(Buffer.concat(chunks).toString('utf8'))
+      response.end(JSON.stringify({ user: { email, emailVerified: false }, token: null }))
+      return
+    }
+    if (request.method === 'POST' && path === '/auth/email-otp/verify-email') {
+      response.statusCode = 400
+      response.end('{"code":"INVALID_OTP"}')
+      return
+    }
     response.statusCode = 404
     response.end('{}')
   })
@@ -100,6 +112,9 @@ async function waitForHttp(origin) {
 
 async function seedDatabase(client) {
   await migrate(client)
+  await client.query('CREATE SCHEMA neon_auth; CREATE TABLE neon_auth."user" (email text PRIMARY KEY)')
+  await client.query('INSERT INTO neon_auth."user" (email) SELECT unnest($1::text[])',
+    [[...users.values()].map(({ email }) => email)])
   const topics = JSON.parse(await readFile(join(root, 'content', 'topics.json'), 'utf8'))
   for (const [position, { id, name, scopeNote, active }] of topics.entries()) {
     await client.query('INSERT INTO topics (id, name, scope_note, sort_order, active) VALUES ($1,$2,$3,$4,$5)',
@@ -144,6 +159,24 @@ async function runApiChecks(origin, db, items, secret) {
   assert.equal(anonymousSession.data.user, null)
   await call('/api/me/stats', { status: 401 })
   await call('/api/me/stats', { status: 401, user: 'unverified' })
+
+  const failedLogin = (email) => call('/api/auth/sign-in/email', {
+    method: 'POST', status: 401, body: { email, password: 'incorrect-fixture-password' },
+  })
+  assert.equal((await failedLogin('  ALICE@EXAMPLE.TEST  ')).data.code, 'INVALID_PASSWORD')
+  assert.equal((await failedLogin('unknown@example.test')).data.code, 'INVALID_EMAIL_OR_PASSWORD')
+
+  const signUp = (email, status) => call('/api/auth/sign-up/email', {
+    method: 'POST', status, body: { email, password: 'local-fixture-only' },
+  })
+  assert.equal((await signUp('  ALICE@EXAMPLE.TEST  ', 409)).data.code, 'EMAIL_ALREADY_REGISTERED')
+  assert.equal((await signUp('unverified@example.test', 409)).data.code, 'EMAIL_ALREADY_REGISTERED')
+  assert.equal((await signUp('new@example.test', 200)).data.user.email, 'new@example.test')
+
+  const wrongCode = await call('/api/auth/email-otp/verify-email', {
+    method: 'POST', status: 400, body: { email: 'new@example.test', otp: '123456' },
+  })
+  assert.equal(wrongCode.data.code, 'INVALID_OTP')
   for (const identity of ['alice', 'bob']) {
     const login = await call('/api/auth/sign-in/email', { method: 'POST', body: { email: users.get(identity).email, password: 'local-fixture-only' }, metric: 'loginWithSyntheticProvider' })
     assert.equal(login.data.user.id, users.get(identity).id)

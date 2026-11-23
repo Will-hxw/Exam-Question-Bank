@@ -40,6 +40,7 @@ def mobile_context(browser):
         for (const entry of entries.getEntries()) {
           window.fixtureVitals.lcp = Math.max(window.fixtureVitals.lcp, entry.startTime);
         }
+        if (window.fixtureVitals.lcp > 0) document.documentElement.dataset.fixtureLcp = 'ready';
       }).observe({ type: 'largest-contentful-paint', buffered: true });
       new PerformanceObserver((entries) => {
         for (const entry of entries.getEntries()) {
@@ -62,6 +63,38 @@ def section(page, route):
     expect(page).to_have_url(ORIGIN + route)
 
 
+def expect_field_error(page, name, error_id, text):
+    field = page.locator(f'#auth-{name}')
+    error = page.locator(f'#{error_id}')
+    expect(error).to_have_text(text)
+    expect(field).to_have_attribute('aria-invalid', 'true')
+    assert error_id in field.get_attribute('aria-describedby').split()
+    field_box, error_box = field.bounding_box(), error.bounding_box()
+    assert field_box and error_box and error_box['y'] >= field_box['y'] + field_box['height']
+
+
+def check_auth_fields(page):
+    page.locator('#auth-email').fill('alice@example.test')
+    page.locator('#auth-password').fill('incorrect-fixture-password')
+    page.get_by_role('button', name='继续', exact=True).click()
+    expect_field_error(page, 'password', 'auth-password-error', '密码错误，请重试。')
+
+    page.get_by_role('button', name='创建账号').click()
+    page.locator('#auth-password').fill('local-fixture-only')
+    register = page.get_by_role('button', name='注册并验证邮箱')
+    register.click()
+    expect_field_error(page, 'email', 'auth-email-error', '该邮箱已注册，请登录。')
+    page.locator('#auth-email').fill('browser-signup@example.test')
+    expect(page.locator('#auth-email-error')).to_have_count(0)
+    register.click()
+
+    code = page.locator('#auth-code')
+    expect(code).to_be_visible()
+    code.fill('123456')
+    page.get_by_role('button', name='验证邮箱', exact=True).click()
+    expect_field_error(page, 'code', 'auth-code-error', '验证码错误，请重试。')
+
+
 def run(browser):
     for width in (390, 1440):
         context = browser.new_context(viewport={"width": width, "height": 900}, locale="zh-CN")
@@ -79,6 +112,8 @@ def run(browser):
         assert abs(forgot["x"] - primary["x"]) <= 2
         assert abs(register["x"] + register["width"] - primary["x"] - primary["width"]) <= 2
         assert forgot["y"] == register["y"]
+        if width == 390:
+            check_auth_fields(page)
         context.close()
 
     first_answerable = []
@@ -92,7 +127,7 @@ def run(browser):
         expect(page.locator('.question-card .option').first).to_be_enabled()
         expect(page.locator('.question-card .q-text')).to_contain_text('分层练习样例')
         first_answerable.append(milliseconds(start))
-        page.wait_for_function('window.fixtureVitals.lcp > 0')
+        expect(page.locator('html')).to_have_attribute('data-fixture-lcp', 'ready')
         page.evaluate('new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)))')
         vitals = page.evaluate('window.fixtureVitals')
         largest.append(vitals['lcp'])

@@ -9,6 +9,7 @@ import {
   privateCacheControl,
   privateJson,
 } from "@/features/auth/server"
+import { query } from "@/server/db"
 
 type Context = { params: Promise<{ path: string[] }> }
 
@@ -20,6 +21,20 @@ function withPrivateCache(response: Response) {
     status: response.status,
     statusText: response.statusText,
   })
+}
+
+async function emailIsRegistered(email: string) {
+  try {
+    const [result] = await query<{ registered: boolean }>(
+      'SELECT EXISTS (SELECT 1 FROM neon_auth."user" WHERE email = $1) AS registered',
+      [email],
+    )
+    return result?.registered === true
+  } catch (error) {
+    // A local application database may use a separately hosted Auth test instance.
+    if (error && typeof error === "object" && "code" in error && error.code === "42P01") return false
+    throw error
+  }
 }
 
 export async function GET(request: Request, context: Context) {
@@ -49,12 +64,16 @@ export async function POST(request: Request, context: Context) {
     const auth = getAuth()
     if (!auth) return privateJson({ code: "AUTH_UNAVAILABLE" }, 503)
 
-    if ("email" in input && input.email) {
-      const retryAfter = await authRetryAfter(request, path, input.email)
+    const email = "email" in input ? input.email : undefined
+    if (email) {
+      const retryAfter = await authRetryAfter(request, path, email)
       if (retryAfter > 0) {
         const response = privateJson({ code: "RATE_LIMITED" }, 429)
         response.headers.set("Retry-After", String(retryAfter))
         return response
+      }
+      if (path === "sign-up/email" && await emailIsRegistered(email)) {
+        return privateJson({ code: "EMAIL_ALREADY_REGISTERED" }, 409)
       }
     }
 
@@ -70,7 +89,14 @@ export async function POST(request: Request, context: Context) {
       signal: request.signal,
     })
 
-    return withPrivateCache(await auth.handler().POST(forwarded, context))
+    const response = await auth.handler().POST(forwarded, context)
+    if (path === "sign-in/email" && email && response.status === 401) {
+      const error = await response.clone().json().catch(() => null)
+      if (error?.code === "INVALID_EMAIL_OR_PASSWORD" && await emailIsRegistered(email)) {
+        return privateJson({ code: "INVALID_PASSWORD" }, 401)
+      }
+    }
+    return withPrivateCache(response)
   } catch {
     return privateJson({ code: "AUTH_UNAVAILABLE" }, 503)
   }

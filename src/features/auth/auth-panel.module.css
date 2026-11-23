@@ -222,6 +222,17 @@
   color: var(--error);
 }
 
+.field input[aria-invalid="true"] {
+  border-color: var(--error);
+}
+
+.fieldError {
+  margin: 0;
+  color: var(--error);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
 .notice {
   background: var(--notice-surface);
   color: var(--text);

@@ -2,12 +2,12 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react"
 import { authClient } from "./client"
-import { authErrorMessage, authIssue } from "./client-errors"
+import { authConstraintError, authErrorMessage, authFieldError, authIssue, type AuthField, type AuthStep } from "./client-errors"
 import styles from "./auth-panel.module.css"
 
-type Step = "login" | "register" | "verify" | "forgot" | "reset"
+type FormError = { text: string; field?: AuthField }
 
-const views: Record<Step, { title?: string; description?: string; action: string; failure: string }> = {
+const views: Record<AuthStep, { title?: string; description?: string; action: string; failure: string }> = {
   login: { action: "继续", failure: "邮箱或密码有误，请检查后重试。" },
   register: {
     title: "创建账号",
@@ -44,12 +44,12 @@ async function sessionIsVerified() {
 }
 
 export function AuthPanel() {
-  const [step, setStep] = useState<Step>("login")
+  const [step, setStep] = useState<AuthStep>("login")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [otp, setOtp] = useState("")
   const [showPassword, setShowPassword] = useState(false)
-  const [errorText, setErrorText] = useState("")
+  const [formError, setFormError] = useState<FormError | null>(null)
   const [notice, setNotice] = useState("")
   const [pending, setPending] = useState<"submit" | "resend" | null>(null)
   const [remaining, setRemaining] = useState(0)
@@ -59,6 +59,11 @@ export function AuthPanel() {
   const view = views[step]
   const hasOtp = step === "verify" || step === "reset"
   const hasPassword = step === "login" || step === "register" || step === "reset"
+  const emailError = formError?.field === "email" ? formError.text : undefined
+  const otpError = formError?.field === "otp" ? formError.text : undefined
+  const passwordError = formError?.field === "password" ? formError.text : undefined
+  const passwordDescription = [passwordError && "auth-password-error", step !== "login" && "auth-password-note"]
+    .filter(Boolean).join(" ") || undefined
 
   useEffect(() => {
     if (remaining <= 0) return
@@ -73,21 +78,26 @@ export function AuthPanel() {
     }
   }, [step])
 
-  function changeStep(next: Step, nextNotice = "") {
+  function changeStep(next: AuthStep, nextNotice = "") {
     focusAfterTransition.current = next !== step
     setStep(next)
     setPassword("")
     setShowPassword(false)
     setOtp("")
-    setErrorText("")
+    setFormError(null)
     setNotice(nextNotice)
+  }
+
+  function clearFieldError(field: AuthField) {
+    const linkedField = step === "login" && field === "email" ? "password" : field
+    setFormError((current) => current?.field === field || current?.field === linkedField ? null : current)
   }
 
   function begin(kind: "submit" | "resend") {
     if (inFlight.current) return false
     inFlight.current = true
     setPending(kind)
-    setErrorText("")
+    setFormError(null)
     setNotice("")
     return true
   }
@@ -95,6 +105,18 @@ export function AuthPanel() {
   function end() {
     inFlight.current = false
     setPending(null)
+  }
+
+  function onInvalid(event: FormEvent<HTMLFormElement>) {
+    const input = event.target
+    if (!(input instanceof HTMLInputElement)) return
+    event.preventDefault()
+    if (input !== event.currentTarget.querySelector("input:invalid")) return
+
+    const fieldError = authConstraintError(input.name, input.validity)
+    if (!fieldError) return
+    setFormError(fieldError)
+    input.focus()
   }
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
@@ -159,7 +181,10 @@ export function AuthPanel() {
       if (step === "login" && issue?.code === "EMAIL_NOT_VERIFIED") {
         changeStep("verify", requireVerification)
       } else {
-        setErrorText(issue ? authErrorMessage(issue, view.failure) : "暂时无法完成请求，请检查网络后重试。")
+        const fieldError = issue && authFieldError(step, issue)
+        setFormError(fieldError ?? {
+          text: issue ? authErrorMessage(issue, view.failure) : "暂时无法完成请求，请检查网络后重试。",
+        })
       }
     } finally {
       end()
@@ -178,9 +203,9 @@ export function AuthPanel() {
       setNotice("如果该邮箱符合发送条件，请查收邮件。")
     } catch (error) {
       const issue = authIssue(error)
-      setErrorText(issue
-        ? authErrorMessage(issue, "验证码请求未完成，请稍后重试。")
-        : "暂时无法发送验证码，请检查网络后重试。")
+      setFormError({
+        text: issue ? authErrorMessage(issue, "验证码请求未完成，请稍后重试。") : "暂时无法发送验证码，请检查网络后重试。",
+      })
     } finally {
       end()
     }
@@ -197,7 +222,7 @@ export function AuthPanel() {
           {hasOtp && <p className={styles.address}>{email}</p>}
         </header>
 
-        <form onSubmit={onSubmit} className={styles.form}>
+        <form onSubmit={onSubmit} onInvalid={onInvalid} className={styles.form}>
           {!hasOtp && (
             <div className={styles.field}>
               <label htmlFor="auth-email">邮箱</label>
@@ -209,10 +234,17 @@ export function AuthPanel() {
                 autoCapitalize="none"
                 spellCheck={false}
                 value={email}
-                onChange={(event) => setEmail(event.target.value)}
+                readOnly={pending !== null}
+                aria-invalid={emailError ? true : undefined}
+                aria-describedby={emailError ? "auth-email-error" : undefined}
+                onChange={(event) => {
+                  setEmail(event.target.value)
+                  clearFieldError("email")
+                }}
                 maxLength={254}
                 required
               />
+              {emailError && <p id="auth-email-error" className={styles.fieldError} role="alert">{emailError}</p>}
             </div>
           )}
 
@@ -228,9 +260,16 @@ export function AuthPanel() {
                 pattern="[0-9]{6}"
                 maxLength={6}
                 value={otp}
-                onChange={(event) => setOtp(event.target.value.replace(/[^0-9]/g, ""))}
+                readOnly={pending !== null}
+                aria-invalid={otpError ? true : undefined}
+                aria-describedby={otpError ? "auth-code-error" : undefined}
+                onChange={(event) => {
+                  setOtp(event.target.value.replace(/[^0-9]/g, ""))
+                  clearFieldError("otp")
+                }}
                 required
               />
+              {otpError && <p id="auth-code-error" className={styles.fieldError} role="alert">{otpError}</p>}
             </div>
           )}
 
@@ -243,11 +282,16 @@ export function AuthPanel() {
                   name="password"
                   type={showPassword ? "text" : "password"}
                   autoComplete={step === "login" ? "current-password" : "new-password"}
-                  aria-describedby={step === "login" ? undefined : "auth-password-note"}
+                  aria-invalid={passwordError ? true : undefined}
+                  aria-describedby={passwordDescription}
                   minLength={step === "login" ? undefined : 8}
                   maxLength={128}
                   value={password}
-                  onChange={(event) => setPassword(event.target.value)}
+                  readOnly={pending !== null}
+                  onChange={(event) => {
+                    setPassword(event.target.value)
+                    clearFieldError("password")
+                  }}
                   required
                 />
                 <button type="button" className={styles.toggle}
@@ -255,11 +299,12 @@ export function AuthPanel() {
                   {showPassword ? "隐藏" : "显示"}
                 </button>
               </div>
+              {passwordError && <p id="auth-password-error" className={styles.fieldError} role="alert">{passwordError}</p>}
               {step !== "login" && <small id="auth-password-note">至少使用 8 个字符。</small>}
             </div>
           )}
 
-          {errorText && <p className={styles.error} role="alert">{errorText}</p>}
+          {formError && !formError.field && <p className={styles.error} role="alert">{formError.text}</p>}
           {notice && <p className={styles.notice} role="status">{notice}</p>}
 
           <button type="submit" className={styles.submit} disabled={!!pending}>

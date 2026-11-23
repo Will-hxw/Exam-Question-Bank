@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 import { generateKeyPairSync, randomUUID, sign } from 'node:crypto'
 import test from 'node:test'
 import { AuthApiError, AuthError } from '@neon/auth/next'
-import { authErrorMessage, authIssue } from '../../src/features/auth/client-errors.ts'
+import { authConstraintError, authErrorMessage, authFieldError, authIssue } from '../../src/features/auth/client-errors.ts'
 import { verifyOtpEvent } from '../../src/features/auth/neon-webhook.ts'
 import { otpTemplate } from '../../src/features/auth/otp-template.ts'
 import { isAuthPost, parseAuthPost } from '../../src/features/auth/request.ts'
@@ -30,6 +30,47 @@ test('验证码、限流和服务异常使用安全提示，网络异常不当�
   assert.equal(authErrorMessage(authIssue(new AuthError('upstream details', 503)), '请求失败'), '认证服务暂时不可用，请稍后再试。')
   assert.equal(authErrorMessage(authIssue({ status: 401, code: 'UNKNOWN' }), '登录失败'), '登录失败')
   assert.equal(authIssue(new TypeError('Failed to fetch')), undefined)
+})
+
+test('已注册邮箱、无效凭据和错误验证码映射到各阶段的字段', () => {
+  const cases = [
+    ['register', 409, 'EMAIL_ALREADY_REGISTERED', 'email', /^该邮箱已注册，请登录。$/],
+    ['register', 422, 'USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL', 'email', /^该邮箱已注册，请登录。$/],
+    ['register', 422, 'email_exists', 'email', /^该邮箱已注册，请登录。$/],
+    ['login', 401, 'INVALID_EMAIL_OR_PASSWORD', 'password', /邮箱或密码有误/],
+    ['login', 401, 'invalid_credentials', 'password', /邮箱或密码有误/],
+    ['login', 401, 'INVALID_PASSWORD', 'password', /^密码错误，请重试。$/],
+    ['verify', 400, 'INVALID_OTP', 'otp', /^验证码错误，请重试。$/],
+    ['reset', 400, 'INVALID_VERIFICATION_CODE', 'otp', /^验证码错误，请重试。$/],
+    ['reset', 400, 'OTP_EXPIRED', 'otp', /验证码已过期/],
+    ['reset', 400, 'PASSWORD_TOO_SHORT', 'password', /至少需要 8 个字符/],
+  ]
+
+  for (const [step, status, code, field, message] of cases) {
+    const providerError = Object.assign(new AuthApiError('untrusted provider message', status), {
+      error: { status, code, message: 'untrusted provider details' },
+    })
+    const issue = authFieldError(step, authIssue(providerError))
+    assert.equal(issue?.field, field, `${step}: ${code}`)
+    assert.match(issue.text, message)
+    assert.doesNotMatch(issue.text, /untrusted/)
+  }
+
+  assert.equal(authFieldError('login', { status: 409, code: 'EMAIL_ALREADY_REGISTERED' }), undefined)
+  assert.equal(authFieldError('register', { status: 409, code: 'UNKNOWN' }), undefined)
+  assert.equal(authFieldError('forgot', { status: 400, code: 'INVALID_OTP' }), undefined)
+  assert.equal(authFieldError('verify', { status: 429, code: 'INVALID_OTP' }), undefined)
+  assert.equal(authFieldError('login', { status: 503, code: 'INVALID_EMAIL_OR_PASSWORD' }), undefined)
+})
+
+test('原生输入约束错误为对应字段提供固定提示', () => {
+  const empty = { valueMissing: true, tooLong: false }
+  const invalid = { valueMissing: false, tooLong: false }
+  assert.deepEqual(authConstraintError('email', empty), { field: 'email', text: '请输入邮箱。' })
+  assert.deepEqual(authConstraintError('email', invalid), { field: 'email', text: '请输入有效的邮箱地址。' })
+  assert.deepEqual(authConstraintError('password', empty), { field: 'password', text: '请输入密码。' })
+  assert.deepEqual(authConstraintError('password', invalid), { field: 'password', text: '密码至少需要 8 个字符。' })
+  assert.deepEqual(authConstraintError('otp', invalid), { field: 'otp', text: '请输入 6 位验证码。' })
 })
 
 function authPost(body) {
