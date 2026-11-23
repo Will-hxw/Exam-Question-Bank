@@ -1322,5 +1322,26 @@
     "format": "HTML",
     "status": "partial",
     "rightsNote": "可公开阅读。已核位置为第五点关于首次规定权利义务，及全文总结；按权属和具体出处引用。"
+  },
+  {
+    "id": "BY10-AIR",
+    "title": "《榜样10》空军95944部队60分队党支部专题",
+    "publisher": "共产党员网",
+    "url": "https://www.12371.cn/2026/01/24/VIDE1769229302909517.shtml",
+    "retrievedOn": "2026-11-23",
+    "format": "HTML",
+    "status": "full",
+    "rightsNote": "已读节目分集的官方文字，按官方文字中的历史与公益事实引用。"
+  },
+  {
+    "id": "BY10-OVERVIEW",
+    "title": "《榜样10》专题节目1月20日晚8点档播出",
+    "publisher": "共产党员网",
+    "url": "https://www.12371.cn/2026/01/19/ARTI1768801606393778.shtml",
+    "webpageDate": "2026-01-20",
+    "retrievedOn": "2026-11-23",
+    "format": "HTML",
+    "status": "full",
+    "rightsNote": "已读节目官方说明正文及同源1月19日播出预告，按权属引用。"
   }
 ]

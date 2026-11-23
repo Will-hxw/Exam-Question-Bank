@@ -47,7 +47,7 @@ after(async () => {
 test('14 approved topics load in the requested order', async () => {
   const { rows } = await pool.query('SELECT id FROM topics ORDER BY sort_order')
   assert.deepEqual(rows.map(({ id }) => id), [
-    't01', 't13', 't06', 't07', 't08', 't09', 't10', 't12', 't02', 't14', 't03', 't04', 't05', 't11',
+    't01', 't13', 't06', 't07', 't08', 't02', 't14', 't03', 't05', 't11', 't09', 't04', 't10', 't12',
   ])
 })
 

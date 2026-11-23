@@ -41,8 +41,11 @@ export function qualityReport(catalog, indexes) {
   const missingGeneral = catalog.points.filter(point => point.importance === 'general' && !covered.has(point.id))
   const problems = []
   const practicePending = ready.filter(item => !practiceApproved(item, indexes.practiceIndex))
+  const practiceReady = ready.length - practicePending.length
 
-  if (ready.length < 50) problems.push('组卷至少需要 50 道有独立知识点的合格题。')
+  if (practiceReady < 400 || practiceReady > 1000) {
+    problems.push(`正式题库应有 400–1000 道可练题，当前 ${practiceReady} 道。`)
+  }
   if (practicePending.length) problems.push('有 ' + practicePending.length + ' 道事实双审题尚未通过考法复核。')
   for (const topic of catalog.topics) {
     if (topic.active && !catalog.points.some(point => point.topicId === topic.id && point.importance === 'core')) {
@@ -91,8 +94,7 @@ export function qualityReport(catalog, indexes) {
     stats,
     coverage: { total: catalog.points.length, covered: covered.size, missingCore, missingGeneral },
     review: { ready: ready.length, draft: catalog.questions.filter(item => item.state === 'draft').length,
-      withdrawn: catalog.questions.filter(item => item.state === 'withdrawn').length,
-      practiceReady: ready.length - practicePending.length },
+      withdrawn: catalog.questions.filter(item => item.state === 'withdrawn').length, practiceReady },
     duplicateCandidates: candidates,
     unresolvedDuplicates: [...unresolved],
     problems,
