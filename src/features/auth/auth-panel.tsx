@@ -1,6 +1,5 @@
 "use client"
 
-import Image from "next/image"
 import { useEffect, useRef, useState, type FormEvent } from "react"
 import { authClient } from "./client"
 import styles from "./auth-panel.module.css"
@@ -8,15 +7,10 @@ import styles from "./auth-panel.module.css"
 type Step = "login" | "register" | "verify" | "forgot" | "reset"
 type AuthIssue = { status?: number; code?: string } | null | undefined
 
-const views: Record<Step, { title: string; description: string; action: string }> = {
-  login: {
-    title: "登录",
-    description: "登录后开始练习，答题记录会保存到你的账号。",
-    action: "登录",
-  },
+const views: Record<Step, { title?: string; description?: string; action: string }> = {
+  login: { action: "继续" },
   register: {
     title: "创建账号",
-    description: "使用邮箱注册，并完成邮箱验证。",
     action: "注册并验证邮箱",
   },
   verify: {
@@ -74,6 +68,7 @@ export function AuthPanel() {
   const [pending, setPending] = useState<"submit" | "resend" | null>(null)
   const [remaining, setRemaining] = useState(0)
   const inFlight = useRef(false)
+  const focusAfterTransition = useRef(false)
   const heading = useRef<HTMLHeadingElement>(null)
   const view = views[step]
   const hasOtp = step === "verify" || step === "reset"
@@ -85,14 +80,21 @@ export function AuthPanel() {
     return () => clearTimeout(timer)
   }, [remaining])
 
+  useEffect(() => {
+    if (focusAfterTransition.current) {
+      focusAfterTransition.current = false
+      heading.current?.focus()
+    }
+  }, [step])
+
   function changeStep(next: Step, nextNotice = "") {
+    focusAfterTransition.current = next !== step
     setStep(next)
     setPassword("")
     setShowPassword(false)
     setOtp("")
     setErrorText("")
     setNotice(nextNotice)
-    heading.current?.focus()
   }
 
   function begin(kind: "submit" | "resend") {
@@ -210,16 +212,13 @@ export function AuthPanel() {
   return (
     <main className={styles.screen}>
       <div className={styles.frame}>
-        <div className={styles.brand}>
-          <Image src="/brand-mark.png" alt="" width={40} height={40} priority />
-          <span>重庆大学入党积极分子练习</span>
-        </div>
-
-        <div className={styles.heading}>
-          <h1 ref={heading} tabIndex={-1}>{view.title}</h1>
-          <p>{view.description}</p>
+        <header className={styles.heading}>
+          <h1 className={styles.brand} ref={step === "login" ? heading : undefined}
+            tabIndex={step === "login" ? -1 : undefined}>重庆大学入党积极分子练习</h1>
+          {view.title && <h2 ref={heading} tabIndex={-1}>{view.title}</h2>}
+          {view.description && <p>{view.description}</p>}
           {hasOtp && <p className={styles.address}>{email}</p>}
-        </div>
+        </header>
 
         <form onSubmit={onSubmit} className={styles.form}>
           {!hasOtp && (
@@ -260,15 +259,7 @@ export function AuthPanel() {
 
           {hasPassword && (
             <div className={styles.field}>
-              <div className={styles.labelRow}>
-                <label htmlFor="auth-password">{step === "reset" ? "新密码" : "密码"}</label>
-                {step === "login" && (
-                  <button type="button" className={styles.link} disabled={!!pending}
-                    onClick={() => changeStep("forgot")}>
-                    忘记密码
-                  </button>
-                )}
-              </div>
+              <label htmlFor="auth-password">{step === "reset" ? "新密码" : "密码"}</label>
               <div className={styles.password}>
                 <input
                   id="auth-password"
@@ -309,10 +300,13 @@ export function AuthPanel() {
           </div>
         )}
 
-        <p className={styles.footer}>
+        <div className={step === "login" ? `${styles.footer} ${styles.loginFooter}` : styles.footer}>
           {step === "login" ? (
             <>
-              第一次使用？
+              <button type="button" className={styles.link} disabled={!!pending}
+                onClick={() => changeStep("forgot")}>
+                忘记密码
+              </button>
               <button type="button" className={styles.link} disabled={!!pending}
                 onClick={() => changeStep("register")}>
                 创建账号
@@ -324,7 +318,7 @@ export function AuthPanel() {
               返回登录
             </button>
           )}
-        </p>
+        </div>
       </div>
     </main>
   )

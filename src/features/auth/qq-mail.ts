@@ -1,20 +1,13 @@
 import "server-only"
 
-import { readFile } from "node:fs/promises"
-import path from "node:path"
 import nodemailer from "nodemailer"
 import type { OtpEvent } from "./neon-webhook"
-import { brandImageCid, otpTemplate, practiceSiteName } from "./otp-template"
+import { otpTemplate, practiceSiteName } from "./otp-template"
 
 const smtpAccount = "1176843521@qq.com"
 const smtpHost = "smtp.qq.com"
-let brandImage: Promise<Buffer | undefined> | undefined
-
 export async function sendOtpMail(event: OtpEvent, smtpAuthorizationCode: string) {
-  brandImage ??= readFile(path.join(process.cwd(), "public", "brand-mark.png"))
-    .catch(() => undefined)
-  const image = await brandImage
-  const { subject, text, html } = otpTemplate(event, Boolean(image))
+  const { subject, text, html } = otpTemplate(event)
   const transport = nodemailer.createTransport({
     host: smtpHost,
     port: 465,
@@ -34,12 +27,6 @@ export async function sendOtpMail(event: OtpEvent, smtpAuthorizationCode: string
     text,
     html,
     messageId: `<otp-${event.id}@cqu.xiaoweihua.cn>`,
-    attachments: image ? [{
-      content: image,
-      filename: "practice-brand.png",
-      contentType: "image/png",
-      cid: brandImageCid,
-    }] : [],
   })
   if (result.accepted?.length !== 1 || result.rejected?.length > 0) {
     throw Object.assign(new Error("Unexpected SMTP recipient result"), { code: "EENVELOPE" })

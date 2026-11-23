@@ -1,80 +1,92 @@
+:global(body):has(.screen) {
+  background: var(--brand-page, #f9fafb);
+}
+
 .screen {
-  --surface: #faf9f7;
+  --surface: var(--brand-page, #f9fafb);
   --field: #fff;
-  --text: #25243a;
-  --muted: #606078;
-  --line: #d8d7e0;
-  --accent: #4d45c8;
-  --accent-hover: #3d36a9;
+  --text: var(--brand-ink, #202632);
+  --muted: var(--brand-muted, #596575);
+  --line: var(--brand-border, #d7e1ee);
+  --accent: var(--brand-accent, #1e4f91);
+  --accent-hover: var(--brand-hover, #173d73);
   --on-accent: #fff;
   --error: #a12532;
   --error-surface: #fff0f1;
-  --notice-surface: #efedf9;
+  --notice-surface: var(--brand-surface, #edf3fb);
+  --auth-font: var(--ui-font, "Noto Sans SC", "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", sans-serif);
   display: grid;
   align-items: center;
   justify-items: center;
-  min-height: 100svh;
+  min-height: 100dvh;
   padding: 2rem 1.25rem;
   background: var(--surface);
   color: var(--text);
-}
-
-:global(html[data-theme="dark"]) .screen {
-  --surface: #181825;
-  --field: #202032;
-  --text: #f5f3fd;
-  --muted: #b5b2cd;
-  --line: #49465f;
-  --accent: #a9a3ff;
-  --accent-hover: #c1bcff;
-  --on-accent: #181425;
-  --error: #ffb2bc;
-  --error-surface: #432432;
-  --notice-surface: #302c49;
+  color-scheme: light;
+  font-family: var(--auth-font);
+  font-size: 15px;
+  line-height: 1.6;
 }
 
 .frame {
-  width: min(100%, 390px);
-  padding-block: 1.5rem;
+  width: min(100%, 520px);
+  padding-block: 1.25rem;
+}
+
+.heading {
+  text-align: center;
 }
 
 .brand {
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-  margin-bottom: clamp(2rem, 8vh, 3.9rem);
-  font-size: 0.875rem;
-  font-weight: 650;
-  line-height: 1.45;
-}
-
-.brand img {
-  flex: none;
-  border-radius: 0.65rem;
-}
-
-.heading h1 {
-  margin: 0 0 0.75rem;
-  font-family: "Songti SC", "Noto Serif CJK SC", "SimSun", serif;
-  font-size: clamp(2.35rem, 7.5vw, 3rem);
+  margin: 0 0 1.65rem;
+  font-size: clamp(28px, 3.4vw, 34px);
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.25;
+  text-wrap: balance;
 }
 
-.heading h1:focus {
+.heading h2 {
+  margin: 0 0 0.5rem;
+  font-size: 23px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.heading :is(h1, h2):focus {
   outline: none;
 }
 
 .heading p {
-  margin: 0 0 0.3rem;
+  margin: 0 auto 0.3rem;
+  max-width: 360px;
   color: var(--muted);
-  font-size: 0.92rem;
+  font-size: 15px;
   line-height: 1.65;
 }
 
 .heading .address {
   color: var(--text);
+  font-family: "Times New Roman", var(--auth-font);
+  font-size: 16px;
   overflow-wrap: anywhere;
+}
+
+.form,
+.resend,
+.footer {
+  width: min(100%, 360px);
+  margin-inline: auto;
+}
+
+.footer.loginFooter {
+  justify-content: space-between;
+  margin-top: 0.65rem;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.loginFooter button {
+  min-height: 44px;
 }
 
 .form {
@@ -88,18 +100,10 @@
   gap: 0.45rem;
 }
 
-.field label,
-.labelRow {
+.field label {
   color: var(--text);
-  font-size: 0.9rem;
+  font-size: 15px;
   font-weight: 600;
-}
-
-.labelRow {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
 }
 
 .field input {
@@ -113,18 +117,25 @@
   background: var(--field);
   color: var(--text);
   font: inherit;
-  font-size: 1rem;
+  font-size: 16px;
 }
 
 .field small {
   color: var(--muted);
-  font-size: 0.81rem;
+  font-size: 14px;
+}
+
+.field input[type="email"],
+.field .code {
+  font-family: "Times New Roman", var(--auth-font);
 }
 
 .field .code {
   padding-left: 0.95rem;
+  font-size: 28px;
   font-variant-numeric: tabular-nums;
-  letter-spacing: 0.22em;
+  line-height: 1;
+  letter-spacing: 0.15em;
 }
 
 .password {
@@ -151,7 +162,7 @@
   padding-inline: 0.55rem;
   background: transparent;
   color: var(--muted);
-  font-size: 0.835rem;
+  font-size: 14px;
 }
 
 .link {
@@ -159,7 +170,7 @@
   padding: 0;
   background: transparent;
   color: var(--accent);
-  font-size: 0.875rem;
+  font-size: 14px;
   font-weight: 600;
   text-underline-offset: 0.2em;
 }
@@ -174,8 +185,8 @@
   border-radius: 0.55rem;
   background: var(--accent);
   color: var(--on-accent);
-  font-size: 0.925rem;
-  font-weight: 650;
+  font-size: 15px;
+  font-weight: 600;
   transition: background 140ms ease-in-out;
 }
 
@@ -202,7 +213,7 @@
   margin: 0;
   padding: 0.65rem 0.8rem;
   border-radius: 0.45rem;
-  font-size: 0.85rem;
+  font-size: 14px;
   line-height: 1.5;
 }
 
@@ -230,7 +241,7 @@
   padding-top: 1.2rem;
   border-top: 1px solid var(--line);
   color: var(--muted);
-  font-size: 0.875rem;
+  font-size: 14px;
 }
 
 @media (prefers-reduced-motion: reduce) {

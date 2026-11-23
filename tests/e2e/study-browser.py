@@ -63,6 +63,24 @@ def section(page, route):
 
 
 def run(browser):
+    for width in (390, 1440):
+        context = browser.new_context(viewport={"width": width, "height": 900}, locale="zh-CN")
+        page = context.new_page()
+        page.goto(ORIGIN + "/login", wait_until="networkidle")
+        assert page.get_by_role("heading", level=1).count() == 1
+        assert page.get_by_role("heading", level=2).count() == 0
+        assert page.get_by_text("登录", exact=True).count() == 0
+        assert page.get_by_text("第一次使用", exact=False).count() == 0
+        primary = page.get_by_role("button", name="继续", exact=True).bounding_box()
+        forgot = page.get_by_role("button", name="忘记密码").bounding_box()
+        register = page.get_by_role("button", name="创建账号").bounding_box()
+        assert primary and forgot and register
+        assert forgot["y"] > primary["y"] + primary["height"]
+        assert abs(forgot["x"] - primary["x"]) <= 2
+        assert abs(register["x"] + register["width"] - primary["x"] - primary["width"]) <= 2
+        assert forgot["y"] == register["y"]
+        context.close()
+
     first_answerable = []
     largest = []
     layout_shifts = []

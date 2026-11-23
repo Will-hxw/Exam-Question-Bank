@@ -1,6 +1,5 @@
 "use client"
 
-import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
 import { authClient } from "./client"
@@ -26,15 +25,12 @@ export function AccountPanel({ email }: { email: string }) {
   return (
     <main className={styles.screen}>
       <div className={styles.frame}>
-        <div className={styles.brand}>
-          <Image src="/brand-mark.png" alt="" width={40} height={40} priority />
-          <span>重庆大学入党积极分子练习</span>
-        </div>
-        <div className={styles.heading}>
-          <h1>账号</h1>
+        <header className={styles.heading}>
+          <h1 className={styles.brand}>重庆大学入党积极分子练习</h1>
+          <h2>账号</h2>
           <p>已验证邮箱</p>
           <p className={styles.address}>{email}</p>
-        </div>
+        </header>
         <div className={styles.form}>
           {failed && <p className={styles.error} role="alert">暂时无法退出，请重试。</p>}
           <button type="button" className={styles.submit} disabled={pending} onClick={signOut}>

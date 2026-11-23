@@ -18,6 +18,9 @@ const config: NextConfig = {
       source: '/bank/pages/:asset',
       headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
     }, {
+      source: '/fonts/:asset.woff',
+      headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+    }, {
       source: '/bank/manifest.json',
       headers: [{ key: 'Cache-Control', value: 'public, max-age=0, must-revalidate' }],
     }, {

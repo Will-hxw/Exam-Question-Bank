@@ -126,7 +126,6 @@ export function StudyShell({ userId, children }: { userId: string; children: Rea
       <div className="study-theme">
         <div className="study-shell">
           <header id="site-header">
-            <Image className="site-icon" src="/icon.jpg" alt="重庆大学" width={32} height={32} unoptimized />
             <a className="site-title" href="https://www.12371.cn/special/zxzc/" target="_blank" rel="noreferrer">
               <span className="site-title-text">重庆大学</span>入党积极分子练习
             </a>

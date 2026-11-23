@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 import { generateKeyPairSync, randomUUID, sign } from 'node:crypto'
 import test from 'node:test'
 import { verifyOtpEvent } from '../../src/features/auth/neon-webhook.ts'
-import { brandImageCid, otpTemplate } from '../../src/features/auth/otp-template.ts'
+import { otpTemplate } from '../../src/features/auth/otp-template.ts'
 import { isAuthPost, parseAuthPost } from '../../src/features/auth/request.ts'
 
 function authPost(body) {
@@ -123,15 +123,16 @@ test('Webhook 拒绝旧签名、未来签名、过期验证码和其他投递类
 
 test('自定义邮件包含固定中文文案、可复制 OTP 与纯文本替代', () => {
   const fields = { purpose: 'forget-password', code: '203684', expiresAt: now + 5 * 60 * 1_000 }
-  const withLogo = otpTemplate(fields, true, now)
-  assert.match(withLogo.subject, /密码重置验证码/)
-  assert.match(withLogo.html, /203684/)
-  assert.ok(withLogo.html.includes(`cid:${brandImageCid}`))
-  assert.match(withLogo.text, /203684/)
-  assert.match(withLogo.text, /5 分钟/)
+  const reset = otpTemplate(fields, now)
+  assert.match(reset.subject, /密码重置验证码/)
+  assert.match(reset.html, /重庆大学入党积极分子练习/)
+  assert.match(reset.html, /203684/)
+  assert.match(reset.text, /203684/)
+  assert.match(reset.text, /5 分钟/)
 
-  const withoutLogo = otpTemplate({ ...fields, purpose: 'email-verification' }, false, now)
-  assert.match(withoutLogo.subject, /邮箱验证码/)
-  assert.doesNotMatch(withoutLogo.html, /<img/)
-  assert.doesNotMatch(withoutLogo.html, /https?:\/\//)
+  const verify = otpTemplate({ ...fields, purpose: 'email-verification' }, now)
+  assert.match(verify.subject, /邮箱验证码/)
+  for (const { html } of [reset, verify]) {
+    assert.doesNotMatch(html, /<img\b|cid:|https?:\/\//)
+  }
 })
