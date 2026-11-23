@@ -38,3 +38,7 @@ cloudflare-worker/.wrangler/
 cloudflare-worker/config.json
 tmp/
 .wrangler/
+
+# Tencent Cloud EdgeOne
+.edgeone/
+.tef_dist/
