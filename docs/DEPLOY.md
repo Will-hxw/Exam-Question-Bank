@@ -7,9 +7,9 @@
 3. 在新加坡创建独立 PostgreSQL 与 Neon Managed Better Auth。配置 `DATABASE_URL`、`NEON_AUTH_BASE_URL`、随机 `NEON_AUTH_COOKIE_SECRET`、`NEXT_PUBLIC_SITE_URL` 和独立 `CONTENT_INVALIDATION_SECRET`。应用运行环境由服务端使用。生产 `NEXT_PUBLIC_SITE_URL` 为 `https://cqu.xiaoweihua.cn`，正式 Auth Trusted Domains 只允许该站点。
 4. 开启邮箱注册、注册验证、验证码及密码重置后撤销会话。生产设置 `REQUIRE_COMPLETE_BANK=1`。配置 GitHub 必需检查，先等预览证据齐全再合入生产分支。
 
-当前开发与发布以 `main` 为主线。本地 `main` 已快进，远端生产分支仍停在旧仓库的 `5e8d8ea`，当时的仓库没有当前 Next.js 应用的 `package.json` 或 Makers 构建配置。正式域名的 CNAME 与证书已生效。
+当前开发与发布以 `main` 为主线。正式域最初返回 Makers 404，当时生产仍读取不含当前 Next.js 构建配置的旧提交 `5e8d8ea`。正式发布已从新版 `main` 自动部署。HTTPS 首页返回 307 并跳到登录，登录页与健康检查返回 200，正式题库清单和公开题量接口均为 524 道。
 
-正式库使用 Neon 新加坡 Free 的独立项目 `cqu-exam-question-bank-prod`（`raspy-mud-91046199`）。已完成数据库迁移、应用驱动的空库检查和邮箱验证设置。Makers 的 Production 已单独保存九个部署变量，正式域名的签名回调已登记。发送、注册和作答在正式部署后核对。评测数据保留在独立开发项目。
+正式库使用 Neon 新加坡 Free 的独立项目 `cqu-exam-question-bank-prod`（`raspy-mud-91046199`）。五项迁移、应用驱动的空库检查与邮箱验证设置均已完成，随后通过发布命令导入 524 道题。Makers Production 保存九个部署变量，正式域名的签名回调已登记。生产 Auth 对不存在的测试账号正常返回 `401 INVALID_EMAIL_OR_PASSWORD`，邮件入口对无签名请求正常返回 `400 INVALID_EVENT`。评测数据保留在独立开发项目。
 
 ## 中文验证码邮件的预览试验
 
