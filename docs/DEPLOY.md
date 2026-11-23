@@ -13,6 +13,8 @@
 2. 在独立 Neon Auth 环境把签名 `send.otp` 事件投递到预览站 `/api/webhooks/neon`。启用 `NEON_OTP_WEBHOOK_ENABLED=true` 后，先在预览执行签名验证、TCP/TLS 和两种邮箱的真实送达验证，再测试验证码有效期、重放、找回密码及旧会话失效。只向本人或授权收件人测试。
 3. Neon 注册该事件后由 Webhook 负责发送。若预览卡在 Makers 465 出站或 QQ 投递，停用该 webhook 订阅可恢复托管邮件流程。托管模式可在 Neon 控制台设置 QQ 发件账号及应用名，正文使用 Neon 模板。 [Neon 邮件定制](https://neon.com/docs/auth/guides/customize-emails) · [Webhook 协议](https://neon.com/docs/auth/guides/webhooks)
 
+当前项目已在 Makers 设置页将 QQ 授权码、开发 Neon 连接及认证配置限定为预览，并开启预览分支自动部署。已通过 QQ SMTP 的 TLS 和账号认证，未发送测试信。需在 Git 部署产生预览地址后，再核对该环境的云端运行、签名回调和实际验邮。
+
 ## 内容同步
 
 运行迁移和题库同步的账号持有发布权限。在本地安全环境注入对应连接串，先运行 `npm run db:migrate`，再执行 `npm run content:sync -- --release`。校验通过后，使用同一 Git 提交执行 `npm run content:sync -- --release --apply`，然后部署该提交。生产构建同样执行覆盖与质量门禁。
