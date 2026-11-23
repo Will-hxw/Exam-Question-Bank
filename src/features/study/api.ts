@@ -20,9 +20,32 @@ export type Status = 'done' | 'undone' | 'wrong' | 'favorite'
 export type StudyStats = { attempted: number; wrong: number; favorites: number }
 export type Attempt = { eventId: string; questionId: string; optionIds: string[]; mode: 'practice'; contentRevision?: string }
 
+const shardName = /^\/bank\/pages\/([0-9a-f]{64})\.json$/
+const manifestUrl = '/bank/manifest.json'
+let needsPreviewCookie = false
+
+function previewGate(response: Response) {
+  return response.status === 401 && response.headers.get('content-type')?.includes('text/html')
+}
+
+async function fetchPublic(path: string, options: RequestInit) {
+  if (!needsPreviewCookie) {
+    const anonymous = await fetch(path, { ...options, credentials: 'omit' })
+    if (!previewGate(anonymous)) return anonymous
+  }
+
+  // Makers preview access uses a browser cookie even on otherwise public routes.
+  const authorized = await fetch(path, { ...options, credentials: 'same-origin', cache: 'no-store' })
+  if (authorized.ok) needsPreviewCookie = true
+  return authorized
+}
+
 export class StudyRequestError extends Error {
-  constructor(readonly status: number, message?: string) {
+  readonly status: number
+
+  constructor(status: number, message?: string) {
     super(message ?? (status === 401 || status === 403 ? '登录状态已变更，请重新登录。' : '请求失败，请重试。'))
+    this.status = status
   }
 }
 
@@ -51,14 +74,19 @@ export function questionUrl({ topic, type, q, cursor, offset, limit, practice, s
 }
 
 export async function requestJson<T>(path: string, options: RequestInit = {}): Promise<T> {
-  const isPublic = path.startsWith('/api/public/')
-  const response = await fetch(path, {
-    credentials: isPublic ? 'omit' : 'same-origin',
+  const isPublic = path.startsWith('/api/public/') || path === manifestUrl || shardName.test(path)
+  const requestOptions: RequestInit = {
     cache: isPublic ? 'default' : 'no-store',
     signal: AbortSignal.timeout(9000),
     ...options,
-  })
+  }
+  const response = await (isPublic
+    ? fetchPublic(path, requestOptions)
+    : fetch(path, { ...requestOptions, credentials: 'same-origin' }))
   if (!response.ok) {
+    if (previewGate(response)) {
+      throw new StudyRequestError(response.status, '预览访问已过期，请从部署控制台重新打开预览。')
+    }
     const body: unknown = await response.json().catch(() => null)
     const message = body && typeof body === 'object' && 'error' in body && typeof body.error === 'string' ? body.error : undefined
     throw new StudyRequestError(response.status, message)
@@ -75,12 +103,10 @@ export function writeJson<T>(path: string, userId: string, method: 'POST' | 'PUT
 
 const publicPages = new Map<string, { value: unknown; expiresAt: number }>()
 const publicRequests = new Map<string, Promise<unknown>>()
-const shardName = /^\/bank\/pages\/([0-9a-f]{64})\.json$/
 const sha256 = /^[0-9a-f]{64}$/
 const topicIdPattern = /^[a-z0-9][a-z0-9-]{0,49}$/
 const cursorPattern = /^[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}$/i
 const pageSize = 15
-const manifestUrl = '/bank/manifest.json'
 type Group = { total: number; pages: string[] }
 type BankManifest = { release: string; topics: Topic[]; pageSize: 15; groups: Record<string, Group> }
 type BankRead = { kind: 'topics' } | { kind: 'practice'; group: string; offset: number; cursor?: string }
@@ -147,7 +173,7 @@ async function getManifest(): Promise<BankManifest | null> {
   if (Date.now() < manifestExpires) return manifestAvailable ? manifest : null
   if (manifestRequest) return manifestRequest
   manifestRequest = requestJson<unknown>(manifestUrl, {
-    credentials: 'omit', cache: 'no-cache', redirect: 'error', signal: AbortSignal.timeout(2500),
+    cache: 'no-cache', redirect: 'error', signal: AbortSignal.timeout(2500),
   }).then((response) => {
     if (!validManifest(response)) throw new Error('Invalid bank manifest')
     const changed = Boolean(manifest && manifest.release !== response.release)
@@ -193,7 +219,7 @@ async function readBank(path: string, selection: BankRead) {
   try {
     const digest = shardName.exec(asset)?.[1]
     if (!digest) throw new Error('Invalid bank page path')
-    const response = await fetch(asset, { credentials: 'omit', cache: 'force-cache', redirect: 'error', signal: AbortSignal.timeout(3500) })
+    const response = await fetchPublic(asset, { cache: 'force-cache', redirect: 'error', signal: AbortSignal.timeout(3500) })
     if (!response.ok) throw new Error('Bank page unavailable')
     const bytes = await response.arrayBuffer()
     const hash = await crypto.subtle.digest('SHA-256', bytes)

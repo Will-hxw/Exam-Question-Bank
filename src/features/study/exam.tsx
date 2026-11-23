@@ -121,7 +121,7 @@ function ExamTaking({ exam, onResult, onReload }: { exam: ExamData; onResult: (e
       }}>改用云端草稿</button>}
     </p>
     {error && <p className="study-message error" role="alert">{error}</p>}
-    <article className="question-card" aria-label="当前考题">
+    <article className="question-card exam-question-card" aria-label="当前考题">
       <div className="q-header"><span className={`q-type ${item.type}`}>{item.type === 'single' ? '单选题' : '多选题'}</span><span className="progress-info">第 {position + 1}/{count} 题</span></div>
       <p className="q-text">{item.stem}</p>
       <div className="options-list" role="group" aria-label="选择答案">
@@ -157,7 +157,7 @@ function ResultItem({ exam, question, index }: { exam: ExamData; question: Quest
     <div className="exam-result-header">
       <span className={`q-num${correct ? ' result-correct' : ''}`}>{correct ? '✓' : '✗'}</span>
       <span className="exam-result-num">{index + 1}</span>
-      <span className={`q-type-sm ${question.type}`}>{question.type === 'single' ? '单选题' : '多选题'}</span>
+      <span className={`q-type ${question.type}`}>{question.type === 'single' ? '单选题' : '多选题'}</span>
     </div>
     <p className="exam-result-question">{question.stem}</p>
     <div className="exam-result-options">

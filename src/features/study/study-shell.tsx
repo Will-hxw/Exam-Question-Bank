@@ -161,10 +161,11 @@ export function StudyShell({ userId, children }: { userId: string; children: Rea
             )}
           </main>
           <footer className="site-footer">
-            <div className="footer-notes">
-              <p>· 练习内容仅供学习参考</p>
-              <p>· 学习记录与已验证的邮箱账号同步</p>
-            </div>
+            <ul className="footer-notes">
+              <li>练习内容仅供学习参考</li>
+              <li>作者：20230537 六只</li>
+              <li>遇到问题请联系 QQ 1176843521</li>
+            </ul>
             <a className="footer-sponsor-link" href="#sponsor" aria-label="打开友情赞助页面">
               <span className="footer-sponsor-icon" aria-hidden="true">💌</span>
               友情赞助
