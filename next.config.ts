@@ -1,5 +1,7 @@
 import type { NextConfig } from 'next'
 
+const devScriptPolicy = process.env.NODE_ENV === 'development' ? " 'unsafe-eval'" : ''
+
 const config: NextConfig = {
   agentRules: false,
   devIndicators: false,
@@ -12,7 +14,7 @@ const config: NextConfig = {
         { key: 'X-Content-Type-Options', value: 'nosniff' },
         { key: 'Referrer-Policy', value: 'same-origin' },
         { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
-        { key: 'Content-Security-Policy', value: "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'" },
+        { key: 'Content-Security-Policy', value: `default-src 'self'; script-src 'self' 'unsafe-inline'${devScriptPolicy}; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'` },
       ],
     }, {
       source: '/bank/pages/:asset',
