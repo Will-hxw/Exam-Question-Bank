@@ -6,17 +6,17 @@
 | --- | --- | --- |
 | PostgreSQL 读写 | 从 Ubuntu 软件源提取 PostgreSQL 16.15，在 WSL 启动仅监听环回的独立实例。实际执行了建临时表、写入、查询、`pg_trgm` 加载和回滚，Windows 到该端口的 TCP 探测成功 | 已验证本地数据库环境 |
 | Next.js 16 / 同域 Route Handler / ISR | 官方指南明确列出支持，尚无项目部署和缓存命中证据 | 待预览部署 |
-| Neon 新加坡数据库 / Managed Better Auth | 区域与接口已有官方依据。浏览器已进入 Neon 控制台的首次组织设置，需先提供 Organization name 和用途，尚未创建开发项目 | 待完成组织设置 |
-| QQ SMTP | Neon 自定义 SMTP 支持 465，尚无认证与投递记录 | 待控制台配置及实测 |
+| Neon 新加坡数据库 / Managed Better Auth | 开发项目已建，CLI 连接、迁移、健康检查、真实组卷及评分事务已验证。Neon Auth 已验证 JWKS 和无效凭据拒绝。[联调记录](NEON_SETUP.md) | 真实账号注册及邮箱验证待验收 |
+| QQ SMTP | 预览专用变量已保存。开发机通过 465 TLS 认证后提交一封中文模板联调邮件，QQ 服务器已接收。 | Makers 出站和 Neon Webhook 真实链路待验收 |
 | 正式域名 | 公共 DNS 指向 Makers。两条公开 A 地址均可直连通过证书校验，首页均返回 `404` | 已解析，应用尚不可用 |
-| GitHub 自动部署及大陆三网 | GitHub 确认原仓库为公开仓库，默认分支为 `main`，本轮远端提交为 `5e8d8ea`。远端 API 返回 `protected: false`、空部署列表及空提交状态列表。Makers 控制台入口停在腾讯云登录页，实际项目归属和连接状态仍待确认 | 待控制台登录及实测 |
+| GitHub 自动部署及大陆三网 | Makers 控制台项目与原仓库、正式域名的关联已确认，生产总览显示 `main` 的旧提交 `5e8d8ea`。预览环境自动部署开关已启用，临时部署钩子请求成功受理。 | 预览构建记录和大陆三网待验收 |
 
 ## Makers 构建、域名与缓存
 
 - Next.js App Router 保持服务端构建，采用 `npm ci`、`npm run build` 和 `.next`。Makers 支持 Next.js 16 与 Route Handlers，列出预装 Node 22 和 24 的多个版本。本机 Node 为 24.5.0，云端构建与函数执行的版本分别从实际日志采证。配置重写时使用平台的 `edgeone.json`。[Next.js 指南](https://pages.edgeone.ai/document/framework-nextjs) · [构建指南](https://pages.edgeone.ai/document/build-guide)
 - 导入原仓库 `Will-hxw/Exam-Question-Bank`。授权范围限定该仓库，Production 关联 `main`，Preview 使用隔离数据库及 Auth 设置。在 GitHub 给 `main` 配置必需检查，或将必要验证接入 Makers 构建命令。先验证预览环境，再设置生产构建。应用构建期间保持生产数据库迁移和内容发布独立。[Git 导入](https://pages.edgeone.ai/document/importing-a-git-repository) · [构建环境](https://pages.edgeone.ai/document/build-guide)
 - 选择全球可用区（不含中国大陆）。海外免费云函数默认 `ap-singapore`，免费版固定区域。Makers 官网给出的免费云函数月额度为 100 万次、50,000 GB-s、5 GB 函数传输，超过额度对应功能受限。默认项目域名及部署域名在大陆的预览链接有效期为 3 小时，正式接入使用自定义域名。[域名和区域](https://pages.edgeone.ai/document/domain-overview) · [云函数](https://pages.edgeone.ai/document/cloud-functions) · [套餐比较](https://pages.edgeone.ai/document/billing-plan-comparison)
-- Google 与 Cloudflare 公共 DoH 均返回 `cqu.xiaoweihua.cn CNAME cqu.xiaoweihua.cn.pages.dnsoe6.com`，TTL 为 600 秒，根域权威 NS 是 DNSPod 的 `lark.dnspod.net` 和 `tree.dnspod.net`。本地代理和直连的默认 DNS 表现有差异。使用公开 DNS 得到的两条 A 地址作 `curl --noproxy "*" --resolve` 直连，保留原主机名和 TLS 校验，两次均得到 `404` 与 `Server: edgeone makers`。下一步在 Makers 的域名管理中核对现有 `cqu` 绑定的项目、环境、证书状态和部署。如果该项目已是预定项目，沿用控制台确认的现有 CNAME。当前未改动任何 DNS。[域名配置](https://pages.edgeone.ai/document/custom-domain)
+- Google 与 Cloudflare 公共 DoH 均返回 `cqu.xiaoweihua.cn CNAME cqu.xiaoweihua.cn.pages.dnsoe6.com`，TTL 为 600 秒。使用两条公开 A 地址通过 `curl --noproxy "*" --resolve` 直连，两次 TLS 均通过，首页均为 `404`，服务器标识为 `edgeone makers`。控制台已确认沿用当前 `cqu` 域名绑定及 CNAME。[域名配置](https://pages.edgeone.ai/document/custom-domain)
 - Makers 文档明确说明了静态资源的边缘缓存和 Next ISR，需在真实部署确认按查询参数区分的公开 JSON 响应能否缓存和失效。静态应用壳与带哈希 JS/CSS 可走边缘缓存。公开目录/首批题使用从 DB 派生的缓存，候选方案是 Next Data Cache/ISR；参数归一化并限量，服务端不读取 Cookie，不写 Cookie，浏览器公共请求使用 `credentials: 'omit'`。认证、私人数据、考试状态和写接口在成功及错误响应上均用 `private, no-store`，SW 仅缓存白名单内的公开内容。[Makers 缓存](https://pages.edgeone.ai/document/configuring-cache) · [Next.js 指南](https://pages.edgeone.ai/document/framework-nextjs)
 - 发布/修题/下架的失效验证要串联数据库提交与受保护的失效调用。Next.js 16 在 Route Handler 中可用 `revalidateTag(tag, { expire: 0 })` 立即停止旧 Data Cache 服务，`"max"` 允许短暂返回旧内容。按需 `revalidatePath` 在下一次访问重新生成指定路由，跨路由共享数据还需标签失效。Makers 外层缓存若另外存了响应，要测其是否仍命中旧内容。验收保存同一 URL 冷读/热读的缓存证据、实际响应体、DB 修改后首次读取结果，以及两个账号各自的私人响应。[Next.js 标签失效](https://nextjs.org/docs/app/api-reference/functions/revalidateTag) · [Next.js 路径失效](https://nextjs.org/docs/app/api-reference/functions/revalidatePath)
 

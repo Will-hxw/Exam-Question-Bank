@@ -13,7 +13,9 @@
 2. 在独立 Neon Auth 环境把签名 `send.otp` 事件投递到预览站 `/api/webhooks/neon`。启用 `NEON_OTP_WEBHOOK_ENABLED=true` 后，先在预览执行签名验证、TCP/TLS 和两种邮箱的真实送达验证，再测试验证码有效期、重放、找回密码及旧会话失效。只向本人或授权收件人测试。
 3. Neon 注册该事件后由 Webhook 负责发送。若预览卡在 Makers 465 出站或 QQ 投递，停用该 webhook 订阅可恢复托管邮件流程。托管模式可在 Neon 控制台设置 QQ 发件账号及应用名，正文使用 Neon 模板。 [Neon 邮件定制](https://neon.com/docs/auth/guides/customize-emails) · [Webhook 协议](https://neon.com/docs/auth/guides/webhooks)
 
-当前项目已在 Makers 设置页将 QQ 授权码、开发 Neon 连接及认证配置限定为预览，并开启预览分支自动部署。已通过 QQ SMTP 的 TLS 和账号认证，未发送测试信。需在 Git 部署产生预览地址后，再核对该环境的云端运行、签名回调和实际验邮。
+当前项目已在 Makers 设置页将 QQ 授权码、开发 Neon 连接及认证配置限定为预览，并开启预览分支自动部署。QQ SMTP 通过 TLS 和账号认证，向发件人自己的邮箱提交一封标明联调的模板邮件，QQ 接收服务器已接受。
+
+已通过临时 Git 部署钩子触发 `feat/party-exam-rebuild` 预览，Makers 返回 HTTP 200 和服务代码 0，临时钩子随后清除。控制台部署列表仍停在加载状态。使用腾讯云 API Explorer 查询 `DescribeDeployments` 时要求账户本人微信扫码，尚未取得预览 URL 或确认构建成功。Neon 的 `send.otp` 订阅等预览 HTTPS 端点就绪后再切换，开发账号仍可使用 Neon 托管验证码。
 
 ## 内容同步
 
