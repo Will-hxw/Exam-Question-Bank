@@ -1,0 +1,21 @@
+legacy_id,disposition,source_ids,source_urls,locator,review_note,candidate_id,reviewed_on,reviewer
+q_add_000001,duplicate,S42,https://www.12371.cn/2025/10/23/ARTI1761209942911315.shtml,公报开篇会议时间,原D所列2025年10月20至23日可核。与q_3_001同一天限，留一题按日序短填空。,q_3_001,2026-11-23,Codex root
+q_add_000002,equivalent_replacement,S42;S43,https://www.12371.cn/2025/10/23/ARTI1761209942911315.shtml;https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,公报审议文件段及建议题注,四中审议通过制定十五五规划的建议，且有现有实体。名称辨析只保留一题。,9dcf4368-c69f-42a5-a3c8-3f5151399b8f,2026-11-23,Codex root
+q_add_000003,equivalent_replacement,S43;S44,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml;https://www.12371.cn/2025/10/28/ARTI1761640597323164.shtml,建议第（2）项与说明第三部分第一点,承前启后正确，干扰项跨越革命、存亡和建小康等无关阶段。与同一十五五阶段事实合并。,175abc7d-0559-4739-b46f-a05727d6fecd,2026-11-23,Codex root
+q_add_000004,equivalent_replacement,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,建议第（2）项,原C可回查，三个错误项是错时代的节点。与已有十五五阶段题同源，择一缩为原文常用短语。,175abc7d-0559-4739-b46f-a05727d6fecd,2026-11-23,Codex root
+q_add_000005,rewrite,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第二部分第（4）项工作总基调,稳中求进正确。三个错项都片面强调快，挖空改短同时使用同语义层级的工作方法作干扰。, ,2026-11-23,Codex root
+q_add_000006,equivalent_replacement,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,建议第（4）项,高质量发展是主题。现有正确对应题覆盖，旧单纯追GDP与速度为表面提示。,2225dc87-c86f-424d-ad07-d2e707d3bf5c,2026-11-23,Codex root
+q_add_000007,equivalent_replacement,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,建议第（4）项,改革创新对应根本动力。与同一指导思想的已有角色题重复，优先替换成单一短空而非累加题。,2225dc87-c86f-424d-ad07-d2e707d3bf5c,2026-11-23,Codex root
+q_add_000008,rewrite,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,建议第（4）项,题问根本目的，原C是正式定位。三个错项是窄化工作的片面指标。若替换题应将共同表述置入题干，以同类目标短语作选项；与现有指导思想角色题注意关联。,2225dc87-c86f-424d-ad07-d2e707d3bf5c,2026-11-23,Codex root
+q_add_000009,equivalent_replacement,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,建议第（4）项,全面从严治党是根本保障。行政审批和扩大债务均不在同一层级，已有同一事实组合题按考法另审。,2225dc87-c86f-424d-ad07-d2e707d3bf5c,2026-11-23,Codex root
+q_add_000010,rewrite,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,建议第（5）项原则首项,坚持党的全面领导列在首项。其余污染后治理、自发调节和速度等是原文显然不取的极端方向，改同类原则或具体组织要求。,f8b2fb74-82aa-4b50-b5e2-f174d3b64b1e,2026-11-23,Codex root
+q_add_000011,equivalent_replacement,S43;S13,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml;https://www.12371.cn/2026/03/13/ARTI1773409813628540.shtml,建议第三部分开头与报告第四部分第（二）项首段,着力点为实体经济，两份原文同考该事实。已有2026报告短空作代表，旧词项房地产投机与短期流量提示答案。,3dfc9bdd-f0e4-426d-a132-dcbf2ec78f1a,2026-11-23,Codex root
+q_add_000012,rewrite,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,建议第四部分标题,高水平科技自立自强引领新质生产力。三个错项为低端、消耗和粗放的负面表达，必须改为技术政策同类词后复审。, ,2026-11-23,Codex root
+q_add_000013,rewrite,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,建议第五部分开头,扩大内需是原文战略基点，非仅靠外需。旧项负面化，改以促进消费、供给优化和外贸等相近短政策术语消除线索。, ,2026-11-23,Codex root
+q_add_000014,rewrite,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,建议第（6）项后关于二〇三五年目标的段落,人均GDP达到中等发达国家水平，区别十五五本期目标。最高、初级和低收入等两端明显，选择项要贴近实际指标范围。,fa7decfc-3a22-47f2-b693-ee0f36df36c2,2026-11-23,Codex root
+q_add_000015,equivalent_replacement,S42,https://www.12371.cn/2025/10/23/ARTI1761209942911315.shtml,公报会议议程段,报告、通过建议、作说明三种程序在公报可回查。旧D废止党章明显失真，留已有文件题并分清审议通过和说明。,9dcf4368-c69f-42a5-a3c8-3f5151399b8f,2026-11-23,Codex root
+q_add_000016,reject_all_correct,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,建议第（5）项,四项均列在原则中，原题全选。保留已列单项原则和展开内容的区分，不原样导入。,f8b2fb74-82aa-4b50-b5e2-f174d3b64b1e,2026-11-23,Codex root
+q_add_000017,reject_all_correct,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,建议第（6）项,四项均为本期主要目标，旧全选。已有本期和2035两类目标的事实关系代表。,fa7decfc-3a22-47f2-b693-ee0f36df36c2,2026-11-23,Codex root
+q_add_000018,reject_all_correct,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,建议第三部分开头,四项均见同段，整组全选。保留产业体系的真实方向关键词作短填空候选。, ,2026-11-23,Codex root
+q_add_000019,reject_all_correct,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,建议第四部分第（11）至（14）项,四项均列为科技自立自强安排。现有数字中国实体有更精细的适用范围，原题全选不入库。,66f5b6ef-9bb1-4f48-9d09-50f5a493d038,2026-11-23,Codex root
+q_add_000020,reject_all_correct,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,建议第一部分第（3）项末段,四组政策表述都可在应对形势段找到，整组全选且靠态度就能判断。原题排除。, ,2026-11-23,Codex root

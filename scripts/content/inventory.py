@@ -98,9 +98,14 @@ def reviewed_dispositions(directory, candidates):
                     raise ValueError(f"{path.name} references an unknown candidate {key[0]}")
                 if key in dispositions:
                     raise ValueError(f"Multiple published dispositions for {key[0]}")
-                if not all(row[field].strip() for field in ("disposition", "source_urls", "locator", "review_note")):
+                disposition = row["disposition"].strip()
+                evidence_required = not disposition.startswith(("hold_", "reject_"))
+                if not disposition or not row["review_note"].strip() or (
+                    evidence_required and not all(row[field].strip() for field in ("source_urls", "locator"))
+                ):
                     raise ValueError(f"Disposition missing evidence or reasoning for {key[0]}")
-                note = f"{row['review_note']} 依据：{row['locator']}。详见 {path.name}。"
+                locator = row["locator"].strip() or f"{BASE} 的旧题原文及已公开复习范围"
+                note = f"{row['review_note']} 核查位置：{locator}。详见 {path.name}。"
                 dispositions[key] = (row["disposition"], note)
     return dispositions
 
