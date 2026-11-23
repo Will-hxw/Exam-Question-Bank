@@ -24,7 +24,7 @@ POST /api/auth/sign-in/email     → 401 INVALID_EMAIL_OR_PASSWORD for an unknow
 
 后续预览同步仅发布事实和考法均通过的 82 题，共 14 个专题。实际核对 Next 的静态目录与 Neon 的内容摘要、题目数一致。在真实 Neon 事务中生成 50 题并判得 1 分，回滚后验证测试记录已清除。
 
-131 题审阅版本在同一 Neon 开发库完成事务试导入，完整执行约束校验随后回滚。`npm run content:sync -- --preview` 返回 `published: 131`、`dryRun: true`。当前本地登录预览和 Neon 开发库继续使用已联调的 82 题快照。
+131 题审阅版本在同一 Neon 开发库完成事务试导入。随后确认 Makers 预览 CDN 清单的摘要一致，再以 `npm run content:sync -- --preview --apply` 提交该版本。实际预览页面的 14 个专题及题量与 Neon 一致。
 
 Node 验证使用 Neon HTTP 驱动与真实新加坡 PostgreSQL。迁移和内容同步使用直连 URL，前端和服务器从 Git 忽略的 `.env.local` 加载各自配置。新增仅供本地应用的 Cookie 签名密钥、内容失效密钥和本地站点 URL，配置值没有写入 Git。
 
