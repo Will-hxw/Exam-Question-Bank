@@ -1,6 +1,7 @@
 import type { OtpEvent } from "./neon-webhook"
 
 export const practiceSiteName = "重庆大学入党积极分子练习"
+export const crestContentId = "cqu-crest@cqu.xiaoweihua.cn"
 
 export function otpTemplate(
   event: Pick<OtpEvent, "purpose" | "code" | "expiresAt">,
@@ -30,7 +31,12 @@ export function otpTemplate(
 <table role="presentation" width="100%" cellspacing="0" cellpadding="0" bgcolor="#f9fafb" style="background:#f9fafb">
 <tr><td align="center" style="padding:28px 14px">
 <table role="presentation" width="100%" cellspacing="0" cellpadding="0" bgcolor="#ffffff" style="max-width:500px;border:1px solid #d7e1ee;border-radius:14px;background:#ffffff">
-<tr><td style="padding:24px 26px;border-bottom:1px solid #d7e1ee;font-family:'Noto Sans SC','Microsoft YaHei UI','Microsoft YaHei','PingFang SC',Arial,sans-serif;font-size:17px;font-weight:600;line-height:1.5;color:#202632">${practiceSiteName}</td></tr>
+<tr><td style="padding:24px 26px;border-bottom:1px solid #d7e1ee">
+<table role="presentation" cellspacing="0" cellpadding="0"><tr>
+<td style="padding-right:10px"><img src="cid:${crestContentId}" alt="" width="32" height="32" style="display:block"></td>
+<td style="font-family:'Noto Sans SC','Microsoft YaHei UI','Microsoft YaHei','PingFang SC',Arial,sans-serif;font-size:17px;font-weight:600;line-height:1.5;color:#202632">${practiceSiteName}</td>
+</tr></table>
+</td></tr>
 <tr><td style="padding:28px 26px 24px;font-family:'Noto Sans SC','Microsoft YaHei UI','Microsoft YaHei','PingFang SC',Arial,sans-serif">
 <h1 style="margin:0 0 12px;font-size:28px;line-height:1.3;color:#202632">${title}</h1>
 <p style="margin:0 0 20px;font-size:15px;line-height:1.6;color:#596575">${instruction}</p>

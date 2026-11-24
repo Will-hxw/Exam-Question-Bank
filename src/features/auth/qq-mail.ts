@@ -1,13 +1,16 @@
 import "server-only"
 
+import { readFile } from "node:fs/promises"
+import { join } from "node:path"
 import nodemailer from "nodemailer"
 import type { OtpEvent } from "./neon-webhook"
-import { otpTemplate, practiceSiteName } from "./otp-template"
+import { crestContentId, otpTemplate, practiceSiteName } from "./otp-template"
 
 const smtpAccount = "1176843521@qq.com"
 const smtpHost = "smtp.qq.com"
 export async function sendOtpMail(event: OtpEvent, smtpAuthorizationCode: string) {
   const { subject, text, html } = otpTemplate(event)
+  const crest = await readFile(join(process.cwd(), "public/cqu-crest.png"))
   const transport = nodemailer.createTransport({
     host: smtpHost,
     port: 465,
@@ -26,6 +29,7 @@ export async function sendOtpMail(event: OtpEvent, smtpAuthorizationCode: string
     subject,
     text,
     html,
+    attachments: [{ filename: "cqu-crest.png", content: crest, contentType: "image/png", cid: crestContentId }],
     messageId: `<otp-${event.id}@cqu.xiaoweihua.cn>`,
   })
   if (result.accepted?.length !== 1 || result.rejected?.length > 0) {

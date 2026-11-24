@@ -6,6 +6,7 @@ const config: NextConfig = {
   agentRules: false,
   devIndicators: false,
   poweredByHeader: false,
+  outputFileTracingIncludes: { '/api/webhooks/neon': ['./public/cqu-crest.png'] },
   async headers() {
     return [{
       source: '/:path*',

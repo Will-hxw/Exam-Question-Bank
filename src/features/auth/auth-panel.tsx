@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, type FormEvent } from "react"
 import { authClient } from "./client"
 import { authConstraintError, authErrorMessage, authFieldError, authIssue, type AuthField, type AuthStep } from "./client-errors"
+import { AuthScreen } from "./auth-screen"
 import styles from "./auth-panel.module.css"
 
 type FormError = { text: string; field?: AuthField }
@@ -212,24 +213,26 @@ export function AuthPanel() {
   }
 
   return (
-    <main className={styles.screen}>
-      <div className={styles.frame}>
-        <header className={styles.heading}>
-          <h1 className={styles.brand} ref={step === "login" ? heading : undefined}
-            tabIndex={step === "login" ? -1 : undefined}>重庆大学入党积极分子练习</h1>
-          {view.title && <h2 ref={heading} tabIndex={-1}>{view.title}</h2>}
-          {view.description && <p>{view.description}</p>}
-          {hasOtp && <p className={styles.address}>{email}</p>}
-        </header>
+    <AuthScreen>
+      <header className={styles.heading}>
+        <h1 className={styles.brand} ref={step === "login" ? heading : undefined}
+          tabIndex={step === "login" ? -1 : undefined}>
+          <span className={styles.siteName}><span className={styles.heiti}>入党积极分子</span>练习</span>
+        </h1>
+        {view.title && <h2 ref={heading} tabIndex={-1}>{view.title}</h2>}
+        {view.description && <p>{view.description}</p>}
+        {hasOtp && <p className={styles.address}>{email}</p>}
+      </header>
 
-        <form onSubmit={onSubmit} onInvalid={onInvalid} className={styles.form}>
-          {!hasOtp && (
-            <div className={styles.field}>
-              <label htmlFor="auth-email">邮箱</label>
+      <form onSubmit={onSubmit} onInvalid={onInvalid} className={styles.form}>
+        {!hasOtp && (
+          <div className={styles.field}>
+            <div className={styles.control}>
               <input
                 id="auth-email"
                 name="email"
                 type="email"
+                placeholder=" "
                 autoComplete="email"
                 autoCapitalize="none"
                 spellCheck={false}
@@ -244,17 +247,20 @@ export function AuthPanel() {
                 maxLength={254}
                 required
               />
-              {emailError && <p id="auth-email-error" className={styles.fieldError} role="alert">{emailError}</p>}
+              <label htmlFor="auth-email">邮箱</label>
             </div>
-          )}
+            {emailError && <p id="auth-email-error" className={styles.fieldError} role="alert">{emailError}</p>}
+          </div>
+        )}
 
-          {hasOtp && (
-            <div className={styles.field}>
-              <label htmlFor="auth-code">验证码</label>
+        {hasOtp && (
+          <div className={styles.field}>
+            <div className={styles.control}>
               <input
                 id="auth-code"
                 name="otp"
                 className={styles.code}
+                placeholder=" "
                 inputMode="numeric"
                 autoComplete="one-time-code"
                 pattern="[0-9]{6}"
@@ -269,79 +275,90 @@ export function AuthPanel() {
                 }}
                 required
               />
-              {otpError && <p id="auth-code-error" className={styles.fieldError} role="alert">{otpError}</p>}
+              <label htmlFor="auth-code">验证码</label>
             </div>
-          )}
-
-          {hasPassword && (
-            <div className={styles.field}>
-              <label htmlFor="auth-password">{step === "reset" ? "新密码" : "密码"}</label>
-              <div className={styles.password}>
-                <input
-                  id="auth-password"
-                  name="password"
-                  type={showPassword ? "text" : "password"}
-                  autoComplete={step === "login" ? "current-password" : "new-password"}
-                  aria-invalid={passwordError ? true : undefined}
-                  aria-describedby={passwordDescription}
-                  minLength={step === "login" ? undefined : 8}
-                  maxLength={128}
-                  value={password}
-                  readOnly={pending !== null}
-                  onChange={(event) => {
-                    setPassword(event.target.value)
-                    clearFieldError("password")
-                  }}
-                  required
-                />
-                <button type="button" className={styles.toggle}
-                  onClick={() => setShowPassword(!showPassword)}>
-                  {showPassword ? "隐藏" : "显示"}
-                </button>
-              </div>
-              {passwordError && <p id="auth-password-error" className={styles.fieldError} role="alert">{passwordError}</p>}
-              {step !== "login" && <small id="auth-password-note">至少使用 8 个字符。</small>}
-            </div>
-          )}
-
-          {formError && !formError.field && <p className={styles.error} role="alert">{formError.text}</p>}
-          {notice && <p className={styles.notice} role="status">{notice}</p>}
-
-          <button type="submit" className={styles.submit} disabled={!!pending}>
-            {pending === "submit" ? "正在处理…" : view.action}
-          </button>
-        </form>
-
-        {hasOtp && (
-          <div className={styles.resend}>
-            <button type="button" className={styles.link} disabled={!!pending || remaining > 0}
-              onClick={resend}>
-              {pending === "resend" ? "正在请求…"
-                : remaining > 0 ? `${remaining} 秒后可重发` : "重新发送验证码"}
-            </button>
+            {otpError && <p id="auth-code-error" className={styles.fieldError} role="alert">{otpError}</p>}
           </div>
         )}
 
-        <div className={step === "login" ? `${styles.footer} ${styles.loginFooter}` : styles.footer}>
-          {step === "login" ? (
-            <>
-              <button type="button" className={styles.link} disabled={!!pending}
-                onClick={() => changeStep("forgot")}>
-                忘记密码
+        {hasPassword && (
+          <div className={styles.field}>
+            <div className={`${styles.control} ${styles.password}`}>
+              <input
+                id="auth-password"
+                name="password"
+                type={showPassword ? "text" : "password"}
+                placeholder=" "
+                autoComplete={step === "login" ? "current-password" : "new-password"}
+                aria-invalid={passwordError ? true : undefined}
+                aria-describedby={passwordDescription}
+                minLength={step === "login" ? undefined : 8}
+                maxLength={128}
+                value={password}
+                readOnly={pending !== null}
+                onChange={(event) => {
+                  setPassword(event.target.value)
+                  clearFieldError("password")
+                }}
+                required
+              />
+              <label htmlFor="auth-password">{step === "reset" ? "新密码" : "密码"}</label>
+              <button type="button" className={styles.toggle} aria-controls="auth-password"
+                aria-label={showPassword ? "隐藏密码" : "显示密码"}
+                onClick={() => setShowPassword(!showPassword)}>
+                <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M2 12s3.64-6 10-6 10 6 10 6-3.64 6-10 6S2 12 2 12Z" />
+                  <circle cx="12" cy="12" r="2.5" />
+                  {showPassword && <path d="M4 4l16 16" />}
+                </svg>
               </button>
+            </div>
+            {passwordError && <p id="auth-password-error" className={styles.fieldError} role="alert">{passwordError}</p>}
+            {step !== "login" && <small id="auth-password-note">至少使用 8 个字符。</small>}
+          </div>
+        )}
+
+        {formError && !formError.field && <p className={styles.error} role="alert">{formError.text}</p>}
+        {notice && <p className={styles.notice} role="status">{notice}</p>}
+
+        <button type="submit" className={styles.submit} disabled={!!pending}>
+          {pending === "submit" ? "正在处理…" : view.action}
+        </button>
+      </form>
+
+      {hasOtp && (
+        <div className={styles.resend}>
+          <button type="button" className={styles.link} disabled={!!pending || remaining > 0}
+            onClick={resend}>
+            {pending === "resend" ? "正在请求…"
+              : remaining > 0 ? `${remaining} 秒后可重发` : "重新发送验证码"}
+          </button>
+        </div>
+      )}
+
+      <div className={step === "login" ? `${styles.footer} ${styles.loginFooter}` : styles.footer}>
+        {step === "login" ? (
+          <>
+            <button type="button" className={styles.link} disabled={!!pending}
+              onClick={() => changeStep("forgot")}>
+              忘记密码
+            </button>
+            <span className={styles.registerPrompt}>
+              <span>第一次使用？</span>
               <button type="button" className={styles.link} disabled={!!pending}
                 onClick={() => changeStep("register")}>
-                创建账号
+                注册
               </button>
-            </>
-          ) : (
-            <button type="button" className={styles.link} disabled={!!pending}
-              onClick={() => changeStep("login")}>
-              返回登录
-            </button>
-          )}
-        </div>
+            </span>
+          </>
+        ) : (
+          <button type="button" className={styles.link} disabled={!!pending}
+            onClick={() => changeStep("login")}>
+            返回登录
+          </button>
+        )}
       </div>
-    </main>
+    </AuthScreen>
   )
 }

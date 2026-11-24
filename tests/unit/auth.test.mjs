@@ -201,6 +201,7 @@ test('自定义邮件包含固定中文文案、可复制 OTP 与纯文本替代
   const verify = otpTemplate({ ...fields, purpose: 'email-verification' }, now)
   assert.match(verify.subject, /邮箱验证码/)
   for (const { html } of [reset, verify]) {
-    assert.doesNotMatch(html, /<img\b|cid:|https?:\/\//)
+    assert.match(html, /<img src="cid:cqu-crest@cqu\.xiaoweihua\.cn"/)
+    assert.doesNotMatch(html, /https?:\/\//)
   }
 })

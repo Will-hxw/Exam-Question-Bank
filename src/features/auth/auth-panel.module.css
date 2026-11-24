@@ -1,25 +1,24 @@
 :global(body):has(.screen) {
-  background: var(--brand-page, #f9fafb);
+  background: #fdfcfb;
 }
 
 .screen {
-  --surface: var(--brand-page, #f9fafb);
-  --field: #fff;
-  --text: var(--brand-ink, #202632);
-  --muted: var(--brand-muted, #596575);
-  --line: var(--brand-border, #d7e1ee);
-  --accent: var(--brand-accent, #1e4f91);
-  --accent-hover: var(--brand-hover, #173d73);
-  --on-accent: #fff;
+  --surface: #fdfcfb;
+  --text: #202121;
+  --muted: #5a5b5d;
+  --line: #a9b7ca;
+  --accent: #2d5dbb;
+  --button: #222325;
+  --button-hover: #383a3d;
   --error: #a12532;
   --error-surface: #fff0f1;
-  --notice-surface: var(--brand-surface, #edf3fb);
-  --auth-font: var(--ui-font, "Noto Sans SC", "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", sans-serif);
+  --notice-surface: #edf3fb;
+  --auth-font: var(--ui-font);
   display: grid;
-  align-items: center;
+  grid-template-rows: auto 1fr auto;
   justify-items: center;
   min-height: 100dvh;
-  padding: 2rem 1.25rem;
+  padding: clamp(1rem, 3vh, 2rem) clamp(1.25rem, 3vw, 2.5rem) clamp(1.25rem, 4vh, 2.25rem);
   background: var(--surface);
   color: var(--text);
   color-scheme: light;
@@ -30,7 +29,17 @@
 
 .frame {
   width: min(100%, 520px);
-  padding-block: 1.25rem;
+  padding-top: clamp(2.75rem, 8vh, 5.5rem);
+}
+
+.wordmark {
+  justify-self: start;
+}
+
+.wordmark img {
+  display: block;
+  width: clamp(8.5rem, 17vw, 12.125rem);
+  height: auto;
 }
 
 .heading {
@@ -38,11 +47,17 @@
 }
 
 .brand {
-  margin: 0 0 1.65rem;
-  font-size: clamp(28px, 3.4vw, 34px);
-  font-weight: 700;
-  line-height: 1.25;
-  text-wrap: balance;
+  margin: 0 0 2.25rem;
+  font-weight: 500;
+}
+
+.siteName {
+  font-size: clamp(1.5rem, 3.7vw, 2rem);
+  line-height: 1.4;
+}
+
+.heiti {
+  font-family: "SimHei", "Heiti SC", "STHeiti", var(--auth-font);
 }
 
 .heading h2 {
@@ -74,19 +89,19 @@
 .form,
 .resend,
 .footer {
-  width: min(100%, 360px);
+  width: min(100%, 368px);
   margin-inline: auto;
 }
 
 .footer.loginFooter {
   justify-content: space-between;
-  margin-top: 0.65rem;
-  padding-top: 0;
-  border-top: 0;
+  margin-top: 1.35rem;
 }
 
-.loginFooter button {
-  min-height: 44px;
+.registerPrompt {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
 }
 
 .form {
@@ -97,27 +112,56 @@
 
 .field {
   display: grid;
-  gap: 0.45rem;
+  gap: 0.35rem;
 }
 
-.field label {
-  color: var(--text);
-  font-size: 15px;
-  font-weight: 600;
+.control {
+  position: relative;
+}
+
+.control label {
+  position: absolute;
+  inset-inline-start: 0.95rem;
+  top: 50%;
+  padding-inline: 0.28rem;
+  transform: translateY(-50%);
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.25;
+  cursor: text;
+}
+
+.control input:is(:focus, :not(:placeholder-shown), :autofill) + label {
+  top: 0;
+  font-size: 0.8rem;
+}
+
+.control input:focus + label {
+  color: var(--accent);
+}
+
+.control input[aria-invalid="true"] + label {
+  color: var(--error);
 }
 
 .field input {
   box-sizing: border-box;
   width: 100%;
   min-width: 0;
-  min-height: 2.95rem;
-  padding: 0.7rem 0.85rem;
+  min-height: 3.45rem;
+  padding: 0.8rem 1.2rem;
   border: 1px solid var(--line);
-  border-radius: 0.55rem;
-  background: var(--field);
+  border-radius: 999px;
+  background: var(--surface);
   color: var(--text);
   font: inherit;
   font-size: 16px;
+}
+
+.field input:focus {
+  border-color: var(--accent);
+  outline: none;
 }
 
 .field small {
@@ -131,19 +175,18 @@
 }
 
 .field .code {
-  padding-left: 0.95rem;
-  font-size: 28px;
+  font-size: 24px;
   font-variant-numeric: tabular-nums;
   line-height: 1;
   letter-spacing: 0.15em;
 }
 
-.password {
-  position: relative;
+.password input {
+  padding-inline-end: 3.5rem;
 }
 
-.password input {
-  padding-inline-end: 4.1rem;
+.password input::-ms-reveal {
+  display: none;
 }
 
 .toggle,
@@ -156,42 +199,51 @@
 
 .toggle {
   position: absolute;
-  inset-inline-end: 0.45rem;
-  inset-block: 0.3rem;
-  border-radius: 0.4rem;
-  padding-inline: 0.55rem;
+  inset-inline-end: 0.32rem;
+  inset-block-start: 50%;
+  translate: 0 -50%;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 0.85rem;
   background: transparent;
   color: var(--muted);
-  font-size: 14px;
+}
+
+.toggle:hover {
+  background: #efeeec;
 }
 
 .link {
+  min-height: 44px;
   border-radius: 0.2rem;
   padding: 0;
   background: transparent;
-  color: var(--accent);
+  color: var(--muted);
   font-size: 14px;
-  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
   text-underline-offset: 0.2em;
 }
 
 .link:hover:not(:disabled) {
-  text-decoration: underline;
+  color: var(--text);
 }
 
 .submit {
-  min-height: 2.95rem;
+  min-height: 3.45rem;
   padding: 0.65rem 0.9rem;
-  border-radius: 0.55rem;
-  background: var(--accent);
-  color: var(--on-accent);
+  border-radius: 999px;
+  background: var(--button);
+  color: #fff;
   font-size: 15px;
   font-weight: 600;
   transition: background 140ms ease-in-out;
 }
 
 .submit:hover:not(:disabled) {
-  background: var(--accent-hover);
+  background: var(--button-hover);
 }
 
 .submit:disabled,
@@ -200,7 +252,6 @@
   opacity: 0.75;
 }
 
-.field input:focus-visible,
 .toggle:focus-visible,
 .link:focus-visible,
 .submit:focus-visible {
@@ -226,6 +277,11 @@
   border-color: var(--error);
 }
 
+.field input[aria-invalid="true"]:focus-visible {
+  outline: 1px solid var(--error);
+  outline-offset: -2px;
+}
+
 .fieldError {
   margin: 0;
   color: var(--error);
@@ -246,13 +302,18 @@
 .footer {
   display: flex;
   justify-content: center;
-  align-items: baseline;
+  align-items: center;
   gap: 0.4rem;
-  margin-top: 1.75rem;
-  padding-top: 1.2rem;
-  border-top: 1px solid var(--line);
+  margin-top: 1rem;
   color: var(--muted);
   font-size: 14px;
+}
+
+.credit {
+  margin-top: clamp(2.5rem, 9vh, 5rem);
+  color: var(--muted);
+  font: 16px/1.5 "Times New Roman", Georgia, serif;
+  text-align: center;
 }
 
 @media (prefers-reduced-motion: reduce) {

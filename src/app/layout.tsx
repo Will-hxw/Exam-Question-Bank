@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://cqu.xiaoweihua.cn'),
   title: '重庆大学入党积极分子练习',
   description: '重庆大学入党积极分子专题练习、模拟考试与复盘。',
-  icons: { icon: '/site-icon.png' },
+  icons: { icon: [{ url: '/cqu-crest.png', type: 'image/png', sizes: '256x256' }] },
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
