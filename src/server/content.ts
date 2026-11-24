@@ -31,7 +31,7 @@ type Filters = {
   offset: number
   limit: number
   practice: boolean
-  random: boolean
+  random: string | null
   status: string | null
 }
 
@@ -62,12 +62,12 @@ export function questionFilters(url: URL, personal = false): Filters {
     || (q && q.length > 100)
     || (cursor !== null && p.has('offset'))
     || (mode !== null && mode !== 'practice')
-    || (random !== null && (random !== '1' || mode !== 'practice' || cursor !== null || p.has('offset')))
+    || (random !== null && (mode !== 'practice' || cursor !== null || p.has('offset')))
     || (status !== null && !['done', 'undone', 'wrong', 'favorite'].includes(status))
   ) throw new HttpError(400, '题目筛选参数无效。')
   return {
     topic, type, q, cursor: cursor === null ? null : uuid(cursor), offset: integer('offset', 0, 0, 100000),
-    limit: integer('limit', 15, 1, 50), practice: mode === 'practice', random: random === '1', status,
+    limit: integer('limit', 15, 1, 50), practice: mode === 'practice', random: random === '1' ? randomUUID() : random === null ? null : uuid(random), status,
   }
 }
 
@@ -107,7 +107,9 @@ export async function questionPage(filters: Filters, userId: string | null = nul
       WHERE q.status = 'published'
         AND ($1::text IS NULL OR q.topic_id = $1)
         AND ($2::text IS NULL OR q.type = $2)
-        AND ($3::text IS NULL OR q.search_text ILIKE $3 ESCAPE '!')
+        AND ($3::text IS NULL OR q.search_text ILIKE $3 ESCAPE '!' OR EXISTS (
+          SELECT 1 FROM question_options o WHERE o.question_id = q.id AND normalize(o.text, NFKC) ILIKE $3 ESCAPE '!'
+        ))
         AND ($10::text IS NULL OR CASE $10
           WHEN 'done' THEN COALESCE(p.attempt_count, 0) > 0
           WHEN 'undone' THEN COALESCE(p.attempt_count, 0) = 0
@@ -137,7 +139,7 @@ export async function questionPage(filters: Filters, userId: string | null = nul
     SELECT (SELECT count(*)::int FROM matched) AS total,
       COALESCE(jsonb_agg(data ORDER BY wrap, id), '[]'::jsonb) AS questions
       FROM entries
-  `, [topic, type, pattern, cursor, offset, limit + 1, practice, random ? randomUUID() : null, userId, status])
+  `, [topic, type, pattern, cursor, offset, limit + 1, practice, random, userId, status])
 
   const hasMore = questions.length > limit
   if (hasMore) questions.pop()
@@ -147,7 +149,7 @@ export async function questionPage(filters: Filters, userId: string | null = nul
 
 const firstPage = unstable_cache(
   (topic: string | null, practice: boolean, limit: number) => questionPage({
-    topic, type: null, q: null, cursor: null, offset: 0, limit, practice, random: false, status: null,
+    topic, type: null, q: null, cursor: null, offset: 0, limit, practice, random: null, status: null,
   }),
   ['first-question-page'],
   cacheOptions,

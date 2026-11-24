@@ -1,6 +1,6 @@
 import { questionFilters, questionPage } from '@/server/content'
 import { HttpError, parseBody, route, uuid } from '@/server/http'
-import { account, dismissWrong, favorite, questionStates, studyStats } from '@/server/learning'
+import { account, dismissWrong, favorite, questionStates, saveStudyPreferences, studyStats } from '@/server/learning'
 
 type RouteContext = { params: Promise<{ path: string[] }> }
 
@@ -24,6 +24,7 @@ export const GET = route(async (request: Request, context: RouteContext) => {
 export const PUT = route(async (request: Request, context: RouteContext) => {
   const user = await account(request, true)
   const { path } = await context.params
+  if (path.length === 1 && path[0] === 'preferences') return saveStudyPreferences(user, await parseBody(request, 16000))
   if (path.length !== 2 || path[0] !== 'favorites') throw new HttpError(404, '接口不存在。')
   const body = await parseBody(request, 128)
   return favorite(user, uuid(path[1]), body.favorite)

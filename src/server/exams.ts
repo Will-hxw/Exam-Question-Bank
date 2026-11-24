@@ -104,7 +104,16 @@ export async function createExam(user: string, questionCount: unknown = DEFAULT_
   return examDetails(user, row.id)
 }
 
-export async function saveExam(user: string, id: string, body: Record<string, unknown>, submit: boolean) {
+export async function replayExam(user: string, source: string) {
+  const [row] = await query<{ id: string | null; outcome: string }>(
+    'SELECT exam_id AS id, outcome FROM replay_exam($1, $2)', [user, source],
+  )
+  if (row.outcome === 'draft') throw new HttpError(409, '你有一份未交卷的试卷，请先继续完成。')
+  if (!row.id) throw new HttpError(404, '未找到可重考的试卷。')
+  return examDetails(user, row.id)
+}
+
+export async function saveExam(user: string, id: string, body: Record<string, unknown>, submit: boolean, acknowledgeOnly = false) {
   const { position, revision, answers, marked } = body
   if (typeof position !== 'number' || !Number.isInteger(position) || position < 0 || position >= MAX_EXAM_QUESTIONS
     || typeof revision !== 'number' || !Number.isInteger(revision) || revision < 0 || revision >= 2147483647
@@ -119,7 +128,7 @@ export async function saveExam(user: string, id: string, body: Record<string, un
     [user, id, revision, position, marks, JSON.stringify(normalized), submit],
   )
   switch (row.status) {
-    case 'ok': return examDetails(user, id)
+    case 'ok': return acknowledgeOnly && !submit ? { revision: revision + 1 } : examDetails(user, id)
     case 'missing': throw new HttpError(404, '未找到试卷。')
     case 'invalid_position': throw new HttpError(400, '题号超出这份试卷的范围。')
     case 'invalid': throw new HttpError(400, '作答含有不属于这份试卷的题目或选项。')

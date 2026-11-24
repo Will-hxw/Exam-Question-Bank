@@ -16,13 +16,37 @@ export async function account(request: Request, writing = false) {
 }
 
 export async function studyStats(user: string) {
-  const [stats] = await query<{ attempted: number; wrong: number; favorites: number }>(`
+  const [stats] = await query<{ attempted: number; wrong: number; favorites: number; preferences: Record<string, unknown> }>(`
     SELECT count(*) FILTER (WHERE attempt_count > 0)::int AS attempted,
            count(*) FILTER (WHERE is_wrong)::int AS wrong,
-           (SELECT count(*)::int FROM favorites WHERE user_id = $1) AS favorites
+           (SELECT count(*)::int FROM favorites WHERE user_id = $1) AS favorites,
+           COALESCE((SELECT jsonb_object_agg(name, value) FROM study_preferences WHERE user_id = $1), '{}') AS preferences
     FROM question_progress WHERE user_id = $1
   `, [user])
   return stats
+}
+
+function validPreference(name: string, value: unknown) {
+  if (name === 'theme') return value === 'light' || value === 'dark'
+  if (/^practice-position:(topic:[a-z0-9-]{1,50}|random|sequence|wrong|favorite)$/.test(name) || /^scroll:(practice|questions|wrong|favorites|exam)$/.test(name)) {
+    return typeof value === 'number' && Number.isSafeInteger(value) && value >= 0 && value <= 1000000
+  }
+  if (!['practice', 'library:all', 'library:wrong', 'library:favorite', 'exam'].includes(name)) return false
+  return value !== null && typeof value === 'object' && !Array.isArray(value) && JSON.stringify(value).length <= 1200
+}
+
+export async function saveStudyPreferences(user: string, edits: Record<string, unknown>) {
+  const entries = Object.entries(edits)
+  if (!entries.length || entries.length > 32 || entries.some(([name, value]) => !validPreference(name, value))) {
+    throw new HttpError(400, '学习设置格式有误。')
+  }
+  await query('INSERT INTO profiles (user_id) VALUES ($1) ON CONFLICT DO NOTHING', [user])
+  await query(`
+    INSERT INTO study_preferences (user_id, name, value)
+    SELECT $1, key, value FROM jsonb_each($2::jsonb) ORDER BY key
+    ON CONFLICT (user_id, name) DO UPDATE SET value = EXCLUDED.value
+  `, [user, JSON.stringify(edits)])
+  return { ok: true }
 }
 
 export async function questionStates(user: string, ids: string[]) {
