@@ -1,5 +1,6 @@
 import 'server-only'
 import { randomInt } from 'node:crypto'
+import { DEFAULT_EXAM_QUESTIONS, isExamQuestionCount, MAX_EXAM_QUESTIONS, MIN_EXAM_QUESTIONS } from '@/features/study/exam-size'
 import { query } from './db'
 import { HttpError, uuid } from './http'
 import { optionIds } from './learning'
@@ -13,7 +14,7 @@ function shuffle<T>(list: T[]): void {
   }
 }
 
-function selectCandidates(candidates: Candidate[]) {
+function selectCandidates(candidates: Candidate[], questionCount: number) {
   const queueByTopic = new Map<string, Candidate[]>()
   for (const candidate of candidates) {
     const queue = queueByTopic.get(candidate.topic)
@@ -25,18 +26,19 @@ function selectCandidates(candidates: Candidate[]) {
   shuffle(queues)
   const selected: string[] = []
   const selectedFacts = new Set<string>()
+  const cueLimit = Math.floor(questionCount / 10)
   let cueCount = 0
-  while (selected.length < 50 && queues.some(queue => queue.length)) {
+  while (selected.length < questionCount && queues.some(queue => queue.length)) {
     for (const queue of queues) {
       while (queue.length) {
         const candidate = queue.pop()!
-        if (candidate.facts.some(fact => selectedFacts.has(fact)) || (candidate.emotionOnly && cueCount >= 5)) continue
+        if (candidate.facts.some(fact => selectedFacts.has(fact)) || (candidate.emotionOnly && cueCount >= cueLimit)) continue
         selected.push(candidate.id)
         for (const fact of candidate.facts) selectedFacts.add(fact)
         if (candidate.emotionOnly) cueCount++
         break
       }
-      if (selected.length === 50) break
+      if (selected.length === questionCount) break
     }
   }
   shuffle(selected)
@@ -45,7 +47,7 @@ function selectCandidates(candidates: Candidate[]) {
 
 const summaryFields = `
   s.id, s.status, s.started_at AS "startedAt", s.submitted_at AS "submittedAt",
-  s.revision, s.position, s.score
+  s.revision, s.position, s.score, s.question_count AS total
 `
 
 export async function examHistory(user: string) {
@@ -75,7 +77,10 @@ export async function examDetails(user: string, id: string) {
   return { exam }
 }
 
-export async function createExam(user: string) {
+export async function createExam(user: string, questionCount: unknown = DEFAULT_EXAM_QUESTIONS) {
+  if (!isExamQuestionCount(questionCount)) {
+    throw new HttpError(400, `考试题数须为 ${MIN_EXAM_QUESTIONS} 至 ${MAX_EXAM_QUESTIONS} 的整数。`)
+  }
   const [draft] = await query<{ id: string }>(
     "SELECT id FROM exam_sessions WHERE user_id = $1 AND status = 'draft'", [user],
   )
@@ -92,8 +97,8 @@ export async function createExam(user: string) {
         (SELECT count(*) FROM question_options o WHERE o.question_id = q.id)
           > (SELECT count(*) FROM question_answers a WHERE a.question_id = q.id))
   `)
-  const selected = selectCandidates(candidates)
-  if (selected.length !== 50) throw new HttpError(409, '满足组卷要求的已审核题目尚不足 50 道。')
+  const selected = selectCandidates(candidates, questionCount)
+  if (selected.length !== questionCount) throw new HttpError(409, `满足组卷要求的已审核题目尚不足 ${questionCount} 道，请减少题数后重试。`)
   const [row] = await query<{ id: string | null }>('SELECT start_exam($1, $2) AS id', [user, selected])
   if (!row.id) throw new HttpError(409, '题库刚刚更新，请重新开始考试。')
   return examDetails(user, row.id)
@@ -101,10 +106,10 @@ export async function createExam(user: string) {
 
 export async function saveExam(user: string, id: string, body: Record<string, unknown>, submit: boolean) {
   const { position, revision, answers, marked } = body
-  if (typeof position !== 'number' || !Number.isInteger(position) || position < 0 || position > 49
+  if (typeof position !== 'number' || !Number.isInteger(position) || position < 0 || position >= MAX_EXAM_QUESTIONS
     || typeof revision !== 'number' || !Number.isInteger(revision) || revision < 0 || revision >= 2147483647
     || !answers || typeof answers !== 'object' || Array.isArray(answers)
-    || !Array.isArray(marked) || marked.length > 50 || Object.keys(answers).length > 50) {
+    || !Array.isArray(marked) || marked.length > MAX_EXAM_QUESTIONS || Object.keys(answers).length > MAX_EXAM_QUESTIONS) {
     throw new HttpError(400, '试卷草稿格式有误。')
   }
   const normalized = Object.fromEntries(Object.entries(answers).map(([key, value]) => [uuid(key), optionIds(value)]))
@@ -116,6 +121,7 @@ export async function saveExam(user: string, id: string, body: Record<string, un
   switch (row.status) {
     case 'ok': return examDetails(user, id)
     case 'missing': throw new HttpError(404, '未找到试卷。')
+    case 'invalid_position': throw new HttpError(400, '题号超出这份试卷的范围。')
     case 'invalid': throw new HttpError(400, '作答含有不属于这份试卷的题目或选项。')
     default: throw new HttpError(409, '试卷已在其他设备更新，请刷新后继续。')
   }

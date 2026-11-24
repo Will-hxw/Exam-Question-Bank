@@ -122,6 +122,11 @@ html[data-theme="dark"] .study-theme .dark-toggle { color: #e5e7eb; }
 .study-shell .exam-start-subtitle { color: var(--text-secondary); margin-bottom: 20px; font-size: 13.5px; }
 .study-shell .exam-info-chips { display: flex; justify-content: center; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
 .study-shell .exam-info-chip { font-size: 13px; padding: 7px 16px; background: var(--accent-light); border-radius: 100px; color: var(--accent); font-weight: 500; display: inline-flex; align-items: center; gap: 4px; }
+.study-shell .exam-size-form { display: grid; justify-items: center; gap: 16px; }
+.study-shell .exam-size-field { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px; font-size: 13.5px; }
+.study-shell .exam-size-field input { width: 76px; min-height: 36px; padding: 6px 8px; border: 1px solid var(--border-light); border-radius: 6px; background: var(--surface); color: var(--text); font: inherit; }
+.study-shell .exam-size-field input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.study-shell .exam-size-field span { color: var(--text-secondary); }
 .study-shell .chip-icon { font-size: 14px; }
 .study-shell .btn-start-exam { font-size: 15px; padding: 12px 40px; display: inline-flex; align-items: center; gap: 6px; }
 .study-shell .btn-arrow { transition: transform 0.2s ease; }

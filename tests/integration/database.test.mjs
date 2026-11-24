@@ -1,7 +1,10 @@
 import assert from 'node:assert/strict'
 import { randomBytes, randomUUID } from 'node:crypto'
+import { copyFile, mkdtemp, readdir, readFile, rm } from 'node:fs/promises'
+import { tmpdir } from 'node:os'
+import { join, sep } from 'node:path'
 import { after, before, test } from 'node:test'
-import { readFile } from 'node:fs/promises'
+import { pathToFileURL } from 'node:url'
 import pg from 'pg'
 import { migrate } from '../../scripts/database/migrate.mjs'
 import { reviewFixture, seedQuestions } from './fixture.mjs'
@@ -16,6 +19,7 @@ isolatedUrl.pathname = '/' + databaseName
 const pool = new pg.Pool({ connectionString: isolatedUrl.href, max: 8 })
 let questions
 let created = false
+const countMigration = '007_exam_question_count.sql'
 
 before(async () => {
   await admin.connect()
@@ -23,8 +27,16 @@ before(async () => {
   created = true
   const client = await pool.connect()
   try {
-    assert.ok((await migrate(client)).length >= 4)
-    assert.deepEqual(await migrate(client), [])
+    const migrations = new URL('../../db/migrations/', import.meta.url)
+    const prior = await mkdtemp(join(tmpdir(), 'eqb-migrations-'))
+    try {
+      const directory = pathToFileURL(prior + sep)
+      const files = (await readdir(migrations)).filter(file => /^\d{3}_[a-z0-9_]+\.sql$/.test(file) && file < countMigration)
+      await Promise.all(files.map(file => copyFile(new URL(file, migrations), new URL(file, directory))))
+      assert.ok((await migrate(client, directory)).includes('006_exams.sql'))
+    } finally {
+      await rm(prior, { recursive: true, force: true })
+    }
     await client.query('BEGIN')
     const topics = JSON.parse(await readFile(new URL('../../content/topics.json', import.meta.url), 'utf8'))
     for (const [position, { id, name, scopeNote, active }] of topics.entries()) {
@@ -88,6 +100,35 @@ test('same practice event is counted once during concurrent retries and wrong fl
   assert.deepEqual(await progress('practice-a'), { attempt_count: 3, is_wrong: false })
 })
 
+test('migration preserves an in-progress 50-question draft and submitted exam snapshots', async () => {
+  const selected = questions.slice(0, 50)
+  const ids = selected.map(({ id }) => id)
+  const marks = [ids[49]]
+  const answers = JSON.stringify({ [ids[49]]: [selected[49].correct] })
+  for (const [owner, submit] of [['legacy-draft', false], ['legacy-submitted', true]]) {
+    const { rows: [{ id }] } = await pool.query('SELECT start_exam($1, $2) AS id', [owner, ids])
+    const { rows: [{ status }] } = await pool.query('SELECT update_exam($1, $2, 0, 49, $3, $4, $5) AS status',
+      [owner, id, marks, answers, submit])
+    assert.equal(status, 'ok')
+  }
+  const existing = `SELECT s.*, (SELECT jsonb_agg(i ORDER BY i.position) FROM exam_items i WHERE i.exam_id = s.id) AS items
+    FROM exam_sessions s WHERE s.user_id IN ('legacy-draft', 'legacy-submitted') ORDER BY s.user_id`
+  const { rows: prior } = await pool.query(existing)
+  const client = await pool.connect()
+  try {
+    assert.ok((await migrate(client)).includes(countMigration))
+    assert.deepEqual(await migrate(client), [])
+  } finally {
+    client.release()
+  }
+  const { rows: migrated } = await pool.query(existing)
+  assert.deepEqual(migrated, prior.map(row => ({ ...row, question_count: 50 })))
+  assert.deepEqual(migrated.map(({ items }) => items.map(({ question_id }) => question_id)), [ids, ids])
+  const { rows: [{ status }] } = await pool.query('SELECT update_exam($1, $2, 1, 49, $3, $4, true) AS status',
+    ['legacy-draft', prior[0].id, marks, answers])
+  assert.equal(status, 'ok')
+})
+
 test('50-item exam retains option IDs, rejects other owners and stale drafts, and grades retries once', async () => {
   const selected = questions.slice(0, 50)
   const ids = selected.map(({ id }) => id)
@@ -111,4 +152,28 @@ test('50-item exam retains option IDs, rejects other owners and stale drafts, an
   assert.deepEqual(session, { score: 1, status: 'submitted', revision: 2 })
   const { rows: [{ count }] } = await pool.query("SELECT count(*)::int FROM attempts WHERE user_id = 'exam-a'")
   assert.equal(count, 50)
+})
+
+test('52-item exams support the last position and scores beyond 50 without changing the snapshot', async () => {
+  const ids = questions.map(({ id }) => id)
+  const answers = JSON.stringify(Object.fromEntries(questions.map(({ id, correct }) => [id, [correct]])))
+  const { rows: [{ id }] } = await pool.query('SELECT start_exam($1, $2) AS id', ['exam-52', ids])
+  assert.ok(id)
+  assert.equal((await pool.query('SELECT start_exam($1, $2) AS id', ['exam-52', ids.slice(0, 1)])).rows[0].id, id)
+  const { rows: [{ ordered }] } = await pool.query(
+    'SELECT array_agg(question_id ORDER BY position) AS ordered FROM exam_items WHERE exam_id = $1', [id])
+  assert.deepEqual(ordered, ids)
+
+  const update = async (position, revision, submit) => (await pool.query(
+    'SELECT update_exam($1, $2, $3, $4, $5, $6, $7) AS status',
+    ['exam-52', id, revision, position, ids, answers, submit],
+  )).rows[0].status
+  assert.equal(await update(52, 0, false), 'invalid_position')
+  assert.equal(await update(51, 0, false), 'ok')
+  assert.equal(await update(51, 1, true), 'ok')
+  assert.equal(await update(51, 1, true), 'ok')
+  const { rows: [session] } = await pool.query('SELECT question_count, score, status, revision, position FROM exam_sessions WHERE id = $1', [id])
+  assert.deepEqual(session, { question_count: 52, score: 52, status: 'submitted', revision: 2, position: 51 })
+  const { rows: [{ count }] } = await pool.query("SELECT count(*)::int FROM attempts WHERE user_id = 'exam-52'")
+  assert.equal(count, 52)
 })

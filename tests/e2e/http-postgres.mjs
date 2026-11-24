@@ -237,6 +237,7 @@ async function runApiChecks(origin, db, items, secret) {
 
   const { data: { exam } } = await call('/api/exams', { method: 'POST', user: 'alice', owner: alice, metric: 'createExamWithSyntheticProvider' })
   assert.equal(exam.items.length, 50)
+  assert.equal(exam.total, 50)
   assert.equal(new Set(exam.items.map(({ id }) => id)).size, 50)
   assert.equal(exam.items.every((question) => !Object.hasOwn(question, 'answerIds') && !Object.hasOwn(question, 'explanation')), true)
   const examPath = `/api/exams/${exam.id}`
@@ -256,6 +257,44 @@ async function runApiChecks(origin, db, items, secret) {
   assert.equal((await call(`${examPath}/submit`, submitOptions)).data.exam.score, 1)
   const examCount = await db.query("SELECT count(*)::int FROM attempts WHERE user_id=$1 AND mode='exam'", [alice])
   assert.equal(examCount.rows[0].count, 50)
+
+  const bob = users.get('bob').id
+  const customStart = { method: 'POST', user: 'bob', owner: bob }
+  for (const questionCount of [0, 101, 1.5, '8', null]) {
+    await call('/api/exams', { ...customStart, body: { questionCount }, status: 400 })
+  }
+  await call('/api/exams', { ...customStart, body: { questionCount: 100 }, status: 409 })
+  const { exam: large } = (await call('/api/exams', { ...customStart, body: { questionCount: 52 } })).data
+  const order = large.items.map(({ id }) => id)
+  assert.equal(large.total, 52)
+  assert.equal(order.length, 52)
+  assert.deepEqual(new Set(order), new Set(items.map(({ id }) => id)))
+  const largePath = `/api/exams/${large.id}`
+  const largeDraft = {
+    position: 51, revision: large.revision, marked: [order[51]],
+    answers: Object.fromEntries(items.map(({ id, correct }) => [id, [correct]])),
+  }
+  const largeWrite = { method: 'PUT', user: 'bob', owner: bob }
+  await call(largePath, { ...largeWrite, body: { ...largeDraft, position: 52 }, status: 400 })
+  const { exam: largeSaved } = (await call(largePath, { ...largeWrite, body: largeDraft })).data
+  const { exam: resumed } = (await call('/api/exams', { ...customStart, body: { questionCount: 1 } })).data
+  assert.equal(resumed.id, large.id)
+  assert.equal(resumed.position, 51)
+  assert.deepEqual(resumed.answers, largeDraft.answers)
+  assert.deepEqual(resumed.items.map(({ id }) => id), order)
+  const { exam: largeResult } = (await call(`${largePath}/submit`, {
+    ...largeWrite, method: 'POST', body: { ...largeDraft, revision: largeSaved.revision },
+  })).data
+  assert.equal(largeResult.score, 52)
+  assert.equal(largeResult.items.length, 52)
+  assert.ok(largeResult.items.every(({ id, answerIds, explanation }) => largeResult.correctness[id] && answerIds.length && explanation))
+  const { exam: rerolled } = (await call('/api/exams', { ...customStart, body: { questionCount: 52 } })).data
+  assert.notEqual(rerolled.id, large.id)
+  assert.notDeepEqual(rerolled.items.map(({ id }) => id), order)
+  const { exams: history } = (await call('/api/exams', { user: 'bob' })).data
+  assert.deepEqual(history.map(({ id, total, score }) => ({ id, total, score })), [
+    { id: rerolled.id, total: 52, score: null }, { id: large.id, total: 52, score: 52 },
+  ])
 
   for (let sample = 0; sample < 30; sample++) {
     await call(topicsPath, { metric: 'topicsWarm' })
@@ -283,7 +322,7 @@ async function runApiChecks(origin, db, items, secret) {
   assert.equal(updatedPage.questions.some(({ id }) => id === first.id), false)
 
   return {
-    verified: ['anonymous/email verification gate', 'distinct fixture Auth owners', 'private no-store and public cache headers', 'real PostgreSQL and Chinese cursor pagination', 'fixed explanation and answer exposure', 'write idempotency and cross-owner rejection', 'real 50-item exam revision, scoring, and idempotency', 'Next Data Cache hot to changed after authorized invalidation'],
+    verified: ['anonymous/email verification gate', 'distinct fixture Auth owners', 'private no-store and public cache headers', 'real PostgreSQL and Chinese cursor pagination', 'fixed explanation and answer exposure', 'write idempotency and cross-owner rejection', 'default and custom exam size, random order, validation, resume, scoring, and history', 'Next Data Cache hot to changed after authorized invalidation'],
     invalidationToObservableRefreshMs: Number((performance.now() - start).toFixed(2)),
     timingsMs: Object.fromEntries(Object.entries(samples).map(([name, timings]) => {
       const values = timings.map(({ ms }) => ms)
@@ -338,7 +377,7 @@ try {
       env: { ...process.env, EQB_TEST_ORIGIN: origin, EQB_TEST_COOKIE_NAME: tokenCookie, EQB_TEST_COOKIE_TOKEN: 'browser', PYTHONUTF8: '1' },
     })
     const browserWrites = await db.query("SELECT mode, count(*)::int AS count FROM attempts WHERE user_id=$1 GROUP BY mode ORDER BY mode", [users.get('browser').id])
-    assert.deepEqual(browserWrites.rows, [{ mode: 'exam', count: 50 }, { mode: 'practice', count: 1 }])
+    assert.deepEqual(browserWrites.rows, [{ mode: 'exam', count: 8 }, { mode: 'practice', count: 1 }])
   }
 } finally {
   if (server && server.exitCode === null) {

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { answerLetters, letter, type Question, requestJson, StudyRequestError, writeJson } from './api'
 import { ExplanationPanel, LoadMessage } from './controls'
 import { type Exam as ExamData, useExamDraft } from './exam-draft'
+import { DEFAULT_EXAM_QUESTIONS, isExamQuestionCount, MAX_EXAM_QUESTIONS, MIN_EXAM_QUESTIONS } from './exam-size'
 import { useQuestionStates, useStudySessionContext } from './study-shell'
 import { useStudyData } from './use-study-data'
 
@@ -211,6 +212,7 @@ export function Exam() {
   const [history, setHistory] = useState(false)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
+  const [questionCount, setQuestionCount] = useState(String(DEFAULT_EXAM_QUESTIONS))
   const [revision, setRevision] = useState(0)
   const marker = `cqu-study-current-exam:${userId}`
   const list = useStudyData<{ exams: ExamSummary[] }>(exam ? null : '/api/exams', revision)
@@ -228,12 +230,12 @@ export function Exam() {
     return () => { active = false }
   }, [marker])
 
-  async function load(id?: string) {
+  async function load(id?: string, count = Number(questionCount)) {
     if (busy) return
     setBusy(true)
     setError('')
     try {
-      const response = id ? await requestJson<{ exam: ExamData }>(`/api/exams/${id}`) : await writeJson<{ exam: ExamData }>('/api/exams', userId, 'POST')
+      const response = id ? await requestJson<{ exam: ExamData }>(`/api/exams/${id}`) : await writeJson<{ exam: ExamData }>('/api/exams', userId, 'POST', { questionCount: count })
       setExam(response.exam)
       if (response.exam.status === 'draft') {
         try { sessionStorage.setItem(marker, response.exam.id) } catch { /* Manual cloud-draft recovery remains available. */ }
@@ -257,7 +259,7 @@ export function Exam() {
     }} />
   if (exam?.status === 'submitted') return <>
     {error && <p className="study-message error" role="alert">{error}</p>}
-    <ExamResult exam={exam} onBack={returnToEntrance} onRetry={() => void load()} />
+    <ExamResult exam={exam} onBack={returnToEntrance} onRetry={() => void load(undefined, exam.items.length)} />
   </>
 
   if (history) return <section className="exam-history-page" aria-labelledby="exam-history">
@@ -265,7 +267,7 @@ export function Exam() {
     {error && <p className="study-message error" role="alert">{error}</p>}
     {historyItems.length === 0 ? <LoadMessage loading={list.loading} error={list.error} retry={list.retry} empty="暂无考试记录" /> : historyItems.map((item) => (
       <button key={item.id} type="button" className="exam-history-item" disabled={busy} onClick={() => void load(item.id)}>
-        <span className="exam-history-main"><span className="exam-history-date">{examDate(item)}</span><span className="exam-history-score">{item.score}/{item.total ?? 50}</span></span>
+        <span className="exam-history-main"><span className="exam-history-date">{examDate(item)}</span><span className="exam-history-score">{item.score}/{item.total ?? DEFAULT_EXAM_QUESTIONS}</span></span>
         <span className="exam-history-meta">用时 {clock(elapsedSeconds(item))}</span>
       </button>
     ))}
@@ -273,12 +275,25 @@ export function Exam() {
 
   return <section className="exam-start" aria-labelledby="exam-title">
     <h2 id="exam-title">模拟考试</h2>
-    <p className="exam-start-subtitle">随机抽取 50 题 · 单选多选混合 · 不限时</p>
-    <div className="exam-info-chips"><span className="exam-info-chip">50 题</span><span className="exam-info-chip">单选+多选</span><span className="exam-info-chip">⏱ 不限时</span></div>
-    {activeDraft && <p className="exam-resume"><button type="button" className="btn primary btn-start-exam" disabled={busy} onClick={() => void load(activeDraft.id)}>继续上次考试 →</button></p>}
-    <button type="button" className="btn primary btn-start-exam" disabled={busy} onClick={() => void load()}>
-      {busy ? '正在读取试卷…' : '开始考试'}<span className="btn-arrow"> →</span>
-    </button>
+    <p className="exam-start-subtitle">从题库随机组卷</p>
+    <div className="exam-info-chips"><span className="exam-info-chip">单选+多选</span><span className="exam-info-chip">⏱ 不限时</span></div>
+    {activeDraft ? <p className="exam-resume"><button type="button" className="btn primary btn-start-exam" disabled={busy} onClick={() => void load(activeDraft.id)}>
+      {busy ? '正在读取试卷…' : `继续上次考试（${activeDraft.total ?? DEFAULT_EXAM_QUESTIONS} 题） →`}
+    </button></p> : <form className="exam-size-form" onSubmit={(event) => {
+      event.preventDefault()
+      if (isExamQuestionCount(Number(questionCount))) void load()
+    }}>
+      <div className="exam-size-field">
+        <label htmlFor="exam-question-count">题数</label>
+        <input id="exam-question-count" type="number" inputMode="numeric" min={MIN_EXAM_QUESTIONS} max={MAX_EXAM_QUESTIONS}
+          step={1} required value={questionCount} disabled={busy} aria-describedby="exam-size-range"
+          onChange={(event) => setQuestionCount(event.target.value)} />
+        <span id="exam-size-range">{MIN_EXAM_QUESTIONS}–{MAX_EXAM_QUESTIONS} 题</span>
+      </div>
+      <button type="submit" className="btn primary btn-start-exam" disabled={busy || !isExamQuestionCount(Number(questionCount))}>
+        {busy ? '正在读取试卷…' : '开始考试'}<span className="btn-arrow"> →</span>
+      </button>
+    </form>}
     <p><button type="button" className="btn btn-exam-history" onClick={() => setHistory(true)}>历史记录{historyItems.length > 0 ? `（${historyItems.length}）` : ''}</button></p>
     {list.error && <div className="study-message error" role="alert">无法读取草稿和历史。 <button type="button" className="btn btn-sm" onClick={list.retry}>重试</button></div>}
     {error && <p className="study-message error" role="alert">{error}</p>}
