@@ -164,6 +164,12 @@
   outline: none;
 }
 
+.field input:autofill {
+  box-shadow: inset 0 0 0 100vmax var(--surface);
+  -webkit-text-fill-color: var(--text);
+  caret-color: var(--text);
+}
+
 .field small {
   color: var(--muted);
   font-size: 14px;
@@ -212,7 +218,7 @@
 }
 
 .toggle:hover {
-  background: #efeeec;
+  color: var(--text);
 }
 
 .link {
