@@ -24,9 +24,15 @@ const users = new Map([
   ['unverified', { id: 'e2e-unverified', email: 'unverified@example.test', emailVerified: false }],
 ])
 
-function authFixture() {
+function authFixture(db) {
+  const signupEmail = 'browser-signup@example.test'
+  const signupToken = 'browser-signup'
+  let signup
+  let signupPassword
+  let verificationCode
+  let resetCode
   function authData(token) {
-    const user = users.get(token)
+    const user = token === signupToken ? signup : users.get(token)
     if (!user) return null
     const now = new Date().toISOString()
     return {
@@ -44,35 +50,63 @@ function authFixture() {
       response.end(JSON.stringify(authData(token)))
       return
     }
-    if (request.method === 'POST' && path === '/auth/sign-in/email') {
-      const chunks = []
-      for await (const chunk of request) chunks.push(chunk)
-      const { email, password } = JSON.parse(Buffer.concat(chunks).toString('utf8'))
-      const token = [...users].find(([, user]) => user.email === email)?.[0]
-      const data = password === 'local-fixture-only' ? authData(token) : null
-      if (!data) {
-        response.statusCode = 401
-        response.end('{"code":"INVALID_EMAIL_OR_PASSWORD"}')
-        return
-      }
+    if (request.method !== 'POST') {
+      response.statusCode = 404
+      response.end('{}')
+      return
+    }
+    const chunks = []
+    for await (const chunk of request) chunks.push(chunk)
+    const { email, password, otp } = chunks.length ? JSON.parse(Buffer.concat(chunks).toString('utf8')) : {}
+    const success = (token) => {
+      const data = authData(token)
       response.setHeader('set-cookie', `${tokenCookie}=${token}; Path=/; HttpOnly; Secure; SameSite=Strict`)
       response.end(JSON.stringify({ user: data.user, token, redirect: false }))
-      return
     }
-    if (request.method === 'POST' && path === '/auth/sign-up/email') {
-      const chunks = []
-      for await (const chunk of request) chunks.push(chunk)
-      const { email } = JSON.parse(Buffer.concat(chunks).toString('utf8'))
-      response.end(JSON.stringify({ user: { email, emailVerified: false }, token: null }))
-      return
+    const reject = (status, code) => {
+      response.statusCode = status
+      response.end(JSON.stringify({ code }))
     }
-    if (request.method === 'POST' && path === '/auth/email-otp/verify-email') {
-      response.statusCode = 400
-      response.end('{"code":"INVALID_OTP"}')
-      return
+    switch (path) {
+      case '/auth/sign-in/email': {
+        const token = email === signupEmail ? signupToken : [...users].find(([, user]) => user.email === email)?.[0]
+        const expected = token === signupToken ? signupPassword : 'local-fixture-only'
+        const data = password === expected ? authData(token) : null
+        if (!data) return reject(401, 'INVALID_EMAIL_OR_PASSWORD')
+        if (!data.user.emailVerified) return reject(403, 'EMAIL_NOT_VERIFIED')
+        return success(token)
+      }
+      case '/auth/sign-up/email':
+        if (email !== signupEmail) return response.end(JSON.stringify({ user: { email, emailVerified: false }, token: null }))
+        await db.query('INSERT INTO neon_auth."user" (email) VALUES ($1) ON CONFLICT DO NOTHING', [email])
+        signup = { id: 'e2e-signup', email, emailVerified: false }
+        signupPassword = password
+        verificationCode = '412386'
+        return response.end(JSON.stringify({ user: signup, token: null }))
+      case '/auth/email-otp/send-verification-otp':
+        if (email !== signupEmail || !signup) return reject(400, 'INVALID_EMAIL')
+        verificationCode = '732518'
+        return response.end('{"success":true}')
+      case '/auth/email-otp/verify-email':
+        if (email !== signupEmail || !signup || !verificationCode || otp !== verificationCode) return reject(400, 'INVALID_OTP')
+        verificationCode = undefined
+        signup.emailVerified = true
+        return success(signupToken)
+      case '/auth/forget-password/email-otp':
+      case '/auth/email-otp/request-password-reset':
+        if (email === signupEmail && signup) resetCode = '628154'
+        return response.end('{"success":true}')
+      case '/auth/email-otp/reset-password':
+        if (email !== signupEmail || !signup || !resetCode || otp !== resetCode) return reject(400, 'INVALID_OTP')
+        resetCode = undefined
+        signupPassword = password
+        return response.end('{"success":true}')
+      case '/auth/sign-out':
+        response.setHeader('set-cookie', `${tokenCookie}=; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=0`)
+        return response.end('{"success":true}')
+      default:
+        return reject(404, 'NOT_FOUND')
     }
-    response.statusCode = 404
-    response.end('{}')
   })
 }
 
@@ -332,12 +366,12 @@ async function runApiChecks(origin, db, items, secret) {
   }
 }
 
-const auth = authFixture()
 const admin = new pg.Client({ connectionString: testUrl.toString() })
 const databaseName = `eqb_http_${randomBytes(8).toString('hex')}`
 const databaseUrl = new URL(testUrl)
 databaseUrl.pathname = '/' + databaseName
 const db = new pg.Client({ connectionString: databaseUrl.toString() })
+const auth = authFixture(db)
 const tmp = resolve(root, 'tmp')
 let created = false
 let server
@@ -379,6 +413,8 @@ try {
     })
     const browserWrites = await db.query("SELECT mode, count(*)::int AS count FROM attempts WHERE user_id=$1 GROUP BY mode ORDER BY mode", [users.get('browser').id])
     assert.deepEqual(browserWrites.rows, [{ mode: 'exam', count: 8 }, { mode: 'practice', count: 1 }])
+    const browserFavorites = await db.query('SELECT count(*)::int AS count FROM favorites WHERE user_id=$1', [users.get('browser').id])
+    assert.equal(browserFavorites.rows[0].count, 0)
   }
 } finally {
   if (server && server.exitCode === null) {

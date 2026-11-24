@@ -131,6 +131,30 @@ def check_auth_fields(page):
     page.get_by_role('button', name='验证邮箱', exact=True).click()
     expect_field_error(page, 'code', 'auth-code-error', '验证码错误，请重试。')
     expect(page.get_by_text('Hua Xiaowei — CQU', exact=True)).to_be_visible()
+    page.get_by_role('button', name='重新发送验证码', exact=True).click()
+    expect(page.get_by_role('status').filter(has_text='请查收邮件')).to_be_visible()
+    code.fill('732518')
+    page.get_by_role('button', name='验证邮箱', exact=True).click()
+    expect(page).to_have_url(ORIGIN + '/')
+
+    page.get_by_role('link', name='账号', exact=True).click()
+    page.get_by_role('button', name='退出登录', exact=True).click()
+    expect(page).to_have_url(ORIGIN + '/login')
+    page.get_by_role('button', name='忘记密码', exact=True).click()
+    page.locator('#auth-email').fill('browser-signup@example.test')
+    page.get_by_role('button', name='发送重置验证码', exact=True).click()
+    expect(page.get_by_role('heading', name='重置密码')).to_be_visible()
+    page.locator('#auth-code').fill('628154')
+    page.locator('#auth-password').fill('changed-fixture-only')
+    page.get_by_role('button', name='保存新密码', exact=True).click()
+    expect(page.get_by_role('status').filter(has_text='密码已更新')).to_be_visible()
+
+    page.locator('#auth-password').fill('local-fixture-only')
+    page.get_by_role('button', name='继续', exact=True).click()
+    expect_field_error(page, 'password', 'auth-password-error', '密码错误，请重试。')
+    page.locator('#auth-password').fill('changed-fixture-only')
+    page.get_by_role('button', name='继续', exact=True).click()
+    expect(page).to_have_url(ORIGIN + '/')
 
 
 def check_auth_autofill(page):
@@ -280,26 +304,44 @@ def run(browser):
     expect(page.locator('.mode-btn[aria-pressed="true"]')).to_have_css('font-weight', '700')
     for inactive in page.locator('.mode-btn[aria-pressed="false"]').all():
         expect(inactive).to_have_css('font-weight', '400')
-    favorite_button = page.locator('.question-card .action-bar').get_by_role('button', name='收藏', exact=True)
+    favorite_button = page.locator('.question-card .action-bar').get_by_role('button', name='☆ 收藏', exact=True)
     expect(favorite_button).to_be_enabled()
-    assert favorite_button.get_attribute('aria-pressed') is None
-    first_batch = state_reads[0]
-    assert len(first_batch) == 15
+    expect(favorite_button).to_have_attribute('aria-pressed', 'false')
+    active_batch = state_reads[0]
+    assert len(active_batch) == 15
 
-    def is_first_batch(reply):
-        url = urlsplit(reply.url)
-        return url.path == '/api/me/question-state' and parse_qs(url.query)['ids'][0].split(',') == first_batch
+    def from_active_batch(response):
+        url = urlsplit(response.url)
+        return url.path == '/api/me/question-state' and parse_qs(url.query)['ids'][0].split(',') == active_batch
 
-    with page.expect_response(is_first_batch):
-        favorite_button.click()
-    assert [first_batch[0]] in state_reads, 'An unknown favorite must be read from the server before changing it.'
+    held_write = []
+    favorite_pattern = '**/api/me/favorites/*'
+    page.route(favorite_pattern, lambda route: held_write.append(route), times=1)
+    favorite_button.tap()
     remove_favorite = page.locator('.question-card .action-bar').get_by_role('button', name='★ 取消收藏', exact=True)
     expect(remove_favorite).to_have_attribute('aria-pressed', 'true')
-    with page.expect_response(is_first_batch):
-        remove_favorite.click()
-    assert [request.post_data_json['favorite'] for request in favorite_writes] == [True, False]
-    favorite_button = page.locator('.question-card .action-bar').get_by_role('button', name='☆ 收藏', exact=True)
+    expect(remove_favorite).to_have_attribute('aria-busy', 'true')
+    assert held_write and len(favorite_writes) == 1, 'The label must change before the first save responds.'
+    assert all(len(ids) != 1 for ids in state_reads), 'Adding a displayed unstarred question must not await a preliminary read.'
+    remove_favorite.tap()
     expect(favorite_button).to_have_attribute('aria-pressed', 'false')
+    expect(favorite_button).to_have_attribute('aria-busy', 'true')
+    assert len(favorite_writes) == 1, 'A second click must not send a concurrent write for the same question.'
+    with page.expect_response(from_active_batch):
+        held_write[0].continue_()
+    expect(favorite_button).not_to_have_attribute('aria-busy', 'true')
+    assert [request.post_data_json['favorite'] for request in favorite_writes] == [True, False]
+
+    held_failure = []
+    page.route(favorite_pattern, lambda route: held_failure.append(route), times=1)
+    favorite_button.tap()
+    expect(remove_favorite).to_have_attribute('aria-pressed', 'true')
+    assert held_failure
+    with page.expect_response(from_active_batch):
+        held_failure[0].fulfill(status=503, json={'error': '收藏未保存，请重试。'})
+    expect(favorite_button).to_have_attribute('aria-pressed', 'false')
+    expect(page.get_by_role('alert').filter(has_text='收藏未保存')).to_be_visible()
+    expect(favorite_button).not_to_have_attribute('aria-busy', 'true')
     state_reads_before_switching = len(state_reads)
     switch_latency = []
     for _ in range(8):
@@ -318,13 +360,17 @@ def run(browser):
     context.set_offline(True)
     favorite_button.click()
     expect(page.get_by_text('离线时无法更新收藏，请联网后重试。')).to_be_visible()
-    assert len(favorite_writes) == 2
-    page.get_by_role('button', name='展开解析').click()
+    assert len(favorite_writes) == 3
+    explanation = page.get_by_role('button', name='展开解析')
+    background = explanation.evaluate('(element) => getComputedStyle(element).backgroundColor')
+    explanation.tap()
+    expect(page.get_by_role('button', name='收起解析')).to_have_css('background-color', background)
     expect(page.locator('.explanation-panel')).to_contain_text('总解析测试')
     expect(page.locator('.answer-reveal')).to_have_text(f'正确答案：{"ABCD"[correct]}')
     expect(page.locator('.feedback')).to_have_count(0)
     expect(page.locator('.study-sync')).not_to_contain_text('待同步')
-    page.get_by_role('button', name='收起解析').click()
+    page.get_by_role('button', name='收起解析').tap()
+    expect(explanation).to_have_css('background-color', background)
     option.nth((correct + 1) % 4).click()
     expect(page.locator('.study-sync')).to_contain_text('本地已保存，待同步')
     expect(page.locator('.feedback')).to_have_text('✗ 错误')
