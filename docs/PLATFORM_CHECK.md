@@ -2,6 +2,8 @@
 
 核查日期为 2026-11-23（Asia/Singapore）。
 
+这是正式站上线前的排查记录。现行配置和验证入口见 [部署手册](DEPLOY.md) 与 [验收证据](ACCEPTANCE.md)。
+
 | 路径 | 本轮证据 | 状态 |
 | --- | --- | --- |
 | PostgreSQL 读写 | 从 Ubuntu 软件源提取 PostgreSQL 16.15，在 WSL 启动仅监听环回的独立实例。实际执行了建临时表、写入、查询、`pg_trgm` 加载和回滚，Windows 到该端口的 TCP 探测成功 | 已验证本地数据库环境 |
@@ -27,7 +29,7 @@
 - Neon 支持注册验证 OTP、`emailOtp.sendVerificationOtp` 重发、`emailOtp.verifyEmail` 验证、`forgetPassword.emailOtp` 发重置码和 `emailOtp.resetPassword` 重置。控制台在对应 Auth 分支启用邮箱注册、Verify at Sign-up、Verification code 和 Revoke sessions on password reset。正式 Trusted Domains 只添加 `https://cqu.xiaoweihua.cn` 并关闭 Allow Localhost，开发在独立 Auth 分支保留 localhost。限流按邮箱和 IP 分级持久化，须覆盖直接调用同域邮件发送接口的路径。[邮箱验证](https://neon.com/docs/auth/guides/email-verification) · [Email OTP](https://neon.com/docs/auth/guides/plugins/email-otp) · [密码重置](https://neon.com/docs/auth/guides/password-reset) · [可信域名](https://neon.com/docs/auth/guides/configure-domains)
 - 服务端 SDK 暴露 `deleteUser()`。上线验收应在获授权的测试账户上确认 Auth 删除是否成功、旧会话是否拒绝、本站学习数据能否安全清除。应用不直接修改 `neon_auth` 托管表。托管身份和本站学习数据在分步骤删除时，要保留可重试或可核对的失败状态。[服务端 SDK](https://neon.com/docs/auth/reference/nextjs-server#authdeleteuser)
 
-## 控制台待办与实测
+## 当时的控制台待办与实测
 
 1. 在 Neon 创建隔离的新加坡开发和生产环境，明确开发环境不含生产用户。向应用执行环境注入 `DATABASE_URL`、`NEON_AUTH_BASE_URL`、至少 32 字符的 `NEON_AUTH_COOKIE_SECRET` 和该环境的站点 URL。先在开发环境执行迁移、读一条集成测试题、进行一次验证身份后的写入及跨账号拒绝测试。
 2. 在 QQ 邮箱账户安全设置启用 SMTP 并新建专用授权码。在 Neon 对应 Auth 分支进入 Settings → Better Auth → Email provider，选择 Custom SMTP，设置 `smtp.qq.com`、`465`、SSL/TLS、用户名与发件邮箱均为 `1176843521@qq.com`，发件名使用本站名称，授权码仅填安全控制台。自定义 SMTP 默认沿用 Neon 模板。以 QQ 和 163 的已授权收件人实测注册、重发、验证码过期和重放、重置与旧密码或旧会话失效。[Neon 配置指南](https://neon.com/docs/auth/production-checklist) · [腾讯云 SMTP 参数](https://cloud.tencent.com/document/api/876/34822)

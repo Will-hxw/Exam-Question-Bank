@@ -2,30 +2,25 @@
 
 ## 预览与生产环境
 
-1. Makers 控制台已核对项目为 `examquestionbank`，域名 `cqu.xiaoweihua.cn` 现有绑定继续使用。公共 DNS 指向 `cqu.xiaoweihua.cn.pages.dnsoe6.com`，TLS 已通过，初次核查首页返回 404。所有 DNS 操作限 `cqu`。 [平台核查](PLATFORM_CHECK.md)
-2. 由 Makers 导入 `Will-hxw/Exam-Question-Bank`，选全球可用区（不含中国大陆），生产分支选 `main`。构建使用 Node.js 24.5.0、`npm ci --include=dev`、`npm run build` 和 `.next`。预览分支使用隔离数据库、独立 Neon Auth、测试邮件。
-3. 在新加坡创建独立 PostgreSQL 与 Neon Managed Better Auth。配置 `DATABASE_URL`、`NEON_AUTH_BASE_URL`、随机 `NEON_AUTH_COOKIE_SECRET`、`NEXT_PUBLIC_SITE_URL` 和独立 `CONTENT_INVALIDATION_SECRET`。应用运行环境由服务端使用。生产 `NEXT_PUBLIC_SITE_URL` 为 `https://cqu.xiaoweihua.cn`，正式 Auth Trusted Domains 只允许该站点。
-4. 开启邮箱注册、注册验证、验证码及密码重置后撤销会话。生产设置 `REQUIRE_COMPLETE_BANK=1`。配置 GitHub 必需检查，先等预览证据齐全再合入生产分支。
+| 环境 | 入口或构建 | 数据和身份 |
+| --- | --- | --- |
+| 本机评测 | `http://localhost:3308/`，使用本地生产构建 | 独立 Neon 开发库和开发 Auth |
+| Makers 预览 | 在 `examquestionbank` 项目中选择相应预览部署 | 独立评测库、开发 Auth 和授权测试收件人 |
+| 正式站 | [cqu.xiaoweihua.cn](https://cqu.xiaoweihua.cn/)，从 GitHub `main` 自动构建 | 独立 Neon 生产库和生产 Auth |
 
-当前开发与发布以 `main` 为主线。正式域最初返回 Makers 404，当时生产仍读取不含当前 Next.js 构建配置的旧提交 `5e8d8ea`。正式发布已从新版 `main` 自动部署。HTTPS 首页返回 307 并跳到登录，登录页与健康检查返回 200，正式题库清单和公开题量接口均为 524 道。
+Makers 项目 `examquestionbank` 关联 GitHub 仓库 `Will-hxw/Exam-Question-Bank`。项目的构建、Node.js 版本和缓存配置以根目录的 `edgeone.json` 为准。正式域继续使用现有的 CNAME 和 TLS 绑定。变更 DNS 时仅操作 `cqu` 子域。
 
-正式库使用 Neon 新加坡 Free 的独立项目 `cqu-exam-question-bank-prod`（`raspy-mud-91046199`）。五项迁移、应用驱动的空库检查与邮箱验证设置均已完成，随后通过发布命令导入 524 道题。Makers Production 保存九个部署变量，正式域名的签名回调已登记。生产 Auth 对不存在的测试账号正常返回 `401 INVALID_EMAIL_OR_PASSWORD`，邮件入口对无签名请求正常返回 `400 INVALID_EVENT`。评测数据保留在独立开发项目。
+正式库使用 Neon 新加坡项目 `cqu-exam-question-bank-prod`（`raspy-mud-91046199`）。配置环境时对照 [变量示例](../.env.example)，在相应托管环境中设置数据库连接、Auth 地址和 Cookie 密钥、本站 URL 与内容失效密钥。生产站点 URL 和生产 Auth 的可信域名均为 `https://cqu.xiaoweihua.cn`。
 
-## 中文验证码邮件的预览试验
+生产设置 `REQUIRE_COMPLETE_BANK=1`，保持邮箱验证和改密后撤销会话开启。上线前在测试环境验证，推送后用 GitHub CI 和 Makers 部署记录对照提交。匿名访问正式首页应跳转到登录页，登录页和健康检查应返回 200，题库清单应与本次发布摘要一致。 [验收证据](ACCEPTANCE.md)
 
-1. 在 QQ 邮箱启用 SMTP，生成专用授权码。只在 Makers **预览环境**的安全变量中填 `QQ_SMTP_AUTH_CODE`，并设置 `NEON_OTP_WEBHOOK_ENDPOINT_ID`。发送使用 `1176843521@qq.com`、`smtp.qq.com:465`、TLS。
-2. 在独立 Neon Auth 环境把签名 `send.otp` 事件投递到预览站 `/api/webhooks/neon`。启用 `NEON_OTP_WEBHOOK_ENABLED=true` 后，先在预览执行签名验证、TCP/TLS 和两种邮箱的真实送达验证，再测试验证码有效期、重放、找回密码及旧会话失效。只向本人或授权收件人测试。
-3. Neon 注册该事件后由 Webhook 负责发送。若预览卡在 Makers 465 出站或 QQ 投递，停用该 webhook 订阅可恢复托管邮件流程。托管模式可在 Neon 控制台设置 QQ 发件账号及应用名，正文使用 Neon 模板。 [Neon 邮件定制](https://neon.com/docs/auth/guides/customize-emails) · [Webhook 协议](https://neon.com/docs/auth/guides/webhooks)
+## 中文验证码邮件
 
-当前项目已在 Makers 设置页将 QQ 授权码、开发 Neon 连接及认证配置限定为预览，并开启预览分支自动部署。开发机用 QQ SMTP 通过 TLS 和账号认证，QQ 接收服务器接受一封发给项目邮箱的模板联调邮件。
+Neon Auth 生成并校验验证码，签名的 `send.otp` 事件由本站 `/api/webhooks/neon` 接收，再使用 QQ SMTP 渲染并发送中文模板。正式和预览环境各自配置 `NEON_OTP_WEBHOOK_ENABLED`、`NEON_OTP_WEBHOOK_ENDPOINT_ID` 和 `QQ_SMTP_AUTH_CODE`。授权码仅存放在该环境的安全变量中。
 
-已在带 Makers 访问权限的浏览器确认 `examquestionbank-dp1bq9eap2wu.edgeone.cool` 页面、健康接口与 131 道题清单正常，数据库同步后的公开专题接口也返回 131 道。未经预览授权的请求可能被 Makers 拒绝。腾讯云域名管理显示 `cqu.xiaoweihua.cn` 的解析和证书已生效，关联生产环境。生产入口仍返回 Makers 的 404。用户选择继续通过现有预览评测，正式域维持生产关联。
+发送使用 `1176843521@qq.com`、`smtp.qq.com:465` 和 TLS。更换部署域名时，先将该域名加入对应的 Neon Auth 可信域名，再验证回调和投递。线上收件只用本人或授权邮箱测试。出站故障需要回退时，先停用对应的 Webhook 订阅，再验证 Neon 托管模板投递。 [Neon 邮件定制](https://neon.com/docs/auth/guides/customize-emails) · [Webhook 协议](https://neon.com/docs/auth/guides/webhooks)
 
-在 Neon 评测分支加入已验证的预览 URL 后，实际登录接口从 403 `INVALID_ORIGIN` 变为对测试地址正常返回 401 `INVALID_EMAIL_OR_PASSWORD`。重复注册既有待验证账号返回 200，但未生成新验证码。显式重发生成有效验证码，Neon 评测分支临时使用 QQ SMTP 托管模板期间，用户已完成邮箱验证，浏览器会话接口返回已验证用户。
-
-预览已启用签名 `send.otp` 回调。Neon Auth 只生成验证码和管理身份，邮件由本站 Next.js 后端用 `otp-template.ts` 渲染，通过 QQ SMTP 直发。用已验证的评测账号触发一次密码重置验证码，实际认证接口返回 200，数据库投递记录为 `sent`、`attempts: 1`。QQ SMTP 已接受自定义模板邮件，收件箱显示由评测人确认。
-
-回调当前指向已验证的预览部署域名。更换部署域名时，将新域名加入 Neon 可信域名，先确认回调 API 可用，再更新回调端点和实测投递。正式环境使用正式域名及独立配置。
+早期的 404、131 题预览、Auth 域名校验和投递记录见 [平台早期核查](PLATFORM_CHECK.md)、[Neon 联调实录](NEON_SETUP.md) 和 [验收证据](ACCEPTANCE.md)。
 
 ## 内容同步
 
@@ -41,4 +36,4 @@
 
 代码回滚使用 Git revert 或已核实的 Makers 旧部署。内容回滚保留已有 UUID 和已退役条目，在 Git 中审查回滚内容，重新同步并发布。生产用户数据单独备份到用户控制的加密位置，经授权操作员用 `pg_dump`/恢复实例定期验证。Auth 管理由 Neon 提供，恢复演练应覆盖会话和身份匹配。
 
-对比上线前后提交、Makers 构建日志、域名 TLS 结果、目录 release、同域登录和真实数据库写入。中国大陆移动、联通、电信至少分两个时段测冷、热访问。当前账户及三网实测均未完成。
+对比上线前后提交、Makers 构建日志、域名 TLS 结果、目录 release、同域登录和真实数据库写入。大陆移动、联通、电信的冷、热访问采样方法见 [性能验证](PERFORMANCE.md#上线后的大陆实测)。
