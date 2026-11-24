@@ -131,9 +131,15 @@ function ExamTaking({ exam, onResult, onReload }: { exam: ExamData; onResult: (e
         {item.type === 'multiple' && <button type="button" className="btn primary nav-step" disabled={position === count - 1 || blocked} onClick={() => move(position + 1)}>确定</button>}
         <button type="button" className="btn nav-step" disabled={position === count - 1 || blocked} onClick={() => move(position + 1)}>下一题</button>
         <ExamFavorite key={item.id} question={item} />
-        <button type="button" className="btn btn-sm" disabled={blocked} aria-pressed={draft.marked.includes(item.id)} onClick={() => update({
+        <button type="button" className="btn btn-sm exam-mark" disabled={blocked} aria-pressed={draft.marked.includes(item.id)} onClick={() => update({
           marked: draft.marked.includes(item.id) ? draft.marked.filter((id) => id !== item.id) : [...draft.marked, item.id],
-        })}>🏷 {draft.marked.includes(item.id) ? '已标记' : '标记'}</button>
+        })}>
+          <svg className="exam-mark-icon" aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 16 16">
+            <path d="M2.5 3a.5.5 0 0 1 .5-.5h4.5l5.8 5.8-5 5L2.5 7.5Z" fill="#fbbf24" stroke="#854d0e" strokeLinejoin="round" />
+            <circle cx="5.2" cy="5.2" r=".9" fill="#854d0e" />
+          </svg>
+          {draft.marked.includes(item.id) ? '已标记' : '标记'}
+        </button>
       </div>
     </article>
     <p className="exam-nav-label">题目导航</p>
@@ -181,11 +187,14 @@ function ExamResult({ exam, onBack, onRetry, wrongOnly, setWrongOnly, busy }: {
   const count = exam.items.length
   const rate = count ? Math.round(score / count * 100) : 0
   const circumference = 326.73
+  const replayButton = <button type="button" className="btn primary exam-result-replay" onClick={onRetry}
+    disabled={busy} aria-busy={busy || undefined}>{busy ? '正在载入原卷…' : '原卷重新考试'}</button>
 
   return <div className="exam-result">
     <div className="exam-result-top">
-      <button type="button" className="btn nav-step" onClick={onBack} disabled={busy}>← 返回</button>
+      <button type="button" className="btn nav-step exam-result-back" onClick={onBack} disabled={busy}>← 返回</button>
       <h2>考试结果</h2>
+      {replayButton}
     </div>
     <div className="exam-score-visual">
       <svg className="exam-score-ring" aria-hidden="true" viewBox="0 0 120 120">
@@ -205,7 +214,7 @@ function ExamResult({ exam, onBack, onRetry, wrongOnly, setWrongOnly, busy }: {
     </div>
     {exam.items.map((question, index) => (!wrongOnly || !exam.correctness?.[question.id]) ? <ResultItem key={question.id} exam={exam} question={question} index={index} /> : null)}
     <div className="exam-result-actions">
-      <button type="button" className="btn primary" onClick={onRetry} disabled={busy} aria-busy={busy || undefined}>{busy ? '正在载入原卷…' : '重新考试'}</button>
+      {replayButton}
       <button type="button" className="btn nav-step" onClick={onBack} disabled={busy}>返回</button>
     </div>
   </div>

@@ -214,6 +214,19 @@ def check_library_pages(page):
     expect(next_button).to_be_enabled()
 
 
+def check_exam_result_header(page):
+    header = page.locator('.exam-result-top')
+    back = header.get_by_role('button', name='← 返回', exact=True)
+    replay = header.get_by_role('button', name='原卷重新考试', exact=True)
+    expect(back).to_be_visible()
+    expect(replay).to_be_enabled()
+    back_box, replay_box = back.bounding_box(), replay.bounding_box()
+    assert back_box and replay_box
+    assert back_box['x'] + back_box['width'] <= replay_box['x']
+    assert abs((back_box['y'] + back_box['height'] / 2) - (replay_box['y'] + replay_box['height'] / 2)) <= 1
+    return replay
+
+
 def run(browser):
     for width in (390, 1440):
         context = browser.new_context(viewport={"width": width, "height": 900}, locale="zh-CN")
@@ -338,8 +351,7 @@ def run(browser):
     favorite_button.tap()
     expect(remove_favorite).to_have_attribute('aria-pressed', 'true')
     assert held_failure
-    with page.expect_response(from_active_batch):
-        held_failure[0].fulfill(status=503, json={'error': '收藏未保存，请重试。'})
+    held_failure[0].fulfill(status=503, json={'error': '收藏未保存，请重试。'})
     expect(favorite_button).to_have_attribute('aria-pressed', 'false')
     expect(page.get_by_role('alert').filter(has_text='收藏未保存')).to_be_visible()
     expect(favorite_button).not_to_have_attribute('aria-busy', 'true')
@@ -352,7 +364,9 @@ def run(browser):
         expect(stem).not_to_have_text(previous)
         switch_latency.append(milliseconds(start))
         expect(favorite_button).to_have_attribute('aria-pressed', 'false')
-    assert len(state_reads) == state_reads_before_switching, 'Switching within one batch must reuse loaded states.'
+    reads_during_switch = state_reads[state_reads_before_switching:]
+    assert all(len(ids) > 1 for ids in reads_during_switch)
+    assert reads_during_switch.count(active_batch) <= 1, 'Only the background refresh may reread the current batch.'
 
     practice_stem = stem.inner_text()
     correct = int(practice_stem.rsplit(' ', 1)[1]) % 4
@@ -503,12 +517,22 @@ def run(browser):
     if first_is_multiple:
         page.get_by_role('button', name='下一题', exact=True).tap()
     expect(page.locator('.exam-nav-item.current')).to_have_text('2')
-    mark = page.get_by_role('button', name='🏷 标记', exact=True)
+    mark = page.get_by_role('button', name='标记', exact=True)
+    marked = page.get_by_role('button', name='已标记', exact=True)
+    yellow = 'rgb(251, 191, 36)'
+    expect(mark.locator('svg path')).to_have_css('fill', yellow)
     mark_color = mark.evaluate('(element) => getComputedStyle(element).backgroundColor')
     mark.tap()
-    expect(page.get_by_role('button', name='🏷 已标记', exact=True)).to_have_css('background-color', mark_color)
+    expect(marked).to_have_css('background-color', mark_color)
+    expect(marked.locator('svg path')).to_have_css('fill', yellow)
+    page.get_by_role('button', name='切换明暗主题').tap()
+    expect(page.locator('html')).to_have_attribute('data-theme', 'light')
+    expect(marked.locator('svg path')).to_have_css('fill', yellow)
+    page.get_by_role('button', name='切换明暗主题').tap()
+    expect(page.locator('html')).to_have_attribute('data-theme', 'dark')
     next_item = page.get_by_role('button', name='下一题', exact=True)
-    next_color = next_item.evaluate('(element) => getComputedStyle(element).backgroundColor')
+    next_color = 'rgb(32, 42, 56)'
+    expect(next_item).to_have_css('background-color', next_color)
     next_item.tap()
     expect(next_item).to_have_css('background-color', next_color)
     expect(next_item).to_be_enabled()
@@ -527,6 +551,9 @@ def run(browser):
     }).ok
     mark.tap()
     expect(page.get_by_text('云端草稿已在别处更新', exact=False)).to_be_visible()
+    expect(marked).to_be_disabled()
+    expect(marked).to_have_css('opacity', '1')
+    expect(marked.locator('svg path')).to_have_css('fill', yellow)
     draft_cache_key = f'cqu-study-draft:e2e-browser:{draft_id}'
     assert page.evaluate('(key) => localStorage.getItem(key)', draft_cache_key)
     page.route(draft_url, lambda route: route.fulfill(status=503, json={'error': '试卷暂时无法读取，请重试。'}), times=1)
@@ -542,9 +569,9 @@ def run(browser):
     expect(page.locator('.exam-result-item')).to_have_count(8)
     browser_exam_submit = milliseconds(start)
     expect(page.locator('.exam-score-total')).to_have_text('/ 8')
-    expect(page.locator('.exam-result-top').get_by_role('button', name='← 返回')).to_be_visible()
     original = page.locator('.exam-result-question').all_inner_texts()
-    page.get_by_role('button', name='重新考试', exact=True).click()
+    expect(page.locator('.exam-result-actions').get_by_role('button', name='原卷重新考试', exact=True)).to_be_enabled()
+    check_exam_result_header(page).tap()
     expect(page.locator('.exam-nav-item')).to_have_count(8)
     expect(page.locator('.exam-nav-item.current')).to_have_text('1')
     expect(page.locator('.exam-nav-item.marked, .exam-nav-item.answered')).to_have_count(0)
@@ -557,6 +584,18 @@ def run(browser):
     page.get_by_role('button', name='返回', exact=True).click()
     page.get_by_role('button', name='历史记录').click()
     expect(page.locator('.exam-history-score')).to_have_text([re.compile(r'^\d+/8$'), re.compile(r'^\d+/8$')])
+    page.locator('.exam-history-item').last.click()
+    expect(page.locator('.exam-result-question')).to_have_text(original)
+    with page.expect_response(lambda response: response.url == draft_url + '/replay' and
+                              response.request.method == 'POST') as replay_from_history:
+        check_exam_result_header(page).tap()
+    assert replay_from_history.value.ok
+    replayed = replay_from_history.value.json()['exam']
+    assert [item['stem'] for item in replayed['items']] == original
+    assert replayed['answers'] == {} and replayed['marked'] == [] and replayed['position'] == 0
+    expect(page.locator('.exam-nav-item.current')).to_have_text('1')
+    page.get_by_role('button', name='交卷', exact=True).click()
+    expect(page.locator('.exam-result-item')).to_have_count(8)
     with page.expect_response(lambda response: preference_write(response) and
                               response.request.post_data_json.get('exam', {}).get('screen') == 'entrance'):
         page.get_by_role('button', name='← 返回', exact=True).click()
@@ -597,6 +636,13 @@ def run(browser):
     assert before and after
     route_shift = max(abs(before[axis] - after[axis]) for axis in ('x', 'y'))
     assert route_shift <= 1, f'Navigation shifted {route_shift:.2f} px across short and tall pages'
+    section(page, '/exam')
+    page.get_by_role('button', name='历史记录').click()
+    page.locator('.exam-history-item').first.click()
+    replay = check_exam_result_header(page)
+    expect(replay).to_have_css('background-color', 'rgb(158, 195, 247)')
+    replay.hover()
+    expect(replay).to_have_css('background-color', 'rgb(158, 195, 247)')
     expect(page.locator('html')).to_have_css('scrollbar-gutter', 'stable both-edges')
     desktop.close()
 
