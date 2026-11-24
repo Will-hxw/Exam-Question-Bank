@@ -3,7 +3,7 @@
 import { type FormEvent, useEffect, useRef, useState } from 'react'
 import { answerLetters, cachedPublic, letter, type Question, type QuestionPage, questionUrl, readPublic, type StudyStats } from './api'
 import { ExplanationPanel, LoadMessage, TopicPicker } from './controls'
-import { useQuestionStates, useStudySessionContext } from './study-shell'
+import { useQuestionFavorite, useQuestionStates, useStudySessionContext } from './study-shell'
 import { useStudyData } from './use-study-data'
 
 const modes = [
@@ -90,16 +90,14 @@ function PracticeCard({ question, answer, record, progress, previous, next, atte
   favorite: boolean | undefined
   wrongMode: boolean
 }) {
-  const { attempts, setFavorite, removeWrong, prefetchQuestionStates } = useStudySessionContext()
+  const { attempts, removeWrong } = useStudySessionContext()
+  const favoriteControl = useQuestionFavorite(question.id, favorite)
   const [selection, setSelection] = useState<string[]>([])
   const [expanded, setExpanded] = useState(false)
   const [message, setMessage] = useState('')
-  const [savingFavorite, setSavingFavorite] = useState(false)
-  const [favoriteOverride, setFavoriteOverride] = useState<boolean>()
   const [removing, setRemoving] = useState(false)
   const submittedAnswer = useRef(answer)
   const selected = answer?.ids ?? selection
-  const currentFavorite = favoriteOverride ?? favorite
   const immediate = question.type === 'single'
 
   function saveAnswer(ids: string[], correct: boolean) {
@@ -118,27 +116,6 @@ function PracticeCard({ question, answer, record, progress, previous, next, atte
     const correct = ids.length === question.answerIds.length && ids.every((id) => question.answerIds?.includes(id))
     saveAnswer(ids, correct)
     if (immediate && !correct && question.explanation) setExpanded(true)
-  }
-
-  async function toggleFavorite() {
-    if (savingFavorite) return
-    if (!navigator.onLine) { setMessage('离线时无法更新收藏，请联网后重试。'); return }
-    setMessage('')
-    setSavingFavorite(true)
-    try {
-      let existingFavorite = currentFavorite
-      if (existingFavorite === undefined) {
-        const { states } = await prefetchQuestionStates([question.id])
-        existingFavorite = states[question.id]?.isFavorite
-        if (existingFavorite === undefined) throw new Error('暂时无法读取收藏状态，请重试。')
-      }
-      await setFavorite(question.id, !existingFavorite)
-      setFavoriteOverride(!existingFavorite)
-    } catch (error) {
-      setMessage(error instanceof Error ? error.message : '收藏未保存，请重试。')
-    } finally {
-      setSavingFavorite(false)
-    }
   }
 
   async function clearWrong() {
@@ -188,19 +165,19 @@ function PracticeCard({ question, answer, record, progress, previous, next, atte
         <button type="button" className="btn primary" disabled={Boolean(answer)} onClick={() => submit()}>确定</button>
         <button type="button" className="btn" disabled={!previous} onClick={previous ?? undefined}>上一题</button>
         <button type="button" className="btn" onClick={next}>下一题</button>
-        <button type="button" className="btn btn-sm" aria-pressed={currentFavorite}
-          aria-disabled={savingFavorite || undefined} onClick={() => void toggleFavorite()}>
-          {currentFavorite === undefined ? '收藏' : currentFavorite ? '★ 取消收藏' : '☆ 收藏'}
+        <button type="button" className="btn btn-sm" aria-pressed={favoriteControl.favorite}
+          aria-busy={favoriteControl.pending || undefined} onClick={favoriteControl.toggle}>
+          {favoriteControl.favorite ? '★ 取消收藏' : '☆ 收藏'}
         </button>
         {wrongMode && <button type="button" className="btn btn-sm" disabled={removing} onClick={() => void clearWrong()}>移出错题集</button>}
-        <button type="button" className="btn btn-sm" aria-expanded={expanded} onClick={() => {
+        <button type="button" className="btn btn-sm explanation-toggle" aria-expanded={expanded} onClick={() => {
           if (wrongMode && !answer) { setMessage('请先作答本题'); return }
           if (!explanation) { setMessage('本题解析暂不可用'); return }
           if (answer?.saved !== false) setMessage('')
           setExpanded((previous) => !previous)
         }}>{expanded ? '收起解析' : '展开解析'}</button>
       </div>
-      {savingFavorite && <p className="study-message" role="status">正在更新收藏…</p>}
+      {favoriteControl.error && <p className="study-message error" role="alert">{favoriteControl.error}</p>}
       {!answer && expanded && explanation && <p className="answer-reveal">正确答案：<span>{answerLetters(explanation.options, explanation.answerIds)}</span></p>}
       {answer && <div role="status">
         <p className={`feedback ${answer.correct ? 'correct' : 'wrong'}`}>{answer.correct ? '✓ 正确' : '✗ 错误'}</p>

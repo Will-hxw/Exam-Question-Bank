@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link, { useLinkStatus } from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { createContext, type ReactNode, useCallback, useContext, useEffect, useRef, useSyncExternalStore, useState } from 'react'
-import { libraryPageSize, questionUrl, readPublic, requestJson, type QuestionState, type StudyStats, type Topic, writeJson } from './api'
+import { libraryPageSize, questionUrl, readPublic, requestJson, StudyRequestError, type QuestionState, type StudyStats, type Topic, writeJson } from './api'
 import { useAttemptQueue } from './use-attempt-queue'
 import { useStudyData } from './use-study-data'
 
@@ -20,6 +20,7 @@ const libraryFirstPage = questionUrl({ limit: libraryPageSize })
 const routePrefetchOrder = ['/questions', '/exam', '/wrong', '/favorites', '/']
 type QuestionStates = { states: Record<string, QuestionState> }
 type QuestionStateRead = { revision: number; expiresAt: number; response: Promise<QuestionStates> }
+type FavoriteWrite = { desired: boolean }
 
 function statesPath(ids: string[]) {
   return `/api/me/question-state?${new URLSearchParams({ ids: ids.join(',') })}`
@@ -83,7 +84,10 @@ function useStudySession(userId: string) {
   const [revision, setRevision] = useState(0)
   const stateRevision = useRef(0)
   const stateReads = useRef(new Map<string, QuestionStateRead>())
-  const [knownStates, setKnownStates] = useState<Record<string, QuestionState>>({})
+  const [knownStates, setKnownStates] = useState<Record<string, Partial<QuestionState>>>({})
+  const favoriteWrites = useRef(new Map<string, FavoriteWrite>())
+  const [pendingFavorites, setPendingFavorites] = useState<Record<string, boolean>>({})
+  const [favoriteErrors, setFavoriteErrors] = useState<Record<string, string>>({})
   const examActive = useRef(false)
   const markExamActive = useCallback((active: boolean) => { examActive.current = active }, [])
   const refreshMe = useCallback(() => {
@@ -119,12 +123,52 @@ function useStudySession(userId: string) {
 
   const prefetchQuestionStates = useCallback((ids: string[]) => readQuestionStates(statesPath(ids)), [readQuestionStates])
 
-  async function setFavorite(id: string, favorite: boolean) {
-    await writeJson(`/api/me/favorites/${id}`, userId, 'PUT', { favorite })
-    setKnownStates((previous) => previous[id]
-      ? { ...previous, [id]: { ...previous[id], isFavorite: favorite } }
-      : previous)
-    refreshMe()
+  async function saveFavorite(id: string, write: FavoriteWrite) {
+    let saved: boolean | undefined
+    try {
+      do {
+        const favorite = write.desired
+        await writeJson(`/api/me/favorites/${id}`, userId, 'PUT', { favorite })
+        saved = favorite
+      } while (saved !== write.desired)
+    } catch (error) {
+      const message = error instanceof StudyRequestError ? error.message : '收藏未保存，请重试。'
+      setFavoriteErrors((previous) => ({ ...previous, [id]: message }))
+    } finally {
+      favoriteWrites.current.delete(id)
+      if (saved !== undefined) {
+        setKnownStates((previous) => ({ ...previous, [id]: { ...previous[id], isFavorite: saved } }))
+      }
+      setPendingFavorites((previous) => {
+        const next = { ...previous }
+        delete next[id]
+        return next
+      })
+      refreshMe()
+    }
+  }
+
+  function toggleFavorite(id: string, favorite: boolean) {
+    if (!navigator.onLine) {
+      setFavoriteErrors((previous) => ({ ...previous, [id]: '离线时无法更新收藏，请联网后重试。' }))
+      return
+    }
+    setFavoriteErrors((previous) => {
+      if (!previous[id]) return previous
+      const next = { ...previous }
+      delete next[id]
+      return next
+    })
+    const queued = favoriteWrites.current.get(id)
+    const desired = !(queued?.desired ?? favorite)
+    setPendingFavorites((previous) => ({ ...previous, [id]: desired }))
+    if (queued) {
+      queued.desired = desired
+      return
+    }
+    const write = { desired }
+    favoriteWrites.current.set(id, write)
+    void saveFavorite(id, write)
   }
 
   async function removeWrong(id: string) {
@@ -138,7 +182,7 @@ function useStudySession(userId: string) {
 
   return {
     userId, revision, stats, topics, attempts, knownStates, readQuestionStates, prefetchQuestionStates,
-    setFavorite, removeWrong, refreshMe, markExamActive, confirmLeaveExam,
+    pendingFavorites, favoriteErrors, toggleFavorite, removeWrong, refreshMe, markExamActive, confirmLeaveExam,
   }
 }
 
@@ -156,6 +200,17 @@ export function useQuestionStates(ids: string[]) {
   return {
     ...result,
     data: ids.some((id) => knownStates[id] !== undefined) ? { states: knownStates } : result.data,
+  }
+}
+
+export function useQuestionFavorite(id: string, serverFavorite?: boolean) {
+  const { knownStates, pendingFavorites, favoriteErrors, toggleFavorite } = useStudySessionContext()
+  const favorite = pendingFavorites[id] ?? knownStates[id]?.isFavorite ?? serverFavorite ?? false
+  return {
+    favorite,
+    pending: pendingFavorites[id] !== undefined,
+    error: favoriteErrors[id],
+    toggle: () => toggleFavorite(id, favorite),
   }
 }
 

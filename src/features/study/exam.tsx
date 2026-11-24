@@ -5,7 +5,7 @@ import { answerLetters, letter, type Question, requestJson, StudyRequestError, w
 import { ExplanationPanel, LoadMessage } from './controls'
 import { type Exam as ExamData, useExamDraft } from './exam-draft'
 import { DEFAULT_EXAM_QUESTIONS, isExamQuestionCount, MAX_EXAM_QUESTIONS, MIN_EXAM_QUESTIONS } from './exam-size'
-import { useQuestionStates, useStudySessionContext } from './study-shell'
+import { useQuestionFavorite, useQuestionStates, useStudySessionContext } from './study-shell'
 import { useStudyData } from './use-study-data'
 
 type ExamSummary = Pick<ExamData, 'id' | 'status' | 'startedAt' | 'submittedAt' | 'score'> & { total?: number }
@@ -32,27 +32,15 @@ function ExamTimer({ exam }: { exam: ExamData }) {
 }
 
 function ExamFavorite({ question }: { question: Question }) {
-  const { setFavorite } = useStudySessionContext()
-  const { data } = useQuestionStates([question.id])
-  const [override, setOverride] = useState<boolean>()
-  const [saving, setSaving] = useState(false)
-  const [error, setError] = useState(false)
-  const favorite = override ?? data?.states[question.id]?.isFavorite ?? (data ? false : undefined)
-
-  async function toggle() {
-    if (favorite === undefined || saving) return
-    setSaving(true)
-    setOverride(!favorite)
-    setError(false)
-    try { await setFavorite(question.id, !favorite) } catch { setOverride(favorite); setError(true) }
-    finally { setSaving(false) }
-  }
+  useQuestionStates([question.id])
+  const favoriteControl = useQuestionFavorite(question.id)
 
   return <>
-    <button className="btn btn-sm" type="button" aria-pressed={Boolean(favorite)} disabled={saving || favorite === undefined} onClick={() => void toggle()}>
-      {favorite ? '★ 取消收藏' : '☆ 收藏'}
+    <button className="btn btn-sm" type="button" aria-pressed={favoriteControl.favorite}
+      aria-busy={favoriteControl.pending || undefined} onClick={favoriteControl.toggle}>
+      {favoriteControl.favorite ? '★ 取消收藏' : '☆ 收藏'}
     </button>
-    {error && <p className="study-message error" role="alert">收藏未保存，请重试。</p>}
+    {favoriteControl.error && <p className="study-message error" role="alert">{favoriteControl.error}</p>}
   </>
 }
 
@@ -171,7 +159,7 @@ function ResultItem({ exam, question, index }: { exam: ExamData; question: Quest
       <p className="answer-row wrong-row">✗ 你的答案：{answerLetters(question.options, selected) || '未作答'}</p>
       <p className="answer-row correct-row">✓ 正确答案：{answerLetters(question.options, answerIds)}</p>
     </div>}
-    {question.explanation && <button type="button" className="btn btn-sm" onClick={() => setExpanded(!expanded)} aria-expanded={expanded}>{expanded ? '收起解析' : '展开解析'}</button>}
+    {question.explanation && <button type="button" className="btn btn-sm explanation-toggle" onClick={() => setExpanded(!expanded)} aria-expanded={expanded}>{expanded ? '收起解析' : '展开解析'}</button>}
     {expanded && question.explanation && <ExplanationPanel content={{ answerIds, explanation: question.explanation, options: question.options, sources: question.sources ?? [] }} />}
   </article>
 }

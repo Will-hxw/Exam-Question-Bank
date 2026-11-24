@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { answerLetters, type Explanation, letter, libraryPageSize, type Question, type QuestionPage, type QuestionState, type QuestionType, questionUrl, type Status } from './api'
 import { ExplanationPanel, LoadMessage, TopicPicker } from './controls'
-import { useQuestionStates, useStudySessionContext } from './study-shell'
+import { useQuestionFavorite, useQuestionStates, useStudySessionContext } from './study-shell'
 import { useDebouncedSearch, useStudyData } from './use-study-data'
 
 const questionTypes: { value: QuestionType | ''; label: string }[] = [
@@ -16,29 +16,13 @@ const statuses: { value: Status | ''; label: string }[] = [
 const pageSizes = [10, libraryPageSize, 30, 50]
 
 function QuestionRow({ question, state, list }: { question: Question; state?: Partial<QuestionState>; list: 'all' | 'wrong' | 'favorite' }) {
-  const { setFavorite, removeWrong } = useStudySessionContext()
+  const { removeWrong } = useStudySessionContext()
+  const favoriteControl = useQuestionFavorite(question.id, state?.isFavorite ?? question.isFavorite)
   const [showAnswer, setShowAnswer] = useState(false)
   const [expanded, setExpanded] = useState(false)
-  const [favoriteOverride, setFavoriteOverride] = useState<boolean>()
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
   const explanation = useStudyData<Explanation>(showAnswer ? `/api/public/questions/${question.id}/explanation` : null)
-  const favorite = favoriteOverride ?? state?.isFavorite ?? question.isFavorite
-
-  async function toggleFavorite() {
-    if (favorite === undefined || saving) return
-    setSaving(true)
-    setFavoriteOverride(!favorite)
-    setError('')
-    try {
-      await setFavorite(question.id, !favorite)
-    } catch (cause) {
-      setFavoriteOverride(favorite)
-      setError(cause instanceof Error ? cause.message : '无法保存收藏，请重试。')
-    } finally {
-      setSaving(false)
-    }
-  }
 
   async function clearWrong() {
     setSaving(true)
@@ -66,12 +50,13 @@ function QuestionRow({ question, state, list }: { question: Question; state?: Pa
       <button type="button" aria-expanded={showAnswer} onClick={() => { setShowAnswer(!showAnswer); setExpanded(false) }}>
         {showAnswer ? '隐藏答案' : '显示答案'}
       </button>
-      <button type="button" aria-pressed={Boolean(favorite)} disabled={favorite === undefined || saving} onClick={() => void toggleFavorite()}>
-        {favorite ? '取消收藏' : '收藏'}
+      <button type="button" aria-pressed={favoriteControl.favorite} aria-busy={favoriteControl.pending || undefined} onClick={favoriteControl.toggle}>
+        {favoriteControl.favorite ? '取消收藏' : '收藏'}
       </button>
       {list === 'wrong' && <button type="button" disabled={saving} onClick={() => void clearWrong()}>移出错题集</button>}
       {explanation.data && <button type="button" aria-expanded={expanded} onClick={() => setExpanded(!expanded)}>{expanded ? '收起解析' : '展开解析'}</button>}
     </div>
+    {favoriteControl.error && <p className="study-message error" role="alert">{favoriteControl.error}</p>}
     {error && <p className="study-message error" role="alert">{error}</p>}
     {explanation.loading && <p className="study-message" role="status">加载答案中…</p>}
     {explanation.error && <div className="study-message error" role="alert">{explanation.error} <button className="btn btn-sm" type="button" onClick={explanation.retry}>重试</button></div>}
