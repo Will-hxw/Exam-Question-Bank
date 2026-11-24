@@ -483,9 +483,11 @@ def run(browser):
     search = page.get_by_role('searchbox', name='搜索题目')
     expect(search).to_be_visible()
     search_start = perf_counter()
-    search.fill('分层练习样例 51')
+    # The cache-invalidation test withdraws a random t01 item. Use a t14 fixture here.
+    search_stem = '分层练习样例 48'
+    search.fill(search_stem)
     expect(page.locator('.list-item')).to_have_count(1)
-    expect(page.locator('.list-item .q-text')).to_have_text('分层练习样例 51')
+    expect(page.locator('.list-item .q-text')).to_have_text(search_stem)
     browser_search = milliseconds(search_start)
     search.fill('选项文本 2')
     page.locator('.topic-dropdown-btn').tap()
