@@ -8,7 +8,8 @@ export async function account(request: Request, writing = false) {
   if (!getAuth()) throw new HttpError(503, '账号服务暂未配置。')
   const user = await getVerifiedUser()
   if (!user) throw new HttpError(401, '请登录并验证邮箱。')
-  if (writing && request.headers.get('x-study-account') !== user.id) {
+  const expectedAccount = request.headers.get('x-study-account')
+  if ((writing || expectedAccount !== null) && expectedAccount !== user.id) {
     throw new HttpError(409, '当前账号已切换，请刷新后再试。')
   }
   return user.id

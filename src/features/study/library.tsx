@@ -13,6 +13,7 @@ const statuses: { value: Status | ''; label: string }[] = [
   { value: '', label: '全部' }, { value: 'undone', label: '未做' }, { value: 'done', label: '已做' },
   { value: 'wrong', label: '错题' }, { value: 'favorite', label: '收藏' },
 ]
+const pageSizes = [10, libraryPageSize, 30, 50]
 
 function QuestionRow({ question, state, list }: { question: Question; state?: Partial<QuestionState>; list: 'all' | 'wrong' | 'favorite' }) {
   const { setFavorite, removeWrong } = useStudySessionContext()
@@ -79,37 +80,57 @@ function QuestionRow({ question, state, list }: { question: Question; state?: Pa
   </article>
 }
 
-function QuestionList({ topic, type, q, status, list }: { topic: string; type: QuestionType | ''; q: string; status: Status | ''; list: 'all' | 'wrong' | 'favorite' }) {
-  const [cursors, setCursors] = useState<(string | null)[]>([null])
+function QuestionList({ topic, type, q, status, list, limit, onLimitChange }: {
+  topic: string; type: QuestionType | ''; q: string; status: Status | ''; list: 'all' | 'wrong' | 'favorite'
+  limit: number; onLimitChange: (limit: number) => void
+}) {
   const [pageIndex, setPageIndex] = useState(0)
+  const [loaded, setLoaded] = useState<{ index: number; data: QuestionPage }>()
   const { revision } = useStudySessionContext()
   const page = useStudyData<QuestionPage>(
-    questionUrl({ topic, type, q, status, cursor: cursors[pageIndex], limit: libraryPageSize }),
+    questionUrl({ topic, type, q, status, offset: pageIndex ? pageIndex * limit : undefined, limit }),
     status ? revision : 0,
-    { keepPreviousData: true },
   )
-  const questions = page.data?.questions ?? []
+  const total = page.data?.total ?? loaded?.data.total ?? 0
+  const pageCount = Math.max(1, Math.ceil(total / limit))
+  if (page.data && pageIndex >= pageCount) {
+    setPageIndex(pageCount - 1)
+  } else if (page.data && loaded?.data !== page.data) {
+    setLoaded({ index: pageIndex, data: page.data })
+  }
+  const currentIndex = Math.min(loaded?.index ?? 0, pageCount - 1)
+  const questions = loaded?.data.questions ?? []
   const states = useQuestionStates(status ? [] : questions.map((question) => question.id))
 
-  function next() {
-    if (!page.data?.nextCursor) return
-    const cursor = page.data.nextCursor
-    setCursors((previous) => [...previous.slice(0, pageIndex + 1), cursor])
-    setPageIndex(pageIndex + 1)
+  function move(index: number) {
+    if (page.loading) return
+    if (index === pageIndex) page.retry()
+    else setPageIndex(index)
   }
 
   return <>
-    {page.data?.total !== undefined && <p className="stats-bar">{page.data.total} 道符合条件的题目</p>}
+    {loaded && <p className="stats-bar">{loaded.data.total} 道符合条件的题目</p>}
     {questions.length === 0 ? <LoadMessage loading={page.loading} error={page.error} retry={page.retry} /> : (
-      <div>{questions.map((question) => <QuestionRow key={question.id} question={question}
-        state={states.data ? states.data.states[question.id] ?? { isFavorite: false, attempted: false, isWrong: false } : undefined} list={list} />)}</div>
+      <div aria-busy={page.loading}>{questions.map((question) => <QuestionRow key={question.id} question={question}
+        state={states.data?.states[question.id]} list={list} />)}</div>
     )}
+    {questions.length > 0 && page.error && <p className="study-message error" role="alert">
+      {page.error} <button type="button" className="btn btn-sm" onClick={page.retry}>重试</button>
+    </p>}
     {states.error && <p className="study-message error" role="alert">个人状态加载失败。 <button type="button" className="btn btn-sm" onClick={states.retry}>重试</button></p>}
-    {(pageIndex > 0 || page.data?.nextCursor) && <div className="study-pagination">
-      <button type="button" className="btn btn-sm" disabled={pageIndex === 0} onClick={() => setPageIndex(pageIndex - 1)}>上一页</button>
-      <span>第 {pageIndex + 1} 页</span>
-      <button type="button" className="btn btn-sm" disabled={!page.data?.nextCursor} onClick={next}>下一页</button>
-    </div>}
+    {loaded && total > 0 && <nav className="study-pagination" aria-label="题库分页">
+      <button type="button" className="btn btn-sm" disabled={currentIndex === 0} onClick={() => move(currentIndex - 1)}>上一页</button>
+      <output className="pagination-position" aria-label="当前页 / 总页数">{currentIndex + 1}/{pageCount}</output>
+      <button type="button" className="btn btn-sm" disabled={currentIndex + 1 >= pageCount} onClick={() => move(currentIndex + 1)}>下一页</button>
+      {list === 'all' && <label className="pagination-size">每页题量
+        <select className="pagination-select" value={limit} onChange={(event) => onLimitChange(Number(event.target.value))}>
+          {pageSizes.map((size) => <option key={size} value={size}>{size} 题</option>)}
+        </select>
+      </label>}
+      <p className="pagination-loading" role="status">
+        {page.loading && currentIndex !== pageIndex ? `正在加载第 ${pageIndex + 1} 页…` : ''}
+      </p>
+    </nav>}
   </>
 }
 
@@ -119,6 +140,7 @@ export function Library({ list }: { list: 'all' | 'wrong' | 'favorite' }) {
   const [type, setType] = useState<QuestionType | ''>('')
   const [topic, setTopic] = useState('')
   const [status, setStatus] = useState<Status | ''>('')
+  const [limit, setLimit] = useState(libraryPageSize)
   const q = useDebouncedSearch(search)
   const filter = list === 'all' ? status : list
 
@@ -139,6 +161,7 @@ export function Library({ list }: { list: 'all' | 'wrong' | 'favorite' }) {
           aria-pressed={entry.value === status} onClick={() => setStatus(entry.value)}>{entry.label}</button>)}
       </div>}
     </div>
-    <QuestionList key={JSON.stringify([topic, type, q, filter])} topic={topic} type={type} q={q} status={filter} list={list} />
+    <QuestionList key={JSON.stringify([topic, type, q, filter, limit])} topic={topic} type={type} q={q}
+      status={filter} list={list} limit={limit} onLimitChange={setLimit} />
   </>
 }

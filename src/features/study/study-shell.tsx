@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link, { useLinkStatus } from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { createContext, type ReactNode, useCallback, useContext, useEffect, useRef, useSyncExternalStore, useState } from 'react'
-import { libraryPageSize, questionUrl, readPublic, type QuestionState, type StudyStats, type Topic, writeJson } from './api'
+import { libraryPageSize, questionUrl, readPublic, requestJson, type QuestionState, type StudyStats, type Topic, writeJson } from './api'
 import { useAttemptQueue } from './use-attempt-queue'
 import { useStudyData } from './use-study-data'
 
@@ -17,6 +17,13 @@ const nav = [
 ]
 
 const libraryFirstPage = questionUrl({ limit: libraryPageSize })
+const routePrefetchOrder = ['/questions', '/exam', '/wrong', '/favorites', '/']
+type QuestionStates = { states: Record<string, QuestionState> }
+type QuestionStateRead = { revision: number; expiresAt: number; response: Promise<QuestionStates> }
+
+function statesPath(ids: string[]) {
+  return `/api/me/question-state?${new URLSearchParams({ ids: ids.join(',') })}`
+}
 
 function StudyNavigationStatus() {
   const { pending } = useLinkStatus()
@@ -74,15 +81,49 @@ function useTheme() {
 
 function useStudySession(userId: string) {
   const [revision, setRevision] = useState(0)
+  const stateRevision = useRef(0)
+  const stateReads = useRef(new Map<string, QuestionStateRead>())
+  const [knownStates, setKnownStates] = useState<Record<string, QuestionState>>({})
   const examActive = useRef(false)
   const markExamActive = useCallback((active: boolean) => { examActive.current = active }, [])
-  const refreshMe = useCallback(() => setRevision((previous) => previous + 1), [])
+  const refreshMe = useCallback(() => {
+    stateRevision.current += 1
+    setRevision(stateRevision.current)
+  }, [])
   const stats = useStudyData<StudyStats>('/api/me/stats', revision, { keepPreviousData: true })
   const topics = useStudyData<{ topics: Topic[] }>('/api/public/topics')
   const attempts = useAttemptQueue(userId, refreshMe)
 
+  const readQuestionStates = useCallback((path: string) => {
+    const reads = stateReads.current
+    const epoch = stateRevision.current
+    const cached = reads.get(path)
+    if (cached?.revision === epoch && cached.expiresAt > Date.now()) return cached.response
+    const entry: QuestionStateRead = {
+      revision: epoch,
+      expiresAt: Infinity,
+      response: requestJson<QuestionStates>(path, { headers: { 'X-Study-Account': userId } }).then((data) => {
+        entry.expiresAt = Date.now() + 15_000
+        if (stateRevision.current === epoch) setKnownStates((previous) => ({ ...previous, ...data.states }))
+        return data
+      }).catch((error: unknown) => {
+        if (reads.get(path) === entry) reads.delete(path)
+        throw error
+      }),
+    }
+    reads.delete(path)
+    reads.set(path, entry)
+    if (reads.size > 32) reads.delete(reads.keys().next().value!)
+    return entry.response
+  }, [userId])
+
+  const prefetchQuestionStates = useCallback((ids: string[]) => readQuestionStates(statesPath(ids)), [readQuestionStates])
+
   async function setFavorite(id: string, favorite: boolean) {
     await writeJson(`/api/me/favorites/${id}`, userId, 'PUT', { favorite })
+    setKnownStates((previous) => previous[id]
+      ? { ...previous, [id]: { ...previous[id], isFavorite: favorite } }
+      : previous)
     refreshMe()
   }
 
@@ -95,7 +136,10 @@ function useStudySession(userId: string) {
     return !examActive.current || window.confirm('正在考试中，确定离开吗？你可以从考试入口继续草稿。')
   }
 
-  return { userId, revision, stats, topics, attempts, setFavorite, removeWrong, refreshMe, markExamActive, confirmLeaveExam }
+  return {
+    userId, revision, stats, topics, attempts, knownStates, readQuestionStates, prefetchQuestionStates,
+    setFavorite, removeWrong, refreshMe, markExamActive, confirmLeaveExam,
+  }
 }
 
 const StudyContext = createContext<ReturnType<typeof useStudySession> | null>(null)
@@ -107,9 +151,12 @@ export function useStudySessionContext() {
 }
 
 export function useQuestionStates(ids: string[]) {
-  const { revision } = useStudySessionContext()
-  const params = new URLSearchParams({ ids: ids.join(',') })
-  return useStudyData<{ states: Record<string, QuestionState> }>(ids.length ? `/api/me/question-state?${params}` : null, revision, { keepPreviousData: true })
+  const { revision, knownStates, readQuestionStates } = useStudySessionContext()
+  const result = useStudyData<QuestionStates>(ids.length ? statesPath(ids) : null, revision, { load: readQuestionStates })
+  return {
+    ...result,
+    data: ids.some((id) => knownStates[id] !== undefined) ? { states: knownStates } : result.data,
+  }
 }
 
 export function StudyShell({ userId, children }: { userId: string; children: ReactNode }) {
@@ -118,17 +165,17 @@ export function StudyShell({ userId, children }: { userId: string; children: Rea
   const sponsorOpen = useSyncExternalStore(subscribeHash, currentHash, emptyHash) === '#sponsor'
   const toggleTheme = useTheme()
   const session = useStudySession(userId)
-  const [prefetchLibrary, setPrefetchLibrary] = useState(false)
+  const [warmRouteCount, setWarmRouteCount] = useState(0)
   const practiceReady = Boolean(session.topics.data)
   useEffect(() => {
-    if (pathname !== '/' || prefetchLibrary || !practiceReady) return
+    if (warmRouteCount >= routePrefetchOrder.length || !practiceReady) return
     const timer = setTimeout(() => {
       if (!navigator.onLine || document.visibilityState !== 'visible') return
-      setPrefetchLibrary(true)
-      void readPublic(libraryFirstPage).catch(() => {})
-    }, 400)
+      if (warmRouteCount === 0) void readPublic(libraryFirstPage).catch(() => {})
+      setWarmRouteCount((count) => count + 1)
+    }, warmRouteCount === 0 ? 400 : 220)
     return () => clearTimeout(timer)
-  }, [pathname, prefetchLibrary, practiceReady])
+  }, [pathname, warmRouteCount, practiceReady])
 
   function warmRoute(href: string) {
     if (pathname === href || !navigator.onLine) return
@@ -154,8 +201,8 @@ export function StudyShell({ userId, children }: { userId: string; children: Rea
         <div className="study-shell">
           <header id="site-header">
             <a className="site-title" href="https://www.12371.cn/special/zxzc/" target="_blank" rel="noreferrer">
-              <Image className="site-crest" src="/cqu-crest.png" alt="" width={26} height={26} unoptimized />
-              <span><span className="site-title-text">重庆大学</span>入党积极分子练习</span>
+              <Image className="site-crest" src="/cqu-crest.png" alt="" width={38} height={38} unoptimized />
+              <span><span className="site-title-text">重庆大学</span><span className="site-title-text">入党积极分子练习</span></span>
             </a>
             <div className="site-header-right">
               <button className="dark-toggle" type="button" onClick={toggleTheme} aria-label="切换明暗主题">
@@ -168,7 +215,7 @@ export function StudyShell({ userId, children }: { userId: string; children: Rea
             {nav.map(({ href, label }) => {
               const active = !sponsorOpen && pathname === href
               return <Link key={href} href={href} aria-current={active ? 'page' : undefined} className={active ? 'active' : undefined}
-                prefetch={href === '/questions' && prefetchLibrary}
+                prefetch={pathname !== href && routePrefetchOrder.indexOf(href) < warmRouteCount}
                 onPointerEnter={(event) => {
                   if (event.pointerType === 'mouse') warmRoute(href)
                 }}
@@ -203,9 +250,9 @@ export function StudyShell({ userId, children }: { userId: string; children: Rea
           </main>
           <footer className="site-footer">
             <ul className="footer-notes">
-              <li>练习内容仅供学习参考</li>
-              <li>作者：计算机学院 20230537 六只</li>
-              <li>遇到问题请联系 QQ 1176843521</li>
+              <li><span className="footer-latin" lang="en">Bug</span>或瑕疵有奖</li>
+              <li>作者：计算机学院 <span className="footer-latin">20230537</span> 六只</li>
+              <li>遇到问题请联系 <span className="footer-latin" lang="en">QQ 1176843521</span></li>
             </ul>
             <a className="footer-sponsor-link" href="#sponsor" aria-label="打开友情赞助页面">
               <span className="footer-sponsor-icon" aria-hidden="true">💌</span>

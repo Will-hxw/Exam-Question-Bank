@@ -231,6 +231,7 @@ async function runApiChecks(origin, db, items, secret) {
   const detailsPath = `/api/me/question-state?ids=${first.id}`
   assert.deepEqual((await call(detailsPath, { user: 'alice' })).data.states[first.id], { attempted: true, isFavorite: true, isWrong: true })
   assert.deepEqual((await call(detailsPath, { user: 'bob' })).data.states[first.id], { attempted: false, isFavorite: false, isWrong: false })
+  await call(detailsPath, { user: 'bob', owner: alice, status: 409 })
   assert.equal((await call('/api/me/questions?status=favorite', { user: 'alice' })).data.total, 1)
   assert.equal((await call('/api/me/questions?status=favorite', { user: 'bob' })).data.total, 0)
   assert.equal((await call('/api/public/questions?limit=15&mode=practice', { user: 'alice' })).response.headers.get('set-cookie'), null)

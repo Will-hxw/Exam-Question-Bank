@@ -1,7 +1,7 @@
 'use client'
 
 import { type FormEvent, useEffect, useRef, useState } from 'react'
-import { answerLetters, letter, type Question, type QuestionPage, questionUrl, readPublic, type StudyStats } from './api'
+import { answerLetters, cachedPublic, letter, type Question, type QuestionPage, questionUrl, readPublic, type StudyStats } from './api'
 import { ExplanationPanel, LoadMessage, TopicPicker } from './controls'
 import { useQuestionStates, useStudySessionContext } from './study-shell'
 import { useStudyData } from './use-study-data'
@@ -90,7 +90,7 @@ function PracticeCard({ question, answer, record, progress, previous, next, atte
   favorite: boolean | undefined
   wrongMode: boolean
 }) {
-  const { attempts, setFavorite, removeWrong } = useStudySessionContext()
+  const { attempts, setFavorite, removeWrong, prefetchQuestionStates } = useStudySessionContext()
   const [selection, setSelection] = useState<string[]>([])
   const [expanded, setExpanded] = useState(false)
   const [message, setMessage] = useState('')
@@ -121,15 +121,20 @@ function PracticeCard({ question, answer, record, progress, previous, next, atte
   }
 
   async function toggleFavorite() {
-    if (currentFavorite === undefined || savingFavorite) return
-    const original = currentFavorite
+    if (savingFavorite) return
+    if (!navigator.onLine) { setMessage('离线时无法更新收藏，请联网后重试。'); return }
+    setMessage('')
     setSavingFavorite(true)
-    setFavoriteOverride(!original)
     try {
-      await setFavorite(question.id, !original)
-      setMessage('')
+      let existingFavorite = currentFavorite
+      if (existingFavorite === undefined) {
+        const { states } = await prefetchQuestionStates([question.id])
+        existingFavorite = states[question.id]?.isFavorite
+        if (existingFavorite === undefined) throw new Error('暂时无法读取收藏状态，请重试。')
+      }
+      await setFavorite(question.id, !existingFavorite)
+      setFavoriteOverride(!existingFavorite)
     } catch (error) {
-      setFavoriteOverride(original)
       setMessage(error instanceof Error ? error.message : '收藏未保存，请重试。')
     } finally {
       setSavingFavorite(false)
@@ -183,9 +188,9 @@ function PracticeCard({ question, answer, record, progress, previous, next, atte
         <button type="button" className="btn primary" disabled={Boolean(answer)} onClick={() => submit()}>确定</button>
         <button type="button" className="btn" disabled={!previous} onClick={previous ?? undefined}>上一题</button>
         <button type="button" className="btn" onClick={next}>下一题</button>
-        <button type="button" className="btn btn-sm" aria-pressed={Boolean(currentFavorite)}
-          disabled={currentFavorite === undefined || savingFavorite} onClick={() => void toggleFavorite()}>
-          {currentFavorite ? '★ 取消收藏' : '☆ 收藏'}
+        <button type="button" className="btn btn-sm" aria-pressed={currentFavorite}
+          aria-disabled={savingFavorite || undefined} onClick={() => void toggleFavorite()}>
+          {currentFavorite === undefined ? '收藏' : currentFavorite ? '★ 取消收藏' : '☆ 收藏'}
         </button>
         {wrongMode && <button type="button" className="btn btn-sm" disabled={removing} onClick={() => void clearWrong()}>移出错题集</button>}
         <button type="button" className="btn btn-sm" aria-expanded={expanded} onClick={() => {
@@ -195,6 +200,7 @@ function PracticeCard({ question, answer, record, progress, previous, next, atte
           setExpanded((previous) => !previous)
         }}>{expanded ? '收起解析' : '展开解析'}</button>
       </div>
+      {savingFavorite && <p className="study-message" role="status">正在更新收藏…</p>}
       {!answer && expanded && explanation && <p className="answer-reveal">正确答案：<span>{answerLetters(explanation.options, explanation.answerIds)}</span></p>}
       {answer && <div role="status">
         <p className={`feedback ${answer.correct ? 'correct' : 'wrong'}`}>{answer.correct ? '✓ 正确' : '✗ 错误'}</p>
@@ -210,6 +216,7 @@ function PracticeCard({ question, answer, record, progress, previous, next, atte
 function PracticeDeck({ mode, topic, topicCount, initialPosition, rememberPosition }: {
   mode: Mode; topic: string; topicCount: number; initialPosition: number; rememberPosition: (position: number) => void
 }) {
+  const { prefetchQuestionStates } = useStudySessionContext()
   const [position, setPosition] = useState(initialPosition)
   const [round, setRound] = useState(0)
   const [answers, setAnswers] = useState<Record<string, Answer>>({})
@@ -219,19 +226,25 @@ function PracticeDeck({ mode, topic, topicCount, initialPosition, rememberPositi
   const { offset, limit } = batchFor(position)
   const query = questionUrl({ topic, offset: random ? undefined : offset, limit, practice: true, status, random })
   const page = useStudyData<QuestionPage>(query, ordered ? 0 : round)
-  const question = page.data?.questions[random ? position : position - offset]
-  const total = (random ? page.data?.questions.length : page.data?.total) ?? topicCount
+  const visiblePage = page.data ?? (ordered && page.loading ? cachedPublic<QuestionPage>(query) : undefined)
+  const question = visiblePage?.questions[random ? position : position - offset]
+  const total = (random ? visiblePage?.questions.length : visiblePage?.total) ?? topicCount
   const questionId = question?.id
-  const states = useQuestionStates(questionId ? [questionId] : [])
+  const states = useQuestionStates(status ? [] : visiblePage?.questions.map(({ id }) => id) ?? [])
   const activeState = questionId ? states.data?.states[questionId] : null
-  const canPrefetch = ordered && Boolean(page.data?.nextCursor)
+  const canPrefetch = ordered && Boolean(visiblePage?.nextCursor)
 
   useEffect(() => {
-    if (canPrefetch) {
-      const next = batchFor(offset + limit)
-      void readPublic(questionUrl({ topic, ...next, practice: true })).catch(() => {})
-    }
-  }, [canPrefetch, topic, offset, limit])
+    if (!canPrefetch) return
+    const next = batchFor(offset + limit)
+    let active = true
+    void readPublic<QuestionPage>(questionUrl({ topic, ...next, practice: true })).then(({ questions }) => {
+      if (active && navigator.onLine && questions.length) {
+        return prefetchQuestionStates(questions.map(({ id }) => id))
+      }
+    }).catch(() => {})
+    return () => { active = false }
+  }, [canPrefetch, topic, offset, limit, prefetchQuestionStates])
 
   function move(index: number) {
     setPosition(index)
@@ -261,7 +274,7 @@ function PracticeDeck({ mode, topic, topicCount, initialPosition, rememberPositi
       progress={<Progress mode={mode} index={position} total={total} fallback={fallback} onJump={move} />}
       previous={position > 0 ? () => move(position - 1) : null} next={next}
       attempted={activeState?.attempted ?? Boolean(question.attempted)}
-      favorite={activeState?.isFavorite ?? question.isFavorite ?? (states.data ? false : undefined)} wrongMode={mode === 'wrong'} />
+      favorite={activeState?.isFavorite ?? question.isFavorite} wrongMode={mode === 'wrong'} />
     {states.error && !status && <p className="study-message error" role="alert">个人状态加载失败。 <button type="button" className="btn btn-sm" onClick={states.retry}>重试</button></p>}
   </>
 }

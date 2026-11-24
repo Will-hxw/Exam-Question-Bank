@@ -3,7 +3,7 @@ import math
 import os
 import re
 from time import perf_counter
-from urllib.parse import urlsplit
+from urllib.parse import parse_qs, urlsplit
 
 from playwright.sync_api import expect, sync_playwright
 
@@ -73,6 +73,8 @@ def check_slow_navigation(page):
         pending.append(route)
 
     page.route(pattern, pause)
+    page.goto(ORIGIN, wait_until='domcontentloaded')
+    expect(page.locator('.question-card .q-text')).to_be_visible()
     tab = page.get_by_role('navigation', name='学习导航').locator(f'a[href="{target}"]')
     tab.tap()
     expect(tab.locator('.study-navigation-pending')).to_have_text('正在切换页面')
@@ -131,6 +133,62 @@ def check_auth_fields(page):
     expect(page.get_by_text('Hua Xiaowei — CQU', exact=True)).to_be_visible()
 
 
+def check_auth_autofill(page):
+    cdp = page.context.new_cdp_session(page)
+    cdp.send('DOM.enable')
+    cdp.send('CSS.enable')
+    root = cdp.send('DOM.getDocument')['root']['nodeId']
+    for selector in ('#auth-email', '#auth-password'):
+        node = cdp.send('DOM.querySelector', {'nodeId': root, 'selector': selector})['nodeId']
+        cdp.send('CSS.forcePseudoState', {'nodeId': node, 'forcedPseudoClasses': ['autofill']})
+        expect(page.locator(selector)).to_have_css('box-shadow', re.compile(r'rgb\(253, 252, 251\).*inset'))
+        cdp.send('CSS.forcePseudoState', {'nodeId': node, 'forcedPseudoClasses': []})
+    eye = page.get_by_role('button', name='显示密码')
+    eye.hover()
+    expect(eye).to_have_css('background-color', 'rgba(0, 0, 0, 0)')
+    cdp.detach()
+
+
+def check_library_pages(page):
+    pagination = page.get_by_role('navigation', name='题库分页')
+    position = pagination.get_by_label('当前页 / 总页数')
+    next_button = pagination.get_by_role('button', name='下一页')
+    rows = page.locator('.list-item')
+    expect(position).to_have_text('1/3')
+    expect(page.get_by_text('51 道符合条件的题目')).to_be_visible()
+    expect(rows).to_have_count(20)
+    first_stem = rows.first.locator('.q-text').inner_text()
+    initial_color = next_button.evaluate('(element) => getComputedStyle(element).backgroundColor')
+    paused = []
+    pattern = '**/api/public/questions?offset=20&limit=20'
+
+    def pause(route):
+        paused.append(route)
+
+    page.route(pattern, pause)
+    next_button.tap()
+    expect(pagination.get_by_role('status').filter(has_text='正在加载')).to_have_text('正在加载第 2 页…')
+    expect(next_button).to_be_enabled()
+    expect(next_button).to_have_css('background-color', initial_color)
+    expect(next_button).to_have_css('opacity', '1')
+    expect(rows.first.locator('.q-text')).to_have_text(first_stem)
+    assert paused
+    for route in paused:
+        route.continue_()
+    page.unroute(pattern, pause)
+    expect(position).to_have_text('2/3')
+    expect(next_button).to_have_css('background-color', initial_color)
+    expect(next_button).to_be_enabled()
+    next_button.tap()
+    expect(position).to_have_text('3/3')
+    expect(rows).to_have_count(11)
+    expect(next_button).to_be_disabled()
+    pagination.get_by_role('combobox', name='每页题量').select_option('30')
+    expect(position).to_have_text('1/2')
+    expect(rows).to_have_count(30)
+    expect(next_button).to_be_enabled()
+
+
 def run(browser):
     for width in (390, 1440):
         context = browser.new_context(viewport={"width": width, "height": 900}, locale="zh-CN")
@@ -140,7 +198,9 @@ def run(browser):
         assert page.get_by_role("heading", level=2).count() == 0
         assert page.get_by_text("登录", exact=True).count() == 0
         expect(page.get_by_text("第一次使用？", exact=True)).to_be_visible()
-        expect(page.get_by_text("Hua Xiaowei — CQU", exact=True)).to_be_visible()
+        credit = page.get_by_text("Hua Xiaowei — CQU", exact=True)
+        expect(credit).to_be_visible()
+        expect(credit).to_have_css("font-family", re.compile(r'^"Times New Roman"'))
         wordmark = page.get_by_role("img", name="重庆大学")
         expect(wordmark).to_have_js_property("naturalWidth", 600)
         expect(page.locator('link[rel="icon"]')).to_have_attribute('href', '/cqu-crest.png')
@@ -162,6 +222,8 @@ def run(browser):
         expect(page.get_by_text('入党积极分子', exact=True)).to_have_css('font-family', re.compile(r'^"?SimHei'))
         if width == 390:
             check_auth_fields(page)
+        else:
+            check_auth_autofill(page)
         context.close()
 
     first_answerable = []
@@ -175,7 +237,10 @@ def run(browser):
         expect(page.locator('.question-card .option').first).to_be_enabled()
         expect(page.locator('.question-card .q-text')).to_contain_text('分层练习样例')
         expect(page.locator('.site-title img')).to_have_js_property('naturalWidth', 256)
-        expect(page.get_by_text('作者：计算机学院 20230537 六只', exact=True)).to_be_visible()
+        expect(page.locator('.site-title img')).to_have_css('width', '32px')
+        footer_lines = page.locator('.footer-notes li')
+        expect(footer_lines).to_have_text(['Bug或瑕疵有奖', '作者：计算机学院 20230537 六只', '遇到问题请联系 QQ 1176843521'])
+        expect(page.locator('.footer-latin').first).to_have_css('font-family', re.compile(r'^"Times New Roman"'))
         title_box, header_box = page.locator('.site-title').bounding_box(), page.locator('#site-header').bounding_box()
         assert title_box and header_box
         assert abs((title_box['x'] + title_box['width'] / 2) - (header_box['x'] + header_box['width'] / 2)) <= 2
@@ -188,9 +253,25 @@ def run(browser):
         assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
         context.close()
 
+    slow_context = mobile_context(browser)
+    check_slow_navigation(slow_context.new_page())
+    slow_context.close()
+
     context = mobile_context(browser)
     page = context.new_page()
     page.on('dialog', lambda dialog: dialog.accept())
+    state_reads, favorite_writes = [], []
+
+    def track_practice_request(request):
+        url = urlsplit(request.url)
+        if url.path == '/api/me/question-state':
+            state_reads.append(parse_qs(url.query)['ids'][0].split(','))
+        elif url.path.startswith('/api/me/favorites/') and request.method == 'PUT':
+            favorite_writes.append(request)
+
+    state_pattern = '**/api/me/question-state?*'
+    page.on('request', track_practice_request)
+    page.route(state_pattern, lambda route: route.abort(), times=1)
     with page.expect_response(lambda reply: reply.url.endswith('/api/public/questions?limit=20')) as warm_library:
         page.goto(ORIGIN, wait_until='domcontentloaded')
     assert warm_library.value.ok, 'The desktop and touch navigation should warm the first public library page.'
@@ -199,6 +280,27 @@ def run(browser):
     expect(page.locator('.mode-btn[aria-pressed="true"]')).to_have_css('font-weight', '700')
     for inactive in page.locator('.mode-btn[aria-pressed="false"]').all():
         expect(inactive).to_have_css('font-weight', '400')
+    favorite_button = page.locator('.question-card .action-bar').get_by_role('button', name='收藏', exact=True)
+    expect(favorite_button).to_be_enabled()
+    assert favorite_button.get_attribute('aria-pressed') is None
+    first_batch = state_reads[0]
+    assert len(first_batch) == 15
+
+    def is_first_batch(reply):
+        url = urlsplit(reply.url)
+        return url.path == '/api/me/question-state' and parse_qs(url.query)['ids'][0].split(',') == first_batch
+
+    with page.expect_response(is_first_batch):
+        favorite_button.click()
+    assert [first_batch[0]] in state_reads, 'An unknown favorite must be read from the server before changing it.'
+    remove_favorite = page.locator('.question-card .action-bar').get_by_role('button', name='★ 取消收藏', exact=True)
+    expect(remove_favorite).to_have_attribute('aria-pressed', 'true')
+    with page.expect_response(is_first_batch):
+        remove_favorite.click()
+    assert [request.post_data_json['favorite'] for request in favorite_writes] == [True, False]
+    favorite_button = page.locator('.question-card .action-bar').get_by_role('button', name='☆ 收藏', exact=True)
+    expect(favorite_button).to_have_attribute('aria-pressed', 'false')
+    state_reads_before_switching = len(state_reads)
     switch_latency = []
     for _ in range(8):
         previous = stem.inner_text()
@@ -206,12 +308,17 @@ def run(browser):
         page.get_by_role('button', name='下一题', exact=True).click()
         expect(stem).not_to_have_text(previous)
         switch_latency.append(milliseconds(start))
+        expect(favorite_button).to_have_attribute('aria-pressed', 'false')
+    assert len(state_reads) == state_reads_before_switching, 'Switching within one batch must reuse loaded states.'
 
     practice_stem = stem.inner_text()
     correct = int(practice_stem.rsplit(' ', 1)[1]) % 4
     option = page.locator('.question-card .option')
     expect(page.locator('.stats-bar')).to_contain_text('已练习: 0')
     context.set_offline(True)
+    favorite_button.click()
+    expect(page.get_by_text('离线时无法更新收藏，请联网后重试。')).to_be_visible()
+    assert len(favorite_writes) == 2
     page.get_by_role('button', name='展开解析').click()
     expect(page.locator('.explanation-panel')).to_contain_text('总解析测试')
     expect(page.locator('.answer-reveal')).to_have_text(f'正确答案：{"ABCD"[correct]}')
@@ -255,8 +362,23 @@ def run(browser):
     page.unroute('**/api/me/stats', pause_stats)
     expect(page.locator('.stats-bar')).to_contain_text('已练习: 1')
 
-    check_slow_navigation(page)
     section(page, '/questions')
+    expect(page.get_by_role('searchbox', name='搜索题目')).to_be_visible()
+    section(page, '/')
+    expect(stem).to_have_text(practice_stem)
+    expect(page.locator('.question-card .done-badge')).to_have_text('✓ 已答')
+
+    modes = page.get_by_role('group', name='练习模式')
+    mode_positions = '(buttons) => buttons.map((button) => { const { x, width } = button.getBoundingClientRect(); return [x, width] })'
+    positions = modes.locator('button').evaluate_all(mode_positions)
+    for label in ('随机', '顺序', '错题', '收藏', '专题'):
+        mode = modes.get_by_role('button', name=label, exact=True)
+        mode.click()
+        expect(mode).to_have_attribute('aria-pressed', 'true')
+        assert modes.locator('button').evaluate_all(mode_positions) == positions
+
+    section(page, '/questions')
+    check_library_pages(page)
     search = page.get_by_role('searchbox', name='搜索题目')
     expect(search).to_be_visible()
     search_start = perf_counter()
@@ -315,6 +437,8 @@ def run(browser):
     page = desktop.new_page()
     page.goto(ORIGIN + '/exam')
     expect(page.get_by_role('heading', name='模拟考试')).to_be_visible()
+    expect(page.locator('.site-title')).to_have_css('font-size', '22px')
+    expect(page.locator('.site-title img')).to_have_css('width', '38px')
     nav = page.get_by_role('navigation', name='学习导航')
     before = nav.bounding_box()
     section(page, '/questions')

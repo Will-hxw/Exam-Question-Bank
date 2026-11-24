@@ -5,7 +5,9 @@ import { bankReleaseEvent, cachedPublic, readPublic, requestJson, StudyRequestEr
 
 type DataState<T> = { key: string; path: string | null; data: T | null; error: string | null }
 
-export function useStudyData<T>(path: string | null, revision = 0, { keepPreviousData = false } = {}) {
+export function useStudyData<T>(path: string | null, revision = 0, {
+  keepPreviousData = false, load,
+}: { keepPreviousData?: boolean; load?: (path: string) => Promise<T> } = {}) {
   const [retryCount, setRetryCount] = useState(0)
   const key = `${path}:${retryCount}:${revision}`
   const [state, setState] = useState<DataState<T>>(() => {
@@ -23,7 +25,7 @@ export function useStudyData<T>(path: string | null, revision = 0, { keepPreviou
   useEffect(() => {
     if (!path) return
     let active = true
-    const get = path.startsWith('/api/public/') ? readPublic<T> : requestJson<T>
+    const get = load ?? (path.startsWith('/api/public/') ? readPublic<T> : requestJson<T>)
     void get(path).then((data) => {
       if (active) setState({ key, path, data, error: null })
     }, (error: unknown) => {
@@ -31,7 +33,7 @@ export function useStudyData<T>(path: string | null, revision = 0, { keepPreviou
       if (active) setState({ key, path, data: null, error: message })
     })
     return () => { active = false }
-  }, [key, path])
+  }, [key, path, load])
 
   const current = state.key === key
   return {
