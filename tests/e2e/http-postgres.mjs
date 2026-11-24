@@ -304,7 +304,11 @@ async function runApiChecks(origin, db, items, secret) {
   assert.ok(result.items[0].answerIds.length)
   assert.equal((await call(`${examPath}/submit`, submitOptions)).data.exam.score, 1)
   const examCount = await db.query("SELECT count(*)::int FROM attempts WHERE user_id=$1 AND mode='exam'", [alice])
-  assert.equal(examCount.rows[0].count, 1)
+  assert.equal(examCount.rows[0].count, 50)
+  const wrongBookPath = '/api/me/questions?status=wrong&limit=50'
+  const wrongBook = (await call(wrongBookPath, { user: 'alice' })).data.questions
+  assert.ok(exam.items.slice(1).every(({ id }) => wrongBook.some((item) => item.id === id && item.attempted)))
+  assert.equal(new Set(wrongBook.map(({ id }) => id)).size, wrongBook.length)
   await call(`${examPath}/replay`, { method: 'POST', user: 'bob', owner: users.get('bob').id, status: 404 })
   const replayRequests = await Promise.all(Array.from({ length: 2 }, () => call(`${examPath}/replay`, {
     method: 'POST', user: 'alice', owner: alice,
@@ -442,7 +446,7 @@ try {
         EQB_TEST_MULTIPLE_POSITION: String(position), PYTHONUTF8: '1' },
     })
     const browserWrites = await db.query("SELECT mode, count(*)::int AS count FROM attempts WHERE user_id=$1 GROUP BY mode ORDER BY mode", [users.get('browser').id])
-    assert.deepEqual(browserWrites.rows, [{ mode: 'exam', count: 1 }, { mode: 'practice', count: 2 }])
+    assert.deepEqual(browserWrites.rows, [{ mode: 'exam', count: 24 }, { mode: 'practice', count: 2 }])
     const browserFavorites = await db.query('SELECT count(*)::int AS count FROM favorites WHERE user_id=$1', [users.get('browser').id])
     assert.equal(browserFavorites.rows[0].count, 0)
   }

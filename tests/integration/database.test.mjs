@@ -20,6 +20,20 @@ const pool = new pg.Pool({ connectionString: isolatedUrl.href, max: 8 })
 let questions
 let created = false
 const countMigration = '007_exam_question_count.sql'
+const consistencyMigration = '010_exam_wrong_book_consistency.sql'
+
+async function migrateBefore(client, boundary) {
+  const migrations = new URL('../../db/migrations/', import.meta.url)
+  const prior = await mkdtemp(join(tmpdir(), 'eqb-migrations-'))
+  try {
+    const directory = pathToFileURL(prior + sep)
+    const files = (await readdir(migrations)).filter(file => /^\d{3}_[a-z0-9_]+\.sql$/.test(file) && file < boundary)
+    await Promise.all(files.map(file => copyFile(new URL(file, migrations), new URL(file, directory))))
+    return await migrate(client, directory)
+  } finally {
+    await rm(prior, { recursive: true, force: true })
+  }
+}
 
 before(async () => {
   await admin.connect()
@@ -27,16 +41,7 @@ before(async () => {
   created = true
   const client = await pool.connect()
   try {
-    const migrations = new URL('../../db/migrations/', import.meta.url)
-    const prior = await mkdtemp(join(tmpdir(), 'eqb-migrations-'))
-    try {
-      const directory = pathToFileURL(prior + sep)
-      const files = (await readdir(migrations)).filter(file => /^\d{3}_[a-z0-9_]+\.sql$/.test(file) && file < countMigration)
-      await Promise.all(files.map(file => copyFile(new URL(file, migrations), new URL(file, directory))))
-      assert.ok((await migrate(client, directory)).includes('006_exams.sql'))
-    } finally {
-      await rm(prior, { recursive: true, force: true })
-    }
+    assert.ok((await migrateBefore(client, countMigration)).includes('006_exams.sql'))
     await client.query('BEGIN')
     const topics = JSON.parse(await readFile(new URL('../../content/topics.json', import.meta.url), 'utf8'))
     for (const [position, { id, name, scopeNote, active }] of topics.entries()) {
@@ -116,8 +121,7 @@ test('migration preserves an in-progress 50-question draft and submitted exam sn
   const { rows: prior } = await pool.query(existing)
   const client = await pool.connect()
   try {
-    assert.ok((await migrate(client)).includes(countMigration))
-    assert.deepEqual(await migrate(client), [])
+    assert.ok((await migrateBefore(client, consistencyMigration)).includes(countMigration))
   } finally {
     client.release()
   }
@@ -127,6 +131,40 @@ test('migration preserves an in-progress 50-question draft and submitted exam sn
   const { rows: [{ status }] } = await pool.query('SELECT update_exam($1, $2, 1, 49, $3, $4, true) AS status',
     ['legacy-draft', prior[0].id, marks, answers])
   assert.equal(status, 'ok')
+})
+
+test('migration restores omitted exam items while preserving a later manual removal', async () => {
+  const owner = 'omitted-exam-fixture'
+  const [untouched, removed, practiced] = questions
+  for (const [item, selection] of [[removed, removed.wrong], [practiced, practiced.correct]]) {
+    await pool.query('SELECT record_practice_batch($1,$2)', [owner, JSON.stringify([
+      { eventId: randomUUID(), questionId: item.id, optionIds: [selection] },
+    ])])
+  }
+  const { rows: [{ id }] } = await pool.query('SELECT start_exam($1,$2) AS id', [owner, [untouched.id, removed.id, practiced.id]])
+  const submit = "SELECT update_exam($1,$2,0,0,ARRAY[]::uuid[],'{}',true) AS status"
+  assert.equal((await pool.query(submit, [owner, id])).rows[0].status, 'ok')
+  const attempts = () => pool.query("SELECT question_id, selection, correct FROM attempts WHERE user_id=$1 AND mode='exam'", [owner])
+  assert.equal((await attempts()).rowCount, 0)
+  await pool.query('UPDATE question_progress SET is_wrong=false, updated_at=clock_timestamp() WHERE user_id=$1 AND question_id=$2', [owner, removed.id])
+  const client = await pool.connect()
+  try {
+    assert.deepEqual(await migrate(client), [consistencyMigration])
+    assert.deepEqual(await migrate(client), [])
+  } finally {
+    client.release()
+  }
+  const progress = async ({ id: itemId }) => (await pool.query(
+    'SELECT attempt_count, is_wrong FROM question_progress WHERE user_id=$1 AND question_id=$2', [owner, itemId],
+  )).rows[0]
+  assert.deepEqual(await progress(untouched), { attempt_count: 1, is_wrong: true })
+  assert.deepEqual(await progress(removed), { attempt_count: 1, is_wrong: false })
+  assert.deepEqual(await progress(practiced), { attempt_count: 2, is_wrong: true })
+  const { rows } = await attempts()
+  assert.deepEqual(new Set(rows.map(row => row.question_id)), new Set([untouched.id, practiced.id]))
+  assert.ok(rows.every(row => row.correct === false && row.selection.length === 0))
+  assert.equal((await pool.query(submit, [owner, id])).rows[0].status, 'ok')
+  assert.equal((await attempts()).rowCount, 2)
 })
 
 test('50-item exam retains option IDs, rejects other owners and stale drafts, and grades retries once', async () => {
@@ -151,7 +189,7 @@ test('50-item exam retains option IDs, rejects other owners and stale drafts, an
   const { rows: [session] } = await pool.query('SELECT score, status, revision FROM exam_sessions WHERE id = $1', [id])
   assert.deepEqual(session, { score: 1, status: 'submitted', revision: 2 })
   const { rows: [{ count }] } = await pool.query("SELECT count(*)::int FROM attempts WHERE user_id = 'exam-a'")
-  assert.equal(count, 2)
+  assert.equal(count, 50)
 })
 
 test('first practice and every wrong exam pin a question until manual removal', async () => {
@@ -189,7 +227,7 @@ test('first practice and every wrong exam pin a question until manual removal', 
   assert.equal((await state(first)).is_wrong, false)
   await examWith(first.wrong)
   assert.deepEqual(await state(first), { attempt_count: 5, is_wrong: true })
-  assert.equal(await state(skipped), undefined)
+  assert.deepEqual(await state(skipped), { attempt_count: 3, is_wrong: true })
 })
 
 test('52-item exams support the last position and scores beyond 50 without changing the snapshot', async () => {

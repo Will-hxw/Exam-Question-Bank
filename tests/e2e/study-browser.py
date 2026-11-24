@@ -512,8 +512,10 @@ def run(browser):
     start_exam.click()
     expect(page.locator('.exam-nav-item')).to_have_count(8)
     browser_exam_start = milliseconds(start)
+    wrong_exam_stem = page.locator('.exam-question-card .q-text').inner_text()
+    wrong_option = (int(wrong_exam_stem.rsplit(' ', 1)[1]) + 1) % 4
     first_is_multiple = page.locator('.question-card .q-type').inner_text() == '多选题'
-    page.locator('.question-card .option').first.click()
+    page.locator('.question-card .option').nth(wrong_option).click()
     if first_is_multiple:
         page.get_by_role('button', name='下一题', exact=True).tap()
     expect(page.locator('.exam-nav-item.current')).to_have_text('2')
@@ -569,8 +571,25 @@ def run(browser):
     expect(page.locator('.exam-result-item')).to_have_count(8)
     browser_exam_submit = milliseconds(start)
     expect(page.locator('.exam-score-total')).to_have_text('/ 8')
+    expect(page.locator('.exam-score-num')).to_have_text('0')
     original = page.locator('.exam-result-question').all_inner_texts()
+    expect(page.locator('.exam-result-item').nth(1).get_by_text('未作答', exact=False)).to_be_visible()
     expect(page.locator('.exam-result-actions').get_by_role('button', name='原卷重新考试', exact=True)).to_be_enabled()
+
+    def wrong_row(text):
+        return page.locator('.list-item').filter(has=page.get_by_text(text, exact=True))
+
+    section(page, '/wrong')
+    for text in original:
+        expect(wrong_row(text)).to_have_count(1)
+        expect(wrong_row(text).get_by_text('已答', exact=False)).to_be_visible()
+    wrong_row(wrong_exam_stem).get_by_role('button', name='移出错题集').click()
+    expect(wrong_row(wrong_exam_stem)).to_have_count(0)
+    page.reload(wait_until='domcontentloaded')
+    expect(wrong_row(original[1])).to_have_count(1)
+    expect(wrong_row(wrong_exam_stem)).to_have_count(0)
+
+    section(page, '/exam')
     check_exam_result_header(page).tap()
     expect(page.locator('.exam-nav-item')).to_have_count(8)
     expect(page.locator('.exam-nav-item.current')).to_have_text('1')
@@ -579,8 +598,14 @@ def run(browser):
         page.get_by_role('group', name='题目导航').get_by_role('button', name=str(index), exact=True).tap()
         expect(page.locator('.exam-question-card .q-text')).to_have_text(text)
     expect(next_item).to_be_disabled()
+    page.get_by_role('group', name='题目导航').get_by_role('button', name='1', exact=True).tap()
+    page.locator('.question-card .option').nth(wrong_option).click()
     page.get_by_role('button', name='交卷', exact=True).click()
     expect(page.locator('.exam-result-item')).to_have_count(8)
+    section(page, '/wrong')
+    for text in original:
+        expect(wrong_row(text)).to_have_count(1)
+    section(page, '/exam')
     page.get_by_role('button', name='返回', exact=True).click()
     page.get_by_role('button', name='历史记录').click()
     expect(page.locator('.exam-history-score')).to_have_text([re.compile(r'^\d+/8$'), re.compile(r'^\d+/8$')])
