@@ -22,7 +22,11 @@ function loadLocal(key: string) {
   try {
     const serialized = localStorage.getItem(key)
     if (serialized) {
-      return JSON.parse(serialized) as ExamDraft
+      const value = JSON.parse(serialized) as ExamDraft
+      if (value && Number.isSafeInteger(value.revision) && value.revision >= 0 && Number.isSafeInteger(value.position)
+        && value.position >= 0 && Array.isArray(value.marked) && value.marked.every((id) => typeof id === 'string')
+        && value.answers && typeof value.answers === 'object' && !Array.isArray(value.answers)
+        && Object.values(value.answers).every((ids) => Array.isArray(ids) && ids.every((id) => typeof id === 'string'))) return value
     }
   } catch { /* The remote copy is still usable. */ }
   return null
@@ -41,8 +45,9 @@ function sameDraft(left: ExamDraft, right: ExamDraft) {
 export function useExamDraft(userId: string, exam: Exam) {
   const localKey = `cqu-study-draft:${userId}:${exam.id}`
   const [recovered] = useState(() => loadLocal(localKey))
-  const pending = recovered?.revision === exam.revision
-  const unresolved = Boolean(recovered && !pending && !sameDraft(recovered, exam))
+  const hasLocalChanges = Boolean(recovered && !sameDraft(recovered, exam))
+  const pending = hasLocalChanges && recovered?.revision === exam.revision
+  const unresolved = hasLocalChanges && !pending
   const [draft, setDraft] = useState<ExamDraft>(() => pending && recovered ? recovered : answerData(exam))
   const [syncStatus, setSyncStatus] = useState<'synced' | 'local' | 'pending' | 'error' | 'conflict'>(unresolved ? 'conflict' : pending ? 'local' : 'synced')
   const latest = useRef(draft)
@@ -64,7 +69,7 @@ export function useExamDraft(userId: string, exam: Exam) {
     try { localStorage.removeItem(localKey) } catch { /* The server already has the saved draft. */ }
   }, [localKey])
 
-  const flush = useCallback(async (): Promise<ExamDraft> => {
+  const flush = useCallback(async (keepalive = false): Promise<ExamDraft> => {
     if (inFlight.current) return inFlight.current
     if (conflict.current) throw new StudyRequestError(409)
     if (!dirty.current) return latest.current
@@ -72,7 +77,7 @@ export function useExamDraft(userId: string, exam: Exam) {
       try {
         while (dirty.current) {
           const snapshot = latest.current
-          const { exam: saved } = await writeJson<{ exam: Exam }>(`/api/exams/${exam.id}`, userId, 'PUT', snapshot)
+          const saved = await writeJson<{ revision: number }>(`/api/exams/${exam.id}?ack=1`, userId, 'PUT', snapshot, keepalive)
           dirty.current = latest.current !== snapshot
           latest.current = { ...latest.current, revision: saved.revision }
           setDraft(latest.current)
@@ -95,8 +100,10 @@ export function useExamDraft(userId: string, exam: Exam) {
 
   useEffect(() => {
     const restore = () => { void flush().catch(() => {}) }
+    const leaving = () => { void flush(true).catch(() => {}) }
     const timer = setTimeout(restore, 800)
     window.addEventListener('online', restore)
+    window.addEventListener('pagehide', leaving)
     return () => {
       clearTimeout(timer)
       if (storageTimer.current) {
@@ -104,6 +111,7 @@ export function useExamDraft(userId: string, exam: Exam) {
         void flush().catch(() => {})
       }
       window.removeEventListener('online', restore)
+      window.removeEventListener('pagehide', leaving)
     }
   }, [flush])
 
@@ -129,6 +137,9 @@ export function useExamDraft(userId: string, exam: Exam) {
   function abandonLocalDraft() {
     latest.current = answerData(exam)
     dirty.current = false
+    conflict.current = false
+    setDraft(latest.current)
+    setSyncStatus('synced')
     clearStored()
   }
 

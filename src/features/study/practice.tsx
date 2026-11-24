@@ -1,8 +1,9 @@
 'use client'
 
 import { type FormEvent, useEffect, useRef, useState } from 'react'
-import { answerLetters, cachedPublic, letter, type Question, type QuestionPage, questionUrl, readPublic, type StudyStats } from './api'
+import { answerLetters, letter, type Question, type QuestionPage, questionUrl, readPublic, type StudyStats } from './api'
 import { ExplanationPanel, LoadMessage, TopicPicker } from './controls'
+import type { StudyPreferences } from './preferences'
 import { useQuestionFavorite, useQuestionStates, useStudySessionContext } from './study-shell'
 import { useStudyData } from './use-study-data'
 
@@ -16,23 +17,40 @@ const modes = [
 
 type Mode = typeof modes[number]['id']
 type Answer = { ids: string[]; correct: boolean; saved: boolean }
-type PracticeSettings = { mode: Mode; topic: string; position: number }
-const defaultSettings: PracticeSettings = { mode: 'topic', topic: '', position: 0 }
+type PracticeSettings = { mode: Mode; topic: string; seed: string }
 const batchSize = 15
 
-function readSettings(key: string): PracticeSettings {
-  try {
-    const text = sessionStorage.getItem(key)
-    if (text) {
-      const settings = JSON.parse(text) as PracticeSettings
-      if (modes.some(({ id }) => id === settings.mode) && typeof settings.topic === 'string' && Number.isSafeInteger(settings.position) && settings.position >= 0) return settings
-    }
-  } catch { /* Use the default exercise entry. */ }
-  return defaultSettings
+function readSettings(value: unknown, initialSeed: string): PracticeSettings {
+  const saved = value as Partial<PracticeSettings> | undefined
+  const mode = modes.find(({ id }) => id === saved?.mode)?.id ?? 'topic'
+  const topic = typeof saved?.topic === 'string' ? saved.topic : ''
+  const seed = typeof saved?.seed === 'string' && /^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(saved.seed) ? saved.seed : initialSeed
+  return { mode, topic, seed }
+}
+
+function positionKey(mode: Mode, topic: string) {
+  return mode === 'topic' ? `topic:${topic}` : mode
+}
+
+function practicePosition(values: StudyPreferences, mode: Mode, topic: string) {
+  const value = values[`practice-position:${positionKey(mode, topic)}`]
+  return typeof value === 'number' && Number.isSafeInteger(value) && value >= 0 && value < 100000 ? value : 0
 }
 
 function batchFor(index: number) {
   return { offset: Math.floor(index / batchSize) * batchSize, limit: batchSize }
+}
+
+function practicePagePath(mode: Mode, topic: string, position: number, seed: string) {
+  const { offset, limit } = batchFor(position)
+  return questionUrl({
+    topic: mode === 'topic' ? topic : undefined,
+    offset: mode === 'random' ? undefined : offset,
+    limit,
+    practice: true,
+    status: mode === 'wrong' || mode === 'favorite' ? mode : undefined,
+    random: mode === 'random' ? seed : undefined,
+  })
 }
 
 function Progress({ mode, index, total, fallback, onJump }: {
@@ -79,7 +97,7 @@ function PracticeStats({ data }: { data: StudyStats | null }) {
   </div>
 }
 
-function PracticeCard({ question, answer, record, progress, previous, next, attempted, favorite, wrongMode }: {
+function PracticeCard({ question, answer, record, progress, previous, next, attempted, favorite, wrongMode, onRemoved }: {
   question: Question
   answer: Answer | undefined
   record: (answer: Answer) => void
@@ -89,6 +107,7 @@ function PracticeCard({ question, answer, record, progress, previous, next, atte
   attempted: boolean
   favorite: boolean | undefined
   wrongMode: boolean
+  onRemoved: () => void
 }) {
   const { attempts, removeWrong } = useStudySessionContext()
   const favoriteControl = useQuestionFavorite(question.id, favorite)
@@ -115,14 +134,14 @@ function PracticeCard({ question, answer, record, progress, previous, next, atte
     if (!question.answerIds?.length) { setMessage('答案暂不可用，请稍后重试。'); return }
     const correct = ids.length === question.answerIds.length && ids.every((id) => question.answerIds?.includes(id))
     saveAnswer(ids, correct)
-    if (immediate && !correct && question.explanation) setExpanded(true)
+    if (!correct && question.explanation) setExpanded(true)
   }
 
   async function clearWrong() {
     setRemoving(true)
     try {
       await removeWrong(question.id)
-      next()
+      onRemoved()
     } catch (error) {
       setMessage(error instanceof Error ? error.message : '更新错题失败，请重试。')
     } finally {
@@ -163,8 +182,8 @@ function PracticeCard({ question, answer, record, progress, previous, next, atte
       </div>
       <div className="action-bar">
         <button type="button" className="btn primary" disabled={Boolean(answer)} onClick={() => submit()}>确定</button>
-        <button type="button" className="btn" disabled={!previous} onClick={previous ?? undefined}>上一题</button>
-        <button type="button" className="btn" onClick={next}>下一题</button>
+        <button type="button" className="btn nav-step" disabled={!previous} onClick={previous ?? undefined}>上一题</button>
+        <button type="button" className="btn nav-step" onClick={next}>下一题</button>
         <button type="button" className="btn btn-sm" aria-pressed={favoriteControl.favorite}
           aria-busy={favoriteControl.pending || undefined} onClick={favoriteControl.toggle}>
           {favoriteControl.favorite ? '★ 取消收藏' : '☆ 收藏'}
@@ -190,20 +209,20 @@ function PracticeCard({ question, answer, record, progress, previous, next, atte
   </>
 }
 
-function PracticeDeck({ mode, topic, topicCount, initialPosition, rememberPosition }: {
-  mode: Mode; topic: string; topicCount: number; initialPosition: number; rememberPosition: (position: number) => void
+function PracticeDeck({ mode, topic, topicCount, seed, position, rememberPosition }: {
+  mode: Mode; topic: string; topicCount: number; seed: string; position: number
+  rememberPosition: (position: number, seed?: string) => void
 }) {
-  const { prefetchQuestionStates } = useStudySessionContext()
-  const [position, setPosition] = useState(initialPosition)
+  const { personalReads, prefetchQuestionStates, revision } = useStudySessionContext()
   const [round, setRound] = useState(0)
   const [answers, setAnswers] = useState<Record<string, Answer>>({})
   const random = mode === 'random'
   const ordered = mode === 'topic' || mode === 'sequence'
   const status = mode === 'wrong' || mode === 'favorite' ? mode : ''
   const { offset, limit } = batchFor(position)
-  const query = questionUrl({ topic, offset: random ? undefined : offset, limit, practice: true, status, random })
-  const page = useStudyData<QuestionPage>(query, ordered ? 0 : round)
-  const visiblePage = page.data ?? (ordered && page.loading ? cachedPublic<QuestionPage>(query) : undefined)
+  const query = practicePagePath(mode, topic, position, seed)
+  const page = useStudyData<QuestionPage>(query, status ? revision : 0, status ? personalReads : undefined)
+  const visiblePage = page.data
   const question = visiblePage?.questions[random ? position : position - offset]
   const total = (random ? visiblePage?.questions.length : visiblePage?.total) ?? topicCount
   const questionId = question?.id
@@ -224,14 +243,13 @@ function PracticeDeck({ mode, topic, topicCount, initialPosition, rememberPositi
   }, [canPrefetch, topic, offset, limit, prefetchQuestionStates])
 
   function move(index: number) {
-    setPosition(index)
-    if (ordered) rememberPosition(index)
+    rememberPosition(index)
   }
 
   function next() {
     if (position + 1 < total) move(position + 1)
     else {
-      move(0)
+      rememberPosition(0, random ? crypto.randomUUID() : undefined)
       setRound((previous) => previous + 1)
       setAnswers({})
     }
@@ -251,45 +269,69 @@ function PracticeDeck({ mode, topic, topicCount, initialPosition, rememberPositi
       progress={<Progress mode={mode} index={position} total={total} fallback={fallback} onJump={move} />}
       previous={position > 0 ? () => move(position - 1) : null} next={next}
       attempted={activeState?.attempted ?? Boolean(question.attempted)}
-      favorite={activeState?.isFavorite ?? question.isFavorite} wrongMode={mode === 'wrong'} />
+      favorite={activeState?.isFavorite ?? question.isFavorite} wrongMode={mode === 'wrong'}
+      onRemoved={() => rememberPosition(Math.min(position, Math.max(0, total - 2)))} />
     {states.error && !status && <p className="study-message error" role="alert">个人状态加载失败。 <button type="button" className="btn btn-sm" onClick={states.retry}>重试</button></p>}
   </>
 }
 
-export function Practice() {
-  const { stats, topics, userId } = useStudySessionContext()
-  const key = `cqu-study-practice:${userId}`
-  const [settings, setSettings] = useState<PracticeSettings | null>(null)
-  useEffect(() => {
-    const initial = setTimeout(() => setSettings(readSettings(key)), 0)
-    return () => clearTimeout(initial)
-  }, [key])
-
-  const { mode, topic: chosenTopic, position } = settings ?? defaultSettings
+function PracticeContent() {
+  const { stats, topics, preferences, personalReads } = useStudySessionContext()
+  const [initialSeed] = useState(() => crypto.randomUUID())
+  const settings = readSettings(preferences.values.practice, initialSeed)
+  const { mode, topic: chosenTopic, seed } = settings
   const entries = topics.data?.topics ?? []
-  const topic = mode === 'topic' ? entries.find((entry) => entry.id === chosenTopic) ?? entries.find((entry) => entry.count > 0) ?? entries[0] : undefined
-  const topicCount = topic?.count ?? entries.reduce((sum, entry) => sum + entry.count, 0)
-  const start = mode === 'sequence' || (mode === 'topic' && topic?.id === chosenTopic && position < topicCount) ? position : 0
+  const topic = entries.find((entry) => entry.id === chosenTopic) ?? entries.find((entry) => entry.count > 0) ?? entries[0]
+  const topicId = topic?.id ?? ''
+  const total = entries.reduce((sum, entry) => sum + entry.count, 0)
+  const topicCount = mode === 'topic' ? topic?.count ?? 0 : total
+  const position = practicePosition(preferences.values, mode, topicId)
+  const start = (mode === 'topic' || mode === 'sequence') && position >= topicCount ? 0 : position
 
   function saveSettings(next: PracticeSettings) {
-    setSettings(next)
-    try { sessionStorage.setItem(key, JSON.stringify(next)) } catch { /* The current page keeps the selected position. */ }
+    preferences.save({ practice: next })
   }
+
+  function warmMode(next: Mode) {
+    if (!navigator.onLine) return
+    const path = practicePagePath(next, topicId, practicePosition(preferences.values, next, topicId), seed)
+    void (path.startsWith('/api/me/') ? personalReads.load(path) : readPublic(path)).catch(() => {})
+  }
+
+  const warmPaths = topicId ? modes.filter(({ id }) => id !== mode)
+    .map(({ id }) => practicePagePath(id, topicId, practicePosition(preferences.values, id, topicId), seed)).join('\n') : ''
+  useEffect(() => {
+    if (!warmPaths) return
+    const timers = warmPaths.split('\n').map((path, index) => setTimeout(() => {
+      if (!navigator.onLine || document.visibilityState !== 'visible') return
+      void (path.startsWith('/api/me/') ? personalReads.load(path) : readPublic(path)).catch(() => {})
+    }, 350 + index * 160))
+    return () => timers.forEach(clearTimeout)
+  }, [personalReads, warmPaths])
 
   return <>
     <PracticeStats data={stats.data} />
     <div className="mode-bar" role="group" aria-label="练习模式">
       <span className="mode-label">模式：</span>
       {modes.map((entry) => <button key={entry.id} type="button" className={`mode-btn ${mode === entry.id ? 'active' : ''}`}
-        aria-pressed={mode === entry.id} onClick={() => { if (mode !== entry.id) saveSettings({ mode: entry.id, topic: chosenTopic, position: 0 }) }}>{entry.label}</button>)}
+        aria-pressed={mode === entry.id} onPointerEnter={() => warmMode(entry.id)} onFocus={() => warmMode(entry.id)}
+        onClick={() => { if (mode !== entry.id) saveSettings({ ...settings, mode: entry.id }) }}>{entry.label}</button>)}
     </div>
     {mode === 'topic' && topic && <div className="mode-bar">
       <span className="mode-label">专题：</span>
-      <TopicPicker topics={entries} value={topic.id} onChange={(value) => saveSettings({ mode, topic: value, position: 0 })} />
+      <TopicPicker topics={entries} value={topic.id} onChange={(value) => saveSettings({ ...settings, topic: value })} />
     </div>}
-    {!settings || mode === 'topic' && !topic ? <LoadMessage error={topics.error} loading={!settings || topics.loading} retry={topics.retry} empty="暂无已发布专题" /> : (
-      <PracticeDeck key={`${mode}:${topic?.id || ''}`} mode={mode} topic={topic?.id ?? ''} topicCount={topicCount} initialPosition={start}
-        rememberPosition={(next) => saveSettings({ mode, topic: topic?.id ?? chosenTopic, position: next })} />
+    {mode === 'topic' && !topic ? <LoadMessage error={topics.error} loading={topics.loading} retry={topics.retry} empty="暂无已发布专题" /> : (
+      <PracticeDeck key={positionKey(mode, topicId)} mode={mode} topic={mode === 'topic' ? topicId : ''} topicCount={topicCount} seed={seed} position={start}
+        rememberPosition={(next, nextSeed = seed) => preferences.save({
+          [`practice-position:${positionKey(mode, topicId)}`]: next,
+          ...((nextSeed !== seed || !preferences.values.practice) ? { practice: { ...settings, seed: nextSeed } } : {}),
+        })} />
     )}
   </>
+}
+
+export function Practice() {
+  const { preferences } = useStudySessionContext()
+  return preferences.ready ? <PracticeContent /> : <LoadMessage loading />
 }

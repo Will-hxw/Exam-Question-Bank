@@ -1,8 +1,9 @@
 'use client'
 
-import { useState } from 'react'
-import { answerLetters, type Explanation, letter, libraryPageSize, type Question, type QuestionPage, type QuestionState, type QuestionType, questionUrl, type Status } from './api'
+import { useEffect, useState } from 'react'
+import { answerLetters, type Explanation, letter, type Question, type QuestionPage, type QuestionState, type QuestionType, type Status } from './api'
 import { ExplanationPanel, LoadMessage, TopicPicker } from './controls'
+import { libraryPageSizes, libraryPath, readLibraryView, type LibraryList, type LibraryView } from './preferences'
 import { useQuestionFavorite, useQuestionStates, useStudySessionContext } from './study-shell'
 import { useDebouncedSearch, useStudyData } from './use-study-data'
 
@@ -13,8 +14,6 @@ const statuses: { value: Status | ''; label: string }[] = [
   { value: '', label: '全部' }, { value: 'undone', label: '未做' }, { value: 'done', label: '已做' },
   { value: 'wrong', label: '错题' }, { value: 'favorite', label: '收藏' },
 ]
-const pageSizes = [10, libraryPageSize, 30, 50]
-
 function QuestionRow({ question, state, list }: { question: Question; state?: Partial<QuestionState>; list: 'all' | 'wrong' | 'favorite' }) {
   const { removeWrong } = useStudySessionContext()
   const favoriteControl = useQuestionFavorite(question.id, state?.isFavorite ?? question.isFavorite)
@@ -65,22 +64,23 @@ function QuestionRow({ question, state, list }: { question: Question; state?: Pa
   </article>
 }
 
-function QuestionList({ topic, type, q, status, list, limit, onLimitChange }: {
-  topic: string; type: QuestionType | ''; q: string; status: Status | ''; list: 'all' | 'wrong' | 'favorite'
-  limit: number; onLimitChange: (limit: number) => void
+function QuestionList({ view, q, status, list, onPageChange, onLimitChange }: {
+  view: LibraryView; q: string; status: Status | ''; list: LibraryList
+  onPageChange: (index: number) => void; onLimitChange: (limit: number) => void
 }) {
-  const [pageIndex, setPageIndex] = useState(0)
   const [loaded, setLoaded] = useState<{ index: number; data: QuestionPage }>()
-  const { revision } = useStudySessionContext()
+  const { revision, personalReads } = useStudySessionContext()
+  const { page: pageIndex, limit } = view
   const page = useStudyData<QuestionPage>(
-    questionUrl({ topic, type, q, status, offset: pageIndex ? pageIndex * limit : undefined, limit }),
-    status ? revision : 0,
+    libraryPath(list, view, q), status ? revision : 0, status ? personalReads : undefined,
   )
   const total = page.data?.total ?? loaded?.data.total ?? 0
   const pageCount = Math.max(1, Math.ceil(total / limit))
-  if (page.data && pageIndex >= pageCount) {
-    setPageIndex(pageCount - 1)
-  } else if (page.data && loaded?.data !== page.data) {
+  const outOfRange = Boolean(page.data && pageIndex >= pageCount)
+  useEffect(() => {
+    if (outOfRange) onPageChange(pageCount - 1)
+  }, [onPageChange, outOfRange, pageCount])
+  if (page.data && !outOfRange && loaded?.data !== page.data) {
     setLoaded({ index: pageIndex, data: page.data })
   }
   const currentIndex = Math.min(loaded?.index ?? 0, pageCount - 1)
@@ -90,7 +90,7 @@ function QuestionList({ topic, type, q, status, list, limit, onLimitChange }: {
   function move(index: number) {
     if (page.loading) return
     if (index === pageIndex) page.retry()
-    else setPageIndex(index)
+    else onPageChange(index)
   }
 
   return <>
@@ -104,12 +104,12 @@ function QuestionList({ topic, type, q, status, list, limit, onLimitChange }: {
     </p>}
     {states.error && <p className="study-message error" role="alert">个人状态加载失败。 <button type="button" className="btn btn-sm" onClick={states.retry}>重试</button></p>}
     {loaded && total > 0 && <nav className="study-pagination" aria-label="题库分页">
-      <button type="button" className="btn btn-sm" disabled={currentIndex === 0} onClick={() => move(currentIndex - 1)}>上一页</button>
+      <button type="button" className="btn btn-sm nav-step" disabled={currentIndex === 0} onClick={() => move(currentIndex - 1)}>上一页</button>
       <output className="pagination-position" aria-label="当前页 / 总页数">{currentIndex + 1}/{pageCount}</output>
-      <button type="button" className="btn btn-sm" disabled={currentIndex + 1 >= pageCount} onClick={() => move(currentIndex + 1)}>下一页</button>
+      <button type="button" className="btn btn-sm nav-step" disabled={currentIndex + 1 >= pageCount} onClick={() => move(currentIndex + 1)}>下一页</button>
       {list === 'all' && <label className="pagination-size">每页题量
         <select className="pagination-select" value={limit} onChange={(event) => onLimitChange(Number(event.target.value))}>
-          {pageSizes.map((size) => <option key={size} value={size}>{size} 题</option>)}
+          {libraryPageSizes.map((size) => <option key={size} value={size}>{size} 题</option>)}
         </select>
       </label>}
       <p className="pagination-loading" role="status">
@@ -119,34 +119,39 @@ function QuestionList({ topic, type, q, status, list, limit, onLimitChange }: {
   </>
 }
 
-export function Library({ list }: { list: 'all' | 'wrong' | 'favorite' }) {
-  const { topics, stats } = useStudySessionContext()
-  const [search, setSearch] = useState('')
-  const [type, setType] = useState<QuestionType | ''>('')
-  const [topic, setTopic] = useState('')
-  const [status, setStatus] = useState<Status | ''>('')
-  const [limit, setLimit] = useState(libraryPageSize)
+function LibraryContent({ list }: { list: LibraryList }) {
+  const { topics, stats, preferences } = useStudySessionContext()
+  const key = `library:${list}`
+  const view = readLibraryView(preferences.values[key])
+  const { search, type, topic, status, limit } = view
   const q = useDebouncedSearch(search)
   const filter = list === 'all' ? status : list
+  const filterBy = (change: Partial<LibraryView>) => preferences.save({ [key]: { ...view, page: 0, ...change } })
 
   return <>
-    {list === 'all' && <input className="search-box" type="search" placeholder="搜索题目…" maxLength={100} value={search} onChange={(event) => setSearch(event.target.value)} aria-label="搜索题目" />}
+    {list === 'all' && <input className="search-box" type="search" placeholder="搜索题干或选项…" maxLength={100} value={search}
+      onChange={(event) => filterBy({ search: event.target.value })} aria-label="搜索题目" />}
     {list !== 'all' && stats.data && <p className="stats-bar">共 {list === 'wrong' ? stats.data.wrong : stats.data.favorites} 道{list === 'wrong' ? '错题' : '收藏'}</p>}
     <div className="filter-bar">
       <div className="filter-row"><span className="filter-label">专题：</span>
-        <TopicPicker topics={topics.data?.topics ?? []} value={topic} allowAll onChange={setTopic} />
+        <TopicPicker topics={topics.data?.topics ?? []} value={topic} allowAll onChange={(value) => filterBy({ topic: value })} />
         {topics.error && <button type="button" className="btn btn-sm" onClick={topics.retry}>重试专题</button>}
       </div>
       <div className="filter-row" role="group" aria-label="按题型筛选"><span className="filter-label">题型：</span>
         {questionTypes.map((entry) => <button key={entry.label} type="button" className={`filter-chip ${entry.value === type ? 'active' : ''}`}
-          aria-pressed={entry.value === type} onClick={() => setType(entry.value)}>{entry.label}</button>)}
+          aria-pressed={entry.value === type} onClick={() => filterBy({ type: entry.value })}>{entry.label}</button>)}
       </div>
       {list === 'all' && <div className="filter-row" role="group" aria-label="按作答状态筛选"><span className="filter-label">状态：</span>
         {statuses.map((entry) => <button key={entry.label} type="button" className={`filter-chip ${entry.value === status ? 'active' : ''}`}
-          aria-pressed={entry.value === status} onClick={() => setStatus(entry.value)}>{entry.label}</button>)}
+          aria-pressed={entry.value === status} onClick={() => filterBy({ status: entry.value })}>{entry.label}</button>)}
       </div>}
     </div>
-    <QuestionList key={JSON.stringify([topic, type, q, filter, limit])} topic={topic} type={type} q={q}
-      status={filter} list={list} limit={limit} onLimitChange={setLimit} />
+    <QuestionList key={JSON.stringify([topic, type, q, filter, limit])} view={view} q={q} status={filter} list={list}
+      onPageChange={(index) => filterBy({ page: index })} onLimitChange={(size) => filterBy({ limit: size })} />
   </>
+}
+
+export function Library({ list }: { list: LibraryList }) {
+  const { preferences } = useStudySessionContext()
+  return preferences.ready ? <LibraryContent list={list} /> : <LoadMessage loading />
 }

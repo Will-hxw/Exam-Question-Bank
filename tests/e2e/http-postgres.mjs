@@ -154,7 +154,7 @@ async function seedDatabase(client) {
     await client.query('INSERT INTO topics (id, name, scope_note, sort_order, active) VALUES ($1,$2,$3,$4,$5)',
       [id, name, scopeNote, position + 1, active])
   }
-  const items = await seedQuestions(client)
+  const items = await seedQuestions(client, 52, 50)
   for (const item of items) {
     await reviewFixture(client, item)
     await client.query("UPDATE questions SET status = 'published' WHERE id = $1", [item.id])
@@ -236,17 +236,30 @@ async function runApiChecks(origin, db, items, secret) {
 
   const searchPath = `/api/public/questions?type=single&limit=7&q=${encodeURIComponent('分层练习')}`
   const searchPage = (await call(searchPath, { metric: 'searchFirst' })).data
-  assert.equal(searchPage.total, 52)
+  assert.equal(searchPage.total, 51)
   assert.equal(searchPage.questions.length, 7)
   assert.ok(searchPage.questions.every((item) => item.stem.includes('分层练习') && !Object.hasOwn(item, 'answerIds')))
   const secondPage = (await call(`${searchPath}&cursor=${searchPage.nextCursor}`)).data
   assert.equal(secondPage.questions.length, 7)
-  assert.equal(secondPage.total, 52)
+  assert.equal(secondPage.total, 51)
   assert.equal(new Set([...searchPage.questions, ...secondPage.questions].map(({ id }) => id)).size, 14)
   await call(`${searchPath}&cursor=${searchPage.nextCursor}&offset=0`, { status: 400 })
   assert.equal((await call('/api/public/questions?limit=15&q=%25')).data.total, 0)
+  const optionSearch = (await call(`/api/public/questions?limit=7&q=${encodeURIComponent('选项文本 ２')}`)).data
+  assert.equal(optionSearch.total, 52)
+  assert.ok(optionSearch.questions.every((item) => !item.stem.includes('选项文本') && item.options.some((option) => option.text === '选项文本 2')))
+  const seed = randomUUID()
+  const shufflePath = `/api/public/questions?limit=15&mode=practice&random=${seed}`
+  assert.deepEqual((await call(shufflePath)).data.questions, (await call(shufflePath)).data.questions)
 
   const alice = users.get('alice').id
+  const samplePreferences = { theme: 'dark', practice: { mode: 'topic', topic: 't14' }, 'practice-position:topic:t14': 8 }
+  await call('/api/me/preferences', { method: 'PUT', user: 'alice', owner: alice, body: samplePreferences })
+  await call('/api/me/preferences', { method: 'PUT', user: 'alice', owner: alice, body: { unknown: true }, status: 400 })
+  await call('/api/me/preferences', { method: 'PUT', user: 'bob', owner: alice, body: { theme: 'light' }, status: 409 })
+  await call('/api/me/stats', { user: 'bob', owner: alice, status: 409 })
+  assert.deepEqual((await call('/api/me/stats', { user: 'alice' })).data.preferences, samplePreferences)
+  assert.deepEqual((await call('/api/me/stats', { user: 'bob' })).data.preferences, {})
   const attemptPath = '/api/attempts/batch'
   const firstFixture = items.find((item) => item.id === first.id)
   const attempt = { eventId: randomUUID(), mode: 'practice', questionId: first.id, optionIds: [firstFixture.wrong], contentRevision: first.contentRevision ?? undefined }
@@ -278,7 +291,7 @@ async function runApiChecks(origin, db, items, secret) {
   const examPath = `/api/exams/${exam.id}`
   await call(examPath, { user: 'bob', status: 404 })
   const answerItem = items.find((question) => question.id === exam.items[0].id)
-  const draft = { position: 1, revision: exam.revision, marked: [answerItem.id], answers: { [answerItem.id]: [answerItem.correct] } }
+  const draft = { position: 1, revision: exam.revision, marked: [answerItem.id], answers: { [answerItem.id]: answerItem.answerIds } }
   const { data: { exam: saved } } = await call(examPath, { method: 'PUT', user: 'alice', owner: alice, body: draft, metric: 'saveExamWithSyntheticProvider' })
   assert.equal(saved.position, 1)
   assert.deepEqual((await call(examPath, { user: 'alice' })).data.exam.answers, draft.answers)
@@ -291,7 +304,18 @@ async function runApiChecks(origin, db, items, secret) {
   assert.ok(result.items[0].answerIds.length)
   assert.equal((await call(`${examPath}/submit`, submitOptions)).data.exam.score, 1)
   const examCount = await db.query("SELECT count(*)::int FROM attempts WHERE user_id=$1 AND mode='exam'", [alice])
-  assert.equal(examCount.rows[0].count, 50)
+  assert.equal(examCount.rows[0].count, 1)
+  await call(`${examPath}/replay`, { method: 'POST', user: 'bob', owner: users.get('bob').id, status: 404 })
+  const replayRequests = await Promise.all(Array.from({ length: 2 }, () => call(`${examPath}/replay`, {
+    method: 'POST', user: 'alice', owner: alice,
+  })))
+  const replayed = replayRequests[0].data.exam
+  assert.equal(replayRequests[1].data.exam.id, replayed.id)
+  assert.notEqual(replayed.id, exam.id)
+  assert.deepEqual(replayed.items, exam.items)
+  assert.deepEqual([replayed.answers, replayed.marked, replayed.position, replayed.revision], [{}, [], 0, 0])
+  const compactSave = await call(`/api/exams/${replayed.id}?ack=1`, { method: 'PUT', user: 'alice', owner: alice, body: { ...draft, revision: 0 } })
+  assert.deepEqual(compactSave.data, { revision: 1 })
 
   const bob = users.get('bob').id
   const customStart = { method: 'POST', user: 'bob', owner: bob }
@@ -307,7 +331,7 @@ async function runApiChecks(origin, db, items, secret) {
   const largePath = `/api/exams/${large.id}`
   const largeDraft = {
     position: 51, revision: large.revision, marked: [order[51]],
-    answers: Object.fromEntries(items.map(({ id, correct }) => [id, [correct]])),
+    answers: Object.fromEntries(items.map(({ id, answerIds }) => [id, answerIds])),
   }
   const largeWrite = { method: 'PUT', user: 'bob', owner: bob }
   await call(largePath, { ...largeWrite, body: { ...largeDraft, position: 52 }, status: 400 })
@@ -326,6 +350,7 @@ async function runApiChecks(origin, db, items, secret) {
   const { exam: rerolled } = (await call('/api/exams', { ...customStart, body: { questionCount: 52 } })).data
   assert.notEqual(rerolled.id, large.id)
   assert.notDeepEqual(rerolled.items.map(({ id }) => id), order)
+  await call(`${largePath}/replay`, { ...customStart, status: 409 })
   const { exams: history } = (await call('/api/exams', { user: 'bob' })).data
   assert.deepEqual(history.map(({ id, total, score }) => ({ id, total, score })), [
     { id: rerolled.id, total: 52, score: null }, { id: large.id, total: 52, score: 52 },
@@ -407,12 +432,17 @@ try {
   const result = await runApiChecks(origin, db, items, secret)
   console.log(JSON.stringify({ environment: { app: 'Next production build', node: process.version, postgres, network: 'loopback', auth: 'synthetic upstream' }, ...result }, null, 2))
   if (process.env.EQB_TEST_BROWSER === '1') {
+    const { rows: [{ position }] } = await db.query(`
+      SELECT count(*)::int AS position FROM questions
+      WHERE status='published' AND id <= (SELECT id FROM questions WHERE type='multiple')
+    `)
     await run(process.env.EQB_TEST_PYTHON || 'python', [join(root, 'tests', 'e2e', 'study-browser.py')], {
       cwd: root,
-      env: { ...process.env, EQB_TEST_ORIGIN: origin, EQB_TEST_COOKIE_NAME: tokenCookie, EQB_TEST_COOKIE_TOKEN: 'browser', PYTHONUTF8: '1' },
+      env: { ...process.env, EQB_TEST_ORIGIN: origin, EQB_TEST_COOKIE_NAME: tokenCookie, EQB_TEST_COOKIE_TOKEN: 'browser',
+        EQB_TEST_MULTIPLE_POSITION: String(position), PYTHONUTF8: '1' },
     })
     const browserWrites = await db.query("SELECT mode, count(*)::int AS count FROM attempts WHERE user_id=$1 GROUP BY mode ORDER BY mode", [users.get('browser').id])
-    assert.deepEqual(browserWrites.rows, [{ mode: 'exam', count: 8 }, { mode: 'practice', count: 1 }])
+    assert.deepEqual(browserWrites.rows, [{ mode: 'exam', count: 1 }, { mode: 'practice', count: 2 }])
     const browserFavorites = await db.query('SELECT count(*)::int AS count FROM favorites WHERE user_id=$1', [users.get('browser').id])
     assert.equal(browserFavorites.rows[0].count, 0)
   }

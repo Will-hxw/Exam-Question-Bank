@@ -80,7 +80,7 @@ test('publication requires matching separate reviews and locks approved content'
   assert.equal(count, 52)
 })
 
-test('same practice event is counted once during concurrent retries and wrong flags require two correct answers', async () => {
+test('legacy practice retries are idempotent before the wrong-book migration', async () => {
   const [item] = questions
   const event = { eventId: randomUUID(), questionId: item.id, optionIds: [item.wrong] }
   const record = (owner, entry) => pool.query('SELECT record_practice_batch($1, $2) AS results', [owner, JSON.stringify([entry])])
@@ -122,7 +122,7 @@ test('migration preserves an in-progress 50-question draft and submitted exam sn
     client.release()
   }
   const { rows: migrated } = await pool.query(existing)
-  assert.deepEqual(migrated, prior.map(row => ({ ...row, question_count: 50 })))
+  assert.deepEqual(migrated, prior.map(row => ({ ...row, question_count: 50, replay_of: null })))
   assert.deepEqual(migrated.map(({ items }) => items.map(({ question_id }) => question_id)), [ids, ids])
   const { rows: [{ status }] } = await pool.query('SELECT update_exam($1, $2, 1, 49, $3, $4, true) AS status',
     ['legacy-draft', prior[0].id, marks, answers])
@@ -151,7 +151,45 @@ test('50-item exam retains option IDs, rejects other owners and stale drafts, an
   const { rows: [session] } = await pool.query('SELECT score, status, revision FROM exam_sessions WHERE id = $1', [id])
   assert.deepEqual(session, { score: 1, status: 'submitted', revision: 2 })
   const { rows: [{ count }] } = await pool.query("SELECT count(*)::int FROM attempts WHERE user_id = 'exam-a'")
-  assert.equal(count, 50)
+  assert.equal(count, 2)
+})
+
+test('first practice and every wrong exam pin a question until manual removal', async () => {
+  const owner = 'new-wrong-rules'
+  const [first, second, skipped] = questions
+  const practice = ({ id }, option) => pool.query('SELECT record_practice_batch($1, $2) AS results', [
+    owner, JSON.stringify([{ eventId: randomUUID(), questionId: id, optionIds: [option] }]),
+  ])
+  const state = async ({ id }) => (await pool.query(
+    'SELECT attempt_count, is_wrong FROM question_progress WHERE user_id=$1 AND question_id=$2', [owner, id],
+  )).rows[0]
+  const remove = ({ id }) => pool.query('UPDATE question_progress SET is_wrong=false WHERE user_id=$1 AND question_id=$2', [owner, id])
+  await practice(first, first.correct)
+  await practice(first, first.wrong)
+  assert.deepEqual(await state(first), { attempt_count: 2, is_wrong: false })
+  await practice(second, second.wrong)
+  await practice(second, second.correct)
+  await practice(second, second.correct)
+  assert.deepEqual(await state(second), { attempt_count: 3, is_wrong: true })
+  await remove(second)
+  await practice(second, second.wrong)
+  assert.equal((await state(second)).is_wrong, false)
+
+  async function examWith(option) {
+    const { rows: [{ id }] } = await pool.query('SELECT start_exam($1,$2) AS id', [owner, [first.id, skipped.id]])
+    const sql = 'SELECT update_exam($1,$2,0,0,ARRAY[]::uuid[],$3,true) AS status'
+    const args = [owner, id, JSON.stringify({ [first.id]: [option] })]
+    assert.equal((await pool.query(sql, args)).rows[0].status, 'ok')
+    assert.equal((await pool.query(sql, args)).rows[0].status, 'ok')
+  }
+  await examWith(first.wrong)
+  await examWith(first.correct)
+  assert.deepEqual(await state(first), { attempt_count: 4, is_wrong: true })
+  await remove(first)
+  assert.equal((await state(first)).is_wrong, false)
+  await examWith(first.wrong)
+  assert.deepEqual(await state(first), { attempt_count: 5, is_wrong: true })
+  assert.equal(await state(skipped), undefined)
 })
 
 test('52-item exams support the last position and scores beyond 50 without changing the snapshot', async () => {

@@ -4,9 +4,10 @@ import Image from 'next/image'
 import Link, { useLinkStatus } from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { createContext, type ReactNode, useCallback, useContext, useEffect, useRef, useSyncExternalStore, useState } from 'react'
-import { libraryPageSize, questionUrl, readPublic, requestJson, StudyRequestError, type QuestionState, type StudyStats, type Topic, writeJson } from './api'
+import { questionUrl, readPublic, requestJson, StudyRequestError, type QuestionState, type StudyStats, type Topic, writeJson } from './api'
+import { libraryPath, readLibraryView, useAccountStudyPreferences, useAccountStudyScroll } from './preferences'
 import { useAttemptQueue } from './use-attempt-queue'
-import { useStudyData } from './use-study-data'
+import { createPersonalStudyReads, useStudyData } from './use-study-data'
 
 const nav = [
   { href: '/', label: '刷题' },
@@ -16,7 +17,6 @@ const nav = [
   { href: '/favorites', label: '收藏夹' },
 ]
 
-const libraryFirstPage = questionUrl({ limit: libraryPageSize })
 const routePrefetchOrder = ['/questions', '/exam', '/wrong', '/favorites', '/']
 type QuestionStates = { states: Record<string, QuestionState> }
 type QuestionStateRead = { revision: number; expiresAt: number; response: Promise<QuestionStates> }
@@ -54,34 +54,27 @@ function closeSponsor(event: { preventDefault: () => void }) {
   window.dispatchEvent(new HashChangeEvent('hashchange'))
 }
 
-const themePreferenceKey = 'cqu-study-color-scheme'
-
-function useTheme() {
+function useTheme(theme: unknown, save: (edits: Record<string, unknown>) => void) {
   useEffect(() => {
     const preference = window.matchMedia('(prefers-color-scheme: dark)')
     function applyPreference() {
-      let value: string | null = null
-      try { value = localStorage.getItem(themePreferenceKey) } catch { /* Use the system theme when storage is unavailable. */ }
-      document.documentElement.dataset.theme = value === 'dark' || (!value && preference.matches) ? 'dark' : 'light'
+      document.documentElement.dataset.theme = theme === 'dark' || (theme !== 'light' && preference.matches) ? 'dark' : 'light'
     }
     applyPreference()
     preference.addEventListener('change', applyPreference)
-    window.addEventListener('storage', applyPreference)
-    return () => {
-      preference.removeEventListener('change', applyPreference)
-      window.removeEventListener('storage', applyPreference)
-    }
-  }, [])
+    return () => preference.removeEventListener('change', applyPreference)
+  }, [theme])
 
   return () => {
     const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'
     document.documentElement.dataset.theme = theme
-    try { localStorage.setItem(themePreferenceKey, theme) } catch { /* The current page still uses the selected theme. */ }
+    save({ theme })
   }
 }
 
 function useStudySession(userId: string) {
   const [revision, setRevision] = useState(0)
+  const [personalReads] = useState(() => createPersonalStudyReads(userId))
   const stateRevision = useRef(0)
   const stateReads = useRef(new Map<string, QuestionStateRead>())
   const [knownStates, setKnownStates] = useState<Record<string, Partial<QuestionState>>>({})
@@ -91,10 +84,12 @@ function useStudySession(userId: string) {
   const examActive = useRef(false)
   const markExamActive = useCallback((active: boolean) => { examActive.current = active }, [])
   const refreshMe = useCallback(() => {
+    personalReads.invalidate()
     stateRevision.current += 1
     setRevision(stateRevision.current)
-  }, [])
-  const stats = useStudyData<StudyStats>('/api/me/stats', revision, { keepPreviousData: true })
+  }, [personalReads])
+  const stats = useStudyData<StudyStats>('/api/me/stats', revision, { ...personalReads, keepPreviousData: true })
+  const preferences = useAccountStudyPreferences(userId, stats.data?.preferences, stats.loading)
   const topics = useStudyData<{ topics: Topic[] }>('/api/public/topics')
   const attempts = useAttemptQueue(userId, refreshMe)
 
@@ -181,7 +176,7 @@ function useStudySession(userId: string) {
   }
 
   return {
-    userId, revision, stats, topics, attempts, knownStates, readQuestionStates, prefetchQuestionStates,
+    userId, revision, stats, topics, attempts, preferences, knownStates, readQuestionStates, prefetchQuestionStates, personalReads,
     pendingFavorites, favoriteErrors, toggleFavorite, removeWrong, refreshMe, markExamActive, confirmLeaveExam,
   }
 }
@@ -218,36 +213,45 @@ export function StudyShell({ userId, children }: { userId: string; children: Rea
   const pathname = usePathname()
   const router = useRouter()
   const sponsorOpen = useSyncExternalStore(subscribeHash, currentHash, emptyHash) === '#sponsor'
-  const toggleTheme = useTheme()
   const session = useStudySession(userId)
+  const { personalReads, preferences } = session
+  const toggleTheme = useTheme(preferences.values.theme, preferences.save)
+  useAccountStudyScroll(pathname, preferences)
+  const publicLibrary = libraryPath('all', readLibraryView(preferences.values['library:all']))
+  const wrongLibrary = libraryPath('wrong', readLibraryView(preferences.values['library:wrong']))
+  const favoriteLibrary = libraryPath('favorite', readLibraryView(preferences.values['library:favorite']))
   const [warmRouteCount, setWarmRouteCount] = useState(0)
   const practiceReady = Boolean(session.topics.data)
+  const firstTopic = session.topics.data?.topics.find(({ count }) => count > 0)?.id
+  useEffect(() => {
+    if (pathname === '/' && !preferences.ready && firstTopic && navigator.onLine) {
+      void readPublic(questionUrl({ topic: firstTopic, offset: 0, limit: 15, practice: true })).catch(() => {})
+    }
+  }, [firstTopic, pathname, preferences.ready])
   useEffect(() => {
     if (warmRouteCount >= routePrefetchOrder.length || !practiceReady) return
     const timer = setTimeout(() => {
       if (!navigator.onLine || document.visibilityState !== 'visible') return
-      if (warmRouteCount === 0) void readPublic(libraryFirstPage).catch(() => {})
+      const target = routePrefetchOrder[warmRouteCount]
+      if (target === '/questions') void (publicLibrary.startsWith('/api/me/') ? personalReads.load(publicLibrary) : readPublic(publicLibrary)).catch(() => {})
+      if (target === '/exam') void personalReads.load('/api/exams').catch(() => {})
+      if (target === '/wrong' || target === '/favorites') void personalReads.load(target === '/wrong' ? wrongLibrary : favoriteLibrary).catch(() => {})
       setWarmRouteCount((count) => count + 1)
     }, warmRouteCount === 0 ? 400 : 220)
     return () => clearTimeout(timer)
-  }, [pathname, warmRouteCount, practiceReady])
+  }, [pathname, warmRouteCount, practiceReady, personalReads, publicLibrary, wrongLibrary, favoriteLibrary])
 
   function warmRoute(href: string) {
     if (pathname === href || !navigator.onLine) return
-    if (href === '/questions') void readPublic(libraryFirstPage).catch(() => {})
+    if (href === '/questions') void (publicLibrary.startsWith('/api/me/') ? personalReads.load(publicLibrary) : readPublic(publicLibrary)).catch(() => {})
+    if (href === '/wrong' || href === '/favorites' || href === '/exam') {
+      void personalReads.load(href === '/wrong' ? wrongLibrary : href === '/favorites' ? favoriteLibrary : '/api/exams').catch(() => {})
+    }
     router.prefetch(href)
   }
-  const clearCurrentExam = useCallback(() => {
-    try { sessionStorage.removeItem(`cqu-study-current-exam:${userId}`) } catch { /* Cloud drafts are unaffected. */ }
-  }, [userId])
-  useEffect(() => {
-    if (pathname !== '/exam') clearCurrentExam()
-  }, [pathname, clearCurrentExam])
-
   function navigateFromExam(event: { preventDefault: () => void }) {
     if (pathname !== '/exam') return
     if (!session.confirmLeaveExam()) { event.preventDefault(); return }
-    clearCurrentExam()
   }
 
   return (
@@ -257,7 +261,7 @@ export function StudyShell({ userId, children }: { userId: string; children: Rea
           <header id="site-header">
             <a className="site-title" href="https://www.12371.cn/special/zxzc/" target="_blank" rel="noreferrer">
               <Image className="site-crest" src="/cqu-crest.png" alt="" width={38} height={38} unoptimized />
-              <span><span className="site-title-text">重庆大学</span><span className="site-title-text">入党积极分子练习</span></span>
+              <span className="site-title-name"><span className="site-title-text">重庆大学</span><span className="site-title-text">入党积极分子练习</span></span>
             </a>
             <div className="site-header-right">
               <button className="dark-toggle" type="button" onClick={toggleTheme} aria-label="切换明暗主题">
@@ -269,7 +273,7 @@ export function StudyShell({ userId, children }: { userId: string; children: Rea
           <nav id="top-nav" aria-label="学习导航">
             {nav.map(({ href, label }) => {
               const active = !sponsorOpen && pathname === href
-              return <Link key={href} href={href} aria-current={active ? 'page' : undefined} className={active ? 'active' : undefined}
+              return <Link key={href} href={href} scroll={false} aria-current={active ? 'page' : undefined} className={active ? 'active' : undefined}
                 prefetch={pathname !== href && routePrefetchOrder.indexOf(href) < warmRouteCount}
                 onPointerEnter={(event) => {
                   if (event.pointerType === 'mouse') warmRoute(href)
@@ -287,6 +291,9 @@ export function StudyShell({ userId, children }: { userId: string; children: Rea
             })}
           </nav>
           <main className="study-main">
+            {preferences.syncFailed && <p className="study-message error" role="status">
+              学习设置暂未同步。 <button className="btn btn-sm" type="button" onClick={() => void preferences.retry()}>重试同步设置</button>
+            </p>}
             <div hidden={sponsorOpen}>{children}</div>
             {sponsorOpen && (
               <section className="sponsor-page" aria-labelledby="sponsor-title">

@@ -11,6 +11,7 @@ from playwright.sync_api import expect, sync_playwright
 ORIGIN = os.environ['EQB_TEST_ORIGIN']
 COOKIE_NAME = os.environ['EQB_TEST_COOKIE_NAME']
 COOKIE_TOKEN = os.environ['EQB_TEST_COOKIE_TOKEN']
+MULTIPLE_POSITION = os.environ['EQB_TEST_MULTIPLE_POSITION']
 HOST = urlsplit(ORIGIN).hostname
 assert HOST in ('127.0.0.1', 'localhost'), 'This browser fixture uses synthetic loopback accounts.'
 
@@ -265,7 +266,7 @@ def run(browser):
         footer_lines = page.locator('.footer-notes li')
         expect(footer_lines).to_have_text(['Bug 或瑕疵有奖', '作者：计算机学院 20230537 六只', '遇到问题请联系 QQ 1176843521'])
         expect(page.locator('.footer-latin').first).to_have_css('font-family', re.compile(r'^"Times New Roman"'))
-        title_box, header_box = page.locator('.site-title').bounding_box(), page.locator('#site-header').bounding_box()
+        title_box, header_box = page.locator('.site-title-name').bounding_box(), page.locator('#site-header').bounding_box()
         assert title_box and header_box
         assert abs((title_box['x'] + title_box['width'] / 2) - (header_box['x'] + header_box['width'] / 2)) <= 2
         first_answerable.append(milliseconds(start))
@@ -422,6 +423,34 @@ def run(browser):
         mode.click()
         expect(mode).to_have_attribute('aria-pressed', 'true')
         assert modes.locator('button').evaluate_all(mode_positions) == positions
+    expect(stem).to_have_text(practice_stem)
+
+    modes.get_by_role('button', name='顺序', exact=True).click()
+    page.get_by_role('button', name='跳转', exact=True).click()
+    page.get_by_role('spinbutton', name='题号').fill(MULTIPLE_POSITION)
+    page.get_by_role('button', name='前往', exact=True).click()
+    expect(stem).to_have_text('分层练习样例 50')
+    expect(page.locator('.q-type')).to_have_text('多选题')
+    option.nth(0).tap()
+    expect(page.locator('.feedback')).to_have_count(0)
+    expect(page.locator('.explanation-panel')).to_have_count(0)
+    page.get_by_role('button', name='确定', exact=True).tap()
+    expect(page.locator('.feedback')).to_have_text('✗ 错误')
+    expect(page.locator('.explanation-panel')).to_contain_text('总解析测试')
+
+    def preference_write(response):
+        return response.url.endswith('/api/me/preferences') and response.request.method == 'PUT' and response.ok
+
+    modes.get_by_role('button', name='专题', exact=True).tap()
+    page.locator('.topic-dropdown-btn').tap()
+    page.get_by_role('button', name='党的二十届四中全会精神', exact=True).tap()
+    expect(page.locator('.topic-dropdown-btn')).to_have_text('党的二十届四中全会精神')
+    modes.get_by_role('button', name='顺序', exact=True).tap()
+    expect(stem).to_have_text('分层练习样例 50')
+
+    if page.locator('html').get_attribute('data-theme') != 'dark':
+        with page.expect_response(lambda response: preference_write(response) and response.request.post_data_json.get('theme') == 'dark'):
+            page.get_by_role('button', name='切换明暗主题').tap()
 
     section(page, '/questions')
     check_library_pages(page)
@@ -432,6 +461,30 @@ def run(browser):
     expect(page.locator('.list-item')).to_have_count(1)
     expect(page.locator('.list-item .q-text')).to_have_text('分层练习样例 51')
     browser_search = milliseconds(search_start)
+    search.fill('选项文本 2')
+    page.locator('.topic-dropdown-btn').tap()
+    page.get_by_role('button', name='党的二十届四中全会精神', exact=True).tap()
+    page.get_by_role('group', name='按题型筛选').get_by_role('button', name='单选', exact=True).tap()
+    with page.expect_response(lambda response: preference_write(response) and
+                              response.request.post_data_json.get('library:all', {}).get('status') == 'undone'):
+        page.get_by_role('group', name='按作答状态筛选').get_by_role('button', name='未做', exact=True).tap()
+    expect(page.get_by_text(re.compile(r'\d+ 道符合条件的题目'))).to_be_visible()
+
+    device = mobile_context(browser)
+    elsewhere = device.new_page()
+    elsewhere.goto(ORIGIN + '/questions')
+    expect(elsewhere.locator('html')).to_have_attribute('data-theme', 'dark')
+    expect(elsewhere.get_by_role('searchbox', name='搜索题目')).to_have_value('选项文本 2')
+    expect(elsewhere.locator('.topic-dropdown-btn')).to_have_text('党的二十届四中全会精神')
+    expect(elsewhere.get_by_role('group', name='按题型筛选').get_by_role('button', name='单选', exact=True)).to_have_attribute('aria-pressed', 'true')
+    expect(elsewhere.get_by_role('group', name='按作答状态筛选').get_by_role('button', name='未做', exact=True)).to_have_attribute('aria-pressed', 'true')
+    expect(elsewhere.get_by_role('combobox', name='每页题量')).to_have_value('30')
+    section(elsewhere, '/')
+    expect(elsewhere.get_by_role('group', name='练习模式').get_by_role('button', name='顺序', exact=True)).to_have_attribute('aria-pressed', 'true')
+    expect(elsewhere.locator('.question-card .q-text')).to_have_text('分层练习样例 50')
+    elsewhere.get_by_role('group', name='练习模式').get_by_role('button', name='专题', exact=True).tap()
+    expect(elsewhere.locator('.topic-dropdown-btn')).to_have_text('党的二十届四中全会精神')
+    device.close()
 
     section(page, '/exam')
     count = page.get_by_role('spinbutton', name='题数')
@@ -445,19 +498,68 @@ def run(browser):
     start_exam.click()
     expect(page.locator('.exam-nav-item')).to_have_count(8)
     browser_exam_start = milliseconds(start)
+    first_is_multiple = page.locator('.question-card .q-type').inner_text() == '多选题'
     page.locator('.question-card .option').first.click()
+    if first_is_multiple:
+        page.get_by_role('button', name='下一题', exact=True).tap()
     expect(page.locator('.exam-nav-item.current')).to_have_text('2')
+    mark = page.get_by_role('button', name='🏷 标记', exact=True)
+    mark_color = mark.evaluate('(element) => getComputedStyle(element).backgroundColor')
+    mark.tap()
+    expect(page.get_by_role('button', name='🏷 已标记', exact=True)).to_have_css('background-color', mark_color)
+    next_item = page.get_by_role('button', name='下一题', exact=True)
+    next_color = next_item.evaluate('(element) => getComputedStyle(element).backgroundColor')
+    next_item.tap()
+    expect(next_item).to_have_css('background-color', next_color)
+    expect(next_item).to_be_enabled()
     expect(page.get_by_text('草稿已云端同步')).to_be_visible()
     page.reload(wait_until='domcontentloaded')
-    expect(page.locator('.exam-nav-item.current')).to_have_text('2')
+    expect(page.locator('.exam-nav-item.current')).to_have_text('3')
+    expect(page.locator('.exam-nav-item.marked')).to_have_text('2')
+
+    test_headers = {'Cookie': f'{COOKIE_NAME}={COOKIE_TOKEN}', 'Origin': ORIGIN, 'X-Study-Account': 'e2e-browser'}
+    sessions = page.request.get(ORIGIN + '/api/exams', headers=test_headers).json()['exams']
+    draft_id = next(entry['id'] for entry in sessions if entry['status'] == 'draft')
+    draft_url = ORIGIN + '/api/exams/' + draft_id
+    cloud = page.request.get(draft_url, headers=test_headers).json()['exam']
+    assert page.request.put(draft_url, headers=test_headers, data={
+        **{field: cloud[field] for field in ('revision', 'marked', 'answers')}, 'position': 3,
+    }).ok
+    mark.tap()
+    expect(page.get_by_text('云端草稿已在别处更新', exact=False)).to_be_visible()
+    draft_cache_key = f'cqu-study-draft:e2e-browser:{draft_id}'
+    assert page.evaluate('(key) => localStorage.getItem(key)', draft_cache_key)
+    page.route(draft_url, lambda route: route.fulfill(status=503, json={'error': '试卷暂时无法读取，请重试。'}), times=1)
+    page.get_by_role('button', name='改用云端草稿').tap()
+    expect(page.get_by_role('alert').filter(has_text='试卷暂时无法读取')).to_be_visible()
+    assert page.evaluate('(key) => localStorage.getItem(key)', draft_cache_key)
+    page.get_by_role('button', name='改用云端草稿').tap()
+    expect(page.locator('.exam-nav-item.current')).to_have_text('4')
+    assert page.evaluate('(key) => localStorage.getItem(key)', draft_cache_key) is None
+
     start = perf_counter()
     page.get_by_role('button', name='交卷', exact=True).click()
     expect(page.locator('.exam-result-item')).to_have_count(8)
     browser_exam_submit = milliseconds(start)
     expect(page.locator('.exam-score-total')).to_have_text('/ 8')
+    expect(page.locator('.exam-result-top').get_by_role('button', name='← 返回')).to_be_visible()
+    original = page.locator('.exam-result-question').all_inner_texts()
+    page.get_by_role('button', name='重新考试', exact=True).click()
+    expect(page.locator('.exam-nav-item')).to_have_count(8)
+    expect(page.locator('.exam-nav-item.current')).to_have_text('1')
+    expect(page.locator('.exam-nav-item.marked, .exam-nav-item.answered')).to_have_count(0)
+    for index, text in enumerate(original, start=1):
+        page.get_by_role('group', name='题目导航').get_by_role('button', name=str(index), exact=True).tap()
+        expect(page.locator('.exam-question-card .q-text')).to_have_text(text)
+    expect(next_item).to_be_disabled()
+    page.get_by_role('button', name='交卷', exact=True).click()
+    expect(page.locator('.exam-result-item')).to_have_count(8)
     page.get_by_role('button', name='返回', exact=True).click()
     page.get_by_role('button', name='历史记录').click()
-    expect(page.locator('.exam-history-score')).to_contain_text('/8')
+    expect(page.locator('.exam-history-score')).to_have_text([re.compile(r'^\d+/8$'), re.compile(r'^\d+/8$')])
+    with page.expect_response(lambda response: preference_write(response) and
+                              response.request.post_data_json.get('exam', {}).get('screen') == 'entrance'):
+        page.get_by_role('button', name='← 返回', exact=True).click()
 
     section(page, '/')
     expect(stem).to_be_visible()
@@ -488,8 +590,9 @@ def run(browser):
     nav = page.get_by_role('navigation', name='学习导航')
     before = nav.bounding_box()
     section(page, '/questions')
-    expect(page.locator('.list-item')).to_have_count(20)
+    expect(page.locator('.list-item').first).to_be_visible()
     assert page.evaluate('document.documentElement.scrollHeight > innerHeight')
+    page.evaluate('window.scrollTo(0, 0)')
     after = nav.bounding_box()
     assert before and after
     route_shift = max(abs(before[axis] - after[axis]) for axis in ('x', 'y'))

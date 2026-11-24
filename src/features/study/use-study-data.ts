@@ -5,13 +5,44 @@ import { bankReleaseEvent, cachedPublic, readPublic, requestJson, StudyRequestEr
 
 type DataState<T> = { key: string; path: string | null; data: T | null; error: string | null }
 
+export function createPersonalStudyReads(userId: string) {
+  const entries = new Map<string, { value?: unknown; expires: number; request: Promise<unknown> }>()
+  return {
+    peek<T>(path: string): T | undefined {
+      const entry = entries.get(path)
+      return entry?.value as T | undefined
+    },
+    load<T>(path: string): Promise<T> {
+      const existing = entries.get(path)
+      if (existing && existing.expires > Date.now()) return existing.request as Promise<T>
+      const entry = {
+        value: existing?.value,
+        expires: Infinity,
+        request: requestJson<T>(path, { headers: { 'X-Study-Account': userId } }).then((value) => {
+          entry.value = value
+          entry.expires = Date.now() + 15_000
+          return value
+        }, (error: unknown) => {
+          if (entries.get(path) === entry) entries.delete(path)
+          throw error
+        }),
+      }
+      entries.delete(path)
+      entries.set(path, entry)
+      if (entries.size > 24) entries.delete(entries.keys().next().value!)
+      return entry.request
+    },
+    invalidate() { entries.clear() },
+  }
+}
+
 export function useStudyData<T>(path: string | null, revision = 0, {
-  keepPreviousData = false, load,
-}: { keepPreviousData?: boolean; load?: (path: string) => Promise<T> } = {}) {
+  keepPreviousData = false, load, peek,
+}: { keepPreviousData?: boolean; load?: (path: string) => Promise<T>; peek?: (path: string) => T | undefined } = {}) {
   const [retryCount, setRetryCount] = useState(0)
   const key = `${path}:${retryCount}:${revision}`
   const [state, setState] = useState<DataState<T>>(() => {
-    const cached = path?.startsWith('/api/public/') ? cachedPublic<T>(path) : undefined
+    const cached = path ? peek?.(path) ?? (path.startsWith('/api/public/') ? cachedPublic<T>(path) : undefined) : undefined
     return { key: cached === undefined ? '' : key, path, data: cached ?? null, error: null }
   })
 
@@ -36,10 +67,11 @@ export function useStudyData<T>(path: string | null, revision = 0, {
   }, [key, path, load])
 
   const current = state.key === key
+  const snapshot = !current && path ? peek?.(path) ?? (path.startsWith('/api/public/') ? cachedPublic<T>(path) : undefined) : undefined
   return {
-    data: current || (keepPreviousData && path === state.path) ? state.data : null,
+    data: current ? state.data : snapshot ?? (keepPreviousData && path === state.path ? state.data : null),
     error: current ? state.error : null,
-    loading: Boolean(path && !current),
+    loading: Boolean(path && !current && snapshot === undefined),
     retry: () => setRetryCount((count) => count + 1),
   }
 }

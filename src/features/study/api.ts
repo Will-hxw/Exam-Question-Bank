@@ -17,7 +17,7 @@ export type Question = {
 } & Partial<QuestionState>
 export type QuestionPage = { questions: Question[]; nextCursor: string | null; total?: number }
 export type Status = 'done' | 'undone' | 'wrong' | 'favorite'
-export type StudyStats = { attempted: number; wrong: number; favorites: number }
+export type StudyStats = { attempted: number; wrong: number; favorites: number; preferences?: Record<string, unknown> }
 export type Attempt = { eventId: string; questionId: string; optionIds: string[]; mode: 'practice'; contentRevision?: string }
 
 const shardName = /^\/bank\/pages\/([0-9a-f]{64})\.json$/
@@ -58,7 +58,7 @@ export function questionUrl({ topic, type, q, cursor, offset, limit, practice, s
   limit?: number
   practice?: boolean
   status?: Status | ''
-  random?: boolean
+  random?: boolean | string
 }) {
   const params = new URLSearchParams()
   if (topic) params.set('topic', topic)
@@ -68,7 +68,7 @@ export function questionUrl({ topic, type, q, cursor, offset, limit, practice, s
   else if (offset !== undefined) params.set('offset', String(offset))
   if (limit) params.set('limit', String(limit))
   if (practice) params.set('mode', 'practice')
-  if (random) params.set('random', '1')
+  if (random) params.set('random', typeof random === 'string' ? random : '1')
   if (status) params.set('status', status)
   return `/api/${status ? 'me' : 'public'}/questions?${params}`
 }
@@ -95,10 +95,10 @@ export async function requestJson<T>(path: string, options: RequestInit = {}): P
   return response.json() as Promise<T>
 }
 
-export function writeJson<T>(path: string, userId: string, method: 'POST' | 'PUT' | 'DELETE', body?: unknown) {
+export function writeJson<T>(path: string, userId: string, method: 'POST' | 'PUT' | 'DELETE', body?: unknown, keepalive = false) {
   const headers: Record<string, string> = { 'X-Study-Account': userId }
   if (body !== undefined) headers['Content-Type'] = 'application/json'
-  return requestJson<T>(path, { method, headers, body: body === undefined ? undefined : JSON.stringify(body) })
+  return requestJson<T>(path, { method, headers, keepalive, body: body === undefined ? undefined : JSON.stringify(body) })
 }
 
 const publicPages = new Map<string, { value: unknown; expiresAt: number }>()
@@ -260,7 +260,7 @@ export function cachedPublic<T>(path: string): T | undefined {
 }
 
 export async function readPublic<T>(path: string): Promise<T> {
-  if (new URLSearchParams(path.split('?')[1]).has('random')) return requestJson<T>(path, { cache: 'no-store' })
+  if (new URLSearchParams(path.split('?')[1]).get('random') === '1') return requestJson<T>(path, { cache: 'no-store' })
   const bank = bankSelection(path)
   if (bank) watchBankConnection()
   const cached = cachedPublic<T>(path)
