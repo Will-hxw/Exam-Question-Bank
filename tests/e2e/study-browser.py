@@ -263,7 +263,7 @@ def run(browser):
         expect(page.locator('.site-title img')).to_have_js_property('naturalWidth', 256)
         expect(page.locator('.site-title img')).to_have_css('width', '32px')
         footer_lines = page.locator('.footer-notes li')
-        expect(footer_lines).to_have_text(['Bug或瑕疵有奖', '作者：计算机学院 20230537 六只', '遇到问题请联系 QQ 1176843521'])
+        expect(footer_lines).to_have_text(['Bug 或瑕疵有奖', '作者：计算机学院 20230537 六只', '遇到问题请联系 QQ 1176843521'])
         expect(page.locator('.footer-latin').first).to_have_css('font-family', re.compile(r'^"Times New Roman"'))
         title_box, header_box = page.locator('.site-title').bounding_box(), page.locator('#site-header').bounding_box()
         assert title_box and header_box

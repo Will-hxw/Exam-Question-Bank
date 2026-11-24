@@ -305,7 +305,7 @@ export function StudyShell({ userId, children }: { userId: string; children: Rea
           </main>
           <footer className="site-footer">
             <ul className="footer-notes">
-              <li><span className="footer-latin" lang="en">Bug</span>或瑕疵有奖</li>
+              <li><span className="footer-latin" lang="en">Bug </span>或瑕疵有奖</li>
               <li>作者：计算机学院 <span className="footer-latin">20230537</span> 六只</li>
               <li>遇到问题请联系 <span className="footer-latin" lang="en">QQ 1176843521</span></li>
             </ul>
