@@ -146,8 +146,8 @@ export async function questionPage(filters: Filters, userId: string | null = nul
 }
 
 const firstPage = unstable_cache(
-  (topic: string | null, practice: boolean) => questionPage({
-    topic, type: null, q: null, cursor: null, offset: 0, limit: 15, practice, random: false, status: null,
+  (topic: string | null, practice: boolean, limit: number) => questionPage({
+    topic, type: null, q: null, cursor: null, offset: 0, limit, practice, random: false, status: null,
   }),
   ['first-question-page'],
   cacheOptions,
@@ -155,11 +155,11 @@ const firstPage = unstable_cache(
 
 export async function publicQuestions(filters: Filters) {
   const { topic, type, q, cursor, offset, limit, practice, random } = filters
-  if (!type && !q && !cursor && !offset && !random && limit === 15) {
+  if (!type && !q && !cursor && !offset && !random && (limit === 15 || (limit === 20 && !practice))) {
     if (topic && !(await topics()).topics.some(candidate => candidate.id === topic)) {
       throw new HttpError(404, '专题不存在。')
     }
-    return firstPage(topic, practice)
+    return firstPage(topic, practice, limit)
   }
   return questionPage(filters)
 }

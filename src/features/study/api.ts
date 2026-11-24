@@ -103,6 +103,7 @@ export function writeJson<T>(path: string, userId: string, method: 'POST' | 'PUT
 
 const publicPages = new Map<string, { value: unknown; expiresAt: number }>()
 const publicRequests = new Map<string, Promise<unknown>>()
+export const libraryPageSize = 20
 const sha256 = /^[0-9a-f]{64}$/
 const topicIdPattern = /^[a-z0-9][a-z0-9-]{0,49}$/
 const cursorPattern = /^[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}$/i
@@ -250,12 +251,20 @@ function watchBankConnection() {
   })
 }
 
+export function cachedPublic<T>(path: string): T | undefined {
+  const cached = publicPages.get(path)
+  if (!cached || typeof window === 'undefined') return
+  if (!navigator.onLine || (cached.expiresAt > Date.now() && (!bankSelection(path) || manifestExpires > Date.now()))) {
+    return cached.value as T
+  }
+}
+
 export async function readPublic<T>(path: string): Promise<T> {
   if (new URLSearchParams(path.split('?')[1]).has('random')) return requestJson<T>(path, { cache: 'no-store' })
   const bank = bankSelection(path)
   if (bank) watchBankConnection()
-  const cached = publicPages.get(path)
-  if (cached && (!navigator.onLine || (cached.expiresAt > Date.now() && (!bank || manifestExpires > Date.now())))) return cached.value as T
+  const cached = cachedPublic<T>(path)
+  if (cached !== undefined) return cached
   const existing = publicRequests.get(path)
   if (existing) return existing as Promise<T>
 

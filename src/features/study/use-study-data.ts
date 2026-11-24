@@ -1,14 +1,17 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { bankReleaseEvent, readPublic, requestJson, StudyRequestError } from './api'
+import { bankReleaseEvent, cachedPublic, readPublic, requestJson, StudyRequestError } from './api'
 
-type DataState<T> = { key: string; data: T | null; error: string | null }
+type DataState<T> = { key: string; path: string | null; data: T | null; error: string | null }
 
-export function useStudyData<T>(path: string | null, revision = 0) {
+export function useStudyData<T>(path: string | null, revision = 0, { keepPreviousData = false } = {}) {
   const [retryCount, setRetryCount] = useState(0)
   const key = `${path}:${retryCount}:${revision}`
-  const [state, setState] = useState<DataState<T>>({ key: '', data: null, error: null })
+  const [state, setState] = useState<DataState<T>>(() => {
+    const cached = path?.startsWith('/api/public/') ? cachedPublic<T>(path) : undefined
+    return { key: cached === undefined ? '' : key, path, data: cached ?? null, error: null }
+  })
 
   useEffect(() => {
     if (!path?.startsWith('/api/public/')) return
@@ -22,17 +25,17 @@ export function useStudyData<T>(path: string | null, revision = 0) {
     let active = true
     const get = path.startsWith('/api/public/') ? readPublic<T> : requestJson<T>
     void get(path).then((data) => {
-      if (active) setState({ key, data, error: null })
+      if (active) setState({ key, path, data, error: null })
     }, (error: unknown) => {
       const message = error instanceof StudyRequestError ? error.message : '连接失败，请检查网络后重试。'
-      if (active) setState({ key, data: null, error: message })
+      if (active) setState({ key, path, data: null, error: message })
     })
     return () => { active = false }
   }, [key, path])
 
   const current = state.key === key
   return {
-    data: current ? state.data : null,
+    data: current || (keepPreviousData && path === state.path) ? state.data : null,
     error: current ? state.error : null,
     loading: Boolean(path && !current),
     retry: () => setRetryCount((count) => count + 1),

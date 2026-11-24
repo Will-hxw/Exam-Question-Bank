@@ -1,10 +1,10 @@
 'use client'
 
 import Image from 'next/image'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import Link, { useLinkStatus } from 'next/link'
+import { usePathname, useRouter } from 'next/navigation'
 import { createContext, type ReactNode, useCallback, useContext, useEffect, useRef, useSyncExternalStore, useState } from 'react'
-import { type QuestionState, type StudyStats, type Topic, writeJson } from './api'
+import { libraryPageSize, questionUrl, readPublic, type QuestionState, type StudyStats, type Topic, writeJson } from './api'
 import { useAttemptQueue } from './use-attempt-queue'
 import { useStudyData } from './use-study-data'
 
@@ -15,6 +15,15 @@ const nav = [
   { href: '/wrong', label: '错题集' },
   { href: '/favorites', label: '收藏夹' },
 ]
+
+const libraryFirstPage = questionUrl({ limit: libraryPageSize })
+
+function StudyNavigationStatus() {
+  const { pending } = useLinkStatus()
+  return <span className="study-navigation-status" role="status">
+    {pending && <span className="study-navigation-pending">正在切换页面</span>}
+  </span>
+}
 
 function subscribeHash(change: () => void) {
   window.addEventListener('hashchange', change)
@@ -29,7 +38,7 @@ function emptyHash() {
   return ''
 }
 
-function closeSponsor(event: React.MouseEvent<HTMLAnchorElement>) {
+function closeSponsor(event: { preventDefault: () => void }) {
   event.preventDefault()
   const url = new URL(location.href)
   url.hash = ''
@@ -68,7 +77,7 @@ function useStudySession(userId: string) {
   const examActive = useRef(false)
   const markExamActive = useCallback((active: boolean) => { examActive.current = active }, [])
   const refreshMe = useCallback(() => setRevision((previous) => previous + 1), [])
-  const stats = useStudyData<StudyStats>('/api/me/stats', revision)
+  const stats = useStudyData<StudyStats>('/api/me/stats', revision, { keepPreviousData: true })
   const topics = useStudyData<{ topics: Topic[] }>('/api/public/topics')
   const attempts = useAttemptQueue(userId, refreshMe)
 
@@ -100,14 +109,32 @@ export function useStudySessionContext() {
 export function useQuestionStates(ids: string[]) {
   const { revision } = useStudySessionContext()
   const params = new URLSearchParams({ ids: ids.join(',') })
-  return useStudyData<{ states: Record<string, QuestionState> }>(ids.length ? `/api/me/question-state?${params}` : null, revision)
+  return useStudyData<{ states: Record<string, QuestionState> }>(ids.length ? `/api/me/question-state?${params}` : null, revision, { keepPreviousData: true })
 }
 
 export function StudyShell({ userId, children }: { userId: string; children: ReactNode }) {
   const pathname = usePathname()
+  const router = useRouter()
   const sponsorOpen = useSyncExternalStore(subscribeHash, currentHash, emptyHash) === '#sponsor'
   const toggleTheme = useTheme()
   const session = useStudySession(userId)
+  const [prefetchLibrary, setPrefetchLibrary] = useState(false)
+  const practiceReady = Boolean(session.topics.data)
+  useEffect(() => {
+    if (pathname !== '/' || prefetchLibrary || !practiceReady) return
+    const timer = setTimeout(() => {
+      if (!navigator.onLine || document.visibilityState !== 'visible') return
+      setPrefetchLibrary(true)
+      void readPublic(libraryFirstPage).catch(() => {})
+    }, 400)
+    return () => clearTimeout(timer)
+  }, [pathname, prefetchLibrary, practiceReady])
+
+  function warmRoute(href: string) {
+    if (pathname === href || !navigator.onLine) return
+    if (href === '/questions') void readPublic(libraryFirstPage).catch(() => {})
+    router.prefetch(href)
+  }
   const clearCurrentExam = useCallback(() => {
     try { sessionStorage.removeItem(`cqu-study-current-exam:${userId}`) } catch { /* Cloud drafts are unaffected. */ }
   }, [userId])
@@ -127,7 +154,8 @@ export function StudyShell({ userId, children }: { userId: string; children: Rea
         <div className="study-shell">
           <header id="site-header">
             <a className="site-title" href="https://www.12371.cn/special/zxzc/" target="_blank" rel="noreferrer">
-              <span className="site-title-text">重庆大学</span>入党积极分子练习
+              <Image className="site-crest" src="/cqu-crest.png" alt="" width={26} height={26} unoptimized />
+              <span><span className="site-title-text">重庆大学</span>入党积极分子练习</span>
             </a>
             <div className="site-header-right">
               <button className="dark-toggle" type="button" onClick={toggleTheme} aria-label="切换明暗主题">
@@ -139,8 +167,21 @@ export function StudyShell({ userId, children }: { userId: string; children: Rea
           <nav id="top-nav" aria-label="学习导航">
             {nav.map(({ href, label }) => {
               const active = !sponsorOpen && pathname === href
-              return <Link key={href} href={href} aria-current={active ? 'page' : undefined} className={active ? 'active' : undefined} prefetch={false}
-                onNavigate={href === '/exam' ? undefined : navigateFromExam}>{label}</Link>
+              return <Link key={href} href={href} aria-current={active ? 'page' : undefined} className={active ? 'active' : undefined}
+                prefetch={href === '/questions' && prefetchLibrary}
+                onPointerEnter={(event) => {
+                  if (event.pointerType === 'mouse') warmRoute(href)
+                }}
+                onPointerDown={(event) => {
+                  if (event.pointerType !== 'mouse') warmRoute(href)
+                }}
+                onFocus={() => warmRoute(href)}
+                onNavigate={(event) => {
+                  if (sponsorOpen && href === pathname) closeSponsor(event)
+                  else if (href !== '/exam') navigateFromExam(event)
+                }}>
+                {label}<StudyNavigationStatus />
+              </Link>
             })}
           </nav>
           <main className="study-main">
@@ -163,7 +204,7 @@ export function StudyShell({ userId, children }: { userId: string; children: Rea
           <footer className="site-footer">
             <ul className="footer-notes">
               <li>练习内容仅供学习参考</li>
-              <li>作者：20230537 六只</li>
+              <li>作者：计算机学院 20230537 六只</li>
               <li>遇到问题请联系 QQ 1176843521</li>
             </ul>
             <a className="footer-sponsor-link" href="#sponsor" aria-label="打开友情赞助页面">

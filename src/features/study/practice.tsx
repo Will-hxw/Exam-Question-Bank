@@ -1,6 +1,6 @@
 'use client'
 
-import { type FormEvent, useEffect, useState } from 'react'
+import { type FormEvent, useEffect, useRef, useState } from 'react'
 import { answerLetters, letter, type Question, type QuestionPage, questionUrl, readPublic, type StudyStats } from './api'
 import { ExplanationPanel, LoadMessage, TopicPicker } from './controls'
 import { useQuestionStates, useStudySessionContext } from './study-shell'
@@ -97,16 +97,27 @@ function PracticeCard({ question, answer, record, progress, previous, next, atte
   const [savingFavorite, setSavingFavorite] = useState(false)
   const [favoriteOverride, setFavoriteOverride] = useState<boolean>()
   const [removing, setRemoving] = useState(false)
+  const submittedAnswer = useRef(answer)
   const selected = answer?.ids ?? selection
   const currentFavorite = favoriteOverride ?? favorite
+  const immediate = question.type === 'single'
 
-  function submit() {
-    if (!selection.length) { setMessage('请选择答案'); return }
-    if (!question.answerIds?.length) { setMessage('答案暂不可用，请稍后重试。'); return }
-    const correct = selection.length === question.answerIds.length && selection.every((id) => question.answerIds?.includes(id))
-    const saved = attempts.enqueue(question.id, selection, question.contentRevision)
-    record({ ids: selection, correct, saved })
+  function saveAnswer(ids: string[], correct: boolean) {
+    if (submittedAnswer.current?.saved) return
+    const saved = attempts.enqueue(question.id, ids, question.contentRevision)
+    const result = { ids, correct, saved }
+    submittedAnswer.current = result
+    record(result)
     setMessage(saved ? '' : '本次作答未能保存在本机。请重试保存。')
+  }
+
+  function submit(ids = selection) {
+    if (submittedAnswer.current) return
+    if (!ids.length) { setMessage('请选择答案'); return }
+    if (!question.answerIds?.length) { setMessage('答案暂不可用，请稍后重试。'); return }
+    const correct = ids.length === question.answerIds.length && ids.every((id) => question.answerIds?.includes(id))
+    saveAnswer(ids, correct)
+    if (immediate && !correct && question.explanation) setExpanded(true)
   }
 
   async function toggleFavorite() {
@@ -156,13 +167,20 @@ function PracticeCard({ question, answer, record, progress, previous, next, atte
           const style = answer && isCorrect ? 'correct' : answer && chosen ? 'wrong' : chosen ? 'selected' : ''
           return <button key={option.id} type="button" className={`option ${style}`} aria-pressed={chosen} disabled={Boolean(answer)}
             onClick={() => {
+              if (submittedAnswer.current) return
+              if (immediate) {
+                const ids = [option.id]
+                setSelection(ids)
+                submit(ids)
+                return
+              }
               setMessage('')
-              setSelection((before) => question.type === 'single' ? [option.id] : chosen ? before.filter((id) => id !== option.id) : [...before, option.id])
+              setSelection((before) => before.includes(option.id) ? before.filter((id) => id !== option.id) : [...before, option.id])
             }}>{letter(index)}. {option.text}</button>
         })}
       </div>
       <div className="action-bar">
-        <button type="button" className="btn primary" disabled={Boolean(answer)} onClick={submit}>确定</button>
+        <button type="button" className="btn primary" disabled={Boolean(answer)} onClick={() => submit()}>确定</button>
         <button type="button" className="btn" disabled={!previous} onClick={previous ?? undefined}>上一题</button>
         <button type="button" className="btn" onClick={next}>下一题</button>
         <button type="button" className="btn btn-sm" aria-pressed={Boolean(currentFavorite)}
@@ -171,19 +189,17 @@ function PracticeCard({ question, answer, record, progress, previous, next, atte
         </button>
         {wrongMode && <button type="button" className="btn btn-sm" disabled={removing} onClick={() => void clearWrong()}>移出错题集</button>}
         <button type="button" className="btn btn-sm" aria-expanded={expanded} onClick={() => {
-          if (!answer) { setMessage('请先作答本题'); return }
+          if (wrongMode && !answer) { setMessage('请先作答本题'); return }
           if (!explanation) { setMessage('本题解析暂不可用'); return }
+          if (answer?.saved !== false) setMessage('')
           setExpanded((previous) => !previous)
         }}>{expanded ? '收起解析' : '展开解析'}</button>
       </div>
+      {!answer && expanded && explanation && <p className="answer-reveal">正确答案：<span>{answerLetters(explanation.options, explanation.answerIds)}</span></p>}
       {answer && <div role="status">
         <p className={`feedback ${answer.correct ? 'correct' : 'wrong'}`}>{answer.correct ? '✓ 正确' : '✗ 错误'}</p>
         <p className="answer-reveal">正确答案：<span>{answerLetters(question.options, question.answerIds ?? [])}</span> | 你的选择：<span>{answerLetters(question.options, answer.ids)}</span></p>
-        {!answer.saved && <button type="button" className="btn btn-sm" onClick={() => {
-          const saved = attempts.enqueue(question.id, answer.ids, question.contentRevision)
-          record({ ...answer, saved })
-          setMessage(saved ? '' : '本次作答未能保存在本机。请重试保存。')
-        }}>重试保存本题</button>}
+        {!answer.saved && <button type="button" className="btn btn-sm" onClick={() => saveAnswer(answer.ids, answer.correct)}>重试保存本题</button>}
       </div>}
       {message && <p className="study-message error" role="alert">{message}</p>}
     </article>

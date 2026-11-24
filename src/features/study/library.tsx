@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { answerLetters, type Explanation, letter, type Question, type QuestionPage, type QuestionState, type QuestionType, questionUrl, type Status } from './api'
+import { answerLetters, type Explanation, letter, libraryPageSize, type Question, type QuestionPage, type QuestionState, type QuestionType, questionUrl, type Status } from './api'
 import { ExplanationPanel, LoadMessage, TopicPicker } from './controls'
 import { useQuestionStates, useStudySessionContext } from './study-shell'
 import { useDebouncedSearch, useStudyData } from './use-study-data'
@@ -83,7 +83,11 @@ function QuestionList({ topic, type, q, status, list }: { topic: string; type: Q
   const [cursors, setCursors] = useState<(string | null)[]>([null])
   const [pageIndex, setPageIndex] = useState(0)
   const { revision } = useStudySessionContext()
-  const page = useStudyData<QuestionPage>(questionUrl({ topic, type, q, status, cursor: cursors[pageIndex], limit: 20 }), status ? revision : 0)
+  const page = useStudyData<QuestionPage>(
+    questionUrl({ topic, type, q, status, cursor: cursors[pageIndex], limit: libraryPageSize }),
+    status ? revision : 0,
+    { keepPreviousData: true },
+  )
   const questions = page.data?.questions ?? []
   const states = useQuestionStates(status ? [] : questions.map((question) => question.id))
 
