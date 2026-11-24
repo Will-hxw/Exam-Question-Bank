@@ -302,7 +302,10 @@ function ExamContent() {
   </section>
 
   if (view.screen === 'history') return <section className="exam-history-page" aria-labelledby="exam-history">
-    <div className="exam-history-header"><button type="button" className="btn btn-sm nav-step" onClick={returnToEntrance}>← 返回</button><h3 id="exam-history">考试历史</h3><span /></div>
+    <div className="exam-history-header">
+      <button type="button" className="btn btn-sm nav-step" onClick={returnToEntrance}>← 返回</button>
+      <h3 id="exam-history">考试历史</h3>
+    </div>
     {error && <p className="study-message error" role="alert">{error}</p>}
     {historyItems.length === 0 ? <LoadMessage loading={list.loading} error={list.error} retry={list.retry} empty="暂无考试记录" /> : historyItems.map((item) => (
       <button key={item.id} type="button" className="exam-history-item" disabled={busy} onClick={() => void load('open', item.id)}>

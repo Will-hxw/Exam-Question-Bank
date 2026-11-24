@@ -205,8 +205,9 @@ html[data-theme="dark"] .study-theme .dark-toggle { color: #e5e7eb; }
 .study-shell .q-num.result-wrong { background: var(--danger); color: #fff; }
 .study-shell .btn-exam-history { margin-top: 12px; color: var(--text-secondary); }
 .study-shell .exam-history-page { padding: 0; }
-.study-shell .exam-history-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
-.study-shell .exam-history-header h3 { font-size: 16px; font-weight: 600; color: var(--text); margin: 0; }
+.study-shell .exam-history-header { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; margin-bottom: 16px; }
+.study-shell .exam-history-header .btn { justify-self: start; }
+.study-shell .exam-history-header h3 { grid-column: 2; font-size: 16px; font-weight: 600; color: var(--text); margin: 0; }
 .study-shell .exam-history-item { padding: 14px 16px; margin-bottom: 8px; background: var(--surface); border-radius: var(--radius-sm); border: 1px solid var(--border-light); cursor: pointer; transition: border-color 0.15s ease, box-shadow 0.15s ease; }
 .study-shell .exam-history-main { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 4px; }
 .study-shell .exam-history-date { font-size: 13px; color: var(--text); font-weight: 500; }

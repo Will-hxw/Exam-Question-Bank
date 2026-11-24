@@ -227,6 +227,18 @@ def check_exam_result_header(page):
     return replay
 
 
+def check_exam_history_header(page):
+    header = page.locator('.exam-history-header')
+    title = header.get_by_role('heading', name='考试历史', exact=True)
+    back = header.get_by_role('button', name='← 返回', exact=True)
+    expect(title).to_be_visible()
+    expect(back).to_be_visible()
+    title_box, back_box = title.bounding_box(), back.bounding_box()
+    assert title_box and back_box
+    assert back_box['x'] + back_box['width'] <= title_box['x']
+    assert abs(title_box['x'] + title_box['width'] / 2 - page.evaluate('innerWidth / 2')) <= 1
+
+
 def run(browser):
     for width in (390, 1440):
         context = browser.new_context(viewport={"width": width, "height": 900}, locale="zh-CN")
@@ -608,6 +620,7 @@ def run(browser):
     section(page, '/exam')
     page.get_by_role('button', name='返回', exact=True).click()
     page.get_by_role('button', name='历史记录').click()
+    check_exam_history_header(page)
     expect(page.locator('.exam-history-score')).to_have_text([re.compile(r'^\d+/8$'), re.compile(r'^\d+/8$')])
     page.locator('.exam-history-item').last.click()
     expect(page.locator('.exam-result-question')).to_have_text(original)
@@ -663,6 +676,7 @@ def run(browser):
     assert route_shift <= 1, f'Navigation shifted {route_shift:.2f} px across short and tall pages'
     section(page, '/exam')
     page.get_by_role('button', name='历史记录').click()
+    check_exam_history_header(page)
     page.locator('.exam-history-item').first.click()
     replay = check_exam_result_header(page)
     expect(replay).to_have_css('background-color', 'rgb(158, 195, 247)')
