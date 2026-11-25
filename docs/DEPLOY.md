@@ -22,7 +22,16 @@ Neon Auth 生成并校验验证码，签名的 `send.otp` 事件由本站 `/api/
 
 早期的 404、131 题预览、Auth 域名校验和投递记录见 [平台早期核查](PLATFORM_CHECK.md)、[Neon 联调实录](NEON_SETUP.md) 和 [验收证据](ACCEPTANCE.md)。
 
+## 新用户反馈与分享邮件
+
+先应用 `011_signup_followup_email.sql`，再部署包含 `Signup follow-up email` 工作流的版本。工作流每 2 小时检查一次，正式站复用 QQ SMTP 和验证码邮件外框逐封发送。内部发信入口只接受本仓库 `main` 上该工作流的 GitHub OIDC 令牌。
+
+自动发送覆盖迁移部署后注册并验证邮箱的账号。注册满 24 小时或已保存第 61 次非空作答即符合条件，练习和已交模考都计入。相同账号只保留一条发送记录。QQ 明确拒绝登录时暂停一小时，明确的暂时投递失败可重试。对于发送结果无法确认的记录，应先核对原邮件回执再处理。
+
+部署后可手动运行该工作流并查看回执。GitHub 的定时检查可能延迟，公开仓库连续 60 天无活动时，GitHub 会停用定时工作流。 [GitHub 定时事件](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule)
+
 ## 内容同步
+
 
 运行迁移和题库同步的账号持有发布权限。在本地安全环境注入对应连接串，先运行 `npm run db:migrate`，再执行 `npm run content:sync -- --release`。校验通过后，使用同一 Git 提交执行 `npm run content:sync -- --release --apply`，然后部署该提交。生产构建同样执行覆盖与质量门禁。
 

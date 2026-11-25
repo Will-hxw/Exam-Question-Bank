@@ -6,11 +6,11 @@ import nodemailer, { type SendMailOptions } from "nodemailer"
 import type { OtpEvent } from "./neon-webhook"
 import { crestContentId, otpTemplate, practiceSiteName } from "./otp-template"
 
-const smtpAccount = "1176843521@qq.com"
+export const smtpAccount = "1176843521@qq.com"
 const smtpHost = "smtp.qq.com"
 
-export async function sendQqMail(smtpAuthorizationCode: string, message: Omit<SendMailOptions, "from">) {
-  const transport = nodemailer.createTransport({
+function qqTransport(smtpAuthorizationCode: string, pool = false) {
+  return nodemailer.createTransport({
     host: smtpHost,
     port: 465,
     secure: true,
@@ -21,7 +21,11 @@ export async function sendQqMail(smtpAuthorizationCode: string, message: Omit<Se
     socketTimeout: 4_000,
     disableFileAccess: true,
     disableUrlAccess: true,
+    ...(pool ? { pool: true, maxConnections: 1, maxMessages: 3, maxRequeues: 0 } : {}),
   })
+}
+
+async function sendFromQq(transport: ReturnType<typeof qqTransport>, message: Omit<SendMailOptions, "from">) {
   const result = await transport.sendMail({
     ...message,
     from: { name: practiceSiteName, address: smtpAccount },
@@ -31,17 +35,32 @@ export async function sendQqMail(smtpAuthorizationCode: string, message: Omit<Se
   }
 }
 
+export function sendQqMail(smtpAuthorizationCode: string, message: Omit<SendMailOptions, "from">) {
+  return sendFromQq(qqTransport(smtpAuthorizationCode), message)
+}
+
 export async function sendOtpMail(event: OtpEvent, smtpAuthorizationCode: string) {
-  const { subject, text, html } = otpTemplate(event)
   const crest = await readFile(join(process.cwd(), "public/cqu-crest.png"))
   await sendQqMail(smtpAuthorizationCode, {
+    ...otpTemplate(event),
     to: { name: "", address: event.email },
-    subject,
-    text,
-    html,
-    attachments: [{ filename: "cqu-crest.png", content: crest, contentType: "image/png", cid: crestContentId }],
+    attachments: [crestAttachment(crest)],
     messageId: `<otp-${event.id}@cqu.xiaoweihua.cn>`,
   })
+}
+
+function crestAttachment(crest: Buffer) {
+  return { filename: "cqu-crest.png", content: crest, contentType: "image/png", cid: crestContentId }
+}
+
+export async function signupFollowupMailer(smtpAuthorizationCode: string) {
+  const crest = crestAttachment(await readFile(join(process.cwd(), "public/cqu-crest.png")))
+  const transport = qqTransport(smtpAuthorizationCode, true)
+  return {
+    send: (message: Omit<SendMailOptions, "from" | "attachments">) =>
+      sendFromQq(transport, { ...message, attachments: [crest] }),
+    close: () => transport.close(),
+  }
 }
 
 export function smtpFailure(error: unknown) {
