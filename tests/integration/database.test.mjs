@@ -277,6 +277,11 @@ test('follow-up claims new accounts once after 24 hours or 61 actual answers', a
   `)
 
   const claim = async () => (await pool.query('SELECT * FROM claim_signup_followup()')).rows
+  assert.deepEqual(await claim(), [])
+  await pool.query(`
+    UPDATE signup_followup_deliveries SET verified_at = now() - interval '24 hours 1 minute'
+    WHERE user_id = 'followup-aged'
+  `)
   const competing = await Promise.all(Array.from({ length: 8 }, claim))
   assert.deepEqual(competing.flat(), [{ user_id: 'followup-aged', email: 'aged@example.test', attempts: 1 }])
   assert.deepEqual(await claim(), [])
