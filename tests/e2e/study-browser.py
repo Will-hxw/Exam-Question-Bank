@@ -769,18 +769,30 @@ def run(browser):
     expect(wrong_row(wrong_exam_stem)).to_have_count(0)
 
     section(page, '/exam')
-    check_exam_result_header(page).tap()
+    with page.expect_response(lambda response: response.url == draft_url + '/replay' and
+                              response.request.method == 'POST') as replay_from_result:
+        check_exam_result_header(page).tap()
+    assert replay_from_result.value.ok
+    first_replay = replay_from_result.value.json()['exam']
+    replay_order = [item['stem'] for item in first_replay['items']]
+    assert sorted(replay_order) == sorted(original) and replay_order != original
     expect(page.locator('.exam-nav-item')).to_have_count(8)
     expect(page.locator('.exam-nav-item.current')).to_have_text('1')
     expect(page.locator('.exam-nav-item.marked, .exam-nav-item.answered')).to_have_count(0)
-    for index, text in enumerate(original, start=1):
-        page.get_by_role('group', name='题目导航').get_by_role('button', name=str(index), exact=True).tap()
+    exam_nav = page.get_by_role('group', name='题目导航')
+    for index, text in enumerate(replay_order, start=1):
+        exam_nav.get_by_role('button', name=str(index), exact=True).tap()
         expect(page.locator('.exam-question-card .q-text')).to_have_text(text)
     expect(next_item).to_be_disabled()
-    page.get_by_role('group', name='题目导航').get_by_role('button', name='1', exact=True).tap()
+    expect(page.get_by_text('草稿已云端同步')).to_be_visible()
+    page.reload(wait_until='domcontentloaded')
+    expect(page.locator('.exam-nav-item.current')).to_have_text('8')
+    expect(page.locator('.exam-question-card .q-text')).to_have_text(replay_order[-1])
+    exam_nav.get_by_role('button', name=str(replay_order.index(wrong_exam_stem) + 1), exact=True).tap()
     page.locator('.question-card .option').nth(wrong_option).click()
     page.get_by_role('button', name='交卷', exact=True).click()
     expect(page.locator('.exam-result-item')).to_have_count(8)
+    expect(page.locator('.exam-result-question')).to_have_text(replay_order)
     section(page, '/wrong')
     for text in original:
         expect(wrong_row(text)).to_have_count(1)
@@ -796,7 +808,9 @@ def run(browser):
         check_exam_result_header(page).tap()
     assert replay_from_history.value.ok
     replayed = replay_from_history.value.json()['exam']
-    assert [item['stem'] for item in replayed['items']] == original
+    history_replay_order = [item['stem'] for item in replayed['items']]
+    assert sorted(history_replay_order) == sorted(original) and history_replay_order != original
+    assert replayed['id'] != first_replay['id']
     assert replayed['answers'] == {} and replayed['marked'] == [] and replayed['position'] == 0
     expect(page.locator('.exam-nav-item.current')).to_have_text('1')
     page.get_by_role('button', name='交卷', exact=True).click()
