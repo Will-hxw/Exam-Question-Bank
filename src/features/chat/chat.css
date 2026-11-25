@@ -125,19 +125,15 @@
   border-radius: 13px 5px 13px 13px;
   background: color-mix(in srgb, var(--surface) 83%, var(--accent));
 }
-.study-shell .chat-empty {
+.study-shell .chat-loading {
   display: grid;
-  align-content: center;
-  justify-items: center;
+  place-items: center;
   min-height: 100%;
   padding: 22px;
-  gap: 4px;
   color: var(--text-secondary);
   text-align: center;
   font-size: 13px;
 }
-.study-shell .chat-empty p { color: var(--text); font-size: 15px; font-weight: 550; }
-.study-shell .chat-empty-icon { font-size: 26px; margin-bottom: 3px; }
 .study-shell .chat-latest {
   position: absolute;
   inset: auto 16px 9px auto;
@@ -164,7 +160,6 @@
   line-height: 1.5;
 }
 .study-shell .chat-composer textarea:focus { outline: none; border-color: var(--border); }
-.study-shell .chat-composer textarea::placeholder { color: var(--text-muted); }
 .study-shell .chat-composer-actions { display: flex; position: relative; align-items: center; gap: 8px; min-height: 38px; }
 .study-shell .chat-emoji { flex: none; }
 .study-shell .chat-emoji-panel {

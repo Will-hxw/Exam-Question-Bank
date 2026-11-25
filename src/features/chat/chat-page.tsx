@@ -200,13 +200,7 @@ export default function ChatPage({ pathname, userId, onBack }: {
         </div>}
         {room.messages.length > 0 ? <ol className="chat-message-list">
           {room.messages.map((message, index) => <Message key={message.id} message={message} previous={room.messages[index - 1]} />)}
-        </ol> : <div className="chat-empty">
-          {!room.profile ? <p>{room.readError ? '暂时无法打开聊天区' : '正在加载聊天记录…'}</p> : <>
-            <span className="chat-empty-icon" aria-hidden="true">💬</span>
-            <p>聊聊今天的刷题体验吧</p>
-            <span>讨论题目、分享心得，或打个招呼。</span>
-          </>}
-        </div>}
+        </ol> : !room.profile && !room.readError && <p className="chat-loading" role="status">正在加载聊天记录…</p>}
       </div>
       {newMessages && <button type="button" className="chat-latest" onClick={scrollToLatest}>↓ 查看新消息</button>}
     </div>
@@ -216,7 +210,7 @@ export default function ChatPage({ pathname, userId, onBack }: {
         emojiButton.current?.focus()
       }
     }}>
-      <textarea ref={composer} aria-label="聊天消息" placeholder="说点什么吧…" rows={2} maxLength={messageLimit}
+      <textarea ref={composer} aria-label="聊天消息" rows={2} maxLength={messageLimit}
         value={draft} disabled={!room.profile} readOnly={sending} onChange={(event) => setDraft(event.target.value)}
         onKeyDown={(event) => {
           if (event.key === 'Enter' && !event.shiftKey && !event.nativeEvent.isComposing

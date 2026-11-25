@@ -313,7 +313,16 @@ def check_chat(browser):
         assert entry.bounding_box()['x'] < feedback.bounding_box()['x']
         entry.tap()
         expect(sender.get_by_role('heading', name='聊天区')).to_be_visible()
-        expect(sender.get_by_text('聊聊今天的刷题体验吧')).to_be_visible()
+        expect(sender.get_by_role('button', name='修改昵称')).to_be_visible()
+        expect(sender.get_by_role('region', name='聊天记录')).to_have_text('')
+        draft = sender.get_by_role('textbox', name='聊天消息')
+        expect(draft).to_have_value('')
+        assert draft.get_attribute('placeholder') is None
+        screenshots = os.getenv('EQB_CHAT_SCREENSHOTS')
+        if screenshots:
+            target = Path(screenshots)
+            target.mkdir(parents=True, exist_ok=True)
+            sender.locator('.chat-room').screenshot(path=target / 'chat-empty.png')
         expect(sender.locator('.chat-profile img')).to_have_js_property('complete', True)
         assert sender.locator('.chat-profile img').evaluate('(image) => image.naturalWidth') == 96
         original_avatar = sender.locator('.chat-profile img').get_attribute('src')
@@ -327,8 +336,8 @@ def check_chat(browser):
 
         receiver = desktop.new_page()
         receiver.goto(ORIGIN + '/#chat', wait_until='networkidle')
-        expect(receiver.get_by_text('聊聊今天的刷题体验吧')).to_be_visible()
-        draft = sender.get_by_role('textbox', name='聊天消息')
+        expect(receiver.get_by_role('button', name='修改昵称')).to_be_visible()
+        expect(receiver.get_by_role('region', name='聊天记录')).to_have_text('')
         draft.fill('刷题见面啦 ')
         sender.get_by_role('button', name='插入表情').tap()
         sender.get_by_role('button', name='🎉', exact=True).tap()
@@ -349,10 +358,7 @@ def check_chat(browser):
         sender.bring_to_front()
         expect(sender.locator('.chat-message-row:not(.is-mine) .chat-bubble')).to_contain_text('下课再聊', timeout=12000)
         assert sender.evaluate('document.documentElement.scrollWidth <= innerWidth')
-        screenshots = os.getenv('EQB_CHAT_SCREENSHOTS')
         if screenshots:
-            target = Path(screenshots)
-            target.mkdir(parents=True, exist_ok=True)
             sender.locator('.chat-room').screenshot(path=target / 'chat-mobile.png')
             receiver.locator('.chat-room').screenshot(path=target / 'chat-desktop.png')
         sender.get_by_role('link', name='返回练习', exact=True).tap()
