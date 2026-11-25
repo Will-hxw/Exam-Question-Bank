@@ -319,3 +319,41 @@ test('follow-up claims new accounts once after 24 hours or 61 actual answers', a
   await pool.query("UPDATE signup_followup_deliveries SET state = 'uncertain' WHERE user_id = 'followup-young'")
   assert.deepEqual(await claim(), [])
 })
+
+test('follow-up enrolls accounts in the launch gap after verification without resetting delivery state', async () => {
+  const client = await pool.connect()
+  try {
+    assert.ok((await migrate(client)).includes('016_signup_followup_launch_gap.sql'))
+  } finally {
+    client.release()
+  }
+
+  await pool.query(`
+    UPDATE schema_migrations SET applied_at = '2026-11-25 10:44:47.782+00'
+    WHERE file = '011_signup_followup_email.sql';
+    INSERT INTO neon_auth."user" VALUES
+      ('gap-before', 'before@example.test', true, '2026-11-25 10:21:19.762899+00'),
+      ('gap-start', 'start@example.test', true, '2026-11-25 10:21:19.7629+00'),
+      ('gap-unverified', 'verify@example.test', false, '2026-11-25 10:42:00+00'),
+      ('gap-end', 'after@example.test', true, '2026-11-25 10:44:47.782+00');
+    SELECT enqueue_signup_followups();
+  `)
+  const enrollments = async () => (await pool.query(`
+    SELECT user_id, state, attempts FROM signup_followup_deliveries
+    WHERE user_id LIKE 'gap-%' ORDER BY user_id
+  `)).rows
+  assert.deepEqual(await enrollments(), [
+    { user_id: 'gap-end', state: 'waiting', attempts: 0 },
+    { user_id: 'gap-start', state: 'waiting', attempts: 0 },
+  ])
+  await pool.query(`
+    UPDATE signup_followup_deliveries SET state = 'sent', attempts = 1 WHERE user_id = 'gap-start';
+    UPDATE neon_auth."user" SET "emailVerified" = true WHERE id = 'gap-unverified';
+    SELECT * FROM claim_signup_followup();
+  `)
+  assert.deepEqual(await enrollments(), [
+    { user_id: 'gap-end', state: 'waiting', attempts: 0 },
+    { user_id: 'gap-start', state: 'sent', attempts: 1 },
+    { user_id: 'gap-unverified', state: 'waiting', attempts: 0 },
+  ])
+})
