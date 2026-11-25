@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { type FormEvent, type MouseEventHandler, useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { messageLimit, nicknameLimit, type ChatMessage } from './types'
+import { messageLimit, nicknameLimit, type ChatMessage, type ChatProfile } from './types'
 import { chatError, type useChatRoom } from './use-chat-room'
 import './chat.css'
 
@@ -15,8 +15,9 @@ function messageTime(value: string) {
   return `${sent.toDateString() === new Date().toDateString() ? '今天' : date.format(sent)} ${time.format(sent)}`
 }
 
-function Avatar({ avatar, size }: { avatar: number; size: number }) {
-  return <Image className="chat-avatar" src={`/chat-avatars/${avatar}.webp`} alt="" width={size} height={size} unoptimized />
+function Avatar({ profile, size }: { profile: ChatProfile; size: number }) {
+  const src = profile.avatarImageId ? `/api/chat/avatar?id=${profile.avatarImageId}` : `/chat-avatars/${profile.avatar}.webp`
+  return <Image className="chat-avatar" src={src} alt="" width={size} height={size} unoptimized />
 }
 
 function Message({ message, nickname, previous }: { message: ChatMessage; nickname: string; previous?: ChatMessage }) {
@@ -24,7 +25,7 @@ function Message({ message, nickname, previous }: { message: ChatMessage; nickna
   return <li className="chat-message" data-message-id={message.id}>
     {gap >= 5 * 60 * 1000 && <time className="chat-timestamp" dateTime={message.sentAt}>{messageTime(message.sentAt)}</time>}
     <div className={`chat-message-row${message.mine ? ' is-mine' : ''}`}>
-      <Avatar avatar={message.avatar} size={36} />
+      <Avatar profile={message} size={36} />
       <div className="chat-message-content">
         <span className="chat-nickname">{nickname}</span>
         <p className="chat-bubble" dir="auto">{message.body}</p>
@@ -168,7 +169,7 @@ export default function ChatPage({ pathname, room, onBack }: {
           setNameError('')
           setEditingName(true)
         }}>
-        <Avatar avatar={room.profile.avatar} size={30} />
+        <Avatar profile={room.profile} size={30} />
         <span>{room.profile.nickname}</span>
         <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="m15 5 4 4M4 20l4-.8L20 7a2.8 2.8 0 0 0-4-4L4.8 15Z" /></svg>
       </button>}

@@ -14,7 +14,8 @@ export function route<T extends unknown[]>(
 ) {
   return async (...args: T) => {
     try {
-      return Response.json(await handler(...args), { headers })
+      const result = await handler(...args)
+      return result instanceof Response ? result : Response.json(result, { headers })
     } catch (error) {
       if (error instanceof HttpError) {
         return Response.json({ error: error.message }, { status: error.status, headers: privateHeaders })

@@ -21,10 +21,18 @@ function chatAuthorKey(user: string) {
 }
 
 type StoredAuthor = Omit<ChatAuthor, 'authorKey'> & { authorUserId: string }
-type StoredMessage = Omit<ChatMessage, 'authorKey'> & StoredAuthor
+type StoredMessage = Omit<ChatMessage, 'authorKey' | 'avatarImageId'> & StoredAuthor & { avatarImageId: string | null }
 
 function presentAuthor<T extends StoredAuthor>({ authorUserId, ...details }: T) {
   return { ...details, authorKey: chatAuthorKey(authorUserId) }
+}
+
+function avatarImage(avatarImageId: string | null) {
+  return avatarImageId ? { avatarImageId } : {}
+}
+
+function presentMessage({ avatarImageId, ...message }: StoredMessage): ChatMessage {
+  return { ...presentAuthor(message), ...avatarImage(avatarImageId) }
 }
 
 function defaultProfile(user: string): ChatProfile {
@@ -50,19 +58,20 @@ export async function saveChatNickname(user: string, value: unknown): Promise<Ch
   const nickname = readText(value, nicknameLimit, '昵称', false)
   await query('INSERT INTO profiles (user_id) VALUES ($1) ON CONFLICT DO NOTHING', [user])
   // Serialize revision assignment so readers can safely advance their nickname cursor.
-  const [{ nicknameRevision }] = await query<{ nicknameRevision: string }>(`
+  const [{ nicknameRevision, avatarImageId }] = await query<{ nicknameRevision: string; avatarImageId: string | null }>(`
     WITH locked AS MATERIALIZED (SELECT pg_advisory_xact_lock(hashtext('eqb/chat-nicknames')))
     INSERT INTO chat_profiles (user_id, nickname, nickname_revision)
     SELECT $1, $2, nextval('chat_nickname_revision') FROM locked
     ON CONFLICT (user_id) DO UPDATE SET
       nickname = EXCLUDED.nickname, nickname_revision = EXCLUDED.nickname_revision
-    RETURNING nickname_revision::text AS "nicknameRevision"
+    RETURNING nickname_revision::text AS "nicknameRevision",
+      (SELECT id FROM chat_avatars WHERE user_id = $1) AS "avatarImageId"
   `, [user, nickname])
-  return { ...defaultProfile(user), nickname, nicknameRevision }
+  return { ...defaultProfile(user), nickname, nicknameRevision, ...avatarImage(avatarImageId) }
 }
 
 const messageFields = `m.id::text AS id, m.user_id AS "authorUserId", COALESCE(p.nickname, m.nickname) AS nickname,
-  COALESCE(p.nickname_revision, 0)::text AS "nicknameRevision", m.avatar, m.body,
+  COALESCE(p.nickname_revision, 0)::text AS "nicknameRevision", m.avatar, a.id AS "avatarImageId", m.body,
   m.sent_at AS "sentAt", (m.user_id = $1) AS mine`
 const pageSize = 40
 
@@ -75,25 +84,28 @@ export async function chatRoom(user: string): Promise<ChatRoom> {
   const [room] = await query<{
     messages: StoredMessage[]
     custom: Pick<ChatAuthor, 'nickname' | 'nicknameRevision'> | null
+    avatarImageId: string | null
     nicknameCursor: string
   }>(`
     SELECT (SELECT COALESCE(jsonb_agg(recent ORDER BY recent.id::bigint DESC), '[]'::jsonb)
       FROM (
         SELECT ${messageFields} FROM chat_messages m
         LEFT JOIN chat_profiles p ON p.user_id = m.user_id
+        LEFT JOIN chat_avatars a ON a.user_id = m.user_id
         ORDER BY m.id DESC LIMIT ${pageSize + 1}
       ) recent) AS messages,
       (SELECT jsonb_build_object('nickname', nickname, 'nicknameRevision', nickname_revision::text)
         FROM chat_profiles WHERE user_id = $1) AS custom,
+      (SELECT id FROM chat_avatars WHERE user_id = $1) AS "avatarImageId",
       (SELECT COALESCE(max(nickname_revision), 0)::text
         FROM chat_profiles WHERE nickname_revision > 0) AS "nicknameCursor"
   `, [user])
   const messages = room.messages.slice(0, pageSize).reverse().map((message) => (
-    presentAuthor({ ...message, sentAt: new Date(message.sentAt).toISOString() })
+    presentMessage({ ...message, sentAt: new Date(message.sentAt).toISOString() })
   ))
   return {
     messages, hasMore: room.messages.length > pageSize,
-    profile: { ...defaultProfile(user), ...room.custom }, nicknameCursor: room.nicknameCursor,
+    profile: { ...defaultProfile(user), ...room.custom, ...avatarImage(room.avatarImageId) }, nicknameCursor: room.nicknameCursor,
   }
 }
 
@@ -120,11 +132,12 @@ export async function chatMessages(user: string, params: URLSearchParams): Promi
   const rows = await query<StoredMessage>(`
     SELECT ${messageFields} FROM chat_messages m
     LEFT JOIN chat_profiles p ON p.user_id = m.user_id
+    LEFT JOIN chat_avatars a ON a.user_id = m.user_id
     ${cursor ? `WHERE m.id ${forward ? '>' : '<'} $2` : ''}
     ORDER BY m.id ${forward ? 'ASC' : 'DESC'}
     LIMIT ${pageSize + 1}
   `, cursor ? [user, cursor] : [user])
-  const messages = rows.slice(0, pageSize).map(presentAuthor)
+  const messages = rows.slice(0, pageSize).map(presentMessage)
   if (!forward) messages.reverse()
   return { messages, hasMore: rows.length > pageSize }
 }
@@ -137,9 +150,10 @@ export async function postChatMessage(user: string, body: Record<string, unknown
     SELECT ${messageFields}
     FROM send_chat_message($1, $2, $3, $4, $5::smallint) m
     LEFT JOIN chat_profiles p ON p.user_id = m.user_id
+    LEFT JOIN chat_avatars a ON a.user_id = m.user_id
     WHERE m.id IS NOT NULL
   `, [user, clientId, content, profile.nickname, profile.avatar])
   if (!message) throw new HttpError(429, '发得太快了，请稍后再试。')
   if (message.body !== content) throw new HttpError(409, '这条消息已发送，请重新输入。')
-  return { message: presentAuthor(message) }
+  return { message: presentMessage(message) }
 }

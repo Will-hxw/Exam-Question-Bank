@@ -6,7 +6,7 @@ export type ChatAuthor = {
   nickname: string
   nicknameRevision: string
 }
-export type ChatProfile = ChatAuthor & { avatar: number }
+export type ChatProfile = ChatAuthor & { avatar: number; avatarImageId?: string }
 export type ChatMessage = ChatProfile & {
   id: string
   body: string

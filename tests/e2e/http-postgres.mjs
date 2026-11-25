@@ -477,10 +477,31 @@ async function runApiChecks(origin, db, items, secret) {
   assert.equal(rest.messages.length, 8)
   assert.equal(rest.hasMore, false)
   assert.equal(rest.messages.at(-1).id, latestChat.messages.at(-1).id)
+
+  const avatarImageId = randomUUID()
+  const avatarImage = await readFile(join(root, 'public', 'chat-avatars', '0.webp'))
+  await db.query('INSERT INTO chat_avatars (user_id, id, image) VALUES ($1, $2, $3)', [chatAlice.owner, avatarImageId, avatarImage])
+  const ownProfile = (await call(chatPath, chatAlice)).data.profile
+  assert.equal(ownProfile.avatarImageId, avatarImageId)
+  assert.equal(ownProfile.nickname, nickname)
+  const otherView = (await call(chatPath, chatBob)).data
+  assert.equal(otherView.profile.avatarImageId, undefined)
+  assert.ok(otherView.messages.every(message => message.avatarImageId === avatarImageId))
+  const olderView = (await call(`${chatPath}?before=${otherView.messages[0].id}`, chatBob)).data
+  assert.equal(olderView.messages[0].avatarImageId, avatarImageId)
+  assert.equal((await call(chatPath, chatWrite)).data.message.avatarImageId, avatarImageId)
+  const avatarPath = `${chatPath}/avatar?id=${avatarImageId}`
+  await call(avatarPath, { status: 401 })
+  const avatarResponse = await fetch(origin + avatarPath, { headers: { cookie: `${tokenCookie}=bob` } })
+  assert.equal(avatarResponse.status, 200)
+  assert.equal(avatarResponse.headers.get('content-type'), 'image/webp')
+  assert.equal(avatarResponse.headers.get('cache-control'), 'private, no-store')
+  assert.deepEqual(Buffer.from(await avatarResponse.arrayBuffer()), avatarImage)
   await db.query('DELETE FROM chat_messages WHERE user_id = $1', [chatAlice.owner])
+  await call(avatarPath, { ...chatBob, status: 404 })
 
   return {
-    verified: ['anonymous/email verification gate', 'distinct fixture Auth owners', 'private no-store and public cache headers', 'real PostgreSQL and Chinese cursor pagination', 'fixed explanation and answer exposure', 'write idempotency and cross-owner rejection', 'default and custom exam size, random order, validation, resume, scoring, and history', 'Next Data Cache hot to changed after authorized invalidation', 'shared chat, stable profiles, rename, cursor pagination, concurrent retry, rate limit and privacy'],
+    verified: ['anonymous/email verification gate', 'distinct fixture Auth owners', 'private no-store and public cache headers', 'real PostgreSQL and Chinese cursor pagination', 'fixed explanation and answer exposure', 'write idempotency and cross-owner rejection', 'default and custom exam size, random order, validation, resume, scoring, and history', 'Next Data Cache hot to changed after authorized invalidation', 'shared chat, stable profiles, rename, cursor pagination, concurrent retry, rate limit and privacy', 'account-specific chat avatars, historical messages and authenticated image delivery'],
     invalidationToObservableRefreshMs: Number((performance.now() - start).toFixed(2)),
     timingsMs: Object.fromEntries(Object.entries(samples).map(([name, timings]) => {
       const values = timings.map(({ ms }) => ms)
