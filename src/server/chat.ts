@@ -1,6 +1,6 @@
 import 'server-only'
-import { createHash } from 'node:crypto'
-import { messageLimit, nicknameLimit, type ChatMessage, type ChatPage, type ChatProfile } from '@/features/chat/types'
+import { createHash, createHmac } from 'node:crypto'
+import { messageLimit, nicknameLimit, type ChatAuthor, type ChatMessage, type ChatPage, type ChatProfile } from '@/features/chat/types'
 import { query } from './db'
 import { HttpError, uuid } from './http'
 
@@ -14,19 +14,34 @@ const adjectives = [
   '心满意足的', '刚下课的', '元气满满的', '爱听八卦的', '正在思考的', '看热闹的',
 ]
 
+function chatAuthorKey(user: string) {
+  const secret = process.env.NEON_AUTH_COOKIE_SECRET
+  if (!secret) throw new Error('Missing chat identity secret')
+  return createHmac('sha256', secret).update('eqb/chat-author:').update(user).digest('base64url')
+}
+
+type StoredAuthor = Omit<ChatAuthor, 'authorKey'> & { authorUserId: string }
+type StoredMessage = Omit<ChatMessage, 'authorKey'> & StoredAuthor
+
+function presentAuthor<T extends StoredAuthor>({ authorUserId, ...details }: T) {
+  return { ...details, authorKey: chatAuthorKey(authorUserId) }
+}
+
 function defaultProfile(user: string): ChatProfile {
   // The assignment stays stable across devices without saving a profile on read.
   const seed = createHash('sha256').update('eqb/chat-profile:').update(user).digest()
   const avatar = seed.readUInt32BE(0) % 36
   const character = characters[Math.floor(avatar / 12)]
   const adjective = adjectives[seed.readUInt32BE(4) % adjectives.length]
-  return { nickname: adjective + character, avatar }
+  return { authorKey: chatAuthorKey(user), nickname: adjective + character, avatar, nicknameRevision: '0' }
 }
 
 export async function chatProfile(user: string) {
   const profile = defaultProfile(user)
-  const [custom] = await query<{ nickname: string }>('SELECT nickname FROM chat_profiles WHERE user_id = $1', [user])
-  return custom ? { ...profile, nickname: custom.nickname } : profile
+  const [custom] = await query<Pick<ChatAuthor, 'nickname' | 'nicknameRevision'>>(`
+    SELECT nickname, nickname_revision::text AS "nicknameRevision" FROM chat_profiles WHERE user_id = $1
+  `, [user])
+  return { ...profile, ...custom }
 }
 
 function readText(value: unknown, limit: number, label: string, multiline: boolean) {
@@ -42,32 +57,63 @@ function readText(value: unknown, limit: number, label: string, multiline: boole
 export async function saveChatNickname(user: string, value: unknown): Promise<ChatProfile> {
   const nickname = readText(value, nicknameLimit, '昵称', false)
   await query('INSERT INTO profiles (user_id) VALUES ($1) ON CONFLICT DO NOTHING', [user])
-  await query(`
-    INSERT INTO chat_profiles (user_id, nickname) VALUES ($1, $2)
-    ON CONFLICT (user_id) DO UPDATE SET nickname = EXCLUDED.nickname
+  // Serialize revision assignment so readers can safely advance their nickname cursor.
+  const [{ nicknameRevision }] = await query<{ nicknameRevision: string }>(`
+    WITH locked AS MATERIALIZED (SELECT pg_advisory_xact_lock(hashtext('eqb/chat-nicknames')))
+    INSERT INTO chat_profiles (user_id, nickname, nickname_revision)
+    SELECT $1, $2, nextval('chat_nickname_revision') FROM locked
+    ON CONFLICT (user_id) DO UPDATE SET
+      nickname = EXCLUDED.nickname, nickname_revision = EXCLUDED.nickname_revision
+    RETURNING nickname_revision::text AS "nicknameRevision"
   `, [user, nickname])
-  return { ...defaultProfile(user), nickname }
+  return { ...defaultProfile(user), nickname, nicknameRevision }
 }
 
-const messageFields = `m.id::text AS id, m.nickname, m.avatar, m.body,
+const messageFields = `m.id::text AS id, m.user_id AS "authorUserId", COALESCE(p.nickname, m.nickname) AS nickname,
+  COALESCE(p.nickname_revision, 0)::text AS "nicknameRevision", m.avatar, m.body,
   m.sent_at AS "sentAt", (m.user_id = $1) AS mine`
 const pageSize = 40
+
+function validCursor(value: string) {
+  return /^(?:0|[1-9][0-9]{0,18})$/.test(value) && BigInt(value) <= 9223372036854775807n
+}
+
+export async function latestNicknameRevision() {
+  const [{ cursor }] = await query<{ cursor: string }>(`
+    SELECT COALESCE(max(nickname_revision), 0)::text AS cursor
+    FROM chat_profiles WHERE nickname_revision > 0
+  `)
+  return cursor
+}
+
+export async function chatNicknameUpdates(user: string, cursors: string[]) {
+  if (cursors.length !== 1 || !validCursor(cursors[0])) throw new HttpError(400, '昵称同步位置无效。')
+  const rows = await query<StoredAuthor>(`
+    SELECT user_id AS "authorUserId", nickname, nickname_revision::text AS "nicknameRevision"
+    FROM chat_profiles
+    WHERE nickname_revision > 0 AND nickname_revision > $1
+      AND (user_id = $2 OR EXISTS (SELECT 1 FROM chat_messages m WHERE m.user_id = chat_profiles.user_id))
+    ORDER BY nickname_revision
+    LIMIT ${pageSize + 1}
+  `, [cursors[0], user])
+  return { nicknames: rows.slice(0, pageSize).map(presentAuthor), hasMoreNicknames: rows.length > pageSize }
+}
 
 export async function chatMessages(user: string, params: URLSearchParams): Promise<ChatPage> {
   const cursors = [...params.getAll('before'), ...params.getAll('after')]
   const cursor = cursors[0]
   const forward = params.has('after')
-  if (cursors.length > 1 || (cursor !== undefined && !(forward && cursor === '0')
-    && (!/^[1-9][0-9]{0,18}$/.test(cursor) || BigInt(cursor) > 9223372036854775807n))) {
+  if (cursors.length > 1 || (cursor !== undefined && (!validCursor(cursor) || (!forward && cursor === '0')))) {
     throw new HttpError(400, '消息位置无效。')
   }
-  const rows = await query<ChatMessage>(`
+  const rows = await query<StoredMessage>(`
     SELECT ${messageFields} FROM chat_messages m
+    LEFT JOIN chat_profiles p ON p.user_id = m.user_id
     ${cursor ? `WHERE m.id ${forward ? '>' : '<'} $2` : ''}
     ORDER BY m.id ${forward ? 'ASC' : 'DESC'}
     LIMIT ${pageSize + 1}
   `, cursor ? [user, cursor] : [user])
-  const messages = rows.slice(0, pageSize)
+  const messages = rows.slice(0, pageSize).map(presentAuthor)
   if (!forward) messages.reverse()
   return { messages, hasMore: rows.length > pageSize }
 }
@@ -76,12 +122,13 @@ export async function postChatMessage(user: string, body: Record<string, unknown
   const clientId = uuid(body.clientId)
   const content = readText(body.message, messageLimit, '消息', true)
   const profile = defaultProfile(user)
-  const [message] = await query<ChatMessage>(`
+  const [message] = await query<StoredMessage>(`
     SELECT ${messageFields}
     FROM send_chat_message($1, $2, $3, $4, $5::smallint) m
+    LEFT JOIN chat_profiles p ON p.user_id = m.user_id
     WHERE m.id IS NOT NULL
   `, [user, clientId, content, profile.nickname, profile.avatar])
   if (!message) throw new HttpError(429, '发得太快了，请稍后再试。')
   if (message.body !== content) throw new HttpError(409, '这条消息已发送，请重新输入。')
-  return { message }
+  return { message: presentAuthor(message) }
 }

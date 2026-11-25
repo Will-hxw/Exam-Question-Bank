@@ -1,7 +1,12 @@
 export const nicknameLimit = 24
 export const messageLimit = 500
 
-export type ChatProfile = { nickname: string; avatar: number }
+export type ChatAuthor = {
+  authorKey: string
+  nickname: string
+  nicknameRevision: string
+}
+export type ChatProfile = ChatAuthor & { avatar: number }
 export type ChatMessage = ChatProfile & {
   id: string
   body: string
@@ -9,4 +14,5 @@ export type ChatMessage = ChatProfile & {
   mine: boolean
 }
 export type ChatPage = { messages: ChatMessage[]; hasMore: boolean }
-export type ChatRoom = ChatPage & { profile: ChatProfile }
+export type ChatRoom = ChatPage & { profile: ChatProfile; nicknameCursor: string }
+export type ChatUpdates = ChatPage & { nicknames: ChatAuthor[]; hasMoreNicknames: boolean }

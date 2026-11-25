@@ -406,6 +406,8 @@ async function runApiChecks(origin, db, items, secret) {
   const initialChat = (await call(chatPath, chatAlice)).data
   assert.deepEqual(initialChat.messages, [])
   assert.equal(initialChat.hasMore, false)
+  assert.equal(initialChat.nicknameCursor, '0')
+  assert.match(initialChat.profile.authorKey, /^[A-Za-z0-9_-]{43}$/)
   assert.match(initialChat.profile.nickname, /(奶龙|奶娃|噜噜)$/)
   assert.ok(initialChat.profile.avatar >= 0 && initialChat.profile.avatar < 36)
   assert.deepEqual((await call(chatPath, chatAlice)).data.profile, initialChat.profile)
@@ -413,13 +415,15 @@ async function runApiChecks(origin, db, items, secret) {
   await call(chatPath, { ...chatAlice, method: 'PUT', body: { nickname: '新昵称' }, status: 403, requestOrigin: 'http://example.invalid' })
   await call(chatPath, { ...chatAlice, owner: chatBob.owner, method: 'PUT', body: { nickname: '新昵称' }, status: 409 })
   const savedChat = (await call(chatPath, { ...chatAlice, method: 'PUT', body: { nickname: '  测试奶娃  ' } })).data.profile
-  assert.deepEqual(savedChat, { ...initialChat.profile, nickname: '测试奶娃' })
+  assert.ok(BigInt(savedChat.nicknameRevision) > BigInt(initialChat.profile.nicknameRevision))
+  assert.deepEqual(savedChat, { ...initialChat.profile, nickname: '测试奶娃', nicknameRevision: savedChat.nicknameRevision })
   assert.deepEqual((await call(chatPath, chatAlice)).data.profile, savedChat)
   const chatWrite = { ...chatAlice, method: 'POST', body: { clientId: randomUUID(), message: '新消息 😀\n第二行' } }
   const [firstSend, replayedSend] = await Promise.all([call(chatPath, chatWrite), call(chatPath, chatWrite)])
   const sentChat = firstSend.data.message
   assert.deepEqual(replayedSend.data.message, sentChat)
-  assert.deepEqual(Object.keys(sentChat).sort(), ['avatar', 'body', 'id', 'mine', 'nickname', 'sentAt'])
+  assert.deepEqual(Object.keys(sentChat).sort(), ['authorKey', 'avatar', 'body', 'id', 'mine', 'nickname', 'nicknameRevision', 'sentAt'])
+  assert.equal(sentChat.authorKey, savedChat.authorKey)
   assert.equal(sentChat.mine, true)
   assert.equal(sentChat.nickname, savedChat.nickname)
   assert.equal(sentChat.body, chatWrite.body.message)
@@ -430,6 +434,26 @@ async function runApiChecks(origin, db, items, secret) {
   assert.deepEqual((await call(`${chatPath}?after=${sentChat.id}`, chatBob)).data.messages, [])
   await call(`${chatPath}?before=${sentChat.id}&after=0`, { ...chatBob, status: 400 })
   await call(`${chatPath}?after=9223372036854775808`, { ...chatBob, status: 400 })
+  await call(`${chatPath}?after=${sentChat.id}&nicknamesAfter=invalid`, { ...chatBob, status: 400 })
+  const beforeRename = (await call(chatPath, chatBob)).data
+  const renamed = (await call(chatPath, { ...chatAlice, method: 'PUT', body: { nickname: '改名后的奶龙' } })).data.profile
+  const { authorKey, nickname, nicknameRevision } = renamed
+  const nicknameUpdate = (await call(`${chatPath}?after=${sentChat.id}&nicknamesAfter=${beforeRename.nicknameCursor}`, chatBob)).data
+  assert.deepEqual(nicknameUpdate, {
+    messages: [], hasMore: false, nicknames: [{ authorKey, nickname, nicknameRevision }], hasMoreNicknames: false,
+  })
+  assert.equal(authorKey, sentChat.authorKey)
+  assert.ok(BigInt(nicknameRevision) > BigInt(beforeRename.nicknameCursor))
+  const updatedMessage = { ...sentChat, nickname, nicknameRevision }
+  assert.deepEqual((await call(chatPath, chatBob)).data.messages, [{ ...updatedMessage, mine: false }])
+  assert.deepEqual((await call(chatPath, chatWrite)).data.message, updatedMessage)
+
+  const privateProfile = (await call(chatPath, { ...chatBob, method: 'PUT', body: { nickname: '未发言的噜噜' } })).data.profile
+  const silentUpdates = `${chatPath}?after=${sentChat.id}&nicknamesAfter=${nicknameRevision}`
+  assert.deepEqual((await call(silentUpdates, chatAlice)).data.nicknames, [])
+  assert.deepEqual((await call(silentUpdates, chatBob)).data.nicknames, [{
+    authorKey: privateProfile.authorKey, nickname: privateProfile.nickname, nicknameRevision: privateProfile.nicknameRevision,
+  }])
   await db.query(`
     INSERT INTO chat_messages (user_id, client_id, nickname, avatar, body)
     SELECT $1, gen_random_uuid(), '历史测试', 0, '历史消息 ' || i FROM generate_series(1, 48) i
@@ -441,6 +465,7 @@ async function runApiChecks(origin, db, items, secret) {
   assert.equal(chatHistory.messages.length, 9)
   assert.equal(chatHistory.hasMore, false)
   assert.equal(chatHistory.messages[0].id, sentChat.id)
+  assert.ok(chatHistory.messages.every(message => message.nickname === nickname && message.authorKey === authorKey))
   const firstUpdates = (await call(`${chatPath}?after=${sentChat.id}`, chatBob)).data
   assert.equal(firstUpdates.messages.length, 40)
   assert.equal(firstUpdates.hasMore, true)

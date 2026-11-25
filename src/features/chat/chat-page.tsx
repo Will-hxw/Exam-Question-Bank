@@ -19,14 +19,14 @@ function Avatar({ avatar, size }: { avatar: number; size: number }) {
   return <Image className="chat-avatar" src={`/chat-avatars/${avatar}.webp`} alt="" width={size} height={size} unoptimized />
 }
 
-function Message({ message, previous }: { message: ChatMessage; previous?: ChatMessage }) {
+function Message({ message, nickname, previous }: { message: ChatMessage; nickname: string; previous?: ChatMessage }) {
   const gap = previous ? Date.parse(message.sentAt) - Date.parse(previous.sentAt) : Infinity
   return <li className="chat-message" data-message-id={message.id}>
     {gap >= 5 * 60 * 1000 && <time className="chat-timestamp" dateTime={message.sentAt}>{messageTime(message.sentAt)}</time>}
     <div className={`chat-message-row${message.mine ? ' is-mine' : ''}`}>
       <Avatar avatar={message.avatar} size={36} />
       <div className="chat-message-content">
-        <span className="chat-nickname">{message.nickname}</span>
+        <span className="chat-nickname">{nickname}</span>
         <p className="chat-bubble" dir="auto">{message.body}</p>
       </div>
     </div>
@@ -199,7 +199,8 @@ export default function ChatPage({ pathname, userId, onBack }: {
           {room.historyError && <p className="chat-error" role="alert">{room.historyError}</p>}
         </div>}
         {room.messages.length > 0 ? <ol className="chat-message-list">
-          {room.messages.map((message, index) => <Message key={message.id} message={message} previous={room.messages[index - 1]} />)}
+          {room.messages.map((message, index) => <Message key={message.id} message={message}
+            nickname={room.displayNickname(message)} previous={room.messages[index - 1]} />)}
         </ol> : !room.profile && !room.readError && <p className="chat-loading" role="status">正在加载聊天记录…</p>}
       </div>
       {newMessages && <button type="button" className="chat-latest" onClick={scrollToLatest}>↓ 查看新消息</button>}

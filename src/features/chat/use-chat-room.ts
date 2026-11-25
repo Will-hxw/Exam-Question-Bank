@@ -1,8 +1,8 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { requestJson, StudyRequestError, writeJson } from '@/features/study/api'
-import type { ChatMessage, ChatPage, ChatProfile, ChatRoom } from './types'
+import type { ChatAuthor, ChatMessage, ChatPage, ChatProfile, ChatRoom, ChatUpdates } from './types'
 
 const chatPath = '/api/chat'
 
@@ -12,6 +12,7 @@ export function chatError(error: unknown, fallback: string) {
 
 export function useChatRoom(userId: string) {
   const [profile, setProfile] = useState<ChatProfile>()
+  const [authors, setAuthors] = useState(() => new Map<string, ChatAuthor>())
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [hasOlder, setHasOlder] = useState(false)
   const [loadingOlder, setLoadingOlder] = useState(false)
@@ -19,17 +20,39 @@ export function useChatRoom(userId: string) {
   const [historyError, setHistoryError] = useState('')
   const [revision, setRevision] = useState(0)
   const cursor = useRef<string | null>(null)
+  const nicknameCursor = useRef('0')
   const historyPending = useRef(false)
   const headers = { 'X-Study-Account': userId }
 
-  function merge(incoming: ChatMessage[]) {
+  const mergeAuthors = useCallback((incoming: ChatAuthor[]) => {
     if (!incoming.length) return
+    setAuthors((previous) => {
+      let next = previous
+      for (const author of incoming) {
+        if (!author.authorKey) continue
+        const current = next.get(author.authorKey)
+        if (!current || BigInt(author.nicknameRevision) > BigInt(current.nicknameRevision)) {
+          if (next === previous) next = new Map(previous)
+          next.set(author.authorKey, author)
+        }
+      }
+      return next
+    })
+  }, [])
+
+  function displayNickname(author: ChatAuthor) {
+    return authors.get(author.authorKey)?.nickname ?? author.nickname
+  }
+
+  const merge = useCallback((incoming: ChatMessage[]) => {
+    if (!incoming.length) return
+    mergeAuthors(incoming)
     setMessages((previous) => {
       const combined = new Map(previous.map((message) => [message.id, message]))
       for (const item of incoming) combined.set(item.id, item)
       return [...combined.values()].sort((a, b) => BigInt(a.id) < BigInt(b.id) ? -1 : 1)
     })
-  }
+  }, [mergeAuthors])
 
   useEffect(() => {
     const stop = new AbortController()
@@ -52,15 +75,20 @@ export function useChatRoom(userId: string) {
           const initial = await requestJson<ChatRoom>(chatPath, options)
           if (stop.signal.aborted) return
           setProfile(initial.profile)
+          mergeAuthors([initial.profile])
           setHasOlder(initial.hasMore)
           merge(initial.messages)
           cursor.current = initial.messages.at(-1)?.id ?? '0'
+          nicknameCursor.current = initial.nicknameCursor ?? '0'
         } else {
-          const page = await requestJson<ChatPage>(`${chatPath}?after=${after}`, options)
+          const page = await requestJson<ChatUpdates>(`${chatPath}?after=${after}&nicknamesAfter=${nicknameCursor.current}`, options)
           if (stop.signal.aborted) return
+          const nicknames = page.nicknames ?? []
           merge(page.messages)
+          mergeAuthors(nicknames)
           cursor.current = page.messages.at(-1)?.id ?? after
-          if (page.hasMore) delay = 0
+          nicknameCursor.current = nicknames.at(-1)?.nicknameRevision ?? nicknameCursor.current
+          if (page.hasMore || page.hasMoreNicknames) delay = 0
         }
         setReadError('')
       } catch (error) {
@@ -93,7 +121,7 @@ export function useChatRoom(userId: string) {
       window.removeEventListener('online', refresh)
       window.removeEventListener('offline', offline)
     }
-  }, [userId, revision])
+  }, [userId, revision, merge, mergeAuthors])
 
   async function loadOlder(beforePrepend: () => void) {
     const before = messages[0]?.id
@@ -121,9 +149,10 @@ export function useChatRoom(userId: string) {
 
   async function rename(nickname: string) {
     const updated = await writeJson<{ profile: ChatProfile }>(chatPath, userId, 'PUT', { nickname })
-    setProfile(updated.profile)
+    mergeAuthors([updated.profile])
   }
 
-  return { profile, messages, hasOlder, loadingOlder, readError, historyError, loadOlder, send, rename,
+  return { profile: profile && { ...profile, nickname: displayNickname(profile) }, messages, displayNickname,
+    hasOlder, loadingOlder, readError, historyError, loadOlder, send, rename,
     retry: () => setRevision((key) => key + 1) }
 }
