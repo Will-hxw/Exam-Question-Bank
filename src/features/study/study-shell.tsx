@@ -339,16 +339,12 @@ export function StudyShell({ userId, children }: { userId: string; children: Rea
                 <span className="footer-action-icon footer-feedback-icon"><MailboxIcon /></span>
                 意见反馈
               </a>
+              <a className="footer-action" href="#sponsor" aria-label="打开友情赞助页面">
+                <span className="footer-action-icon footer-sponsor-icon" aria-hidden="true">💌</span>
+                友情赞助
+              </a>
             </div>
-            <ul className="footer-notes">
-              <li><span className="footer-latin" lang="en">Bug </span>或瑕疵有奖</li>
-              <li>作者：计算机学院 <span className="footer-latin">20230537</span> 六只</li>
-              <li>遇到问题请联系 <span className="footer-latin" lang="en">QQ 1176843521</span></li>
-            </ul>
-            <a className="footer-action" href="#sponsor" aria-label="打开友情赞助页面">
-              <span className="footer-action-icon footer-sponsor-icon" aria-hidden="true">💌</span>
-              友情赞助
-            </a>
+            <p className="footer-credit" lang="en">Hua Xiaowei — ZJU</p>
           </footer>
         </div>
       </div>

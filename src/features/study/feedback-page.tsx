@@ -58,8 +58,13 @@ export function FeedbackPage({ pathname, userId, onBack }: {
     <a className="feedback-back" href={pathname} onClick={onBack}>← 返回练习</a>
     <div className="feedback-content">
       <header className="feedback-heading">
-        <MailboxIcon size={24} />
-        <h1 ref={heading} id="feedback-title" tabIndex={-1}>意见反馈</h1>
+        <div className="feedback-title-row">
+          <MailboxIcon size={24} />
+          <h1 ref={heading} id="feedback-title" tabIndex={-1}>意见反馈</h1>
+        </div>
+        <p className="feedback-contact">
+          紧急情况请联系 <span lang="en">QQ</span> 邮箱：<a href="mailto:1176843521@qq.com">1176843521@qq.com</a>
+        </p>
       </header>
       {status !== 'sent' && (
         <form className="feedback-form" onSubmit={submit}>

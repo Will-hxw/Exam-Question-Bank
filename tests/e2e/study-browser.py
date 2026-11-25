@@ -13,6 +13,7 @@ ORIGIN = os.environ['EQB_TEST_ORIGIN']
 COOKIE_NAME = os.environ['EQB_TEST_COOKIE_NAME']
 COOKIE_TOKEN = os.environ['EQB_TEST_COOKIE_TOKEN']
 MULTIPLE_POSITION = os.environ['EQB_TEST_MULTIPLE_POSITION']
+SITE_CREDIT = 'Hua Xiaowei — ZJU'
 HOST = urlsplit(ORIGIN).hostname
 assert HOST in ('127.0.0.1', 'localhost'), 'This browser fixture uses synthetic loopback accounts.'
 
@@ -118,7 +119,7 @@ def check_auth_fields(page):
     expect_field_error(page, 'password', 'auth-password-error', '密码错误，请重试。')
 
     page.get_by_role('button', name='注册', exact=True).click()
-    expect(page.get_by_text('Hua Xiaowei — CQU', exact=True)).to_be_visible()
+    expect(page.get_by_text(SITE_CREDIT, exact=True)).to_be_visible()
     page.locator('#auth-password').fill('local-fixture-only')
     register = page.get_by_role('button', name='注册并验证邮箱')
     register.click()
@@ -132,7 +133,7 @@ def check_auth_fields(page):
     code.fill('123456')
     page.get_by_role('button', name='验证邮箱', exact=True).click()
     expect_field_error(page, 'code', 'auth-code-error', '验证码错误，请重试。')
-    expect(page.get_by_text('Hua Xiaowei — CQU', exact=True)).to_be_visible()
+    expect(page.get_by_text(SITE_CREDIT, exact=True)).to_be_visible()
     page.get_by_role('button', name='重新发送验证码', exact=True).click()
     expect(page.get_by_role('status').filter(has_text='请查收邮件')).to_be_visible()
     code.fill('732518')
@@ -146,6 +147,7 @@ def check_auth_fields(page):
     page.locator('#auth-email').fill('browser-signup@example.test')
     page.get_by_role('button', name='发送重置验证码', exact=True).click()
     expect(page.get_by_role('heading', name='重置密码')).to_be_visible()
+    expect(page.get_by_text(SITE_CREDIT, exact=True)).to_be_visible()
     page.locator('#auth-code').fill('628154')
     page.locator('#auth-password').fill('changed-fixture-only')
     page.get_by_role('button', name='保存新密码', exact=True).click()
@@ -240,28 +242,35 @@ def check_exam_history_header(page):
     assert abs(title_box['x'] + title_box['width'] / 2 - page.evaluate('innerWidth / 2')) <= 1
 
 
-def check_feedback(page):
+def check_study_footer(page):
     footer = page.get_by_role('contentinfo')
-    chat_link = footer.get_by_role('link', name='打开聊天区')
-    feedback_link = footer.get_by_role('link', name='打开意见反馈页面')
-    sponsor_link = footer.get_by_role('link', name='打开友情赞助页面')
-    notes = footer.locator('.footer-notes')
-    first, left, middle, right, frame = (item.bounding_box() for item in (chat_link, feedback_link, notes, sponsor_link, footer))
-    assert first and left and middle and right and frame
-    assert first['x'] + first['width'] < left['x']
-    if page.evaluate('innerWidth <= 480'):
-        assert left['x'] + left['width'] < right['x']
-        assert max(item['y'] + item['height'] for item in (first, left, right)) + 14 <= middle['y']
-    else:
-        assert left['x'] + left['width'] < middle['x'] < right['x']
-        assert abs((first['x'] + right['x'] + right['width']) / 2 - (frame['x'] + frame['width'] / 2)) <= 1
+    links = footer.get_by_role('link')
+    expect(links).to_have_count(3)
+    for index, name in enumerate(['打开聊天区', '打开意见反馈页面', '打开友情赞助页面']):
+        expect(links.nth(index)).to_have_accessible_name(name)
+    expect(footer).to_have_text(re.compile(r'^聊天区\s*意见反馈\s*💌\s*友情赞助\s*Hua Xiaowei — ZJU$'))
+    credit = footer.get_by_text(SITE_CREDIT, exact=True)
+    expect(credit).to_have_css('font-family', re.compile(r'^"Times New Roman"'))
+    first, middle, last = (link.bounding_box() for link in links.all())
+    frame, signature = footer.bounding_box(), credit.bounding_box()
+    assert first and middle and last and frame and signature
+    assert first['y'] == middle['y'] == last['y']
+    assert 20 <= middle['x'] - (first['x'] + first['width']) <= 36
+    assert 20 <= last['x'] - (middle['x'] + middle['width']) <= 36
+    assert abs((first['x'] + last['x'] + last['width']) / 2 - (frame['x'] + frame['width'] / 2)) <= 1
+    assert signature['y'] >= last['y'] + last['height'] + 12
 
-    feedback_link.click()
+
+def check_feedback(page):
+    check_study_footer(page)
+    page.get_by_role('link', name='打开意见反馈页面').click()
     expect(page).to_have_url(ORIGIN + '/#feedback')
     heading = page.get_by_role('heading', name='意见反馈')
     expect(heading).to_be_focused()
     expect(page.locator('.question-card')).to_be_hidden()
     form = page.get_by_role('region', name='意见反馈')
+    expect(form.locator('.feedback-contact')).to_have_text('紧急情况请联系 QQ 邮箱：1176843521@qq.com')
+    expect(form.get_by_role('link', name='1176843521@qq.com')).to_have_attribute('href', 'mailto:1176843521@qq.com')
     ratings = form.get_by_role('radio')
     expect(ratings).to_have_count(5)
     assert [radio.get_attribute('value') for radio in ratings.all()] == ['夯', '顶级', '人上人', 'NPC', '拉完了']
@@ -379,7 +388,7 @@ def run(browser):
         assert page.get_by_role("heading", level=2).count() == 0
         assert page.get_by_text("登录", exact=True).count() == 0
         expect(page.get_by_text("第一次使用？", exact=True)).to_be_visible()
-        credit = page.get_by_text("Hua Xiaowei — CQU", exact=True)
+        credit = page.get_by_text(SITE_CREDIT, exact=True)
         expect(credit).to_be_visible()
         expect(credit).to_have_css("font-family", re.compile(r'^"Times New Roman"'))
         wordmark = page.get_by_role("img", name="重庆大学")
@@ -419,9 +428,7 @@ def run(browser):
         expect(page.locator('.question-card .q-text')).to_contain_text('分层练习样例')
         expect(page.locator('.site-title img')).to_have_js_property('naturalWidth', 256)
         expect(page.locator('.site-title img')).to_have_css('width', '32px')
-        footer_lines = page.locator('.footer-notes li')
-        expect(footer_lines).to_have_text(['Bug 或瑕疵有奖', '作者：计算机学院 20230537 六只', '遇到问题请联系 QQ 1176843521'])
-        expect(page.locator('.footer-latin').first).to_have_css('font-family', re.compile(r'^"Times New Roman"'))
+        expect(page.get_by_role('contentinfo').get_by_text(SITE_CREDIT, exact=True)).to_be_visible()
         title_box, header_box = page.locator('.site-title-name').bounding_box(), page.locator('#site-header').bounding_box()
         assert title_box and header_box
         assert abs((title_box['x'] + title_box['width'] / 2) - (header_box['x'] + header_box['width'] / 2)) <= 2
@@ -796,6 +803,7 @@ def run(browser):
     page = desktop.new_page()
     page.goto(ORIGIN + '/exam')
     expect(page.get_by_role('heading', name='模拟考试')).to_be_visible()
+    check_study_footer(page)
     expect(page.locator('.site-title')).to_have_css('font-size', '22px')
     expect(page.locator('.site-title img')).to_have_css('width', '38px')
     nav = page.get_by_role('navigation', name='学习导航')
