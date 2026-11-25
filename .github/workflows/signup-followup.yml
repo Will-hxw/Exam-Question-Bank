@@ -2,7 +2,7 @@ name: Signup follow-up email
 
 on:
   schedule:
-    - cron: '23 */2 * * *'
+    - cron: '0 */2 * * *'
   workflow_dispatch:
 
 permissions:
