@@ -249,8 +249,12 @@ def check_feedback(page):
     first, left, middle, right, frame = (item.bounding_box() for item in (chat_link, feedback_link, notes, sponsor_link, footer))
     assert first and left and middle and right and frame
     assert first['x'] + first['width'] < left['x']
-    assert left['x'] + left['width'] < middle['x'] < right['x']
-    assert abs((first['x'] + right['x'] + right['width']) / 2 - (frame['x'] + frame['width'] / 2)) <= 1
+    if page.evaluate('innerWidth <= 480'):
+        assert left['x'] + left['width'] < right['x']
+        assert max(item['y'] + item['height'] for item in (first, left, right)) + 14 <= middle['y']
+    else:
+        assert left['x'] + left['width'] < middle['x'] < right['x']
+        assert abs((first['x'] + right['x'] + right['width']) / 2 - (frame['x'] + frame['width'] / 2)) <= 1
 
     feedback_link.click()
     expect(page).to_have_url(ORIGIN + '/#feedback')

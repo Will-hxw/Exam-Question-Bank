@@ -326,7 +326,12 @@ export function StudyShell({ userId, children }: { userId: string; children: Rea
             <div className="footer-actions">
               <a className="footer-action" href="#chat" aria-label="打开聊天区" onClick={navigateFromExam}>
                 <span className="footer-action-icon footer-chat-icon" aria-hidden="true">
-                  💬<span className="footer-chat-sparkle">✨</span>
+                  <svg width="23" height="23" viewBox="0 0 24 24" fill="none">
+                    <path fill="currentColor" d="M7.5 5.5h6.6a5.8 5.8 0 0 1 0 11.6h-4.6l-4.7 3.1.7-3.6a5.8 5.8 0 0 1 2-11.1Z" />
+                    <path d="M7.25 10.35h6.5m-6.5 2.85h4" stroke="#fff" strokeWidth="1.45" strokeLinecap="round" />
+                    <path d="M19 1.7c.4 2.15 1.55 3.3 3.7 3.7-2.15.4-3.3 1.55-3.7 3.7-.4-2.15-1.55-3.3-3.7-3.7 2.15-.4 3.3-1.55 3.7-3.7Z"
+                      fill="#f5ae2e" stroke="#fff" strokeWidth=".65" strokeLinejoin="round" />
+                  </svg>
                 </span>
                 聊天区
               </a>
