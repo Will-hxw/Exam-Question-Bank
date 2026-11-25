@@ -22,6 +22,7 @@ let created = false
 const countMigration = '007_exam_question_count.sql'
 const consistencyMigration = '010_exam_wrong_book_consistency.sql'
 const followupMigration = '011_signup_followup_email.sql'
+const shuffleMigration = '017_shuffle_exam_replays.sql'
 
 async function migrateBefore(client, boundary) {
   const migrations = new URL('../../db/migrations/', import.meta.url)
@@ -323,7 +324,7 @@ test('follow-up claims new accounts once after 24 hours or 61 actual answers', a
 test('follow-up enrolls accounts in the launch gap after verification without resetting delivery state', async () => {
   const client = await pool.connect()
   try {
-    assert.ok((await migrate(client)).includes('016_signup_followup_launch_gap.sql'))
+    assert.ok((await migrateBefore(client, shuffleMigration)).includes('016_signup_followup_launch_gap.sql'))
   } finally {
     client.release()
   }
@@ -356,4 +357,47 @@ test('follow-up enrolls accounts in the launch gap after verification without re
     { user_id: 'gap-start', state: 'sent', attempts: 1 },
     { user_id: 'gap-unverified', state: 'waiting', attempts: 0 },
   ])
+})
+
+test('replay migration preserves existing drafts and shuffles new replays at the smallest paper sizes', async () => {
+  const owner = 'exam-replay-migration'
+  const ids = questions.slice(0, 2).map(({ id }) => id)
+  const start = async (items) => (await pool.query('SELECT start_exam($1, $2) AS id', [owner, items])).rows[0].id
+  const replay = async (source) => (await pool.query('SELECT exam_id FROM replay_exam($1, $2)', [owner, source])).rows[0].exam_id
+  const order = async (id) => (await pool.query(
+    'SELECT array_agg(question_id ORDER BY position) AS ordered FROM exam_items WHERE exam_id = $1', [id],
+  )).rows[0].ordered
+  const submit = async (id) => assert.equal((await pool.query(
+    "SELECT update_exam($1, $2, 0, 0, '{}'::uuid[], '{}'::jsonb, true) AS status", [owner, id],
+  )).rows[0].status, 'ok')
+
+  const source = await start(ids)
+  await submit(source)
+  const legacyDraft = await replay(source)
+  assert.deepEqual(await order(legacyDraft), ids)
+  const client = await pool.connect()
+  try {
+    assert.deepEqual(await migrate(client), [shuffleMigration])
+  } finally {
+    client.release()
+  }
+
+  assert.equal(await replay(source), legacyDraft)
+  assert.deepEqual(await order(legacyDraft), ids)
+  await submit(legacyDraft)
+
+  const shuffled = await replay(source)
+  assert.notEqual(shuffled, legacyDraft)
+  assert.deepEqual(await order(shuffled), [ids[1], ids[0]])
+  await submit(shuffled)
+  const replayOfReplay = await replay(shuffled)
+  assert.deepEqual(await order(replayOfReplay), ids)
+  assert.deepEqual(await order(source), ids)
+  await submit(replayOfReplay)
+
+  const single = await start(ids.slice(0, 1))
+  await submit(single)
+  const singleReplay = await replay(single)
+  assert.notEqual(singleReplay, single)
+  assert.deepEqual(await order(singleReplay), ids.slice(0, 1))
 })

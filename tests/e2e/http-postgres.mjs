@@ -333,12 +333,23 @@ async function runApiChecks(origin, db, items, secret) {
     method: 'POST', user: 'alice', owner: alice,
   })))
   const replayed = replayRequests[0].data.exam
-  assert.equal(replayRequests[1].data.exam.id, replayed.id)
+  assert.deepEqual(replayRequests[1].data.exam, replayed)
   assert.notEqual(replayed.id, exam.id)
-  assert.deepEqual(replayed.items, exam.items)
+  assert.equal(replayed.total, exam.total)
+  assert.notDeepEqual(replayed.items.map(({ id }) => id), exam.items.map(({ id }) => id))
+  assert.deepEqual(new Map(replayed.items.map(item => [item.id, item])), new Map(exam.items.map(item => [item.id, item])))
   assert.deepEqual([replayed.answers, replayed.marked, replayed.position, replayed.revision], [{}, [], 0, 0])
-  const compactSave = await call(`/api/exams/${replayed.id}?ack=1`, { method: 'PUT', user: 'alice', owner: alice, body: { ...draft, revision: 0 } })
+  const replayPath = `/api/exams/${replayed.id}`
+  const compactSave = await call(`${replayPath}?ack=1`, { method: 'PUT', user: 'alice', owner: alice, body: { ...draft, revision: 0 } })
   assert.deepEqual(compactSave.data, { revision: 1 })
+  const resumedReplay = (await call(replayPath, { user: 'alice' })).data.exam
+  assert.deepEqual(resumedReplay.items, replayed.items)
+  assert.deepEqual([resumedReplay.answers, resumedReplay.marked, resumedReplay.position], [draft.answers, draft.marked, draft.position])
+  const replayResult = (await call(`${replayPath}/submit`, { ...submitOptions, metric: undefined })).data.exam
+  assert.equal(replayResult.score, 1)
+  assert.equal(replayResult.correctness[answerItem.id], true)
+  assert.deepEqual(replayResult.items.map(({ id }) => id), replayed.items.map(({ id }) => id))
+  assert.deepEqual((await call(examPath, { user: 'alice' })).data.exam, result)
 
   const bob = users.get('bob').id
   const customStart = { method: 'POST', user: 'bob', owner: bob }
