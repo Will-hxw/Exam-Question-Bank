@@ -19,7 +19,17 @@ export function otpTemplate(
   return {
     subject,
     text: [practiceSiteName, title, instruction, event.code, validity, footer].join("\n\n"),
-    html: `<!doctype html>
+    html: practiceMailHtml(subject, `<h1 style="margin:0 0 12px;font-size:28px;line-height:1.3;color:#202632">${title}</h1>
+<p style="margin:0 0 20px;font-size:15px;line-height:1.6;color:#596575">${instruction}</p>
+<table role="presentation" width="100%" cellspacing="0" cellpadding="0">
+<tr><td align="center" bgcolor="#edf3fb" style="padding:17px 10px;background:#edf3fb;border-radius:7px;color:#1e4f91;font-family:'Times New Roman',Georgia,serif;font-size:32px;font-weight:600;line-height:1.2;letter-spacing:0.14em;white-space:nowrap">${event.code}</td></tr>
+</table>
+<p style="margin:13px 0 0;color:#596575;font-size:14px;line-height:1.65">${validity}</p>`, footer),
+  }
+}
+
+export function practiceMailHtml(subject: string, body: string, footer: string) {
+  return `<!doctype html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
@@ -38,18 +48,12 @@ export function otpTemplate(
 </tr></table>
 </td></tr>
 <tr><td style="padding:28px 26px 24px;font-family:'Noto Sans SC','Microsoft YaHei UI','Microsoft YaHei','PingFang SC',Arial,sans-serif">
-<h1 style="margin:0 0 12px;font-size:28px;line-height:1.3;color:#202632">${title}</h1>
-<p style="margin:0 0 20px;font-size:15px;line-height:1.6;color:#596575">${instruction}</p>
-<table role="presentation" width="100%" cellspacing="0" cellpadding="0">
-<tr><td align="center" bgcolor="#edf3fb" style="padding:17px 10px;background:#edf3fb;border-radius:7px;color:#1e4f91;font-family:'Times New Roman',Georgia,serif;font-size:32px;font-weight:600;line-height:1.2;letter-spacing:0.14em;white-space:nowrap">${event.code}</td></tr>
-</table>
-<p style="margin:13px 0 0;color:#596575;font-size:14px;line-height:1.65">${validity}</p>
+${body}
 </td></tr>
 <tr><td style="padding:17px 26px 19px;border-top:1px solid #d7e1ee;color:#596575;font-family:'Noto Sans SC','Microsoft YaHei UI','Microsoft YaHei','PingFang SC',Arial,sans-serif;font-size:14px;line-height:1.6">${footer}</td></tr>
 </table>
 </td></tr>
 </table>
 </body>
-</html>`,
-  }
+</html>`
 }

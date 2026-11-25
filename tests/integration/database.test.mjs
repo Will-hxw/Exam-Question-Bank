@@ -21,6 +21,7 @@ let questions
 let created = false
 const countMigration = '007_exam_question_count.sql'
 const consistencyMigration = '010_exam_wrong_book_consistency.sql'
+const followupMigration = '011_signup_followup_email.sql'
 
 async function migrateBefore(client, boundary) {
   const migrations = new URL('../../db/migrations/', import.meta.url)
@@ -149,8 +150,8 @@ test('migration restores omitted exam items while preserving a later manual remo
   await pool.query('UPDATE question_progress SET is_wrong=false, updated_at=clock_timestamp() WHERE user_id=$1 AND question_id=$2', [owner, removed.id])
   const client = await pool.connect()
   try {
-    assert.deepEqual(await migrate(client), [consistencyMigration])
-    assert.deepEqual(await migrate(client), [])
+    assert.deepEqual(await migrateBefore(client, followupMigration), [consistencyMigration])
+    assert.deepEqual(await migrateBefore(client, followupMigration), [])
   } finally {
     client.release()
   }
@@ -252,4 +253,69 @@ test('52-item exams support the last position and scores beyond 50 without chang
   assert.deepEqual(session, { question_count: 52, score: 52, status: 'submitted', revision: 2, position: 51 })
   const { rows: [{ count }] } = await pool.query("SELECT count(*)::int FROM attempts WHERE user_id = 'exam-52'")
   assert.equal(count, 52)
+})
+
+test('follow-up claims new accounts once after 24 hours or 61 actual answers', async () => {
+  const client = await pool.connect()
+  try {
+    assert.deepEqual(await migrateBefore(client, '012'), [followupMigration])
+  } finally {
+    client.release()
+  }
+
+  await pool.query(`
+    CREATE SCHEMA neon_auth;
+    CREATE TABLE neon_auth."user" (
+      id text PRIMARY KEY, email text NOT NULL, "emailVerified" boolean NOT NULL, "createdAt" timestamptz NOT NULL
+    );
+    UPDATE schema_migrations SET applied_at = now() - interval '2 days' WHERE file = '011_signup_followup_email.sql';
+    INSERT INTO neon_auth."user" VALUES
+      ('followup-old', 'old@example.test', true, now() - interval '3 days'),
+      ('followup-aged', 'aged@example.test', true, now() - interval '24 hours 1 minute'),
+      ('followup-unverified', 'unverified@example.test', false, now() - interval '25 hours'),
+      ('followup-young', 'young@example.test', true, now() - interval '1 hour');
+  `)
+
+  const claim = async () => (await pool.query('SELECT * FROM claim_signup_followup()')).rows
+  assert.deepEqual(await claim(), [])
+  await pool.query(`
+    UPDATE signup_followup_deliveries SET verified_at = now() - interval '24 hours 1 minute'
+    WHERE user_id = 'followup-aged'
+  `)
+  const competing = await Promise.all(Array.from({ length: 8 }, claim))
+  assert.deepEqual(competing.flat(), [{ user_id: 'followup-aged', email: 'aged@example.test', attempts: 1 }])
+  assert.deepEqual(await claim(), [])
+
+  const [question] = questions
+  await pool.query("INSERT INTO profiles (user_id) VALUES ('followup-young')")
+  await pool.query(`
+    INSERT INTO attempts (user_id, event_id, question_id, selection, correct, mode)
+      SELECT 'followup-young', gen_random_uuid(), $1, ARRAY[$2::uuid], true, 'practice' FROM generate_series(1, 60)
+  `, [question.id, question.correct])
+  await pool.query(`
+    INSERT INTO attempts (user_id, event_id, question_id, selection, correct, mode)
+      VALUES ('followup-young', gen_random_uuid(), $1, '{}', false, 'exam')
+  `, [question.id])
+  assert.deepEqual(await claim(), [])
+  await pool.query(`
+    INSERT INTO attempts (user_id, event_id, question_id, selection, correct, mode)
+      VALUES ('followup-young', gen_random_uuid(), $1, ARRAY[$2::uuid], true, 'exam')
+  `, [question.id, question.correct])
+  assert.deepEqual(await claim(), [{ user_id: 'followup-young', email: 'young@example.test', attempts: 1 }])
+
+  await pool.query(`
+    UPDATE signup_followup_deliveries SET state = 'sent' WHERE user_id = 'followup-aged';
+    UPDATE signup_followup_deliveries
+      SET state = 'retryable', failure = 'smtp_auth', retry_at = now() + interval '1 hour'
+      WHERE user_id = 'followup-young';
+  `)
+  assert.deepEqual(await claim(), [])
+  await pool.query(`
+    UPDATE signup_followup_deliveries
+      SET retry_at = now() - interval '1 minute', updated_at = now() - interval '1 hour 1 minute'
+      WHERE user_id = 'followup-young'
+  `)
+  assert.deepEqual(await claim(), [{ user_id: 'followup-young', email: 'young@example.test', attempts: 2 }])
+  await pool.query("UPDATE signup_followup_deliveries SET state = 'uncertain' WHERE user_id = 'followup-young'")
+  assert.deepEqual(await claim(), [])
 })

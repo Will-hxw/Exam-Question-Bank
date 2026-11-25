@@ -1,0 +1,39 @@
+name: Signup follow-up email
+
+on:
+  schedule:
+    - cron: '23 */2 * * *'
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+
+concurrency:
+  group: signup-followup-email
+  cancel-in-progress: false
+
+jobs:
+  deliver:
+    if: github.repository == 'Will-hxw/Exam-Question-Bank' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Process eligible accounts in order
+        shell: bash
+        run: |
+          set -euo pipefail
+          endpoint='https://cqu.xiaoweihua.cn/api/internal/signup-followup'
+          audience="$(jq -rn --arg value "$endpoint" '$value|@uri')"
+          token="$(curl --silent --show-error --fail --max-time 10 \
+            --header "Authorization: Bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" \
+            "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=$audience" | jq -er '.value')"
+          printf '::add-mask::%s\n' "$token"
+          for batch in {1..10}; do
+            result="$(curl --silent --show-error --fail-with-body --max-time 25 \
+              --request POST --header "Authorization: Bearer $token" "$endpoint")"
+            echo "$result"
+            if [[ "$(jq -er '.more | tostring' <<< "$result")" == 'false' ]]; then
+              exit 0
+            fi
+            sleep 4
+          done
