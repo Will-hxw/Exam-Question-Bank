@@ -189,6 +189,8 @@ async function runApiChecks(origin, db, items, secret) {
 
   const { response: anonymous } = await call('/', { status: 307, redirect: 'manual' })
   assert.equal(anonymous.headers.get('location'), '/login')
+  const { response: accountRedirect } = await call('/account', { status: 307, redirect: 'manual' })
+  assert.equal(accountRedirect.headers.get('location'), '/login')
   const anonymousSession = await call('/api/me/session')
   assert.equal(anonymousSession.data.user, null)
   await call('/api/chat', { status: 401 })
@@ -309,6 +311,8 @@ async function runApiChecks(origin, db, items, secret) {
   const draft = { position: 1, revision: exam.revision, marked: [answerItem.id], answers: { [answerItem.id]: answerItem.answerIds } }
   const { data: { exam: saved } } = await call(examPath, { method: 'PUT', user: 'alice', owner: alice, body: draft, metric: 'saveExamWithSyntheticProvider' })
   assert.equal(saved.position, 1)
+  const { exam: resumedSaved } = (await call('/api/exams', { method: 'POST', user: 'alice', owner: alice, body: { questionCount: 8 } })).data
+  assert.deepEqual(resumedSaved, saved)
   assert.deepEqual((await call(examPath, { user: 'alice' })).data.exam.answers, draft.answers)
   await call(examPath, { method: 'PUT', user: 'alice', owner: alice, body: draft, status: 409 })
   const submitOptions = { method: 'POST', user: 'alice', owner: alice, body: { ...draft, revision: saved.revision }, metric: 'submitExamWithSyntheticProvider' }

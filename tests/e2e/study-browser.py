@@ -92,9 +92,25 @@ def check_slow_navigation(page):
 
     page.get_by_role('link', name='打开友情赞助页面').click()
     expect(page.get_by_role('heading', name='友情赞助')).to_be_visible()
+    qr = page.get_by_role('img', name='微信收款码')
+    expect(qr).to_have_attribute('src', re.compile(r'^/ui-images/wechat\.[\da-f]{10}\.webp$'))
+    expect(qr).to_have_js_property('complete', True)
+    expect(qr).to_have_js_property('naturalWidth', 309)
     tab.tap()
     expect(page).to_have_url(ORIGIN + target)
     expect(page.get_by_role('heading', name='友情赞助')).to_have_count(0)
+
+    pending.clear()
+    account_pattern = '**/account?_rsc=*'
+    page.route(account_pattern, pause)
+    account = page.get_by_role('link', name='账号', exact=True)
+    account.tap()
+    expect(account.locator('.study-navigation-pending')).to_have_text('正在切换页面')
+    assert pending
+    for route in pending:
+        route.continue_()
+    page.unroute(account_pattern, pause)
+    expect(page.get_by_role('heading', name='账号')).to_be_visible()
 
 
 def expect_field_error(page, name, error_id, text):

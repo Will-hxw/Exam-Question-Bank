@@ -1,6 +1,6 @@
 import 'server-only'
 import { createHash, createHmac } from 'node:crypto'
-import { messageLimit, nicknameLimit, type ChatAuthor, type ChatMessage, type ChatPage, type ChatProfile } from '@/features/chat/types'
+import { messageLimit, nicknameLimit, type ChatAuthor, type ChatMessage, type ChatPage, type ChatProfile, type ChatRoom } from '@/features/chat/types'
 import { query } from './db'
 import { HttpError, uuid } from './http'
 
@@ -34,14 +34,6 @@ function defaultProfile(user: string): ChatProfile {
   const character = characters[Math.floor(avatar / 12)]
   const adjective = adjectives[seed.readUInt32BE(4) % adjectives.length]
   return { authorKey: chatAuthorKey(user), nickname: adjective + character, avatar, nicknameRevision: '0' }
-}
-
-export async function chatProfile(user: string) {
-  const profile = defaultProfile(user)
-  const [custom] = await query<Pick<ChatAuthor, 'nickname' | 'nicknameRevision'>>(`
-    SELECT nickname, nickname_revision::text AS "nicknameRevision" FROM chat_profiles WHERE user_id = $1
-  `, [user])
-  return { ...profile, ...custom }
 }
 
 function readText(value: unknown, limit: number, label: string, multiline: boolean) {
@@ -78,12 +70,31 @@ function validCursor(value: string) {
   return /^(?:0|[1-9][0-9]{0,18})$/.test(value) && BigInt(value) <= 9223372036854775807n
 }
 
-export async function latestNicknameRevision() {
-  const [{ cursor }] = await query<{ cursor: string }>(`
-    SELECT COALESCE(max(nickname_revision), 0)::text AS cursor
-    FROM chat_profiles WHERE nickname_revision > 0
-  `)
-  return cursor
+export async function chatRoom(user: string): Promise<ChatRoom> {
+  // The initial cursor and all visible names come from the same database snapshot.
+  const [room] = await query<{
+    messages: StoredMessage[]
+    custom: Pick<ChatAuthor, 'nickname' | 'nicknameRevision'> | null
+    nicknameCursor: string
+  }>(`
+    SELECT (SELECT COALESCE(jsonb_agg(recent ORDER BY recent.id::bigint DESC), '[]'::jsonb)
+      FROM (
+        SELECT ${messageFields} FROM chat_messages m
+        LEFT JOIN chat_profiles p ON p.user_id = m.user_id
+        ORDER BY m.id DESC LIMIT ${pageSize + 1}
+      ) recent) AS messages,
+      (SELECT jsonb_build_object('nickname', nickname, 'nicknameRevision', nickname_revision::text)
+        FROM chat_profiles WHERE user_id = $1) AS custom,
+      (SELECT COALESCE(max(nickname_revision), 0)::text
+        FROM chat_profiles WHERE nickname_revision > 0) AS "nicknameCursor"
+  `, [user])
+  const messages = room.messages.slice(0, pageSize).reverse().map((message) => (
+    presentAuthor({ ...message, sentAt: new Date(message.sentAt).toISOString() })
+  ))
+  return {
+    messages, hasMore: room.messages.length > pageSize,
+    profile: { ...defaultProfile(user), ...room.custom }, nicknameCursor: room.nicknameCursor,
+  }
 }
 
 export async function chatNicknameUpdates(user: string, cursors: string[]) {

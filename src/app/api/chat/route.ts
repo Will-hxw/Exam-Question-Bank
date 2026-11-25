@@ -1,4 +1,4 @@
-import { chatMessages, chatNicknameUpdates, chatProfile, latestNicknameRevision, postChatMessage, saveChatNickname } from '@/server/chat'
+import { chatMessages, chatNicknameUpdates, chatRoom, postChatMessage, saveChatNickname } from '@/server/chat'
 import { parseBody, route } from '@/server/http'
 import { account } from '@/server/learning'
 
@@ -10,9 +10,7 @@ export const GET = route(async (request: Request) => {
     return { ...page, ...updates }
   }
   if (params.has('before') || params.has('after')) return chatMessages(user, params)
-  const nicknameCursor = await latestNicknameRevision()
-  const [page, profile] = await Promise.all([chatMessages(user, params), chatProfile(user)])
-  return { ...page, profile, nicknameCursor }
+  return chatRoom(user)
 })
 
 export const POST = route(async (request: Request) => {

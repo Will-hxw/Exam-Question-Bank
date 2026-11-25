@@ -337,7 +337,7 @@ function ExamContent() {
         <span id="exam-size-range">{MIN_EXAM_QUESTIONS}–{MAX_EXAM_QUESTIONS} 题</span>
       </div>
       <button type="submit" className="btn primary btn-start-exam" aria-busy={busy || undefined} disabled={busy || !isExamQuestionCount(Number(questionCount))}>
-        {busy ? '正在读取试卷…' : '开始考试'}<span className="btn-arrow"> →</span>
+        {busy ? '正在生成试卷…' : '开始考试'}<span className="btn-arrow"> →</span>
       </button>
     </form>}
     <p><button type="button" className="btn btn-exam-history nav-step" onClick={() => saveView({ screen: 'history' })}>历史记录{historyItems.length > 0 ? `（${historyItems.length}）` : ''}</button></p>

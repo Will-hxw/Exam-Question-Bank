@@ -5,15 +5,33 @@ import dynamic from 'next/dynamic'
 import Link, { useLinkStatus } from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { createContext, type ReactNode, useCallback, useContext, useEffect, useRef, useSyncExternalStore, useState } from 'react'
+import { authWordmarkImage, sponsorQrImage } from '@/ui-images'
+import { useChatRoom } from '../chat/use-chat-room'
 import { questionUrl, readPublic, requestJson, StudyRequestError, type QuestionState, type StudyStats, type Topic, writeJson } from './api'
 import { FeedbackPage, MailboxIcon } from './feedback-page'
 import { libraryPath, readLibraryView, useAccountStudyPreferences, useAccountStudyScroll } from './preferences'
 import { useAttemptQueue } from './use-attempt-queue'
 import { createPersonalStudyReads, useStudyData } from './use-study-data'
 
-const ChatPage = dynamic(() => import('../chat/chat-page'), {
+const loadChatPage = () => import('../chat/chat-page')
+const ChatPage = dynamic(loadChatPage, {
   loading: () => <p className="empty-state" role="status">正在打开聊天区…</p>,
 })
+
+function StudyChat({ pathname, userId }: { pathname: string; userId: string }) {
+  const room = useChatRoom(userId)
+  return <ChatPage pathname={pathname} room={room} onBack={closeFooterPage} />
+}
+
+function warmImage(src: string) {
+  if (!navigator.onLine) return
+  const image = new window.Image()
+  image.src = src
+}
+
+function warmChat() {
+  if (navigator.onLine) void loadChatPage().catch(() => {})
+}
 
 const nav = [
   { href: '/', label: '刷题' },
@@ -277,7 +295,10 @@ export function StudyShell({ userId, children }: { userId: string; children: Rea
               <button className="dark-toggle" type="button" onClick={toggleTheme} aria-label="切换明暗主题">
                 <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.39 5.403 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z" /></svg>
               </button>
-              <Link className="account-link" href="/account" onNavigate={navigateFromExam}>账号</Link>
+              <Link className="account-link" href="/account" aria-label="账号" onNavigate={navigateFromExam}
+                onPointerEnter={() => warmImage(authWordmarkImage)} onFocus={() => warmImage(authWordmarkImage)}>
+                账号<StudyNavigationStatus />
+              </Link>
             </div>
           </header>
           <nav id="top-nav" aria-label="学习导航">
@@ -305,7 +326,7 @@ export function StudyShell({ userId, children }: { userId: string; children: Rea
               学习设置暂未同步。 <button className="btn btn-sm" type="button" onClick={() => void preferences.retry()}>重试同步设置</button>
             </p>}
             <div hidden={footerPageOpen}>{children}</div>
-            {chatOpen && <ChatPage pathname={pathname} userId={userId} onBack={closeFooterPage} />}
+            {chatOpen && <StudyChat pathname={pathname} userId={userId} />}
             {feedbackOpen && <FeedbackPage pathname={pathname} userId={userId} onBack={closeFooterPage} />}
             {sponsorOpen && (
               <section className="sponsor-page" aria-labelledby="sponsor-title">
@@ -317,14 +338,15 @@ export function StudyShell({ userId, children }: { userId: string; children: Rea
                   <p>如果遗憾没帮助，我会努力改善🥹</p>
                 </div>
                 <div className="sponsor-qr-card">
-                  <Image src="/wechat.png" alt="微信收款码" width={309} height={309} loading="lazy" unoptimized />
+                  <Image src={sponsorQrImage} alt="微信收款码" width={309} height={309} fetchPriority="high" unoptimized />
                 </div>
               </section>
             )}
           </main>
           <footer className="site-footer">
             <div className="footer-actions">
-              <a className="footer-action" href="#chat" aria-label="打开聊天区" onClick={navigateFromExam}>
+              <a className="footer-action" href="#chat" aria-label="打开聊天区" onClick={navigateFromExam}
+                onPointerEnter={warmChat} onFocus={warmChat}>
                 <span className="footer-action-icon footer-chat-icon" aria-hidden="true">
                   <svg width="23" height="23" viewBox="0 0 24 24" fill="none">
                     <path fill="currentColor" d="M7.5 5.5h6.6a5.8 5.8 0 0 1 0 11.6h-4.6l-4.7 3.1.7-3.6a5.8 5.8 0 0 1 2-11.1Z" />
@@ -339,7 +361,8 @@ export function StudyShell({ userId, children }: { userId: string; children: Rea
                 <span className="footer-action-icon footer-feedback-icon"><MailboxIcon /></span>
                 意见反馈
               </a>
-              <a className="footer-action" href="#sponsor" aria-label="打开友情赞助页面">
+              <a className="footer-action" href="#sponsor" aria-label="打开友情赞助页面"
+                onPointerEnter={() => warmImage(sponsorQrImage)} onFocus={() => warmImage(sponsorQrImage)}>
                 <span className="footer-action-icon footer-sponsor-icon" aria-hidden="true">💌</span>
                 友情赞助
               </a>

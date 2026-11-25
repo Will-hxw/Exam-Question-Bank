@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { type FormEvent, type MouseEventHandler, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { messageLimit, nicknameLimit, type ChatMessage } from './types'
-import { chatError, useChatRoom } from './use-chat-room'
+import { chatError, type useChatRoom } from './use-chat-room'
 import './chat.css'
 
 const emojis = ['😀', '😂', '🥹', '🤣', '😎', '🤔', '🙃', '👀', '👍', '👏', '🙌', '🤝', '❤️', '✨', '🎉', '💪']
@@ -33,12 +33,11 @@ function Message({ message, nickname, previous }: { message: ChatMessage; nickna
   </li>
 }
 
-export default function ChatPage({ pathname, userId, onBack }: {
+export default function ChatPage({ pathname, room, onBack }: {
   pathname: string
-  userId: string
+  room: ReturnType<typeof useChatRoom>
   onBack: MouseEventHandler<HTMLAnchorElement>
 }) {
-  const room = useChatRoom(userId)
   const section = useRef<HTMLElement>(null)
   const heading = useRef<HTMLHeadingElement>(null)
   const list = useRef<HTMLDivElement>(null)

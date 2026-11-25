@@ -58,20 +58,8 @@ export async function examHistory(user: string) {
 }
 
 export async function examDetails(user: string, id: string) {
-  const [exam] = await query(`
-    SELECT ${summaryFields}, s.answers, s.marked,
-      (SELECT jsonb_agg(
-        i.question || CASE WHEN s.status = 'submitted'
-          THEN i.review || jsonb_build_object('answerIds', i.answer_ids) ELSE '{}'::jsonb END
-        ORDER BY i.position)
-        FROM exam_items i WHERE i.exam_id = s.id) AS items,
-      CASE WHEN s.status = 'submitted' THEN (
-        SELECT jsonb_object_agg(i.question_id,
-          i.answer_ids = ARRAY(SELECT value::uuid FROM jsonb_array_elements_text(COALESCE(s.answers->i.question_id::text, '[]'))
-            ORDER BY value::uuid))
-        FROM exam_items i WHERE i.exam_id = s.id
-      ) END AS correctness
-    FROM exam_sessions s WHERE s.user_id = $1 AND s.id = $2
+  const [{ exam }] = await query<{ exam: unknown }>(`
+    SELECT exam_snapshot($1, $2) AS exam
   `, [user, id])
   if (!exam) throw new HttpError(404, '未找到试卷。')
   return { exam }
@@ -81,27 +69,32 @@ export async function createExam(user: string, questionCount: unknown = DEFAULT_
   if (!isExamQuestionCount(questionCount)) {
     throw new HttpError(400, `考试题数须为 ${MIN_EXAM_QUESTIONS} 至 ${MAX_EXAM_QUESTIONS} 的整数。`)
   }
-  const [draft] = await query<{ id: string }>(
-    "SELECT id FROM exam_sessions WHERE user_id = $1 AND status = 'draft'", [user],
-  )
-  if (draft) return examDetails(user, draft.id)
-
-  const candidates = await query<Candidate>(`
-    SELECT q.id, q.topic_id AS topic, q.emotion_only AS "emotionOnly",
-      ARRAY[q.knowledge_point_id] || ARRAY(
-        SELECT k.knowledge_point_id FROM question_knowledge_points k WHERE k.question_id = q.id
-      ) AS facts
-    FROM questions q JOIN topics t ON t.id = q.topic_id AND t.active
-    WHERE q.status = 'published'
-      AND (q.type = 'single' OR
-        (SELECT count(*) FROM question_options o WHERE o.question_id = q.id)
-          > (SELECT count(*) FROM question_answers a WHERE a.question_id = q.id))
-  `)
-  const selected = selectCandidates(candidates, questionCount)
+  const [{ exam, candidates }] = await query<{ exam: unknown; candidates: Candidate[] | null }>(`
+    WITH draft AS (
+      SELECT id FROM exam_sessions WHERE user_id = $1 AND status = 'draft'
+    )
+    SELECT (SELECT exam_snapshot($1, id) FROM draft) AS exam,
+      CASE WHEN NOT EXISTS (SELECT FROM draft) THEN (
+        SELECT COALESCE(jsonb_agg(candidate), '[]'::jsonb)
+        FROM (
+          SELECT q.id, q.topic_id AS topic, q.emotion_only AS "emotionOnly",
+            ARRAY[q.knowledge_point_id] || ARRAY(
+              SELECT k.knowledge_point_id FROM question_knowledge_points k WHERE k.question_id = q.id
+            ) AS facts
+          FROM questions q JOIN topics t ON t.id = q.topic_id AND t.active
+          WHERE q.status = 'published'
+            AND (q.type = 'single' OR
+              (SELECT count(*) FROM question_options o WHERE o.question_id = q.id)
+                > (SELECT count(*) FROM question_answers a WHERE a.question_id = q.id))
+        ) candidate
+      ) END AS candidates
+  `, [user])
+  if (exam) return { exam }
+  const selected = selectCandidates(candidates ?? [], questionCount)
   if (selected.length !== questionCount) throw new HttpError(409, `满足组卷要求的已审核题目尚不足 ${questionCount} 道，请减少题数后重试。`)
-  const [row] = await query<{ id: string | null }>('SELECT start_exam($1, $2) AS id', [user, selected])
-  if (!row.id) throw new HttpError(409, '题库刚刚更新，请重新开始考试。')
-  return examDetails(user, row.id)
+  const [{ exam: started }] = await query<{ exam: unknown }>('SELECT start_exam_snapshot($1, $2) AS exam', [user, selected])
+  if (!started) throw new HttpError(409, '题库刚刚更新，请重新开始考试。')
+  return { exam: started }
 }
 
 export async function replayExam(user: string, source: string) {

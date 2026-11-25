@@ -24,6 +24,9 @@ const config: NextConfig = {
       source: '/fonts/:asset.woff',
       headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
     }, {
+      source: '/ui-images/:asset.webp',
+      headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+    }, {
       source: '/bank/manifest.json',
       headers: [{ key: 'Cache-Control', value: 'public, max-age=0, must-revalidate' }],
     }, {

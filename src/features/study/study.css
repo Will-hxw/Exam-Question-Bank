@@ -38,10 +38,12 @@ html[data-theme="dark"] .study-theme .dark-toggle { color: #e5e7eb; }
   -webkit-tap-highlight-color: transparent; touch-action: manipulation;
 }
 .study-shell #top-nav a.active { color: var(--accent); background: var(--accent-light); font-weight: 550; }
-.study-shell #top-nav a:has(.study-navigation-pending)::after {
+.study-shell #top-nav a:has(.study-navigation-pending)::after,
+.study-shell .account-link:has(.study-navigation-pending)::after {
   content: ''; position: absolute; inset: auto 18% 3px; height: 2px; border-radius: 2px;
   background: var(--accent); opacity: 0; animation: study-navigation-pending 0s 120ms forwards;
 }
+.study-shell .account-link:has(.study-navigation-pending)::after { bottom: -3px; }
 .study-shell .study-navigation-status {
   position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
 }
@@ -414,7 +416,7 @@ html[data-theme="dark"] .study-theme .jump-input { background: var(--surface); c
 .study-shell #top-nav a { min-width: 0; text-align: center; align-content: center; text-decoration: none; overflow-wrap: anywhere; line-height: normal; }
 .study-shell button { line-height: normal; }
 .study-shell .option { line-height: 1.6; }
-.study-shell .site-header-right .account-link { font-size: 12px; text-decoration: none; white-space: nowrap; }
+.study-shell .site-header-right .account-link { position: relative; font-size: 12px; text-decoration: none; white-space: nowrap; }
 .study-shell .mode-bar { flex-wrap: wrap; }
 .study-shell .topic-dropdown { min-width: 0; max-width: 100%; }
 .study-shell .topic-dropdown-btn { max-width: 100%; text-align: left; }
