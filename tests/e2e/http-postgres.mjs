@@ -168,9 +168,9 @@ function percentile(values, fraction) {
 
 async function runApiChecks(origin, db, items, secret) {
   const samples = {}
-  async function call(path, { method = 'GET', status = 200, user, owner, body, bearer, metric, redirect = 'error' } = {}) {
+  async function call(path, { method = 'GET', status = 200, user, owner, body, bearer, metric, redirect = 'error', requestOrigin = origin } = {}) {
     const headers = {}
-    if (method !== 'GET') headers.origin = origin
+    if (method !== 'GET') headers.origin = requestOrigin
     if (owner) headers['x-study-account'] = owner
     if (user) headers.cookie = `${tokenCookie}=${user}`
     if (body !== undefined) headers['content-type'] = 'application/json'
@@ -193,6 +193,19 @@ async function runApiChecks(origin, db, items, secret) {
   assert.equal(anonymousSession.data.user, null)
   await call('/api/me/stats', { status: 401 })
   await call('/api/me/stats', { status: 401, user: 'unverified' })
+
+  const feedbackPath = '/api/feedback'
+  const feedback = { method: 'POST', user: 'alice', owner: users.get('alice').id,
+    body: { rating: '夯', message: '测试意见' } }
+  await call(feedbackPath, { ...feedback, user: undefined, status: 401 })
+  await call(feedbackPath, { ...feedback, user: 'unverified', status: 401 })
+  await call(feedbackPath, { ...feedback, owner: users.get('bob').id, status: 409 })
+  await call(feedbackPath, { ...feedback, requestOrigin: 'https://other.example.test', status: 403 })
+  await call(feedbackPath, { ...feedback, body: { ...feedback.body, rating: 5 }, status: 400 })
+  await call(feedbackPath, { ...feedback, body: { ...feedback.body, message: '  \n' }, status: 400 })
+  await call(feedbackPath, { ...feedback, body: { ...feedback.body, message: '字'.repeat(1001) }, status: 400 })
+  await call(feedbackPath, { ...feedback, body: { ...feedback.body, message: '字'.repeat(3000) }, status: 413 })
+  await call(feedbackPath, { ...feedback, status: 503 })
 
   const failedLogin = (email) => call('/api/auth/sign-in/email', {
     method: 'POST', status: 401, body: { email, password: 'incorrect-fixture-password' },
@@ -429,7 +442,7 @@ try {
   const secret = randomBytes(32).toString('hex')
   const env = { ...process.env, DATABASE_URL: databaseUrl.toString(), NEON_AUTH_BASE_URL: `http://127.0.0.1:${authPort}/auth`,
     NEON_AUTH_COOKIE_SECRET: randomBytes(32).toString('hex'), CONTENT_INVALIDATION_SECRET: secret,
-    NEXT_PUBLIC_SITE_URL: origin, NEON_OTP_WEBHOOK_ENABLED: 'false', NEXT_TELEMETRY_DISABLED: '1' }
+    NEXT_PUBLIC_SITE_URL: origin, NEON_OTP_WEBHOOK_ENABLED: 'false', QQ_SMTP_AUTH_CODE: '', NEXT_TELEMETRY_DISABLED: '1' }
   await run(process.execPath, [next, 'build', '--webpack'], { cwd: buildDir, env })
   server = spawn(process.execPath, [next, 'start', '--hostname', '127.0.0.1', '--port', String(port)], { cwd: buildDir, env, stdio: 'inherit', windowsHide: true })
   await waitForHttp(origin)

@@ -239,6 +239,58 @@ def check_exam_history_header(page):
     assert abs(title_box['x'] + title_box['width'] / 2 - page.evaluate('innerWidth / 2')) <= 1
 
 
+def check_feedback(page):
+    footer = page.get_by_role('contentinfo')
+    feedback_link = footer.get_by_role('link', name='打开意见反馈页面')
+    sponsor_link = footer.get_by_role('link', name='打开友情赞助页面')
+    notes = footer.locator('.footer-notes')
+    left, middle, right, frame = (item.bounding_box() for item in (feedback_link, notes, sponsor_link, footer))
+    assert left and middle and right and frame
+    assert left['x'] + left['width'] < middle['x'] < right['x']
+    assert abs((left['x'] + right['x'] + right['width']) / 2 - (frame['x'] + frame['width'] / 2)) <= 1
+
+    feedback_link.click()
+    expect(page).to_have_url(ORIGIN + '/#feedback')
+    heading = page.get_by_role('heading', name='意见反馈')
+    expect(heading).to_be_focused()
+    expect(page.locator('.question-card')).to_be_hidden()
+    form = page.get_by_role('region', name='意见反馈')
+    ratings = form.get_by_role('radio')
+    expect(ratings).to_have_count(5)
+    assert [radio.get_attribute('value') for radio in ratings.all()] == ['夯', '顶级', '人上人', 'NPC', '拉完了']
+    message = form.get_by_role('textbox', name='你希望我们改进什么？')
+    submit = form.get_by_role('button', name='提交反馈')
+    submit.click()
+    assert not form.locator('form').evaluate('(form) => form.checkValidity()')
+    form.get_by_role('radio', name='NPC').check()
+    page.keyboard.press('ArrowRight')
+    lowest = form.get_by_role('radio', name='拉完了')
+    expect(lowest).to_be_checked()
+    message.fill('   ')
+    submit.click()
+    expect(form.get_by_role('alert')).to_contain_text('填写你的意见或建议')
+
+    feedback_api = ORIGIN + '/api/feedback'
+    body = '希望增加模考历史筛选。'
+    message.fill(body)
+    with page.expect_response(feedback_api) as request:
+        submit.click()
+    assert request.value.status == 503
+    assert request.value.request.post_data_json == {'rating': '拉完了', 'message': body}
+    expect(form.get_by_role('alert')).to_contain_text('暂时无法提交反馈')
+    expect(message).to_have_value(body)
+    expect(lowest).to_be_checked()
+
+    page.route(feedback_api, lambda route: route.fulfill(json={'sent': True}))
+    submit.click()
+    expect(form.get_by_role('status')).to_have_text('反馈已提交，感谢你的建议！')
+    expect(message).to_have_count(0)
+    page.unroute(feedback_api)
+    page.get_by_role('link', name='← 返回练习').click()
+    expect(page).to_have_url(ORIGIN + '/')
+    expect(page.locator('.question-card')).to_be_visible()
+
+
 def run(browser):
     for width in (390, 1440):
         context = browser.new_context(viewport={"width": width, "height": 900}, locale="zh-CN")
@@ -642,6 +694,7 @@ def run(browser):
 
     section(page, '/')
     expect(stem).to_be_visible()
+    check_feedback(page)
     page.get_by_role('link', name='打开友情赞助页面').click()
     expect(page.get_by_role('heading', name='友情赞助')).to_be_visible()
     section(page, '/')

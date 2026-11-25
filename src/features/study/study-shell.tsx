@@ -5,6 +5,7 @@ import Link, { useLinkStatus } from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { createContext, type ReactNode, useCallback, useContext, useEffect, useRef, useSyncExternalStore, useState } from 'react'
 import { questionUrl, readPublic, requestJson, StudyRequestError, type QuestionState, type StudyStats, type Topic, writeJson } from './api'
+import { FeedbackPage, MailboxIcon } from './feedback-page'
 import { libraryPath, readLibraryView, useAccountStudyPreferences, useAccountStudyScroll } from './preferences'
 import { useAttemptQueue } from './use-attempt-queue'
 import { createPersonalStudyReads, useStudyData } from './use-study-data'
@@ -46,7 +47,7 @@ function emptyHash() {
   return ''
 }
 
-function closeSponsor(event: { preventDefault: () => void }) {
+function closeFooterPage(event: { preventDefault: () => void }) {
   event.preventDefault()
   const url = new URL(location.href)
   url.hash = ''
@@ -212,7 +213,10 @@ export function useQuestionFavorite(id: string, serverFavorite?: boolean) {
 export function StudyShell({ userId, children }: { userId: string; children: ReactNode }) {
   const pathname = usePathname()
   const router = useRouter()
-  const sponsorOpen = useSyncExternalStore(subscribeHash, currentHash, emptyHash) === '#sponsor'
+  const hash = useSyncExternalStore(subscribeHash, currentHash, emptyHash)
+  const sponsorOpen = hash === '#sponsor'
+  const feedbackOpen = hash === '#feedback'
+  const footerPageOpen = sponsorOpen || feedbackOpen
   const session = useStudySession(userId)
   const { personalReads, preferences } = session
   const toggleTheme = useTheme(preferences.values.theme, preferences.save)
@@ -272,7 +276,7 @@ export function StudyShell({ userId, children }: { userId: string; children: Rea
           </header>
           <nav id="top-nav" aria-label="学习导航">
             {nav.map(({ href, label }) => {
-              const active = !sponsorOpen && pathname === href
+              const active = !footerPageOpen && pathname === href
               return <Link key={href} href={href} scroll={false} aria-current={active ? 'page' : undefined} className={active ? 'active' : undefined}
                 prefetch={pathname !== href && routePrefetchOrder.indexOf(href) < warmRouteCount}
                 onPointerEnter={(event) => {
@@ -283,7 +287,7 @@ export function StudyShell({ userId, children }: { userId: string; children: Rea
                 }}
                 onFocus={() => warmRoute(href)}
                 onNavigate={(event) => {
-                  if (sponsorOpen && href === pathname) closeSponsor(event)
+                  if (footerPageOpen && href === pathname) closeFooterPage(event)
                   else if (href !== '/exam') navigateFromExam(event)
                 }}>
                 {label}<StudyNavigationStatus />
@@ -294,10 +298,11 @@ export function StudyShell({ userId, children }: { userId: string; children: Rea
             {preferences.syncFailed && <p className="study-message error" role="status">
               学习设置暂未同步。 <button className="btn btn-sm" type="button" onClick={() => void preferences.retry()}>重试同步设置</button>
             </p>}
-            <div hidden={sponsorOpen}>{children}</div>
+            <div hidden={footerPageOpen}>{children}</div>
+            {feedbackOpen && <FeedbackPage pathname={pathname} userId={userId} onBack={closeFooterPage} />}
             {sponsorOpen && (
               <section className="sponsor-page" aria-labelledby="sponsor-title">
-                <a className="btn btn-sm sponsor-back" href={pathname} onClick={closeSponsor}>← 返回练习</a>
+                <a className="btn btn-sm footer-page-back sponsor-back" href={pathname} onClick={closeFooterPage}>← 返回练习</a>
                 <div className="sponsor-hero">
                   <span className="sponsor-heart" aria-hidden="true">💖</span>
                   <h1 id="sponsor-title">友情赞助</h1>
@@ -311,13 +316,17 @@ export function StudyShell({ userId, children }: { userId: string; children: Rea
             )}
           </main>
           <footer className="site-footer">
+            <a className="footer-action" href="#feedback" aria-label="打开意见反馈页面">
+              <span className="footer-action-icon footer-feedback-icon"><MailboxIcon /></span>
+              意见反馈
+            </a>
             <ul className="footer-notes">
               <li><span className="footer-latin" lang="en">Bug </span>或瑕疵有奖</li>
               <li>作者：计算机学院 <span className="footer-latin">20230537</span> 六只</li>
               <li>遇到问题请联系 <span className="footer-latin" lang="en">QQ 1176843521</span></li>
             </ul>
-            <a className="footer-sponsor-link" href="#sponsor" aria-label="打开友情赞助页面">
-              <span className="footer-sponsor-icon" aria-hidden="true">💌</span>
+            <a className="footer-action" href="#sponsor" aria-label="打开友情赞助页面">
+              <span className="footer-action-icon footer-sponsor-icon" aria-hidden="true">💌</span>
               友情赞助
             </a>
           </footer>

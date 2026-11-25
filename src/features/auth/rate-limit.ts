@@ -20,17 +20,23 @@ function limitsFor(path: AuthPost) {
 }
 
 export async function authRetryAfter(request: Request, path: AuthPost, email: string) {
-  const secret = process.env.NEON_AUTH_COOKIE_SECRET
-  if (!secret) throw new Error("Auth rate limit hash key is not configured")
-
   const limits = limitsFor(path)
   const edgeClient = request.headers.get("eo-connecting-ip")?.trim() ?? ""
   const client = isIP(edgeClient) ? edgeClient : "unattributed"
-  const hash = (kind: "account" | "network", value: string) =>
-    createHmac("sha256", secret).update(`auth:${limits.scope}:${kind}:${value}`).digest("hex")
+  return consumeLimits(
+    [`auth:${limits.scope}:account:${email}`, `auth:${limits.scope}:network:${client}`],
+    [limits.account, limits.network],
+  )
+}
 
-  const keys = [hash("account", email), hash("network", client)]
-  const quotas = [limits.account, limits.network]
+export function feedbackRetryAfter(userId: string) {
+  return consumeLimits([`feedback:account:${userId}`, "feedback:all"], [4, 60])
+}
+
+async function consumeLimits(buckets: string[], quotas: number[]) {
+  const secret = process.env.NEON_AUTH_COOKIE_SECRET
+  if (!secret) throw new Error("Rate limit hash key is not configured")
+  const keys = buckets.map((bucket) => createHmac("sha256", secret).update(bucket).digest("hex"))
   const [result] = await query<{ retry_after: number }>(
     `WITH quotas AS (
       SELECT * FROM unnest($1::text[], $2::integer[]) AS input(bucket, max_hits)
