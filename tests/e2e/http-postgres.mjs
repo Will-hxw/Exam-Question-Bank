@@ -191,6 +191,8 @@ async function runApiChecks(origin, db, items, secret) {
   assert.equal(anonymous.headers.get('location'), '/login')
   const anonymousSession = await call('/api/me/session')
   assert.equal(anonymousSession.data.user, null)
+  await call('/api/chat', { status: 401 })
+  await call('/api/chat', { user: 'unverified', status: 401 })
   await call('/api/me/stats', { status: 401 })
   await call('/api/me/stats', { status: 401, user: 'unverified' })
 
@@ -398,8 +400,58 @@ async function runApiChecks(origin, db, items, secret) {
   assert.equal(updatedPage.total, 25)
   assert.equal(updatedPage.questions.some(({ id }) => id === first.id), false)
 
+  const chatPath = '/api/chat'
+  const chatAlice = { user: 'alice', owner: users.get('alice').id }
+  const chatBob = { user: 'bob', owner: users.get('bob').id }
+  const initialChat = (await call(chatPath, chatAlice)).data
+  assert.deepEqual(initialChat.messages, [])
+  assert.equal(initialChat.hasMore, false)
+  assert.match(initialChat.profile.nickname, /(奶龙|奶娃|噜噜)$/)
+  assert.ok(initialChat.profile.avatar >= 0 && initialChat.profile.avatar < 36)
+  assert.deepEqual((await call(chatPath, chatAlice)).data.profile, initialChat.profile)
+  await call(chatPath, { ...chatAlice, method: 'PUT', body: { nickname: '   ' }, status: 400 })
+  await call(chatPath, { ...chatAlice, method: 'PUT', body: { nickname: '新昵称' }, status: 403, requestOrigin: 'http://example.invalid' })
+  await call(chatPath, { ...chatAlice, owner: chatBob.owner, method: 'PUT', body: { nickname: '新昵称' }, status: 409 })
+  const savedChat = (await call(chatPath, { ...chatAlice, method: 'PUT', body: { nickname: '  测试奶娃  ' } })).data.profile
+  assert.deepEqual(savedChat, { ...initialChat.profile, nickname: '测试奶娃' })
+  assert.deepEqual((await call(chatPath, chatAlice)).data.profile, savedChat)
+  const chatWrite = { ...chatAlice, method: 'POST', body: { clientId: randomUUID(), message: '新消息 😀\n第二行' } }
+  const [firstSend, replayedSend] = await Promise.all([call(chatPath, chatWrite), call(chatPath, chatWrite)])
+  const sentChat = firstSend.data.message
+  assert.deepEqual(replayedSend.data.message, sentChat)
+  assert.deepEqual(Object.keys(sentChat).sort(), ['avatar', 'body', 'id', 'mine', 'nickname', 'sentAt'])
+  assert.equal(sentChat.mine, true)
+  assert.equal(sentChat.nickname, savedChat.nickname)
+  assert.equal(sentChat.body, chatWrite.body.message)
+  await call(chatPath, { ...chatWrite, status: 409, body: { ...chatWrite.body, message: '不同的内容' } })
+  await call(chatPath, { ...chatWrite, status: 429, body: { ...chatWrite.body, clientId: randomUUID() } })
+  await call(chatPath, { ...chatWrite, status: 400, body: { ...chatWrite.body, message: '长'.repeat(501) } })
+  assert.deepEqual((await call(`${chatPath}?after=0`, chatBob)).data.messages, [{ ...sentChat, mine: false }])
+  assert.deepEqual((await call(`${chatPath}?after=${sentChat.id}`, chatBob)).data.messages, [])
+  await call(`${chatPath}?before=${sentChat.id}&after=0`, { ...chatBob, status: 400 })
+  await call(`${chatPath}?after=9223372036854775808`, { ...chatBob, status: 400 })
+  await db.query(`
+    INSERT INTO chat_messages (user_id, client_id, nickname, avatar, body)
+    SELECT $1, gen_random_uuid(), '历史测试', 0, '历史消息 ' || i FROM generate_series(1, 48) i
+  `, [chatAlice.owner])
+  const latestChat = (await call(chatPath, chatBob)).data
+  assert.equal(latestChat.messages.length, 40)
+  assert.equal(latestChat.hasMore, true)
+  const chatHistory = (await call(`${chatPath}?before=${latestChat.messages[0].id}`, chatBob)).data
+  assert.equal(chatHistory.messages.length, 9)
+  assert.equal(chatHistory.hasMore, false)
+  assert.equal(chatHistory.messages[0].id, sentChat.id)
+  const firstUpdates = (await call(`${chatPath}?after=${sentChat.id}`, chatBob)).data
+  assert.equal(firstUpdates.messages.length, 40)
+  assert.equal(firstUpdates.hasMore, true)
+  const rest = (await call(`${chatPath}?after=${firstUpdates.messages.at(-1).id}`, chatBob)).data
+  assert.equal(rest.messages.length, 8)
+  assert.equal(rest.hasMore, false)
+  assert.equal(rest.messages.at(-1).id, latestChat.messages.at(-1).id)
+  await db.query('DELETE FROM chat_messages WHERE user_id = $1', [chatAlice.owner])
+
   return {
-    verified: ['anonymous/email verification gate', 'distinct fixture Auth owners', 'private no-store and public cache headers', 'real PostgreSQL and Chinese cursor pagination', 'fixed explanation and answer exposure', 'write idempotency and cross-owner rejection', 'default and custom exam size, random order, validation, resume, scoring, and history', 'Next Data Cache hot to changed after authorized invalidation'],
+    verified: ['anonymous/email verification gate', 'distinct fixture Auth owners', 'private no-store and public cache headers', 'real PostgreSQL and Chinese cursor pagination', 'fixed explanation and answer exposure', 'write idempotency and cross-owner rejection', 'default and custom exam size, random order, validation, resume, scoring, and history', 'Next Data Cache hot to changed after authorized invalidation', 'shared chat, stable profiles, rename, cursor pagination, concurrent retry, rate limit and privacy'],
     invalidationToObservableRefreshMs: Number((performance.now() - start).toFixed(2)),
     timingsMs: Object.fromEntries(Object.entries(samples).map(([name, timings]) => {
       const values = timings.map(({ ms }) => ms)

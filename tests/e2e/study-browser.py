@@ -2,6 +2,7 @@ import json
 import math
 import os
 import re
+from pathlib import Path
 from time import perf_counter
 from urllib.parse import parse_qs, urlsplit
 
@@ -241,13 +242,15 @@ def check_exam_history_header(page):
 
 def check_feedback(page):
     footer = page.get_by_role('contentinfo')
+    chat_link = footer.get_by_role('link', name='打开聊天区')
     feedback_link = footer.get_by_role('link', name='打开意见反馈页面')
     sponsor_link = footer.get_by_role('link', name='打开友情赞助页面')
     notes = footer.locator('.footer-notes')
-    left, middle, right, frame = (item.bounding_box() for item in (feedback_link, notes, sponsor_link, footer))
-    assert left and middle and right and frame
+    first, left, middle, right, frame = (item.bounding_box() for item in (chat_link, feedback_link, notes, sponsor_link, footer))
+    assert first and left and middle and right and frame
+    assert first['x'] + first['width'] < left['x']
     assert left['x'] + left['width'] < middle['x'] < right['x']
-    assert abs((left['x'] + right['x'] + right['width']) / 2 - (frame['x'] + frame['width'] / 2)) <= 1
+    assert abs((first['x'] + right['x'] + right['width']) / 2 - (frame['x'] + frame['width'] / 2)) <= 1
 
     feedback_link.click()
     expect(page).to_have_url(ORIGIN + '/#feedback')
@@ -289,6 +292,72 @@ def check_feedback(page):
     page.get_by_role('link', name='← 返回练习').click()
     expect(page).to_have_url(ORIGIN + '/')
     expect(page.locator('.question-card')).to_be_visible()
+
+
+def check_chat(browser):
+    mobile = mobile_context(browser)
+    desktop = browser.new_context(viewport={'width': 1280, 'height': 820}, locale='zh-CN')
+    desktop.add_cookies([{
+        'name': COOKIE_NAME, 'value': 'bob', 'domain': HOST, 'path': '/',
+        'secure': True, 'httpOnly': True, 'sameSite': 'Strict',
+    }])
+    try:
+        sender = mobile.new_page()
+        sender.goto(ORIGIN, wait_until='networkidle')
+        entry = sender.get_by_role('link', name='打开聊天区')
+        feedback = sender.get_by_role('link', name='打开意见反馈页面')
+        assert entry.bounding_box()['x'] < feedback.bounding_box()['x']
+        entry.tap()
+        expect(sender.get_by_role('heading', name='聊天区')).to_be_visible()
+        expect(sender.get_by_text('聊聊今天的刷题体验吧')).to_be_visible()
+        expect(sender.locator('.chat-profile img')).to_have_js_property('complete', True)
+        assert sender.locator('.chat-profile img').evaluate('(image) => image.naturalWidth') == 96
+        original_avatar = sender.locator('.chat-profile img').get_attribute('src')
+        sender.get_by_role('button', name='修改昵称').tap()
+        sender.get_by_label('聊天昵称').fill('刷题小噜噜')
+        sender.get_by_role('button', name='保存', exact=True).tap()
+        expect(sender.get_by_role('button', name='修改昵称')).to_contain_text('刷题小噜噜')
+        sender.reload(wait_until='domcontentloaded')
+        expect(sender.get_by_role('button', name='修改昵称')).to_contain_text('刷题小噜噜')
+        expect(sender.locator('.chat-profile img')).to_have_attribute('src', original_avatar)
+
+        receiver = desktop.new_page()
+        receiver.goto(ORIGIN + '/#chat', wait_until='networkidle')
+        expect(receiver.get_by_text('聊聊今天的刷题体验吧')).to_be_visible()
+        draft = sender.get_by_role('textbox', name='聊天消息')
+        draft.fill('刷题见面啦 ')
+        sender.get_by_role('button', name='插入表情').tap()
+        sender.get_by_role('button', name='🎉', exact=True).tap()
+        expect(draft).to_have_value('刷题见面啦 🎉')
+        sender.get_by_role('button', name='发送', exact=True).tap()
+        expect(sender.locator('.is-mine .chat-bubble')).to_have_text('刷题见面啦 🎉')
+        receiver.bring_to_front()
+        expect(receiver.locator('.chat-message-row:not(.is-mine) .chat-bubble')).to_have_text('刷题见面啦 🎉', timeout=12000)
+        expect(receiver.locator('.chat-nickname')).to_have_text('刷题小噜噜')
+
+        reply = receiver.get_by_role('textbox', name='聊天消息')
+        reply.fill('收到！')
+        reply.press('Shift+Enter')
+        reply.type('<b>下课再聊</b>')
+        reply.press('Enter')
+        expect(receiver.locator('.is-mine .chat-bubble')).to_have_text(re.compile(r'收到！\s*<b>下课再聊</b>'))
+        expect(receiver.locator('.chat-bubble b')).to_have_count(0)
+        sender.bring_to_front()
+        expect(sender.locator('.chat-message-row:not(.is-mine) .chat-bubble')).to_contain_text('下课再聊', timeout=12000)
+        assert sender.evaluate('document.documentElement.scrollWidth <= innerWidth')
+        screenshots = os.getenv('EQB_CHAT_SCREENSHOTS')
+        if screenshots:
+            target = Path(screenshots)
+            target.mkdir(parents=True, exist_ok=True)
+            sender.locator('.chat-room').screenshot(path=target / 'chat-mobile.png')
+            receiver.locator('.chat-room').screenshot(path=target / 'chat-desktop.png')
+        sender.get_by_role('link', name='返回练习', exact=True).tap()
+        expect(sender).to_have_url(ORIGIN + '/')
+        expect(sender.locator('.chat-room')).to_have_count(0)
+        expect(sender.locator('.question-card .q-text')).to_be_visible()
+    finally:
+        desktop.close()
+        mobile.close()
 
 
 def run(browser):
@@ -758,6 +827,8 @@ def run(browser):
 with sync_playwright() as playwright:
     browser = playwright.chromium.launch(headless=True, ignore_default_args=['--hide-scrollbars'])
     try:
+        check_chat(browser)
+        print('CHAT_BROWSER_E2E two accounts, mobile and desktop, rename persistence, emoji and plain text')
         print('BROWSER_E2E ' + json.dumps(run(browser), ensure_ascii=False))
     finally:
         browser.close()

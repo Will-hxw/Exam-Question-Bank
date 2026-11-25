@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import dynamic from 'next/dynamic'
 import Link, { useLinkStatus } from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { createContext, type ReactNode, useCallback, useContext, useEffect, useRef, useSyncExternalStore, useState } from 'react'
@@ -9,6 +10,10 @@ import { FeedbackPage, MailboxIcon } from './feedback-page'
 import { libraryPath, readLibraryView, useAccountStudyPreferences, useAccountStudyScroll } from './preferences'
 import { useAttemptQueue } from './use-attempt-queue'
 import { createPersonalStudyReads, useStudyData } from './use-study-data'
+
+const ChatPage = dynamic(() => import('../chat/chat-page'), {
+  loading: () => <p className="empty-state" role="status">正在打开聊天区…</p>,
+})
 
 const nav = [
   { href: '/', label: '刷题' },
@@ -216,7 +221,8 @@ export function StudyShell({ userId, children }: { userId: string; children: Rea
   const hash = useSyncExternalStore(subscribeHash, currentHash, emptyHash)
   const sponsorOpen = hash === '#sponsor'
   const feedbackOpen = hash === '#feedback'
-  const footerPageOpen = sponsorOpen || feedbackOpen
+  const chatOpen = hash === '#chat'
+  const footerPageOpen = sponsorOpen || feedbackOpen || chatOpen
   const session = useStudySession(userId)
   const { personalReads, preferences } = session
   const toggleTheme = useTheme(preferences.values.theme, preferences.save)
@@ -299,6 +305,7 @@ export function StudyShell({ userId, children }: { userId: string; children: Rea
               学习设置暂未同步。 <button className="btn btn-sm" type="button" onClick={() => void preferences.retry()}>重试同步设置</button>
             </p>}
             <div hidden={footerPageOpen}>{children}</div>
+            {chatOpen && <ChatPage pathname={pathname} userId={userId} onBack={closeFooterPage} />}
             {feedbackOpen && <FeedbackPage pathname={pathname} userId={userId} onBack={closeFooterPage} />}
             {sponsorOpen && (
               <section className="sponsor-page" aria-labelledby="sponsor-title">
@@ -316,10 +323,18 @@ export function StudyShell({ userId, children }: { userId: string; children: Rea
             )}
           </main>
           <footer className="site-footer">
-            <a className="footer-action" href="#feedback" aria-label="打开意见反馈页面">
-              <span className="footer-action-icon footer-feedback-icon"><MailboxIcon /></span>
-              意见反馈
-            </a>
+            <div className="footer-actions">
+              <a className="footer-action" href="#chat" aria-label="打开聊天区" onClick={navigateFromExam}>
+                <span className="footer-action-icon footer-chat-icon" aria-hidden="true">
+                  💬<span className="footer-chat-sparkle">✨</span>
+                </span>
+                聊天区
+              </a>
+              <a className="footer-action" href="#feedback" aria-label="打开意见反馈页面">
+                <span className="footer-action-icon footer-feedback-icon"><MailboxIcon /></span>
+                意见反馈
+              </a>
+            </div>
             <ul className="footer-notes">
               <li><span className="footer-latin" lang="en">Bug </span>或瑕疵有奖</li>
               <li>作者：计算机学院 <span className="footer-latin">20230537</span> 六只</li>
