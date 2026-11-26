@@ -9,6 +9,9 @@ def check_exam_receipts(browser, origin, host, cookie_name):
     }])
     page = context.new_page()
     headers = {'Cookie': f'{cookie_name}=receipt', 'Origin': origin, 'X-Study-Account': 'e2e-receipt'}
+    traffic = []
+    page.on('response', lambda r: traffic.append((r.request.method, r.status)) if '/api/exams/' in r.url else None)
+    page.on('requestfailed', lambda r: traffic.append((r.method, r.failure)) if '/api/exams/' in r.url else None)
 
     def drop_receipt(route):
         request = route.request
@@ -26,7 +29,22 @@ def check_exam_receipts(browser, origin, host, cookie_name):
         page.route(draft_path + '?ack=1', drop_receipt, times=1)
         with page.expect_event('requestfailed', lambda req: req.url == draft_path + '?ack=1'):
             page.locator('.exam-question-card .option').first.click()
-        expect(page.get_by_text('草稿已云端同步')).to_be_visible(timeout=12_000)
+        try:
+            expect(page.get_by_text('草稿已云端同步')).to_be_visible(timeout=12_000)
+        except AssertionError:
+            remote = page.request.get(draft_path, headers=headers).json()['exam']
+            raise AssertionError({
+                'traffic': traffic,
+                'status': page.locator('.study-message').all_text_contents(),
+                'online': page.evaluate('navigator.onLine'),
+                'remote': {key: remote[key] for key in ('status', 'revision', 'position')},
+                'stored': page.evaluate("""() => {
+                    const key = Object.keys(localStorage).find(key => key.startsWith('cqu-study-draft:e2e-receipt:'));
+                    const draft = JSON.parse(localStorage.getItem(key ?? '') || '{}');
+                    return Object.fromEntries(Object.entries(draft).map(([name, value]) =>
+                        [name, { revision: value.revision, position: value.position }]));
+                }"""),
+            }) from None
         expect(page.locator('.exam-nav-item.answered')).to_have_text('1')
         assert len(page.request.get(draft_path, headers=headers).json()['exam']['answers']) == 1
 

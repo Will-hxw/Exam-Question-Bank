@@ -774,15 +774,16 @@ def run(browser):
     page.get_by_role('button', name='历史记录').click()
     check_exam_history_header(page)
     expect(page.locator('.exam-history-score')).to_have_text([re.compile(r'^\d+/8$'), re.compile(r'^\d+/8$')])
-    page.locator('.exam-history-item').last.click()
-    expect(page.locator('.exam-result-question')).to_have_text(original)
-    with page.expect_response(lambda response: response.url == draft_url + '/replay' and
+    page.locator('.exam-history-item').first.click()
+    expect(page.locator('.exam-result-question')).to_have_text(replay_order)
+    replay_url = ORIGIN + '/api/exams/' + first_replay['id'] + '/replay'
+    with page.expect_response(lambda response: response.url == replay_url and
                               response.request.method == 'POST') as replay_from_history:
         check_exam_result_header(page).tap()
     assert replay_from_history.value.ok
     replayed = replay_from_history.value.json()['exam']
     history_replay_order = [item['stem'] for item in replayed['items']]
-    assert sorted(history_replay_order) == sorted(original) and history_replay_order != original
+    assert sorted(history_replay_order) == sorted(original) and history_replay_order != replay_order
     assert replayed['id'] != first_replay['id']
     assert replayed['answers'] == {} and replayed['marked'] == [] and replayed['position'] == 0
     expect(page.locator('.exam-nav-item.current')).to_have_text('1')
