@@ -6,7 +6,9 @@ import Link, { useLinkStatus } from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { createContext, type ReactNode, useCallback, useContext, useEffect, useRef, useSyncExternalStore, useState } from 'react'
 import { authWordmarkImage, sponsorQrImage } from '@/ui-images'
-import { useChatRoom } from '../chat/use-chat-room'
+import { warmSharedChat } from '../chat/shared-chat-cache'
+import { authorChatHash, unreadDescriptionId } from '../chat/types'
+import { useChatUnread } from '../chat/use-chat-unread'
 import { questionUrl, readPublic, requestJson, StudyRequestError, type QuestionState, type StudyStats, type Topic, writeJson } from './api'
 import { FeedbackPage, MailboxIcon } from './feedback-page'
 import { libraryPath, readLibraryView, useAccountStudyPreferences, useAccountStudyScroll } from './preferences'
@@ -14,14 +16,13 @@ import { useAttemptQueue } from './use-attempt-queue'
 import { createPersonalStudyReads, useStudyData } from './use-study-data'
 
 const loadChatPage = () => import('../chat/chat-page')
-const ChatPage = dynamic(loadChatPage, {
+const PublicChat = dynamic(() => loadChatPage().then(({ PublicChat }) => PublicChat), {
   loading: () => <p className="empty-state" role="status">正在打开聊天区…</p>,
 })
-
-function StudyChat({ pathname, userId }: { pathname: string; userId: string }) {
-  const room = useChatRoom(userId)
-  return <ChatPage pathname={pathname} room={room} onBack={closeFooterPage} />
-}
+const loadAuthorChat = () => import('../chat/author-chat-page')
+const AuthorChatPage = dynamic(loadAuthorChat, {
+  loading: () => <p className="empty-state" role="status">正在打开作者对话…</p>,
+})
 
 function warmImage(src: string) {
   if (!navigator.onLine) return
@@ -29,8 +30,10 @@ function warmImage(src: string) {
   image.src = src
 }
 
-function warmChat() {
-  if (navigator.onLine) void loadChatPage().catch(() => {})
+function warmChat(userId: string) {
+  if (!navigator.onLine) return
+  void loadChatPage().catch(() => {})
+  void warmSharedChat(userId).catch(() => {})
 }
 
 const nav = [
@@ -233,14 +236,18 @@ export function useQuestionFavorite(id: string, serverFavorite?: boolean) {
   }
 }
 
-export function StudyShell({ userId, children }: { userId: string; children: ReactNode }) {
+export function StudyShell({ userId, author, children }: { userId: string; author: boolean; children: ReactNode }) {
   const pathname = usePathname()
   const router = useRouter()
   const hash = useSyncExternalStore(subscribeHash, currentHash, emptyHash)
   const sponsorOpen = hash === '#sponsor'
   const feedbackOpen = hash === '#feedback'
   const chatOpen = hash === '#chat'
-  const footerPageOpen = sponsorOpen || feedbackOpen || chatOpen
+  const authorChatOpen = hash === authorChatHash || hash.startsWith(authorChatHash + '/')
+  const [authorChatRequested, setAuthorChatRequested] = useState(false)
+  const threadId = hash.startsWith(authorChatHash + '/') ? hash.slice(authorChatHash.length + 1) : undefined
+  const footerPageOpen = sponsorOpen || feedbackOpen || chatOpen || authorChatOpen
+  const { unread, sharedUnread, updateUnread, updateSharedUnread } = useChatUnread(userId, feedbackOpen || authorChatOpen)
   const session = useStudySession(userId)
   const { personalReads, preferences } = session
   const toggleTheme = useTheme(preferences.values.theme, preferences.save)
@@ -251,6 +258,9 @@ export function StudyShell({ userId, children }: { userId: string; children: Rea
   const [warmRouteCount, setWarmRouteCount] = useState(0)
   const practiceReady = Boolean(session.topics.data)
   const firstTopic = session.topics.data?.topics.find(({ count }) => count > 0)?.id
+  useEffect(() => {
+    if (chatOpen) warmChat(userId)
+  }, [chatOpen, userId])
   useEffect(() => {
     if (pathname === '/' && !preferences.ready && firstTopic && navigator.onLine) {
       void readPublic(questionUrl({ topic: firstTopic, offset: 0, limit: 15, practice: true })).catch(() => {})
@@ -326,8 +336,14 @@ export function StudyShell({ userId, children }: { userId: string; children: Rea
               学习设置暂未同步。 <button className="btn btn-sm" type="button" onClick={() => void preferences.retry()}>重试同步设置</button>
             </p>}
             <div hidden={footerPageOpen}>{children}</div>
-            {chatOpen && <StudyChat pathname={pathname} userId={userId} />}
-            {feedbackOpen && <FeedbackPage pathname={pathname} userId={userId} onBack={closeFooterPage} />}
+            {chatOpen && <PublicChat backHref={pathname} userId={userId} onBack={closeFooterPage} onRead={updateSharedUnread} />}
+            {(feedbackOpen || authorChatOpen) && <div hidden={!feedbackOpen}>
+              <FeedbackPage pathname={pathname} userId={userId} active={feedbackOpen} unread={unread}
+                onBack={closeFooterPage} warmAuthorChat={() => { void loadAuthorChat().catch(() => {}) }}
+                onOpenAuthorChat={() => setAuthorChatRequested(true)} />
+            </div>}
+            {authorChatOpen && <AuthorChatPage userId={userId} author={author} threadId={threadId}
+              allowCreate={authorChatRequested} onRead={updateUnread} />}
             {sponsorOpen && (
               <section className="sponsor-page" aria-labelledby="sponsor-title">
                 <a className="btn btn-sm footer-page-back sponsor-back" href={pathname} onClick={closeFooterPage}>← 返回练习</a>
@@ -343,10 +359,12 @@ export function StudyShell({ userId, children }: { userId: string; children: Rea
               </section>
             )}
           </main>
+          <span id={unreadDescriptionId} hidden>有未读消息</span>
           <footer className="site-footer">
             <div className="footer-actions">
               <a className="footer-action" href="#chat" aria-label="打开聊天区" onClick={navigateFromExam}
-                onPointerEnter={warmChat} onFocus={warmChat}>
+                aria-describedby={sharedUnread ? unreadDescriptionId : undefined}
+                onPointerEnter={() => warmChat(userId)} onPointerDown={() => warmChat(userId)} onFocus={() => warmChat(userId)}>
                 <span className="footer-action-icon footer-chat-icon" aria-hidden="true">
                   <svg width="23" height="23" viewBox="0 0 24 24" fill="none">
                     <path fill="currentColor" d="M7.5 5.5h6.6a5.8 5.8 0 0 1 0 11.6h-4.6l-4.7 3.1.7-3.6a5.8 5.8 0 0 1 2-11.1Z" />
@@ -354,11 +372,15 @@ export function StudyShell({ userId, children }: { userId: string; children: Rea
                     <path d="M19 1.7c.4 2.15 1.55 3.3 3.7 3.7-2.15.4-3.3 1.55-3.7 3.7-.4-2.15-1.55-3.3-3.7-3.7 2.15-.4 3.3-1.55 3.7-3.7Z"
                       fill="#f5ae2e" stroke="#fff" strokeWidth=".65" strokeLinejoin="round" />
                   </svg>
+                  {sharedUnread && <span className="message-unread-dot" aria-hidden="true" />}
                 </span>
                 聊天区
               </a>
-              <a className="footer-action" href="#feedback" aria-label="打开意见反馈页面">
-                <span className="footer-action-icon footer-feedback-icon"><MailboxIcon /></span>
+              <a className="footer-action" href="#feedback" aria-label="打开意见反馈页面"
+                aria-describedby={unread ? unreadDescriptionId : undefined} onClick={navigateFromExam}>
+                <span className="footer-action-icon footer-feedback-icon">
+                  <MailboxIcon />{unread && <span className="message-unread-dot" aria-hidden="true" />}
+                </span>
                 意见反馈
               </a>
               <a className="footer-action" href="#sponsor" aria-label="打开友情赞助页面"

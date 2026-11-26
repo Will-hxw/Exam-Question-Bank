@@ -2,25 +2,32 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { requestJson, StudyRequestError, writeJson } from '@/features/study/api'
-import type { ChatAuthor, ChatMessage, ChatPage, ChatProfile, ChatRoom, ChatUpdates } from './types'
-
-const chatPath = '/api/chat'
+import { currentSharedRoom, refreshSharedChatSnapshot, sharedChatPath as chatPath, warmSharedChat } from './shared-chat-cache'
+import { authorChatPath, type AuthorChatRoom, type AuthorChatPeer, type ChatAuthor, type ChatMessage, type ChatPage, type ChatProfile, type ChatUpdates } from './types'
 
 export function chatError(error: unknown, fallback: string) {
   return error instanceof StudyRequestError ? error.message : fallback
 }
 
-export function useChatRoom(userId: string) {
-  const [profile, setProfile] = useState<ChatProfile>()
+export function useChatRoom(userId: string, direct?: { threadId?: string; allowCreate?: boolean }) {
+  const privateRoom = direct !== undefined
+  const requestedThread = direct?.threadId
+  const allowCreate = direct?.allowCreate ?? false
+  const [cached] = useState(() => privateRoom ? undefined : currentSharedRoom(userId)?.data)
+  const [profile, setProfile] = useState<ChatProfile | undefined>(cached?.profile)
+  const [peer, setPeer] = useState<AuthorChatPeer>()
+  const [authorAvatar, setAuthorAvatar] = useState(cached?.authorAvatar)
   const [authors, setAuthors] = useState(() => new Map<string, ChatAuthor>())
-  const [messages, setMessages] = useState<ChatMessage[]>([])
-  const [hasOlder, setHasOlder] = useState(false)
+  const [messages, setMessages] = useState<ChatMessage[]>(cached?.messages ?? [])
+  const [hasOlder, setHasOlder] = useState(cached?.hasMore ?? false)
   const [loadingOlder, setLoadingOlder] = useState(false)
   const [readError, setReadError] = useState('')
   const [historyError, setHistoryError] = useState('')
   const [revision, setRevision] = useState(0)
-  const cursor = useRef<string | null>(null)
-  const nicknameCursor = useRef('0')
+  const cursor = useRef<string | null>(cached ? cached.messages.at(-1)?.id ?? '0' : null)
+  const nicknameCursor = useRef(cached?.nicknameCursor ?? '0')
+  const [thread, setThread] = useState(requestedThread)
+  const threadRef = useRef(requestedThread)
   const historyPending = useRef(false)
   const headers = { 'X-Study-Account': userId }
 
@@ -72,28 +79,46 @@ export function useChatRoom(userId: string) {
           signal: AbortSignal.any([stop.signal, AbortSignal.timeout(9000)]),
         }
         if (after === null) {
-          const initial = await requestJson<ChatRoom>(chatPath, options)
+          const initial = privateRoom
+            ? await (threadRef.current
+              ? requestJson<AuthorChatRoom>(`${authorChatPath}?thread=${threadRef.current}`, options)
+              : allowCreate
+                ? requestJson<AuthorChatRoom>(authorChatPath, { ...options, method: 'POST' })
+                : requestJson<AuthorChatRoom>(`${authorChatPath}?mine=1`, options))
+            : await warmSharedChat(userId)
           if (stop.signal.aborted) return
           setProfile(initial.profile)
+          if ('conversationId' in initial) {
+            const room = initial as AuthorChatRoom
+            threadRef.current = room.conversationId
+            setThread(room.conversationId)
+            setPeer(room.peer)
+          }
+          setAuthorAvatar(initial.authorAvatar)
           mergeAuthors([initial.profile])
           setHasOlder(initial.hasMore)
           merge(initial.messages)
           cursor.current = initial.messages.at(-1)?.id ?? '0'
           nicknameCursor.current = initial.nicknameCursor ?? '0'
         } else {
-          const page = await requestJson<ChatUpdates>(`${chatPath}?after=${after}&nicknamesAfter=${nicknameCursor.current}`, options)
+          const page = privateRoom
+            ? await requestJson<AuthorChatRoom>(`${authorChatPath}?thread=${threadRef.current}&after=${after}`, options)
+            : await requestJson<ChatUpdates>(`${chatPath}?after=${after}&nicknamesAfter=${nicknameCursor.current}`, options)
           if (stop.signal.aborted) return
-          const nicknames = page.nicknames ?? []
+          const nicknames = 'nicknames' in page ? page.nicknames : [page.profile, page.peer]
           merge(page.messages)
           mergeAuthors(nicknames)
           cursor.current = page.messages.at(-1)?.id ?? after
-          nicknameCursor.current = nicknames.at(-1)?.nicknameRevision ?? nicknameCursor.current
-          if (page.hasMore || page.hasMoreNicknames) delay = 0
+          if ('nicknames' in page) {
+            nicknameCursor.current = nicknames.at(-1)?.nicknameRevision ?? nicknameCursor.current
+            refreshSharedChatSnapshot(userId, page)
+          }
+          if (page.hasMore || ('hasMoreNicknames' in page && page.hasMoreNicknames)) delay = 0
         }
         setReadError('')
       } catch (error) {
         if (stop.signal.aborted) return
-        halted = error instanceof StudyRequestError && [401, 403, 409].includes(error.status)
+        halted = error instanceof StudyRequestError && [401, 403, 404, 409].includes(error.status)
         setReadError(chatError(error, '消息暂未同步，请检查网络。'))
         delay = 10000
       } finally {
@@ -121,7 +146,9 @@ export function useChatRoom(userId: string) {
       window.removeEventListener('online', refresh)
       window.removeEventListener('offline', offline)
     }
-  }, [userId, revision, merge, mergeAuthors])
+  }, [userId, revision, merge, mergeAuthors, privateRoom, allowCreate])
+
+  const path = thread ? `${authorChatPath}?thread=${thread}` : chatPath
 
   async function loadOlder(beforePrepend: () => void) {
     const before = messages[0]?.id
@@ -130,7 +157,7 @@ export function useChatRoom(userId: string) {
     setLoadingOlder(true)
     setHistoryError('')
     try {
-      const page = await requestJson<ChatPage>(`${chatPath}?before=${before}`, { headers })
+      const page = await requestJson<ChatPage>(`${path}${thread ? '&' : '?'}before=${before}`, { headers })
       if (page.messages.length) beforePrepend()
       merge(page.messages)
       setHasOlder(page.hasMore)
@@ -143,7 +170,7 @@ export function useChatRoom(userId: string) {
   }
 
   async function send(message: string, clientId: string) {
-    const sent = await writeJson<{ message: ChatMessage }>(chatPath, userId, 'POST', { message, clientId })
+    const sent = await writeJson<{ message: ChatMessage }>(path, userId, 'POST', { message, clientId }, true)
     merge([sent.message])
   }
 
@@ -152,7 +179,14 @@ export function useChatRoom(userId: string) {
     mergeAuthors([updated.profile])
   }
 
-  return { profile: profile && { ...profile, nickname: displayNickname(profile) }, messages, displayNickname,
+  const readPath = privateRoom ? path : `${chatPath}/read`
+  const markRead = useCallback((through: string) => writeJson<{ unread: boolean }>(
+    readPath, userId, 'PUT', { through }, true,
+  ), [readPath, userId])
+
+  return { profile: profile && { ...profile, nickname: displayNickname(profile) },
+    peer: peer && { ...peer, nickname: displayNickname(peer) }, authorAvatar, messages, displayNickname,
+    markRead: !privateRoom || thread ? markRead : undefined,
     hasOlder, loadingOlder, readError, historyError, loadOlder, send, rename,
     retry: () => setRevision((key) => key + 1) }
 }

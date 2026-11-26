@@ -252,7 +252,7 @@ html[data-theme="dark"] .study-theme .dark-toggle { color: #e5e7eb; }
   border-radius: 999px; font-size: 20px;
 }
 .study-shell .footer-chat-icon {
-  overflow: hidden; color: #3765c7;
+  position: relative; color: #3765c7;
   background: radial-gradient(ellipse at 34% 32%, #edf3ff, #fff 75%);
   border: 1px solid rgba(55, 101, 199, 0.10);
   box-shadow: 0 2px 8px rgba(55, 101, 199, 0.06);
@@ -264,10 +264,20 @@ html[data-theme="dark"] .study-theme .dark-toggle { color: #e5e7eb; }
   backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
 }
 .study-shell .footer-feedback-icon {
+  position: relative;
   background: linear-gradient(140deg, var(--accent-light), var(--surface));
   border: 1px solid color-mix(in srgb, var(--accent) 15%, transparent);
   box-shadow: 0 2px 8px color-mix(in srgb, var(--accent) 9%, transparent);
   color: var(--accent);
+}
+.study-shell .message-unread-dot {
+  position: absolute;
+  inset: -2px -2px auto auto;
+  box-sizing: content-box;
+  width: 7px; height: 7px;
+  border: 2px solid var(--surface);
+  border-radius: 50%;
+  background: #e5484d;
 }
 .study-shell .footer-credit { color: var(--text-muted); font: 16px/1.5 "Times New Roman", Georgia, serif; }
 .study-shell .sponsor-page { padding: 8px 0 12px; }
@@ -308,6 +318,17 @@ html[data-theme="dark"] .study-theme .dark-toggle { color: #e5e7eb; }
   border-bottom: 1px solid var(--border); color: var(--accent);
 }
 .study-shell .feedback-title-row { display: flex; align-items: center; gap: 10px; }
+.study-shell .feedback-chat-link {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 40px; height: 40px;
+  margin-left: auto;
+  border: 1px solid var(--border-light);
+  border-radius: 11px;
+  background: var(--surface);
+  color: var(--accent);
+}
 .study-shell .feedback-heading h1 {
   font-size: clamp(24px, 4vw, 28px); line-height: 1.35; font-weight: 600; color: var(--text);
 }
@@ -319,6 +340,7 @@ html[data-theme="dark"] .study-theme .dark-toggle { color: #e5e7eb; }
 .study-shell .feedback-rating legend, .study-shell .feedback-message label {
   display: block; color: var(--text); font-size: 15px; font-weight: 550;
 }
+.study-shell .feedback-message label span { margin-left: 8px; color: var(--text-muted); font-size: 12px; font-weight: 400; }
 .study-shell .feedback-scale {
   position: relative; isolation: isolate; display: grid; grid-template-columns: repeat(5, 1fr);
   margin-top: 12px;
@@ -473,6 +495,7 @@ html[data-theme="dark"] .study-theme .jump-input { background: var(--surface); c
   .study-shell .exam-history-item:hover { border-color: var(--accent); box-shadow: var(--shadow-sm); }
   .study-shell .footer-action:hover { transform: translateY(-0.5px); }
   .study-shell .footer-action:hover .footer-feedback-icon { background: var(--accent-light); }
+  .study-shell .feedback-chat-link:hover { background: var(--accent-light); }
   .study-shell .feedback-back:hover { color: var(--accent); text-decoration: underline; }
   .study-shell .btn.primary.feedback-submit:not(:disabled):hover {
     background: color-mix(in srgb, var(--accent) 88%, var(--text));

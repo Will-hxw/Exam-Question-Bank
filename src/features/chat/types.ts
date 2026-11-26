@@ -1,10 +1,18 @@
-export const nicknameLimit = 24
+export const nicknameLimit = 48
 export const messageLimit = 500
+export const chatPageSize = 40
+export const authorNickname = 'Hua Xiaowei'
+export const publicAuthorNickname = `${authorNickname}（作者）（可@AI自动回复）`
+export const authorMention = `@${authorNickname}`
+export const authorChatHash = '#author-chat'
+export const authorChatPath = '/api/author-chat'
+export const unreadDescriptionId = 'author-chat-unread-description'
 
 export type ChatAuthor = {
   authorKey: string
   nickname: string
   nicknameRevision: string
+  author?: boolean
 }
 export type ChatProfile = ChatAuthor & { avatar: number; avatarImageId?: string }
 export type ChatMessage = ChatProfile & {
@@ -12,7 +20,20 @@ export type ChatMessage = ChatProfile & {
   body: string
   sentAt: string
   mine: boolean
+  aiReplyTo?: string
 }
 export type ChatPage = { messages: ChatMessage[]; hasMore: boolean }
-export type ChatRoom = ChatPage & { profile: ChatProfile; nicknameCursor: string }
+export type ChatRoom = ChatPage & { profile: ChatProfile; nicknameCursor: string; authorAvatar?: string }
 export type ChatUpdates = ChatPage & { nicknames: ChatAuthor[]; hasMoreNicknames: boolean }
+
+export type AuthorChatPeer = ChatProfile & { email?: string }
+export type AuthorChatRoom = ChatRoom & { conversationId: string; peer: AuthorChatPeer }
+export type AuthorConversation = {
+  id: string
+  peer: AuthorChatPeer
+  preview: string
+  sentAt: string
+  unread: boolean
+  mine: boolean
+}
+export type AuthorInbox = { conversations: AuthorConversation[]; nextCursor: string | null }

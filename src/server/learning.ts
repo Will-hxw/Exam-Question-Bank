@@ -1,18 +1,10 @@
 import 'server-only'
-import { getAuth, getVerifiedUser } from '@/features/auth/server'
+import { requireStudyAccount } from '@/features/auth/server'
 import { query } from './db'
-import { HttpError, sameOrigin, uuid } from './http'
+import { HttpError, uuid } from './http'
 
 export async function account(request: Request, writing = false) {
-  if (writing) sameOrigin(request)
-  if (!getAuth()) throw new HttpError(503, '账号服务暂未配置。')
-  const user = await getVerifiedUser()
-  if (!user) throw new HttpError(401, '请登录并验证邮箱。')
-  const expectedAccount = request.headers.get('x-study-account')
-  if ((writing || expectedAccount !== null) && expectedAccount !== user.id) {
-    throw new HttpError(409, '当前账号已切换，请刷新后再试。')
-  }
-  return user.id
+  return (await requireStudyAccount(request, writing)).id
 }
 
 export async function studyStats(user: string) {

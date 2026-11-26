@@ -30,6 +30,14 @@ Neon Auth 生成并校验验证码，签名的 `send.otp` 事件由本站 `/api/
 
 部署后可手动运行该工作流并查看回执。GitHub 的定时检查可能延迟，公开仓库连续 60 天无活动时，GitHub 会停用定时工作流。 [GitHub 定时事件](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule)
 
+## 作者对话与自动回复
+
+发布包含作者对话和聊天区未读红点的版本前，先应用 `018_author_chat.sql`、`019_public_chat_mentions.sql` 和 `020_chat_reads.sql`。唯一的管理员是已验证邮箱 `xiaoweihuacqu@gmail.com` 对应的账号。反馈沿用 QQ SMTP，并使用提交者已验证的邮箱作为回信地址。
+
+在 Makers 的服务端加密变量中配置 `DEEPSEEK_API_KEY`，网关和模型默认值见变量示例。群聊与私信都只在 @ 作者时触发自动回复。供模型参考的消息上限为 12 条，群聊按当前发言者取历史，私信按当前会话取历史，文本内的邮箱会替换为占位内容。回复在聊天写入完成后生成。
+
+在预览验证两个账号的首条欢迎语、搜索和未读清除，分别实发群聊和私信的 @，确认 Makers 能在响应结束后写回回复。用授权测试邮箱提交一条仅评价的反馈，并核对收件内容及回信地址。
+
 ## 内容同步
 
 

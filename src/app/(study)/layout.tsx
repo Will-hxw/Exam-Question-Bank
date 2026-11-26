@@ -1,13 +1,14 @@
 import { redirect } from 'next/navigation'
 import { connection } from 'next/server'
-import { getAuth, getVerifiedUser } from '@/features/auth/server'
+import { getAuth, getVerifiedUser, isSiteAuthor } from '@/features/auth/server'
 import { StudyShell } from '@/features/study/study-shell'
 import '@/features/study/study.css'
 
 async function loadUser() {
   try {
-    if (!getAuth()) return { available: false } as const
-    return { available: true, user: await getVerifiedUser() } as const
+    const auth = getAuth()
+    if (!auth) return { available: false } as const
+    return { available: true, user: await getVerifiedUser(auth) } as const
   } catch {
     return { available: false } as const
   }
@@ -26,5 +27,5 @@ export default async function StudyLayout({ children }: Readonly<{ children: Rea
   }
   if (!auth.user) redirect('/login')
 
-  return <StudyShell userId={auth.user.id} key={auth.user.id}>{children}</StudyShell>
+  return <StudyShell userId={auth.user.id} author={isSiteAuthor(auth.user)} key={auth.user.id}>{children}</StudyShell>
 }

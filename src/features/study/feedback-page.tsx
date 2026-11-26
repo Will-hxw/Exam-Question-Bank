@@ -1,6 +1,7 @@
 'use client'
 
 import { type FormEvent, type MouseEventHandler, useEffect, useRef, useState } from 'react'
+import { authorChatHash, unreadDescriptionId } from '@/features/chat/types'
 import { requestJson, StudyRequestError } from './api'
 import { feedbackMaxLength, feedbackRatings } from './feedback'
 
@@ -12,10 +13,14 @@ export function MailboxIcon({ size = 20 }: { size?: number }) {
   </svg>
 }
 
-export function FeedbackPage({ pathname, userId, onBack }: {
+export function FeedbackPage({ pathname, userId, active, unread, onBack, warmAuthorChat, onOpenAuthorChat }: {
   pathname: string
   userId: string
+  active: boolean
+  unread: boolean
   onBack: MouseEventHandler<HTMLAnchorElement>
+  warmAuthorChat: () => void
+  onOpenAuthorChat: () => void
 }) {
   const page = useRef<HTMLElement>(null)
   const heading = useRef<HTMLHeadingElement>(null)
@@ -24,17 +29,18 @@ export function FeedbackPage({ pathname, userId, onBack }: {
   const [error, setError] = useState('')
 
   useEffect(() => {
+    if (!active) return
     heading.current?.focus({ preventScroll: true })
     page.current?.scrollIntoView({ block: 'start' })
-  }, [])
+  }, [active])
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     if (status !== 'idle') return
     const rating = new FormData(event.currentTarget).get('rating')
     const content = message.trim()
-    if (!rating || !content) {
-      setError('请选择评价，并填写你的意见或建议。')
+    if (!rating) {
+      setError('请选择一档评价。')
       return
     }
 
@@ -61,6 +67,17 @@ export function FeedbackPage({ pathname, userId, onBack }: {
         <div className="feedback-title-row">
           <MailboxIcon size={24} />
           <h1 ref={heading} id="feedback-title" tabIndex={-1}>意见反馈</h1>
+          <a className="feedback-chat-link" href={authorChatHash} aria-label="作者对话" title="作者对话"
+            aria-describedby={unread ? unreadDescriptionId : undefined}
+            onPointerEnter={warmAuthorChat} onPointerDown={warmAuthorChat} onFocus={warmAuthorChat}
+            onClick={onOpenAuthorChat}>
+            <svg aria-hidden="true" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              strokeWidth="1.65" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M20.5 11.5a7.5 7.5 0 0 1-7.5 7.5H9l-4 2 .7-3.3a7.5 7.5 0 0 1 4.8-13.7H13a7.5 7.5 0 0 1 7.5 7.5Z" />
+              <path d="M8.5 10h7m-7 3.3h4.7" />
+            </svg>
+            {unread && <span className="message-unread-dot" aria-hidden="true" />}
+          </a>
         </div>
         <p className="feedback-contact">
           紧急情况请联系 <span lang="en">QQ</span> 邮箱：<a href="mailto:1176843521@qq.com">1176843521@qq.com</a>
@@ -80,9 +97,9 @@ export function FeedbackPage({ pathname, userId, onBack }: {
             </div>
           </fieldset>
           <div className="feedback-message">
-            <label htmlFor="feedback-message">你希望我们改进什么？</label>
+            <label htmlFor="feedback-message">你希望我们改进什么？<span>选填</span></label>
             <textarea id="feedback-message" name="message" rows={4} value={message} maxLength={feedbackMaxLength}
-              onChange={(event) => setMessage(event.target.value)} required readOnly={status === 'sending'}
+              onChange={(event) => setMessage(event.target.value)} readOnly={status === 'sending'}
               placeholder="遇到的问题、想增加的功能，都可以写在这里。" />
           </div>
           {error && <p className="study-message error" role="alert">{error}</p>}

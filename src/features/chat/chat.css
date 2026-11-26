@@ -49,6 +49,35 @@
 .study-shell .chat-profile span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .study-shell .chat-profile svg { flex: none; }
 .study-shell .chat-avatar { flex: none; border-radius: 50%; object-fit: cover; background: var(--accent-light); }
+.study-shell .chat-avatar-button {
+  flex: none;
+  display: grid;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+.study-shell .chat-avatar-button img { pointer-events: none; }
+.study-shell .chat-mention { font-size: 21px; font-family: var(--ui-font); }
+.study-shell .chat-counterpart {
+  display: flex;
+  align-items: center;
+  justify-self: end;
+  gap: 7px;
+  min-width: 0;
+  max-width: 100%;
+}
+.study-shell .chat-counterpart-details { min-width: 0; }
+.study-shell .chat-counterpart-details :is(span, small) {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.study-shell .chat-counterpart-details span { font-size: 12px; font-weight: 600; }
+.study-shell .chat-counterpart-details small { color: var(--text-secondary); font-size: 10px; }
 .study-shell .chat-name-form {
   display: flex;
   flex-wrap: wrap;
@@ -180,8 +209,82 @@
 .study-shell .chat-length { font: 13px "Times New Roman", serif; color: var(--text-muted); }
 .study-shell .chat-error { color: var(--danger); font-size: 13px; overflow-wrap: anywhere; }
 .study-shell .chat-send-error { line-height: 1.4; }
+.study-shell .author-inbox-controls { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 14px; }
+.study-shell .author-inbox-filter { display: flex; flex: none; align-items: center; gap: 4px; }
+.study-shell .author-inbox-filter button {
+  min-height: 34px;
+  padding: 4px 11px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: 13px;
+}
+.study-shell .author-inbox-filter [aria-pressed="true"] {
+  background: var(--accent-light);
+  color: var(--accent);
+  font-weight: 650;
+}
+.study-shell .author-inbox-search {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  width: min(100%, 205px);
+  padding-inline: 7px;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text-secondary);
+}
+.study-shell .author-inbox-search:focus-within { border-color: var(--accent); }
+.study-shell .author-inbox-search svg { flex: none; }
+.study-shell .author-inbox-search input {
+  min-width: 0;
+  width: 100%;
+  height: 36px;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  outline: none;
+  font: inherit;
+  font-size: 16px;
+}
+.study-shell .author-inbox-log { flex: 1; overflow: auto; overscroll-behavior: contain; }
+.study-shell .author-inbox-list { list-style: none; padding: 0 9px 9px; }
+.study-shell .author-inbox-list li + li { border-top: 1px solid var(--border-light); }
+.study-shell .author-inbox-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  min-height: 76px;
+  padding: 8px;
+  border-radius: 10px;
+  color: var(--text);
+  text-decoration: none;
+}
+.study-shell .author-inbox-avatar { position: relative; align-self: center; display: grid; }
+.study-shell .author-inbox-details { min-width: 0; }
+.study-shell .author-inbox-details :is(strong, small, p) {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.study-shell .author-inbox-details strong { font-size: 14px; font-weight: 650; }
+.study-shell .author-inbox-details small { font-size: 11px; color: var(--text-secondary); line-height: 1.35; }
+.study-shell .author-inbox-details p { margin-top: 2px; font-size: 12px; color: var(--text-muted); }
+.study-shell .author-inbox-row time {
+  align-self: start;
+  color: var(--text-muted);
+  font: 12px/1.6 "Times New Roman", var(--ui-font);
+  white-space: nowrap;
+  text-align: right;
+}
 @media (hover: hover) {
-  .study-shell :is(.chat-icon-button, .chat-profile, .chat-text-button, .chat-emoji-panel button):not(:disabled):hover {
+  .study-shell :is(.chat-icon-button, button.chat-profile, .chat-text-button, .chat-emoji-panel button, .author-inbox-row, .author-inbox-filter button):not(:disabled):hover {
     background: var(--accent-light);
     color: var(--accent);
   }
@@ -191,6 +294,8 @@
   .study-shell .chat-header { padding-inline: 7px; }
   .study-shell .chat-profile { gap: 4px; }
   .study-shell .chat-profile .chat-avatar { width: 26px; height: 26px; }
+  .study-shell .chat-counterpart { gap: 4px; }
+  .study-shell .chat-counterpart img { width: 26px; height: 26px; }
   .study-shell .chat-message-list { padding-inline: 10px; }
   .study-shell .chat-message-content { max-width: 82%; }
   .study-shell .chat-composer { padding-inline: 9px; }
