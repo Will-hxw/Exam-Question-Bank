@@ -1,7 +1,7 @@
 "use client"
 
-import { useEffect, useRef, useState, type FormEvent } from "react"
-import { authClient } from "./client"
+import { useEffect, useRef, useState, useSyncExternalStore, useTransition, type FormEvent } from "react"
+import { useRouter } from "next/navigation"
 import { authConstraintError, authErrorMessage, authFieldError, authIssue, type AuthField, type AuthStep } from "./client-errors"
 import { AuthScreen } from "./auth-screen"
 import styles from "./auth-panel.module.css"
@@ -36,6 +36,18 @@ const views: Record<AuthStep, { title?: string; description?: string; action: st
 }
 
 const requireVerification = "请先完成邮箱验证。需要时可重新发送验证码。"
+const loadAuthClient = () => import("./client").then(({ authClient }) => authClient)
+const subscribeReady = () => () => {}
+const browserReady = () => true
+const serverReady = () => false
+
+function warmPractice() {
+  void import("@/features/study/api").then(async ({ readPublic, questionUrl }) => {
+    const { topics } = await readPublic<{ topics: { id: string; count: number }[] }>("/api/public/topics")
+    const first = topics.find(({ count }) => count > 0)
+    if (first) await readPublic(questionUrl({ topic: first.id, offset: 0, limit: 15, practice: true }))
+  }).catch(() => {})
+}
 
 async function sessionIsVerified() {
   const response = await fetch("/api/me/session", { cache: "no-store" })
@@ -45,6 +57,9 @@ async function sessionIsVerified() {
 }
 
 export function AuthPanel() {
+  const router = useRouter()
+  const ready = useSyncExternalStore(subscribeReady, browserReady, serverReady)
+  const [redirecting, navigate] = useTransition()
   const [step, setStep] = useState<AuthStep>("login")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -95,7 +110,7 @@ export function AuthPanel() {
   }
 
   function begin(kind: "submit" | "resend") {
-    if (inFlight.current) return false
+    if (inFlight.current || redirecting) return false
     inFlight.current = true
     setPending(kind)
     setFormError(null)
@@ -124,16 +139,21 @@ export function AuthPanel() {
     event.preventDefault()
     if (!begin("submit")) return
 
-    const address = email.trim().toLowerCase()
+    const fields = new FormData(event.currentTarget)
+    const address = String(fields.get("email") ?? email).trim().toLowerCase()
+    const submittedPassword = String(fields.get("password") ?? password)
+    const submittedOtp = String(fields.get("otp") ?? otp)
     setEmail(address)
 
     try {
+      if (step === "login" || step === "verify") warmPractice()
+      const authClient = await loadAuthClient()
       switch (step) {
         case "login": {
-          const { error } = await authClient.signIn.email({ email: address, password })
+          const { data, error } = await authClient.signIn.email({ email: address, password: submittedPassword })
           if (error) throw error
-          if (await sessionIsVerified()) {
-            window.location.replace("/")
+          if ((data?.token && data.user?.emailVerified) || await sessionIsVerified()) {
+            navigate(() => router.replace("/"))
           } else {
             changeStep("verify", requireVerification)
           }
@@ -142,7 +162,7 @@ export function AuthPanel() {
         case "register": {
           const { error } = await authClient.signUp.email({
             email: address,
-            password,
+            password: submittedPassword,
             name: "同学",
           })
           if (error) throw error
@@ -150,10 +170,10 @@ export function AuthPanel() {
           break
         }
         case "verify": {
-          const { error } = await authClient.emailOtp.verifyEmail({ email: address, otp })
+          const { data, error } = await authClient.emailOtp.verifyEmail({ email: address, otp: submittedOtp })
           if (error) throw error
-          if (await sessionIsVerified()) {
-            window.location.replace("/")
+          if ((data?.token && data.user?.emailVerified) || await sessionIsVerified()) {
+            navigate(() => router.replace("/"))
           } else {
             changeStep("login", "邮箱已验证，请登录。")
           }
@@ -169,8 +189,8 @@ export function AuthPanel() {
         case "reset": {
           const { error } = await authClient.emailOtp.resetPassword({
             email: address,
-            otp,
-            password,
+            otp: submittedOtp,
+            password: submittedPassword,
           })
           if (error) throw error
           changeStep("login", "密码已更新，请用新密码登录。")
@@ -196,6 +216,7 @@ export function AuthPanel() {
     if (remaining > 0 || !begin("resend")) return
 
     try {
+      const authClient = await loadAuthClient()
       const { error } = step === "verify"
         ? await authClient.emailOtp.sendVerificationOtp({ email, type: "email-verification" })
         : await authClient.forgetPassword.emailOtp({ email })
@@ -224,7 +245,8 @@ export function AuthPanel() {
         {hasOtp && <p className={styles.address}>{email}</p>}
       </header>
 
-      <form onSubmit={onSubmit} onInvalid={onInvalid} className={styles.form}>
+      <form method="post" onSubmit={onSubmit} onInvalid={onInvalid}
+        onFocus={() => { void loadAuthClient().catch(() => {}) }} className={styles.form}>
         {!hasOtp && (
           <div className={styles.field}>
             <div className={styles.control}>
@@ -322,8 +344,8 @@ export function AuthPanel() {
         {formError && !formError.field && <p className={styles.error} role="alert">{formError.text}</p>}
         {notice && <p className={styles.notice} role="status">{notice}</p>}
 
-        <button type="submit" className={styles.submit} disabled={!!pending}>
-          {pending === "submit" ? "正在处理…" : view.action}
+        <button type="submit" className={styles.submit} disabled={!ready || !!pending || redirecting}>
+          {pending === "submit" || redirecting ? "正在处理…" : view.action}
         </button>
       </form>
 
