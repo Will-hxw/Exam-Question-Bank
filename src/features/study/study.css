@@ -140,6 +140,22 @@ html[data-theme="dark"] .study-theme .dark-toggle { color: #e5e7eb; }
 .study-shell .btn-start-exam { font-size: 15px; padding: 12px 40px; display: inline-flex; align-items: center; gap: 6px; }
 .study-shell .btn-arrow { transition: transform 0.2s ease; }
 .study-shell .exam-header { position: sticky; top: 56px; z-index: 5; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 16px; background: rgba(255,255,255,0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-radius: var(--radius-sm); border: 1px solid var(--border-light); margin-bottom: 16px; box-shadow: var(--shadow-md); }
+.study-shell .exam-submit-dialog {
+  position: fixed;
+  inset: 0;
+  width: min(360px, calc(100% - 32px));
+  margin: auto;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow-md);
+}
+.study-shell .exam-submit-dialog::backdrop { background: rgb(10 18 30 / 0.48); }
+.study-shell .exam-submit-dialog h2 { font-size: 18px; font-weight: 650; }
+.study-shell .exam-submit-dialog p { margin-top: 8px; font-size: 14px; }
+.study-shell .exam-submit-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 18px; }
 .study-shell .exam-header-left { flex: 1; min-width: 0; }
 .study-shell .exam-progress-row { display: flex; align-items: baseline; gap: 6px; margin-bottom: 5px; }
 .study-shell .exam-progress-label { font-size: 11px; color: var(--text-muted); }

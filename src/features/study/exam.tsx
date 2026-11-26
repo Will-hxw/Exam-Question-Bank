@@ -57,6 +57,7 @@ function ExamTaking({ exam, onResult, onReload }: { exam: ExamData; onResult: (e
   const { draft, update, flush, submit, syncStatus, abandonLocalDraft } = useExamDraft(userId, exam)
   const [submitting, setSubmitting] = useState(false)
   const submittingNow = useRef(false)
+  const confirmation = useRef<HTMLDialogElement>(null)
   const [error, setError] = useState('')
   const autoAdvance = useRef<ReturnType<typeof setTimeout> | null>(null)
   const count = exam.items.length
@@ -85,11 +86,15 @@ function ExamTaking({ exam, onResult, onReload }: { exam: ExamData; onResult: (e
     if (item.type === 'single' && position + 1 < count) autoAdvance.current = setTimeout(() => move(position + 1), 180)
   }
 
-  async function handIn() {
-    if (blocked || submittingNow.current) return
+  function confirmHandIn() {
+    if (blocked || confirmation.current?.open) return
     if (autoAdvance.current) clearTimeout(autoAdvance.current)
-    const missing = count - done
-    if (!window.confirm(missing ? `还有 ${missing} 道题未作答，确定交卷吗？` : '确定交卷吗？')) return
+    setError('')
+    confirmation.current?.showModal()
+  }
+
+  async function handIn() {
+    if (blocked || submittingNow.current || !confirmation.current?.open) return
     setError('')
     submittingNow.current = true
     setSubmitting(true)
@@ -109,8 +114,22 @@ function ExamTaking({ exam, onResult, onReload }: { exam: ExamData; onResult: (e
         </div>
       </div>
       <ExamTimer exam={exam} />
-      <button type="button" className="btn btn-submit-exam" disabled={blocked} aria-busy={submitting || undefined} onClick={() => void handIn()}>{submitting ? '交卷中…' : '交卷'}</button>
+      <button type="button" className="btn btn-submit-exam" disabled={blocked} onClick={confirmHandIn}>交卷</button>
     </div>
+    <dialog ref={confirmation} className="exam-submit-dialog" aria-labelledby="exam-submit-title" aria-describedby="exam-submit-description"
+      onCancel={(event) => { if (submittingNow.current) event.preventDefault() }}>
+      <h2 id="exam-submit-title">确认交卷</h2>
+      <p id="exam-submit-description">
+        {count > done ? `还有 ${count - done} 道题未作答。交卷后可查看成绩和解析。` : '交卷后可查看成绩和解析。'}
+      </p>
+      {error && <p className="study-message error" role="alert">{error}</p>}
+      <div className="exam-submit-actions">
+        <button className="btn" type="button" disabled={submitting} onClick={() => confirmation.current?.close()}>继续答题</button>
+        <button className="btn primary" type="button" disabled={blocked} aria-busy={submitting || undefined} onClick={() => void handIn()}>
+          {submitting ? '交卷中…' : '确认交卷'}
+        </button>
+      </div>
+    </dialog>
     <p className="study-message" role="status">{markers[syncStatus]}{' '}
       {syncStatus === 'error' && <button type="button" className="btn btn-sm" onClick={() => void flush().catch(() => {})}>重试同步</button>}
       {syncStatus === 'conflict' && <button type="button" className="btn btn-sm" onClick={() => {
@@ -118,7 +137,6 @@ function ExamTaking({ exam, onResult, onReload }: { exam: ExamData; onResult: (e
         onReload(abandonLocalDraft)
       }}>改用云端草稿</button>}
     </p>
-    {error && <p className="study-message error" role="alert">{error}</p>}
     <article className="question-card exam-question-card" aria-label="当前考题">
       <div className="q-header"><span className={`q-type ${item.type}`}>{item.type === 'single' ? '单选题' : '多选题'}</span><span className="progress-info">第 {position + 1}/{count} 题</span></div>
       <p className="q-text">{item.stem}</p>
@@ -284,7 +302,7 @@ function ExamContent() {
     <ExamTaking key={`${exam.id}:${exam.revision}`} exam={exam} onReload={(afterLoad) => void load('open', exam.id, afterLoad)}
     onResult={(result) => {
       setLoaded(result)
-      saveView({ wrongOnly: false })
+      saveView({ screen: 'exam', id: result.id, wrongOnly: false })
       refreshMe()
       window.scrollTo(0, 0)
     }} />
