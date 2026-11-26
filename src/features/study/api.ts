@@ -22,6 +22,7 @@ export type Attempt = { eventId: string; questionId: string; optionIds: string[]
 
 const shardName = /^\/bank\/pages\/([0-9a-f]{64})\.json$/
 const manifestUrl = '/bank/manifest.json'
+const bankReleaseUrl = '/api/public/bank-release'
 let needsPreviewCookie = false
 
 function previewGate(response: Response) {
@@ -175,10 +176,25 @@ async function getManifest(): Promise<BankManifest | null> {
   if (!navigator.onLine) return manifest
   if (Date.now() < manifestExpires) return manifestAvailable ? manifest : null
   if (manifestRequest) return manifestRequest
-  manifestRequest = requestJson<unknown>(manifestUrl, {
+  const options: RequestInit = {
     cache: 'no-cache', redirect: 'error', signal: AbortSignal.timeout(2500),
-  }).then((response) => {
+  }
+  manifestRequest = Promise.all([
+    requestJson<unknown>(manifestUrl, options),
+    requestJson<unknown>(bankReleaseUrl, options),
+  ]).then(([response, active]) => {
     if (!validManifest(response)) throw new Error('Invalid bank manifest')
+    if (!isRecord(active) || active.release !== response.release) {
+      const hadManifest = manifestAvailable
+      manifest = null
+      manifestAvailable = false
+      manifestExpires = Date.now() + 5_000
+      if (hadManifest) {
+        resetPublicPages()
+        window.dispatchEvent(new Event(bankReleaseEvent))
+      }
+      return null
+    }
     const changed = Boolean(manifest && manifest.release !== response.release)
     manifest = response
     manifestAvailable = true

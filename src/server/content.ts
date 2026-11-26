@@ -87,13 +87,23 @@ const evidenceProjection = `
   ) AS distinct_sources), '[]'::jsonb)
 `
 
-export const topics = unstable_cache(async () => ({
-  topics: await query<{ id: string; name: string; count: number }>(`
-    SELECT t.id, t.name, t.scope_note AS "scopeNote", count(q.id)::int AS count
-    FROM topics t LEFT JOIN questions q ON q.topic_id = t.id AND q.status = 'published'
-    WHERE t.active GROUP BY t.id ORDER BY t.sort_order
-  `),
-}), ['topic-list'], cacheOptions)
+export const bankRelease = unstable_cache(async () => ({
+  release: (await query<{ digest: string }>('SELECT digest FROM content_release'))[0]?.digest ?? null,
+}), ['bank-release'], { ...cacheOptions, revalidate: 10 })
+
+function topicsAtRelease(release: string | null) {
+  return unstable_cache(async () => ({
+    topics: await query<{ id: string; name: string; count: number }>(`
+      SELECT t.id, t.name, t.scope_note AS "scopeNote", count(q.id)::int AS count
+      FROM topics t LEFT JOIN questions q ON q.topic_id = t.id AND q.status = 'published'
+      WHERE t.active GROUP BY t.id ORDER BY t.sort_order
+    `),
+  }), ['topic-list', release ?? 'unregistered'], cacheOptions)()
+}
+
+export async function topics() {
+  return topicsAtRelease((await bankRelease()).release)
+}
 
 export async function practiceUndonePositions(userId: string, params: URLSearchParams) {
   const topic = params.get('topic')
@@ -175,21 +185,20 @@ export async function questionPage(filters: Filters, userId: string | null = nul
   return { questions, nextCursor, total }
 }
 
-const firstPage = unstable_cache(
-  (topic: string | null, practice: boolean, limit: number) => questionPage({
-    topic, type: null, q: null, cursor: null, offset: 0, limit, practice, random: null, status: null,
-  }),
-  ['first-question-page'],
-  cacheOptions,
-)
-
 export async function publicQuestions(filters: Filters) {
   const { topic, type, q, cursor, offset, limit, practice, random } = filters
   if (!type && !q && !cursor && !offset && !random && (limit === 15 || (limit === 20 && !practice))) {
-    if (topic && !(await topics()).topics.some(candidate => candidate.id === topic)) {
+    const { release } = await bankRelease()
+    if (topic && !(await topicsAtRelease(release)).topics.some(candidate => candidate.id === topic)) {
       throw new HttpError(404, '专题不存在。')
     }
-    return firstPage(topic, practice, limit)
+    return unstable_cache(
+      (topic: string | null, practice: boolean, limit: number) => questionPage({
+        topic, type: null, q: null, cursor: null, offset: 0, limit, practice, random: null, status: null,
+      }),
+      ['first-question-page', release ?? 'unregistered'],
+      cacheOptions,
+    )(topic, practice, limit)
   }
   return questionPage(filters)
 }
