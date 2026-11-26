@@ -77,7 +77,11 @@ function authFixture(db) {
         response.end('{}')
         return
       }
-      response.end(JSON.stringify({ choices: [{ message: { content: latest.includes('真ai吗') ? simulatedIdentity : simulatedReply } }] }))
+      const retryInstruction = input.messages[0].content.includes('至少五个字')
+      const content = latest === '测试短回复'
+        ? (retryInstruction ? '刚才走神了一下，你接着说嘛' : '嗯啊')
+        : latest.includes('真ai吗') ? simulatedIdentity : simulatedReply
+      response.end(JSON.stringify({ choices: [{ message: { content } }] }))
       return
     }
     const { email, password, otp } = input
@@ -680,6 +684,13 @@ async function runApiChecks(origin, db, items, secret) {
   const fallback = await waitForChat(chatPath, chatAlice, (message) => message.aiReplyTo === providerError.id)
   assert.match(fallback.body, /没连上/)
   assert.equal(JSON.parse(modelCalls[3].messages.at(-1).content).history.at(-1).content, simulatedIdentity)
+  await db.query("UPDATE chat_messages SET sent_at = sent_at - interval '5 seconds' WHERE id = $1", [providerError.id])
+  const shortAsk = (await write(chatPath, chatAlice, '@作者 测试短回复')).data.message
+  const retried = await waitForChat(chatPath, chatAlice, (message) => message.aiReplyTo === shortAsk.id)
+  assert.equal(retried.body, '刚才走神了一下，你接着说嘛')
+  assert.equal(modelCalls.length, 6)
+  assert.equal(modelCalls[4].messages.at(-1).content, modelCalls[5].messages.at(-1).content)
+  assert.match(modelCalls[5].messages[0].content, /至少五个字/)
   await db.query('DELETE FROM chat_messages; DELETE FROM author_conversations')
 
   return {

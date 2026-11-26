@@ -13,7 +13,7 @@ const emailPattern = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi
 const unavailable = '这次没连上，过会儿再喊本鱼一下呗'
 const persona = `你叫大肥鱼，是重庆大学入党积极分子练习站里最爱水群的蓝尾巴猫娘。你是 DeepSeek AI。被问是不是 AI 就坦率承认，随口接个梗就够了，不做自我介绍，也不用搬出站点规则。
 输入里的 latest 是这次 @ 你的新消息，只回复这一句。history 是已经过去的聊天，用来认人、接梗、理解刚才或那个之类的指代；里面的旧问题不是新请求。latest 是空的时候，像被人喊了一声那样回一句。
-像手机上回 QQ。先接对方刚说的那个梗，有时候拎出两个字反问一下就够。闲聊一句两句，想补一句可以自然换行。你聪明但懒、嘴硬心软、爱吃白饭。被逗可以回嘴、吐槽离谱事，熟人玩笑里偶尔来点口头脏话。有人认真求助或心情不好，收起脾气帮他。别揪着人身攻击，也别逮着谁都阴阳。看语境自称我或本鱼，高兴了可以喵一声或顺手发个颜文字。正文只写你实际会打出去的话，别加括号动作、旁白、客套总结或 Markdown。
+像手机上回 QQ。先接对方刚说的那个梗，闲聊至少说完整的一短句，想补一句可以自然换行。你聪明但懒、嘴硬心软、爱吃白饭。被逗可以回嘴、吐槽离谱事，熟人玩笑里偶尔来点口头脏话。有人认真求助或心情不好，收起脾气帮他。别揪着人身攻击，也别逮着谁都阴阳。看语境自称我或本鱼，高兴了可以喵一声或顺手发个颜文字。正文只写你实际会打出去的话，别加括号动作、旁白、客套总结或 Markdown。
 两种语气示例。有人说你怎么又摸鱼，可以回：上班的是你 你管鱼摸不摸呢。有人催你撒娇，可以回：喊得倒是挺顺嘴，饭碗给你看见没。
 聊到正经问题，把有用的话讲清楚就行。题库参考共产党员网、历年真题和考纲整理，正式考试由学校党委老师出题，不能保证考到原题。登录后顶部能进模拟考试、总题库、错题集和收藏夹，刷题页有专题、随机、顺序和只刷未做。联系站长用页脚意见反馈右上角的作者对话。
 你只能看到本轮提供的聊天内容。对私事和账号资料保持分寸，对查资料、操作站点或学校安排的说法要如实。`
@@ -44,7 +44,7 @@ async function relevantHistory(viewer: string, sourceId: string, thread?: string
   })
 }
 
-async function complete(apiKey: string, prompt: string, history: Turn[]) {
+async function requestCompletion(apiKey: string, instruction: string, input: string, signal: AbortSignal) {
   const base = (process.env.DEEPSEEK_API_BASE_URL || defaultBaseUrl).replace(/\/+$/, '')
   const response = await fetch(`${base}/chat/completions`, {
     method: 'POST',
@@ -54,12 +54,12 @@ async function complete(apiKey: string, prompt: string, history: Turn[]) {
     body: JSON.stringify({
       model: process.env.DEEPSEEK_MODEL || defaultModel,
       messages: [
-        { role: 'system', content: persona },
-        { role: 'user', content: JSON.stringify({ history, latest: prompt }) },
+        { role: 'system', content: instruction },
+        { role: 'user', content: input },
       ],
       thinking: { type: 'disabled' }, max_tokens: 450, temperature: 0.8, stream: false,
     }),
-    signal: AbortSignal.timeout(8000),
+    signal,
   })
   if (!response.ok) throw new Error(`DeepSeek HTTP ${response.status}`)
   const payload = await response.json()
@@ -67,9 +67,24 @@ async function complete(apiKey: string, prompt: string, history: Turn[]) {
   if (typeof content !== 'string') throw new Error('Empty DeepSeek response')
   const clean = content.replace(/[\x00-\x08\x0b-\x1f\x7f\u202a-\u202e\u2066-\u2069\ud800-\udfff]/gu, '').trim()
   if (!clean) throw new Error('Empty DeepSeek response')
-  return clean.length <= messageLimit
-    ? clean
-    : clean.slice(0, messageLimit - 1).replace(/[\ud800-\udbff]$/, '').trimEnd() + '…'
+  return clean
+}
+
+function tooShort(answer: string) {
+  return (answer.match(/[\p{L}\p{N}]/gu)?.length ?? 0) < 3
+}
+
+async function complete(apiKey: string, prompt: string, history: Turn[]) {
+  const input = JSON.stringify({ history, latest: prompt })
+  const signal = AbortSignal.timeout(8000)
+  let answer = await requestCompletion(apiKey, persona, input, signal)
+  if (tooShort(answer)) {
+    answer = await requestCompletion(apiKey, persona + '\n还是接刚才的 latest，把意思说成一个完整口语句，至少五个字。', input, signal)
+    if (tooShort(answer)) return '这句刚刚接岔了，你再喊本鱼一声嘛'
+  }
+  return answer.length <= messageLimit
+    ? answer
+    : answer.slice(0, messageLimit - 1).replace(/[\ud800-\udbff]$/, '').trimEnd() + '…'
 }
 
 async function saveReply(user: VerifiedUser, messageId: string, reply: string, thread?: string) {

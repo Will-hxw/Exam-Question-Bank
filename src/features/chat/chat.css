@@ -155,18 +155,19 @@
   background: color-mix(in srgb, var(--surface) 83%, var(--accent));
 }
 .study-shell .chat-bubble.chat-bubble-ai {
-  background: color-mix(in srgb, var(--surface) 56%, var(--accent-light));
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 18%, transparent), var(--shadow-sm);
+  background: color-mix(in srgb, #f3c34e 14%, var(--surface));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, #d59b24 44%, var(--surface)), var(--shadow-sm);
 }
 .study-shell .chat-ai-label {
   display: block;
   margin-bottom: 3px;
-  color: var(--accent);
+  color: #875509;
   font-size: 11px;
   font-weight: 650;
   line-height: 1.4;
   white-space: nowrap;
 }
+html[data-theme="dark"] .study-shell .chat-ai-label { color: #f5ce70; }
 .study-shell .chat-loading {
   display: grid;
   place-items: center;

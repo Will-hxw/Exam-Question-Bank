@@ -147,6 +147,7 @@ def check_chat(browser, mobile_context, origin, host, cookie_name):
         draft.fill('@作者 真ai吗🤔')
         sender.get_by_role('button', name='发送', exact=True).tap()
         expect(sender.locator('.chat-bubble-ai .chat-ai-label')).to_have_text('AI 自动回复', timeout=12000)
+        expect(sender.locator('.chat-bubble-ai .chat-ai-label')).to_have_css('color', 'rgb(135, 85, 9)')
         expect(sender.locator('.chat-bubble-ai')).to_contain_text('真啊，不然我咋从网线里游过来的喵')
         if screenshots:
             sender.locator('.chat-bubble-ai').screenshot(path=target / 'chat-ai-bubble.png')
