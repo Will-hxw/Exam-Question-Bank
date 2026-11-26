@@ -432,7 +432,7 @@ test('retirement clears live state, preserves grades, and excludes the retired i
   assert.deepEqual(snapshot.items.map(({ id }) => id), [kept.id])
 })
 
-test('follow-up ages verified registrations from Auth and preserves imported receipts', async () => {
+test('follow-up starts at 20 actual answers and skips completed deliveries', async () => {
   const client = await pool.connect()
   try {
     await client.query('BEGIN')
@@ -440,39 +440,41 @@ test('follow-up ages verified registrations from Auth and preserves imported rec
       TRUNCATE neon_auth."user", signup_followup_deliveries;
       ALTER TABLE neon_auth."user" ADD COLUMN "updatedAt" timestamptz NOT NULL DEFAULT now();
       INSERT INTO neon_auth."user" VALUES
-        ('clock-old', 'old@example.test', true, now() - interval '2 days', now() - interval '25 hours'),
-        ('clock-fresh', 'fresh@example.test', true, now() - interval '2 days', now() - interval '23 hours'),
-        ('clock-sent', 'sent@example.test', true, now() - interval '3 days', now() - interval '47 hours'),
-        ('clock-unverified', 'unverified@example.test', false, now() - interval '3 days', now() - interval '3 days');
-      INSERT INTO signup_followup_deliveries (user_id, state, attempts, verified_at) VALUES
-        ('clock-old', 'waiting', 0, now()),
-        ('clock-sent', 'sent', 1, now() - interval '47 hours');
-      SELECT record_signup_followup_verifications('fresh@example.test');
+        ('threshold-old', 'below@example.test', true, now() - interval '3 days', now() - interval '3 days'),
+        ('threshold-exact', 'exact@example.test', true, now() - interval '1 hour', now() - interval '1 hour'),
+        ('threshold-over', 'over@example.test', true, now(), now()),
+        ('threshold-sent', 'sent@example.test', true, now() - interval '3 days', now() - interval '3 days'),
+        ('threshold-unverified', 'unverified@example.test', false, now() - interval '3 days', now() - interval '3 days');
+      INSERT INTO signup_followup_deliveries (user_id, state, attempts, verified_at, retry_at) VALUES
+        ('threshold-old', 'retryable', 1, now() - interval '3 days', now() - interval '1 hour'),
+        ('threshold-sent', 'sent', 1, now() - interval '3 days', NULL);
+      INSERT INTO profiles (user_id) SELECT id FROM neon_auth."user";
     `)
-    const { rows: [captured] } = await client.query(`
-      SELECT d.verified_at = u."updatedAt" AS exact
-      FROM signup_followup_deliveries d JOIN neon_auth."user" u ON u.id = d.user_id
-      WHERE d.user_id = 'clock-fresh'
-    `)
-    assert.equal(captured.exact, true)
+    const [question] = questions
     await client.query(`
-      UPDATE neon_auth."user" SET "updatedAt" = now() WHERE id = 'clock-fresh';
-      SELECT record_signup_followup_verifications('fresh@example.test');
-    `)
-    const { rows: [unchanged] } = await client.query(`
-      SELECT verified_at = now() - interval '23 hours' AS exact
-      FROM signup_followup_deliveries WHERE user_id = 'clock-fresh'
-    `)
-    assert.equal(unchanged.exact, true)
+      INSERT INTO attempts (user_id, event_id, question_id, selection, correct, mode)
+        SELECT u.id, gen_random_uuid(), $1, ARRAY[$2::uuid], true, 'practice'
+        FROM neon_auth."user" u CROSS JOIN LATERAL generate_series(1, CASE u.id
+          WHEN 'threshold-old' THEN 19
+          WHEN 'threshold-exact' THEN 20
+          WHEN 'threshold-over' THEN 21
+          ELSE 22 END)
+    `, [question.id, question.correct])
+    await client.query(`
+      INSERT INTO attempts (user_id, event_id, question_id, selection, correct, mode)
+      VALUES ('threshold-old', gen_random_uuid(), $1, '{}', false, 'exam')
+    `, [question.id])
 
     const claim = async () => (await client.query('SELECT * FROM claim_signup_followup()')).rows
-    assert.deepEqual(await claim(), [{ user_id: 'clock-old', email: 'old@example.test', attempts: 1 }])
+    assert.deepEqual(await claim(), [{ user_id: 'threshold-exact', email: 'exact@example.test', attempts: 1 }])
+    assert.deepEqual(await claim(), [{ user_id: 'threshold-over', email: 'over@example.test', attempts: 1 }])
     assert.deepEqual(await claim(), [])
     const { rows } = await client.query('SELECT user_id, state, attempts FROM signup_followup_deliveries ORDER BY user_id')
     assert.deepEqual(rows, [
-      { user_id: 'clock-fresh', state: 'waiting', attempts: 0 },
-      { user_id: 'clock-old', state: 'sending', attempts: 1 },
-      { user_id: 'clock-sent', state: 'sent', attempts: 1 },
+      { user_id: 'threshold-exact', state: 'sending', attempts: 1 },
+      { user_id: 'threshold-old', state: 'retryable', attempts: 1 },
+      { user_id: 'threshold-over', state: 'sending', attempts: 1 },
+      { user_id: 'threshold-sent', state: 'sent', attempts: 1 },
     ])
   } finally {
     await client.query('ROLLBACK')

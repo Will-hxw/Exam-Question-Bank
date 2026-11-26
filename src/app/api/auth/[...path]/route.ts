@@ -9,7 +9,6 @@ import {
   privateCacheControl,
   privateJson,
 } from "@/features/auth/server"
-import { signupFollowupSite } from "@/features/auth/signup-followup-template"
 import { query } from "@/server/db"
 
 type Context = { params: Promise<{ path: string[] }> }
@@ -91,12 +90,6 @@ export async function POST(request: Request, context: Context) {
     })
 
     const response = await auth.handler().POST(forwarded, context)
-    if (path === "email-otp/verify-email" && email && response.ok
-      && process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") === signupFollowupSite) {
-      await query("SELECT record_signup_followup_verifications($1)", [email]).catch(() => {
-        console.error({ operation: "record_signup_followup_verification" })
-      })
-    }
     if (path === "sign-in/email" && email && response.status === 401) {
       const error = await response.clone().json().catch(() => null)
       if (error?.code === "INVALID_EMAIL_OR_PASSWORD" && await emailIsRegistered(email)) {
