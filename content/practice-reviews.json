@@ -6094,5 +6094,5677 @@
     "decision": "keep",
     "reason": "第九条包括新党员入党宣誓；一般主题党日、党员大会以及党群服务中心均属于第十条可使用范围。 发布选项顺序对应原盲卡 ABDC，独审选项文本 C 映射至发布位置 D。",
     "proposal": ""
+  },
+  {
+    "questionId": "acf1eff2-ca11-4f27-a1fd-b6d32abb6ea4",
+    "digest": "db73d847cbf70d4615bbb893162a298b1b18ee64e2fae77f86ae26174072a781",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "补出原题未在选项中考到的淮海战役，四项均为同一历史时期的战役。",
+    "proposal": ""
+  },
+  {
+    "questionId": "b90cb552-a707-43ed-9561-1d4a5c59a1dc",
+    "digest": "8a9561eb68e460046b24380a85d628f93ce171dbe1f27cee9bad000477a96b7e",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "四个选项均为同一届次，考察具体历史决策。",
+    "proposal": ""
+  },
+  {
+    "questionId": "10d64e2f-de4b-4b46-a793-80a947e82928",
+    "digest": "17e44122f3150f8f8beb7c2bf5b811d52fdc3b7e74dfb07f01c2d10b1e12a987",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "换掉不同历史时代的运动，让四项都是同类群众运动。",
+    "proposal": ""
+  },
+  {
+    "questionId": "c0115532-ac01-4ebe-9cd6-419cebeb5f6c",
+    "digest": "b51af22a89d6c2c97cdaf7d69f8af5b02f2564ec16a65f652b6f592460b021e3",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "把答项改成相邻党代会，避免在个人和制度之间凭常识猜。",
+    "proposal": ""
+  },
+  {
+    "questionId": "2e5ac210-dd34-4743-a39e-2d7108807f06",
+    "digest": "c0dfd75b003deb6f0ebd6f4bb7de91ea943ea01c31297fb731c1005704ba025e",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "去掉显著跨时期的改革开放、社会主义改造。",
+    "proposal": ""
+  },
+  {
+    "questionId": "89768baf-8123-45ba-add2-39275d8232ca",
+    "digest": "b5b956816599cafe21d7d63d05e9e9301cc3e6ba794163c77d43cd757221427b",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "四个选项都用党的常用术语，区分历史文件。",
+    "proposal": ""
+  },
+  {
+    "questionId": "76b43a7f-fcf4-4421-8da4-1a02d634bc8f",
+    "digest": "908ade10bde971f48795799f7d46500856b4dddfa1dfac18a3861c0c74e9dd9c",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "消除“绝对平均”“一切差异”这些极端提示。",
+    "proposal": ""
+  },
+  {
+    "questionId": "b59c4353-0d4b-4fdb-a4ea-41bab13688be",
+    "digest": "6c83a6b5cf0c07bbf9d4a06c7517ebd0d70d31bd14cbaab08da319f7f8b16a22",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "以相邻年月代替长短悬殊的文件名。",
+    "proposal": ""
+  },
+  {
+    "questionId": "41e5cf6b-1a10-48a0-adce-fbc257ce7bc2",
+    "digest": "fe6a0d0d4be536c29bd80b0f09e31af531587e53eab2fc6fc6ca4eb0b8ad8b70",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "去掉冗长的二次概括，仅保留作者、时间、载体。",
+    "proposal": ""
+  },
+  {
+    "questionId": "9f06fa8b-ccef-47f3-a2f4-fb9205da7d15",
+    "digest": "77d57b68fa0d9bf21f6d63464b1f2b5a228875f8b1209faf4065642501208548",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "用相近党代会替换明显跨历史时期且过长的三项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "cfdb514a-c0ca-4c62-935b-9a6693389435",
+    "digest": "8c927804b64b6d5eb1ce0eeba7d3f8fc875dc4266d4910a06687ee2894b69c77",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "合并两道同一机型时间线的题，两个知识点均保留。",
+    "proposal": ""
+  },
+  {
+    "questionId": "28dcffd4-b6e2-4b9f-ab0e-5438093003a4",
+    "digest": "6d4b51b62a3899cf75f36fc2a617309849945e9df17e9b60fd018d526b84317b",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "四项都可接科研投入，避免唯一长选项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "0bd173a9-7b1c-4652-aba1-56ba91e17d79",
+    "digest": "8fd0f6c9f70c1da0e4a2ef368ba221cb1516a5cf13a9169f898bdb2f2c5b9a24",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "移走“舒适度”这一可直接提示隔音的措辞。",
+    "proposal": ""
+  },
+  {
+    "questionId": "31203ab8-8810-4cca-9d3d-1063fe861933",
+    "digest": "0fc1cd97e33c753135ddc9645f1431aced5e6b35734e02bb2bd38f4b292aa0e9",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "四项都是类似党建节目可出现的环节。",
+    "proposal": ""
+  },
+  {
+    "questionId": "eb3bb623-cbf4-453e-b69d-7cae439d050c",
+    "digest": "392ea7186b40bd082317cf043781fc3707fb0d31c20016fdb7df19011d2a11b9",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "原题零售、物流、赛事等串题干的干扰项改为可参与国产化的主体。",
+    "proposal": ""
+  },
+  {
+    "questionId": "b4cfe994-0aa4-411b-8b79-f3be05c73629",
+    "digest": "38760f2eb4a6228fc0c735eba1d4d1b986fa980b89d3deaa09066fe4961f4668",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "错项采用同类农业技术活动。",
+    "proposal": ""
+  },
+  {
+    "questionId": "eafa93ef-6f47-43af-8a6d-c5d583052b85",
+    "digest": "00e90f68631a9922bfc16934fb8d61dd50bf88241376ab392ead8a19b01c517b",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "把“指定海外”“统一封闭”换成常见带教方式。",
+    "proposal": ""
+  },
+  {
+    "questionId": "dfb75469-0e6c-40e0-985e-7e8d7f70370b",
+    "digest": "849f642dd39b3625ff26fab35a97f11c453e570d75ba75626a5b2f77f8b628eb",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "去掉空运海运等不适合班列情境的选项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "04a7b2ea-0826-4ecf-912f-5e4b55f19862",
+    "digest": "8aab57657eec76f1f2e4d13ccf2208c71de44f99e0729f3fe4fedc7fcbd2bc92",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "旧卷把结束简化成一场会师，依据党史大事记明确两个地点及时点。",
+    "proposal": ""
+  },
+  {
+    "questionId": "642e4f20-fcd8-4f69-9750-a2d7572ce153",
+    "digest": "12e96572c7328949a7327d7ac832b194ffad6317b62cfa9f5dde903642c8df3c",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "保留同类地理名，按明确历史地点设问。",
+    "proposal": ""
+  },
+  {
+    "questionId": "ef0ac306-f588-4bc4-a61c-cbe77074ea75",
+    "digest": "6cc15964b82e419da37d05362167d84e93b3be5e3bb22c66a8e5767ed3200a96",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从长征材料识别独立历史事件，用党史正文落实人名。",
+    "proposal": ""
+  },
+  {
+    "questionId": "fd5d646a-17fc-4855-bede-8d750591bc08",
+    "digest": "0b163554da487a132aabeb9aececd5132e6205d68e67f9ef5c30c77f16a490f6",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "用年代相近且与传播有关的人物构造干扰。",
+    "proposal": ""
+  },
+  {
+    "questionId": "4db383b2-6c0c-49e0-bbd2-f4413570255d",
+    "digest": "6bd46efc5b9cc80a46c08042dbc98119e5f218cab5d884fe0b963fa70811ca1a",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "补建党早期序列中的四大关键事实。",
+    "proposal": ""
+  },
+  {
+    "questionId": "0b9dc592-5256-4420-831d-b551443ca3e6",
+    "digest": "14bba354b4237b12445c3e11a223079d311d4b45ee3008517910c85126311fb3",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "历年卷有两个问法，合成一道短配对题，覆盖原知识点中的两个事实。",
+    "proposal": ""
+  },
+  {
+    "questionId": "1ba6896b-b8f8-45f7-8be2-909a1c54bf71",
+    "digest": "27bda19aa38ea8476f25f6ce42a9b48ee5f629a27c2add3cced2c3b864ab0603",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "来自校方卷第三个历史决议的考法，与第一个配对加强相近届次识别。",
+    "proposal": ""
+  },
+  {
+    "questionId": "18e60a84-42e4-43bd-bb2a-a3fac5ae8580",
+    "digest": "7bf66bea88bc08b89fc10bdf656023c56cedfe4ed487cb7189442d6578293972",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "把套卷四个城市长组合缩为同类城市单选。",
+    "proposal": ""
+  },
+  {
+    "questionId": "861166e0-e48e-49fe-bfe3-d132cd0f47e1",
+    "digest": "a307c51123a052ff6649d3bf20a98fdcc6455935d035650452e0acc1284c7c3d",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "把材料填空改成编号近扰项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "b8405c5d-2018-4813-9aaa-c8c6ceb5c13d",
+    "digest": "5a180dd68038ee6e5ece72bf8f4ef01f765cb9508516d00dfdf630fd83e9c210",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "补改革开放基本历史进程。",
+    "proposal": ""
+  },
+  {
+    "questionId": "c9612eca-e41a-4679-bb90-4bce30ded27f",
+    "digest": "7a1d10f587455ed86128752be85f86b740da4f7fcbe2a91a9988949a406e5337",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从购买材料核对新事实，用正式大会报道定答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "327fd4f9-e09a-492b-8513-9208a2cb20b8",
+    "digest": "7c10fb302ae22e12c81c0bdd26ed56ebc6c5474698c122a3ad7444cb3dd5e439",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "与1936年史实题不同，考当年纪念大会时点。",
+    "proposal": ""
+  },
+  {
+    "questionId": "31f69ced-7af7-4809-b866-d2ab9d4d8941",
+    "digest": "a29b49b6d7212f76ea7ba1d4558025551105d1879d255dea1e70a35d333ce88e",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "集中记忆节目整体结构。",
+    "proposal": ""
+  },
+  {
+    "questionId": "6cb89549-5ce7-4b77-847c-4280dbc2ae25",
+    "digest": "30f34c77c158c0fb5977da0df20fedd7d50a1355bca6188ed2c15fbb6304a559",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "为 P16 模糊的“出发地主要是”限定集结动作。",
+    "proposal": ""
+  },
+  {
+    "questionId": "d8744094-ac02-4eea-8b98-d2a999e04691",
+    "digest": "13bb17376c277dd7db9a1538da26c2e7a8a37b175bcd6e6d1e982fc7fc39c633",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "采用 P16 的客观知识，缩短为固定术语。",
+    "proposal": ""
+  },
+  {
+    "questionId": "1f7df827-4739-4023-a5fd-b55b190aee60",
+    "digest": "f124bd22ca0c830291c628293fa12230d321b9e667e1ff8db10cc532779297f9",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "保留阶段不同的独立史实，消除吴起镇、会宁串题。",
+    "proposal": ""
+  },
+  {
+    "questionId": "df3b2f9a-9bd8-45c6-ac07-d9424566589d",
+    "digest": "6395828306ea5c74301269973007c6f77e1f4684a530ed59dc6e1f2a9d947c53",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "归并集团番号和到达顺序的多种问法。",
+    "proposal": ""
+  },
+  {
+    "questionId": "1a27743a-3f02-41ea-81c2-056e7e9a50a3",
+    "digest": "2c58b36ba913f3dd9e79270e3cfdfce181d333e7be98e95e92058bbb2a71f2fa",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "用长征途中的相邻会议替换会期明显不符的选项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "d8608828-cda7-4aa7-a4d1-14971785d1b8",
+    "digest": "79dfebd8392488a437fd79509b7a03caa6a9f65ab3a0c6e5b0d0351becfd3a44",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "替换跨年份会议，要求知道具体会议议题。",
+    "proposal": ""
+  },
+  {
+    "questionId": "9abb1c88-c374-4970-a7a4-60f099838bab",
+    "digest": "47bc4ebddbd8f00b29bb75f986f01c1072daabe9d3403eb9d7a01dad987ef437",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "改用同型动车组备选，避免只按人物职业猜。",
+    "proposal": ""
+  },
+  {
+    "questionId": "f2a7bd9d-c97e-490c-819e-b400251c4f9a",
+    "digest": "69ed7b926b4346882db314a984141c76f906accfcdfc213427ca2cd90a2255ac",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "选项使用同类数学猜想，改掉按人物职业排除的线索。",
+    "proposal": ""
+  },
+  {
+    "questionId": "fc2f1de6-feb2-47f9-a849-d47a68a88969",
+    "digest": "bdf22b66ce3b6f880f5b02ad23db97ee356970e2302deee83ff099b7f8f6303e",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "以同类司法服务名称作为选项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "860409d3-a848-4f5c-b042-123330a8c022",
+    "digest": "7fdc30b8a8b3f4690a9a1a93f3c9cee11f604c10634e023adfdef0b29c855dea",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "四项均是能参与居民动员的基层角色。",
+    "proposal": ""
+  },
+  {
+    "questionId": "ef2cb3d3-c7c1-4ca2-8cbf-619b088204cb",
+    "digest": "12a693947e1e6616e2878e7847922bcba4d389c5f42540af65cd9998f159880d",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "用P21错误判断和P22填空交集确认为一项高频基础事实。",
+    "proposal": ""
+  },
+  {
+    "questionId": "f1ce1362-df72-41df-a7ef-ef31a4276b39",
+    "digest": "bb4d1a0328ae54d6b772309e3c0197d82b2d29314d89d32ca36ad86740e47e0e",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从多份练习的同组四点中选用一个代表题。",
+    "proposal": ""
+  },
+  {
+    "questionId": "3e894f26-9b46-473f-85b6-1fecfead6665",
+    "digest": "1c5fb692d87df9a0c19f16be880a3d40950a390008580f76f91b7f115156e3f4",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "把模拟卷的核心识记转为同类术语选项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "1b5ea619-6093-4cd6-a62e-f50ef7e3e5d1",
+    "digest": "609f4a223d96db7da550982815d58ab6600d66c4cc3667f9c8ad34ac99086735",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "将多份模拟卷中相同的填空保留为一道。",
+    "proposal": ""
+  },
+  {
+    "questionId": "f3c0df92-b638-4db0-966d-65afffdc7a46",
+    "digest": "7d07872539ab407ea87781599ac102efc458910efce0cec15c427e79ab22a629",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "保留填空资料中有明确主体的时限，避免把地方和基层混用。",
+    "proposal": ""
+  },
+  {
+    "questionId": "7b1586cc-387f-4ffd-9823-0578fb6f46fd",
+    "digest": "6d4261516d18611220989921739e556a1440b6c550ba101d89070fa167cee358",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从填空同时辨别党章中的路线种类。",
+    "proposal": ""
+  },
+  {
+    "questionId": "a6337339-f7c1-4823-bfac-bf23719483e4",
+    "digest": "951f0b7c1b8e27eeeb344d6212045db7badeffd9bc72a98d8fc2c5c128ef0b5c",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从模拟判断题抽取有在行规划依据的数字。",
+    "proposal": ""
+  },
+  {
+    "questionId": "625bed2a-67f0-4330-a61b-0f8cbcc770b5",
+    "digest": "0796250926c5c688512db9580074afc91aa22ab902606c9697a1176e17a614a1",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "把原材料历史人物题改成同阶段、同级别的候选人。",
+    "proposal": ""
+  },
+  {
+    "questionId": "2902090c-43c2-468a-8f9d-3c368b1e1ea2",
+    "digest": "2823055e2ccd007c6812e78b50ddeb9ad03d9a815dfb68b6f8dc8853148a5d18",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "材料题把首次会师与后续会议地点混用的风险，通过明确年份和部队处理。",
+    "proposal": ""
+  },
+  {
+    "questionId": "c8cbaca0-6d0b-4a51-a677-b06f01c98c71",
+    "digest": "8775aba58495eec5458a3567d7a5fff0cbaf48b213ef9a10b5195a599c183f5b",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "将材料中全选式长征精神题改为同组近词辨识。",
+    "proposal": ""
+  },
+  {
+    "questionId": "698d9c30-2d4a-4dcc-97b5-d31f7c264816",
+    "digest": "e7a749d590fdadb021f0c94c3cb509b959f8e042c8e0818a49678cba59269177",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "将资料填空归还到现行党章的明确词位。",
+    "proposal": ""
+  },
+  {
+    "questionId": "c563d368-bea3-4e91-945e-9b7c24ae8922",
+    "digest": "d3f322d54b8e1f602d148153a816605af4addd7637b7baf05c3ca39a64bd05ab",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "将2026资料的判断改为同一套概念内部辨别。",
+    "proposal": ""
+  },
+  {
+    "questionId": "362b3dcf-daca-44cd-bd3e-344a5b8fe9d8",
+    "digest": "af8ec9e0da4c3aa7a16fdfc153f46de4ebe816acdcd3c469e236a20a172d0cae",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "锁定定期联系与未归时限两个不同事实。",
+    "proposal": ""
+  },
+  {
+    "questionId": "4c9f33ab-5e28-433e-9895-10fe6daa31b1",
+    "digest": "a58721a8b54775ec4ab01060b9b53e30c297f2a5326689233427f7bf8f247830",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "保留制度差异，用相邻组织和会议名替换两个可以靠“仅由”排除的选项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "301a1409-d5ef-489e-90db-e516d094c523",
+    "digest": "ae5ed756ce86cbc1a8ab042a0b657dc11899c33625211a69d0ba28be8e7c486b",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "将对象和单位放入题干，去掉同一指标两个值互斥造成的判答提示。",
+    "proposal": ""
+  },
+  {
+    "questionId": "c2026176-59a8-442e-85c9-fadacc25160d",
+    "digest": "b7ab59937990ea57c684a979a3b4be621aeeadc4dd31237a7731b959fdbbd04d",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "同位版本有缺漏，用现行党章原词改成选择题。",
+    "proposal": ""
+  },
+  {
+    "questionId": "9d73717e-3923-4835-aa0e-498029e6af27",
+    "digest": "8f4cd13683e1a84a6cfd65783f6b4fa891127eda99bf7c18a9ac91472adbaf76",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "纠正资料中三年与五年混淆。",
+    "proposal": ""
+  },
+  {
+    "questionId": "322ff07b-a2f6-441e-aced-a680ddd6a5ba",
+    "digest": "c68f4fac151446ef53e7af4d8562d2f0cec0f35e5516f691a9c7eaafd0638d0f",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "材料把长征意义写成较长选择，改成固定比喻的补空。",
+    "proposal": ""
+  },
+  {
+    "questionId": "7e042c8e-cc6a-47c8-ab9f-97bd4a2575aa",
+    "digest": "9ec7b6ff7a95bd6f52ce4fef3f3d2fe5f29e39f1d7e18e9de047dd6f81420880",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "按原文留空。四项同为“某种智慧”，移除靠“只”等断词排除的整句。",
+    "proposal": ""
+  },
+  {
+    "questionId": "654bfb48-d59b-4dca-acce-4b9d3578d4cf",
+    "digest": "2ac9f03217fd86d27185347b36962da2edd118de0293e42437ff58c92bf4ab4e",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "四项同为“二字动词＋为民”，排除句式线索。",
+    "proposal": ""
+  },
+  {
+    "questionId": "544da07e-adaf-4c07-98d9-7d294a925c67",
+    "digest": "30bfe6154e663bcebf0e9126c5dbcfcbd5138bb7adfbb0d2caf2e6b69169cd5d",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "把四条长命题换成组织体系的一处短留空。",
+    "proposal": ""
+  },
+  {
+    "questionId": "db4f38c3-8705-46d1-8bbf-cffd6e8030d2",
+    "digest": "7f245f5a4799f630c9f881265bd16df2e056ddc4e9fed38d7a0cd82773b1cb18",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "移除篇幅和署名笔画等缺乏竞争力的选项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "c4d4f926-1dc3-4993-b717-cf1fcae34353",
+    "digest": "ef9f6b92986a01bb38200306c9118e24c35d33d4d4490be121536d27d49c0b8e",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "把题干自带答案的“党员是什么”换为记忆准确称谓。 复审按现行原文统一了选项口径。",
+    "proposal": ""
+  },
+  {
+    "questionId": "8855b6c9-9a36-4dc7-8d54-ad20f2f0bf90",
+    "digest": "acc66ef360cf1ec144ea197c07ebc2581fb7426acf6d1d0a9378cfff3d85265f",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "去掉三项的“仅”字及其附带的答案暗示。",
+    "proposal": ""
+  },
+  {
+    "questionId": "f0019401-0ca2-41af-8e67-c73dca0515b3",
+    "digest": "4555b39b9dd13405055cc04c28909ed8986c8668b7a88784ca003aeee133cd63",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "原题三项荒谬关系容易仅靠常识排除，改成同类词记忆。",
+    "proposal": ""
+  },
+  {
+    "questionId": "1c74e0ab-ba6c-43f0-9f78-a0c9650d076b",
+    "digest": "34f63d1a45e4b1528812a36e755ab1e895734f0082156c5abcd4e60f0ffa2693",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "保留相邻真实定位，压缩每个选项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "8627e4a8-b62e-45b2-8f22-f96272a56288",
+    "digest": "e5137292f6183c04a9f16263cc6b9b92dad2adfdb3308512cab2aea74ffcc936",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "由长命题辨析改成同一段四种定位。",
+    "proposal": ""
+  },
+  {
+    "questionId": "bebfa5bd-d793-4f79-b513-f3e292aaa6b2",
+    "digest": "a03c57c31dca0fdc3c01a3741db3b656bb557f2329fada021f116feb08c81a8f",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "除掉没有规范用法的第四个配对，改考固定两端。",
+    "proposal": ""
+  },
+  {
+    "questionId": "d7b23cfe-7339-442d-b7df-ac9685f60a4f",
+    "digest": "67f0d8a3010087d12b79afef27a1f2d46a4eb2ebe81847cb88fa94f8b2126da8",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "将互不相干的长定位缩成四个同类术语。",
+    "proposal": ""
+  },
+  {
+    "questionId": "3e94ee34-1026-4e5a-af3e-c279a2ab74ca",
+    "digest": "cbed6375a5504156ab6bfa928e3a255c25b4bb0ae55cf5040429fa9c78976212",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "四项改为常见责任名词。",
+    "proposal": ""
+  },
+  {
+    "questionId": "a969efb7-6b93-47e1-aee8-d44ad5def479",
+    "digest": "3b22c3e7c37c67352e66cb3e3370f0c52e3f67f3149a812821c337a7654243dc",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "舍弃对选项道德倾向的辨析，保留原句结果空位。",
+    "proposal": ""
+  },
+  {
+    "questionId": "0e336c4d-cc6c-4199-9ae3-7927681efa44",
+    "digest": "28b0083d065732d51b6908c17faf5cae980aaaede28938b93ed6254153233c2a",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "替换原题三组流水线式废项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "979a165f-5379-4698-aa88-d9b730bac56d",
+    "digest": "3ecc3de0f4af467c1fd758031ff0148eb39502ecc22a202ffee31e8a35de139e",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "移除“终身课题”等与题干主语明显不协调的词。",
+    "proposal": ""
+  },
+  {
+    "questionId": "0a66bb9d-f3d7-46fa-bed6-6104cff0198d",
+    "digest": "6ffbb260db9585f1cce9e55f7f5c29406cc44df2f6c9d96411317b25111d7473",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "保留关系题，使用正式文献中常见的理论定位。",
+    "proposal": ""
+  },
+  {
+    "questionId": "bb99cb47-a658-48c7-a0ca-f11b9560baa7",
+    "digest": "eec5a020ffdb3fcf3d2366281f320bdfd684ba5602d85eedb267bedb9600733e",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "改成四个常见规划动作，去掉“只”字。",
+    "proposal": ""
+  },
+  {
+    "questionId": "4d78d710-885b-4cf0-84a4-bb7165012370",
+    "digest": "b322ead0d256a3d59b5292ac2e43a7b0ae335ec3835cda6e870abc55c6b9ce41",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "围绕一个历史问题整改事实，移除“所有问题同方案”等废项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "2b236702-84f8-4a1b-b2ef-7cc0731e9bd3",
+    "digest": "e7c9ab0b2d4deed3080b5a0598d313bee0b5ee75a86d5b318c6f75c30254ab82",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "将复合选项共有部分移进题干，保留同类常用表述。",
+    "proposal": ""
+  },
+  {
+    "questionId": "eba639dc-1932-4e3d-bb64-c11d4f02e21c",
+    "digest": "b539d58f3b551c779ba0c0a0baca9770bbf511adf82bba904c9d9a756d3efd36",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "把四个重长判断改为任务类别留空。",
+    "proposal": ""
+  },
+  {
+    "questionId": "32fbb42e-21e7-4498-8c01-dd4132f506c8",
+    "digest": "72d4d82911d1a11f7b32a8f3948c8d04df5533cd86b991ba60ef10ab6fa227ef",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "用同一语法位置的短词替代情绪化选项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "4025be1c-8169-43ed-b777-2f6fb90df050",
+    "digest": "b9a58fff9ef4367c7a15b303bffbec6efbcee14cdd519d3375275b53462d0c86",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "固定搭配留空，四项均为成对动词。",
+    "proposal": ""
+  },
+  {
+    "questionId": "d265cf83-cb5b-42ff-99d3-a34f942ccf32",
+    "digest": "62b787a1d437ed7f7a3ee2ca17a1415b2280b9a58fbeeec35d54c12a4d50f41f",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "直接补原词，避免靠伦理倾向猜出整句。",
+    "proposal": ""
+  },
+  {
+    "questionId": "d72d9751-7581-4686-83c6-01deef07cf57",
+    "digest": "b847095eab519e32f43b21a6922ec7dd2a6598299408a3f4096ef62b4205bb55",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "将带廉价个人化干扰的长多选压缩为具体一处。",
+    "proposal": ""
+  },
+  {
+    "questionId": "eb97c9c1-f8fc-492e-9bcb-cb2c8bd704bb",
+    "digest": "7f013139e8835bb3ef9f99f618d0f8624943a8f7cbd90d7a3e138a66fb5b7531",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "把共用语放入题干，替换出勤率这一离题选项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "2804a355-5a07-4b26-8d41-717870af4b7e",
+    "digest": "30d041c38c3c514b60b9eecf885f0261cf4dc5f7970ee811781a8a17c17d6698",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "改成处置动词留空，去掉拖延观察等显然不合题的做法。",
+    "proposal": ""
+  },
+  {
+    "questionId": "1052d0ad-aacf-4b33-bdeb-2cf5f4e8f4c3",
+    "digest": "34e914454c3fd0a251543320af9af352628f8fcccf875b44fbecab236e821bc2",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "消除一项负面配三项正向的反向暗示。 复审按现行原文统一了选项口径。",
+    "proposal": ""
+  },
+  {
+    "questionId": "fc782356-1708-45b3-8e5e-66fc238d513d",
+    "digest": "1b0a3229db10678286aabee34321210004729ea2e03cb795a092cc3c4408bae9",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "移除其它三个长篇明显不当处理选项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "6b16e0bf-9f91-4d93-a849-51d8d054d833",
+    "digest": "8df7342d9df2b3d459906886238a2fe08fe4a63426c5cebf952e21b18aefac51",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "不用采购、差旅常识判善恶，考原文的公私区分。",
+    "proposal": ""
+  },
+  {
+    "questionId": "6b7fb655-2a2e-48f8-8dac-c097bb1c5e6f",
+    "digest": "0a7f4a823f5920cbfb75180e3b3e6a46a39cdef508219156b50a0cc31105ae16",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "四项同为二字词，无长度和语法泄题。",
+    "proposal": ""
+  },
+  {
+    "questionId": "5b348b77-f67e-401f-8f24-cf059c4c5f25",
+    "digest": "5206a5b2f2886ea8033edd1f43e5c916c3d798b46436de54aab2ec7cb38a007a",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "把产业集聚等内政干扰换成同一外交语域的目标。",
+    "proposal": ""
+  },
+  {
+    "questionId": "5f32688b-af34-485f-80b5-fbb104610be3",
+    "digest": "68fac1636ca24270efd8fb145955e066dea231b35577873a4744190431e7283b",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "选项用可以充当“中心”的同类对象。 复审按现行原文统一了选项口径。",
+    "proposal": ""
+  },
+  {
+    "questionId": "f862321e-e7fd-410a-9794-415a17263e90",
+    "digest": "30beb9ef49065d259f95459e7e6e34897c413dfd8f6700d7ca6967a154e8efba",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "四个选项改作短概念，消除原正答独特的双重长句。",
+    "proposal": ""
+  },
+  {
+    "questionId": "7d2a963b-fa4b-4729-a481-61d695e9b95f",
+    "digest": "cacfcd797b067ce8307f1543041829a63749612eb00def07b4d6c4ef9c33b8ed",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "移走选项共同词，四项同一语法位置。",
+    "proposal": ""
+  },
+  {
+    "questionId": "4f16c190-dd9f-4903-8fe4-2f3ec8c7bf5c",
+    "digest": "61ad9fe74b1eae997c0b7efdf19dee11a9702b0e699cb77e2566d319451774c9",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "把不可缩的两条固定定义放入题干，选项保留单一制度层级。",
+    "proposal": ""
+  },
+  {
+    "questionId": "a3677287-82cf-4aa6-bb53-fc5a400bb2d2",
+    "digest": "1121c492469e4a7dc8107f948b5c3a546bd5d90f279e9aa741bc15983bf7365b",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "以实际理论形成材料替换“现代化分阶段目标”。",
+    "proposal": ""
+  },
+  {
+    "questionId": "5339324d-f2ba-409d-8914-dad4c099b0e9",
+    "digest": "481eb6a1a65f3bf6f51b52063c24827b4d96c7a4c29915e8f2d3556b888945c0",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "撤掉现成、通用、简单复用的情绪线索。",
+    "proposal": ""
+  },
+  {
+    "questionId": "535ef259-5d17-4aef-a591-6d86457435ff",
+    "digest": "6dbc5e436334dbcbeafc9bde7538dc0fb5ce4685c1810e7f343dd19f1a50c06e",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "以同类政策措辞替换单向补充，保持两类组合对称。",
+    "proposal": ""
+  },
+  {
+    "questionId": "e16c25fb-3f7b-4c5b-b8ba-cdebf63fff9f",
+    "digest": "5edf059cacd9d2b67ba07a3bc2d5dcf256301100dffdc9af801a16256b71cd21",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "选项同为现实的理论或方向指导，去除“仅总结”“固定不变”。",
+    "proposal": ""
+  },
+  {
+    "questionId": "08909e0d-7013-40cf-8306-551b03737715",
+    "digest": "cb577e78c9f18cabaafb58450b5e69fc25c4435bc8c59c08b3aae8387782c905",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "替换与世纪跨度不相称的国内市场题项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "308c2839-43e1-4d9d-a9b9-1a2410d70f65",
+    "digest": "3edcfe909b65b4f23bd4cace18dd5300e97c99a84852e4fb08f91b100aaf2769",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "用相邻现实目标替换三条荒谬措施。",
+    "proposal": ""
+  },
+  {
+    "questionId": "9da778f1-f225-484a-93c4-fa05dc9d6d08",
+    "digest": "5e8e8c95a501c17f6b5ff960eec43140012c1bbd34d0076bef607bdf805cbe5b",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "保留一项有区分力的近义配对，缩短原四项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "426f6e55-25f6-4f73-8ae5-70ef6c8e8902",
+    "digest": "66bb5ce09a7453299a7166b613a7ed9af1e9b80f7ca998fae0e009bf290162a8",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "把长整句移动至题干，选项测试生产要素三元组一处。",
+    "proposal": ""
+  },
+  {
+    "questionId": "3e9cf2db-61f1-49ce-9671-263ff59d38d9",
+    "digest": "b39df36c297f26b26894bd14de04537ea2f4b5da535d428ca4838fbb34f5a748",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "避免已经过去的两个一眼排除的阶段。",
+    "proposal": ""
+  },
+  {
+    "questionId": "ad1c42d2-9830-4d08-8b4d-515db90f87cd",
+    "digest": "6a6269541da02fadf7308fb9b56c01aecba6bfafa5ce5e9e60ce4ad4d52f22c1",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "以可与改革开放搭配的真实政治词语构成竞争选项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "6afc1c7d-2a13-4b3e-be9e-8b9575af786e",
+    "digest": "4ea0b87685531d87740271dbc081176cc6c64e7f2efc8c9cb9ab7eaa437f7702",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "把原正确项共同位置移入题干，去掉“现行全部”这一明显错误陈述。",
+    "proposal": ""
+  },
+  {
+    "questionId": "d56bf77b-4f27-44a2-9361-ce081f1df722",
+    "digest": "6c58dee5f0e568e4a6f57d3a68554d100f6db49c09a9f0f9c0ff8396dc2162a8",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "移走三组数字构成的长选项，聚焦同类术语。",
+    "proposal": ""
+  },
+  {
+    "questionId": "fc9674a7-48b1-441b-91ae-de3182feb4cd",
+    "digest": "e2bb5d3bd19c1669ba86533fe89cf8a9f0d9fdb9deb731592972180b1fb168d4",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "用此前部队建设中真实使用的短词替换非同层干扰。",
+    "proposal": ""
+  },
+  {
+    "questionId": "624ca85c-816c-4b96-89ee-6dc35e25175d",
+    "digest": "55a34bcc5aa34b2e548687c46ec63f517ce4a4ce3c6f287f90bd1c517744ed75",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "四项均为可接在前句的同类政策目标。",
+    "proposal": ""
+  },
+  {
+    "questionId": "d71bed52-d210-42fb-9d8f-39c199968c31",
+    "digest": "193482c63ed92cb0f823cf0002dd91615e570bbc10cf1aa2e6828ec7eb6493f4",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "替换理论发展阶段或类别明显不符的废项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "69d186c0-0b7c-4217-9def-e89d7dd2454a",
+    "digest": "1c7b556cbf98a30dfce61b78d0d8c7e297e8082e8a0696e6bcdb0e9c8b6ba84f",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "将废项换为同一宾语的四种行为词。",
+    "proposal": ""
+  },
+  {
+    "questionId": "d256c10b-1005-4583-9e78-895e8e8c37fc",
+    "digest": "90716ce085cb26a5f7a7892863bb9df24e0225462e30c5a39a400d20e032746c",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "移除必须使用公款、必须改变结果等假门槛，四项都能作影响对象。",
+    "proposal": ""
+  },
+  {
+    "questionId": "fc59f45c-c5b0-4701-8cad-98190d02e477",
+    "digest": "4fca61c423afaf7599256449b4162a5b6f990b5d356d313f376e3458cbb0da5f",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "保留一般情况条件，用交通安排的一处短空考规定明确的行为。",
+    "proposal": ""
+  },
+  {
+    "questionId": "2f9f5d22-22c8-4605-9650-418403448ea5",
+    "digest": "35c5ac65811421385074fd55f260419cb402d0ec26ea72f6b7dd57d034eced21",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "将原情景多选压缩为相同知识点的条文留空。 复审按现行原文统一了选项口径。",
+    "proposal": ""
+  },
+  {
+    "questionId": "898b9b9c-6a03-4834-9305-3d7f62af5e86",
+    "digest": "2bdc8f97b01dd971d6bcf130ea744a7aa2fe68443d94748c26dc45fa9ae7a924",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "四项改为同类餐饮物品，避免程序项成为自动排除项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "a3f2db77-1f63-4c3c-aa3a-c9cfe78261ba",
+    "digest": "0cdfca63b4b87d0aa65b05569c8840d2929d0c6f3fbe38696e7c4c39bb283323",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "把易猜的类型长选项改为一处条文事实。",
+    "proposal": ""
+  },
+  {
+    "questionId": "5fce2e24-12e3-4a7d-b817-e3673626b684",
+    "digest": "3f047cefd089ac3c230e056bcb115c85e89b950cc5ef575a5d593361cb763560",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "用同类接待财务材料替换车辆登记和签到表。",
+    "proposal": ""
+  },
+  {
+    "questionId": "aa312f4f-c71c-4038-8b1d-3526794eff62",
+    "digest": "7c3792b2b99cfb1e3bb89753a9a925054bcbfe76b22cb83d84b47cd984465359",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "去除世界经济与人才布局等离题选项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "dce05212-15c2-4257-af4a-3dc93dc4d78f",
+    "digest": "b34022d50cb47c806f4fe3f04bfbb903918d628eb226a32c7e6dc902e5eb8e4a",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "四项都是现实存在的账户或支付工具。 复审按现行原文统一了选项口径。",
+    "proposal": ""
+  },
+  {
+    "questionId": "f413b75d-11b0-4e94-a3fc-19936446d3fa",
+    "digest": "d5885349bb95d904a7eefc0e30d7eaf72393301bc0b5656b370f5bc67116a842",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "把正常桌椅等一眼可排除的废项换作同类会务物料。 复审按现行原文统一了选项口径。",
+    "proposal": ""
+  },
+  {
+    "questionId": "8160ada9-c570-4556-a6bc-33f2ebcac756",
+    "digest": "0225fecd89eeb38a0a6f1888456827b503f8af5cd531cc3855ccba819cd224bf",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "以不同供给方式竞争，避免三条明显违规行为衬出答案。",
+    "proposal": ""
+  },
+  {
+    "questionId": "d7b2de53-ba35-4326-b57e-d01fb3d15c26",
+    "digest": "2135b74eb95d1c93b7a100bc6eca0c4a4be74a72bd8de7b00e3d6175e91565dc",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "去掉三种事后补办情形的负面线索。",
+    "proposal": ""
+  },
+  {
+    "questionId": "59cddbed-55a1-4f1c-91cb-0b2266255c8b",
+    "digest": "2e8370e0c81973edb4da52a432dc052355060b2fcea30094452e8ee344547ef8",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "移除负责完成报告或自行购票即可免责等虚设条件。",
+    "proposal": ""
+  },
+  {
+    "questionId": "07711fd6-4e3a-4f82-bf36-6ef799921037",
+    "digest": "2519963d7d7e205912b0a33984d8f0b29bdbacceefc421f09ea1c829432eb2b9",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "将三项显而易见的违规补办情形改作同类凭证。",
+    "proposal": ""
+  },
+  {
+    "questionId": "c61e9ce1-dc69-4350-bb7f-fa26283bb79f",
+    "digest": "b74ad750d64c90a56591a59378794d82a738eb58583aef6f08ba86ab634d41b4",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "用常见管理方式替换转为个人用车等失真选项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "fad076b7-eead-442e-bd5e-f1cf9f0fa372",
+    "digest": "269c9c7b9d71fe8dc86e3e66e04af2033b70948d2d1d6f6cbdf1e806a693fee1",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "改成单一短空并提供同类基地特点。",
+    "proposal": ""
+  },
+  {
+    "questionId": "01dd468e-bea7-46e3-8848-10a84fff3250",
+    "digest": "20c9487fa3c6dca4223b67705d382b98c048e4f9642fe7000fa0e88b11f22172",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "将明显绕审批的干扰替换为四种都能线上组织的工作。",
+    "proposal": ""
+  },
+  {
+    "questionId": "c1a3b98f-146a-4da8-aa0a-f5b03c510863",
+    "digest": "dd493881eb7e68d22f11afbabd58e27ceadd80dd456ee0fbe1e35bca62da32fb",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "将规模和内部名次替换为同样面向实际成效的评价对象。",
+    "proposal": ""
+  },
+  {
+    "questionId": "4721c687-e31f-4c0b-b962-8db41d604254",
+    "digest": "99d199d5a8dd486953c26216fe4ece6cb320a44e124f92e5ab6df718cf13cdf5",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "把远离政绩主题的工作生活替换为同一语法的真实政策关系。",
+    "proposal": ""
+  },
+  {
+    "questionId": "9d82a0aa-9660-4858-830d-7a84d86c37b0",
+    "digest": "fedd33cedb54762d356dd60b01bb8b141f44211946a278017f0fc30c4a32d437",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "去掉“建设规模、任期竣工、重点工程”三项价值倾向暗示，换为常见的长期评价条件。",
+    "proposal": ""
+  },
+  {
+    "questionId": "4adcded1-5977-4236-ae5c-1b243f6f5d85",
+    "digest": "1e57cfc4dcfd8089f891a2c662c760b332f34e9e310c45fa8b49c742d8d9dc4e",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "原题“深厚的问题导向”等难以搭配，替换成可用深厚形容的同类词。",
+    "proposal": ""
+  },
+  {
+    "questionId": "631cd7df-68b5-4b0a-9225-bded02688b3f",
+    "digest": "346de918115d98843eed9c827d10febe0c17d748926004198a5cf485b5ecec90",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "取购买资料 P14 单选第1题的相邻理论词，更贴近期末基础题考法。 复审按现行原文统一了选项口径。",
+    "proposal": ""
+  },
+  {
+    "questionId": "7fa01895-fc3f-44ee-8fbc-2a6df376c011",
+    "digest": "4437a70a7584cf1c06d4c844b77a07b6bd55438b5587b2b81ae74fb2fb196fca",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "去掉政治制度、组织原则等不同语法类别的暗示。",
+    "proposal": ""
+  },
+  {
+    "questionId": "4ad53e40-b1f3-47be-8f89-c90e06041b3a",
+    "digest": "4846462d0946a0ac252fb9e5616776b06522453b5d5e85bfe3ecf01aeb103de3",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "用常见的其他经费状态作竞争选项。 复审按现行原文统一了选项口径。",
+    "proposal": ""
+  },
+  {
+    "questionId": "a5b2155e-1a54-457a-8db7-f04a2e3c7546",
+    "digest": "5bce6b65e18df53b285fc47d7019f0f47ca26df278d233029616d37b7f98716c",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "替换不适合“铺设”搭配的桌布。 复审按现行原文统一了选项口径。",
+    "proposal": ""
+  },
+  {
+    "questionId": "7e5db4cd-0d6f-40e5-a171-499ada70e536",
+    "digest": "eb8be2c7404649f17aec28a744a2e5a096e1382dd00a784486fc877446c0b60f",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "替换出访、文件、报道等无关任务，使四项都可作为警卫工作考虑。",
+    "proposal": ""
+  },
+  {
+    "questionId": "e928fd9c-0489-4669-a774-1bc86f25ee6c",
+    "digest": "5bd54ef719532bdfb4fe471fe8f18cf0c520b6b9503c9936cc6c038f3338007f",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "将车型尺寸、用途转为同是可能适用公务用车政策的汽车类型。",
+    "proposal": ""
+  },
+  {
+    "questionId": "1dfdabe0-199c-4ac3-aaca-3e2c006bae26",
+    "digest": "c8d53d9fdfc4249ae33f8651abc19e4c64b97be3b314e221699e4fd7aff53b9e",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "题干提供后果，考规定列出的客观条件。 复审按现行原文统一了选项口径。",
+    "proposal": ""
+  },
+  {
+    "questionId": "accd1473-3f49-41c7-b5be-e6b8cf043fa0",
+    "digest": "bc3061aad6e74e042bd763cb999e248306c69654120915e07dfa362215de65ef",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "避免只有一个选项适用于个人修养。",
+    "proposal": ""
+  },
+  {
+    "questionId": "d13e4cc0-e2c9-4478-b22b-7985dd3b5012",
+    "digest": "364d50c179bd2445b8e25f8c2b01846470f134f56264a814bfa2933be5098d88",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "改为空出考核类型，避免四个循环项中只有一项是字面对碰式循环。",
+    "proposal": ""
+  },
+  {
+    "questionId": "32d475cd-d444-4fce-b1d1-8f3d4cf63760",
+    "digest": "115789c915a06d001fe4d9f5fa3c1acfa2f207e6ed63e9d4352db3ed9008c85c",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "用同类待遇核对原内容，避免仅凭活动类别排除。",
+    "proposal": ""
+  },
+  {
+    "questionId": "05db560c-e73e-4645-a518-6c81b3181364",
+    "digest": "d609a7c55d2e8865d595ef2efe426bc19fe86309034ed50fb8dffa79e0f2eefe",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "把不适合“解剖”搭配的报告等改成同类对象。",
+    "proposal": ""
+  },
+  {
+    "questionId": "15e2ce7c-93ff-4421-a6ad-c04b82ace060",
+    "digest": "d43ff5a70cd8e46c8d0ce06bc20236704fa8124692268c86cfbbb034f1e8f257",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "购买资料 P03 专项单选6、判断81 考同一事实，合并成一题并用《求是》公开原文判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "eb0e0acf-cdcb-4409-bf2a-31932ea232b1",
+    "digest": "6a87aa1fd1e96a8174f8d936fbef9913e367c9f57642fd61bf3225a6009569fc",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "购买资料 P03 第一组填空10，同一模板中选择题只保留一题。",
+    "proposal": ""
+  },
+  {
+    "questionId": "f533be92-5309-4115-9fcb-db4f1339431f",
+    "digest": "acd3c9c297d85a78207ac5aecf057055ccd0f1fb64038570bcb1480d334bf50d",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "补购买资料未覆盖的8月总结口径。关乎长期任务与当年学习时段的区分。",
+    "proposal": ""
+  },
+  {
+    "questionId": "cb712d53-a8c2-468f-a068-8a784130aadf",
+    "digest": "80a7e06f0839f04390f4e21bc617839fc59f5e62767e8b2bfcc4f1b7b14ad060",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "补学习教育后长效安排中可独立记忆的一处事实，与 t04-35 集中学习期查找途径区分。",
+    "proposal": ""
+  },
+  {
+    "questionId": "837e1ebd-2519-4ed5-bf31-b6c1f01a3bf4",
+    "digest": "4565d1938d054d8895ca7eb9749d91ff4d3b04ec1511126156a248a1a1eee635",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "补长效管理监督方式，未复用时点及问题发现途径题面。",
+    "proposal": ""
+  },
+  {
+    "questionId": "6243971f-3c66-4b52-adc7-8d736872a1b7",
+    "digest": "56eb4dedea78fba9f65707edf38bd3f5bebd30787ae49d18612deb7749d9ea65",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "共产党员网公开自测437第一题可见同段考法；题目独立改编。",
+    "proposal": ""
+  },
+  {
+    "questionId": "fbc88faf-3b20-465d-8263-2b89fed5416f",
+    "digest": "e3a3fd7ae87aa0b526c587dfa72a948829fad239b0a1b8601b09b907152f5cc6",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "购买资料 P14 单选20 改编，长选项压缩成单一短词。",
+    "proposal": ""
+  },
+  {
+    "questionId": "031a7cab-56aa-4aef-96de-72e63a150bed",
+    "digest": "ceb05f479c095d917375a42466d664b9c821682ff53919d03486ecbd12a9835f",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "购买资料 P14 单选17、P09 判断43 的共考点，保留一个选择题，不重复测“最高原则”对应。",
+    "proposal": ""
+  },
+  {
+    "questionId": "d5eebe9a-bf12-4e20-ac7b-21caae3675ec",
+    "digest": "e508817ca0dccf3c92a3c1d740e5e36676183442f4246b13031558bba219d73e",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "购买资料 P14 判断9 转单选，限定所引文件。",
+    "proposal": ""
+  },
+  {
+    "questionId": "fd584bd2-67d7-4951-989f-98db8dcf9b3b",
+    "digest": "17c048a5f13866508bb35b8fd29b85a684f191d42cc593a4917f7c319156be81",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "补六个必须坚持的含义覆盖，与 t01-29 胸怀天下的文字对应各自独立。",
+    "proposal": ""
+  },
+  {
+    "questionId": "d1e236fc-dc2a-4c7e-a271-bd03898a37ed",
+    "digest": "8747af4dc0e9dd005e4f4470ec40d0a9b55bd3c724e8398fedf347fc68187e35",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "补购买资料基础思想提纲一项核心含义，不与其他思想方法题重复。",
+    "proposal": ""
+  },
+  {
+    "questionId": "6aecce8e-f38b-4c8f-8014-15dd09b56ff6",
+    "digest": "e5bed3676c9a20f6a892332b4798fc2dafb6549f460087ba474a38b706a7dbaa",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "购买资料 P08 单选3 改编，与多解剖典型等调研方法不同。",
+    "proposal": ""
+  },
+  {
+    "questionId": "87865d6a-be86-427f-8ef9-df350ec7aeab",
+    "digest": "13dc6ade01db69061a21c4a33c3c9baea95bff551eb081a988317c926d135859",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "购买资料 P08 多选42涉及办公用房，按2025年条例原文固定术语改编。",
+    "proposal": ""
+  },
+  {
+    "questionId": "f0dbaee3-eb2c-48fc-bcce-f7bf295cb30d",
+    "digest": "171702b2bbf9719ec69dea000bfe89dc719fa291534fbd6f337b1c3725deba94",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "购买资料 P09 单选31–33提供集中学习框架，另选通知中差异化的实际工作方式，不重复另两次集中教育的日期和学查改。 复审按现行原文统一了选项口径。",
+    "proposal": ""
+  },
+  {
+    "questionId": "1a2f649b-5d98-4f3c-b611-21ec2a0fb33d",
+    "digest": "a8d33320e750b93f6da6b6b43d3cfb659448f0f5cbc334cf39090d8488af874d",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "购买资料 P08 多选43、57 的公务接待主题，以2025年条例中的明确行为边界补题。",
+    "proposal": ""
+  },
+  {
+    "questionId": "a00b02b3-b5ca-45db-b865-3d998e81b976",
+    "digest": "30c181f1e08bfe51d15e779ea11f9bc5e409706f8c58184335bdcc1cfb30a16a",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "P17/P30第四套填空1；判答依据换为第三个历史决议。",
+    "proposal": ""
+  },
+  {
+    "questionId": "364556c6-554d-4527-acfd-8e85339da4c3",
+    "digest": "cdcb4a6974011225cf5a264f2cbd554627d00bb13f22b918f26f985390d92617",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "P17/P30第四套填空3与第八套填空9；与陈望道译本题的具体事实不同。",
+    "proposal": ""
+  },
+  {
+    "questionId": "1f977856-3270-4d65-b82d-b14b5343aa60",
+    "digest": "8ec19e3b2eceeea5e0d8a466fd19a7ecd129dbd190ff8c7a0f589ccf0e076f06",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "合并P17/P30第九套选择13与14的两个词位，保留一道配对。",
+    "proposal": ""
+  },
+  {
+    "questionId": "909d118b-d92b-4088-a82c-9dcd5f0b03fc",
+    "digest": "74879ce9204ba91ebee13685671cf6977917a2e373d6c936da9d3d8a493c0dde",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "P17/P30第十套选择6，把材料长句缩成常见短空。",
+    "proposal": ""
+  },
+  {
+    "questionId": "2a5fc26f-2d0f-415f-b80d-13e30f019abf",
+    "digest": "d6bf92bc57b8e3593f0eac7a129d184458cf8e735e03c262bff6dd1fafef3def",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "P17/P30第十套选择7；备选均为实际的法治建设概念。",
+    "proposal": ""
+  },
+  {
+    "questionId": "a9a8a304-2d65-45b9-84e2-d54795589455",
+    "digest": "12b0eb5b38b220424b360ea2496fc3c644175727922cb5fb02840d2b36f9f226",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "P17/P30 第一套单选1 提供考法。正式报告时代已过去，但这道题考可定位的历史节点。",
+    "proposal": ""
+  },
+  {
+    "questionId": "a19481e3-d38f-4413-8e05-bb761877b654",
+    "digest": "cbf74c77a396d29fb5c0f3b96342df4f79049f8aac19a6cd8b21b88c59f21cbc",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "P17/P30 第一套单选4 提供考法。复核十九大及正式《准则》，保留容易混淆的同类路线名称。",
+    "proposal": ""
+  },
+  {
+    "questionId": "12230492-f7a6-4c18-994b-28fee57771b3",
+    "digest": "6b0c7ce82cf744d1e766ada1c014ed0d58f567c919c0164f4c1d88940af428e2",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "P17/P30 第一套单选8 提供考法。购买材料引十九大，二十大报告仍明确同一目标时点，改取最新党代会依据。",
+    "proposal": ""
+  },
+  {
+    "questionId": "8d4f2075-e037-4dd4-a4ef-a7ac26afdccb",
+    "digest": "9ec2fc30d9a482ae7af624c5de8dce6df81742b82a12de7fb0cce12a51fda475",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "P17/P30 第二套填空8 提供考法。原题双空来自同段，取其中清楚且不重复当前细则的一项定位。",
+    "proposal": ""
+  },
+  {
+    "questionId": "8ccceb71-1b6c-4b93-98b8-3d0b23201098",
+    "digest": "14fb9659a72d5b2f6c12e02d004dca1713a19e0ad47684c022aaa4aa5caeca79",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "P17/P30 第二套填空10 提供考法。跨两份十套卷同号题为同一考点，保留原句的单一词位。",
+    "proposal": ""
+  },
+  {
+    "questionId": "e3696824-9336-44bd-b133-ba7577031edf",
+    "digest": "a2a298c61012acd30734eac359c1f44b67cc7cd7f06055c33e4b027e4dddb618",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "P17/P30 第二套单选4；第四套填10、第六套填10相关 提供考法。以2026年官方校方党课校准仍在讲授的考点；共产党员网党务问答及上海大学培训大纲也采用同一提法。",
+    "proposal": ""
+  },
+  {
+    "questionId": "a3f02163-3551-402a-b3e6-f6ad0c3a6995",
+    "digest": "d9e6468fcdbcc06ac112c22cdead32f78a8bdb410d04aa999496fd02edef7d43",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "P17/P30 第三套判断14 提供考法。原判改为同类层级选项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "9527eec4-96d8-4151-b1d6-9d66cf9d10e1",
+    "digest": "4f25f500e6f50d1b0bfe5ec60c8a254850d44d998cb44b127b0c2b3cac36faf7",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "P17/P30 第四套单选1；第五套单选1 提供考法。将“第一次历史性巨变”的讲稿说法改成有大事记依据的短事实。",
+    "proposal": ""
+  },
+  {
+    "questionId": "a6ca6c26-9da5-4bf6-951f-838408c5cf83",
+    "digest": "ecdd6ab4be36bfb623104db4a79cea31a5f4c0809bf52670c4d52165785223bd",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "P17/P30 第七套填空5 提供考法。三个近项均是社会主义建设年代常见的模范人物。",
+    "proposal": ""
+  },
+  {
+    "questionId": "c1acc78a-5a2a-47c5-9a02-64337b91e248",
+    "digest": "2d77135c4f3b08bfd16bb5476475aee24ab487dd70137281a76690f0050e2ebb",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "P17/P30 第八套填空5 提供考法。所给资料三类近义句合并，仅考一处明确定位。",
+    "proposal": ""
+  },
+  {
+    "questionId": "e6875d0c-fe16-44fa-8741-c41dda8cfbd2",
+    "digest": "44ea1ac8acfdb134c2d2c8baba9629dd9691956d9f191c057afb5830a5ecb01e",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "P17/P30 第八套单选7 提供考法。规则在2016年公布；2026年学习贯彻五中全会精神的权威解读仍重申同一定位。",
+    "proposal": ""
+  },
+  {
+    "questionId": "811cbdcf-da6d-4277-90a9-a2ceec744e0f",
+    "digest": "c5c917d080076ae56a2b10be64fbcbdcb5563f752f91287128eff4f20e09b860",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "P17/P30 第九套填空5 提供考法。用同一作者同类著作作干扰，避免只猜人名。",
+    "proposal": ""
+  },
+  {
+    "questionId": "8b2fbfab-a2ed-4aa9-b213-c34f8b95f36d",
+    "digest": "11283d6051eff67882f5b92392e5d49faaadcb2aa0a5af4ffb299c3511352359",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "P17/P30 第九套填空10 提供考法。按公开会务史料补齐大会全称和地点，不沿用印刷简称。",
+    "proposal": ""
+  },
+  {
+    "questionId": "bede11b5-c983-44f4-9b0f-d6758ea9422d",
+    "digest": "bea252a1dced88da3807deb7b9b7d8ec73a65fb828eb89f5923637c642c578c8",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "P17/P30 第九套填空12、23 提供考法。十套卷内两次出现同一填空，合并一题；采用2024年正式党史文献研究刊发稿。",
+    "proposal": ""
+  },
+  {
+    "questionId": "69c8e0e1-89d9-440d-b901-69437a8852eb",
+    "digest": "cc3409a22c251e859a930add755c4f47fbd3c20661ea6523955c92f75a9ba335",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "P17/P30 第九套单选4 提供考法。将只靠年度猜地点的原题改成正式历史文件与地区的对应。",
+    "proposal": ""
+  },
+  {
+    "questionId": "35f72382-dba8-4de4-8222-a7c7d931a733",
+    "digest": "4b614bf19a0463a97f97a2f9bab81dca02bb74aec0da04bb19f46b4adeac4463",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "P17/P30 第九套单选7；填空6相关 提供考法。单问可核的提出时点，不将“第一次提出”“形成”“载入党章”混作同一阶段。",
+    "proposal": ""
+  },
+  {
+    "questionId": "8629d1ec-0b78-477f-9944-5023f3009712",
+    "digest": "fdc8f7890734e474d5da348b9867b59d2c62c35aefd2a7194a4d16863d067e81",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "P17/P30 第十套填空10及单选21 提供考法。所购填空与单选同一事实，保留一题。",
+    "proposal": ""
+  },
+  {
+    "questionId": "217ee9c2-0020-4842-97b1-719b4bb5ec58",
+    "digest": "4e991ec5f87906a0d48e92de24bc7c009a325780add828d43ba1289adfc31d9e",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "P17/P30 第十套填18、单选18、单选23及单选13相关 提供考法。将同一组政策的三个词位合并一题，采用实际宪制权力术语作干扰。",
+    "proposal": ""
+  },
+  {
+    "questionId": "7a0abfc1-58b1-49a6-81ba-a04f557b7673",
+    "digest": "c0bb6caa50f8e3dbeeac55a81d977471f3fd8a4801b10f789df51dcbc4adc6b1",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "P17/P30 第十套单选10 提供考法。用户旧卷题为二十大，使用更新的四中正式正文，并排除重复保留。",
+    "proposal": ""
+  },
+  {
+    "questionId": "bc7083e5-69da-4ff3-a734-fe123f29107e",
+    "digest": "bdc3461b5454c7673553af717b843b3275758ec0cdaccac24ce936ff9ff83f56",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "P03专项单选12。原题只挖第一项，新稿考有确证的第二项。与纪律处分条例认定政绩观偏差行为和类别的题相区别。",
+    "proposal": ""
+  },
+  {
+    "questionId": "4bcb3c3e-6ecd-44e1-a5e0-a48387b966af",
+    "digest": "3c5f8f79dc3d83babedb7f400adca89c831cbceed02035af0db0b41849564728",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "P03专项单选37、多选75、判断97。合并对上、对下三个材料题，采用讲话可独立判断的短空，避免在题干问对下就由字面直接猜出“对上”。",
+    "proposal": ""
+  },
+  {
+    "questionId": "553e3bd7-1910-4ed9-bfc6-5a27f40a0a95",
+    "digest": "07796b9230c521c8b884506c2d65066dda033cb8bf04061c6e1ae263ee2ea97f",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "P08与P38单选28、多选54。原题以监督泛称和全选方式出现，改为明确责任主体，按2025年修订正文核。",
+    "proposal": ""
+  },
+  {
+    "questionId": "d64256c6-7e47-486e-aeb2-412a35827be2",
+    "digest": "c17e3086ccb8823cc5b0793ce23c5ae3c987e153fe2df800cebdf7e46c353078",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "P09与P39选择6。原题叠四个比喻；取现行准则的明确概念边界改成短词选择。",
+    "proposal": ""
+  },
+  {
+    "questionId": "44d4451a-d259-4781-b526-5a2220fc456e",
+    "digest": "6a9e58c18134396aa9f78a21c2718fbaf22cc1617db09766581d5b96238b4560",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "P09与P39选择19。把缺现行文件署名的“三重一大”简称题做成五中《决定》的精确术语留空。",
+    "proposal": ""
+  },
+  {
+    "questionId": "edeb2a38-ac56-4d21-90dd-20c1976a4e43",
+    "digest": "dc7a9d48add70b7aa9e10a4506f5bb27d4ce853eb455d4a51bc8c6707c86e319",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "P09与P39判断41。材料判断转短选择，与同段党章党规党纪培训必修课和受处分回访题属于不同考点。",
+    "proposal": ""
+  },
+  {
+    "questionId": "4bffb901-a599-4b7a-9490-ec65827b8015",
+    "digest": "ae6fbb2f6c68291d8e7648022e1fcb01d144ea4fc086e4659a2a909160cb52f2",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "P09与P39判断46。材料判断省去泛化的效果归纳，只保留二十大报告明文事实。",
+    "proposal": ""
+  },
+  {
+    "questionId": "74f7eb3b-52b9-4132-b660-5f0cf767a7bf",
+    "digest": "7f7a7e98272ba156f492ae8a26a1838cab63bc6b71dcdc84a7522c21e7708910",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "P14多选7。五项全选改成同段真实术语对应；直接取第三个历史决议，避免只靠语法选偏离词。",
+    "proposal": ""
+  },
+  {
+    "questionId": "1dbf33f6-7c24-4156-8c8c-a2a02936984a",
+    "digest": "929177d3f35234c118c1e533ae696c34bacb07849be922972d22abbb0e795c06",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "P14多选10。保留经当期官方文献交叉确认的原词。与t01大国外交服务民族复兴、促进人类进步的目标题区分。",
+    "proposal": ""
+  },
+  {
+    "questionId": "b727cd43-09f4-4039-9f32-026f018da692",
+    "digest": "3280400fc6a0a75139256fed538605cd60bfda16398f71c2054e9f4ffdd5ed8e",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "P14判断4。从判断题提取真实定义，选四组同类生活概念作短选择。",
+    "proposal": ""
+  },
+  {
+    "questionId": "4ca074f2-db2c-4312-b15a-e49596c76f8d",
+    "digest": "1c4ca5c800d90c1d083581a4622bb4f64b488edc9203a551cbdf9dd1ec29ec79",
+    "reviewer": "会议文件资料复核",
+    "decision": "keep",
+    "reason": "P03专项多选79、判断96。合并宽泛的举债情景判断，按2026年全国政府工作报告的严格口径保留一项短事实。",
+    "proposal": ""
+  },
+  {
+    "questionId": "eb7ab0fb-e6ec-4b1e-891d-c01af008ca90",
+    "digest": "3678fff9cf0d3fe13aba9d2d830a551bca409ce096c75402001c7f8fb4560fa8",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "同一条规范表述，四个选项都以人民为主语，用短近义措辞考查原文。",
+    "proposal": ""
+  },
+  {
+    "questionId": "8b62cc56-1721-4f8f-8bd5-ed852647dde6",
+    "digest": "30913c1cbd95d7240fb5edcd4224e5ec1ab973b7e4fa3cae13bf0b105e7c1014",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "换号替换本知识点唯一在架题。t13 同考点旧题此前已下架，当前覆盖通过本题的关联知识点继承。",
+    "proposal": ""
+  },
+  {
+    "questionId": "15dfd162-710f-46c8-a7d2-27f5e706c8e4",
+    "digest": "b60d498b5fd1743d851b7e2e3a486ce661319e7e213f303d58981e4f3564eddd",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "第十一条层级答案正确；纪委是非同类选项，换为党委逐级组合。",
+    "proposal": ""
+  },
+  {
+    "questionId": "40c1755a-691a-46b7-8cce-3c8e1ca0b40b",
+    "digest": "b78fc098ae32e4a4a456d0c2c053b02e5832e06e83620909f841161d5f820a22",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "第十七条暂缓决定符合条文；书记决定及纪委裁决过于远离表决流程。",
+    "proposal": ""
+  },
+  {
+    "questionId": "841814b4-32f6-4aae-9d6f-f257f7400860",
+    "digest": "4f1f3668e3bf785370f00f2441b3f9903e7a15d3caf0f026089c75c3d6e3ab9d",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "第二十一条上限是党代会选出的各类人数的五分之一；将共同的计算基数放入题干。",
+    "proposal": ""
+  },
+  {
+    "questionId": "e9cacb9a-438e-42cf-bd81-9e3f9341391d",
+    "digest": "a4fad5982cbd89df0da8ce78db2b7311f0f5def584a9ed19463ec718a4a415ff",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "二十二、二十七条答案均正确；两组相反选项把多选变成两道二选一。",
+    "proposal": ""
+  },
+  {
+    "questionId": "6a24f878-568a-4371-aaf5-56d772e0ada8",
+    "digest": "f22179b431965cff2a3ea6968b4c8fbcdbcc585e1dab01966769ece73a03378e",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "四十五条同级党委加上级纪委；人大常委会是显眼的非党主体。",
+    "proposal": ""
+  },
+  {
+    "questionId": "1121d91c-c4fb-47c8-bea5-083f2b9a17e1",
+    "digest": "7e595ff4968d071491325fd956def8f23c3566ccabfb8ccc685b9c437862ac9c",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "四十九条成员产生和领导均系批准成立它的党组织；职代会和行政会议缺乏干扰性。",
+    "proposal": ""
+  },
+  {
+    "questionId": "5e323231-895a-4138-a22d-94c34b36930d",
+    "digest": "78107e04c0f53f64894e7b6e5d9ff8098ee803026db2cd9768c2494c4f93172b",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "第十七条少数服从多数；会议主持人决定跨出四个服从，换成下级服从上级等真实并列规则。",
+    "proposal": ""
+  },
+  {
+    "questionId": "24440622-557e-4ad7-a55d-9b3cf136f941",
+    "digest": "fcfa366696adbabb84fc57f12431a0f32e783b5e85342a0d919fd3105bf22113",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "第十条个别酝酿；个别决定与会议决定抵牾，换用其他真实议事程序表述。",
+    "proposal": ""
+  },
+  {
+    "questionId": "f6b73e50-487e-414a-9e52-a64ed5cba103",
+    "digest": "218fea481757ab082e475ad4226420e2d9a056df0ee1eb3d0cc3fb4ddbf79351",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "四十六条同级党委与上一级纪委；压缩“非常委委员立案”情境以保留常委例外。",
+    "proposal": ""
+  },
+  {
+    "questionId": "010620a7-ccfc-448f-9a9f-130f77402c7f",
+    "digest": "3ea70c262ffe6849a081e74cd9731b68fe84dafaa72356c9675f0659ff50b23d",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "思想路线原文正确；可只空“检验真理、发展真理”的动作，减少每项反复长句。",
+    "proposal": ""
+  },
+  {
+    "questionId": "ae637936-388e-4e37-a0b8-4eb83d96f468",
+    "digest": "b47a2c5b122207f63b6ab106db3ba61b3f12722d8058833b7d081273987954e0",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "总纲限定宪法和法律；正确项显著短于其他三项，且“会议决定”范围太窄。",
+    "proposal": ""
+  },
+  {
+    "questionId": "7b50d76c-3e83-496c-8bf4-073200aa5a74",
+    "digest": "925a9bd7d1fef0383ae13e7bb1f8de6a69ebafcb71fda5ace44d31fa7db07ec6",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "五十四条金黄色党徽无误；白色镰刀麦穗图案为无来源生造，宜只问色彩。",
+    "proposal": ""
+  },
+  {
+    "questionId": "97b1752b-b99d-4eea-8cfd-594aac0b504b",
+    "digest": "3033a9a7a1dda7429b664472316823e422655ee881ec050446143a03ca0578cc",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "第十条集体领导加个人分工负责；个人独立决定与干题正面矛盾。",
+    "proposal": ""
+  },
+  {
+    "questionId": "3ecdddbe-c22e-4a17-8e61-16c84e031b52",
+    "digest": "e0115c14ae36bfbaf7db8bde5095a8c52b60588e236d3297b4b6db3aaa83c570",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "四十三条处理或迅速转递；三个拖延或搁置项可凭常识排除。",
+    "proposal": ""
+  },
+  {
+    "questionId": "f9f905cf-bdcb-4e89-8b92-40604e9e5498",
+    "digest": "4883fcc0ff4b73d70f37f90d017f42d0f37e3069a3948067e95c7cde76ede5ff",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "第四条末款任何一级直至中央无权剥夺；现题干“依法依规享有”拗口且三项自行剥夺太弱。",
+    "proposal": ""
+  },
+  {
+    "questionId": "672aa9e0-5142-495a-a584-557ee1569c9b",
+    "digest": "fcd0fbe7f8df17192af9c19d3d2f5b9086c064a841254fe62c73e1b83e302596",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "第四条第八项可以向上至中央；“只限本人支部”是显眼错项并且“向上”已排除。",
+    "proposal": ""
+  },
+  {
+    "questionId": "7798f884-9645-44ef-9054-f5c1f1d85c16",
+    "digest": "15ca95cbb9dc7efd128f9df6fb975a92fb2e183a79a4d19f33fa714bdae87650",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "第十条例外以外均选举产生；一律任命、下级直接指定、国家机关遴选均过易排除。",
+    "proposal": ""
+  },
+  {
+    "questionId": "d117c171-6639-47ed-9d22-ab570f5286f0",
+    "digest": "28667600d1701b61db0db553c8bd3747526cefb025798a4fdd0e39d2ef974bf2",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "总纲统一战线三类爱国者判答正常；主张分裂国家完全泄题，宜改为正面相近项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "f3e158e1-700c-4952-bd22-f599908b35d1",
+    "digest": "83490207a77a7906c2bd4e343d542533179ac2a660b5b2190d896aae4cfbb9ff",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "总纲两个先锋队完整表述无误；长选项与“民主党派的先锋队”泄题。",
+    "proposal": ""
+  },
+  {
+    "questionId": "b8f06bfb-4598-4b92-8b03-ed44bb7bd13c",
+    "digest": "f6adbb30c07868dda5538ff597433f8b55c626738cb000e5657f39d2fb9716da",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "第二条第三款可考私利和特权的短词位；大部分干扰直接否定合法收入或职权。",
+    "proposal": ""
+  },
+  {
+    "questionId": "4efb4933-1bb6-443a-b01a-53e359ed993f",
+    "digest": "cdf93432fbafc7a3430a40865319bc7dc7fed26a36e0018b3b0e55e37b27c0a0",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "第三条第三项个人利益服从党和人民利益；去除“只”与“利益优先”道德线索。",
+    "proposal": ""
+  },
+  {
+    "questionId": "9a82c3b4-79dc-4090-8a82-884081c7b5e3",
+    "digest": "2b4f024813257415f373d6d6c87644c063f4b438311e4e441e9b3a2f3cd547fe",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "第三条第七项两项正确；现两项干扰均违反群众立场，可换其他真实党员义务。",
+    "proposal": ""
+  },
+  {
+    "questionId": "8363509a-c915-49de-9b36-8056d2d67b46",
+    "digest": "b13f507a1feb436b8d4e3e527d6e443ed19a606ce18ad87c70f58caef496434b",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "第四条第六项本人申辩、其他党员作证和辩护；所有干扰以限制权利泄题。",
+    "proposal": ""
+  },
+  {
+    "questionId": "f260daa5-b7ec-4d59-bf05-e8e003933697",
+    "digest": "e49a41d27407210c5677d39aa22213c1bd31d46a23e2b535b99382751fcb8383",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "第四条第四项党员可要求罢免或撤换；自行决定立案或中止党籍为明显越权。",
+    "proposal": ""
+  },
+  {
+    "questionId": "84b73324-675f-4863-a028-9a3702987d00",
+    "digest": "a2d5e78f715c2501d9e350bf224c32d6944013c84403352a10556cac0f4d71a3",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "第十条第一项全国代表大会和中央委员会；两个“只有”及人大国务院泄题。",
+    "proposal": ""
+  },
+  {
+    "questionId": "a7ed2546-ac84-4681-a5e7-a82dd4d6b5d6",
+    "digest": "fc246e859cc837c2a5faf52c533c9203fcfbdd46246560c74813ef2a512d2d8c",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "第十一条末款任期制；终身制及临时指定制过易。官方自测可提供设问，重写干扰项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "f9d63064-2833-47c0-ba7a-1ed67a4f9cd8",
+    "digest": "c013bcff21c1f3195523b29c1b2d45b329ea87ef44dd3c429fecd519f231c69d",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "三十五条末款女干部和少数民族干部；已退离休无可选拔，换作在职干部群体。",
+    "proposal": ""
+  },
+  {
+    "questionId": "ddca4e39-4e0c-4ba8-b594-2d63d5381196",
+    "digest": "e351668bbf84179b79547c48805b31ab965e8273dda42eebe02602253b460db6",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "三十八条任职非终身适用两种产生方式；原题四项是二元真值表，改成补一个主体。",
+    "proposal": ""
+  },
+  {
+    "questionId": "818d335f-ce9c-4dfb-b401-b4f7081d5ddc",
+    "digest": "94388c5688772d06df271f7b2ac4d20d59f4fd443ee0eded1ff584c5e4ad6147",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "四十八条党组发挥领导作用；原三个选项都弱于正确项且过长。",
+    "proposal": ""
+  },
+  {
+    "questionId": "2b3d3746-f8b3-42cc-a41b-b31b3b9f173c",
+    "digest": "3e76e7d823b58a845a147b82b2c96c11ddef4fa5634ef43ff8daf784c96f6eb4",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "五十一条助手和后备军；三项分别错到政党/党务审批/国家机关，不需要回忆。",
+    "proposal": ""
+  },
+  {
+    "questionId": "52377e07-7230-4430-918a-a9398992b5f3",
+    "digest": "43953cc37bc0f20e78e199ed7fec1708278c6fe5e5ff2bb32bb1edf07046830b",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "第六条党组织和党员适用；三选全两个并配一个明确非党员，改四选同层主体范围。",
+    "proposal": ""
+  },
+  {
+    "questionId": "985ae35e-a660-4480-8d75-e1d6bbff7516",
+    "digest": "5e27d533a2a774d5a29f472e83103bb8a2c79d97bf671af39492c2fa1afb4587",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "三十五条生效行政处罚改变并影响原处理，应重作相应处理；行政机关改组织处理非同级程序。",
+    "proposal": ""
+  },
+  {
+    "questionId": "7092b933-4fca-42ac-a7eb-92d26b949976",
+    "digest": "b811938a4fd9266eb9930bebc464518884aff1e9d680b9fd262becb540f942ea",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "四十四、四十五条时限正确；两组互斥选择构成两道二选一，宜合为短数对单选。",
+    "proposal": ""
+  },
+  {
+    "questionId": "4a0be842-7801-4fca-9c24-155f8acd91c6",
+    "digest": "dce2d5c6db3d16120de4056c8a26ce14cb2d76ab8536bbf56892bc6352792825",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "二十一条影响期为原处分未执行期加新的；全部核定、追溯确认不像期限组成。",
+    "proposal": ""
+  },
+  {
+    "questionId": "64204de8-9658-44c0-a72e-2621c5dedd20",
+    "digest": "31affdfd9ea7ec51c146bd86bd301a9fe9072cc236f749b7e872d8b89c772bef",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "二十五条无特别规定时从处分较重；编号日期是表面线索，改冒似的规则优先序。",
+    "proposal": ""
+  },
+  {
+    "questionId": "268c05a6-8758-44b5-a7e4-8fb851ee878a",
+    "digest": "986628057f0440c7c2e75f8df37f63fe98086a0cd83240a06fa2413892fac3a3",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "党章四十二条县级或县级以上；“分别报”搭配欠清楚，改“最低级别”。",
+    "proposal": ""
+  },
+  {
+    "questionId": "f330964b-6674-4f6b-8a58-b7c8dadb20e4",
+    "digest": "ce73af50d93182414cc4e65b10c65ae4bc812825d36a25ba41cb215fbe1aad38",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "第二十条发现受处分前未交代问题从重或加重；两项“一律只”泄题。",
+    "proposal": ""
+  },
+  {
+    "questionId": "f3822543-1742-4277-8e2a-26a263ae54e1",
+    "digest": "96546e7f2f89ec16d7b3e868644e596beac15af41bd313ca0d2a3a3472467cfd",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "四十六条处分影响期满无需另行取消；原题是失衡的变相是否题。",
+    "proposal": ""
+  },
+  {
+    "questionId": "6a83beef-2fb6-4460-92ee-9856ed51e3f2",
+    "digest": "ced9d1ad04d3d8bf7d5f042fc7341854cb09ef2faf4488c2ce26fff79d8d70e9",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "四十二条立案后至处理前继续发生应一并计算；改记截止节点，减少显眼“仅”。",
+    "proposal": ""
+  },
+  {
+    "questionId": "2f55ab9b-3fef-48bc-af30-b6a382b83164",
+    "digest": "9afbf4fcef8fe7ec2d9af378e8b8a341951f331438b3faeff7412c6192d5acf3",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "二十六条共同故意违纪为首者从重；“其他成员同档”是假秩序，可换成近似程序。",
+    "proposal": ""
+  },
+  {
+    "questionId": "473e5a3e-0226-4261-a511-ccac2a175010",
+    "digest": "cb23913792a201169c667de5099813d67764fef828e7f40390d414fa3cda8030",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "三十条虽不构成犯罪须追责，警告直至开除；其余“定罪后、一律、只能”提示太强。",
+    "proposal": ""
+  },
+  {
+    "questionId": "20bc0814-df3b-4a27-a7a1-8f2643d01dc4",
+    "digest": "1619663807265b06ee2b038f1a9905fc361448135a82d0ec58e26a590af30bd5",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "六十三条前三项符合，但“如实向组织说明”显然合法，换另章的实际违纪。",
+    "proposal": ""
+  },
+  {
+    "questionId": "75c3c000-50e0-430b-99f7-1454c4fc3bff",
+    "digest": "78e6fa3890465b134a90d315590fcb85b30bca86a716798356c51b7ca0c881e6",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "八十条情节较重警告或严重警告；两项“一律、只能”应换同式处分区间。",
+    "proposal": ""
+  },
+  {
+    "questionId": "41953757-90ea-46d4-b78b-9f75d98be7cf",
+    "digest": "47678d5788b4c81642f0c0afd534c5e32f99e4e53e545a21f9f755e43f9c41bb",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "八十五条两种替代规避均是搞好人主义；另外两项直接写按规定，变成辨褒贬。",
+    "proposal": ""
+  },
+  {
+    "questionId": "2f3084a7-1a66-41f9-88ec-cf639eedd353",
+    "digest": "01ce7acf432f9b940020c1844d6416d17b0b397d829621ec409b5fba0fcdcd9d",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "一百三十四条越三定和违规插手机构均对应；两个干扰都是按规定做事，宜同为违规选项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "ddbf258a-b6ce-40b0-a358-4220b35512f0",
+    "digest": "5a118ab6dd1f3b8910de5d19460476083efc1b493438385119c8faf143be777e",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "一百三十五条不按规定受理、集体访处置不力均对应；干扰写依法与及时，无需记忆。",
+    "proposal": ""
+  },
+  {
+    "questionId": "542a265f-2229-4c22-ad54-e424a926225b",
+    "digest": "ffded534101b8253733402ca849a551ff9f32b78f659e1bb3779c5b9d672b9d8",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "十九条无故意过失且不可抗力不追党纪责任；应与免予党纪处分等近置概念对比。",
+    "proposal": ""
+  },
+  {
+    "questionId": "eb8efc65-d4a9-46ae-80e1-92dbe974759f",
+    "digest": "42a1e116c44d46e6d79d7942edb5c60fdbbb34ef7de090d3bc51650075fc1b0a",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "四十三条经济利益收缴责令退赔，现干扰是任意划款和不收主动上交。",
+    "proposal": ""
+  },
+  {
+    "questionId": "44854ab5-d645-402d-968b-d558df780529",
+    "digest": "ac1b078b384319aed322cdf7cf9b516d2b587dabc077ac6f7afb5cd65c3640d1",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "九十一条违规改路线/超期未归正确；另外两项直接明说获批合法。",
+    "proposal": ""
+  },
+  {
+    "questionId": "163e0496-07d6-4d82-aa67-cbb8f5b395b4",
+    "digest": "2cd891e8c579341f3ca74191aa51e4622bc8cdefb0c2e139cd36b945fb95ec6c",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "一百三十六条不得擅办晋升、辞职；另两项是正常审查，不用看条文。",
+    "proposal": ""
+  },
+  {
+    "questionId": "df941be2-854a-46e0-a285-c9b8c3352e75",
+    "digest": "6fab965b15b899a4d1a9011e59da2f6259d6832bddb0987287e8328919772891",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "一百二十二条乡村振兴领域相同行为从重或加重；现有相反/绝对处置选项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "38032e00-212e-4e9b-86ba-492483767961",
+    "digest": "ea17cd97cbe184e1af479a2cc00f0cbbe490fb5673d84be0ea37b358f019050a",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "第三十五条延期讨论和第三十一条延长预备期均有依据；现题同时考三个事实且主引只写第三十五条，宜拆期限与特殊处理。",
+    "proposal": ""
+  },
+  {
+    "questionId": "9142a3a0-8778-47dd-bbcb-f5fc2d8473f4",
+    "digest": "293403d15595e05f5dd55eee1d2e431f5585a2ff755130d975e0e0e5c1c4bba7",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "第三条首位政治标准；学历条件等维度不在同类，换政治、纪律、道德等 15 条相近提法。",
+    "proposal": ""
+  },
+  {
+    "questionId": "a179c201-1458-40c9-8810-54fa4c3d2b8e",
+    "digest": "ff6f985fd67b9f0cbbe339b0ecb6ff2a9105e4f5fddb720ea937200934efa47d",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "十八条预审主体正确；“不具审批权限”与答案显式相反且明显难成立，换相邻真实机构。",
+    "proposal": ""
+  },
+  {
+    "questionId": "a5de05c5-a2d9-4024-8490-312958e31c15",
+    "digest": "55c42e1abe7d31245c896b019cde06ed440f442e01c9939b47e4733b520e70f3",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "二十二条党总支进行审议；“重新接收/批准后备案”组合与名词层级不一，缩短四个同类环节。",
+    "proposal": ""
+  },
+  {
+    "questionId": "96ddb318-488e-4a91-aa98-2054d6119905",
+    "digest": "e07a910e9ef0caaa730f0f74a5584f3136f062f2b7aaa043c0bcb3918af2d61b",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "二十七条追认报省级；“所在单位党委”和具体行政层级非同一维度。",
+    "proposal": ""
+  },
+  {
+    "questionId": "f6ee1dc1-c675-4664-a8ec-50dd438d1ca2",
+    "digest": "94834551e2d7047743d411be1b9e239ae83c39801ed6e9b6758eb4eebdfdc2d1",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "二十九条组织宣誓主体正确；取消“只能”及纪检非同类主体。",
+    "proposal": ""
+  },
+  {
+    "questionId": "59d3c172-cf5f-42b6-9022-9e227f3c63b1",
+    "digest": "a6ee25f4275a35b057f4e9f7702049ae2d996026b646efb7b29e569187bff292",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "第三节证书颁发后三年；现三个“不属于”失衡，直接问三年有效期。",
+    "proposal": ""
+  },
+  {
+    "questionId": "ed68f6e5-5aa7-4196-bf7d-4126ef38bb20",
+    "digest": "3fa6aad998a44d8c507cb64a591d63294282c9bde6aa3a7fce630effb397ee21",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "第五节志愿服务、实践感学、列席组织生活可选；“参加表决”权利错位直接泄题。",
+    "proposal": ""
+  },
+  {
+    "questionId": "f8cb9364-85cb-4a2a-b2e6-0c1386ad1174",
+    "digest": "2865448b9207374ea2a344068b1b9d4af33841b47578c2dd4bcc0956b13b2ad2",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "第三节两类校级证书主体正确；专项设问可直接问地方党校最低层级。",
+    "proposal": ""
+  },
+  {
+    "questionId": "b613bff6-d106-4888-8713-667d3617a8ef",
+    "digest": "d2470d91cc51ab9ee9a39fafc6c7526d24e0134caeed5ddec8a3e720a8d28785",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "第三条十六字总要求正确，现四项皆为长串且部分错得显眼。",
+    "proposal": ""
+  },
+  {
+    "questionId": "e2bf8cb8-1556-4058-8767-27bea7e7a204",
+    "digest": "3b17c56165b5c52349e06b56f0dfa078c6dc10395f7170967555d1f7fa03ca71",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "第八条从申请人中确定，改填空词位去掉“是否”及三项明显替代规则。",
+    "proposal": ""
+  },
+  {
+    "questionId": "32b1bffe-7921-48db-908f-e96b028630b4",
+    "digest": "bcc16cbf52f86e3ba25fd93b7fbee70c2564383a571a01efc093f415c3aa847e",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "第十条集中培训、听党课、社会工作三项正确；积极分子不可能有正式党员选举权。",
+    "proposal": ""
+  },
+  {
+    "questionId": "7bb79a65-2322-47e1-8bc8-1f175d654424",
+    "digest": "b073c4db9b5d57df7e6520784424a5313187b50e99c4e4bca10a4afe444f092e",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "十五条教育帮助及指导填写志愿书正确；另外两项显然越过职责。",
+    "proposal": ""
+  },
+  {
+    "questionId": "21ed2ea0-e62c-4396-9b83-9635f4aceaf6",
+    "digest": "ae67b01e4bf657a4c60160c2de9850bea1a82e941e4fae425ea9d3758c77068b",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "十六条户籍所在地和居住地；选项的“仅公示/只有”泄题，统一双地点。",
+    "proposal": ""
+  },
+  {
+    "questionId": "2d7befe9-f6fd-436f-b2ef-9caeefeb1ecc",
+    "digest": "39872bd063976963f072e2dd79f3aa574aaefa6272ebff180a3bdaa66fecd4fe",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "十六条未经政审或政审不合格均不能发展；应考核条件，避免直接可否题。",
+    "proposal": ""
+  },
+  {
+    "questionId": "c6afdb35-1b67-40e8-9a6d-bdd83ba50641",
+    "digest": "a3959c7afe387315bf134129cf3b57e09a414e9760ec86c3230fe0e57ca240ea",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "第十七条个别特殊情况例外；现选项两处“即可”易排除。",
+    "proposal": ""
+  },
+  {
+    "questionId": "4a2a73c2-092e-47cc-ad38-cae472fdfcbe",
+    "digest": "558b81bb841deddc38aab3b8934ecd167d1c64f3dbe49aa3463ce746d3470855",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "三十条教育考察方法正确；让预备党员参加选举投票不具干扰性。",
+    "proposal": ""
+  },
+  {
+    "questionId": "346caba6-291c-41a1-bc8e-53d155829883",
+    "digest": "d6c0e2bf1b040d245d9c05b3dd98621b7ded6931551eb3ddba8cdf7f6c42f6dd",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "三十二条转正前征求群众、党员和党小组，末项培训机构非常规；改短单选。",
+    "proposal": ""
+  },
+  {
+    "questionId": "a68e43c0-b837-4c5e-9322-7a59f58676cd",
+    "digest": "a3edbc8f0010b67a67e27b0152ba0da31862e34ea6fee5c57ff71ebeea2b5e46",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "三十六条考察登记表和转正申请书正常归档；平台浏览和所有通讯录可无条件排除。",
+    "proposal": ""
+  },
+  {
+    "questionId": "d4bfc2b4-752d-4fcb-b164-a07d50b8ff07",
+    "digest": "9cf2f5d4f7654f7a16d93fb1128ad008729ca137a06fc8c9dd4d8fd441d4bc13",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "四十二条留存党费用于党员培训和组织生活；“发工资”明显不合，改用合法但非本条列项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "6d2b81cd-1e69-4d07-a491-f5f62601ed0b",
+    "digest": "46585c58c7daab550eac745611b804c0a308782c22943fbb8001f8b96b37c7ed",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "第八条接受培训权；题干直接复述答案中的教育培训，且正确项长于其他三项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "6dc18236-0e73-41eb-aca4-e165f3f993af",
+    "digest": "5e4214084bb361c8c2eae3e857e54fd54c7493dc815da410edb761d1e8261fcc",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "四十五条三种侵犯党员权利正确，允许另选他人显然正常；应考确切程序。",
+    "proposal": ""
+  },
+  {
+    "questionId": "d550cfc7-e69c-4e4f-86e0-72621ca0c289",
+    "digest": "d2a3a6c8270614f73716b17791ab876cbceffaee711afe58feac4f2417f74a8f",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "三十二条应按程序处理并答复，三个报复表现可凭态度排除。",
+    "proposal": ""
+  },
+  {
+    "questionId": "80bf3e2a-7980-4b55-a2f4-e9f442536878",
+    "digest": "7904631a7037d3d97d8bd77c06bf43a7c3f45594c4ac703d26b2c3866b7b1fa5",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "第七条基地和荣誉证件正确；企业广告太易，换其他条明确的必用或党旗使用范围。",
+    "proposal": ""
+  },
+  {
+    "questionId": "05517a27-9808-41d5-9c2f-c471edd86efa",
+    "digest": "98856720888025ccc544bfc53bb80302fb427cc25f84401bc277da3b957d1d6c",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "第二十条主体责任与县级以上党委组织部门监督管理责任明确；现另两标签不具干扰。",
+    "proposal": ""
+  },
+  {
+    "questionId": "12139be5-bce2-4922-a969-dc9db8e3759b",
+    "digest": "952636ecc4788bf41fbf1dd90a5f39d9b49086f27f84909380869b2444e70e4b",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "第五条通常金黄色或红色；选项应统一双颜色结构，去掉“只能”。",
+    "proposal": ""
+  },
+  {
+    "questionId": "31501303-ffdb-45ba-83aa-1f3071e60b7c",
+    "digest": "3ca97625e0eb940ac28f1bc8776379cc5361fd592f0efa1854c34c8ec9f87fde",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "十五条组织关系所在单位有权限的基层党委；把共同的权限限定移入题干以缩短选项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "69977ff8-05bd-4cb1-b0be-d8304e12b5d3",
+    "digest": "269d5d43a1eaeff0402128cd6958007022914f9661f9fc685652200e0dd045fa",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "十三条党小组落实党支部工作；三项都宣称替代上级或行使审批，一眼可排。",
+    "proposal": ""
+  },
+  {
+    "questionId": "0a60788d-7037-4988-b400-2e60d4095b8f",
+    "digest": "bee0bf31ca7386071aacd4fa141580e5e52e0c90ba2291a7e01d99f890ebed12",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "二十条无法阅读时传达文件精神；公开文件与只告知标题明显弱。",
+    "proposal": ""
+  },
+  {
+    "questionId": "5f2b1561-9e67-4960-bb6b-0371b184ebb9",
+    "digest": "ec9ef3eb3d5d92ef0710a573fc64f34eed24cda1444570992c3b79c37e0ea6db",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "合并原有两道各考一环节的同类题，新题同时考查第二十条和第二十四条，继承两个独立制度事实。",
+    "proposal": ""
+  },
+  {
+    "questionId": "fb48b26e-83e8-4d11-ada5-003beb89837e",
+    "digest": "d4f3bf10f987fc45302735c7f7ac1dcbaf475782129efc6a851266b9d9ec17d4",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P19/P26 单选题库；武汉高校公开试卷，定位：P19 单选82；公开卷填空9。以所列官方正文条款独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "e5166a26-187f-462a-87d8-967a85237e2c",
+    "digest": "3731d1f1754364af9c587fb269b350ce1cd87181937cc2451b838084f1c1c8d4",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：https://jingda.12371.cn/zice/zhuanti/index/answer/hid/408，定位：二十大党章600题抽样页问中央军事委员会责任制。以所列官方正文条款独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "b2f95a69-62e9-4346-9f8f-f46afb484022",
+    "digest": "213bcf384ff1f7ec0d38fca9bd94766c7ab8d050e18dfb5613dac54a6df97035",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：https://jingda.12371.cn/zice/zhuanti/index/answer/hid/408，定位：二十大党章600题抽样页问下级组织处理职责内问题。以所列官方正文条款独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "05b4e7fa-ad29-4460-a27c-dce9fb903d4f",
+    "digest": "805015aff52013a4169b5e4c74328a1934e2762e7bb0d8e4dc6d4787f9c3ea2a",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：https://jingda.12371.cn/zice/zhuanti/index/answer/hid/408，定位：二十大党章600题抽样页问地方常委会职权。以所列官方正文条款独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "7eb2fdb3-0736-4135-a20f-c59243d739b7",
+    "digest": "8b00b23624d2786618b7b1e35572e04c908360201e61929a2682efce0a621716",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：https://jingda.12371.cn/zice/zhuanti/index/answer/hid/408，定位：二十大党章600题抽样页问基层组织常态学习安排。以所列官方正文条款独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "3f2b3d45-6e1c-44dd-8af9-e1ba201f6298",
+    "digest": "befdaae28eaaf460aff3110e535fe24809bb0146d9cc40b97d22fc6c7b768288",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P02/P34 党纪学习教育题，定位：单选4。以所列官方正文条款独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "0c41c80b-37d1-479b-86f6-6b5ab8858be0",
+    "digest": "1dcf8269ba8694c8d23d05296288afde1b3e0731b2f833faede4a3ab23652c22",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P21/P27 积极分子判断题，定位：判断79。以所列官方正文条款独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "eaea1517-73cd-415c-beba-232db52cd49a",
+    "digest": "1720717ebfac1ab5d5e5a3c6f46860ad53adbf8a5d70add41163223844c45f37",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P02/P34 党纪学习教育题；共产党员网每日一测，定位：判断6和答题2；每日一测第1期。以所列官方正文条款独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "fee6dbb3-4218-4aa1-bcb0-d5088c83846d",
+    "digest": "40c18da30111f22467bef9ecf2c9cc086e796d22110777011c5bd1b233e35424",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P02/P34 党纪学习教育题，定位：单选11。以所列官方正文条款独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "376e740b-bf63-4f8f-91c8-3b1e00910c5f",
+    "digest": "e9d9fac24319f666723c940c8df45cbbc1ab7cf8a7bc719aa28204cd08117580",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P02/P34 党纪学习教育题，定位：判断9。以所列官方正文条款独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "42ed0638-ad73-4d44-9bbb-d760e5fa95da",
+    "digest": "8a909152711489cbdcf9f43f463951a88b9edd3d2901e674aefe95d71c553efb",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P02/P34 党纪学习教育题，定位：判断7；扩展选择36。以所列官方正文条款独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "16ec4941-22d1-4962-acb7-f96dc30e90d0",
+    "digest": "deb08c3a778f00a3075223b91e32ec90adef5d09c361374ff45a3e65a86ffc96",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P02/P34 党纪学习教育题，定位：扩展选择9。以所列官方正文条款独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "3e38a49e-4726-40a3-ac98-69a517b33547",
+    "digest": "d63c3169335fcf4a0ea14f74a1c8369c5aed32d16461d6c1a354a26a7bbba298",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P02/P34 党纪学习教育题、P03政绩观高频，定位：P02 扩展选择3、P03 首组单选2。以所列官方正文条款独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "e0b082ba-a3ca-4600-809c-a5607bd180da",
+    "digest": "f1c9890ddcf8dac761bf6f8af67abd5695d57433034842437d6ecf65ee07879f",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P02/P34 党纪学习教育题，定位：单选13；扩展填空30。以所列官方正文条款独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "db8e2980-7a5b-429e-8820-a591b0d64e84",
+    "digest": "2bc0fb97dfc04b03062cdb1aef6efd937c9ea5583260593dbbf03d1c40cbdc0d",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：https://www.12371.cn/2023/12/27/ARTI1703688691926144.shtml，定位：条例第三十二条，党纪与法律衔接。以所列官方正文条款独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "b510306c-4991-4b54-a11c-53ffabd8b5eb",
+    "digest": "58de2b13c8fa2612d38ad1ad0c512450257da39cfbd0aca63ba2a0d6e9f08087",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P17/P30 历年卷；现题10-10独立事实，定位：预备期转正相关客观题。以所列官方正文条款独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "6712d0d7-9598-4f30-9e24-b4e60515a62d",
+    "digest": "19e48b0a77abfe82bd9f100c1c386ccd2c57f4c5bc57a483e73aa3839e97ef00",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P17/P30 历年卷，定位：题干“预备党员在预备期间不履行党员义务”对应客观题。以所列官方正文条款独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "8a3b142b-62f1-42aa-8c41-a8e0f007a823",
+    "digest": "438909749a4133dc3604ce2062a12bbfefd7e40c1e58a2d3dab161784e0534b4",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：https://www.12371.cn/2026/05/18/ARTI1779102179030620.shtml，定位：2026细则第十六条第四款。以所列官方正文条款独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "cd240683-90a9-467c-9194-861e5927bc70",
+    "digest": "6ab40bb0a263a21f064c1d48e0b67295f0fb03db396c33c32b15a88947176bd9",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：https://www.12371.cn/2026/05/18/ARTI1779102179030620.shtml，定位：2026细则第二十一条申请材料。以所列官方正文条款独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "1ad93d57-562d-46d1-9673-1cbc732d5eaa",
+    "digest": "a6f4e9176b3a1017ef49a623d7b4023b13e1adb2f0d3ae8a8a6241eb3c3c4a67",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：https://www.12371.cn/2026/05/18/ARTI1779102179030620.shtml，定位：2026细则第四十一条；重大博雅学院转刊可交叉。以所列官方正文条款独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "de938566-0e89-4b09-ab11-9d410f55135d",
+    "digest": "1ad668cbb60c93764740d01f238ded443d3f7be2faf5e58200389e72f7ceb22a",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：https://www.12371.cn/2018/11/25/ARTI1543146320637564.shtml，定位：支部工作条例第十八条；组织生活基本制度。以所列官方正文条款独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "d286f0c8-bfaa-4ea9-92ea-7a5c8e41de47",
+    "digest": "3c4e673845b20c7bc71c349264ffebbbca2905badf8cd90194474ed7aaef11f5",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：https://www.12371.cn/2021/06/28/ARTI1624876462085241.shtml，定位：党徽党旗条例第十一条；该条例第十七条把此类知识列入积极分子培训。以所列官方正文条款独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "82a57a6a-afb8-49d6-90a1-56343da8ef5d",
+    "digest": "d698fa26366eba110f3e2316ed182b79294de87eb14021c7765bc3b483f7c510",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "将同一条例的尺度近题合并为一道短配对题。",
+    "proposal": ""
+  },
+  {
+    "questionId": "34449523-0bbc-4fe0-9c55-6c18bef4e1cc",
+    "digest": "b3f8f78e0014271fcb8417061b66628d9dde2c5cb747ac2ca7495a3295d05f22",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P19/P26，定位：单选80；共产党员网《纪律处分条例》每日一测第1期同考。以所列正式公开正文独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "b0f70a3f-a938-4b0e-bf4f-884a8071f11b",
+    "digest": "79844a1584ae4f342b615670b9b4b0e3f0c09fbbe7a8cf23924da068a8f47580",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P19/P26，定位：单选95、96合并。以所列正式公开正文独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "14f1a1e5-7f4e-40e6-a47d-fbf2ca7e0c26",
+    "digest": "9de03ad5aaf7321f14e7304d021e46528d3e09d6700c2fc92f2bcebf60f423cb",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P02/P34，定位：单选12。以所列正式公开正文独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "f10f527b-cb69-4c99-b795-99ce8ebfd500",
+    "digest": "8a47b0444b55f5aaa206f4a31b38b6985f45c2cd65856fac3e33980e9f3c2a5e",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P19/P26；武汉高校公开卷，定位：购买卷单选104；公开卷单选19。以所列正式公开正文独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "759136bb-8676-4d01-a90c-f89975249465",
+    "digest": "21ca0b38c287603f8fa75ef1c75ca2e378af19ab9321f98c5867b87d096cb2e2",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P19/P26，定位：单选18、多选19合并。以所列正式公开正文独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "5badcb9b-9278-4c18-bc3c-fabed3e1c1a7",
+    "digest": "e61b319a744a1b35beb6ac41d36bebd17d4901983e984bafbd98122d42318c21",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P02/P34，定位：扩展选择6；选择8同近义反例。以所列正式公开正文独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "14a139a3-c9c2-4122-8912-f2ec10f5634e",
+    "digest": "5be6f62934f81734f6bbe4bd4b3def4ca5a1b619299daa9f66ca3c426ac54943",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P02/P34，定位：扩展选择16。以所列正式公开正文独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "73da403b-9bfa-4222-8c8b-42ec785ef30f",
+    "digest": "70bd94dd0f8ac50709880ec430c5095a1ecebf25fde2fe515330846b2f771bd5",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P02/P34，定位：扩展填空8。以所列正式公开正文独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "074aae28-ddfc-4574-a0d5-2f747fc5f080",
+    "digest": "0d9cfe12da37969556173b76575d25aa4edcaeb024839e71aebdc67c4e89683c",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P02/P34，定位：扩展选择4。以所列正式公开正文独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "a4be87be-f0e3-45ab-8547-1ae858f7168e",
+    "digest": "350d6315151fedc15c205a2f6e4db64b501d8c96db7f5c9d396a3feb02e36213",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P02/P34，定位：扩展选择32、扩展填空34合并。以所列正式公开正文独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "0c006e00-d3b6-4728-9a1c-28b9098f0389",
+    "digest": "aa04cbb0e5380c94c01ff349c46c37cd7da98bd4371b23556cfcc6879b7596b3",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P02/P34，定位：首组填空8。以所列正式公开正文独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "7d3de2e1-ea0c-470c-8102-c4449c8be556",
+    "digest": "63cc265bbee8d696ef6907e746ad143fa9c8c61350f26a2dadbaff8769d56df5",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P19/P26、武汉高校公开卷，定位：购买卷多选66；公开卷判断7对应条件辨义。以所列正式公开正文独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "9054489d-d339-4544-8c07-7f3e3f2cebf0",
+    "digest": "1f5a02381957f14e54c46563dc430a44888342addd0909d0873073405893eaff",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P19/P26，定位：多选63。以所列正式公开正文独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "4673963a-8b4c-4549-ae10-6d9385183b5d",
+    "digest": "772ebd155125d450433ff5830ca30440f99bf60c0b6cb2cbbbf8ac6bbc7ebe55",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P19/P26，定位：单选113，双版答案冲突，按正式报告重写。以所列正式公开正文独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "704c35dc-789a-496e-a754-9365189f40d8",
+    "digest": "277dd5f55b9906f95170ee48277d3ac647cdf2e32d4a46cadf1da9a8d0e8e511",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P19/P26，定位：单选62。以所列正式公开正文独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "1fcf4776-e47d-42b8-9f96-6e3354791f2e",
+    "digest": "01213b0786648ad7378a4f64c25cbf873342b0fdaef94a59e21b215d08d5a75d",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P19/P26，定位：单选29。以所列正式公开正文独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "14f09dcb-8774-4933-8b57-3db41d60c019",
+    "digest": "cac5e7845301cb33fbe36aef85eac81ab6535adcdb314820077ed6cf0bc83ab7",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P02/P34，定位：首组单选3。以所列正式公开正文独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "6e5c200b-b2df-4fac-b260-2dfd61b0a7cc",
+    "digest": "0924d27bfeef068eea0710aaac67360880e7d49916f89a92adb3cc144a0260c5",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P02/P34，定位：首组单选10。以所列正式公开正文独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "c795104f-acbc-43ad-8900-03bf95130519",
+    "digest": "d915421cede8ba2d58a47be5e09491a260745395cbee78a25c959331afcd690b",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P02/P34，定位：扩展选择8，由较重处分改测第一款严重档，兼顾相关权利边界。以所列正式公开正文独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "ae08d8d9-02f3-49f8-b9c8-4a984e1ef1a0",
+    "digest": "5a98d6a62424fb2cff525a8d23a27a29152a94236a063c2453210bd4a6476de8",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P02/P34，定位：扩展选择13，合同条两类行为。以所列正式公开正文独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "1f539048-b3fd-4956-a2a1-408f72c6705d",
+    "digest": "6d1427e8ee6bc6d35e8359174f3055eebb2f183ffc492f70238dfe374f7250b5",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "将跨类别明显干扰项改成相邻处分结果，限定责任人和严重情节。",
+    "proposal": ""
+  },
+  {
+    "questionId": "29ef4ff2-9c04-4fb6-86c0-6661fd105499",
+    "digest": "ada9f334cc3f2552113da9cfcd32ac0d41b485b6cba60174442baf58a1cb6e86",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P02/P34，定位：扩展选择23、24；扩展填空25归同一条。以所列正式公开正文独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "969ec211-bd2d-4bcf-a50a-687a74586ca0",
+    "digest": "60bdbd0d91b0016c38a2384a8cd93546a829ebe9acd06d65768bec837b3abad9",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P02/P34，定位：扩展填空24。以所列正式公开正文独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "2d78368d-e777-4732-8d04-baf975ee3b7a",
+    "digest": "c19d00835e2ceec2260f0c89d595f612b4b1291c35829d2f61f1e7d59ace08cf",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P19/P26，定位：单选101。以所列正式公开正文独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "904534d4-e2af-4a14-87f4-03ee2cf398df",
+    "digest": "33cb93ded6faaa0745ad6049634ec1e9773f33d2c39e46503b3f3d9f0a9f65ea",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P19/P26，定位：多选56；共产党员网 2023-01-05 党章修正案问答。以所列正式公开正文独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "0cc76e2b-d86c-42f0-abb3-830b5b8073dd",
+    "digest": "7dbed48ee2807d3dcd9ea621df6a3bb7411b17f150c40a2ccb40610cb7b252a4",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P19/P26，定位：单选8，与多个校园样卷考法相同。以所列正式公开正文独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "320c5f32-6e3a-4583-9559-6e14718f1966",
+    "digest": "39d4a27f77a1fac4de6f0fa2af7649acda898c3c36c5105bbe41e63dd5c50612",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P19/P26，定位：多选25，原四选全对，保留精简单选。以所列正式公开正文独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "ebcd262d-85b7-4cc6-94e0-96646efad577",
+    "digest": "7d58a38c4207bee11f4a289d63af23a6a4af5cf7ecbdb464aeeb5b17301af10e",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P19/P26，定位：多选49。以所列正式公开正文独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "b88eeb08-068a-4ccf-be68-3a32b8ca052b",
+    "digest": "0a1e4f4657769538ee627bf52022d65140b5a753ecde0e394ae957eedf676410",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P19/P26，定位：单选11。以所列正式公开正文独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "05a9c599-84ee-4844-9e9c-aa2569374fa3",
+    "digest": "465516aa90d2c264216d4e50a86f23432c0cd3a6fd7745300d33b2c44b99c6d0",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P19/P26，定位：单选41；对照单选42的模糊“完全胜利重要标志”。以所列正式公开正文独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "dceffbba-867e-47dd-be01-b81d4a37e449",
+    "digest": "9c57112f0c77bb5013f00592a3a6743d67e7fd296f29505a68248540e2b8996b",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P19/P26，定位：单选45，压缩原引文。以所列正式公开正文独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "d403576c-4ac9-4626-b86b-3132722a4773",
+    "digest": "c51a5cbb54111c8d41867375e70405d974851b41a4377efb38c0fae57b21956a",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "题源：购买资料P19/P26，定位：单选47。以所列正式公开正文独立判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "b0e7c7e9-0310-4fcf-a5a3-980d6d505fb0",
+    "digest": "6031076b2e12f2b4a7187ba0841722b988898c458669ab1530cf8189c5b24945",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "购卷题源：P02-033,P02-108，对应副本 P34-033,P34-108。以所列正式原文为准。",
+    "proposal": ""
+  },
+  {
+    "questionId": "9e7aad18-627f-4b90-8ac0-d2cd2758c038",
+    "digest": "e1e852300c1696faba61fb89afc965b648c252c1732519259f1cdba37fbdf9fb",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "购卷题源：P02-077，对应副本 P34-077。以所列正式原文为准。",
+    "proposal": ""
+  },
+  {
+    "questionId": "3da40cc8-15f4-40b8-9bb1-81e1c7f77662",
+    "digest": "95ea129e10c7c204b0237f0b57adf57111fa026dfaa37fda591e6f010ab6c05f",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "购卷题源：P02-089,P02-090，对应副本 P34-089,P34-090。以所列正式原文为准。",
+    "proposal": ""
+  },
+  {
+    "questionId": "1d0eeed5-cff2-47c6-a90c-e10fc9c3a0ca",
+    "digest": "ae1f19ac9359f0e306778b7655b1e6640659e5f16c6c1b164e5f7458af5e1cef",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "购卷题源：P02-095，对应副本 P34-095。以所列正式原文为准。",
+    "proposal": ""
+  },
+  {
+    "questionId": "ec73d232-21f5-4bff-84c5-72bccb53dc97",
+    "digest": "e80d4999b31666fec1d37985d0f05e435175eb16da968be9ecb7b284705a0304",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "购卷题源：P02-102,P02-103，对应副本 P34-102,P34-103。以所列正式原文为准。",
+    "proposal": ""
+  },
+  {
+    "questionId": "bef207dd-67a9-4472-8073-ffba81f6601d",
+    "digest": "1477ca03e939c863d20930fd8625dac625693ed72cf59a4c68c78d48da8d8773",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "购卷题源：P19-006，对应副本 P26-006。以所列正式原文为准。",
+    "proposal": ""
+  },
+  {
+    "questionId": "7a5ec7bf-16fe-41b6-a5e0-0cce30526686",
+    "digest": "d97964633b6c9cc2227302c49b75bd643a52fa2b62d9c066b3936c3b48387f8e",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "购卷题源：P19-092，对应副本 P26-092。以所列正式原文为准。",
+    "proposal": ""
+  },
+  {
+    "questionId": "b2524a33-a239-47e3-a15f-0ea846ed71b2",
+    "digest": "80cc38706bfe896f2d63ecb713ff0a63b6e98571d6eafd315f7684017daf88cc",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "购卷题源：P19-014，对应副本 P26-014。以所列正式原文为准。",
+    "proposal": ""
+  },
+  {
+    "questionId": "042217dc-e630-48bd-b2af-6a9d6c32d6f2",
+    "digest": "6c95cae8a5f71cc6c279a3aa4c682c86e34e223db6a10628b1036809abd45352",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "购卷题源：P19-031，对应副本 P26-031。以所列正式原文为准。",
+    "proposal": ""
+  },
+  {
+    "questionId": "128a04ca-61ca-4f1b-a148-e211e164f9b6",
+    "digest": "0258d8d449c986c9e52fa382df980b3976e8e22c6ad4b7f6e9f9a8802bc69625",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "购卷题源：P19-038，对应副本 P26-038。以所列正式原文为准。",
+    "proposal": ""
+  },
+  {
+    "questionId": "7dc8bd5b-6c12-4ae2-bf85-4fba77783417",
+    "digest": "fd17f8dfe404a5dfcf694c46178d6f06ec6cd46d2cc98bee1c62bd3ed61889e0",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "购卷题源：P19-053，对应副本 P26-053。以所列正式原文为准。",
+    "proposal": ""
+  },
+  {
+    "questionId": "c24bae57-a1b9-4570-8cb4-7972ddb368c5",
+    "digest": "e42c5b927fb8909177e29424492885d622399bdcb2e39c1403b1fc11ee4d520c",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "购卷题源：P19-079，对应副本 P26-079。以所列正式原文为准。",
+    "proposal": ""
+  },
+  {
+    "questionId": "6917d8e3-ce2d-46f0-8fb8-67afb5488ffb",
+    "digest": "d52c38d9766c177f79c4e830a15215682927c72a39fb3b3315c34ec6929ee6ae",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "购卷题源：P19-152，对应副本 P26-152。以所列正式原文为准。",
+    "proposal": ""
+  },
+  {
+    "questionId": "8c832e51-330f-4619-9614-e151cf983046",
+    "digest": "1538d73786a22d2bf8158f225b2cd339457370e467aecc5dd548d49948ac00c9",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "购卷题源：P19-057，对应副本 P26-057。以所列正式原文为准。",
+    "proposal": ""
+  },
+  {
+    "questionId": "9b269b66-4f57-4d03-a107-37c24532965b",
+    "digest": "04067c3ea171a14ceb49ab5caed7dcfad4966ff71adb0b8d81d17c5731187643",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "购卷题源：P19-172，对应副本 P26-172。以所列正式原文为准。",
+    "proposal": ""
+  },
+  {
+    "questionId": "1ca120e7-790d-485e-aec8-ac21034de0a9",
+    "digest": "daa548472089d4c60a3a8eb0c51a9abc5ea2f3da6ba8093cc8ca27e9a8c5a7b1",
+    "reviewer": "全库统稿复核",
+    "decision": "keep",
+    "reason": "P02/P34 单选8转为同条行为识记，并将其扩展填空6的相邻主体差异放入解析。",
+    "proposal": ""
+  },
+  {
+    "questionId": "a467b466-d7cb-48f9-849a-840f119755fe",
+    "digest": "dbb86de811bd492b70124b6b49c5b591a753b159fa6856c4c4fd9bab96781910",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "避免题干直接给出多选正确项的数量。",
+    "proposal": ""
+  },
+  {
+    "questionId": "89308d7d-8e3f-4566-9943-d91124699eb8",
+    "digest": "7ada2c1ba445ad2976f89ffcd9b5fc1da438b46ea7f397f5d73789731e4fe491",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "原题三项均以“的现代化”结束，正确项独有句法。改为文献短补空。",
+    "proposal": ""
+  },
+  {
+    "questionId": "b2b08b43-6d31-4260-8540-f13b5062a6b9",
+    "digest": "17de203e3ac39970926d34ceca6a6b715c0c1ae1381e9150382129b55ab54935",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "替换空泛且一眼可排除的“择机启动的专项工作”。",
+    "proposal": ""
+  },
+  {
+    "questionId": "56f7376b-ae68-4fd3-9036-966d98d89d12",
+    "digest": "1748b4794c3cb81c83caf1ac969c05dc39488480b13d2a1f8750e6da575b0d1f",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "以同类国情条件替代生硬的“本国先发经验”和只占一个维度的人口规模。",
+    "proposal": ""
+  },
+  {
+    "questionId": "86f03e03-fcb5-4494-884d-fd6a8248a728",
+    "digest": "2925b6a642b324fd90681533abf5ecb2bf6fd0c151ee10126320f4bf79f9b952",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "去除不能充当方针名称的长句，保留同一短语位。",
+    "proposal": ""
+  },
+  {
+    "questionId": "e1beedca-3a46-4cad-b585-6a11a76b75a3",
+    "digest": "8464a071aee8468db5e7e5c6f6b67ae7f0db82e930060567e3d0c2b4731ef379",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "主题中的其余几项原干扰过长且与答项句式不一，统一为精神名称。",
+    "proposal": ""
+  },
+  {
+    "questionId": "9c7fe0fd-fee1-4f8d-9937-7525ca426ec5",
+    "digest": "f81140cfc000c771fc47c6a83406e22ce794d928efddec951d6a368d2b8c2378",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "把“大抓基层”等跨域干扰替换为同章中的相近基础要素。",
+    "proposal": ""
+  },
+  {
+    "questionId": "9bed45f3-8514-4493-adbe-75b6530d4eaa",
+    "digest": "7d780a54749395eb1c435eef8925c8c97a3cecde99d052edb00126605796ef7d",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "将“国有企业”等组织类型替换为同类地域选项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "ed607262-141a-4590-b53b-d5f99d25e43a",
+    "digest": "5123f1478829fd427566f2febc1d3f09a3135f4e2d5b8989f169555a78d94229",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "原题‘哪一理论’与三个非理论选项构成直接排除线索，调整为该根本制度的适用范围。",
+    "proposal": ""
+  },
+  {
+    "questionId": "04de34e8-05f7-4396-8c8a-e688e2ebb099",
+    "digest": "4393c908f94701e55b87d197c0073a522502aed809572554ccf9c58c742fdee0",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "移出四项共享的“制度”，保留同类治理理念的干扰。",
+    "proposal": ""
+  },
+  {
+    "questionId": "54760cb5-17fa-4de7-8315-7846e8d63fa1",
+    "digest": "ff6813bb88ab4ebc56fdeb98cec11c2e31fb5c1c1f695f819c2bd57002f40753",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "压缩备选的句子长度，按三板块实际内容设计同类干扰。",
+    "proposal": ""
+  },
+  {
+    "questionId": "40bb22e7-d171-48c1-8b61-3e49cd4fc806",
+    "digest": "f2e28f0f13742ef2e1cff2d1f3b23aa3ea6cc45e6308fb3f3e11749dce403514",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "吸收 P07 练习第7题的原则覆盖，将原卷全选改为同类实质干扰。",
+    "proposal": ""
+  },
+  {
+    "questionId": "0209f364-e977-4cb2-9e96-62776f31f23d",
+    "digest": "0f28c36764e11669a0f048476c0a7b717422ea9c5208ca5218cc1247578a93ab",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "改为识记制度适用主体，避免设置随意的序号干扰。",
+    "proposal": ""
+  },
+  {
+    "questionId": "66038c67-40e0-4744-ac5e-953a1f0be3ef",
+    "digest": "328579f8a556f96590a02c493256a690cbe8ca82e4ea97893ae91e6cece7184d",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "删去重复的引导语，保留年份相邻的实际干扰。",
+    "proposal": ""
+  },
+  {
+    "questionId": "d40bcf1c-2bf2-430f-87d5-a349c512d207",
+    "digest": "7a69e947f6e701fce1da9e5b85a9bc967932ef44d6312a5c2e6a5c4914754638",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "保留三个并列类别，短词填空代替容易通过组织性质猜中的旧多选。",
+    "proposal": ""
+  },
+  {
+    "questionId": "ddf27983-a60c-4ae2-9bcf-5c694820abd8",
+    "digest": "757a97e526769cf7b457abf04d514ddc78db0da1af8965245d6d1de4ae09ddb9",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "原错误项个人决策一眼可排除，改为决策规则的具体边界识记。",
+    "proposal": ""
+  },
+  {
+    "questionId": "dd14fb60-0b93-44a0-a2dc-b93ec873d13e",
+    "digest": "b2e7b3fa5cc89e260e34b5b0aa64faffd9d4fc5e1d29d438bf1a8483aaee7e6e",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "将四组长选项缩为同类四字短语。",
+    "proposal": ""
+  },
+  {
+    "questionId": "70f660e3-f635-4c00-a73a-9bfe5d114447",
+    "digest": "477318bba5a3643e7a742bd0b08fbca8c9fe3cca28b8f97063a9a70bb089af3a",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "四项都能并入深化某项工作，消除原题句法排除线索。",
+    "proposal": ""
+  },
+  {
+    "questionId": "8229357a-e50e-4a57-8091-453b4f151fb8",
+    "digest": "0c6a61a505cb3a4bb350dc66ef2807fa365901e26e8c9db47cae62ae1824fa9c",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "干扰来自同一段的真实两类违法违纪行为组合。",
+    "proposal": ""
+  },
+  {
+    "questionId": "3b30a034-64b8-44ae-9fd4-6461c77afa5a",
+    "digest": "feb5526ef22f1b8920555dd7864e37127a3256511c36712f7569ee00950b92ae",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "用不同的综合培训课程替代三个明显过窄的干部业务项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "1b9ac1cf-0d33-4d7b-96a6-3bd3bf95abe9",
+    "digest": "3b37e5f912cda581e640560fe992761f0d3b279d3dd00def4bf1aa70811aa29c",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "以相关管理工作代替两个近乎不可能的任前和延伸考察。",
+    "proposal": ""
+  },
+  {
+    "questionId": "c1e2355d-10ec-4790-ae38-dd5ce773bdf7",
+    "digest": "dcdb2ff2f09ee8a83bb43fed83f242fc152c450418f5174813018306c47c032a",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "将现库同组选项的“凡提必审”和“凡提必核”两道合为一道。",
+    "proposal": ""
+  },
+  {
+    "questionId": "e5304847-6bd1-42b3-8ac3-ee6dc296c092",
+    "digest": "5a0f1c7aa262d5b6907dd0f1701749afa127b55b9a91a4d25c159ccc5771e7ed",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "由没有区分度的序号改成对主体识记。",
+    "proposal": ""
+  },
+  {
+    "questionId": "ab993b5c-17d2-47a8-b806-8892b1de3cde",
+    "digest": "9a904be14d256041149aca492fdedd9a786d25ea3edbc25dc10302fad557b1c3",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "替换与政治监督距离过远的基层财务公开与地方内部规则。",
+    "proposal": ""
+  },
+  {
+    "questionId": "ece51859-cf8b-48ce-a694-e667c6dfaee2",
+    "digest": "059380a35ad641ef93617eb94bd1f7e4f6afb1ae0d39541d44d03f511c71e56b",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "原题“纪随法行”和“纪在法后”容易被排除；相近术语迫使回忆原句。",
+    "proposal": ""
+  },
+  {
+    "questionId": "12a6fdda-b70e-4b34-9218-622ae29929a0",
+    "digest": "aca9334a2a20c06969def60dd96cadd3d5e520f9b0f4b4bb4609ba19893e0cf4",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "用同类政务公开术语替换容易从保密常识排除的档案公开。",
+    "proposal": ""
+  },
+  {
+    "questionId": "7da6f466-2154-4608-9e50-5ecc116c6b84",
+    "digest": "ce156570c9de49959079bfdcfa60fba52411bda50d87b80ae38572ff0b6bf8de",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "保留固定句式，拆除四个选项中重复的长文本。",
+    "proposal": ""
+  },
+  {
+    "questionId": "510bfa78-d9b8-4766-a45d-0d6d557a43bb",
+    "digest": "6beb39089b86f3d78ad7061ba08b4c3551b379aa0a2ca4bb3626d70241170517",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "把共同的动作放进题干，备选压缩为同类理论或制度名词。",
+    "proposal": ""
+  },
+  {
+    "questionId": "567c5a9b-a2f9-43a0-a91d-05420d58b5cb",
+    "digest": "4f82db452c4326deca1e6e06fac2cfefe056a9651cc8f44bb81977f342db2495",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "删除“所有”“仅”及无关办公安排，换为同文件真实但定位不同的决策程序。",
+    "proposal": ""
+  },
+  {
+    "questionId": "b313b8b5-cfef-4dc8-9bea-16b0d875d6f0",
+    "digest": "2944352f2a67411d0f576d9edf5f5119825b1aba192d1ee67fd70d9e8d8d800b",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从四个长选项压为单一词位，干扰都属于清单管理范畴。",
+    "proposal": ""
+  },
+  {
+    "questionId": "d5300f6b-0bcd-4a41-9f25-90bf05c2b9dc",
+    "digest": "07d9c54e527a980a6aac958f141d6cf398d3d4ed80b70c15550305992d1f083a",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "移去题干‘促治’对答案的字面提示，替换跨域程序干扰。",
+    "proposal": ""
+  },
+  {
+    "questionId": "142cd67d-62c7-4b8d-9d25-c5461714825c",
+    "digest": "572c4191a1c4bd6eba222c96bd7932c3ff269d384a90a0263cc5cb323949b1d6",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从四个长并列组压为同类监督概念，保持考点。",
+    "proposal": ""
+  },
+  {
+    "questionId": "9f8f352b-50a8-40c4-8950-b834b44cc8a4",
+    "digest": "4c524bffa8b6e932e74b134deb9696cd849bb86906c58c6c9bf2a659532c10d2",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "去掉‘所有’这类范围线索，使用实际可能考虑的补贴对象。",
+    "proposal": ""
+  },
+  {
+    "questionId": "ef83c4e7-9dc2-495a-a3fe-7dba018b128b",
+    "digest": "db5301c6e683e2a9a5dbc2808d7d37b3a9d936d23bdd13e1cfe7638182e756e4",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "对比真实托育和服务组织形式，去掉义务教育、养老等异类干扰。",
+    "proposal": ""
+  },
+  {
+    "questionId": "2b1ee05e-f9d2-41fc-9c60-5a07d95be66a",
+    "digest": "d7d624f4baa671a40e2de7772d79dcf18d84f139c5538edf5d846280a0da7b4e",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "替换行政、权力和监察机关三个明显异类，用相近协商术语。",
+    "proposal": ""
+  },
+  {
+    "questionId": "6842147a-478c-40dd-aa15-82d107932ffa",
+    "digest": "a6c95eb175075fee776cad2dc8b1add81761e1fae82535b7de492d689ee95168",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "用同段实际货币政策词语替换政府债券、预算支出等异类。",
+    "proposal": ""
+  },
+  {
+    "questionId": "08943c76-bb9e-49a8-aa4e-f9fd247e260a",
+    "digest": "96107e0f27e8cdf839a4d6f686d790bd558381537f0e50b80ff62c0e2a4d4e18",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从唯一缩略语泄题改为辨认挂钩政策的适用对象。",
+    "proposal": ""
+  },
+  {
+    "questionId": "866514f4-4c95-4b4f-ac84-5cd501a471ae",
+    "digest": "a3ab813eee054c2570898347871e211f45c65220506292455246939e9c344bf3",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "四个选项同属现代电力系统，去掉油气开采等异类。",
+    "proposal": ""
+  },
+  {
+    "questionId": "d2dd3aa7-b6a9-442b-8451-ff3c27bc80d7",
+    "digest": "5ba501538bff8b43cae78a3ac49bc14867b56e1dd78f6e968e0015344a40d9f6",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "用政协履职中的同类监督方式替换行政执法、司法等明显异类。",
+    "proposal": ""
+  },
+  {
+    "questionId": "b59f4e7a-d875-48d3-af00-5c381e1e8224",
+    "digest": "b132bdcef647fc0804a3ab5c081fec327bf1ef6d95fa2a6c449ef40bca4235d6",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "用一组可供交流的评价词替代原先数字强行相同和‘只’的干扰。",
+    "proposal": ""
+  },
+  {
+    "questionId": "63691ef5-5ed4-4a42-a4ce-5715c5381bda",
+    "digest": "75abf448d57409b81dcd37a88b434ea3f407a4c6bfdc56051dd4298f32ef19c0",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "将过长的双边陈述改成单个执行机制挖空。",
+    "proposal": ""
+  },
+  {
+    "questionId": "ceaf2c07-30fa-42e9-9933-45a16408c7f0",
+    "digest": "24d1ad70d5691577ec75605a83e97d49772a405ee30d266ae9dc4daa781c06fe",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "以同类审议主体辨析代替长流程和明显不合权力层级的干扰。",
+    "proposal": ""
+  },
+  {
+    "questionId": "71bba0c2-3c7b-4298-b351-24cb4d43d055",
+    "digest": "29b67819da25e498557d55dedc974837115fa1c2c96e84b1dc481a5f952719ae",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "去除原选项的两个‘只/不’，按这条实际执行载体设短空。",
+    "proposal": ""
+  },
+  {
+    "questionId": "4a326e05-d800-4df8-9685-5d568b5b67d5",
+    "digest": "0c28065ba52fac8150e4b8a479c546e13c5c9d2314ed1540eb995aba9370ac5e",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "由三个明显不合政策的整句改为相邻的保障术语选词。",
+    "proposal": ""
+  },
+  {
+    "questionId": "6aeba020-ed17-45dd-8c0e-0a4a07f352c2",
+    "digest": "470663eda4407a970fc7f6f54cdf616ff170f487be5ed3488f7b228a2396fbad",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "固定原文中的一个短空，避免其他政策选项通过夸张而被一眼排除。",
+    "proposal": ""
+  },
+  {
+    "questionId": "e3b0605f-f07f-4d6e-bd34-7aaf33df12d8",
+    "digest": "a7c934a94d3f7a5408c9718aafbc0c613da0f02a88aa8bc6848ab4a5d93c2377",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "替换‘论文数量/人才称号’等过于明显的干扰，压缩重复的部门名称。",
+    "proposal": ""
+  },
+  {
+    "questionId": "dbec3966-21e9-4e68-85d2-7da663c7f384",
+    "digest": "cd11b4f6a49838f773d438871c8942f90df4151bcc750e7a56aece6bf1aa1303",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "移除‘仅限’等排除线索，保留四个同类范围概念。",
+    "proposal": ""
+  },
+  {
+    "questionId": "162753c5-decb-4fec-9fe1-8e9975d1f87d",
+    "digest": "f86ec95f7458b435160359faf6d1bface5fe2b5ae01f459d5e1f764bddd1b9b7",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "用相邻年龄界线取代‘所有义务教育/高校、只限’等显然失真的选项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "0f08ff93-9fb0-43be-a566-67bd34c0203e",
+    "digest": "aa3c3bb09d76ecaed83737491ef0d66610ca2961f059183edd910419b9ef089d",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "原题三项用‘仅/只’泄题，改由相近的跨域场景干扰。",
+    "proposal": ""
+  },
+  {
+    "questionId": "c83e1218-b973-416b-af98-57dbf81cc8d6",
+    "digest": "34e7b22e46d985463d0b82e038989004e3eb7cb47229965db61b207d13b8710c",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "缩短四项并列重复句，删除‘只购不租’的极端干扰。",
+    "proposal": ""
+  },
+  {
+    "questionId": "93de7da6-bb4d-4c3e-bef8-1c5c497bdf31",
+    "digest": "db0ccfedb94a93f362a87ee28632fd2b81859a4a83ef251179403716f22ba0ce",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "干扰项改为同句法的阶段任务短语，避免过时目标及空泛措辞。",
+    "proposal": ""
+  },
+  {
+    "questionId": "f259cef7-2c76-4d2e-a928-520f4813d163",
+    "digest": "488d2b472bdc7dd0e637968e4a077d6d771ea55c3b76cae3897d018afdf12809",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "直接考一个原文定位，消除旧版全面从严治党同时在两项中出现给出答案侧信号。",
+    "proposal": ""
+  },
+  {
+    "questionId": "8fbf77e2-db64-42f5-b21d-a622f80fca10",
+    "digest": "908442a937342b55c269622395c6a460428446e33ffb9dcb17c4aa92295a9dfc",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "四项都能放在竞争前，去掉‘垄断行为’和‘地方保护’的类型差异。",
+    "proposal": ""
+  },
+  {
+    "questionId": "6fe6d4a8-ba61-4e8a-8fe5-71f984ec6ab2",
+    "digest": "c95494b922f6e76416076d3b48dde8c46c52dc6482f72f813536871ee688c685",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "四项都用就业类表述，避免‘环境友好型’与题干主题不符。",
+    "proposal": ""
+  },
+  {
+    "questionId": "bdf2bc65-ff46-4f9a-9ef6-8e95afad2e51",
+    "digest": "f44fa3945b1df03df23406dffd0e94dba52478d70f60ccff762f0ad3bc53fa97",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "原题‘人’是唯一不属于物质投资且只有一字的选项，改为考文件的准确任务归属。",
+    "proposal": ""
+  },
+  {
+    "questionId": "f7570942-85ad-4681-b7be-e3e14a02b6b7",
+    "digest": "b94947e7cf131579e36aa025445dab0243d61c6d830ad6b55824b73cb4be3e16",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "移去题干的‘哪项清单’对否定其他选项的句法线索。",
+    "proposal": ""
+  },
+  {
+    "questionId": "cd84327b-ee1e-4c42-833b-97ad89f8b799",
+    "digest": "4ed03a85af2acdc761b73be2a77c8ec5b6e766223859f73ac62c2192ea734692",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "将‘服务业’共有范围放到题干，四项均为短且可辨析的行动术语。",
+    "proposal": ""
+  },
+  {
+    "questionId": "789f36f8-644d-4942-95d6-a2490bb18a36",
+    "digest": "aa51245714b8eb47edff9cd7da8b18d8770ebc9f3d4104f49cbbf5bf1b99612c",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "原题在题干写‘民营经济’且只有正确的法律名称含‘民营经济’，改测可核的保障事项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "472f28c0-7792-4a6e-ad4f-a796aa223dd4",
+    "digest": "2f3e19ef480817959dbc4ccfe4fe9a7f762523966b7ac614c91fd85c4b3fb998",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "题面由枚举四类市场后概括改为具体制度归属识记。",
+    "proposal": ""
+  },
+  {
+    "questionId": "7e88ae77-1c84-4ed0-9994-27f861e264b0",
+    "digest": "fedbf5a9f4ddc274fd0eef0ad397278e2d3f50dd26a4043d608371894deca333",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "改成短挖空，删掉郊区交通这一无效干扰。",
+    "proposal": ""
+  },
+  {
+    "questionId": "4991f77b-6d60-4705-82f7-678fa000bdc0",
+    "digest": "046994590b6d6dcc30f28159835aa12666674e4a663845cf3a4bb576383d07e5",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "替换三项一眼可排除的‘仅’‘只’和取消兜底表述。",
+    "proposal": ""
+  },
+  {
+    "questionId": "9b709d83-e944-4b1e-aacb-8a6473a5c82a",
+    "digest": "601f74c136c400d19abb995e2b9015911e8088a373f9195506d11aa007cb56f4",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "以文化领域的相近对象替换跨境贸易、商贸展会等无效选项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "9b3971d8-670c-495e-8b25-34fdadedcc80",
+    "digest": "2388655ac9e1f3ee2168969196b28e403f091e9c66edadc5fd91180af1d92635",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "原四选项为整句且含‘只/立即’假项，收敛为一个固定政策词位。",
+    "proposal": ""
+  },
+  {
+    "questionId": "bbd0adf4-5f8f-4e84-aa42-ab1ef86c8209",
+    "digest": "c6d5ca25bba53c41c1e5d961b5e3e47144547fd6e4ead598fca329b3acf75fd3",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "去掉三个容易被‘只/单纯’排除的选项，按文本中邻近开放层次设置干扰。",
+    "proposal": ""
+  },
+  {
+    "questionId": "77d64705-0df7-49ab-8c91-85e425243c76",
+    "digest": "ed3cdaaaf2bff353c2f4e1dcf0a2df71165e60357f0309c8dcfa13a4809c019b",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "删除只有正确项含有‘斗争’的字面线索。",
+    "proposal": ""
+  },
+  {
+    "questionId": "0d5098fa-e01f-43f5-a278-8dc3af44a1f8",
+    "digest": "79ce36b1c555fe5194c09e5f8edead75fb7849b5aa9a4edda857c68ecd3bc1bf",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "用同一部分的真实短语代替长度和语法不一致的干扰。",
+    "proposal": ""
+  },
+  {
+    "questionId": "36ed205e-6dd6-4e18-9ca9-948d35c28538",
+    "digest": "53163ac041b1ffbc293f882342cd6d8560e427b6a8387409057df4e4c23295a4",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "将共同前半句前置并用同类动宾语图式。",
+    "proposal": ""
+  },
+  {
+    "questionId": "de5fddd7-03e7-4e6a-81e3-c68f95d13126",
+    "digest": "dbb89a199298fe06b1eefc9953058fbb84b05f62cb2367d39a09e1ca3ce06b96",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "把原因概括型多选改为准确识记说明中的短配对。",
+    "proposal": ""
+  },
+  {
+    "questionId": "1ceca868-b26a-41ca-be11-7417535cc9ea",
+    "digest": "592f34dce77e9183dc74b6c255acb8a510a7d779e07b2675f680a155f80c9632",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "旧干扰三项为考察或考核，不能与前两项并列。",
+    "proposal": ""
+  },
+  {
+    "questionId": "a044ad0f-07b4-4462-92ee-14d7dee358b7",
+    "digest": "99f080bab609e28c029a08634d24141453cf225ec96695a50c98de2e517869e0",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "替换‘遗漏’‘时限’等与条款意图不匹配的选项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "fde2422d-5ccf-4219-a2a9-87a370657892",
+    "digest": "4a89091b68d904d184dc194b318cb06e554d3d1476ea1d18a420537ff5f14fbd",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "用法规工作中的常见单字概念替换生造或突兀的干扰。",
+    "proposal": ""
+  },
+  {
+    "questionId": "5b228994-3421-4bc8-b4a3-19477c25d789",
+    "digest": "c2895eedac3857fd8d4bbdf1fec83eac9c525fcd638a738d6fd203a5ee5e4fb6",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "原题技能、学时、任职资历三个选项与党性鉴别距离大，改问具体评价环节。",
+    "proposal": ""
+  },
+  {
+    "questionId": "2b7cee42-6729-4532-b8ea-c8c15f5e5233",
+    "digest": "b324db27f7a396eb4213c8b354334917b7290902c05aeb2936eb5cbc9b2fe97f",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "将考核、审查、评审等不同类型干扰替换为相近训练方式。",
+    "proposal": ""
+  },
+  {
+    "questionId": "2466ab18-546d-4690-8324-2698701fc75a",
+    "digest": "673e384e6143b7129807ab75fe467d70d99456bebf5a3d00da1fecd287336612",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "保留机关换位，删除所有选项重复的动作以缩短。",
+    "proposal": ""
+  },
+  {
+    "questionId": "e6f43d09-e20c-4741-aabf-25235a429290",
+    "digest": "b738570572d7dde27e7a06c7fdb6be959d37a1f8ea0ac3b67369fd59ec42ebb4",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P06 单选8。将相对于2022年的‘未来五年’写明为大会后五年。",
+    "proposal": ""
+  },
+  {
+    "questionId": "631e395b-0488-4191-86a5-f1c4716838a4",
+    "digest": "d672a1c94d2be6e76d5bfcc2537932c742ff7ce28bf7cf1d77576592328c92aa",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P06 多选10、18 的教育科技人才并列框架。",
+    "proposal": ""
+  },
+  {
+    "questionId": "246e198f-698a-4e2e-853f-96c11d27a658",
+    "digest": "cc3aace6f5e9ef3601aceeb60660fd13a36c4302f1938ed7834ff76ad5f66763",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P06 多选17，删去选项中混入的科技化并做四项同构。",
+    "proposal": ""
+  },
+  {
+    "questionId": "ccad1f9c-4a9b-4302-8946-37e9836814fc",
+    "digest": "6f508a2a4ea62001ea073ed039f73e79a0cc66c51883377719936ae40284a43c",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P06 单选3 的同一权威统计段，改成短数字选择。",
+    "proposal": ""
+  },
+  {
+    "questionId": "beb8ea3e-c477-4c64-b994-70454ece4233",
+    "digest": "6050b084e62a029d3e85e8c90c2ab0c6511111479d82c201654cf05eece8d01d",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P06 多选13 的生态系统三项，改成术语补空。",
+    "proposal": ""
+  },
+  {
+    "questionId": "1d6c36d1-1f02-455e-b203-eb70cc7cd390",
+    "digest": "486c86fea992e91496c2ed4707aa6135c55d83db852c1f23729ecc4e1e390cc4",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P07 第一组第1题。将日期、二十一大等已有题点留在各自的原题。",
+    "proposal": ""
+  },
+  {
+    "questionId": "2ef01126-567d-4c84-86bc-728e5b44e7d7",
+    "digest": "80fcedae9a61b5b2a5f78d3a3c5c58eb411c63cfd106910e2b81187fa042072f",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P07 四、重大决定与人事事项。只考公报当时事实，未把人事职务写成现在状态。",
+    "proposal": ""
+  },
+  {
+    "questionId": "1589a6f9-f8df-4a0f-a829-187df0f741c5",
+    "digest": "ff4fc0c31767fa0cf20f9285fcc2fc530294fb059bd5152c179e5afc2b282bcf",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P07 三、指导思想的核心原词。需与 t13 确认是否有完全同考点。",
+    "proposal": ""
+  },
+  {
+    "questionId": "22e2a43f-ab42-409d-9f10-9ac0501011b1",
+    "digest": "4874dc64797fe61772a8e37664c90a14e025dad2973e794b3fc72f0523b380f7",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P13 自测3、P12 常识3，同考点合并。",
+    "proposal": ""
+  },
+  {
+    "questionId": "e3d67c2b-afca-475b-b908-eb2a9d07da05",
+    "digest": "b863e2482653d0c7c0b98a7df1e2bcae2a69c88e2f5e4b1a8634ab252407e4bf",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P13 自测7、P12 常识7。用公报原文其他短语做干扰。",
+    "proposal": ""
+  },
+  {
+    "questionId": "8f381215-0088-494f-baac-07f79802c7d2",
+    "digest": "7f701c70217d4643d3d66e8112d5255aeab4f72a1c48938a722a23707008a911",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P12 常识16。保留官方列举，避免原四项全选。",
+    "proposal": ""
+  },
+  {
+    "questionId": "2c33821f-bf2d-4459-962a-bd28f6faf0af",
+    "digest": "3442bbb32d501100d9d73309b46a14159ecd80cae0e6ba7eafd0282e1de91ef3",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P12 常识33、P10 产业部分。区分 t14 现有‘实体经济根基’和‘物质技术基础’。",
+    "proposal": ""
+  },
+  {
+    "questionId": "529897f9-9b41-47d6-9b43-48c74a2983cd",
+    "digest": "11aa1ce8fcd797ad5ce66ddfb929365718f124d1f30b503f695a4a29197342ad",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P12 常识50，原全选题转一个短空。",
+    "proposal": ""
+  },
+  {
+    "questionId": "81f2ffd6-d10a-40c0-9dd0-7fae11a4ebb2",
+    "digest": "ef310a13a66cec45f4607648c4bf3ad45a9583c239cab1981666d1d67f7a7785",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P12 常识56，将原全选题改为同类短空。",
+    "proposal": ""
+  },
+  {
+    "questionId": "7aa3d58c-a504-4dd7-aebe-48f1ad6fef9a",
+    "digest": "7ac4e7dccd2b461364a2a66a5603074ea8581d0ba0331b20e339bccc78c001f5",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P12 常识61。",
+    "proposal": ""
+  },
+  {
+    "questionId": "df075f92-b0cc-4932-bc77-b661b373b98c",
+    "digest": "6c8204df5d3940795397cc44a2fc275d1f97660b3afc2b3857c6b84f4b835f40",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P12 常识67、P10 第98题，同一事实只出一题。",
+    "proposal": ""
+  },
+  {
+    "questionId": "78148716-4964-43c4-85c3-361f9a865e75",
+    "digest": "fd2268da14514a9377e87e9385795d5857926843de2d7b725ac13ce50245d7eb",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P12 常识80，原材料‘五个强军’标签不严谨，保留原文考点。",
+    "proposal": ""
+  },
+  {
+    "questionId": "45103bf9-515e-4ad0-81ba-d4bf7fa0e576",
+    "digest": "8e71b4f766e66c6917bf2748494ac4c952909749d228e85a914517f4a983f74d",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P05/P36 第5题。",
+    "proposal": ""
+  },
+  {
+    "questionId": "9c0f3782-9d61-4d4f-8b49-f1e811d06416",
+    "digest": "c8faba8dfe9bb4eea9f5f9e74d9e810fbaf6bafcb939fd1f1f3528ef5aa3a2fc",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P05/P36 第14、15题，合并为一组相近数字。",
+    "proposal": ""
+  },
+  {
+    "questionId": "9d164bff-341a-4e05-b775-b71feb768bd6",
+    "digest": "c0595c282e018e6e43795d1c643f82c7b6f2da6ef994c39cad3cc373a15aab63",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P05/P36 第19—21题。",
+    "proposal": ""
+  },
+  {
+    "questionId": "dd974666-8096-4096-98b9-73d6de24f679",
+    "digest": "3f66435578896dbbd3e8c36b5bea63aa6441ed51a45330bd68e52dc0f26fe458",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P05/P36 第51题。",
+    "proposal": ""
+  },
+  {
+    "questionId": "6d50fbd5-8ccf-4040-a818-00a83dd92769",
+    "digest": "bfdfcb79e209a8b03b6867efcfd11f56eedd278218040be1cc2497573466212f",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P10/P40 第82题同事实，转为2026年度报告明确的整省试点。",
+    "proposal": ""
+  },
+  {
+    "questionId": "a67c873f-84b2-4a77-a697-51f3809a4372",
+    "digest": "7d2092d101d73cb2d146a706bd32b819ddb2e5025052e1852f0b96f6760504ae",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P10/P40 第21题，按原纲要核对。",
+    "proposal": ""
+  },
+  {
+    "questionId": "3b82f16f-1a0f-4125-bae9-1eb1798bbda3",
+    "digest": "7290d9371ca40266cd8e83961ed2ebef5f16a668b2aac868aa2d5386e4299275",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P10/P40 第28题，改成应用机制相互辨析。",
+    "proposal": ""
+  },
+  {
+    "questionId": "7f7e5310-f56c-4728-be95-cdcedb81cfef",
+    "digest": "3e5750f054fd1889b560174ca574a614a1ccef4a8fce5d3738cf9dbb6dbb3c43",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P10/P40 第31题。",
+    "proposal": ""
+  },
+  {
+    "questionId": "0fdbe2f5-d511-49e4-a64e-cb35a4a6fa80",
+    "digest": "39f7ecab4165079103a1aca5b066cb5200c4742d7936eda67281cfff3c73201e",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P10/P40 第38题的国家数据资源体系，结合正式纲要新增具体建设对象。",
+    "proposal": ""
+  },
+  {
+    "questionId": "64e19753-b1ff-47d1-a4ef-c6cda0ea5bae",
+    "digest": "546b1ce64e0d6e9b9341f842dd56e938d50fee6743f31cb82e2e98e66012831e",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P10/P40 第60题。",
+    "proposal": ""
+  },
+  {
+    "questionId": "c0abbbb0-949b-4893-afc7-d591d42c6be5",
+    "digest": "d5e921420ee55e1c2ababd337eb5f4345ffbf397cc4e9e8b4a5607b34ab02458",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P10/P40 第88题。",
+    "proposal": ""
+  },
+  {
+    "questionId": "84112a3f-473c-4d04-8bdf-94647669b1da",
+    "digest": "ae293efa4d695c59ccee89c472470aef86811d2144f0376d60a536586ea41b02",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P10/P40 第73题，使用2026年正式纲要列举。",
+    "proposal": ""
+  },
+  {
+    "questionId": "f5a759ff-c3f1-46bb-a1c0-613b584bf92c",
+    "digest": "c24f9958a04e2d00783d739b5a73b7a2a31b1437ea29a3dba2cea502ee880ca4",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P05/P36 第22—23题纠错合并。原参考答案分别误用重大安全隐患排查整治、新型城镇化和乡村振兴。",
+    "proposal": ""
+  },
+  {
+    "questionId": "62b4933b-878c-46d1-8770-10e132cbd0eb",
+    "digest": "35e1cbfe97376768a7790624ba98009a6ecae0c03f3273f8fab578ad97fb93a8",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "以同样属于国防和军队现代化的目标替换旧题已实现的建党百年，四项均需辨析。",
+    "proposal": ""
+  },
+  {
+    "questionId": "8a7a11c7-7e61-4915-9a91-b4632b938cbc",
+    "digest": "288c43d06f862cc6d094b8655949fc6968bf0726ec834d2e86751045a839816e",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "消除过于宽泛、明显跨域的经济波动和外部干扰选项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "db45f214-7554-4612-90a5-5c0ccaebcd40",
+    "digest": "050a36dee535c63406473d8924eb21377bf911e9232bc2bb7ac30fc71e79d7c6",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "去掉无法与常用学前学制相配的‘四年’，从同一幼儿园阶段的不同区间设干扰。",
+    "proposal": ""
+  },
+  {
+    "questionId": "82a42ae5-f73a-4e32-8110-c32fb10d3290",
+    "digest": "cdab267bd0b18c5cd92b01007495579bd1c887e0b93aaa29fc4635ea9de6af8d",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "将共用词提入题干，降低四项内容层级不一致的线索。",
+    "proposal": ""
+  },
+  {
+    "questionId": "36d3820d-3eda-46df-b39b-f5f71f867a64",
+    "digest": "c737b6b0b169aafe1bd47cfa8f885578121838deef2cd69afbd16db9d8cd1713",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P10/P40 第42题误说没有具体目标，依据国家发改委发布的正式表格改编。",
+    "proposal": ""
+  },
+  {
+    "questionId": "01709eb1-b997-40dd-9674-f1767ae28bad",
+    "digest": "269282b6a1afd68ec021b77895c180af69b9090d378269eb6d3428098f8396f2",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P10/P40 第一组目标均来自专栏1，补足现库指标属性缺口。",
+    "proposal": ""
+  },
+  {
+    "questionId": "4e9f6025-43b8-4cd7-a276-95c41e455621",
+    "digest": "a57c3675a7b867aaf3ff4a3367154bace74d7531b99f236cbfdbdfdad8fc52ac",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P10/P40 第22题；用实际可比较期限替换化石能源倍增等反面项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "b154ddc7-9406-4d52-9ea8-8756c2e3a399",
+    "digest": "0d39c25920efd2b8f188ebddb23003a76190f6edc1364126ea65c33d805a9f44",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P10/P40 第29题，改成来源明确的实质判断。",
+    "proposal": ""
+  },
+  {
+    "questionId": "27961691-7630-47b4-82e2-4b18a5683bd6",
+    "digest": "a4a75768dc4beb5b685080148907b900463f9d6279c7197259aaea2b9a5e7208",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P10/P40 第63题及 P04 重点选择14，同主题按正式纲要合并。",
+    "proposal": ""
+  },
+  {
+    "questionId": "7663f4cb-5bd1-4af4-9ec4-1def02c3013d",
+    "digest": "c13daf0fe3194bc3c342f9b2f9e3e03471b491c7aae51ccef286dcebdab90f11",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P10/P40 第2题及P12常识15，改为权威文书具体词位。",
+    "proposal": ""
+  },
+  {
+    "questionId": "149a00f1-c8b7-4760-b16a-0c3f71c0fea6",
+    "digest": "e6bbdb0c00a3d350d512a9a2ed893560115e669e2b51562b970156bb9eff4d0a",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P05/P36 第25题题面残缺，取《建议》该项确切原词。",
+    "proposal": ""
+  },
+  {
+    "questionId": "3dff34e2-a9b7-4592-82ea-1829d35ad894",
+    "digest": "85f2ff700abd46708442e6b0e3ee280aecfacc1d69116121e4fa6cf2edaf672a",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "P12 普通题31，避免以‘不包括’加规模化的唯一反向判分。",
+    "proposal": ""
+  },
+  {
+    "questionId": "d7b9feaa-2b05-4927-b4fd-e626baedcdde",
+    "digest": "71447a92df730bbe21a256b5b1d10741285d909f41e6e185809b75fd811b0181",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "共产党员网四中全会官方知识自测直接出现的设问，本次观察排序第6；可见 https://jingda.12371.cn/zice/zhuanti/index/answer/hid/515 。",
+    "proposal": ""
+  },
+  {
+    "questionId": "dc8f3cf7-6412-4baf-93bf-29bb61fe1460",
+    "digest": "3724b21354ffd81227e038053ad2c31ef5e8378c5911b66925fc335f9a66a398",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "共产党员网四中全会官方知识自测本次观察排序第8；见 https://jingda.12371.cn/zice/zhuanti/index/answer/hid/515 。",
+    "proposal": ""
+  },
+  {
+    "questionId": "e91995f9-9f26-4f92-a2ff-fd92d717ecb8",
+    "digest": "28ba1ad03ca1420acdf1317202d65dc46a17b56f495b67cf2e2448c57d3ed156",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从购入资料查到考法，按所列正式原文重新出题。涉及P05-008。",
+    "proposal": ""
+  },
+  {
+    "questionId": "9d13e713-6fa6-4800-914f-d3fb4f0e6788",
+    "digest": "d2274ac29a493a02db72ab04d2b656ef717a42ce696531909d93ca2a7587cc1c",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从购入资料查到考法，按所列正式原文重新出题。涉及P05-012、P05-016、P05-017、P05-018。",
+    "proposal": ""
+  },
+  {
+    "questionId": "db0df07c-8372-4faf-84cb-34c7757642c6",
+    "digest": "6834503ee706654826296eec3202a806f21cfda472c373cedf3e03c1d0d8b808",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从购入资料查到考法，按所列正式原文重新出题。涉及P04-004、P04-018、P04-042、P05-066。",
+    "proposal": ""
+  },
+  {
+    "questionId": "e627619f-1ad5-4a99-a405-553a78e1cf31",
+    "digest": "7924da5a923cb9db19de5ac27ee8d0deb5e1d54dd37d385d9b68f0eec11cad33",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从购入资料查到考法，按所列正式原文重新出题。涉及P05-040。",
+    "proposal": ""
+  },
+  {
+    "questionId": "e9d113f8-d643-4623-a079-e0be9a21b74d",
+    "digest": "45105c61b7a2da26743de248d6e5b2322ec91691334bbcda63d737c897cf65b6",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从购入资料查到考法，按所列正式原文重新出题。涉及P05-075。",
+    "proposal": ""
+  },
+  {
+    "questionId": "83933848-6a44-4fb4-9f03-7679c7eb0ae6",
+    "digest": "5a1a3edecf446f563551e7b8de5c15a832b7ce70cbe1cb7350baa2a7bd1ecc5d",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从购入资料查到考法，按所列正式原文重新出题。涉及P05-074。",
+    "proposal": ""
+  },
+  {
+    "questionId": "c389fb33-22fa-47f0-8585-ff0815bfe538",
+    "digest": "47aaeffe67c1a46d714b22d148312c350492dcab41450de50b120bae699031ff",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从购入资料查到考法，按所列正式原文重新出题。涉及P10-027。",
+    "proposal": ""
+  },
+  {
+    "questionId": "96365a5b-1839-45c5-bacb-4cfe6440013c",
+    "digest": "0d57913ac337a876ac5e7af9c352bc6b79aa3ed590838eb320ef27942c1936c3",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从购入资料查到考法，按所列正式原文重新出题。涉及P10-030。",
+    "proposal": ""
+  },
+  {
+    "questionId": "30ae5246-d4bd-4013-be80-fb3abdb709c4",
+    "digest": "7da7420fb38f26b56e5b81bd635dc77751eaea9c5a100b71641f28533e059858",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从购入资料查到考法，按所列正式原文重新出题。涉及P10-034。",
+    "proposal": ""
+  },
+  {
+    "questionId": "cad98f77-8ff9-4107-b637-c1555d333013",
+    "digest": "88549098d2bb02ec4b6fe94273265b2c2276add79accbce08a01f1392292089f",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从购入资料查到考法，按所列正式原文重新出题。涉及P10-054。",
+    "proposal": ""
+  },
+  {
+    "questionId": "0b4c5ec1-cd7f-4616-9526-b8cbb3da1419",
+    "digest": "a746ee9688fae6ec33877691d830703a87d8e26771c40cb1cfcc5fa3f85064a9",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从购入资料查到考法，按所列正式原文重新出题。涉及P10-055。",
+    "proposal": ""
+  },
+  {
+    "questionId": "6559be74-0e76-4c1b-9293-9b05246f87b2",
+    "digest": "3b7a68cf99dd574fc321b7846310c204db6bfd77dd922bbe3b52a64586a5e5af",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从购入资料查到考法，按所列正式原文重新出题。涉及P10-057。",
+    "proposal": ""
+  },
+  {
+    "questionId": "bd14e08e-f32a-4322-9c8b-9e932fe9447c",
+    "digest": "4c518aefdf965d9cfe3e856929e1ddddccb2a0e97377600cb250cfeda83012d1",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从购入资料查到考法，按所列正式原文重新出题。涉及P10-072。",
+    "proposal": ""
+  },
+  {
+    "questionId": "50a831f5-c692-43da-985f-126f7bc3dc79",
+    "digest": "062848bd16d018cda023c87045559104b77a8101bb62b5e172d74ef8cba3c600",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从购入资料查到考法，按所列正式原文重新出题。涉及P10-074、P12-043。",
+    "proposal": ""
+  },
+  {
+    "questionId": "c7cc0a37-cc6a-48f8-af15-9f074ca1d80e",
+    "digest": "518f6d013884628b099331be5d1c337d8bfdadd77e1afcc8f1ee611462b51233",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从购入资料查到考法，按所列正式原文重新出题。涉及P05-061、P10-077。",
+    "proposal": ""
+  },
+  {
+    "questionId": "a921a3a2-7271-4609-963e-966658be94da",
+    "digest": "93fdd24970f308f7edfa11254dbeb2c73fff5a53f7ff0a5bba7a371d69d91e00",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从购入资料查到考法，按所列正式原文重新出题。涉及P10-078。",
+    "proposal": ""
+  },
+  {
+    "questionId": "4db90c2a-2dbb-4822-b8e5-69635173962c",
+    "digest": "e99374c9e36e932e5695cd503d73b1e2b24bb570902b2154a5e32d139404bbec",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从购入资料查到考法，按所列正式原文重新出题。涉及P10-094、P10-095。",
+    "proposal": ""
+  },
+  {
+    "questionId": "10e1936b-af73-4a02-b975-acf20b927b30",
+    "digest": "3c688017f485dfa49b06778fb24cf215e25b81f9ec425a7c0bd6be51b49348e3",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从购入资料查到考法，按所列正式原文重新出题。涉及P10-087、P10-089。",
+    "proposal": ""
+  },
+  {
+    "questionId": "4ba03005-0a79-4aef-8830-32f45f5fe2fb",
+    "digest": "a18ec957e25bab8b11a4c74a91e043c436a08ca6c25ffaccde05a47c08300a80",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从购入资料查到考法，按所列正式原文重新出题。涉及P05-052、P10-070、P12-041。",
+    "proposal": ""
+  },
+  {
+    "questionId": "55a2403c-076f-488b-b51e-f876f560f1e3",
+    "digest": "1121d58aa53498db3d019cb719e8deb10f0d239768abbaf2133ba8f62b2b1839",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从购入资料查到考法，按所列正式原文重新出题。涉及P06-004、P06-034、P06-045、P06-046。",
+    "proposal": ""
+  },
+  {
+    "questionId": "7b6d113c-f164-4196-b8b7-a4807e61b8a5",
+    "digest": "d0290502a2bef5cbcf4987db6cd0019e46f513de69e44487267e948ea5ebc9ec",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从购入资料查到考法，按所列正式原文重新出题。涉及P04-057。",
+    "proposal": ""
+  },
+  {
+    "questionId": "0704a192-82ad-4110-834b-38c43096c229",
+    "digest": "d87419a8fa9427b1b27529ff61a094d06439a0d14a6cb329286e32231a53eb07",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从购入资料查到考法，按所列正式原文重新出题。涉及P12-009、P13-009。",
+    "proposal": ""
+  },
+  {
+    "questionId": "2ebc37d3-24e3-4beb-997b-333482069e59",
+    "digest": "648960b8f0c7f9a2577a15b64dc2313b5caca1ab094e79d6451d9fd0e34a3a8e",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从购入资料查到考法，按所列正式原文重新出题。涉及P12-013。",
+    "proposal": ""
+  },
+  {
+    "questionId": "41474026-45ef-4dda-9484-1fe52297b871",
+    "digest": "348beb0deb65e5a4ccd4a059da2175ab9044b8904ea2365c37d3613d4e57210e",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从购入资料查到考法，按所列正式原文重新出题。涉及P12-028。",
+    "proposal": ""
+  },
+  {
+    "questionId": "4b3a4c2e-f898-4696-9b06-baa2c64b8af1",
+    "digest": "909cd4e98e30a3de4fb32ecfdfab4090f744ac38bcdc3d0aa000270d6c6c9ca4",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从购入资料查到考法，按所列正式原文重新出题。涉及P12-036。",
+    "proposal": ""
+  },
+  {
+    "questionId": "2e3e0f85-06ac-4097-9a73-5884f5322598",
+    "digest": "598f5c197d75bbe8231062f5ef6d343a0e7b32a5fbbb504303e93983068ad28b",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从购入资料查到考法，按所列正式原文重新出题。涉及P12-081。",
+    "proposal": ""
+  },
+  {
+    "questionId": "794fee37-e528-4b44-a302-eeb4dbf0b02a",
+    "digest": "4a791da86b6cb627a32abfd7c85d498d475b679699e4095e9f2e8f28170d8039",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从购入资料查到考法，按所列正式原文重新出题。涉及P10-100、P12-084。",
+    "proposal": ""
+  },
+  {
+    "questionId": "df901689-9936-4d39-b7f7-e89e65edab64",
+    "digest": "f8896271aa74a984cafafec9992e2fe99bb9e54541c8cf0e20af50a2b72c3e32",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从购入资料查到考法，按所列正式原文重新出题。涉及P10-023、P10-037。",
+    "proposal": ""
+  },
+  {
+    "questionId": "f94be034-a15a-4fb8-86bd-7d7b42378787",
+    "digest": "f63cc36631c1a086111c86657b710737d0ac76b31ba92f8a3a4969909320a7f0",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从购入资料查到考法，按所列正式原文重新出题。涉及P10-035。",
+    "proposal": ""
+  },
+  {
+    "questionId": "c584d4d2-17f0-42c0-b396-fbaaa8f0eccc",
+    "digest": "4f108efc61a7840ce250ccf6dece83e23afb3d82d935f0be703b3abf3aadcc05",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从购入资料查到考法，按所列正式原文重新出题。涉及P10-045。",
+    "proposal": ""
+  },
+  {
+    "questionId": "890a64a9-7e27-4b14-a949-7299b66ced91",
+    "digest": "66168e62dd04e26b1c2ef8ba6dda5389fe6f00214988052f45bd697fcea1f22a",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从购入资料查到考法，按所列正式原文重新出题。涉及P10-052。",
+    "proposal": ""
+  },
+  {
+    "questionId": "591f0a26-2f04-43c4-807d-f8a9de58a79b",
+    "digest": "7bd91e4494887cd6bb20c27b5baf37a733b89fc6c386bc1c307bddf9d350a70f",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从购入资料查到考法，按所列正式原文重新出题。涉及P10-071。",
+    "proposal": ""
+  },
+  {
+    "questionId": "1ac14459-7914-4a47-8da7-5491927230aa",
+    "digest": "23e8f98ffdfda4cbb1e40e189f5d274e2151eb5f9c0e94bbb2208886cafa21ea",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从购入资料查到考法，按所列正式原文重新出题。涉及P10-080。",
+    "proposal": ""
+  },
+  {
+    "questionId": "ffc03dbf-c179-43e1-93b7-3cf96861efdc",
+    "digest": "ef802a00bb0ff51fe924b3195ee0cd892b47821388917c576446b934da3a8adb",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从购入资料查到考法，按所列正式原文重新出题。涉及P12-032。",
+    "proposal": ""
+  },
+  {
+    "questionId": "715c7216-3618-4ec7-b590-8ccbc8463f83",
+    "digest": "d3e49e5a5b25aac0a65207bfe58067122ff8c5d3aa92383a5fde855c5404827c",
+    "reviewer": "思想理论资料复核",
+    "decision": "keep",
+    "reason": "从购入资料查到考法，按所列正式原文重新出题。涉及P12-040。",
+    "proposal": ""
+  },
+  {
+    "questionId": "c8616dd9-5097-49e3-85ee-7d9e25b4c03d",
+    "digest": "9fd5eff188c22db1c4dcc7e9706544d2395968b49753fb946685ccc72b89cb7a",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "所有年份都对应近邻抗战史事件，去掉缺少历史联系的年份。",
+    "proposal": ""
+  },
+  {
+    "questionId": "972ced84-6c47-401b-b414-3ec8951bfb4a",
+    "digest": "1c767caeb5a7842da5ea6a66ea58257fda532e1839abd4711c52353f41a6de1d",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "直接考一个原词，四项均可作为教育面向的补词。",
+    "proposal": ""
+  },
+  {
+    "questionId": "f993d8ef-934c-4338-9e55-0354ec6f9aaa",
+    "digest": "bf2182e05960b4d282330e8d3ce42892494ac143f916a98b19ca2d36618af28f",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "四项均为与抗战及其准备阶段有联系的会议。",
+    "proposal": ""
+  },
+  {
+    "questionId": "f559a9c6-7712-471c-a09e-d5d5052fc2e0",
+    "digest": "168eee2ac716d46900fd3c4ec1a4ff11526d74f124680f0da2730dc833946732",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "先定考点称谓，删去题干中重复的长定语。",
+    "proposal": ""
+  },
+  {
+    "questionId": "72065e73-a7ed-461e-a585-6b66e2a5489a",
+    "digest": "53f8b71f7e841a2dd5767a1c37f42ee8f42fefcd5072ceb20e2b043d9aac1310",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "将类别错位的民族自治改成同类革命术语。",
+    "proposal": ""
+  },
+  {
+    "questionId": "15359798-ff6a-42b2-aa30-8587ba996a4b",
+    "digest": "9719188b81541f7ced47e1dc797181c0d29b2a3419097a20f69387cd7b5c54ce",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "原多选含同一纪念日两组互斥值，改用两轴成对单选。",
+    "proposal": ""
+  },
+  {
+    "questionId": "177a18ed-bd5d-4aff-b85b-c197ecc36bc5",
+    "digest": "fc1e9e7988aede07fe1a5dd33d42d8821aac2b002a350dffea00248c1a5c2a16",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "去掉“哪家报纸”的类别提示，保留四种相关载体作干扰。",
+    "proposal": ""
+  },
+  {
+    "questionId": "462b1657-7f5a-47aa-ab53-5ec989e80af1",
+    "digest": "2dacb6613cbaf7eae00b2ce68b35793cfb71150c9d812986fed836b57af5ad13",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "原选项里新四军一项可凭类别排除，改考部队和战斗名称的配对。",
+    "proposal": ""
+  },
+  {
+    "questionId": "4fa0c69d-0533-4557-baf2-26eeb882e3ef",
+    "digest": "81389928f6ab8ecc0aaf66f90a4b87d761788e6ddd6e4068112864633506c7ca",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "保留并列用语中的精确词位，选项同为两个字。",
+    "proposal": ""
+  },
+  {
+    "questionId": "955fa468-7d42-4843-aa2c-0482174f2735",
+    "digest": "c7cde42820e1bd0b4becae313d11b394a1d01a622c905eef9849512bc971579d",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "合并两个并列问法，分别考查两个交接日。",
+    "proposal": ""
+  },
+  {
+    "questionId": "05b70925-ba36-4d34-9ce0-ac071d4cfcaf",
+    "digest": "efd31e660516f2e98b0029795c45ac7b541e17d1ac8ee3e79a4ba1256679201a",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "题干用时点和场合，去掉“不会速胜”直接提示篇名的写法。",
+    "proposal": ""
+  },
+  {
+    "questionId": "7440fbb0-013a-4fdb-85dd-de8b9f3763ef",
+    "digest": "85a16a6715f664b5c968b2f6d7dd4e78f1f7985c56ac402d58d05e68dd6261af",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "改正济南战役逐项解析把其时点笼统写成“战略决战前后”的表述。",
+    "proposal": ""
+  },
+  {
+    "questionId": "d81eabeb-b46e-499f-96c6-1ed58ca900b8",
+    "digest": "5ebd62e221f58f2a1cb2728e3b947c8c93437a74a9c51d75ba541b3bc43e3a88",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "原题可先按人物身份排除，改为同县区域的地点辨认。",
+    "proposal": ""
+  },
+  {
+    "questionId": "9a250ff5-7d9c-43f8-887d-483208a6296f",
+    "digest": "0eadfecce0ca49edcb7bbcc46be71c1ea314fd53d6d0880e18f842dea82f04f0",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "改用实际两次颁授时间点，避免题干用“7月1日”提示选项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "ead0dfd3-4270-4def-8203-8406e4f673da",
+    "digest": "645d826e6cb25983bacbacf80c61c193f9fc689d5d5e915a3d8a5e853e85a4a1",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "四项均是革命会议可以讨论的问题。",
+    "proposal": ""
+  },
+  {
+    "questionId": "8fcde2b0-fdc3-4fee-9830-07fdda9b7ae2",
+    "digest": "a511f87a3396511918117aad6984f79c57ff99a01c32775f514a92e9ea89900e",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "压缩题干中讲者、日历日期和说明性背景。",
+    "proposal": ""
+  },
+  {
+    "questionId": "042e0baa-21b3-43a1-a3ad-75e2b9f8788c",
+    "digest": "ff4ffbe495bfc313bdd3d7443393e495ee41b48db89c28fe5eead74fc92a2d82",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "把唯一超长篇名移进题干，让四项都成为同类会议。",
+    "proposal": ""
+  },
+  {
+    "questionId": "302d5978-5fa1-41c7-a292-9000f6303b78",
+    "digest": "9da089319c7747e6d9ee9b1d4a04a2b1a6cdd57ae734fd2053f04f28e50ec963",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "统一选项和解析中第三路所涉区域的名称。",
+    "proposal": ""
+  },
+  {
+    "questionId": "81aa48b6-041a-4592-96f1-ec6cdb1f0a20",
+    "digest": "0f7e38f53da1bcfdbe4377c05f39c7fedae5be4a6a5e7a591b73955dacd0d5a7",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "修正前两项解释跳到2017年而没有说明各选项所对应届次的问题。",
+    "proposal": ""
+  },
+  {
+    "questionId": "6d4dcafa-e88d-4389-94c4-aa35e463acdf",
+    "digest": "f02196dece07b9b897218df120986c23a5b345e5e21bfc9172c1d2d4129d24e0",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "原解析把依据误称为第一部分，改到正式决议第二部分。",
+    "proposal": ""
+  },
+  {
+    "questionId": "abce5b43-e10a-4ce7-a094-8d7b63bc58dd",
+    "digest": "3457e53ea07b627d5542382e5428a3101083c7397087a28b67303bc08fd52d3e",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "把资料中三道围绕直罗镇战役的近题合成一道有原词依据的识记题。",
+    "proposal": ""
+  },
+  {
+    "questionId": "d32fe476-e637-466d-aed8-75c3db4a9eae",
+    "digest": "fd2c520206075dded4c3d451d8f35dfc025393e68e18721575b9f27bc8da4ae9",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "补充党史与纪律制度源流中可追到正式大事记的早期节点。",
+    "proposal": ""
+  },
+  {
+    "questionId": "d0011068-104b-4a45-ad64-676635ae6d81",
+    "digest": "c558b17000549aa375fa1cf04c80c201e246a90eaad1860fdebc2dad1bd3c22f",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "替换两个无出处且易露假的品种名，保留同系列真实品种作干扰。",
+    "proposal": ""
+  },
+  {
+    "questionId": "d45ce99d-08a9-4bcb-a964-3ab720f1a0e5",
+    "digest": "5e8bcc8a73353c35b9a2812d028336bb0281b4560b8e48c9cf6a5c2fcc3d04e0",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "题干删除会直接给同专题另一题答案的工作站名称，改用同类法律服务组成干扰。",
+    "proposal": ""
+  },
+  {
+    "questionId": "9b9e42f3-8ef0-4168-aa22-409a62478123",
+    "digest": "3b292cf9057d840767a549d08e4c840af6875cefe817cee4a1c02295f72fb0d9",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "选项都是同类中央媒体机构，去掉可从组合重复频次推测的配对。",
+    "proposal": ""
+  },
+  {
+    "questionId": "3fa58f75-d9eb-4070-9365-4895bf389db9",
+    "digest": "74117ff43e7eeee814b99fd4e62c2ee9c9620dcddc19755436e7859c2795b67f",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "将原有两道同段同构的年代任务题合并成一道，保留两个事实。",
+    "proposal": ""
+  },
+  {
+    "questionId": "4ab6b447-7421-4084-a491-a3cd3ebc4314",
+    "digest": "68c2eeefac25c44c934d60c1bacbd72892c1bb66ae586cc24412c3195ddc4879",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "从题干移除直接提示本专题另一道车型题答案的字样。",
+    "proposal": ""
+  },
+  {
+    "questionId": "e3b21d14-4403-443b-b5fc-bb0cccc8eef3",
+    "digest": "9a8638b1fa3d8a3266adcfec4c553cdc9ae8e2aabf60afab1f528763bec8e5a2",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "题干说明对象，四项统一为简短平行的教学工作。",
+    "proposal": ""
+  },
+  {
+    "questionId": "625bc566-e817-45ee-868e-98a4415d5a34",
+    "digest": "56ce8ca7caf9f12107a0e8ad7418255172effbbce62fc9aafcf39bdf6b355dc0",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "原题只有正确项用“矮抗”前缀，改用四个同类年度。",
+    "proposal": ""
+  },
+  {
+    "questionId": "a11c5afa-a6d0-469a-af4d-033534aeff34",
+    "digest": "8f0f4d2e431a24300ee85ddc00be647d70727bc29d9ed31cbc4ec35629587825",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "统一四项词尾，去掉正确项是唯一“实验”写法的线索。",
+    "proposal": ""
+  },
+  {
+    "questionId": "aa7bdbc0-c2c0-455a-9b32-2e27d0d65340",
+    "digest": "00a6019a44dafc0cba8b8a595d874d04625b5ee6315c33562960d1b63184acba",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "移除直接提示同专题班列名称题答案的“义新欧”。",
+    "proposal": ""
+  },
+  {
+    "questionId": "4218c385-99e5-4be8-bd41-06464cceadbd",
+    "digest": "0b4c5122e466832804f60645b245b157d973a099a86b11d16dc72bfb4435f75c",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "把唯一英文选项移入题干，使用同科目短词。",
+    "proposal": ""
+  },
+  {
+    "questionId": "c1a59823-8804-4002-a6a2-3bc7b1f8caaf",
+    "digest": "6599d8ad5957ac1ba44645866a4af154947f96f80cff8789258ff243d01147f7",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "用可核的四道封锁线事实替换“最惨烈”式评述题。",
+    "proposal": ""
+  },
+  {
+    "questionId": "fbda8572-276b-4cc2-9553-037f5bf7d7f1",
+    "digest": "ae2f20f0ff9136e35015eefba1bacb3348570728654509dd3f03e94a9a0825b8",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "用两个正式公开来源复核资料里的地名和军队主体。",
+    "proposal": ""
+  },
+  {
+    "questionId": "da4c4941-2fb4-4667-b2e7-be105f35557a",
+    "digest": "d5afdd5db0d97de57189659a43fbd0749d3499bfffad9dc6c798b3787d3be8bd",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "将资料关于“最后”的说法限定到可查的行程与部队。",
+    "proposal": ""
+  },
+  {
+    "questionId": "a597e4e2-b7ba-46ba-b52a-43fbc34779ad",
+    "digest": "702e7fbdbd558d3d158d274c32e2ba3cc8a46c58ac786e0ce1021e6f2f907584",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "资料一题把“两河口继续北上”和落脚点的决定混用，按正式决定重写。",
+    "proposal": ""
+  },
+  {
+    "questionId": "e854ea3b-ed7e-4a07-8579-9e1a4393ef17",
+    "digest": "03522f089e5efbf6c2348d190eaed61bf5405e041e1b02211ad161e54dd7ada8",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "资料有四渡赤水指挥者、战役意义和具体轨迹的多种问法，优先核取明确的标志性史实。",
+    "proposal": ""
+  },
+  {
+    "questionId": "8008e05e-652d-43c1-b9d3-4abe962e8fec",
+    "digest": "fbe34c53c1a734a02756983bc3fb2a597d680e28fbaa3aaf481dc3e429f9438e",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "弃用资料中未经限定的“最后追击”及渭河错键，按大事记明确用语作答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "05625143-98d9-41ce-ba76-7ffd9027055d",
+    "digest": "6102b8f55b73bd10e267891f359d0708f161a4a1f1b50b937ac588ecd733e1c4",
+    "reviewer": "党史与节目复审独立核对",
+    "decision": "keep",
+    "reason": "从原卷多选中抽出直接原因，北上抗日的后续历史阶段另行核对。",
+    "proposal": ""
+  },
+  {
+    "questionId": "90178ed9-585a-4614-a8c5-76d98ca5714c",
+    "digest": "2fe72ef899d90def366c3e1ddd7088627809e23416f97e4d4f6b19de0e1e952a",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原 A 与题干“勤政务实”重复“务实”，可按搭配位置秒排。新四项同为干部要求。",
+    "proposal": ""
+  },
+  {
+    "questionId": "1145456f-641d-4ba6-b9ac-d20aa96ac51a",
+    "digest": "f10aeda21fa01f548853d36b1bbd13b0df3eb5c8873c0275dac3c74f18967a7c",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原“履行党的纪律”搭配不自然。用可以成立的同类动宾词组代替。",
+    "proposal": ""
+  },
+  {
+    "questionId": "82737e06-1a97-4047-8515-725e82fca6ea",
+    "digest": "ca6dc8baa3546f2445466f91ac86e9b3c6d95c35f9b2254ddf6254cb196e3089",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原正确选项是唯一明显长项。把共同动词移入题干，再用四个同词性的服务对象。",
+    "proposal": ""
+  },
+  {
+    "questionId": "63e7e622-b2aa-4ab7-843f-30b6af6b18e2",
+    "digest": "ae10f8b7c2233c54b4f75944cba3a86eb041c5c2ee128ed23b0686718073700e",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "将可凭“书记和谁”固定搭配猜中的问法改成辨别选举机关。",
+    "proposal": ""
+  },
+  {
+    "questionId": "eb0abde3-bf1f-4b58-b35a-69ca0903f9d4",
+    "digest": "a71636ecc01bd8e5011197ffbd6684640e78ad8258e2b723bff8af9b8b136ecd",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "删除党代会代表或委员会选举时可按常识排掉的公开口头表决。",
+    "proposal": ""
+  },
+  {
+    "questionId": "300e964a-28fa-4c0e-a241-eabba2ad1627",
+    "digest": "1d4c91244bb63e94430798c5a63dc60efa7b05f7a2f4b38ffa2b0d876493ecf4",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原三个错项分别是安全观、价值观、总要求，类别差异明显。改为真实存在的理论成果或思想层次。",
+    "proposal": ""
+  },
+  {
+    "questionId": "9995d23c-5b5a-4043-af5c-3b56915c4b99",
+    "digest": "c24a697f35965b4957eccee20a19d7cf44047c08b9dc2bfde4b9be97d5ba0486",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原C民意测验和其余项句式不同。改为真实使用的民主活动。",
+    "proposal": ""
+  },
+  {
+    "questionId": "356c3d9e-8c4a-4707-b2e0-5b25d533568c",
+    "digest": "a0598c4d90afbb74331cdd867eb2d1cbea29046a9eaaf24ea1a8afd46c9392df",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "去掉同级政协、同级政府等容易直接排除的单位。保留党和团分别对应的真实层级。",
+    "proposal": ""
+  },
+  {
+    "questionId": "eb4e9324-e9fa-4c85-94dd-9c593f1595fd",
+    "digest": "af640a549e23372eede6af68a7af45555d7c32544a49cdff1262992eccc4b1c2",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原B为权利而其他选项都是应履行的义务。改为容易与题干义务混淆的规范事项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "c45b572f-42f4-4d2f-a855-617d43a5abe0",
+    "digest": "e089b0e8a691e4f0d05b2f0d9faf1418b081c68417bb25f052b9c42992b3781e",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "用可理解的民族团结或国家认同概念替代牵强的“民族区域自治意识”“多民族团结协作意识”。",
+    "proposal": ""
+  },
+  {
+    "questionId": "ffc85132-511c-4d7e-8b84-b9207450b949",
+    "digest": "917df6e4ac3540a3fd4e714e6bbbe973b99c790160ee4710bc69707eaa4d84fc",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原C“改革创新觉悟”搭配不常见。四项统一为实际使用的主义词。",
+    "proposal": ""
+  },
+  {
+    "questionId": "7cb3a973-088b-4d15-af3c-1e8a6a12daf8",
+    "digest": "58876e3ab4dd268dbbdf40095b817bbc6c6e58790c58c682953db9fa16107746",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "把国家行政机关换为真实的党的中央机构，避免凭党政类别直接排除。",
+    "proposal": ""
+  },
+  {
+    "questionId": "dc0fa23f-e537-49b2-8ef2-3ef185a99770",
+    "digest": "01e83d171f8d2e16410ceb07388407fadab6e3cf5ef7b2b4d60b1bf554ec2d4e",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原正确选项是唯一带“政策”后缀的项。移入题干，四个修饰词同长度。",
+    "proposal": ""
+  },
+  {
+    "questionId": "fbfc4962-09b2-4333-8055-2de1e2d72f8e",
+    "digest": "a0aad5b2ed79ae8072dda8112f5c0ce43327d276f4fa7dbd6d9fa1e5d87b780a",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "补正原B语法漏掉“以”，避免直接排除。",
+    "proposal": ""
+  },
+  {
+    "questionId": "9f90722f-89b0-4097-87c5-d7403c87f001",
+    "digest": "657298461d625b3300749a96a43a67ecbd0bbf87719aa1c14bd3870de3f5cf17",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原错项全是地区发展层次目标，与其余两项国家层次历史任务不匹配。",
+    "proposal": ""
+  },
+  {
+    "questionId": "5d9f6484-7725-45d2-a1aa-3016e277e730",
+    "digest": "e896d7b6cae08f40611af05c707558664c1a49c041dd605e32097f87cac18a48",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原组合项出现下级批准上级决定等明显倒置。只考作出无效决定的真实组织。",
+    "proposal": ""
+  },
+  {
+    "questionId": "a4fe8b06-33ff-4ca9-a2fd-009fad6034bb",
+    "digest": "455a810a7e2e7612fff2a37ee6c72f82a9b0563397aa03935f9522ea9c1cdd01",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "第十七条另容许特殊情况下报告上级组织请求裁决，题干明确排除该适用情形，消除 A 的条件重叠。",
+    "proposal": ""
+  },
+  {
+    "questionId": "d5c1c4bc-340b-4891-a9b1-b5884ba5a51a",
+    "digest": "6a102dc353e301a2a290287a278f4e6b9ff2fd83a5384da3583fe9a9414f2b0a",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原B、C都出现同级纪委在题干同级纪委之上的自我领导，按机构层级便可直接排除。",
+    "proposal": ""
+  },
+  {
+    "questionId": "e2683154-f54a-4fa9-b180-f00fd2ac29b5",
+    "digest": "bbd901fb154fccf20b19f2dc6a168c0db7503dff868f632102fe647ebd60b419",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "红底红图案原干扰明显失去辨识度；换相近真实色名。",
+    "proposal": ""
+  },
+  {
+    "questionId": "f61245ae-0daa-476e-b49e-ee052d3c1466",
+    "digest": "b8830be015bfc725fe6beb557f68667ed6357d40eca98320ae82ef8d5c9e96ff",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "两道题同用“直至中央”在一个条款内答同一个层级。保留诉求渠道设问，同时在解析写保障义务。",
+    "proposal": ""
+  },
+  {
+    "questionId": "7f66513d-4585-4214-829b-915a1f42c635",
+    "digest": "77f87d54577b9cd5481e1bc22177e6af8075b0b71b1d1a4e4068a930c798b3d4",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原正确项是唯一两字选项，改为相近且均为真实工作程序的四字选项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "56a46ea0-4db5-4d0c-88d2-5d78c228d193",
+    "digest": "93d7737e1bc1ee149056132e8cb14b5d91ccdabdb53785ef3ffd39d0913c0caa",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原“委员分工负责制、首长分级负责制”缺常用制度对应。换真实相邻军政和党内术语。",
+    "proposal": ""
+  },
+  {
+    "questionId": "99fe37c2-77ed-4e9e-8c11-2c268b5b4e0f",
+    "digest": "7101b027a5d810b5021570e4135cdb031ad5e55d970fa8cadc57eb6ef5f27344",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原A“重提名额”表述不自然，改为真实可出现的选举筹备工作。",
+    "proposal": ""
+  },
+  {
+    "questionId": "76ce29b7-1d44-403e-acf0-a8711ccc7466",
+    "digest": "12b5d7af9b6cf11a86a3efc60038771f576429b0be3204fb678a9fc476365f54",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原答党章是唯一短名称，其余三个均以条例结尾。改考同类制度定位，不变来源范围。",
+    "proposal": ""
+  },
+  {
+    "questionId": "45041f8b-6301-4ff7-8fcf-d6f6579af2e0",
+    "digest": "bad6a566805ba357785b78c53256dc8d5a68164e38c0617ced6c23465caaead3",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原B与题干“执政之基”重复“之基”，仅按搭配即可排。",
+    "proposal": ""
+  },
+  {
+    "questionId": "db61ea7f-17d2-4998-9bdc-6677552ebcad",
+    "digest": "51cb9622defb0385771fec3bd9b3484119db5a546b345dbd7a554171e9fbeff8",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "党员教育网站不是当面开展党内批评的机构型选项，换为可组织有关活动的实际设定。",
+    "proposal": ""
+  },
+  {
+    "questionId": "49788098-546f-4ddd-bbff-8d6a4b745c02",
+    "digest": "607fae6d79309ee7d10e9dafdf37d1ce96781fc5e220cce34777919cdfe0bbe2",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "去掉无党内处分决定宣布职责的职工代表大会，改为真实可能涉及的领导班子。",
+    "proposal": ""
+  },
+  {
+    "questionId": "7234da53-4e60-43ae-b5b0-52babb40b46e",
+    "digest": "62db050cae4dc38ae0699118f6fddcd66e06d2c521e74edce53869adad41a531",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原平均值不是相关处置口径，直接可排。替换为违纪中会得到核实的实际利益数额。",
+    "proposal": ""
+  },
+  {
+    "questionId": "312c8e11-db14-42a9-a3e2-a0f5d0c25d8d",
+    "digest": "ece6f0f517a3093b8accfebefb2566949c003f710a131413a709905cd32fc0a2",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原基层党组织可依党政类别直接排，换成与监察机关并列的实务主体；用政务处分与相应处分的词义区分。",
+    "proposal": ""
+  },
+  {
+    "questionId": "1e2e7311-fdf7-4082-b56d-97e0ae2a7d64",
+    "digest": "5c1e05887ed0bf45916d3b21f4591207c8107f4186343b4881774d23aae5eee4",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原C可凭“党外”直接排；为所有错项提供真实相近的组织处理方式。",
+    "proposal": ""
+  },
+  {
+    "questionId": "52133113-2d69-4b8c-a074-02c1ecf8df30",
+    "digest": "6933b4ca9ad3997f97b03831d34945082cf559c1ce31032c4676e0899c0b7f61",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原C越过中间处分档，结构上可先排。改相邻档次组合。",
+    "proposal": ""
+  },
+  {
+    "questionId": "c25afb8e-063e-4674-8146-fdee4c2b797c",
+    "digest": "d9b318587ea1006fad95d71e6d16add51364eacc8f838e0a269bf660250cdbd8",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原批评教育和责令检查不是题问的党纪处分档次。换同类相邻处分幅度。",
+    "proposal": ""
+  },
+  {
+    "questionId": "8cd40c42-2d5c-4df9-8fee-955fdec9a50b",
+    "digest": "5a548345852a348c0fea51361dd971638ea2df2282f930d305fd276e7c09c085",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原C明确“尚未查实”，仅凭不利条件即可排。改为现实的党员权利行使，保留第十七条完整边界。",
+    "proposal": ""
+  },
+  {
+    "questionId": "74a8ddc5-d09e-43c0-b020-8647feadaac0",
+    "digest": "3bee58c19fdf77b813512a85e2214c5a6280250e6bbb652a618332e2a7de8b1d",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原“行政机关和党员”两个概念类别不平行，改为真实的相邻制度主体。",
+    "proposal": ""
+  },
+  {
+    "questionId": "d95f43f2-3396-4818-a09f-459d469d98f4",
+    "digest": "953772daf465404db908e09622cc3b2880242c68e383680c7b5c3ea406d2a114",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "统一四个正式流程时点的选项长度，保留原题在“处理前”的准确截止范围。",
+    "proposal": ""
+  },
+  {
+    "questionId": "1ad9909a-1608-4864-9087-e077ac073163",
+    "digest": "7fdc67cb7b873202c872c2d14d699cd66d93001866ac0120793593399477458b",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原选项涉及评定职称等领域，与机构编制题有明显类别断裂，改为相关人员编制的两个实际工作。",
+    "proposal": ""
+  },
+  {
+    "questionId": "43941d26-d988-4afd-bc24-8c486e8bc067",
+    "digest": "84d8a7cb3edf41f94b229ee655c3419dbe2171f205805b94622aee78dc07ca46",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "第五十七条同时写违背新发展理念、背离高质量发展并给党、国家和人民利益造成较大损失。补齐条文责任条件。",
+    "proposal": ""
+  },
+  {
+    "questionId": "bc4ad707-6c28-4afb-8606-f8d09d19da04",
+    "digest": "020b94debf0251681ac563ee6dbe6637ec5c02ad3cf88b3167c420cdea4c07b0",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原三个错项属于与表决权等不同的处理类别。现在同为可能用于相关权利或程序的词。",
+    "proposal": ""
+  },
+  {
+    "questionId": "6c911087-e668-4186-bbd3-02fef3dafbb7",
+    "digest": "be4a7d3384c5a068ef9e1441aa276e0a382c590dd8e3782103228ab7918df3cd",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "去掉原题干“非组织活动”给出正确纪律名称近义词的提示，保留条例明确列举的行为。",
+    "proposal": ""
+  },
+  {
+    "questionId": "f95a5cb0-0e6e-48fc-88ec-f3a35bb0fcd9",
+    "digest": "733c8a1b26bee6bc9970a3c0141d9e84da402614ab4ce21d5aa2758c6e75dfa6",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原双情景加长组合选项，部分处分次序可依轻重直觉排。改为一处条文事实，在解析保留四条相邻区别。",
+    "proposal": ""
+  },
+  {
+    "questionId": "73e09148-f89c-4c20-8d64-066804c6dd6c",
+    "digest": "10701f3b5e3def99c772a25b1d14fd04d97a1a3eb18eac3d09860191344eff84",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "按条文补明直接责任者和领导责任者，避免总称扩大处分主体。",
+    "proposal": ""
+  },
+  {
+    "questionId": "56f14782-ff30-4a21-8f3f-0a656a97d007",
+    "digest": "f3a71942e810ae46b3c7ce85723b778188599a883c3b528107835f6c195c517d",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "统一四项的词性和长度。用实际经费来源替换原唯一二字正确项的暗示。",
+    "proposal": ""
+  },
+  {
+    "questionId": "0b37e189-b62c-4ecc-ac27-e2114092a258",
+    "digest": "b09d44e51ff4d9ea75ace08fefb56aa321b98860223e5e71f2b4387ad7ee8cce",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原正确项是唯一短的普通职责词组。四项调整为可用于行政职责边界的四字词。",
+    "proposal": ""
+  },
+  {
+    "questionId": "af91e8bf-7466-4c30-8128-94e3348d986d",
+    "digest": "691ac5b8e24886ae3417d9037d03573a161aacf14c402f5fb61040caaddefa29",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "替换只管纪检监察事务的县级纪委监委，以实务相近的党委和党委组织部门区分。",
+    "proposal": ""
+  },
+  {
+    "questionId": "04be370a-0bd5-43e8-a0c8-de3ab091ccf1",
+    "digest": "fedd0485d56dc2a56101e4d0741e35f36cdd0e06136e03b54121407bbb3d4795",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原正确项明显长于其余项。将习近平移入题干，其他选项采用真实同类思想称谓。",
+    "proposal": ""
+  },
+  {
+    "questionId": "fb9f8970-fd42-40d8-bb40-e36dc3c79f9e",
+    "digest": "1de69e90cf4d5a3871d46629c47dd272ef3b4e2c2e3d0e882f8ed006ed20a9ff",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原“不限”有极端语气、可直接排。改近邻限制术语，题干明确核原词。",
+    "proposal": ""
+  },
+  {
+    "questionId": "95200ec6-3b4f-4f05-b3d9-71fd27639496",
+    "digest": "1bf5ba35a1245cf62c5f130b56acc32921c1ab7b2524a9705fc4f8ab13e3acdd",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原正确项唯一四字。换四至五字实际审查状态。",
+    "proposal": ""
+  },
+  {
+    "questionId": "5c6b4359-5231-4403-a2d6-da492ee6c846",
+    "digest": "81abb0aad6d2e6411124db70671e70f2a2a57f03d88fd6565eb4da1f6a69b1fc",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原三个错项都是分值或投票结果，正确项是唯一名为“表现”的项。改同形的四字考察维度。",
+    "proposal": ""
+  },
+  {
+    "questionId": "ec8909e8-2363-45ca-b3a2-9d0d2d33bb26",
+    "digest": "d8aa25e8221a351098553c83b7b6352db21dfb5005f42b4e1e9a31ed97dc3255",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原错项都属其他阶段甚至入党接收，可不用知识匹配考题。改为实际可能提出人选的渠道，题目按第八条列项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "b95d02cb-8fb8-4fa8-b6ce-c859302373c5",
+    "digest": "c360820b8639783f28a8c3b6d2be439e8934ab2dcf4c7dc0c7cf9af0d121c6aa",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "替换家庭成员单位和过往学校等明显远离当前当事人实际工作学习关系的选项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "479712b3-719a-4a73-ac0c-d7d2e6466ccd",
+    "digest": "b31f8280f3ee2301eb51b55b0ef6328dcc07f7393b3df7a897a3e013cb6bb27f",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原D为唯一组织，其他三项均为申请人等个人，按机构类型可猜。改问通常人选，选项均为实际工作中的角色。",
+    "proposal": ""
+  },
+  {
+    "questionId": "addbef03-4010-4f99-b230-44ba0c9474fb",
+    "digest": "11ec64fcd8410e5e72ae67d2a6009251d4a4c670f8de9a4b00418661b7cc9b93",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原选项把党员本人、工会等明显不负最终保存职责的对象作干扰。替换为真实的管理、交接机构。",
+    "proposal": ""
+  },
+  {
+    "questionId": "efcd6f0c-6af1-4fde-8746-4800cc6b636a",
+    "digest": "c1cb98c1a9f921715b99201c041b41ad74469bc26a737d243ae029b6c9fe9952",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原“折半计算”没有自然对应的培养流程，换有实际过程含义的分段方式。",
+    "proposal": ""
+  },
+  {
+    "questionId": "696e8f86-dd1f-4aab-a4ef-aa6e204e5a62",
+    "digest": "a0d4e232e04801bf52a158a2b9d41a2eb190ff37df0d5e6b7706916d147a401b",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "“个人自学”在“短期集中培训”题干中直接自相矛盾，改为实际集体培训形式。",
+    "proposal": ""
+  },
+  {
+    "questionId": "fd9c7396-6fec-4ca1-9c67-2f4c116c50ba",
+    "digest": "5d00584a9b48b7018f2fbdc8ded79fcc538d5e7979362a31e483b912a37e2d55",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "把正式接收会议上按口头可直接排的项改为邻近正式程序。",
+    "proposal": ""
+  },
+  {
+    "questionId": "02574926-0fbc-4ebe-bb54-394200cab185",
+    "digest": "e6e1c96f093ca6a0f5b4e61a7fb9f6c0a3cdf625f06371e077f8985b455762d8",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原有教务办公室等凭党校类别可排。改为校内实际两层主体的四种组合。",
+    "proposal": ""
+  },
+  {
+    "questionId": "12fdd445-1d32-4b8e-a186-f58b3cbc4583",
+    "digest": "7d8191c627508fa9b1c8e7778a0b6f573e90f398a3622c4ffe1505fa9ed78b9a",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原正确项唯一很长且包含题问的“审批权限”能力词。把权限条件移入题干，保持所有选项为现实组织。",
+    "proposal": ""
+  },
+  {
+    "questionId": "914c416f-48ac-4101-8f0e-4e2556f69d33",
+    "digest": "ad9e5a68608d227c9a58a409a4fae7a1910cf8471c07428b9e063de37b0d6d8d",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "第二十二条的党总支和乡镇街道党委所属基层党委均须审议，既补一个精确主体，又避免“同一审议词换主体”另出一题。",
+    "proposal": ""
+  },
+  {
+    "questionId": "9e7fe2dd-9c77-4cee-bf05-a74cb91f9e7f",
+    "digest": "8d754a0089d1e2d6a1f16e2d5a0eaed968ef9c27686ab13aa9b90976cead9bce",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原选项混合分党校、个体组织员及不同部门，正确项又明显较长。把已知组织放进题干，用实际党委、组织部门为近项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "dd3d5ef3-d4a0-40bf-b7a7-0f0578fc8bc2",
+    "digest": "f8be1ce6584aff4fb11661a07e2926a558d96ad76cac231fb3225ea2d25b084c",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原志愿服务骨干不涉及入党程序阶段，替换成实际党内培训身份。",
+    "proposal": ""
+  },
+  {
+    "questionId": "ef44dab2-388d-4def-8523-020ed5450e79",
+    "digest": "15e8579a3622b826beb50d883558c273da58844aba6fc9df594f6a923c0cbd06",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "去掉教育培训、志愿服务两项领域直接可排的措辞，选择实际工作的职能领域。",
+    "proposal": ""
+  },
+  {
+    "questionId": "b5206bee-0576-4432-aabc-f69f21d1d194",
+    "digest": "63559b50d44ac71ebda143b0ccb84a8e0fc6ad422a0b69b0c66696d68a676871",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "控制错项长度并采用同条实际并报文件，考决议写入与随报材料的差别。",
+    "proposal": ""
+  },
+  {
+    "questionId": "db085b8a-d295-491d-b72b-6541742f0180",
+    "digest": "74b013b1df78f5f1c2563fb8b0c13f194bbb866061335c524ba567a5e7e25180",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "按2026年细则补实际常见申请情形，仅此题考无单位对象。",
+    "proposal": ""
+  },
+  {
+    "questionId": "06f18a9c-7068-49a3-96ea-bba5c6241a0a",
+    "digest": "c7847cf4a378299bec6fb389972313fba81538f8e1a53d3825f87c2cd6654cdc",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "补接收大会中实质不同于人数阈值的票数统计规则。",
+    "proposal": ""
+  },
+  {
+    "questionId": "4bc8e58a-7f5b-4a40-9d36-3b2307d65097",
+    "digest": "f28bdeffef2df56e8e4edf6c17b2f354b83d045b862913d0cc642f1f4e724b0b",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "补最新细则第二十九条按纪念日组织集中宣誓的明确层级，区别通常办理。",
+    "proposal": ""
+  },
+  {
+    "questionId": "a8c003c9-ddd1-48b0-aa7a-09a9ca9e9d19",
+    "digest": "744084ceaea7c66544d8d4f4a770c818ea1d747f3af9e68caff39f8d6a9de21f",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "2026年正式文本新增的具体人员配置，不与问谈话主体或志愿书式样的题重复。",
+    "proposal": ""
+  },
+  {
+    "questionId": "55a70541-536c-4e7f-9aee-fedce497c960",
+    "digest": "455e86c04b1ff87e858bea043992d015f811706d57d636fe4b2ea2ef1e27c4c3",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "用2026年相近日期区分审议、正式发布施行和网页公开日期。",
+    "proposal": ""
+  },
+  {
+    "questionId": "49f6d0cc-ab93-4d48-b9c9-2959749207ca",
+    "digest": "83a2e1e514d4cfdede0fbbf1beda12939953607b05f6937cfe4437e34b1b5b75",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "各项采用平行的临时组织名称，按条文组织形式判答。",
+    "proposal": ""
+  },
+  {
+    "questionId": "7f188474-a69a-46ca-a25f-0c69a725628c",
+    "digest": "d434e1fbe295be77e0783f4e475567f7878335f344f57ea13d96132f557d50b0",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "保留第四十一条关键分工，减少六十字长问法，四个真实党内部门职责对比。",
+    "proposal": ""
+  },
+  {
+    "questionId": "5319ddc4-5ccf-4886-9213-f10a8714ac56",
+    "digest": "1f8e3348cfc284132b39b2bf797870a253d30121b243aaec049c03707cc0a986",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原上级政府主管部门可凭党政类别直接排，换为党内实务相近工作部门。",
+    "proposal": ""
+  },
+  {
+    "questionId": "1e31e311-a5de-4a0d-b9d0-e0abbeabffbd",
+    "digest": "558b805adf742f173b7fadab03c121d303ecbcbc18fc53894dabec4d2227ae26",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原民政、市场监督部门等按场景可直接排除。改为相关党务组织和部门。",
+    "proposal": ""
+  },
+  {
+    "questionId": "d2c61dec-2157-4682-8d08-3660de8a3b70",
+    "digest": "0186d9328cdad6673b6e42ecf95405d7dfa0df66a8942c014f84f2a45bde5bac",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原档案认定、预备党员转正审批不是普通党员直接参加的活动，按动词即可排。改用现实党内活动。",
+    "proposal": ""
+  },
+  {
+    "questionId": "e077020b-d0b0-4b7d-a907-88de4e79efd8",
+    "digest": "a3c4ab0dd37fa99527855c76467b3c18516cdd08d4a068003f0b15490226f5dc",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原非禁项长度明显不同。保留实际用途并压缩各项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "e3c598f6-541a-4b83-b694-222a5a17e03b",
+    "digest": "d6e67ef3fbd2972b388b68842b6a01872819cd8cc352dc9693db796b30422707",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "四项采用两个同样宽度的时间组合维度，保留合并题所需两个期限。",
+    "proposal": ""
+  },
+  {
+    "questionId": "d519837d-ef39-4495-8559-93de9390f950",
+    "digest": "cf247537705a93f5dee6656337486ea001dc1140b5bcce84633ca7601b8dbf43",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原党员大会主席团通常不是党小组会召集人，凭上下级场景可直接排；替换真实支部职位。",
+    "proposal": ""
+  },
+  {
+    "questionId": "e1e204b8-a4e4-47b0-a67c-775f90788c8b",
+    "digest": "d097a32095a577a639211ef429c5ddeeeb41abd35c359584a33440d2f9716d2d",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原只有正确项是长的两个词并列。移入首项，让四个备选都是实际政治工作概念。",
+    "proposal": ""
+  },
+  {
+    "questionId": "f51893de-b7de-4d0a-83e6-3761acdb3c56",
+    "digest": "44177959b2ae10705a1e414de0b47a84c22d0caf9c09fad9f78ea52cc691c58c",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原正确项是唯一超长且带权限条件的一项。改为几个真实党组织工作权限作近项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "4023778f-fbb3-4a91-ad82-9ee8db95dbc0",
+    "digest": "33e54da272fde3a1b83cb2c4e9d1571c1e795190059bb330a27e074831efba6d",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原选项过长并混入分管机构整段限定。保留同类组织岗位短词。",
+    "proposal": ""
+  },
+  {
+    "questionId": "77146da9-31cd-4682-b6c7-d0589cc8b21d",
+    "digest": "78d000994da2716d4512a744a81a11431da16b6a0eb8a69bc2606379aabef5aa",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原四个长政策领域选项只有教育词对应高校。改为实际高校工作概念中的原文选词。",
+    "proposal": ""
+  },
+  {
+    "questionId": "eaf73bf8-494e-455d-b84a-ac124f004164",
+    "digest": "1dd0ed82c8196bf1d7047e1b3e1998169540386508c20ae9bd4d16d0ab0ac807",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "党代会筹备会议与党支部的民主评议日常环节明显不同。换层级相近的正式会议。",
+    "proposal": ""
+  },
+  {
+    "questionId": "a933c669-cb63-4f8a-8d99-f0d0e16df8a7",
+    "digest": "b7d9324fe4831db51a02147673c8f2d8e72365fac0fa24e3f3c5c18266bdfead",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "在同一最易混淆频次题吸收党小组会每月一次，不因问相同答案另复制。",
+    "proposal": ""
+  },
+  {
+    "questionId": "77106b7e-260d-4112-9f0a-501954f51a4b",
+    "digest": "bee272c21820c739c5aa9e88f2a8217c7c8dda19e384a257aea1a47be4b0bc0b",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "题干问“两类考核”，原正确项是唯一两端都称考核的选项。采用真实的四种考核类别组合。",
+    "proposal": ""
+  },
+  {
+    "questionId": "1571416f-7d9b-4545-a196-2dca8b4d5ecc",
+    "digest": "119e4bd717589f38916fde37a220080335e48037e2c2a9ec543122b2c675d2d4",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原正确选项复现题干里的“生活”，其他三项都叫建设，结构泄题。固定规范用词并换为四个同类关系词。",
+    "proposal": ""
+  },
+  {
+    "questionId": "cee0c588-f01f-438a-b2e5-1d570d24fc1c",
+    "digest": "ec2867908ce776bfeb5c173093b8909124362d51663e0a53b35407c0c8ddc16b",
+    "reviewer": "党章党规复审独立核对",
+    "decision": "keep",
+    "reason": "原正确项唯一重复题干“培训”，其他选项全无该词。改为同类常见培训形式的精确原文题。",
+    "proposal": ""
+  },
+  {
+    "questionId": "4e56a651-758c-4ae6-95cf-0dc7d79fd072",
+    "digest": "fa6806baace4b824ab8bce2db060a86bb2f79e5405fc84b15fdc6d96ccfcc548",
+    "reviewer": "报告与规划复审独立核对",
+    "decision": "keep",
+    "reason": "第七部分用共同推进和一体建设分属两组。现多选四项实为两对互斥搭配，改四选配对。",
+    "proposal": ""
+  },
+  {
+    "questionId": "61f3b4a0-0616-4788-8ae6-b97e1da66ca4",
+    "digest": "c0bc06c4c8710d1534b9153a5fc635b554ca65d0a5656267d4a71a0bb41465c6",
+    "reviewer": "报告与规划复审独立核对",
+    "decision": "keep",
+    "reason": "第六部分重要形式、重要体现准确；错误项“本质属性／本质属性”两组同名不具近干扰。",
+    "proposal": ""
+  },
+  {
+    "questionId": "e45b1c0b-7490-4d32-885c-fecfa185bb9a",
+    "digest": "c431d5bec29d920d9e68e601594003986fcaf66e54111c20f65ece0b8435e1d6",
+    "reviewer": "报告与规划复审独立核对",
+    "decision": "keep",
+    "reason": "第九部分协调配套与初次分配都正确；当前两个劳动报酬比重互斥，合为两个词位的单选配对。",
+    "proposal": ""
+  },
+  {
+    "questionId": "2b8ba206-4579-4606-a0d7-8c00a9fc2fb3",
+    "digest": "b7c20ebd6ff282181e9eade67ac140623a310b7f0367b587df1980502fce54f3",
+    "reviewer": "报告与规划复审独立核对",
+    "decision": "keep",
+    "reason": "第十三部分一个中国原则与九二共识并列；和平共处五项原则不属两岸政策同类项，替换近项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "b13d62d8-5ff9-4fde-ac7a-e0d15569d8ea",
+    "digest": "b6624bc99fb45b52279f30b969283864db756e3accfe9873ad93b2506a3d015b",
+    "reviewer": "报告与规划复审独立核对",
+    "decision": "keep",
+    "reason": "第六部分职工代表大会；居民代表会议与企事业内部管理类型不齐，换企业职工大会等相邻选项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "f6f57c48-50eb-49df-8fe1-a18c48252777",
+    "digest": "b33168d1da7552c48aef8f642adaff933f17fa609bc0f60f1a4559ae52d4ff3e",
+    "reviewer": "报告与规划复审独立核对",
+    "decision": "keep",
+    "reason": "第三部分坚持发扬斗争精神与中国特色社会主义道路均是重大原则；教育与社会效益两项在本语境过易排，重配同层总体要求。",
+    "proposal": ""
+  },
+  {
+    "questionId": "37cf4c83-afda-4675-9a69-230ae2e1f843",
+    "digest": "b3b89416464dd45dcff1fd0a7302cba2464e6e0a271cb6b1764c6c2800c6175f",
+    "reviewer": "报告与规划复审独立核对",
+    "decision": "keep",
+    "reason": "第一部分进入创新型国家行列；题干先说科技成果，四项中只有创新型属于科技类型，可去掉提示。",
+    "proposal": ""
+  },
+  {
+    "questionId": "692fd3ca-d156-46cd-acef-2bde2eef1cc7",
+    "digest": "fa2a831513267bd44d07772220537c53e3b3e9d41385733511591a3550773531",
+    "reviewer": "报告与规划复审独立核对",
+    "decision": "keep",
+    "reason": "第六部分人民民主是社会主义的生命；四项中只有人民民主属民主类型，同类项替换。",
+    "proposal": ""
+  },
+  {
+    "questionId": "a2949e8d-0503-43ae-bcf8-002cbc28dbe0",
+    "digest": "1060e403d8d83537747fbd5baef695d749847f1aa70359d5f06b4dd1635c3667",
+    "reviewer": "报告与规划复审独立核对",
+    "decision": "keep",
+    "reason": "开篇三个务必现单测斗争配对；据原稿在一题补入第二个务必首词，两个词位同时识记，避免再加同簇题。",
+    "proposal": ""
+  },
+  {
+    "questionId": "03b1d207-497b-48fa-abd8-4f8ae3a2826e",
+    "digest": "893fe936424e152c2d7424f70c3caca5eb1df534915c858a44e41734e8bb3093",
+    "reviewer": "报告与规划复审独立核对",
+    "decision": "keep",
+    "reason": "第八部分弘扬革命文化；红色旅游文化作为命题用词偏泛且不具同层干扰，换简短真实文化概念。",
+    "proposal": ""
+  },
+  {
+    "questionId": "c0858daf-63f0-4c6b-a171-1ecc2e2615de",
+    "digest": "2867d00531bdeb1657b4075ed1896b0b33dbd32ebc697ed285dc2f6c8733f3a6",
+    "reviewer": "报告与规划复审独立核对",
+    "decision": "keep",
+    "reason": "S06增强党性为根本性任务；现解答直接给出03-15的答案，合并两条确切定位为一题。",
+    "proposal": ""
+  },
+  {
+    "questionId": "91cef878-676a-4ed6-a366-b1759af5a25f",
+    "digest": "475d9c9ce271c5942ac35f82b1888f414a1b919b0d214ec47bc0416222dee46a",
+    "reviewer": "报告与规划复审独立核对",
+    "decision": "keep",
+    "reason": "党委主体、纪委监督、书记第一责任人与班子成员一岗双责有明确边界；用四项完整职责次序配对，去掉主体责任重复提示。",
+    "proposal": ""
+  },
+  {
+    "questionId": "f8f9b7a0-ba28-4936-a2fc-0e959a8d22ca",
+    "digest": "527f0c16068fa9f55e81cf0a758714860217a33fd395d3033d98541c0ba01672",
+    "reviewer": "报告与规划复审独立核对",
+    "decision": "keep",
+    "reason": "第五部分新就业群体；正确项独有“新”前缀，需用同组新兴群体近项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "a0f6ed6c-2210-436d-8675-df3b14c8acd5",
+    "digest": "a8238684a61519d01702878766c1e51986bf594df0f857152ad38ccc78a48f58",
+    "reviewer": "报告与规划复审独立核对",
+    "decision": "keep",
+    "reason": "第六部分“四风”深挖风腐同查同治；其余专题过宽，改同层风纪治理政策措施。",
+    "proposal": ""
+  },
+  {
+    "questionId": "bf05e691-0c96-45fa-9f3e-9610e06df421",
+    "digest": "765f1768af43e276cec493645c14626ec795ed5ea1bb0492db8aed38e4e84e80",
+    "reviewer": "报告与规划复审独立核对",
+    "decision": "keep",
+    "reason": "财政更加积极、货币适度宽松；原项既互斥又有“适度宽松财政”明显错类，改均为真实政策术语的单选配对。",
+    "proposal": ""
+  },
+  {
+    "questionId": "ffeae945-bdb8-4f8f-85c2-5874770693b8",
+    "digest": "2b43101ce590666190b6a3ee73e746ca5bd9fdbd4b35a865854f6a5a11d615c2",
+    "reviewer": "报告与规划复审独立核对",
+    "decision": "keep",
+    "reason": "超长期特别国债支持两重两新；另题05-67及05-75部分内容暗示资金用途，合并用途及设备更新归属两个判答点。",
+    "proposal": ""
+  },
+  {
+    "questionId": "43c7439b-9559-4a65-89ef-9f8fdf77e991",
+    "digest": "9688eba448d6c0ed9c5809cd1eb318011b32e1d276040ea15c71d954c11d614c",
+    "reviewer": "报告与规划复审独立核对",
+    "decision": "keep",
+    "reason": "国务院报告在破除统一市场障碍段提出制定相关条例；现题直接复现正确项核心名称。",
+    "proposal": ""
+  },
+  {
+    "questionId": "05861ba0-58ae-4587-bd30-043e994e0a91",
+    "digest": "dad65ab40253812f08acae9a0d6595404c08eaf99f8a091c13dc72fbeac83f38",
+    "reviewer": "报告与规划复审独立核对",
+    "decision": "keep",
+    "reason": "科技部署支持人工智能开源社区；算力调度社区等当前干扰为词语拼接，改考同类技术领域。",
+    "proposal": ""
+  },
+  {
+    "questionId": "55106ac4-dde1-49c5-b9d6-e3b5f12c96e2",
+    "digest": "144c138084864e63b29e6b8de61f056a4c9d8912cd72e53bce0e0a4db81b7347",
+    "reviewer": "报告与规划复审独立核对",
+    "decision": "keep",
+    "reason": "常委会报告确指国家发展规划法草案；题干复述五字之名称，改保留制度字段、去掉直接字符串。",
+    "proposal": ""
+  },
+  {
+    "questionId": "c9440404-995e-4763-8b26-6de3bc777647",
+    "digest": "05f39789d021135afb87d80f2cd403d691dc79ee01fc2281ccfe076884de4e7e",
+    "reviewer": "报告与规划复审独立核对",
+    "decision": "keep",
+    "reason": "招商引资鼓励和禁止事项清单；只有正确项带“鼓励和禁止”且长一截，把这段共同结构移到干题。",
+    "proposal": ""
+  },
+  {
+    "questionId": "340422b1-8849-4ce5-aea7-a5143602acb5",
+    "digest": "7e2334771427467d11c831c280c637711d4615bd8e20f7143cf808a1a15b034c",
+    "reviewer": "报告与规划复审独立核对",
+    "decision": "keep",
+    "reason": "市民化段放宽中考报名条件，高考近似；研究生招生、职业资格明显不合常见流入地中学教育情境。",
+    "proposal": ""
+  },
+  {
+    "questionId": "fa66e869-8f87-44df-bbf8-4df3cef668a0",
+    "digest": "9e56f6c4d1fb4e939614fd4d522c4f64f666b79c33a7f835ef49252bfcf65cec",
+    "reviewer": "报告与规划复审独立核对",
+    "decision": "keep",
+    "reason": "纲要中平均受教育年限11.7、人均寿命80。当前多选中两对互斥数字须改成单选配对。",
+    "proposal": ""
+  },
+  {
+    "questionId": "4492a72b-043e-4259-a085-bc2e906e2d17",
+    "digest": "8634154208ef51279fbd03a2f2d93ae98b2cc049f80ffd58f4bf8cd974823902",
+    "reviewer": "报告与规划复审独立核对",
+    "decision": "keep",
+    "reason": "纲要粮食产能1.45万亿斤左右、能源产能58亿吨标准煤；当前多选两对同指标互斥，改选一数对。",
+    "proposal": ""
+  },
+  {
+    "questionId": "59ec9381-5b80-4b23-87b4-9f24d8abcb47",
+    "digest": "f4af09ed31f498e18a352fc5ca4a4f068b236a1993609164668b8a2f92a5e051",
+    "reviewer": "报告与规划复审独立核对",
+    "decision": "keep",
+    "reason": "超常规布局人工智能、集成电路；海洋资源管理、文化遗产保护明显远离同组前沿技术，换真实新兴学科。",
+    "proposal": ""
+  },
+  {
+    "questionId": "4dd68b6d-a73e-45ea-a0c5-ccf64d974a8f",
+    "digest": "4b7b087d3eec120bda909c4e2e1e5fc6ae82ac9f276e8f3228337153c1345214",
+    "reviewer": "报告与规划复审独立核对",
+    "decision": "keep",
+    "reason": "风险防控覆盖监测、预警、响应；开源推广与风险防控目的显著不同，换同类有效风险手段。",
+    "proposal": ""
+  },
+  {
+    "questionId": "c0ac1327-d467-4152-854c-b71994b0a647",
+    "digest": "8416b84777a20de6b57cdf3789567c39b2a71ae9b02eb82ca36d7184f3650f67",
+    "reviewer": "报告与规划复审独立核对",
+    "decision": "keep",
+    "reason": "学前95%、高中完成88%、大学毛入学65%；两高等教育率选项互斥，改三码均必要的单选题。",
+    "proposal": ""
+  },
+  {
+    "questionId": "757ae06a-2c4b-43bc-8175-9efca4f6eb22",
+    "digest": "97796d133073ea2c5497565a1e1a200872ab7f5d678c5ea04c2df5c773405fe0",
+    "reviewer": "报告与规划复审独立核对",
+    "decision": "keep",
+    "reason": "新型电力系统源句列新型储能；只有正确项重用“新型”，改真实性能相近备选。",
+    "proposal": ""
+  },
+  {
+    "questionId": "41580908-c5ed-4518-b0bc-49a3f19cc92a",
+    "digest": "7bbd6d3b5601a5e6a3159e2441d79dbec382d542cb344684396279d4db5e0484",
+    "reviewer": "报告与规划复审独立核对",
+    "decision": "keep",
+    "reason": "科研机构、研究型大学、科技领军企业明列；地方产业园区与组织主体类型不齐，换真实研发主体。",
+    "proposal": ""
+  },
+  {
+    "questionId": "6fb19cdb-ebd4-4e9c-be9c-2b657cc04a13",
+    "digest": "365ab9b53c5ba7e20207b066ce04533cf4e2d7cb39b7c6eb1a28749b6368c162",
+    "reviewer": "报告与规划复审独立核对",
+    "decision": "keep",
+    "reason": "国资集中范围末项前瞻性战略性新兴产业，正确项唯一超长；保留战略性新兴产业作同组，把前瞻性词位留空。",
+    "proposal": ""
+  },
+  {
+    "questionId": "559ffb0c-9840-42f3-be6f-3999300fa39f",
+    "digest": "963fb27ad5ec1993d96f3b5c8d1f4508dd1ea11e511cb18547754249c51fd602",
+    "reviewer": "报告与规划复审独立核对",
+    "decision": "keep",
+    "reason": "小而美为正式民生项目措辞，原只有正确项不是“型”类，可用小而精等平行措辞。",
+    "proposal": ""
+  },
+  {
+    "questionId": "498af637-9bd2-4d1e-bd7a-003bafb5137a",
+    "digest": "2b26b48d8935b9efb868560317f57846e443733bc1790600bc51d3c066d2250c",
+    "reviewer": "报告与规划复审独立核对",
+    "decision": "keep",
+    "reason": "第（4）项稳中求进是工作总基调；05-74直接给出该词，改反问文件里的定位。",
+    "proposal": ""
+  },
+  {
+    "questionId": "86ae0bb8-947e-4698-aba5-82fef7f491c0",
+    "digest": "664e8c6dd27ebbf27dccd7aa419b252cf9c1c10d3bed417916c4ed3cf09142e9",
+    "reviewer": "报告与规划复审独立核对",
+    "decision": "keep",
+    "reason": "第十三部分贯彻总体国家安全观；原“人民安全观”之类不是同层的成熟表达，换实际政策概念。",
+    "proposal": ""
+  },
+  {
+    "questionId": "b7d545d1-e406-47a0-bf38-fc82fd75af9b",
+    "digest": "997c8a71961481d0e93043b2aa68f17791b17d0f9402804c6b0cb11a7807a422",
+    "reviewer": "报告与规划复审独立核对",
+    "decision": "keep",
+    "reason": "第（28）项东北全面振兴取得新突破；现两项同一定位颠倒地区，改成四个短区域名。",
+    "proposal": ""
+  },
+  {
+    "questionId": "08e30c74-01a8-4839-a8b1-222b9d5ecfac",
+    "digest": "1cc52712fd9b523ba3f265c54cbfb6239d72d694747f493475f6429f7ea53a35",
+    "reviewer": "报告与规划复审独立核对",
+    "decision": "keep",
+    "reason": "S42列超大市场完整产业丰富人才；第四项能源禀赋和正文市场产业特征远离，换更可信的新发展优势。",
+    "proposal": ""
+  },
+  {
+    "questionId": "55469b52-f6c2-46bb-8a53-787cd8ed64b7",
+    "digest": "ff47d46357398809c39655f7f7dd9cc7f4556524887412db83216e0ffa0db506",
+    "reviewer": "报告与规划复审独立核对",
+    "decision": "keep",
+    "reason": "S42列质量航天交通等产业型强国，原教育强国与这组并列过易排，换产业创新领域真实强国名。",
+    "proposal": ""
+  },
+  {
+    "questionId": "9f4f50c9-85da-4651-9c57-3af358181ac9",
+    "digest": "bc3281734d0afd55bcac31679ab9ef4251c05be6f8f400e67483443d3bf2f036",
+    "reviewer": "报告与规划复审独立核对",
+    "decision": "keep",
+    "reason": "两会开幕日期是现专题缺少的可直接核验组合事实，与报告题注中所问会议名称不同。",
+    "proposal": ""
+  },
+  {
+    "questionId": "ff662abc-bfd8-40f1-80c0-e40427fc9c3e",
+    "digest": "13b719e8f8a143dcd2f414321450268449fcd8338fb11714f822fe6a5034430f",
+    "reviewer": "报告与规划复审独立核对",
+    "decision": "keep",
+    "reason": "正式规划专栏独立核心指标。现题覆盖迁户籍、公共服务及中考政策，未测同口径城镇化率目标。",
+    "proposal": ""
+  },
+  {
+    "questionId": "f87dd9e0-505b-458f-90db-621416a193d4",
+    "digest": "64ce426d1e67749a4dcfdef7e93033624f3ce6c23911bc7c48f8ebe222b02d83",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "缩短原题并补足总要求全部四项，区分一组要求和一个抓手。",
+    "proposal": ""
+  },
+  {
+    "questionId": "85c8e773-a17d-4968-9706-f328329158f1",
+    "digest": "8c4daa700aa9abe8a95c83aeea588963e602aa31db8ffeeff5620d5fea46a4b0",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "原题三套配对冗长，群众意见项又与查摆问题渠道题互相提示。改为后两个环节并列短空。",
+    "proposal": ""
+  },
+  {
+    "questionId": "f4ced28d-e87f-4639-adf8-10a26e4dfee8",
+    "digest": "4c36ec4c86c0d08f159a4a69e77f2cf2231368aa0105c616fd2b0aaca518fa56",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "改成原文短空。四项同属规范的解释、调整或完善方式。",
+    "proposal": ""
+  },
+  {
+    "questionId": "a0a05002-b43e-4820-97a3-f3ae323028f1",
+    "digest": "d2a46d7130faabf720e10db082f86c8d21b1b7b650cc29beff61d8486097e7ae",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "原正确项是唯一个人特质，用同类个人政治素养或工作特征作干扰。",
+    "proposal": ""
+  },
+  {
+    "questionId": "9b72afb5-6cbb-4c91-9600-147de5edfaba",
+    "digest": "a9ebeb857ea83ca0e9331030eab0fca035e275c775e55cc57c22b66e1346a6a4",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "原D解析将群众口碑误说为第七节的列举，该表述涉及第二十一节，改为据第七节区分分类依据和评价反馈。",
+    "proposal": ""
+  },
+  {
+    "questionId": "9f055c78-589b-4597-a751-77c8b28cee64",
+    "digest": "c7211c6db56e437b1c00db09fb28b8bf73c58a1f8538716a7547274f0abe8e01",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "将考核、培训、监督等明显异类动词换成同为群众工作关系的近项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "2ece4918-0e59-4cb9-a2ab-92899dabc1d7",
+    "digest": "d2ee0a19e7afdfc350dbc9010e93ad4073705680876510b57c44ef5540f45375",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "将一组明显调查类干扰换成相近制度管理方式，缩短成完整原词位。",
+    "proposal": ""
+  },
+  {
+    "questionId": "b0099148-f135-4e80-9da7-d3ec31a36186",
+    "digest": "9bc25c659b000539a597551fc59f9ac673c014c6d571786a78411d327e336917",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "四项均为面向人民的四字短语，避免唯一的宽泛民生目标直接暴露答案。",
+    "proposal": ""
+  },
+  {
+    "questionId": "e9dd09b4-f446-4c63-a1b7-060c2dff494b",
+    "digest": "522467cc10075e7b6134204b4a617e1cb187f606d0cb1061c93a61814840c5be",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "原正确项是唯一写作工作领导小组的中央机构，用相同机构类型消除形式线索。",
+    "proposal": ""
+  },
+  {
+    "questionId": "bfe60bc1-fe14-41f8-9a7a-ed98cf77eb62",
+    "digest": "dffe066e2642af6bdef0ebf9d5344b373bd46293f0f41ea42ea3fcf6b31c1249",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "原题“见事见人、责任到”已直接出现人字。改成同类责任承担主体，不展示答案词。",
+    "proposal": ""
+  },
+  {
+    "questionId": "bf3be87f-09c7-4dd3-8ea4-89144b7abc33",
+    "digest": "c577a1702ee5b6815e77980a6c1dfde4fa6841dcf93ccb707adb2cae71a2702c",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "原错误项解析把接续实施误称原话。保留辨析，直接引用原句为依据。",
+    "proposal": ""
+  },
+  {
+    "questionId": "408b9451-a125-4869-b94b-5add318ba348",
+    "digest": "1bc72b3e8fc1cc3e46f4048fb0f03764a50aa0d0582877918930b0afe387daa4",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "原文限定‘一时难以完全解决’，补回‘完全’以保留有部分办法但须长期整改的情形。",
+    "proposal": ""
+  },
+  {
+    "questionId": "83e00b67-b82a-4653-9384-b351307eaa50",
+    "digest": "07d2af6f9b947f8d9b13e53cb0d01304c727696309025d6c415f0785586604d9",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "将原句不自然的‘结合不同周期实际’换成实际管理维度，保持四项可成立的句法。",
+    "proposal": ""
+  },
+  {
+    "questionId": "4c0105a5-38a5-4d6e-ac9d-10c4ffabc6e2",
+    "digest": "fc59a62a8d858db3dcf0093005f892f5cac39d8bb344dc2114726838f354f634",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "删除口语化的‘唯哪项指标的做法’，用片面追求准确表达该次讲话所说的唯GDP，并保留同类中文指标。",
+    "proposal": ""
+  },
+  {
+    "questionId": "ad20e878-4fd1-483b-80a1-57d43d59335f",
+    "digest": "978fa5626df43d60a37ffa1943dcd7736085b3231f3d66f40b6613b5f97c740c",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "原题只有正确项描述不利结果。换成同样可作为事后风险的干扰项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "a9e6c834-ce44-47c7-8443-dcc4cc55081d",
+    "digest": "0d17bd57328bc79bffc1a5fbd03e1a93ce21b05e13a7cc2ce7547b053010e67f",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "原‘离任审计’按离任触发，与‘定期’冲突，换为可定期开展的督查。",
+    "proposal": ""
+  },
+  {
+    "questionId": "534f1cd8-ef84-4728-a110-4719b764d3d8",
+    "digest": "4cf7383705aa626ff87142c91aadcb34944ef120b3f45e2af548a5aba83ff615",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "原区别说明提到题证未配套的2026年专题解读。直接用2012年讲话的两项自查原话说明。",
+    "proposal": ""
+  },
+  {
+    "questionId": "985cf3d3-7b85-415f-8460-67e0a1228964",
+    "digest": "b87e249bb93f6617ab9ea7e4e4cffeeb930efbf3298b38678f4b82d517639500",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "原两题相互拿相同材料作干扰，改为一个分类配对，保留两道原有知识点。",
+    "proposal": ""
+  },
+  {
+    "questionId": "ec6892f8-a605-4a2e-bdc2-ba4d0ee7287a",
+    "digest": "f32661f3cb6d759928cef02cfc2e0792d5cabeeb7c39bd163fd09ed1e7ec378a",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "原两题使用同一出处和四个换位标签，合并为一次配对辨析并保留原知识点。",
+    "proposal": ""
+  },
+  {
+    "questionId": "80e2ce3b-dc1d-463c-89b6-ba4484d46a94",
+    "digest": "b6370f9fed9b4a14ad184054171d7c9c9a771e7538ccaf9fa8a0412319066d31",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "原题的‘党的’与三个干扰项存在双重所属或不能自然接合。四项统一给出完整的定位。",
+    "proposal": ""
+  },
+  {
+    "questionId": "c0049bea-6a05-489a-9c2e-f4151c244188",
+    "digest": "8e968071089fbdb7e448d0e8dbe31add38b7200641322d3938d680125f00dadc",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "原两题把相同三个定位作为答案和干扰互换。改一次配对并保留原知识点。",
+    "proposal": ""
+  },
+  {
+    "questionId": "73f4fe09-d5c4-49ed-9003-e41ce5ba2daa",
+    "digest": "7c9b266024977f917eaa9268d4abe12af7801cbd0778cce04de4b810213afd93",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "把具体考核口径、监管措施替换为同一层次的思想指导与作用表述。",
+    "proposal": ""
+  },
+  {
+    "questionId": "5657f144-9088-4d7f-bce9-0785cdb35b6d",
+    "digest": "5d8a42d35b230e167850cb15d1537532404907399f5d8fff620a6147f9b2c549",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "‘体系公布’缺具体主体和内容。改为确切的2026年6月全国党建工作座谈会报道。",
+    "proposal": ""
+  },
+  {
+    "questionId": "e70e9755-51d4-4921-8ea2-84db57acd449",
+    "digest": "ee198832ae7e0569d45708089f33e373630bb9c79b75aff6b6a9b8bc7761a341",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "去掉题干‘系统完备’和正确项的直接同字提示，答项还原节目中的‘系统观念’。",
+    "proposal": ""
+  },
+  {
+    "questionId": "f2eeb910-3ac2-428e-8801-44cf39ae9aa6",
+    "digest": "4819c42c15953c75cfad048bf41637e6d7fe4687979fbbf7399b5c80c6183bdc",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "原解析把‘报道时段’当成报道时长，区分播发时段、时长和决定是否报道的条件。",
+    "proposal": ""
+  },
+  {
+    "questionId": "63638cf5-22a5-4a00-b852-9dc998af73bc",
+    "digest": "b9c94991c0271836943b3f302600a027eb9aac4dfe52f933fc30dbcfc39ab55e",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "去掉题干‘开短会’对唯一含短的候选的字面提示，四项同类地描述会议发言。",
+    "proposal": ""
+  },
+  {
+    "questionId": "70678822-bf17-423c-bb09-e49a335dd90a",
+    "digest": "27a7d1065e2c33e9ebb35ee1bfb3c8b20c321f886eb080d886ddf999b0706230",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "把历史作风或组织服从类干扰替换为同样实际用于干部队伍管理和监督的术语。",
+    "proposal": ""
+  },
+  {
+    "questionId": "ebf3cbae-277f-435b-a1bf-29ed03e611a9",
+    "digest": "d6624cb79e05b5b91fdefc4bccde7da5396a0d480c414a636b124ea8222c9ba8",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "四项均为可能加重的基层负担或后果，保留严重损害、严重不良影响要件。",
+    "proposal": ""
+  },
+  {
+    "questionId": "0efce971-e29d-481a-9bca-fe3ac3fa6280",
+    "digest": "e5c6b2f5f0d6adbae70eb3c9fa145e0514215cf4fa0f8fda20beb78368cfde77",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "删除‘合并结算开支’等语法不通的组合，按财务结算不同情形统一选项。",
+    "proposal": ""
+  },
+  {
+    "questionId": "4ba25006-921e-451f-a459-8e2e2fac0041",
+    "digest": "e2733b4311db18e9fcc7e186666559d86dab20ce54db0e22b1b947a549c725ce",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "原正确项是唯一面向群众的选项，换成四项群众工作概念。",
+    "proposal": ""
+  },
+  {
+    "questionId": "bc0325a7-3510-4cbf-b688-f518939391a8",
+    "digest": "950addd51cc11c5bbbd69c41bab3cf2a9e2d0a5787976589312a901cc34ff1bf",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "免除只有正确项是党委与政府两个方面合并称谓的线索，四项均由两类实际职能部门组成。",
+    "proposal": ""
+  },
+  {
+    "questionId": "46a286c4-2786-428a-8278-b0a131b9aeca",
+    "digest": "c736b4258df2e44f85699aec12f7eeb4ff3b4030cfb87ba130589947f77edc2a",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "原正确项是唯一独立完整的口号，改为四个同类四字短语的原文补空。",
+    "proposal": ""
+  },
+  {
+    "questionId": "7033cf52-6351-4c28-836d-ac33710587b3",
+    "digest": "d3849916703d39abde0e81dcb429c5e36fe392a979969ec3ca04ca6e73ef5684",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "原题‘必须坚持人民至上’直接提示唯一含‘人民’的答项。保留章节语境，移去直接同字提示。",
+    "proposal": ""
+  },
+  {
+    "questionId": "dc278ef6-ebdd-439c-926c-c5fedd5ef5f6",
+    "digest": "83f276debd0254a00ef32b40f60c38248bfaf0b5bc1c8bc0bb691156f9886be5",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "原三项是公有制、国有和集体，只有一个非公类别，换成实际经济类别和近似范围。",
+    "proposal": ""
+  },
+  {
+    "questionId": "f0c74413-f4d8-4f22-915b-b1b06b821a6d",
+    "digest": "f81cf04f2ed827b3c3dc7be4b7a3b85ee1c3ae77a0e7088ace86f5b2f9e0d154",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "原答案是唯一和题干一样以‘格局’结尾的词。四项统一形式，保留安全保障关系。",
+    "proposal": ""
+  },
+  {
+    "questionId": "24145524-a092-49a1-a273-99d541d4b418",
+    "digest": "97cc9fc1e3ef9b78bffbd5d52116e22c9398316538d26c06c5d28b9b8befdd26",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "原两题在题干和答案之间重复交换三项相同选项。改成一次配对，保留两道原知识点关系。",
+    "proposal": ""
+  },
+  {
+    "questionId": "2c852e59-2aa7-4be1-ab83-f44c7019c521",
+    "digest": "9596d99528d8fef44b6da4a73c97500d4fcca03dda756d7d391c1c164388c416",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "五种建设归入解析，题面改为四个等长党建术语。",
+    "proposal": ""
+  },
+  {
+    "questionId": "c21a70b8-58e2-4504-8772-9cc451688ed5",
+    "digest": "5e9ca05e6da1fad43a990ef65383272e4c699a1d793ecaae9fa284bd039aaf5b",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "原题称缺失的伟大工程为第四项，容易与党章实际列项顺序混淆。现按原文第二位置补空。",
+    "proposal": ""
+  },
+  {
+    "questionId": "eaa2b134-1124-4cdc-a193-04fd8ecabb9c",
+    "digest": "e19ef4f05240d0b8256f7e54d9ac59a9db48f122313ce5899ccafc73b385eb79",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "原四个选项只有正确项复现题干‘群众’，其余范围差异大。改成引文角色短空。",
+    "proposal": ""
+  },
+  {
+    "questionId": "154512c3-9783-413d-aa3b-14a7583c5a9b",
+    "digest": "fe436dfa7f32530ec63453631526d8c67a6e06a57671c8bb5e9fed5b952d7cfe",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "避免把两项明显国外的对象列在‘中国人自己解答’后作干扰，全部换成可立足的国内因素。",
+    "proposal": ""
+  },
+  {
+    "questionId": "8a43721f-0ab5-4840-9220-f883c1bbbdda",
+    "digest": "186f8bc5b3d91fcc540f4ec7a28a01786565e8f39ba7538862dc7f999874381d",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "原题里的展览名‘复兴之路’直接提示仅正确项有复兴二字。保留讲话日期，展览背景留证据和解析。",
+    "proposal": ""
+  },
+  {
+    "questionId": "60485566-59b1-47d4-89ed-d1da5cc226ea",
+    "digest": "b4a08d9edb1e800295200c6bcfadefee86e6240637c5b1edc381046257f51096",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "把政治、文化等异类干扰换为同一领域的生态政策，避免仅凭‘永续’推出答案。",
+    "proposal": ""
+  },
+  {
+    "questionId": "a9363c85-a1dd-4229-96e9-4b5cf4aeea17",
+    "digest": "ac8d4ab6ffd49b24369d76ad229a4645c53b9ff3a15591bc5cfbecad55ef2bdd",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "原题‘问题’仅出现在正确项，把段落提示改成直接识记同一论述里的根本任务。",
+    "proposal": ""
+  },
+  {
+    "questionId": "7ef6b642-775c-42df-bc90-85c8ab36de45",
+    "digest": "e8f4ca957737453755fc5cb4d3306fced89c8d0c59d5e365f93bf3811dfbd343",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "‘实践检验’不能自然代入观察事物的观点，换成与发展变化接近的观察方式。",
+    "proposal": ""
+  },
+  {
+    "questionId": "89f98100-5e95-49ec-a25b-43d3bd946f4e",
+    "digest": "378dbbeebf12d065df13f9becf79157aa46015b0d47700027bb8156957db5b80",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "原区别说明把历史决议误称报告，还原文书和完整相邻概念。",
+    "proposal": ""
+  },
+  {
+    "questionId": "94056113-06ba-4e92-81dd-b2068cfed494",
+    "digest": "c66a27ce538f4d5339dcbbd540529167fcce5da13d3dad3473e2c00ee3f33e29",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "原区别说明附带了题证无定位的外交部预算说明。改为据所引十九大报告说明术语差别。",
+    "proposal": ""
+  },
+  {
+    "questionId": "34ad0d93-4890-4612-893b-094455fe13e7",
+    "digest": "b7949fe6cf0fbc1199ddf09779d5b06d1f2703c0cc4cd3671af64ced818ea885",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "将还可用成果归属关系作答的同类词补齐。原D‘由人民检验’描述评估行为，容易按语义直接排除。",
+    "proposal": ""
+  },
+  {
+    "questionId": "72ed5d13-3579-4cc4-8aac-4e2a30f7a395",
+    "digest": "b4ffc8791896693c0186e9a4c9fe62aea7210e0d65a79e0d02369916f30077f2",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "用四组相邻理论发展、传播概念替换不同句式的候选，保持正式原词辨析。",
+    "proposal": ""
+  },
+  {
+    "questionId": "5c79dd29-bbe4-432a-8b26-99c632ce92fd",
+    "digest": "7275d77cf2daf506e48d1d319fb22657b333d0720a0fbc319d7fd4b5e726b8d9",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "购入资料P01-036、P08-069等多次考四风成员。此题采用官方统计口径，具体区分两组问题，补现库已考纠治重点之外的知识。",
+    "proposal": ""
+  },
+  {
+    "questionId": "8fb26c47-fe63-46a3-ad0f-00c6c9eb672f",
+    "digest": "3fec505123185278de89f580f989c76159251e1f3a8239a2bb7a68e9720da086",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "所引法规已发布施行。题面考基层减负中的具体人员适用层级，与现有考核加码、留痕处分题的行为和后果不同。",
+    "proposal": ""
+  },
+  {
+    "questionId": "c8507e92-16c4-4403-b97b-7201b4befa7f",
+    "digest": "0df95719968183f05cc6870ce9899506cfe7a499dc5df6bce3ac76dc1b3fbb65",
+    "reviewer": "理论与作风复审独立核对",
+    "decision": "keep",
+    "reason": "补上2025年修订后的公开原则。现有条例题主要考经费、接待、用车、会务的办理规则。",
+    "proposal": ""
   }
 ]

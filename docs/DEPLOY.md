@@ -49,14 +49,16 @@ Neon Auth 生成并校验验证码，签名的 `send.otp` 事件由本站 `/api/
 
 同一份 Git 内容派生 CDN 分片和 PostgreSQL 投影。用 `/bank/manifest.json` 的 release 值对照 PostgreSQL 的 `content_release.digest`。命中的 CDN 分片按哈希长期缓存，入口重新验证。题目内容摘要参与同步判分，过期作答提示未保存。公开 API 的 DB 兜底缓存可通过带发布密钥的 `POST /api/internal/invalidate` 失效。
 
+练习入口和在线客户端通过发布摘要验证静态清单。清单摘要和数据库发布摘要一致时读取静态分片，切换期间从当前数据库读取。专题列表和首批题目的缓存按发布摘要隔开。验证时对照 `/api/public/bank-release`、`/api/public/topics` 和静态清单。
+
 开发项目的 `production` 是 Neon 自动创建的默认分支名，当前只用于预览联调。Neon CLI 同步的 `DATABASE_URL` 给 Node 应用，`DATABASE_URL_UNPOOLED` 给迁移与导入。向隔离的 Neon 开发库落预览题使用 `npm run content:sync -- --preview --apply`。
 
-发布顺序保存在 `content/question-order.json`。新增的已审核题用 `node scripts/content/release.mjs order` 登记到末尾。沿用原题 ID 修订题目时保留其位置。专题与全库的顺序读取共用这一顺序，随机刷题沿用原有种子规则。
+发布顺序保存在 `content/question-order.json`。新增或修订的已审核题使用新题和选项 UUID，用 `node scripts/content/release.mjs order` 将新题登记到末尾。专题与全库的顺序读取共用这一顺序，随机刷题沿用原有种子规则。
 
-下架时在 JSON 将题目标记为 `withdrawn`，保留 ID 与顺序记录，然后同步数据库、失效 API 缓存并重新部署。同步会清除该题当前的收藏和学习进度，并将顺序、专题、收藏与错题练习的已保存位置对齐到原题或相邻的可用题。旧试卷从原有快照读取，之后重考只纳入当前可用的原题。验证新 manifest 和线上目录均已移除该题。需要即时撤下旧哈希资源时在 Makers 清除对应路径。已离线设备恢复联网后重验目录。
+下架时在 JSON 将题目标记为 `withdrawn`，保留原题内容、ID 与顺序记录。同步在事务内校验已登记版本，停用旧题并发布新题。同时清除旧题在收藏、学习进度和错题中的状态，将顺序、专题、收藏与错题练习的已保存位置对齐到原题或相邻的可用题。新题从未作答、未收藏开始。旧试卷从原有快照读取，之后重考只纳入当前可用的原题。同步后失效 API 缓存并重新部署，验证新 manifest 和线上目录均已移除旧题。需要即时撤下旧哈希资源时在 Makers 清除对应路径。已离线设备恢复联网后重验目录。
 
 ## 回滚与备份
 
-代码回滚使用 Git revert 或已核实的 Makers 旧部署。内容回滚保留已有 UUID 和已退役条目，在 Git 中审查回滚内容，重新同步并发布。生产用户数据单独备份到用户控制的加密位置，经授权操作员用 `pg_dump`/恢复实例定期验证。Auth 管理由 Neon 提供，恢复演练应覆盖会话和身份匹配。
+代码回滚使用 Git revert 或已核实的 Makers 旧部署。内容回滚通过新目录发布，已下架内容恢复收录时使用新 ID。生产用户数据单独备份到用户控制的加密位置，经授权操作员用 `pg_dump`/恢复实例定期验证。Auth 管理由 Neon 提供，恢复演练应覆盖会话和身份匹配。
 
 对比上线前后提交、Makers 构建日志、域名 TLS 结果、目录 release、同域登录和真实数据库写入。大陆移动、联通、电信的冷、热访问采样方法见 [性能验证](PERFORMANCE.md#上线后的大陆实测)。

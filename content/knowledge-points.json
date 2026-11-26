@@ -7618,5 +7618,2465 @@
     "sourceId": "S72-FLAG",
     "location": "第九条、第十条",
     "scopeNote": "2026-11-26 题库去重补位。按题目所列现行原文及适用范围复习。"
+  },
+  {
+    "id": "ff90409e-679f-4a6c-85ca-7eab1b4cba3a",
+    "topicId": "t06",
+    "factKey": "t06-long-march-victory-date",
+    "fact": "1936年10月，红一、红二、红四方面军胜利会师，长征胜利结束。",
+    "importance": "core",
+    "sourceId": "S17",
+    "location": "1936年10月9日、22日条",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "ca593fcc-4019-4036-9c75-f9ffb25c656a",
+    "topicId": "t06",
+    "factKey": "t06-long-march-luding-river",
+    "fact": "泸定桥跨越大渡河。",
+    "importance": "core",
+    "sourceId": "LONG-LUDING",
+    "location": "正文叙述泸定桥与大渡河段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "3d850b46-6a65-4614-96cb-3917df725f27",
+    "topicId": "t06",
+    "factKey": "t06-long-march-yi-leader",
+    "fact": "长征途中与刘伯承在彝海结盟的彝族首领为小叶丹。",
+    "importance": "core",
+    "sourceId": "LONG-YI-ALLIANCE",
+    "location": "文旅部专题第一段及彝海相见、结盟段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "cb04ab7f-875a-4b15-aaee-21dccaec168a",
+    "topicId": "t06",
+    "factKey": "t06-chen-wangdao-manifesto",
+    "fact": "1920年，陈望道翻译《共产党宣言》首个中文全译本。",
+    "importance": "core",
+    "sourceId": "BOOK-MANIFESTO-LETTER",
+    "location": "回信正文第一段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "6ebbaec7-3863-42a4-8007-fa9b08dd19cc",
+    "topicId": "t06",
+    "factKey": "t06-fourth-congress-workers-peasants",
+    "fact": "中共四大提出无产阶级在民主革命中的领导权和工农联盟问题。",
+    "importance": "core",
+    "sourceId": "S17",
+    "location": "1925年1月11日—22日党的四大条",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "15ef1e51-fd98-4840-9243-30400078e869",
+    "topicId": "t06",
+    "factKey": "t06-first-and-third-history-resolutions",
+    "fact": "党的第一个历史决议由六届七中全会通过，第三个由十九届六中全会通过。",
+    "importance": "core",
+    "sourceId": "S52",
+    "location": "题注；正文开头提及1945年、1981年两个历史决议，另结合S17 1945年4月20日条",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "19e6ed51-40dc-4fda-b8c5-348f10365898",
+    "topicId": "t06",
+    "factKey": "t06-first-special-economic-zones",
+    "fact": "首批四个经济特区分别为深圳、珠海、汕头、厦门。",
+    "importance": "core",
+    "sourceId": "S17",
+    "location": "1979年7月15日条末关于1980年设置四个经济特区的记载",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "d26f1d1e-4434-4875-aec7-a299f4e708f1",
+    "topicId": "t06",
+    "factKey": "t06-un-resolution-2758",
+    "fact": "1971年联合国大会第2758号决议恢复中华人民共和国在联合国的合法权利。",
+    "importance": "core",
+    "sourceId": "S17",
+    "location": "1971年10月25日第26届联合国大会条",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "67b9fd50-1098-4275-a809-3d7f9fbae2a6",
+    "topicId": "t06",
+    "factKey": "t06-reform-first-breakthrough",
+    "fact": "我国改革从农村实行家庭联产承包责任制率先突破。",
+    "importance": "core",
+    "sourceId": "S52",
+    "location": "第三部分“我国改革从农村”段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "a18c90bb-487b-4e0e-b940-ccf52bb340d0",
+    "topicId": "t06",
+    "factKey": "t06-party-105-honors",
+    "fact": "2026年7月1日庆祝中国共产党成立105周年大会上，向“七一勋章”获得者颁授勋章。",
+    "importance": "core",
+    "sourceId": "PARTY-105-CEREMONY",
+    "location": "新华社大会报道开头段与颁授议程段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "bed6cb39-1058-40fc-a8b2-91e316bbb80e",
+    "topicId": "t06",
+    "factKey": "t06-long-march-ninetieth-background",
+    "fact": "2026年10月22日举行纪念中国工农红军长征胜利90周年大会。",
+    "importance": "core",
+    "sourceId": "LONG-MARCH-90",
+    "location": "2026年10月22日讲话题注和开头",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "bde3278b-3588-44f1-ae8d-1b012e1709e1",
+    "topicId": "t11",
+    "factKey": "t11-recorded-organizations",
+    "fact": "《榜样10》录制邀请5名党员和2个基层党组织。",
+    "importance": "core",
+    "sourceId": "BY10-OVERVIEW",
+    "location": "节目播出预告第1段录制嘉宾列举",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "4ec2270c-e781-4aa9-acfa-a5aa502f9cc5",
+    "topicId": "t06",
+    "factKey": "t06-central-red-army-yudu",
+    "fact": "1934年中央红军长征在江西于都集结出发。",
+    "importance": "core",
+    "sourceId": "LONG-YUDU",
+    "location": "正文首段及中央红军于都河集结出发段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "2bb56f0c-30f9-403f-bff6-ea081f26c0de",
+    "topicId": "t06",
+    "factKey": "t06-zunyi-military-organization",
+    "fact": "遵义会议集中解决当时具有决定意义的军事问题和组织问题。",
+    "importance": "core",
+    "sourceId": "S17",
+    "location": "1935年1月15日至17日遵义会议条",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "130140b6-36a4-42f0-a062-65e75cc540e9",
+    "topicId": "t06",
+    "factKey": "t06-central-red-army-wuqi",
+    "fact": "中央红军主力1935年10月到达陕北吴起镇，胜利结束自己的长征。",
+    "importance": "core",
+    "sourceId": "S17",
+    "location": "1935年9月条末关于10月19日抵达吴起镇的记载",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "a702834f-db35-409b-b8d8-492ec8a2bbff",
+    "topicId": "t06",
+    "factKey": "t06-long-march-first-north-shaanxi",
+    "fact": "红军第一、第二、第四方面军和第二十五军参加了长征，红二十五军于1935年9月最早到达陕北。",
+    "importance": "core",
+    "sourceId": "LONG-RED25",
+    "location": "正文1935年9月率先到达陕北段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "08cc5277-bcbc-44d5-891d-50f2323ad1b1",
+    "topicId": "t06",
+    "factKey": "t06-mao-thought-living-soul",
+    "fact": "毛泽东思想的活的灵魂体现为实事求是、群众路线、独立自主。",
+    "importance": "core",
+    "sourceId": "S52",
+    "location": "第二部分关于毛泽东思想及其活的灵魂段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "1a486572-dfe1-4e6b-af68-bb7acc46ed37",
+    "topicId": "t06",
+    "factKey": "t06-scientific-development-fundamental-method",
+    "fact": "科学发展观的根本方法是统筹兼顾。",
+    "importance": "core",
+    "sourceId": "SCI-DEVELOPMENT-READER",
+    "location": "《科学发展观学习读本》本节开头对四项内涵的概括",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "80a97b31-5088-46db-92f7-ef56a614100c",
+    "topicId": "t06",
+    "factKey": "t06-may-fourth-spirit-core",
+    "fact": "五四精神的核心是爱国主义。",
+    "importance": "core",
+    "sourceId": "MAY-FOURTH-100",
+    "location": "2019年讲话论五四精神核心段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "14067339-fe6f-4e9a-9621-6bf7c77fa483",
+    "topicId": "t07",
+    "factKey": "t07-socialist-conditions-communist-ideal",
+    "fact": "党章总纲指出，共产主义最高理想在社会主义社会充分发展和高度发达的基础上才能实现。",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "党章总纲马克思列宁主义段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "03a47f11-57bf-46ba-9637-341cb9b82b98",
+    "topicId": "t07",
+    "factKey": "t07-local-party-committee-five-year-term",
+    "fact": "党的省、自治区、直辖市、设区的市和自治州的委员会，每届任期五年。",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "党章第二十六条第一款",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "c647a63f-e3f5-422a-ad82-d14e27ba5a70",
+    "topicId": "t07",
+    "factKey": "t07-democratic-centralism-mass-line-application",
+    "fact": "党章总纲将民主集中制界定为群众路线在党的生活中的运用。",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "党章总纲党建基本要求第五项",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "c46adf96-344d-43ad-946e-5fa243af75e9",
+    "topicId": "t12",
+    "factKey": "t12-training-plan-five-year-duration",
+    "fact": "《全国党员教育培训工作规划（2024—2028年）》规定党员5年内累计集中学习不少于20天或160学时。",
+    "importance": "core",
+    "sourceId": "PARTY-TRAINING-2024-2028",
+    "location": "《规划》第一部分总体要求末段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "40192cb1-a6ca-4bb4-b398-10c062d3439b",
+    "topicId": "t06",
+    "factKey": "t06-zunyi-command-group",
+    "fact": "遵义会议后成立的军事指挥三人小组，由毛泽东、周恩来、王稼祥组成。",
+    "importance": "core",
+    "sourceId": "S17",
+    "location": "1935年1月15日至17日条，遵义会议后军事指挥调整段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "df8dfaa1-3b34-4f43-873d-4f9cfcb1bc9f",
+    "topicId": "t06",
+    "factKey": "t06-long-march-huining-maogong-stages",
+    "fact": "1935年6月，中央红军在四川懋功与红四方面军会师。",
+    "importance": "core",
+    "sourceId": "S17",
+    "location": "1935年6月中旬中央红军与红四方面军会师条",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "ed836210-4c43-4f4f-b24e-37c8ed179771",
+    "topicId": "t06",
+    "factKey": "t06-long-march-spirit-disciplined-unity",
+    "fact": "伟大长征精神包含顾全大局、严守纪律、紧密团结。",
+    "importance": "core",
+    "sourceId": "LONG-MARCH-90",
+    "location": "讲话正文“伟大长征精神”列举段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "98cb4c83-58f7-4357-84a4-b0274e50339d",
+    "topicId": "t07",
+    "factKey": "t07-general-program-three-historic-missions",
+    "fact": "党章总纲的三大历史任务包括推进现代化建设、完成祖国统一、维护世界和平与促进共同发展。",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "总纲“改革开放以来我们取得一切成绩和进步的根本原因”段末“三大历史任务”句",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "149c6daa-2bd1-4adb-94fc-dbe7ec080290",
+    "topicId": "t02",
+    "factKey": "t02-core-socialist-values-national-tier",
+    "fact": "社会主义核心价值观在国家层面的价值目标是富强、民主、文明、和谐。",
+    "importance": "core",
+    "sourceId": "SOCIAL-VALUES-OPINION",
+    "location": "《意见》第一部分第（一）项末段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "35f45081-cd88-4f5c-8a65-91bd8acf487b",
+    "topicId": "t12",
+    "factKey": "t12-overseas-study-contact-frequency",
+    "fact": "对出国（境）学习研究党员，原就读高校或工作单位党组织保留组织关系，每半年至少联系一次。",
+    "importance": "core",
+    "sourceId": "S34",
+    "location": "第七章第三十四条第二款；第二十四条第二款",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "75de326e-d53e-463f-9d1c-1fff6f859ac7",
+    "topicId": "t07",
+    "factKey": "t07-basic-line-prosperous-democratic-beautiful",
+    "fact": "现行党章社会主义初级阶段基本路线的奋斗目标包括富强民主文明和谐美丽。",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "总纲“中国共产党在社会主义初级阶段的基本路线”段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "a59629fd-e000-4855-aaee-73de8ef1b622",
+    "topicId": "t12",
+    "factKey": "t12-overseas-study-five-year-membership",
+    "fact": "出国学习研究超过五年仍未返回的党员，一般予以停止党籍。",
+    "importance": "core",
+    "sourceId": "S34",
+    "location": "第五章第二十四条第二款",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "3fbff963-9cf0-4155-94c9-1c8dfb70210c",
+    "topicId": "t06",
+    "factKey": "t06-long-march-sowing-metaphor",
+    "fact": "毛泽东概括红军长征的意义时将其比作宣言书、宣传队和播种机。",
+    "importance": "core",
+    "sourceId": "LONG-MARCH-HISTORY-QA",
+    "location": "党史百问正文毛泽东概括长征意义段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "a6906ec3-0021-4bbc-879f-1b951d968ecf",
+    "topicId": "t04",
+    "factKey": "t04-party-character-root-measure",
+    "fact": "衡量党性强弱的根本尺子是“公、私”二字。",
+    "importance": "core",
+    "sourceId": "S49",
+    "location": "《求是》公开节录第三节，2013年9月23日至25日讲话",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "c855fed0-1f84-4de8-ac68-dfa1f0be8b0f",
+    "topicId": "t04",
+    "factKey": "t04-program-purpose-people-and-practical-results",
+    "fact": "2026年学习教育要求为人民出政绩、以实干出政绩。",
+    "importance": "core",
+    "sourceId": "S10",
+    "location": "公开报道《通知》明确段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "075357b9-2874-4d29-b676-fea0d24c3965",
+    "topicId": "t04",
+    "factKey": "t04-post-education-long-term-task",
+    "fact": "2026年8月24日公开的指示把树立和践行正确政绩观定为长期任务。",
+    "importance": "core",
+    "sourceId": "T04-SUMMARY26",
+    "location": "新华社8月24日电，重要指示首段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "6753ab13-017e-465c-b33f-426b9103339d",
+    "topicId": "t04",
+    "factKey": "t04-post-education-issue-identification",
+    "fact": "2026年8月指示要求结合巡视巡察、审计监督、统计监督等精准发现政绩观问题。",
+    "importance": "core",
+    "sourceId": "T04-SUMMARY26",
+    "location": "新华社8月24日电，“习近平强调”段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "1226837d-f490-4106-9a3a-89c82bf7818a",
+    "topicId": "t04",
+    "factKey": "t04-campaign-rectification-institution-public-affairs",
+    "fact": "2026年8月重要指示要求加强政绩观行为管理监督要严格执行民主集中制、对领导干部定期谈话提醒。",
+    "importance": "core",
+    "sourceId": "T04-SUMMARY26",
+    "location": "新华社8月24日电，“习近平强调”段末",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "29322eae-1cba-4d2c-a27e-f93344eab1f0",
+    "topicId": "t01",
+    "factKey": "t01-theme-education-learning-results",
+    "fact": "2023年主题教育工作会议要求在以学铸魂、以学增智、以学正风、以学促干方面取得实效。",
+    "importance": "core",
+    "sourceId": "T01-EDUCATION23",
+    "location": "第二部分“准确把握主题教育的目标要求”，根本任务段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "dd52b92b-1268-487f-b5a9-0732a65bca7c",
+    "topicId": "t01",
+    "factKey": "t01-people-democracy-three-superlatives",
+    "fact": "全过程人民民主是最广泛、最真实、最管用的民主。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第六部分首段，社会主义民主政治本质属性之后",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "da9b4d4b-1db0-498c-8dac-d57202eab2aa",
+    "topicId": "t01",
+    "factKey": "t01-two-safeguards-unified-leadership",
+    "fact": "“两个维护”之一是坚决维护以习近平同志为核心的党中央权威和集中统一领导。",
+    "importance": "core",
+    "sourceId": "S19",
+    "location": "第二条，党的纪律建设指导规定",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "47b9a5bc-3cba-4059-ae18-c1c8f9f85e75",
+    "topicId": "t01",
+    "factKey": "t01-ecological-civilization-sustainable-nation",
+    "fact": "第三个历史决议强调生态文明建设是关乎中华民族永续发展的根本大计。",
+    "importance": "core",
+    "sourceId": "S52",
+    "location": "第四部分第（九）项，在生态文明建设上",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "0619e544-4b37-47e0-8a0b-ad79340d216d",
+    "topicId": "t01",
+    "factKey": "t01-must-persist-problem-orientation",
+    "fact": "在“六个必须坚持”中，报告将回答并指导解决问题定为理论的根本任务，放在问题导向段。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第二部分，“必须坚持问题导向”段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "2952b235-d7fa-4bf4-8068-655d2636e60f",
+    "topicId": "t01",
+    "factKey": "t01-must-persist-systematic-thinking",
+    "fact": "二十大报告在“必须坚持系统观念”部分提出，用普遍联系、全面系统、发展变化的观点观察事物。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第二部分，“必须坚持系统观念”段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "fdbe243d-4215-43ef-90b2-d420b465e032",
+    "topicId": "t09",
+    "factKey": "t09-research-difficulties-objective",
+    "fact": "中央八项规定指出，到基层调研要深入了解真实情况，总结经验、研究问题、解决困难、指导工作。",
+    "importance": "core",
+    "sourceId": "S20",
+    "location": "第一项，改进调查研究",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "4b9dfc95-260b-44aa-a5b2-c7afddc48584",
+    "topicId": "t09",
+    "factKey": "t09-office-premises-central-management",
+    "fact": "党政机关办公用房实行统一规划、统一权属、统一配置、统一处置。",
+    "importance": "core",
+    "sourceId": "BX25-ECONOMY",
+    "location": "第四十三条第一句",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "a72ffe12-efc2-4573-980d-f206d56697eb",
+    "topicId": "t09",
+    "factKey": "t09-style-study-warning-cases",
+    "fact": "2025年八项规定精神学习教育运用由风及腐案例加强警示教育。",
+    "importance": "core",
+    "sourceId": "T09-NOTICE25",
+    "location": "新华社3月17日电，《通知》明确段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "34ec95e2-70f5-43ce-a7a8-63425d12f682",
+    "topicId": "t09",
+    "factKey": "t09-domestic-reception-cross-region-greeting",
+    "fact": "2025年《党政机关厉行节约反对浪费条例》要求国内公务接待不得跨地区迎送。",
+    "importance": "core",
+    "sourceId": "BX25-ECONOMY",
+    "location": "第二十三条第三款，迎送与陪同",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "c4c931ae-f812-4ccf-a005-221f6cf8c2fe",
+    "topicId": "t06",
+    "factKey": "t06-new-democratic-revolution-three-mountains",
+    "fact": "新民主主义革命推翻了帝国主义、封建主义、官僚资本主义三座大山。",
+    "importance": "core",
+    "sourceId": "S52",
+    "location": "第一部分解放战争时期段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "a75ad664-c732-4f1d-b6c9-4767be527515",
+    "topicId": "t06",
+    "factKey": "t06-publication-marked-birth-of-marxism",
+    "fact": "1848年2月《共产党宣言》的发表标志着马克思主义诞生。",
+    "importance": "core",
+    "sourceId": "BOOK-MANIFESTO-1848",
+    "location": "发布会实录关于党史学习教育方面，“思想理论的智慧和力量”末段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "d20dacc4-175d-4874-a84e-c9bc11838f3e",
+    "topicId": "t02",
+    "factKey": "t02-constitution-state-and-government-pair",
+    "fact": "二十大报告明确宪法确定的国体是人民民主专政，政体是人民代表大会制度。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第七部分（一）完善以宪法为核心的中国特色社会主义法律体系",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "8ae15512-eb4f-4678-bf74-69841fdfd335",
+    "topicId": "t02",
+    "factKey": "t02-rule-country-first-constitution",
+    "fact": "二十大报告指出依法治国首先要坚持依宪治国，依法执政首先要坚持依宪执政。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第七部分（一）完善以宪法为核心的中国特色社会主义法律体系",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "275ee628-742b-4fef-8778-07d7e15c726b",
+    "topicId": "t02",
+    "factKey": "t02-rule-law-main-project-government",
+    "fact": "法治政府建设是全面依法治国的重点任务和主体工程。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第七部分（二）扎实推进依法行政，首句",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "b6195993-27aa-4660-abc6-88bf23fc309a",
+    "topicId": "t06",
+    "factKey": "t06-cpc18-inclusion-ecological-civilization",
+    "fact": "党的十八大报告将生态文明建设纳入中国特色社会主义事业“五位一体”总体布局。",
+    "importance": "core",
+    "sourceId": "P17-CPC18-REPORT",
+    "location": "第二部分关于建设中国特色社会主义的总依据、总布局、总任务段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "2d89d16a-00ab-4378-ad67-d62dc4a110bc",
+    "topicId": "t07",
+    "factKey": "t07-basic-line-political-lifeline",
+    "fact": "党在社会主义初级阶段的基本路线是党和国家的生命线、人民的幸福线。",
+    "importance": "core",
+    "sourceId": "P17-PL-2016",
+    "location": "第二部分“坚持党的基本路线”首段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "60c6f549-f03c-410f-a0b2-f1556f4ba794",
+    "topicId": "t02",
+    "factKey": "t02-beautiful-china-target-milestone-year",
+    "fact": "二十大报告把生态环境根本好转、美丽中国目标基本实现列为2035年总体目标。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第三部分到二〇三五年我国发展总体目标段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "1d5a5d24-5b87-4fc1-88c1-b63e5ddc097d",
+    "topicId": "t13",
+    "factKey": "t13-cadre-party-succession-fundamental-work",
+    "fact": "党的第三个历史决议指出，要抓好后继有人这个根本大计。",
+    "importance": "core",
+    "sourceId": "S52",
+    "location": "第七部分“新时代的中国共产党”，“党和人民事业发展需要”段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "d81c65ed-a7da-4468-9ef4-606142c75d9b",
+    "topicId": "t06",
+    "factKey": "t06-since-may-fourth-three-milestones",
+    "fact": "2018年12月18日讲话概括五四运动以来三大历史性事件为建党、成立新中国、推进改革开放和中国特色社会主义事业。",
+    "importance": "core",
+    "sourceId": "S63",
+    "location": "提出三大历史性事件、三大里程碑的段落",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "acc5554d-904f-4e9a-b4b8-b9214225b76f",
+    "topicId": "t10",
+    "factKey": "t10-party-application-first-motivation",
+    "fact": "入党积极分子党课把端正入党动机作为争取入党的首要问题。",
+    "importance": "core",
+    "sourceId": "P17-PARTY-MOTIVE",
+    "location": "正文第二段，介绍入党动机及其重要性",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "cfb0a996-b948-4327-9531-e8b30af9fc25",
+    "topicId": "t07",
+    "factKey": "t07-exceptional-direct-party-discipline-level",
+    "fact": "在特殊情况下，县级和县级以上各级党的委员会和纪律检查委员会有权直接决定给党员以纪律处分。",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "第四十二条第一款末句",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "1ec13bcd-fbd5-4823-9f54-163374b2167a",
+    "topicId": "t06",
+    "factKey": "t06-xinhai-revolution-overthrew-qing",
+    "fact": "1911年辛亥革命推翻清王朝统治，结束中国两千多年的君主专制制度。",
+    "importance": "core",
+    "sourceId": "S17",
+    "location": "开篇近代中国概览中1911年辛亥革命段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "d1121915-3078-4907-bbe0-efd0807297d5",
+    "topicId": "t06",
+    "factKey": "t06-mao-lei-feng-inscription",
+    "fact": "1963年3月5日《人民日报》刊登毛泽东题词“向雷锋同志学习”。",
+    "importance": "core",
+    "sourceId": "S17",
+    "location": "1963年3月5日《人民日报》刊登题词条",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "52c841b1-f624-407a-b721-94f4e2b600cb",
+    "topicId": "t13",
+    "factKey": "t13-firm-ideals-party-unity-foundation",
+    "fact": "《关于新形势下党内政治生活的若干准则》把共产主义远大理想和中国特色社会主义共同理想称为保持党的团结统一的思想基础。",
+    "importance": "core",
+    "sourceId": "P17-PL-2016",
+    "location": "第一部分“坚定理想信念”首段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "1d96bf21-6bb9-4059-a9d1-a2d7b9f07320",
+    "topicId": "t12",
+    "factKey": "t12-intra-party-democracy-life-current-criterion",
+    "fact": "党内民主是党的生命，是党内政治生活积极健康的重要基础。",
+    "importance": "core",
+    "sourceId": "P17-PL-2016",
+    "location": "第七部分“发扬党内民主和保障党员权利”首句",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "e9341166-de63-42e0-b05a-7926d7d9ae08",
+    "topicId": "t06",
+    "factKey": "t06-mao-handling-contradictions-among-people",
+    "fact": "1957年2月27日毛泽东讲话《如何处理人民内部的矛盾》后题为《关于正确处理人民内部矛盾的问题》。",
+    "importance": "core",
+    "sourceId": "S17",
+    "location": "1957年2月27日讲话条",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "0a34b2ec-f31d-4ee4-bbe9-1eac4bce67f0",
+    "topicId": "t06",
+    "factKey": "t06-first-soviet-congress-ruijin-1931",
+    "fact": "1931年11月中华苏维埃第一次全国代表大会在江西瑞金叶坪召开。",
+    "importance": "core",
+    "sourceId": "P17-RUIJIN",
+    "location": "正文首段，大会日期及会址",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "10387d54-f6df-4d82-b044-32cd539692ed",
+    "topicId": "t06",
+    "factKey": "t06-deng-theory-essence-action-thinking",
+    "fact": "解放思想、实事求是是邓小平理论的精髓。",
+    "importance": "core",
+    "sourceId": "P17-DENG-ESSENCE",
+    "location": "第二部分“解放思想、实事求是是邓小平理论的精髓”开头",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "0c244d15-ec90-46e5-8247-98fab2042397",
+    "topicId": "t06",
+    "factKey": "t06-seventeen-point-agreement-region",
+    "fact": "1951年5月23日签订的“十七条协议”宣告西藏和平解放。",
+    "importance": "core",
+    "sourceId": "S17",
+    "location": "1951年5月23日签订《关于和平解放西藏办法的协议》条",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "da2b4b20-aab1-426c-8455-2cf0ba6c7b0d",
+    "topicId": "t06",
+    "factKey": "t06-three-represents-first-raised-guangdong",
+    "fact": "2000年2月25日江泽民在广东考察听取省委汇报时明确提出“三个代表”要求。",
+    "importance": "core",
+    "sourceId": "S17",
+    "location": "2000年2月25日听取广东省委工作汇报条",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "34b5f3ee-63ea-48d9-b2b8-66d315213797",
+    "topicId": "t02",
+    "factKey": "t02-cpc20-entered-innovative-countries",
+    "fact": "二十大报告回顾新时代十年创新成效时指出，我国进入创新型国家行列。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第一部分新时代十年变化回顾中教育、科技、人才、创新成果段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "a35232b2-93d1-4b29-adbe-52cfe5cdf486",
+    "topicId": "t02",
+    "factKey": "t02-hongkong-macau-governance-and-autonomy",
+    "fact": "二十大报告提出在港澳治理中坚持中央全面管治权和保障特别行政区高度自治权相统一。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第十三部分坚持和完善“一国两制”制度体系段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "cd56b1e0-ad59-44d4-bbf8-f265c8ce82c9",
+    "topicId": "t14",
+    "factKey": "t14-wealth-accumulation-distribution-order",
+    "fact": "四中全会《建议》提出规范收入分配秩序和财富积累机制。",
+    "importance": "core",
+    "sourceId": "S43",
+    "location": "第十一部分（38）完善收入分配制度",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "0e5425c3-6726-4caa-ae45-e7576e333023",
+    "topicId": "t04",
+    "factKey": "t04-formalism-incorrect-performance-root",
+    "fact": "习近平指出，形式主义的实质是主观主义、功利主义，根源是政绩观错位、责任心缺失。",
+    "importance": "core",
+    "sourceId": "C26-FORMALISM-ROOT",
+    "location": "新华社2026年4月10日报道开篇引用论述段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "eaad68ab-194a-47c1-ba74-6a5ef0e18de3",
+    "topicId": "t04",
+    "factKey": "t04-fuping-serving-people-central-task",
+    "fact": "习近平在阜平县讲话谈“任何事情都要向上看看，向下看看”时，要求各级干部检视工作是否围绕党和国家中心任务。",
+    "importance": "core",
+    "sourceId": "S49",
+    "location": "《求是》公开节录第一节，2012年12月29日、30日在河北阜平县考察扶贫开发工作时的讲话",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "79c8296d-9240-4420-843c-5c558867321e",
+    "topicId": "t09",
+    "factKey": "t09-office-coordinates-frugality-inspection",
+    "fact": "现行反浪费条例规定党委和政府办公厅（室）负责统筹协调有关部门开展厉行节约反对浪费工作督促检查。",
+    "importance": "core",
+    "sourceId": "BX25-ECONOMY",
+    "location": "第五十四条，党委和政府办公厅（室）的督促检查分工",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "45d29bf7-b2fe-47e5-9313-67554a141afa",
+    "topicId": "t12",
+    "factKey": "t12-organizational-life-vehicle-of-party-political-life",
+    "fact": "《关于新形势下党内政治生活的若干准则》规定党的组织生活是党内政治生活的重要内容和载体。",
+    "importance": "core",
+    "sourceId": "P17-PL-2016",
+    "location": "第九部分“严格党的组织生活制度”首句",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "5fe12946-ed5d-4dde-b3d8-5a71650b5e45",
+    "topicId": "t03",
+    "factKey": "t03-collective-decision-oversight-large-fund-use",
+    "fact": "五中全会《决定》明确健全重大决策、重要人事任免、重大项目安排、大额资金使用事项监督机制。",
+    "importance": "core",
+    "sourceId": "S06",
+    "location": "第三部分第（三）项领导班子决策议事规则中的重大事项监督机制句",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "ba0e1704-f161-4f3c-8567-8364f19190f6",
+    "topicId": "t03",
+    "factKey": "t03-discipline-education-incentive-dual-function",
+    "fact": "五中全会《决定》提出综合发挥纪律教育约束、保障激励作用。",
+    "importance": "core",
+    "sourceId": "S06",
+    "location": "第六部分第（五）项标题",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "46287f8f-fdc0-4475-8a89-a1fcb9d46fae",
+    "topicId": "t09",
+    "factKey": "t09-full-party-governance-start-eight-provisions",
+    "fact": "二十大报告回顾新时代深入推进全面从严治党从制定和落实中央八项规定开局破题。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第一部分新时代十年从严治党段开头",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "2ab10eed-67d0-496a-b97f-2f1fd8a51b8b",
+    "topicId": "t01",
+    "factKey": "t01-high-quality-development-coordination-role",
+    "fact": "第三个历史决议阐明高质量发展中创新成为第一动力、协调成为内生特点、绿色成为普遍形态、开放成为必由之路、共享成为根本目的。",
+    "importance": "core",
+    "sourceId": "S52",
+    "location": "第四部分“在经济建设上”有关高质量发展段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "7a443e85-3147-423f-998d-a606f9335bac",
+    "topicId": "t01",
+    "factKey": "t01-new-international-relations-cooperation",
+    "fact": "十九大报告提出建设相互尊重、公平正义、合作共赢的新型国际关系。",
+    "importance": "core",
+    "sourceId": "P14-CPC19-REPORT",
+    "location": "第十二部分“坚持和平发展道路，推动构建人类命运共同体”外交政策宗旨段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "71e02905-aff8-41f4-a68b-775e19a61d71",
+    "topicId": "t01",
+    "factKey": "t01-common-prosperity-material-spiritual-life",
+    "fact": "《扎实推动共同富裕》明确共同富裕是全体人民共同富裕，也是人民群众物质生活和精神生活都富裕。",
+    "importance": "core",
+    "sourceId": "P14-COMMON-PROSPERITY",
+    "location": "正文“共同富裕是社会主义的本质要求”一段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "b267c4ae-ae16-428d-8480-01a8fce13cb0",
+    "topicId": "t05",
+    "factKey": "t05-local-debt-illegal-new-hidden-discipline",
+    "fact": "2026年政府工作报告明确把遏制违规新增隐性债务作为铁的纪律。",
+    "importance": "core",
+    "sourceId": "S13",
+    "location": "第四部分关于“积极有序化解地方政府债务风险”的部署",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "c7d3879f-7489-457b-ae22-09d98bfc91b9",
+    "topicId": "t07",
+    "factKey": "t07-root-organizational-principle",
+    "fact": "民主集中制是党的根本组织原则。",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "总纲党的建设基本要求第五项",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "1e64a1fa-dd78-46a8-893a-8803f573515a",
+    "topicId": "t07",
+    "factKey": "t07-central-military-commission-chair-responsibility",
+    "fact": "中央军事委员会实行主席负责制。",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "第三章第二十三条关于中央军事委员会的段落",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "0821fd3d-e614-46a5-aeee-5adbd314bca4",
+    "topicId": "t07",
+    "factKey": "t07-lower-organization-own-duties",
+    "fact": "党的下级组织对职责内的问题独立负责地解决。",
+    "importance": "general",
+    "sourceId": "S18",
+    "location": "第二章第十条第（四）项",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "26308974-bc31-4bf3-b277-7e7dad5ba531",
+    "topicId": "t07",
+    "factKey": "t07-local-standing-committee-during-plenum-recess",
+    "fact": "地方各级委员会全体会议闭会期间，其常务委员会行使委员会职权。",
+    "importance": "general",
+    "sourceId": "S18",
+    "location": "第四章第二十八条第二款",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "e98ba934-1172-462d-aa60-78b3a3b70bf5",
+    "topicId": "t07",
+    "factKey": "t07-grassroots-party-history-education-normalized",
+    "fact": "党的基层组织推进两学一做学习教育、党史学习教育常态化制度化。",
+    "importance": "general",
+    "sourceId": "S18",
+    "location": "第五章第三十二条第（二）项",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "5802f198-2a22-474c-8ff1-eaae96820003",
+    "topicId": "t07",
+    "factKey": "t07-grassroots-education-management-supervision-service",
+    "fact": "党的基层组织对党员进行教育、管理、监督和服务。",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "第五章第三十二条第（三）项",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "10971175-2a74-4b25-be79-48a536aa8560",
+    "topicId": "t07",
+    "factKey": "t07-election-other-candidate-right",
+    "fact": "党的组织选举中，选举人可不选任何候选人并另选他人。",
+    "importance": "general",
+    "sourceId": "S18",
+    "location": "第二章第十一条第一款；S32第十四条",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "8f767a17-7e71-4c88-95b5-3c1afd9fe735",
+    "topicId": "t08",
+    "factKey": "t08-four-forms-light-discipline-share",
+    "fact": "监督执纪四种形态，党纪轻处分和组织调整成为违纪处理的大多数。",
+    "importance": "core",
+    "sourceId": "S19",
+    "location": "第一编第一章第五条",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "a6f5a834-c8d2-446d-b162-766739654d9e",
+    "topicId": "t08",
+    "factKey": "t08-dismissal-term-equal-post",
+    "fact": "撤销党内职务后两年内不得担任相当或更高的党内职务。",
+    "importance": "core",
+    "sourceId": "S19",
+    "location": "第一编第二章第十一条第三款",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "bb20e4bd-8c82-4c3e-8c33-223047339887",
+    "topicId": "t08",
+    "factKey": "t08-probation-automatically-revokes-party-posts",
+    "fact": "党员受到留党察看处分，党内职务自然撤销。",
+    "importance": "core",
+    "sourceId": "S19",
+    "location": "第一编第二章第十二条第三款",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "c0ece769-53d9-44ef-9777-578662cd5a91",
+    "topicId": "t08",
+    "factKey": "t08-family-education-serious-penalty",
+    "fact": "党员领导干部家风失管失教造成不良影响或严重后果，情节严重的撤销党内职务。",
+    "importance": "general",
+    "sourceId": "S19",
+    "location": "第二编第十一章第一百五十二条",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "6adde92b-a8d2-4297-9fa9-23f1cc609b54",
+    "topicId": "t08",
+    "factKey": "t08-falsified-party-admission-serious-penalty",
+    "fact": "弄虚作假发展不符合条件的人入党，情节严重的，对直接及领导责任者撤销党内职务。",
+    "importance": "core",
+    "sourceId": "S19",
+    "location": "第二编第七章第八十九条",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "82a3067b-129b-441b-8bc8-0feeaae8daac",
+    "topicId": "t08",
+    "factKey": "t08-improper-performance-outlook-source-discipline",
+    "fact": "党员领导干部政绩观错位，违背新发展理念、背离高质量发展并造成较大损失，属违反政治纪律。",
+    "importance": "core",
+    "sourceId": "S19",
+    "location": "第二编第六章第五十七条",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "c0f13d10-c2e2-4ee7-88c0-8cc4083061a8",
+    "topicId": "t08",
+    "factKey": "t08-canteen-waste-supervision-disciplinary-category",
+    "fact": "公务或食堂用餐管理失职导致餐饮浪费并造成严重不良影响，属工作纪律。",
+    "importance": "general",
+    "sourceId": "S19",
+    "location": "第二编第十章第一百三十三条",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "d400af65-10e3-411b-b118-7586eb385ee1",
+    "topicId": "t08",
+    "factKey": "t08-custody-rights-suspend",
+    "fact": "党员被依法留置或者逮捕的，党组织按权限中止其表决权等党员权利。",
+    "importance": "general",
+    "sourceId": "S19",
+    "location": "第一编第四章第三十二条；S32第三十条",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "48e5895c-eff7-4ab0-ac4a-33800254e7df",
+    "topicId": "t10",
+    "factKey": "t10-extend-probation-min-max-time",
+    "fact": "继续教育考察需要延长预备期的，可延长一次，至少半年且最长一年。",
+    "importance": "core",
+    "sourceId": "S35",
+    "location": "第五章第三十一条第二款",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "e4a541a7-5b4c-4799-a97f-c53528ed5507",
+    "topicId": "t10",
+    "factKey": "t10-probation-unqualified-cancel",
+    "fact": "不履行党员义务且不具备党员条件的预备党员取消预备党员资格。",
+    "importance": "core",
+    "sourceId": "S35",
+    "location": "第五章第三十一条第二款",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "ee6a073a-9110-42a4-b277-e568539480b5",
+    "topicId": "t10",
+    "factKey": "t10-audit-joint-review-department",
+    "fact": "县级党委组织部门与执纪执法等部门建立政审联审制度。",
+    "importance": "core",
+    "sourceId": "S35",
+    "location": "第三章第十六条第四款",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "9f65e06f-3bb5-4e6f-9fca-e95c32b38fe0",
+    "topicId": "t10",
+    "factKey": "t10-admission-resolution-document",
+    "fact": "接收预备党员的支部大会决议须写入《中国共产党入党志愿书》。",
+    "importance": "general",
+    "sourceId": "S35",
+    "location": "第四章第二十一条第一款；第四章第二十四条第二款",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "452e0167-a393-4f4d-bc9e-2496247de199",
+    "topicId": "t10",
+    "factKey": "t10-dossier-nonqualified-membership",
+    "fact": "对违反规定吸收入党且不符合党员条件的，不予承认党员身份。",
+    "importance": "general",
+    "sourceId": "S35",
+    "location": "第六章第四十一条第三款",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "6fb35e30-e308-4a96-84f8-35dc95a93545",
+    "topicId": "t12",
+    "factKey": "t12-democratic-review-annual-frequency",
+    "fact": "党支部一般每年开展一次民主评议党员。",
+    "importance": "core",
+    "sourceId": "S33",
+    "location": "第五章第十八条第一款；S34第四章第十八条",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "10e46a52-76ef-4625-9105-b59db0b76349",
+    "topicId": "t12",
+    "factKey": "t12-flag-primary-location",
+    "fact": "需要同时悬挂党旗和其他旗帜时，党旗置于首要位置。",
+    "importance": "core",
+    "sourceId": "S72-FLAG",
+    "location": "第十一条",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "876e6363-a8ba-4267-9ffd-750d7156e44b",
+    "topicId": "t12",
+    "factKey": "t12-flag-and-emblem-standard-size-counts",
+    "fact": "党徽直径有三种通用尺度，党旗有五种。",
+    "importance": "general",
+    "sourceId": "S72-FLAG",
+    "location": "《党徽党旗条例》第八条、第五条",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "1f7afc9e-ae9b-478f-874d-403b69475e44",
+    "topicId": "t07",
+    "factKey": "t07-charter-fundamental-party-regulation",
+    "fact": "中国共产党章程是最根本的党内法规、管党治党的总规矩。",
+    "importance": "core",
+    "sourceId": "S19",
+    "location": "第一编第一章第三条首句",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "592f82d7-afd5-47ab-9897-04821a06ad91",
+    "topicId": "t07",
+    "factKey": "t07-charter-count-obligations-rights",
+    "fact": "党章第三条、第四条分别规定八项党员义务、八项党员权利。",
+    "importance": "general",
+    "sourceId": "S18",
+    "location": "第一章第三、第四条各列项",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "665bcecb-4bb7-4654-9b58-2517f871db93",
+    "topicId": "t07",
+    "factKey": "t07-inspection-vs-local-patrol-levels",
+    "fact": "党的中央和省级委员会实行巡视制度，市县级委员会建立巡察制度。",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "第二章第十四条第一、三款",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "196207eb-efe7-4c90-8bfb-f46ceaf8beee",
+    "topicId": "t07",
+    "factKey": "t07-mass-interest-first",
+    "fact": "党在任何时候都把群众利益放在第一位。",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "总纲党的建设基本要求第四项",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "f20711f0-67be-437e-994f-2b5c93b787b9",
+    "topicId": "t07",
+    "factKey": "t07-three-represents-party-foundation",
+    "fact": "始终做到三个代表，是党的立党之本、执政之基、力量之源。",
+    "importance": "general",
+    "sourceId": "S18",
+    "location": "总纲十三届四中全会以来的理论段末",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "5231c54e-8f72-4dea-9465-13e61a6a3d2b",
+    "topicId": "t08",
+    "factKey": "t08-party-election-canvassing-discipline",
+    "fact": "党内选举搞拉票、助选等非组织活动属于组织纪律问题。",
+    "importance": "core",
+    "sourceId": "S19",
+    "location": "第二编第七章第八十三条第一项",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "1edcd993-4c75-44bf-9664-c44db1875b2d",
+    "topicId": "t08",
+    "factKey": "t08-occupation-public-property-months",
+    "fact": "利用职权影响违规占用公物归个人使用的相关条款，时间门槛为超过六个月。",
+    "importance": "general",
+    "sourceId": "S19",
+    "location": "第二编第八章第一百一十二条第一款",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "64647fec-52fc-44d1-85f5-a621dfbeda7e",
+    "topicId": "t08",
+    "factKey": "t08-personnel-file-falsification-general",
+    "fact": "篡改、伪造个人档案资料，一般给予严重警告处分。",
+    "importance": "general",
+    "sourceId": "S19",
+    "location": "第二编第七章第八十一条第三款",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "7ed15b9c-c18b-470b-aa69-35fe3277da0c",
+    "topicId": "t08",
+    "factKey": "t08-report-major-matters-serious",
+    "fact": "不按规定向组织请示、报告重大事项，情节严重为撤销党内职务或留党察看。",
+    "importance": "general",
+    "sourceId": "S19",
+    "location": "第二编第六章第六十一条",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "ef362d3b-35c9-4d1c-bbe3-187b450b26b5",
+    "topicId": "t08",
+    "factKey": "t08-confidential-leak-vs-holding-serious",
+    "fact": "泄露或扩散应保密内容情节严重开除党籍；私自留存相关资料情节严重撤销党内职务。",
+    "importance": "general",
+    "sourceId": "S19",
+    "location": "第二编第十章第一百四十四条第一、二款",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "b3080edb-54ab-4434-9000-b03e7264fc03",
+    "topicId": "t08",
+    "factKey": "t08-discipline-matching-law",
+    "fact": "对违法犯罪党员适用党纪处分，做到党纪政务等处分相匹配。",
+    "importance": "general",
+    "sourceId": "S19",
+    "location": "第一编第四章第二十八条",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "016e4bf8-9b32-491a-ba23-b8d0c7af60a4",
+    "topicId": "t10",
+    "factKey": "t10-application-dues-wording",
+    "fact": "党章和细则规定，申请入党人应愿参加党的一个组织并积极工作、执行党的决议和按期交纳党费。",
+    "importance": "core",
+    "sourceId": "S35",
+    "location": "第二章第五条；S18第一条",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "f3004416-2a92-416f-a303-e85cec57b251",
+    "topicId": "t12",
+    "factKey": "t12-personal-appeal-right-grounds",
+    "fact": "党员不服党组织对本人作的处理、处分、鉴定或审查结论，可以按程序提出申诉。",
+    "importance": "core",
+    "sourceId": "S32",
+    "location": "第二章第十七至十九条",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "c065ac05-2e99-4700-88c8-03f4cfd810cb",
+    "topicId": "t02",
+    "factKey": "t02-cultural-guiding-core-values",
+    "fact": "二十大报告提出，以社会主义核心价值观为引领发展社会主义先进文化。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第八部分“推进文化自信自强，铸就社会主义文化新辉煌”开头",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "34c687dd-7207-4a7c-9996-e18bd9d45e8c",
+    "topicId": "t02",
+    "factKey": "t02-peoples-democracy-life-socialism",
+    "fact": "人民民主是社会主义的生命，也是全面建设社会主义现代化国家的应有之义。",
+    "importance": "general",
+    "sourceId": "S03",
+    "location": "第六部分开头",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "2a0683e0-1672-48eb-af46-6c114a7516e5",
+    "topicId": "t01",
+    "factKey": "t01-adapted-marxism-sinification-ages-effective",
+    "fact": "二十大报告指出，中国共产党为什么能、中国特色社会主义为什么好，归根到底是马克思主义行，是中国化时代化的马克思主义行。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第二部分开头",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "b1b56119-ec11-4812-9e2d-dbcb0d6c12ce",
+    "topicId": "t08",
+    "factKey": "t08-loss-of-member-conditions-drug-prostitution",
+    "fact": "党员发生嫖娼、吸食或注射毒品等丧失党员条件、严重败坏形象的行为，应开除党籍。",
+    "importance": "general",
+    "sourceId": "S19",
+    "location": "第一编第四章第三十条第三款",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "a7194f8d-0d8e-4c6f-a0b9-b2fa5eebb0c3",
+    "topicId": "t08",
+    "factKey": "t08-overseas-leaving-organization-time",
+    "fact": "驻外机构或临时出境团组党员脱离组织出走时间超过六个月，按自行脱党除名。",
+    "importance": "general",
+    "sourceId": "S19",
+    "location": "第二编第七章第九十三条第一款",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "f0b245bb-32e8-4d49-a6bc-40b84476961a",
+    "topicId": "t08",
+    "factKey": "t08-violating-party-voting-rights-serious",
+    "fact": "侵犯党员表决权、选举权、被选举权，按第一款情节严重的给予撤销党内职务。",
+    "importance": "general",
+    "sourceId": "S19",
+    "location": "第二编第七章第八十七条第一款",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "be38c875-0115-49d4-baee-0a9c8206acd7",
+    "topicId": "t08",
+    "factKey": "t08-private-club-misconduct-discipline",
+    "fact": "违反规定取得、持有、实际使用会所会员卡或出入私人会所，属违反廉洁纪律。",
+    "importance": "general",
+    "sourceId": "S19",
+    "location": "第二编第八章第一百零二条",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "a8a845b2-4fed-4743-a1c4-3977c5156e7c",
+    "topicId": "t08",
+    "factKey": "t08-meeting-scenic-area-restriction",
+    "fact": "到禁止召开会议的风景名胜区开会，情节严重的，对直接和领导责任者给予撤销党内职务处分。",
+    "importance": "general",
+    "sourceId": "S19",
+    "location": "第一百一十八条第一款及第（一）项",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "54f3bd3d-a7c3-4d61-8e69-9e5e93c4dc8e",
+    "topicId": "t08",
+    "factKey": "t08-mass-problems-misconduct-classification",
+    "fact": "依规可解决群众切身利益问题而不及时解决，第一百二十六条第一项所列后果为造成不良影响。",
+    "importance": "general",
+    "sourceId": "S19",
+    "location": "第二编第九章第一百二十六条第一至四项",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "571e4dab-4e3e-4f70-9d5b-b6f19e4f9a04",
+    "topicId": "t08",
+    "factKey": "t08-mass-oppression-protection-umbrella",
+    "fact": "利用宗族、黑恶势力欺压群众或者充当保护伞，情节严重的给予开除党籍。",
+    "importance": "general",
+    "sourceId": "S19",
+    "location": "第二编第九章第一百二十五条",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "9bf9ea03-089c-403f-8915-08f4bae63fcf",
+    "topicId": "t07",
+    "factKey": "t07-members-criticize-self-criticize",
+    "fact": "党员必须切实开展批评和自我批评。",
+    "importance": "general",
+    "sourceId": "S18",
+    "location": "第一章第三条第（六）项",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "c7c55af7-8535-4b0b-8015-da12134550ce",
+    "topicId": "t07",
+    "factKey": "t07-member-duty-two-upholds",
+    "fact": "党章第三条第二项党员义务要求增强四个意识、坚定四个自信、做到两个维护。",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "第一章第三条第（二）项",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "50a098ac-742d-48a3-9925-4749c1571dbb",
+    "topicId": "t01",
+    "factKey": "t01-party-original-mission-people-and-nation",
+    "fact": "中国共产党的初心使命是为中国人民谋幸福、为中华民族谋复兴。",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "总纲党的百年奋斗段首句；S03第一部分",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "49572961-c61d-4068-abd9-0d0e85121765",
+    "topicId": "t01",
+    "factKey": "t01-four-questions-of-the-times",
+    "fact": "二十大报告要求不断回答中国之问、世界之问、人民之问、时代之问。",
+    "importance": "general",
+    "sourceId": "S03",
+    "location": "第二部分“同中国具体实际相结合”段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "da148d7a-a666-4df9-8eb2-99a265c1641f",
+    "topicId": "t02",
+    "factKey": "t02-consultative-democracy-institutional-development",
+    "fact": "推进协商民主广泛多层制度化发展。",
+    "importance": "general",
+    "sourceId": "S03",
+    "location": "第六部分第二项；S18总纲社会主义民主政治段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "4f3b1331-8b5c-4dde-9698-811bf08d4ce3",
+    "topicId": "t13",
+    "factKey": "t13-most-thorough-self-revolution",
+    "fact": "二十大报告将反腐败称为最彻底的自我革命。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第十五部分第七项首句",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "22db9fcc-9a2d-49d2-8225-c8b0f1813cfc",
+    "topicId": "t06",
+    "factKey": "t06-japanese-announcement-of-surrender",
+    "fact": "日本天皇于1945年8月15日以广播发布终战诏书，宣布无条件投降。",
+    "importance": "core",
+    "sourceId": "S17",
+    "location": "1945年8月15日、9月2日两条",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "a8cf03ee-db41-4191-af5a-970d5e576909",
+    "topicId": "t06",
+    "factKey": "t06-liu-deng-advance-dabie",
+    "fact": "刘伯承、邓小平率部强渡黄河后于1947年8月底跃进大别山区。",
+    "importance": "core",
+    "sourceId": "S17",
+    "location": "1947年6月30日条末及8月底相关事件",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "d360c58d-5d99-4898-9b5f-b5a6378a3a8e",
+    "topicId": "t06",
+    "factKey": "t06-war-of-resistance-complete-victory",
+    "fact": "中国人民抗日战争是近代以来抵抗外敌入侵第一次取得完全胜利的民族解放斗争。",
+    "importance": "core",
+    "sourceId": "S52",
+    "location": "第一部分抗日战争时期段；S17 1945年9月2日条",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "230eaded-acae-489f-b79c-e4683c6e69bf",
+    "topicId": "t08",
+    "factKey": "t08-supervision-false-report-discipline",
+    "fact": "上级检查、视察或报告工作时，应报事项不报或不如实报告并造成严重后果、影响，属工作纪律。",
+    "importance": "general",
+    "sourceId": "S19",
+    "location": "第二编第十章第一百四十条",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "fc01206d-fc7c-4133-9ed6-71806c34c86c",
+    "topicId": "t08",
+    "factKey": "t08-major-political-principle-outcome",
+    "fact": "在重大原则问题上不同党中央保持一致且有实际言论、行为或者造成不良后果，符合本条。",
+    "importance": "general",
+    "sourceId": "S19",
+    "location": "第二编第六章第四十九条",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "e304a04e-5f5d-4b8b-9528-899e189cff43",
+    "topicId": "t08",
+    "factKey": "t08-gift-outside-normal-social-exchange",
+    "fact": "向从事公务者等赠送财物，第一款规定的门槛为明显超出正常礼尚往来。",
+    "importance": "core",
+    "sourceId": "S19",
+    "location": "第九十八条第一款。第九十八条第二款、第九十七条、第一百一十三条可作相邻概念对照。",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "20ba2d29-f757-49a1-b3d0-a0fdb6d05e67",
+    "topicId": "t08",
+    "factKey": "t08-public-funded-banquet-gift-same-clause",
+    "fact": "违反规定组织或参加公款宴请等，或用公款购买、赠送或发放礼品等，属第一百一十三条。",
+    "importance": "core",
+    "sourceId": "S19",
+    "location": "第二编第八章第一百一十三条；第一百零一条",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "78314517-8101-4eca-9585-49003455d47a",
+    "topicId": "t08",
+    "factKey": "t08-prior-problems-within-duty",
+    "fact": "党员领导干部对到任前已存在且职责范围内的问题逃避推责，并造成严重损害或不良影响，依本条处分。",
+    "importance": "core",
+    "sourceId": "S19",
+    "location": "第十章第一百三十条第二款",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "3d84d9fe-f74e-48ef-bf26-6b2a61ebae31",
+    "topicId": "t07",
+    "factKey": "t07-two-ideals-party-members",
+    "fact": "二十大报告要求成为共产主义远大理想和中国特色社会主义共同理想的信仰者和实践者。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "二十大报告第十五部分第（二）项，坚持不懈用新时代中国特色社会主义思想凝心铸魂。党章总纲建设社会主义文化段为辅证。",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "52de75f7-47e3-4205-8b8e-0417116b3285",
+    "topicId": "t07",
+    "factKey": "t07-criticism-party-organization-at-meetings",
+    "fact": "党章第四条规定，党员有权在党的会议上有根据地批评党的组织和党员。",
+    "importance": "core",
+    "sourceId": "S18",
+    "location": "第一章第四条第（二）与第（四）项；S32第十一条",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "4cd6d89a-4326-483d-9c80-b67abde97ece",
+    "topicId": "t06",
+    "factKey": "t06-li-dazhao-my-view-marxism",
+    "fact": "李大钊在《新青年》发表《我的马克思主义观》，系统介绍马克思主义。",
+    "importance": "core",
+    "sourceId": "RS-LI-MARXISM",
+    "location": "正文《新青年》第六卷第五号和《我的马克思主义观》段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "bd9490fb-03e4-4e3a-8c79-5d468413bc18",
+    "topicId": "t06",
+    "factKey": "t06-xi-thought-entered-charter-congress",
+    "fact": "党的十九大同意将习近平新时代中国特色社会主义思想写入党章，确立为党的行动指南。",
+    "importance": "core",
+    "sourceId": "S80",
+    "location": "2017年10月24日大会决议第二段及题注",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "eab09041-2eb2-426a-8cef-beed518879da",
+    "topicId": "t06",
+    "factKey": "t06-cai-hesen-foundation-letters",
+    "fact": "1920年蔡和森在法国勤工俭学期间，写信给毛泽东明确提出正式成立中国共产党。",
+    "importance": "core",
+    "sourceId": "RS-CAI-LETTERS",
+    "location": "正文1920年蒙达尼会议、给毛泽东写信两段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "7a8d16ec-c2c3-49d9-94d0-ce46bb91345d",
+    "topicId": "t06",
+    "factKey": "t06-peaceful-redemption-policy",
+    "fact": "资本主义工商业社会主义改造采取对资产阶级和平赎买的政策。",
+    "importance": "core",
+    "sourceId": "RS-HISTORICAL-1981",
+    "location": "基本完成社会主义改造时期第十二段资本主义工商业部分",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "3e080d20-8a9c-4332-946d-490a88f9c26a",
+    "topicId": "t06",
+    "factKey": "t06-three-disciplines-early-order",
+    "fact": "1927年进军井冈山途中宣布的早期三条纪律包含行动听指挥、不拿群众一个红薯、打土豪要归公。",
+    "importance": "general",
+    "sourceId": "RS-ARMY-DISCIPLINES",
+    "location": "正文章节1927年荆竹山雷打石和1928年六项注意段落",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "702a00b1-bd62-4d10-8f43-925774a96b0e",
+    "topicId": "t06",
+    "factKey": "t06-first-historic-leap-marxism",
+    "fact": "毛泽东思想是马克思主义中国化的第一次历史性飞跃。",
+    "importance": "general",
+    "sourceId": "S52",
+    "location": "第二部分“完成社会主义革命和推进社会主义建设”，以“毛泽东思想是马克思列宁主义在中国的创造性运用和发展”起首的段落。",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "0d9e0af8-4718-4b66-9840-536d5dfbbd03",
+    "topicId": "t02",
+    "factKey": "t02-congress-actual-dates-2022",
+    "fact": "党的二十大于2022年10月16日至22日在北京举行。",
+    "importance": "core",
+    "sourceId": "RS-CONGRESS-2022",
+    "location": "题注与第一部分首段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "6f5d5573-36ce-4288-b6c7-bbdf27879d78",
+    "topicId": "t02",
+    "factKey": "t02-system-political-consultation-full-name",
+    "fact": "二十大报告要求坚持和完善中国共产党领导的多党合作和政治协商制度。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第六部分第二项“全面发展协商民主”段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "5fb44fad-9f1a-4ea9-b8a0-399fe220f741",
+    "topicId": "t02",
+    "factKey": "t02-post-congress-five-year-stage",
+    "fact": "二十大报告将大会后五年定位为全面建设社会主义现代化国家开局起步的关键时期。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第三部分‘未来五年是……开局起步的关键时期’段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "d75bd5ea-2b98-4bf3-821a-6cd175e78682",
+    "topicId": "t02",
+    "factKey": "t02-talent-led-development",
+    "fact": "二十大报告提出坚持教育优先发展、科技自立自强、人才引领驱动。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第五部分科教兴国战略，开篇‘坚持教育优先发展’段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "5bb52c0d-c3f7-4ecc-b417-a1aad2a1768e",
+    "topicId": "t02",
+    "factKey": "t02-first-tier-business-environment",
+    "fact": "二十大报告提出营造市场化、法治化、国际化一流营商环境。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第四部分第（五）项，外资准入和投资权益段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "85b19bfb-7282-4d3a-8ec9-f2503046dad1",
+    "topicId": "t02",
+    "factKey": "t02-poverty-counties-lifted-in-report",
+    "fact": "二十大报告以全国832个贫困县全部摘帽作为脱贫攻坚战的成果。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第一部分新时代十年回顾中‘我们经过接续奋斗，实现了小康……’一段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "6223c341-984b-4388-81b9-50edb54b8fc9",
+    "topicId": "t02",
+    "factKey": "t02-ecosystem-quality-stability",
+    "fact": "党的二十大报告有关绿色发展的专门部署包括提升生态系统多样性、稳定性、持续性。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第十部分第（三）项，提升生态系统质量和稳定性的标题",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "a628a023-27d4-4624-88e2-d058c0944f29",
+    "topicId": "t03",
+    "factKey": "t03-passed-decision-topic",
+    "fact": "二十届五中全会审议通过关于持之以恒推进全面从严治党的决定。",
+    "importance": "core",
+    "sourceId": "S05",
+    "location": "正文开篇会议议程，审议通过的文件",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "96d50365-c1b3-4fb5-a4e1-d86739330d0d",
+    "topicId": "t03",
+    "factKey": "t03-politburo-added-member-at-plenum",
+    "fact": "二十届五中全会增选张升民为中央政治局委员。",
+    "importance": "core",
+    "sourceId": "S05",
+    "location": "公报后段，二十一大决定后‘全会增选’段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "b0521a3a-4c3a-408c-9b82-e5af0cad701e",
+    "topicId": "t03",
+    "factKey": "t03-party-constitution-as-fundamental",
+    "fact": "五中全会《决定》提出，持之以恒推进全面从严治党，要以党章为根本。",
+    "importance": "core",
+    "sourceId": "S06",
+    "location": "第一部分第（四）项，推进全面从严治党的指导思想",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "4ad20968-6a20-4134-a365-f3f99937fecb",
+    "topicId": "t14",
+    "factKey": "t14-work-review-since-third-plenum",
+    "fact": "二十届四中全会公报充分肯定了二十届三中全会以来中央政治局的工作。",
+    "importance": "core",
+    "sourceId": "S42",
+    "location": "正文‘全会充分肯定’段截取前句",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "28709e0e-3b10-43e8-84d2-caae6b954af4",
+    "topicId": "t14",
+    "factKey": "t14-fourteenth-period-journey",
+    "fact": "二十届四中全会公报把十四五时期发展历程概括为极不寻常、极不平凡。",
+    "importance": "core",
+    "sourceId": "S42",
+    "location": "正文关于‘十四五’重大成就与发展历程段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "595b6783-9638-4b6e-9fd8-08964c0d7852",
+    "topicId": "t14",
+    "factKey": "t14-development-advantages-plenum",
+    "fact": "二十届四中全会公报指出，制度、超大规模市场、完整产业体系和丰富人才资源优势更加彰显。",
+    "importance": "core",
+    "sourceId": "S42",
+    "location": "正文‘十五五’时期地位与发展环境段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "8ca0bb42-98ac-491c-89f2-6d094da73b1f",
+    "topicId": "t14",
+    "factKey": "t14-industrial-backbone-manufacturing",
+    "fact": "二十届四中全会公报提出构建以先进制造业为骨干的现代化产业体系。",
+    "importance": "core",
+    "sourceId": "S42",
+    "location": "正文‘建设现代化产业体系’开篇部署",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "f2be8db4-0860-467a-b35c-3126b285f0f8",
+    "topicId": "t14",
+    "factKey": "t14-four-regional-strategy-additive-effects",
+    "fact": "四中全会提出发挥区域协调发展、区域重大、主体功能区、新型城镇化四项战略的叠加效应。",
+    "importance": "core",
+    "sourceId": "S42",
+    "location": "正文‘优化区域经济布局’段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "47e99f5e-ca66-435a-a214-d417b03eb9d1",
+    "topicId": "t14",
+    "factKey": "t14-socialist-culture-four-strengths",
+    "fact": "四中全会提出发展具有思想引领力、精神凝聚力、价值感召力和国际影响力的新时代中国特色社会主义文化。",
+    "importance": "core",
+    "sourceId": "S42",
+    "location": "正文‘繁荣发展社会主义文化’段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "fa3092d0-7c45-4d76-91a7-e2ab2f18ab01",
+    "topicId": "t14",
+    "factKey": "t14-public-livelihood-three-characteristics",
+    "fact": "四中全会公报要求加强普惠性、基础性、兜底性民生建设。",
+    "importance": "core",
+    "sourceId": "S42",
+    "location": "正文‘加大保障和改善民生力度’段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "81447e37-b3a6-465c-9295-f0db755e8741",
+    "topicId": "t14",
+    "factKey": "t14-carbon-peaking-neutrality-as-transition-driver",
+    "fact": "四中全会公报将碳达峰碳中和作为经济社会发展全面绿色转型的牵引。",
+    "importance": "core",
+    "sourceId": "S42",
+    "location": "正文‘加快经济社会发展全面绿色转型’段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "6a8b6e72-78d2-44dc-bafa-36f1ce9053a6",
+    "topicId": "t14",
+    "factKey": "t14-national-defense-system-talent",
+    "fact": "四中全会公报把人才强军与政治建军、改革强军、科技强军、依法治军并列。",
+    "importance": "core",
+    "sourceId": "S42",
+    "location": "正文‘高质量推进国防和军队现代化’段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "1316771c-f549-4a94-a2b7-77845d447f84",
+    "topicId": "t05",
+    "factKey": "t05-annual-resident-income-synchrony",
+    "fact": "2026年《政府工作报告》提出，年度居民收入增长与经济增长同步。",
+    "importance": "core",
+    "sourceId": "S13",
+    "location": "第三部分，‘今年发展主要预期目标是’段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "6e48ac45-5ab1-45de-9444-86f7d1a37740",
+    "topicId": "t05",
+    "factKey": "t05-2026-bond-planned-scales",
+    "fact": "2026年报告拟发行超长期特别国债1.3万亿元，拟安排地方政府专项债券4.4万亿元。",
+    "importance": "core",
+    "sourceId": "S13",
+    "location": "第三部分继续实施更加积极的财政政策首段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "5eeb34eb-d00e-4d43-9c9f-3fa95ea73513",
+    "topicId": "t05",
+    "factKey": "t05-urban-rural-resident-income-plan",
+    "fact": "2026年报告在提振消费部署中提出制定实施城乡居民增收计划。",
+    "importance": "core",
+    "sourceId": "S13",
+    "location": "第四部分第（一）项，‘提振消费专项行动’段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "ac5435f8-a20e-4c4c-8de2-600b6572d354",
+    "topicId": "t05",
+    "factKey": "t05-opening-pilots-value-added-telecom",
+    "fact": "2026年报告提出进一步扩大增值电信、生物技术、外商独资医院等领域开放试点。",
+    "importance": "core",
+    "sourceId": "S13",
+    "location": "第四部分第（五）项‘积极扩大自主开放’段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "4496840f-fece-4899-89e8-593c5ae1e4d8",
+    "topicId": "t05",
+    "factKey": "t05-second-round-land-contract-extension",
+    "fact": "2026年报告提出全面开展第二轮土地承包到期后再延长30年整省试点。",
+    "importance": "core",
+    "sourceId": "S13",
+    "location": "第四部分第（六）项‘持续推进农村改革发展’段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "bd3376d5-eeda-40fa-b004-4c62a129cc26",
+    "topicId": "t05",
+    "factKey": "t05-railway-main-corridors",
+    "fact": "“十五五”《纲要》提出基本建成“八纵八横”高速铁路主通道。",
+    "importance": "core",
+    "sourceId": "S40",
+    "location": "第七章第一节‘完善现代化综合交通运输体系’",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "88bc36a6-716f-4da2-b8c6-9e651c21a123",
+    "topicId": "t05",
+    "factKey": "t05-research-mission-mechanisms",
+    "fact": "“十五五”《纲要》在关键核心技术攻关中要求完善揭榜挂帅、赛马等制度。",
+    "importance": "core",
+    "sourceId": "S40",
+    "location": "第八章第一节‘打好关键核心技术攻坚战’",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "787073be-dd8a-44a5-b057-de69db8969b5",
+    "topicId": "t05",
+    "factKey": "t05-research-funds-budget-lump-sum",
+    "fact": "“十五五”《纲要》提出扩大财政科研项目经费包干制范围。",
+    "importance": "core",
+    "sourceId": "S40",
+    "location": "第九章第二节‘强化科技创新资源保障’",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "58ed8209-7d87-4fba-9abf-ffcf516774c5",
+    "topicId": "t05",
+    "factKey": "t05-single-national-data-resource-inventory",
+    "fact": "“十五五”《纲要》提出构建国家数据资源体系并建立全国数据资源一本账。",
+    "importance": "core",
+    "sourceId": "S40",
+    "location": "第十二章第三节‘深化数据资源开发利用’",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "06939ec0-2ff9-443c-96ae-2c802f65f793",
+    "topicId": "t05",
+    "factKey": "t05-capital-market-investment-finance-functions",
+    "fact": "“十五五”《纲要》提出健全投资和融资相协调的资本市场功能。",
+    "importance": "core",
+    "sourceId": "S40",
+    "location": "第十九章第一节‘健全要素市场制度和规则’",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "1dbe78f8-b5f8-4b2d-8c4a-0a2bb3743a36",
+    "topicId": "t05",
+    "factKey": "t05-xiongan-modern-city-regional-plan",
+    "fact": "“十五五”《纲要》在京津冀协同发展中提出高标准高质量推进雄安新区建设现代化城市。",
+    "importance": "core",
+    "sourceId": "S40",
+    "location": "第二十八章第二节‘巩固提升京津冀、长三角、粤港澳大湾区动力源作用’",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "d5d3c542-aad9-4905-ae01-e3c793a4e7ac",
+    "topicId": "t05",
+    "factKey": "t05-four-global-initiatives",
+    "fact": "“十五五”《纲要》提出落实全球发展倡议、全球安全倡议、全球文明倡议、全球治理倡议。",
+    "importance": "core",
+    "sourceId": "S40",
+    "location": "第二十四章‘推动构建人类命运共同体’开篇",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "111168dd-4c73-401a-966f-e4853da77aaf",
+    "topicId": "t05",
+    "factKey": "t05-two-major-and-two-new-programs",
+    "fact": "两重建设包括国家重大战略实施和重点领域安全能力建设；两新政策包括大规模设备更新和消费品以旧换新。",
+    "importance": "core",
+    "sourceId": "C26-BUDGET-MIDYEAR",
+    "location": "第二部分第（二）项“带动扩大有效投资，赋能经济高质量发展”首点；两新另见发改环资〔2025〕1745号第一、二部分",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "b9618a66-c9fb-4bcc-880b-7cb6776c704e",
+    "topicId": "t05",
+    "factKey": "t05-digital-core-industry-share-2030",
+    "fact": "正式“十五五”规划纲要专栏1把2030年数字经济核心产业增加值占GDP比重定为12.5%。",
+    "importance": "core",
+    "sourceId": "C26-PLAN-INDICATORS",
+    "location": "第10页专栏1‘创新驱动’第6项（以正文页码计）",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "67f73096-6f43-4842-81f5-923009de5b91",
+    "topicId": "t05",
+    "factKey": "t05-binding-plan-indicator-attributes",
+    "fact": "十五五纲要将劳动年龄人口平均受教育年限和非化石能源占能源消费总量比重列为约束性指标，失业率和预期寿命列为预期性指标。",
+    "importance": "core",
+    "sourceId": "C26-PLAN-INDICATORS",
+    "location": "第10页专栏1‘民生福祉’第7、9、13项及‘绿色低碳’第15项",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "838c1215-f7f5-4fe7-ad51-a6854401f948",
+    "topicId": "t05",
+    "factKey": "t05-nonfossil-energy-doubling-period",
+    "fact": "正式十五五规划纲要提出实施非化石能源十年倍增行动。",
+    "importance": "core",
+    "sourceId": "S40",
+    "location": "第七章第二节‘加力建设新型能源基础设施’中非化石能源部署",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "777faea0-cf54-4e84-aa4c-4587743a5a1f",
+    "topicId": "t05",
+    "factKey": "t05-strategic-science-core-institutions",
+    "fact": "“十五五”纲要在国家战略科技力量中列国家实验室、国家科研机构、高水平研究型大学和科技领军企业。",
+    "importance": "core",
+    "sourceId": "S40",
+    "location": "第九章第一节‘增强国家战略科技力量引领作用’首段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "722ab4b6-2932-4d1b-9467-d43c7266f051",
+    "topicId": "t05",
+    "factKey": "t05-five-finance-areas",
+    "fact": "“十五五”纲要在发展金融高质量服务时列科技金融、绿色金融、普惠金融、养老金融、数字金融。",
+    "importance": "core",
+    "sourceId": "S40",
+    "location": "第二十章第三节‘加快建设金融强国’",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "b5414b50-7ede-4898-b35c-7d277bfd9182",
+    "topicId": "t14",
+    "factKey": "t14-fifteenth-development-risk-outlook",
+    "fact": "四中建议提出我国发展处于战略机遇和风险挑战并存、不确定难预料因素增多的时期。",
+    "importance": "core",
+    "sourceId": "S43",
+    "location": "第一部分第（3）项，‘十五五’时期发展环境的判断",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "a2d5b1b7-7750-42af-b4a4-2bb5d8b37b41",
+    "topicId": "t14",
+    "factKey": "t14-unified-market-local-protection-segmentation",
+    "fact": "四中建议在建设全国统一大市场时提出规范地方政府经济促进行为，破除地方保护和市场分割。",
+    "importance": "core",
+    "sourceId": "S43",
+    "location": "第五部分第（17）项，统一市场和破除保护措施段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "0a342ee6-bfb3-49f4-894d-835728057f98",
+    "topicId": "t14",
+    "factKey": "t14-industrial-system-road-directions",
+    "fact": "四中公报要求建设现代化产业体系坚持智能化、绿色化、融合化方向。",
+    "importance": "core",
+    "sourceId": "S42",
+    "location": "公报正文关于‘建设现代化产业体系’的部署",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "6f0e5005-4c2d-455a-88f7-d45e7cbb7f15",
+    "topicId": "t14",
+    "factKey": "t14-modernization-purpose-fulfilling-aspirations",
+    "fact": "四中全会《建议》将实现人民对美好生活的向往定位为中国式现代化的出发点和落脚点。",
+    "importance": "core",
+    "sourceId": "S43",
+    "location": "第十一部分开篇，“加大保障和改善民生力度”首句",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "7b7a8d61-c26c-4e84-802c-d551984ef3a1",
+    "topicId": "t14",
+    "factKey": "t14-modernization-regional-development-inherent-requirement",
+    "fact": "四中全会《建议》将区域协调发展定位为中国式现代化的内在要求。",
+    "importance": "core",
+    "sourceId": "S43",
+    "location": "第九部分开篇，‘优化区域经济布局，促进区域协调发展’首句",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "1dc6f950-5185-42c8-8800-2a68daca6bed",
+    "topicId": "t05",
+    "factKey": "t05-annual-macropolicy-quality-efficiency",
+    "fact": "2026年《政府工作报告》概括当年宏观政策取向，指出坚持稳中求进、提质增效。",
+    "importance": "core",
+    "sourceId": "S13",
+    "location": "第三部分，‘在政策取向上’段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "0cd14137-0780-4b51-9f2a-626bb34559a9",
+    "topicId": "t05",
+    "factKey": "t05-annual-fiscal-investment-amounts",
+    "fact": "2026年报告拟列赤字规模5.89万亿元，中央预算内投资7550亿元，超长期特别国债分别安排8000亿元用于两重建设、2500亿元支持消费品以旧换新。",
+    "importance": "core",
+    "sourceId": "S13",
+    "location": "第三部分积极财政政策；第四部分第（一）项提振消费及扩大有效投资",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "8f9717be-a4e3-43a3-a877-9eb244a44ed1",
+    "topicId": "t05",
+    "factKey": "t05-urban-rural-factor-mobility",
+    "fact": "2026年政府工作报告在持续推进农村改革发展中要求推动城乡要素双向流动。",
+    "importance": "core",
+    "sourceId": "S13",
+    "location": "第四部分第（六）项，‘持续推进农村改革发展’段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "31d7ea98-001f-4770-b2ac-7234730e8829",
+    "topicId": "t05",
+    "factKey": "t05-innovation-four-chain-talent",
+    "fact": "十五五纲要要求促进创新链、产业链、资金链、人才链深度融合。",
+    "importance": "core",
+    "sourceId": "S40",
+    "location": "第十章‘强化企业科技创新主体地位’章首",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "723a78e2-11b0-41d2-b9ab-b4aee6ec2faa",
+    "topicId": "t05",
+    "factKey": "t05-medical-healthcare-pharma-coordination",
+    "fact": "2026年政府工作报告要求健全医疗、医保、医药协同发展和治理机制。",
+    "importance": "core",
+    "sourceId": "S13",
+    "location": "第四部分第（八）项，‘强化基本医疗卫生服务’段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "5a319390-6230-4602-8723-59252efa59ce",
+    "topicId": "t05",
+    "factKey": "t05-county-compact-medical-consortium",
+    "fact": "十五五纲要在农村基本公共服务中提出以医护人员下沉为重点推进紧密型县域医共体建设。",
+    "importance": "core",
+    "sourceId": "S40",
+    "location": "第二十六章第一节‘创造乡村优质生活空间’，公共服务与医护人员下沉",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "18883e1b-23bd-4f19-a5cf-b65eba68c644",
+    "topicId": "t05",
+    "factKey": "t05-basic-research-share-denominator",
+    "fact": "十五五纲要要求基础研究经费投入占研发经费投入比重明显提高。",
+    "importance": "core",
+    "sourceId": "S40",
+    "location": "第八章第三节‘全面提升基础研究水平’",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "5140133d-6a33-4e82-9636-a9ed36c23456",
+    "topicId": "t05",
+    "factKey": "t05-enterprise-rd-reserve",
+    "fact": "十五五纲要提出建立企业研发准备金制度。",
+    "importance": "core",
+    "sourceId": "S40",
+    "location": "第十章第三节‘完善促进企业创新的政策体系’，研发准备金段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "c3983dc9-e66d-4e5a-8556-aea8d70322f5",
+    "topicId": "t05",
+    "factKey": "t05-patent-open-licensing",
+    "fact": "十五五纲要要求全面实施专利开放许可制度。",
+    "importance": "core",
+    "sourceId": "S40",
+    "location": "第十章第三节‘完善促进企业创新的政策体系’，知识产权全链条保护句",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "727a8891-9aa1-40b3-a1ef-e455b5868ea7",
+    "topicId": "t05",
+    "factKey": "t05-spring-autumn-school-breaks",
+    "fact": "十五五纲要在落实带薪休假和鼓励错峰休假相邻句中提出探索推行中小学生春秋假。",
+    "importance": "core",
+    "sourceId": "S40",
+    "location": "第十五章第四节‘持续改善消费环境’，职工休假与中小学生春秋假",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "da02d42d-15a0-4069-a70b-3c356658c827",
+    "topicId": "t05",
+    "factKey": "t05-government-investment-hard-soft",
+    "fact": "十五五纲要在提高政府投资效益中提出统筹硬投资与软建设。",
+    "importance": "core",
+    "sourceId": "S40",
+    "location": "第十六章第一节‘提高政府投资效益’，统筹软硬投资段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "3e27455a-9e76-49ed-84d7-5a3d59832e30",
+    "topicId": "t05",
+    "factKey": "t05-state-capital-future-industries",
+    "fact": "十五五纲要提出国有资本向经济命脉和安全关键领域、公共服务和公益等领域、前瞻性战略性新兴产业集中。",
+    "importance": "core",
+    "sourceId": "S40",
+    "location": "第十八章第一节‘深化国资国企改革’，国有资本布局段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "d545eee6-7c3c-42df-9eab-654d2b73f157",
+    "topicId": "t05",
+    "factKey": "t05-two-target-trade-agreements",
+    "fact": "十五五纲要写明积极推动加入全面与进步跨太平洋伙伴关系协定和数字经济伙伴关系协定。",
+    "importance": "core",
+    "sourceId": "S40",
+    "location": "第二十四章第一节‘积极参与和引领全球经济治理’，开放合作协定句",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "ed346dc2-4ec0-425e-b24a-dccfd8dfc5c2",
+    "topicId": "t05",
+    "factKey": "t05-invest-in-china-brand",
+    "fact": "十五五纲要就拓展双向投资合作空间提出精心打造投资中国品牌。",
+    "importance": "core",
+    "sourceId": "S40",
+    "location": "第二十二章第二节‘更大力度吸引和利用外资’",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "e6040f5d-0508-4380-9f80-c28b45087519",
+    "topicId": "t05",
+    "factKey": "t05-grain-capacity-new-round",
+    "fact": "十五五纲要在藏粮于地、藏粮于技战略下要求加力实施新一轮千亿斤粮食产能提升行动。",
+    "importance": "core",
+    "sourceId": "S40",
+    "location": "第二十五章第一节‘加强粮食等重要农产品供给保障’",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "4265bd78-5a94-4d80-8fce-c51a2f24ff6f",
+    "topicId": "t05",
+    "factKey": "t05-crop-mechanization-2030",
+    "fact": "十五五纲要提出农作物耕种收综合机械化率提高到80%以上。",
+    "importance": "core",
+    "sourceId": "S40",
+    "location": "第二十五章第二节‘强化农业科技和装备支撑’，农机装备高质量发展行动句",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "a2e8cac9-29ee-4639-929a-5d38e97ba2df",
+    "topicId": "t05",
+    "factKey": "t05-ocean-water-and-coastline-targets",
+    "fact": "十五五纲要设定近岸海域优良水质比例达到86%左右，大陆自然岸线保有率不低于35%。",
+    "importance": "core",
+    "sourceId": "S40",
+    "location": "第三十二章第二节‘保护海洋生态环境’，近岸水质和自然岸线段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "c2fa8a24-f60e-4483-9b1f-f6afdeead605",
+    "topicId": "t05",
+    "factKey": "t05-yangtze-economic-belt-protection",
+    "fact": "十五五纲要要求推进长江经济带发展坚持共抓大保护、不搞大开发；西部大开发聚焦大保护、大开放、高质量发展。",
+    "importance": "core",
+    "sourceId": "S40",
+    "location": "第二十八章第一节‘提升东中西和东北地区协调发展水平’；第三节长江经济带、黄河流域段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "863aa5c6-5ad2-4d09-897c-dc0490fad434",
+    "topicId": "t05",
+    "factKey": "t05-belt-road-soft-connectivity",
+    "fact": "十五五纲要把深化基础设施硬联通、规则标准软联通、同共建国家人民心联通分别列为高质量共建有关安排。",
+    "importance": "core",
+    "sourceId": "S40",
+    "location": "第二十三章‘高质量共建“一带一路”’章首原则和三种联通",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "557404a7-af84-4055-ba03-4997e6031566",
+    "topicId": "t02",
+    "factKey": "t02-report-economic-rank-snapshot",
+    "fact": "二十大报告回顾新时代十年时记载，当时我国经济总量稳居世界第二，制造业规模和外汇储备稳居世界第一，货物贸易总额居世界第一。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第一部分，新时代十年经济实力以及更高水平开放回顾段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "741da6c2-bdd4-49af-8f0b-c7244056c2bb",
+    "topicId": "t02",
+    "factKey": "t02-promote-revolutionary-culture",
+    "fact": "二十大报告提出发展社会主义先进文化、弘扬革命文化、传承中华优秀传统文化。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第八部分总述，发展中国特色社会主义文化和文化强国一段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "12bdf390-deec-42c1-9aba-b9825c3e6b91",
+    "topicId": "t14",
+    "factKey": "t14-fourteenth-plan-three-strengths",
+    "fact": "四中全会公报回顾十四五指出我国经济实力、科技实力、综合国力跃上新台阶。",
+    "importance": "core",
+    "sourceId": "S42",
+    "location": "正文高度评价‘十四五’发展成就段，关于综合实力的回顾",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "4a30621e-1732-46fa-b8d3-27b991ec6bc9",
+    "topicId": "t14",
+    "factKey": "t14-modernization-historical-stepwise",
+    "fact": "四中公报把实现社会主义现代化描述为一个阶梯式递进、不断发展进步的历史过程。",
+    "importance": "core",
+    "sourceId": "S42",
+    "location": "正文‘全会指出，实现社会主义现代化是……历史过程’段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "6a137ebd-7e0f-4485-8ee9-565e9bbd6e80",
+    "topicId": "t14",
+    "factKey": "t14-quality-and-quantity-pairing",
+    "fact": "四中公报总体要求推动经济实现质的有效提升和量的合理增长。",
+    "importance": "core",
+    "sourceId": "S42",
+    "location": "正文‘十五五’时期总体要求，经济发展目标句",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "58cbfa9e-da15-47e0-aca6-089a69f76b04",
+    "topicId": "t14",
+    "factKey": "t14-new-supply-demand-verbs",
+    "fact": "四中全会公报提出以新需求引领新供给、以新供给创造新需求。",
+    "importance": "core",
+    "sourceId": "S42",
+    "location": "正文‘建设强大国内市场’段，供给与需求互动句",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "463c71db-cd04-4c98-85b7-1cb6b989407c",
+    "topicId": "t14",
+    "factKey": "t14-military-three-integrations",
+    "fact": "四中全会公报提出加快机械化、信息化、智能化融合发展。",
+    "importance": "core",
+    "sourceId": "S42",
+    "location": "正文‘高质量推进国防和军队现代化’段，国防和军队现代化新三步走安排后",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "cbad9c0f-772d-422c-9b19-a2c60a20b513",
+    "topicId": "t14",
+    "factKey": "t14-integrated-national-strategic-system",
+    "fact": "四中全会公报提出巩固提高一体化国家战略体系和能力。",
+    "importance": "core",
+    "sourceId": "S42",
+    "location": "正文‘高质量推进国防和军队现代化’段末",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "768454d0-ba5b-47b2-a7b7-7e6f3a9a943d",
+    "topicId": "t05",
+    "factKey": "t05-east-data-west-computing",
+    "fact": "“十五五”纲要提出深入推进东数西算工程，构建多层次算力设施体系和全国一体化算力网。",
+    "importance": "core",
+    "sourceId": "S40",
+    "location": "第七章新型基础设施部署，算力设施和全国一体化算力网",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "1035ff96-9bc8-4656-a094-aa41531a7075",
+    "topicId": "t05",
+    "factKey": "t05-basic-research-failure-tolerance",
+    "fact": "十五五纲要提出鼓励开展高风险、高价值基础研究，营造鼓励探索、宽容失败的环境。",
+    "importance": "core",
+    "sourceId": "S40",
+    "location": "第八章第三节‘全面提升基础研究水平’关于高风险、高价值研究一段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "aba1560e-e711-4743-9e3c-3d0fdfe6405d",
+    "topicId": "t05",
+    "factKey": "t05-platform-economy-regulation-rules",
+    "fact": "十五五纲要要求加强平台企业数据、算法、流量和规则监管。",
+    "importance": "core",
+    "sourceId": "S40",
+    "location": "第十四章第二节‘完善科学有效监管机制’，平台经济监管句",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "e63edfba-0649-47b2-8fe9-fea020393c97",
+    "topicId": "t05",
+    "factKey": "t05-first-launch-economy",
+    "fact": "十五五纲要在商品消费提质升级中提出发展周边衍生品消费，积极推进首发经济。",
+    "importance": "core",
+    "sourceId": "S40",
+    "location": "第十五章第三节‘促进商品消费扩容升级’，发展周边衍生品消费句",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "c9d28737-3a68-4547-9602-b3a6eedb8cf9",
+    "topicId": "t05",
+    "factKey": "t05-belt-road-small-and-beautiful-projects",
+    "fact": "十五五纲要提出统筹推进一带一路重大标志性工程和小而美民生项目建设。",
+    "importance": "core",
+    "sourceId": "S40",
+    "location": "第二十三章第三节‘全面提升务实合作质效’，重大工程和民生项目句",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "75bbdf6a-84de-4529-8638-47966780cc2d",
+    "topicId": "t05",
+    "factKey": "t05-county-prosperity-three-aspects",
+    "fact": "十五五纲要推进兴业、强县、富民一体发展。",
+    "importance": "core",
+    "sourceId": "S40",
+    "location": "第二十六章第二节‘发展县域富民产业’",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "8cc6d3c2-b2cf-4ee9-91c8-b81d0f1f2cf2",
+    "topicId": "t14",
+    "factKey": "t14-manufacturing-system-sector-powers",
+    "fact": "四中公报在建设现代化产业体系时列制造强国、质量强国、航天强国、交通强国、网络强国。",
+    "importance": "core",
+    "sourceId": "S42",
+    "location": "公报正文，‘建设现代化产业体系’段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "bd2dc9c8-c0a8-40dc-a3b8-17205e5770c1",
+    "topicId": "t05",
+    "factKey": "t05-wto-core-multilateral-trade",
+    "fact": "“十五五”纲要提出维护以世界贸易组织为核心的多边贸易体制。",
+    "importance": "core",
+    "sourceId": "S40",
+    "location": "第二十四章第一节‘积极参与和引领全球经济治理’，多边贸易首段",
+    "scopeNote": "以所引正式文件及适用时点为准。"
+  },
+  {
+    "id": "5d258cf8-f704-4c2e-839d-320af7c55b52",
+    "topicId": "t06",
+    "factKey": "t06-long-march-zhiluozhen-foundation",
+    "fact": "毛泽东把直罗镇战役胜利称为在西北建立广大革命根据地的奠基礼。",
+    "importance": "core",
+    "sourceId": "HIST-ZHILUO-NOV",
+    "location": "1935年11月30日条，《直罗战役同目前的形势与任务》一段",
+    "scopeNote": "按所引正式文献适用的时点与对象判答。"
+  },
+  {
+    "id": "5e4b269e-3e7e-4bfe-8d0f-d010d5a5ef84",
+    "topicId": "t06",
+    "factKey": "t06-first-central-disciplinary-body-congress",
+    "fact": "党的五大选举产生党的历史上第一个中央纪律检查监督机构中央监察委员会。",
+    "importance": "core",
+    "sourceId": "S17",
+    "location": "1927年4月27日至5月9日党的五大条",
+    "scopeNote": "按所引正式文献适用的时点与对象判答。"
+  },
+  {
+    "id": "d211ae90-675e-41c0-885c-0d8ddb167f88",
+    "topicId": "t06",
+    "factKey": "t06-long-march-xiangjiang-fourth-blockade",
+    "fact": "湘江战役是中央红军长征初期突破国民党军第四道封锁线的战役。",
+    "importance": "core",
+    "sourceId": "S17",
+    "location": "1934年10月下旬至12月初湘江战役条",
+    "scopeNote": "按所引正式文献适用的时点与对象判答。"
+  },
+  {
+    "id": "32dfe6d2-263f-413c-b2a7-2979c5e59048",
+    "topicId": "t06",
+    "factKey": "t06-long-march-first-snow-mountain",
+    "fact": "中央红军长征中翻越的第一座大雪山是夹金山。",
+    "importance": "core",
+    "sourceId": "HIST-JIAJIN",
+    "location": "正文开头关于1935年中央红军从宝兴硗碛出发的段落",
+    "scopeNote": "按所引正式文献适用的时点与对象判答。"
+  },
+  {
+    "id": "6d8f90bd-f81c-428b-adb7-9eaed9a90423",
+    "topicId": "t06",
+    "factKey": "t06-long-march-sichuan-gansu-pass",
+    "fact": "1935年9月北上的红军夺取由川入甘最后一道险关腊子口。",
+    "importance": "core",
+    "sourceId": "HIST-LAZIKOU",
+    "location": "正文1935年9月16日入甘前红军攻克险关段",
+    "scopeNote": "按所引正式文献适用的时点与对象判答。"
+  },
+  {
+    "id": "53787143-faae-49f4-b474-ae0f20be5dec",
+    "topicId": "t06",
+    "factKey": "t06-long-march-bangluo-landing-decision",
+    "fact": "中共中央政治局常委在榜罗镇正式作出把红军长征落脚点放在陕北的决定。",
+    "importance": "core",
+    "sourceId": "HIST-BANGLUO",
+    "location": "正文哈达铺酝酿决定、榜罗镇正式决定段",
+    "scopeNote": "按所引正式文献适用的时点与对象判答。"
+  },
+  {
+    "id": "e31e3de7-96ba-4ddb-adad-3432d088cf1f",
+    "topicId": "t06",
+    "factKey": "t06-long-march-chishui-four-crossings",
+    "fact": "遵义会议后中央红军四渡赤水。",
+    "importance": "core",
+    "sourceId": "S17",
+    "location": "1935年1月下旬至5月上旬条",
+    "scopeNote": "按所引正式文献适用的时点与对象判答。"
+  },
+  {
+    "id": "f4787a8b-2d26-4617-b420-ca2e8217fbed",
+    "topicId": "t06",
+    "factKey": "t06-long-march-jinsha-escape-encirclement",
+    "fact": "中央红军巧渡金沙江后摆脱了国民党军的围追堵截。",
+    "importance": "core",
+    "sourceId": "S17",
+    "location": "1935年1月下旬至5月上旬条",
+    "scopeNote": "按所引正式文献适用的时点与对象判答。"
+  },
+  {
+    "id": "f67e4f94-f595-46ec-ab05-b4b07b169f79",
+    "topicId": "t06",
+    "factKey": "t06-long-march-fifth-failed-counter-encirclement",
+    "fact": "中央革命根据地第五次反“围剿”失败后，中央红军被迫开始长征。",
+    "importance": "core",
+    "sourceId": "S52",
+    "location": "第一部分，关于第五次反“围剿”失败和红军长征段",
+    "scopeNote": "按所引正式文献适用的时点与对象判答。"
+  },
+  {
+    "id": "99aa3e68-d737-480b-8532-3e53a4e1044a",
+    "topicId": "t10",
+    "factKey": "t10-no-work-study-unit-residence-application",
+    "fact": "没有工作、学习单位的入党申请人，应当向居住地党组织提出申请。",
+    "importance": "core",
+    "sourceId": "S35",
+    "location": "第二章第六条第一款末句",
+    "scopeNote": "按所引正式文献适用的时点与对象判答。"
+  },
+  {
+    "id": "a791b5b5-0010-49c0-8687-a50e91d7f510",
+    "topicId": "t10",
+    "factKey": "t10-absentee-written-opinion-in-vote",
+    "fact": "因故不能到会的有表决权党员，会前正式向支部提出的书面意见应计入接收预备党员的票数。",
+    "importance": "core",
+    "sourceId": "S35",
+    "location": "第四章第二十条第（四）项末句",
+    "scopeNote": "按所引正式文献适用的时点与对象判答。"
+  },
+  {
+    "id": "7339426e-156a-42b4-b31b-a748a13543b0",
+    "topicId": "t10",
+    "factKey": "t10-collective-oath-memorial-minimum-committee",
+    "fact": "县级以上党委可以在七一、国庆等重大纪念日组织集中宣誓。",
+    "importance": "core",
+    "sourceId": "S35",
+    "location": "第五章第二十九条第二款",
+    "scopeNote": "按所引正式文献适用的时点与对象判答。"
+  },
+  {
+    "id": "0ec9fd0a-2cf6-4a1d-b00b-fab6f3ba0607",
+    "topicId": "t10",
+    "factKey": "t10-regular-part-time-organizing-officers",
+    "fact": "乡镇、街道、国有企业、高等学校等基层党委按规定配备一定数量的专兼职组织员。",
+    "importance": "core",
+    "sourceId": "S35",
+    "location": "第六章第三十九条第一句",
+    "scopeNote": "按所引正式文献适用的时点与对象判答。"
+  },
+  {
+    "id": "184d07ff-9ec3-4ee7-a0e2-dfa9174d2e4a",
+    "topicId": "t10",
+    "factKey": "t10-effective-date-2026-development-rules",
+    "fact": "2026年修订的《中国共产党发展党员工作细则》于2026年5月11日由中共中央办公厅发布，自发布之日起施行。",
+    "importance": "core",
+    "sourceId": "S35",
+    "location": "正式文本题注、第四十四条",
+    "scopeNote": "按所引正式文献适用的时点与对象判答。"
+  },
+  {
+    "id": "6ce8d8d5-c712-494a-b652-96399dc34d30",
+    "topicId": "t05",
+    "factKey": "t05-two-sessions-actual-opening-pair-2026",
+    "fact": "2026年十四届全国人大四次会议3月5日开幕，全国政协十四届四次会议3月4日开幕。",
+    "importance": "core",
+    "sourceId": "R27-NPC-OPEN-2026",
+    "location": "开幕报道首幅图片说明；另见政协开幕报道首段",
+    "scopeNote": "按所引正式文献适用的时点与对象判答。"
+  },
+  {
+    "id": "be2e07b7-b885-4d94-9857-39d0bcaa207b",
+    "topicId": "t05",
+    "factKey": "t05-outline-resident-urbanization-target",
+    "fact": "“十五五”《纲要》专栏1明确常住人口城镇化率2030年目标为71%。",
+    "importance": "core",
+    "sourceId": "C26-PLAN-INDICATORS",
+    "location": "正文第10页专栏1，“经济发展”第3项",
+    "scopeNote": "按所引正式文献适用的时点与对象判答。"
+  },
+  {
+    "id": "935be9ab-1eec-4abb-b620-b0e448480b3a",
+    "topicId": "t09",
+    "factKey": "t09-official-statistics-style-classification",
+    "fact": "中央纪委国家监委按月汇总中，违反中央八项规定精神的问题分为形式主义、官僚主义问题和享乐主义、奢靡之风问题。违规吃喝、违规收送礼品礼金、违规发放津补贴或福利属于后者。",
+    "importance": "core",
+    "sourceId": "S21",
+    "location": "“违反中央八项规定精神有哪些具体表现”及随后两类问题列举",
+    "scopeNote": "按所引正式文献适用的时点与对象判答。"
+  },
+  {
+    "id": "9b64b5c3-1209-480c-8b8b-06c9f2f7f1ee",
+    "topicId": "t09",
+    "factKey": "t09-grassroots-lending-cadres-threshold",
+    "fact": "《整治形式主义为基层减负若干规定》要求上级机关、单位原则上不得从县及以下单位借调干部。",
+    "importance": "core",
+    "sourceId": "T09-FORMALISM-REDUCE24",
+    "location": "第四部分“规范借调干部”第10、11项",
+    "scopeNote": "按所引正式文献适用的时点与对象判答。"
+  },
+  {
+    "id": "b5d2e170-e860-4c19-bb40-ca6db60081ae",
+    "topicId": "t09",
+    "factKey": "t09-anti-waste-funds-disclosure",
+    "fact": "现行反浪费条例在公开透明原则中要求公务活动中的公共资金、资产、资源使用除国家秘密事项外应按规定公开，接受监督。",
+    "importance": "core",
+    "sourceId": "BX25-ECONOMY",
+    "location": "第一章第四条，坚持公开透明原则",
+    "scopeNote": "按所引正式文献适用的时点与对象判答。"
   }
 ]

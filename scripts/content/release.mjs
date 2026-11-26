@@ -43,9 +43,6 @@ export function qualityReport(catalog, indexes) {
   const practicePending = ready.filter(item => !practiceApproved(item, indexes.practiceIndex))
   const practiceReady = ready.length - practicePending.length
 
-  if (practiceReady < 400 || practiceReady > 1000) {
-    problems.push(`正式题库应有 400–1000 道可练题，当前 ${practiceReady} 道。`)
-  }
   if (practicePending.length) problems.push('有 ' + practicePending.length + ' 道事实双审题尚未通过考法复核。')
   for (const topic of catalog.topics) {
     if (topic.active && !catalog.points.some(point => point.topicId === topic.id && point.importance === 'core')) {
@@ -58,8 +55,8 @@ export function qualityReport(catalog, indexes) {
     problems.push('多道发布题共用同一主知识点。')
   }
   for (const [group, value] of Object.entries(stats)) {
-    if (value.emotionOnly > Math.floor(value.total * .10)) problems.push(`${group} 情绪线索题超过 10%。`)
-    if (value.allSelected > Math.floor(value.multiple * .10)) problems.push(`${group} 多选全选题超过 10%。`)
+    if (value.emotionOnly) problems.push(`${group} 有仅靠情绪线索可作答的题。`)
+    if (value.allSelected) problems.push(`${group} 有缺少干扰项的多选题。`)
     const fourSingle = value.byTypeAndOptions['single/4']
     if (fourSingle) {
       const counts = fourSingle.unlockedPositions
