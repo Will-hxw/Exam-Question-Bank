@@ -73,7 +73,8 @@ export function AuthPanel({ destination }: { destination: StudyDestination }) {
   const ready = useSyncExternalStore(subscribeReady, browserReady, serverReady)
   const [redirecting, navigate] = useTransition()
   const { value, save } = useTabDraft("cqu-auth-flow", readAuthFlow)
-  const flow = value ?? initialFlow
+  const [completed, setCompleted] = useState<AuthFlow | null>(null)
+  const flow = completed ?? value ?? initialFlow
   const { step, email, resendAt } = flow
   const [password, setPassword] = useState("")
   const [otp, setOtp] = useState("")
@@ -112,7 +113,8 @@ export function AuthPanel({ destination }: { destination: StudyDestination }) {
     focusAfterTransition.current = next !== step
     const time = Date.now()
     setNow(time)
-    save({ step: next, email: address, resendAt: cooldown ? time + cooldown : 0 })
+    const deadline = address.trim().toLowerCase() === email.trim().toLowerCase() ? resendAt : 0
+    save({ step: next, email: address, resendAt: cooldown ? time + cooldown : deadline })
     setPassword("")
     setShowPassword(false)
     setOtp("")
@@ -120,7 +122,8 @@ export function AuthPanel({ destination }: { destination: StudyDestination }) {
     setNotice(nextNotice)
   }
 
-  function finishSignIn() {
+  function finishSignIn(address: string) {
+    setCompleted({ ...flow, email: address })
     save(null)
     navigate(() => router.replace(destination))
   }
@@ -164,7 +167,7 @@ export function AuthPanel({ destination }: { destination: StudyDestination }) {
     const address = String(fields.get("email") ?? email).trim().toLowerCase()
     const submittedPassword = String(fields.get("password") ?? password)
     const submittedOtp = String(fields.get("otp") ?? otp)
-    save({ ...flow, email: address })
+    save({ ...flow, email: address, resendAt: address === email.trim().toLowerCase() ? resendAt : 0 })
 
     try {
       if (destination === "/" && (step === "login" || step === "verify")) warmPractice()
@@ -174,7 +177,7 @@ export function AuthPanel({ destination }: { destination: StudyDestination }) {
           const { data, error } = await authClient.signIn.email({ email: address, password: submittedPassword })
           if (error) throw error
           if ((data?.token && data.user?.emailVerified) || await sessionIsVerified()) {
-            finishSignIn()
+            finishSignIn(address)
           } else {
             changeStep("verify", requireVerification, address)
           }
@@ -194,7 +197,7 @@ export function AuthPanel({ destination }: { destination: StudyDestination }) {
           const { data, error } = await authClient.emailOtp.verifyEmail({ email: address, otp: submittedOtp })
           if (error) throw error
           if ((data?.token && data.user?.emailVerified) || await sessionIsVerified()) {
-            finishSignIn()
+            finishSignIn(address)
           } else {
             changeStep("login", "邮箱已验证，请登录。", address)
           }
@@ -285,7 +288,8 @@ export function AuthPanel({ destination }: { destination: StudyDestination }) {
                 aria-invalid={emailError ? true : undefined}
                 aria-describedby={emailError ? "auth-email-error" : undefined}
                 onChange={(event) => {
-                  save({ ...flow, email: event.target.value })
+                  const address = event.target.value
+                  save({ ...flow, email: address, resendAt: address.trim().toLowerCase() === email.trim().toLowerCase() ? resendAt : 0 })
                   clearFieldError("email")
                 }}
                 maxLength={254}

@@ -78,7 +78,10 @@ def library_preferences(browser):
             single(primary).click()
         size = stale.get_by_role('combobox', name='每页题量')
         expect(size).to_have_value('20')
-        size.select_option('50')
+        with stale.expect_response(lambda r: r.url.endswith('/api/me/preferences') and
+                                   r.request.post_data_json.get('library:all', {}).get('limit') == 50) as saved:
+            size.select_option('50')
+        assert saved.value.ok
         expect(single(stale)).to_have_attribute('aria-pressed', 'true')
         expect(size).to_have_value('50')
         primary.reload()

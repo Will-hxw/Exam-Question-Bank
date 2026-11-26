@@ -300,6 +300,11 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
   }, [canPrefetch, topic, offset, limit, onlyUndone, personalReads, prefetchQuestionStates])
 
   function move(nextPosition: number) {
+    if (navigation.current) {
+      navigation.current.abort()
+      navigation.current = null
+      setChecking(false)
+    }
     setNavigationMessage('')
     if (onlyUndone) setFilteredPosition(nextPosition)
     rememberPosition(nextPosition)
@@ -332,8 +337,10 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
           if (!controller.signal.aborted) setNavigationMessage('暂时无法核对未做题，请重试。')
           return
         } finally {
-          navigation.current = null
-          if (!controller.signal.aborted) setChecking(false)
+          if (navigation.current === controller) {
+            navigation.current = null
+            if (!controller.signal.aborted) setChecking(false)
+          }
         }
         if (controller.signal.aborted) return
       }

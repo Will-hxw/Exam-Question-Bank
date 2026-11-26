@@ -166,7 +166,10 @@ if (process.argv[1]?.replaceAll('\\', '/').endsWith('/scripts/content/release.mj
       if (!known.has(item.id) && (item.state === 'withdrawn' || practiceApproved(item, reviews))) catalog.questionOrder.push(item.id)
     }
     validateCatalog(catalog)
-    await writeFile(new URL('../../content/question-order.json', import.meta.url), JSON.stringify(catalog.questionOrder, null, 2) + '\n')
+    const orderFile = new URL('../../content/question-order.json', import.meta.url)
+    const temporary = new URL(`../../content/question-order.json.${process.pid}.pending`, import.meta.url)
+    await writeFile(temporary, JSON.stringify(catalog.questionOrder, null, 2) + '\n')
+    await rename(temporary, orderFile)
   }
   const indexes = validateCatalog(catalog)
   const report = qualityReport(catalog, indexes)

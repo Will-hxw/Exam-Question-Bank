@@ -1,12 +1,11 @@
 'use client'
 
 import { useCallback, useEffect, useEffectEvent, useRef, useState, useSyncExternalStore } from 'react'
-import { libraryPageSize, questionUrl, requestJson, type QuestionType, type Status } from './api'
+import { questionUrl, requestJson } from './api'
+import type { LibraryList, LibraryView } from './library-view'
+export { libraryPageSizes, readLibraryView, type LibraryList, type LibraryView } from './library-view'
 
 export type StudyPreferences = Record<string, unknown>
-export type LibraryList = 'all' | 'wrong' | 'favorite'
-export type LibraryView = { search: string; type: QuestionType | ''; topic: string; status: Status | ''; limit: number; page: number }
-export const libraryPageSizes = [10, libraryPageSize, 30, 50]
 
 function libraryFields(value: unknown) {
   return (value && typeof value === 'object' && !Array.isArray(value) ? value : {}) as Record<string, unknown>
@@ -18,18 +17,6 @@ function mergePreferences(values: StudyPreferences, edits: StudyPreferences): St
     merged[name] = name.startsWith('library:') ? { ...libraryFields(merged[name]), ...libraryFields(value) } : value
   }
   return merged
-}
-
-export function readLibraryView(value: unknown): LibraryView {
-  const saved = value as Partial<LibraryView> | undefined
-  return {
-    search: typeof saved?.search === 'string' ? saved.search.slice(0, 100) : '',
-    type: saved?.type === 'single' || saved?.type === 'multiple' ? saved.type : '',
-    topic: typeof saved?.topic === 'string' && /^[a-z0-9-]{1,50}$/i.test(saved.topic) ? saved.topic : '',
-    status: saved?.status && ['done', 'undone', 'wrong', 'favorite'].includes(saved.status) ? saved.status : '',
-    limit: typeof saved?.limit === 'number' && libraryPageSizes.includes(saved.limit) ? saved.limit : libraryPageSize,
-    page: typeof saved?.page === 'number' && Number.isSafeInteger(saved.page) && saved.page >= 0 && saved.page <= 2000 ? saved.page : 0,
-  }
 }
 
 export function libraryPath(list: LibraryList, view: LibraryView, q = view.search.trim()) {
@@ -66,12 +53,18 @@ export function useAccountStudyPreferences(userId: string, remote: StudyPreferen
   const [stored] = useState(() => readStudyPreference(key) as { values?: StudyPreferences; pending?: StudyPreferences } | undefined)
   const hydrated = useStudyPreferencesReady()
   const [confirmed, setConfirmed] = useState<StudyPreferences>({})
+  const [lastRemote, setLastRemote] = useState(remote)
   const [pending, setPending] = useState<StudyPreferences>(stored?.pending ?? {})
   const [syncFailed, setSyncFailed] = useState(false)
   const queue = useRef<StudyPreferences>(stored?.pending ?? {})
   const cache = useRef<StudyPreferences>(stored?.values ?? {})
   const active = useRef(false)
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  if (remote && remote !== lastRemote) {
+    setLastRemote(remote)
+    setConfirmed((previous) => Object.fromEntries(Object.entries(previous).filter(([name]) => !name.startsWith('library:'))))
+  }
 
   const persist = useCallback(() => writeStudyPreference(key, { values: cache.current, pending: queue.current }), [key])
   const flush = useCallback(async (keepalive = false) => {

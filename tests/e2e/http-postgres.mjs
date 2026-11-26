@@ -330,6 +330,7 @@ async function runApiChecks(origin, db, items, secret) {
     method: 'PUT', user: 'alice', owner: alice, body: { [libraryKey]: { limit: 50, page: 0 } },
   })
   assert.deepEqual(libraryPatch.data.preferences[libraryKey], { type: 'single', limit: 50, page: 0 })
+  await call('/api/me/preferences', { method: 'PUT', user: 'alice', owner: alice, body: { [libraryKey]: { extra: 'unsupported' } }, status: 400 })
   const attemptPath = '/api/attempts/batch'
   const firstFixture = items.find((item) => item.id === first.id)
   const attempt = { eventId: randomUUID(), mode: 'practice', questionId: first.id, optionIds: [firstFixture.wrong], contentRevision: first.contentRevision ?? undefined }

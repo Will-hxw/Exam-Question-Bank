@@ -1,5 +1,6 @@
 import 'server-only'
 import { requireStudyAccount } from '@/features/auth/server'
+import { validLibraryEdits } from '@/features/study/library-view'
 import { practiceUndonePreference } from '@/features/study/practice-undone'
 import { query } from './db'
 import { HttpError, uuid } from './http'
@@ -28,7 +29,8 @@ function validPreference(name: string, value: unknown) {
     return typeof value === 'number' && Number.isSafeInteger(value) && value >= 0 && value <= 1000000
   }
   if (!['practice', 'library:all', 'library:wrong', 'library:favorite', 'exam'].includes(name)) return false
-  return value !== null && typeof value === 'object' && !Array.isArray(value) && JSON.stringify(value).length <= 1200
+  if (!value || typeof value !== 'object' || Array.isArray(value) || JSON.stringify(value).length > 1200) return false
+  return !name.startsWith('library:') || validLibraryEdits(value)
 }
 
 export async function saveStudyPreferences(user: string, edits: Record<string, unknown>) {

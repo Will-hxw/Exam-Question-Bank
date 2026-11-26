@@ -49,7 +49,7 @@ export function useStudyData<T>(path: string | null, revision = 0, {
 
   useEffect(() => {
     if (!path?.startsWith('/api/public/')) return
-    const refresh = () => setRetry((current) => ({ count: current.count + 1 }))
+    const refresh = () => setRetry((current) => ({ ...current, count: current.count + 1 }))
     window.addEventListener(bankReleaseEvent, refresh)
     return () => window.removeEventListener(bankReleaseEvent, refresh)
   }, [path])

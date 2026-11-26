@@ -167,9 +167,10 @@ export function validateCatalog(catalog) {
   for (const review of practiceIndex.values()) {
     if (!questionIndex.has(review.questionId)) throw new Error("考法复核对应的题目不存在：" + review.questionId)
   }
-  const orderIndex = new Map(catalog.questionOrder.map((id, index) => [id, index + 1]))
-  if (orderIndex.size !== catalog.questionOrder.length || catalog.questionOrder.some((id) => !questionIndex.has(id))) {
-    throw new Error('题库顺序存在重复或未知题目 ID。')
+  const orderIndex = new Map()
+  for (const [index, id] of catalog.questionOrder.entries()) {
+    if (orderIndex.has(id) || !questionIndex.has(id)) throw new Error(`题库顺序存在重复或未知题目 ID：${id}`)
+    orderIndex.set(id, index + 1)
   }
   for (const item of catalog.questions) {
     if ((practiceApproved(item, practiceIndex) || item.state === 'withdrawn') && !orderIndex.has(item.id)) {
