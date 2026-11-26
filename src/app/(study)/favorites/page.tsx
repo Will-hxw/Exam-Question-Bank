@@ -1,5 +1,6 @@
+import { StudyPage } from '@/features/auth/study-access'
 import { Library } from '@/features/study/library'
 
 export default function FavoritesPage() {
-  return <Library list="favorite" />
+  return <StudyPage path="/favorites"><Library list="favorite" /></StudyPage>
 }

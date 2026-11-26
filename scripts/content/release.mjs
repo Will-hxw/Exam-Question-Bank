@@ -103,7 +103,7 @@ export function qualityReport(catalog, indexes) {
 
 export function makeRelease(catalog, indexes) {
   const published = catalog.questions.filter(item => practiceApproved(item, indexes.practiceIndex))
-    .sort((a, b) => a.id.localeCompare(b.id))
+    .sort((a, b) => indexes.orderIndex.get(a.id) - indexes.orderIndex.get(b.id))
   const questions = published.map(item => {
     const references = item.evidence.concat(item.options.flatMap(option => option.evidence))
     const sources = new Map()
@@ -159,9 +159,24 @@ export async function writeRelease(output, { manifest, files }) {
 if (process.argv[1]?.replaceAll('\\', '/').endsWith('/scripts/content/release.mjs')) {
   const command = process.argv[2]
   const catalog = await readCatalog()
+  if (command === 'order') {
+    const reviews = new Map(catalog.practiceReviews.map((review) => [review.questionId, review]))
+    const known = new Set(catalog.questionOrder)
+    for (const item of catalog.questions) {
+      if (!known.has(item.id) && (item.state === 'withdrawn' || practiceApproved(item, reviews))) catalog.questionOrder.push(item.id)
+    }
+    validateCatalog(catalog)
+    const orderFile = new URL('../../content/question-order.json', import.meta.url)
+    const temporary = new URL(`../../content/question-order.json.${process.pid}.pending`, import.meta.url)
+    await writeFile(temporary, JSON.stringify(catalog.questionOrder, null, 2) + '\n')
+    await rename(temporary, orderFile)
+  }
   const indexes = validateCatalog(catalog)
   const report = qualityReport(catalog, indexes)
   switch (command) {
+    case 'order':
+      console.log(`已登记 ${catalog.questionOrder.length} 个题目位置。`)
+      break
     case 'check':
       console.log(JSON.stringify(report.review))
       break
@@ -176,6 +191,6 @@ if (process.argv[1]?.replaceAll('\\', '/').endsWith('/scripts/content/release.mj
       console.log(`CDN 题库已生成，共 ${report.review.practiceReady} 道通过事实与考法复审的题。`)
       break
     default:
-      throw new Error('Use check, report or build.')
+      throw new Error('Use order, check, report or build.')
   }
 }

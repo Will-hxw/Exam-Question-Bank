@@ -25,14 +25,14 @@ def check_undone_practice(browser, origin, host, cookie_name):
         attempted = [topic_questions[index] for index in (0, 1, 12, 13, 14, 15, 16, -1)]
         attempt_url = origin + '/api/attempts/batch'
 
-        def attempt(questions):
+        def attempt(questions, device=page):
             events = [
                 {'mode': 'practice', 'eventId': str(uuid4()), 'questionId': item['id'],
                  'optionIds': [next(option['id'] for option in item['options'] if option['id'] not in item['answerIds'])],
                  **({'contentRevision': item['contentRevision']} if item.get('contentRevision') else {})}
                 for item in questions
             ]
-            reply = page.request.post(attempt_url, headers=headers, data={'ownerId': user, 'events': events})
+            reply = device.request.post(attempt_url, headers=headers, data={'ownerId': user, 'events': events})
             assert reply.ok and all(item['status'] == 'saved' for item in reply.json()['results']), reply.text()
 
         attempt(attempted)
@@ -73,6 +73,15 @@ def check_undone_practice(browser, origin, host, cookie_name):
         expect(stem).to_have_text(topic_questions[-1]['stem'])
         page.get_by_role('button', name='下一题', exact=True).tap()
         expect(stem).to_have_text(topic_questions[2]['stem'])
+
+        second = open_context()
+        elsewhere = second.new_page()
+        attempt([topic_questions[4]], elsewhere)
+        attempted.append(topic_questions[4])
+        jump(4)
+        expect(stem).to_have_text(topic_questions[3]['stem'])
+        page.get_by_role('button', name='下一题', exact=True).tap()
+        expect(stem).to_have_text(topic_questions[5]['stem'])
 
         jump(3)
         expect(stem).to_have_text(topic_questions[2]['stem'])
@@ -125,8 +134,6 @@ def check_undone_practice(browser, origin, host, cookie_name):
         expect(stem).to_have_text(favorite['stem'])
 
         attempt([item for item in topic_questions if item['id'] not in completed])
-        second = open_context()
-        elsewhere = second.new_page()
         elsewhere.goto(origin + '/', wait_until='domcontentloaded')
         expect(elsewhere.get_by_role('button', name='只刷未做')).to_have_attribute('aria-pressed', 'true')
         elsewhere.get_by_role('group', name='练习模式').get_by_role('button', name='专题', exact=True).tap()

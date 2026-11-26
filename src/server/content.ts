@@ -103,9 +103,9 @@ export async function practiceUndonePositions(userId: string, params: URLSearchP
   }
   const positions = await query<PracticePosition>(`
     WITH ordered AS (
-      SELECT q.id, (row_number() OVER (ORDER BY q.id) - 1)::int AS position
-      FROM questions q JOIN topics t ON t.id = q.topic_id AND t.active
-      WHERE q.status = 'published' AND ($2::text IS NULL OR q.topic_id = $2)
+      SELECT q.id, (row_number() OVER (ORDER BY q.bank_position NULLS LAST, q.id) - 1)::int AS position
+      FROM active_bank_questions q
+      WHERE ($2::text IS NULL OR q.topic_id = $2)
     )
     SELECT o.id, o.position FROM ordered o
     WHERE NOT EXISTS (
@@ -122,13 +122,13 @@ export async function questionPage(filters: Filters, userId: string | null = nul
   const pattern = q ? '%' + q.replace(/[!%_]/g, char => '!' + char) + '%' : null
   const [{ questions, total }] = await query<{ questions: PracticeQuestion[]; total: number }>(`
     WITH matched AS (
-      SELECT q.id, p.question_id IS NOT NULL AND p.attempt_count > 0 AS attempted,
+      SELECT q.id, COALESCE(q.bank_position, 2147483647) AS bank_position,
+             p.question_id IS NOT NULL AND p.attempt_count > 0 AS attempted,
              COALESCE(p.is_wrong, false) AS is_wrong, f.question_id IS NOT NULL AS favorite
-      FROM questions q JOIN topics t ON t.id = q.topic_id AND t.active
+      FROM active_bank_questions q
       LEFT JOIN question_progress p ON p.user_id = $9 AND p.question_id = q.id
       LEFT JOIN favorites f ON f.user_id = $9 AND f.question_id = q.id
-      WHERE q.status = 'published'
-        AND ($1::text IS NULL OR q.topic_id = $1)
+      WHERE ($1::text IS NULL OR q.topic_id = $1)
         AND ($2::text IS NULL OR q.type = $2)
         AND ($3::text IS NULL OR q.search_text ILIKE $3 ESCAPE '!' OR EXISTS (
           SELECT 1 FROM question_options o WHERE o.question_id = q.id AND normalize(o.text, NFKC) ILIKE $3 ESCAPE '!'
@@ -140,11 +140,16 @@ export async function questionPage(filters: Filters, userId: string | null = nul
           WHEN 'favorite' THEN f.question_id IS NOT NULL
         END)
     ), page AS (
-      SELECT * FROM matched m WHERE ($4::uuid IS NULL OR m.id > $4)
-      ORDER BY CASE WHEN $8::uuid IS NOT NULL THEN m.id < $8 ELSE false END, m.id
+      SELECT m.*, ($8::uuid IS NOT NULL AND m.id < $8) AS wrap,
+        CASE WHEN $8::uuid IS NULL THEN m.bank_position ELSE 0 END AS sort_position
+      FROM matched m
+      WHERE $4::uuid IS NULL OR (m.bank_position, m.id) > (
+        COALESCE((SELECT o.position FROM question_bank_positions o WHERE o.question_id = $4), 2147483647), $4
+      )
+      ORDER BY wrap, sort_position, m.id
       OFFSET $5 LIMIT $6
     ), entries AS (
-      SELECT m.id, q.type, q.stem, q.topic_id, (CASE WHEN $8::uuid IS NOT NULL THEN m.id < $8 ELSE false END) AS wrap,
+      SELECT m.id, m.wrap, m.sort_position,
         jsonb_build_object('id', q.id, 'type', q.type, 'stem', q.stem, 'topicId', q.topic_id,
           'options', ${optionProjection}) ||
         CASE WHEN q.content_revision IS NOT NULL THEN jsonb_build_object('contentRevision', q.content_revision)
@@ -160,7 +165,7 @@ export async function questionPage(filters: Filters, userId: string | null = nul
       FROM page m JOIN questions q USING (id)
     )
     SELECT (SELECT count(*)::int FROM matched) AS total,
-      COALESCE(jsonb_agg(data ORDER BY wrap, id), '[]'::jsonb) AS questions
+      COALESCE(jsonb_agg(data ORDER BY wrap, sort_position, id), '[]'::jsonb) AS questions
       FROM entries
   `, [topic, type, pattern, cursor, offset, limit + 1, practice, random, userId, status])
 

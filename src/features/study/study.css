@@ -165,6 +165,13 @@ html[data-theme="dark"] .study-theme .dark-toggle { color: #e5e7eb; }
 .study-shell .exam-submit-dialog h2 { font-size: 18px; font-weight: 650; }
 .study-shell .exam-submit-dialog p { margin-top: 8px; font-size: 14px; }
 .study-shell .exam-submit-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 18px; }
+.study-shell .exam-conflict-review { padding: 16px; margin-bottom: 16px; background: var(--surface); border: 1px solid var(--border-light); border-radius: var(--radius-sm); }
+.study-shell .exam-conflict-review fieldset { min-width: 0; padding: 8px 0 12px; margin: 12px 0; border: 0; border-bottom: 1px solid var(--border-light); }
+.study-shell .exam-conflict-review legend { padding: 0; font-weight: 600; overflow-wrap: anywhere; }
+.study-shell .exam-conflict-review label { display: flex; align-items: center; min-height: 40px; gap: 8px; cursor: pointer; }
+.study-shell .exam-unsubmitted { text-align: left; margin-bottom: 16px; padding: 12px; border: 1px solid var(--border-light); border-radius: var(--radius-sm); }
+.study-shell .exam-unsubmitted summary { cursor: pointer; }
+.study-shell .exam-unsubmitted ul { padding-inline-start: 24px; margin-top: 8px; }
 .study-shell .exam-header-left { flex: 1; min-width: 0; }
 .study-shell .exam-progress-row { display: flex; align-items: baseline; gap: 6px; margin-bottom: 5px; }
 .study-shell .exam-progress-label { font-size: 11px; color: var(--text-muted); }

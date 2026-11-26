@@ -241,6 +241,10 @@ export function StudyShell({ userId, author, children }: { userId: string; autho
   const pathname = usePathname()
   const router = useRouter()
   const hash = useSyncExternalStore(subscribeHash, currentHash, emptyHash)
+  const [initialFooterPath] = useState(() => {
+    if (typeof window === 'undefined' || !/^#(?:chat|feedback|sponsor|author-chat(?:\/.*)?)$/.test(window.location.hash)) return null
+    return window.location.pathname
+  })
   const sponsorOpen = hash === '#sponsor'
   const feedbackOpen = hash === '#feedback'
   const chatOpen = hash === '#chat'
@@ -289,8 +293,9 @@ export function StudyShell({ userId, author, children }: { userId: string; autho
     router.prefetch(href)
   }
   function navigateFromExam(event: { preventDefault: () => void }) {
-    if (pathname !== '/exam') return
-    if (!session.confirmLeaveExam()) { event.preventDefault(); return }
+    if (pathname !== '/exam' || session.confirmLeaveExam()) return true
+    event.preventDefault()
+    return false
   }
 
   return (
@@ -326,7 +331,11 @@ export function StudyShell({ userId, author, children }: { userId: string; autho
                 onFocus={() => warmRoute(href)}
                 onNavigate={(event) => {
                   if (footerPageOpen && href === pathname) closeFooterPage(event)
-                  else if (href !== '/exam') navigateFromExam(event)
+                  else if ((href === '/exam' || navigateFromExam(event)) && href === initialFooterPath) {
+                    // The initial Next.js route cache can include the footer fragment.
+                    event.preventDefault()
+                    if (href !== pathname) window.location.assign(href)
+                  }
                 }}>
                 {label}<StudyNavigationStatus />
               </Link>
@@ -385,6 +394,7 @@ export function StudyShell({ userId, author, children }: { userId: string; autho
                 意见反馈
               </a>
               <a className="footer-action" href="#sponsor" aria-label="打开友情赞助页面"
+                onClick={navigateFromExam}
                 onPointerEnter={() => warmImage(sponsorQrImage)} onFocus={() => warmImage(sponsorQrImage)}>
                 <span className="footer-action-icon footer-sponsor-icon" aria-hidden="true">💌</span>
                 友情赞助

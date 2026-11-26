@@ -10,7 +10,8 @@ import { setTimeout as sleep } from 'node:timers/promises'
 import pg from 'pg'
 import { migrate } from '../../scripts/database/migrate.mjs'
 import { reviewFixture, seedQuestions } from '../integration/fixture.mjs'
-import { checkAuthorDirectory } from './author-directory.mjs'
+import { checkAuthorDirectory, seedUnreadInbox } from './author-directory.mjs'
+import { checkBankOrder, checkRetiredQuestion } from './study-release.mjs'
 
 const root = fileURLToPath(new URL('../../', import.meta.url))
 const testUrl = process.env.TEST_DATABASE_URL && new URL(process.env.TEST_DATABASE_URL)
@@ -23,6 +24,9 @@ const users = new Map([
   ['bob', { id: 'e2e-bob', email: 'bob@example.test', emailVerified: true }],
   ['browser', { id: 'e2e-browser', email: 'browser@example.test', emailVerified: true }],
   ['undone', { id: 'e2e-undone', email: 'undone@example.test', emailVerified: true }],
+  ['conflict', { id: 'e2e-conflict', email: 'conflict@example.test', emailVerified: true }],
+  ['rejection', { id: 'e2e-rejection', email: 'rejection@example.test', emailVerified: true }],
+  ['receipt', { id: 'e2e-receipt', email: 'receipt@example.test', emailVerified: true }],
   ['author', { id: 'e2e-author', email: 'xiaoweihuacqu@gmail.com', emailVerified: true }],
   ['unverified', { id: 'e2e-unverified', email: 'unverified@example.test', emailVerified: false }],
 ])
@@ -219,6 +223,16 @@ async function runApiChecks(origin, db, items, secret) {
 
   const { response: anonymous } = await call('/', { status: 307, redirect: 'manual' })
   assert.equal(anonymous.headers.get('location'), '/login')
+  for (const path of ['/questions', '/exam', '/favorites', '/wrong']) {
+    const { response } = await call(path, { status: 307, redirect: 'manual' })
+    assert.equal(response.headers.get('location'), '/login?' + new URLSearchParams({ next: path }))
+  }
+  for (const next of ['https://example.invalid', '//example.invalid', '/api/me/stats', '/login']) {
+    const { response } = await call('/login?' + new URLSearchParams({ next }), { user: 'alice', status: 307, redirect: 'manual' })
+    assert.equal(response.headers.get('location'), '/')
+  }
+  const { response: signedIn } = await call('/login?next=%2Fquestions', { user: 'alice', status: 307, redirect: 'manual' })
+  assert.equal(signedIn.headers.get('location'), '/questions')
   const { response: accountRedirect } = await call('/account', { status: 307, redirect: 'manual' })
   assert.equal(accountRedirect.headers.get('location'), '/login')
   const anonymousSession = await call('/api/me/session')
@@ -310,6 +324,13 @@ async function runApiChecks(origin, db, items, secret) {
   await call('/api/me/stats', { user: 'bob', owner: alice, status: 409 })
   assert.deepEqual((await call('/api/me/stats', { user: 'alice' })).data.preferences, samplePreferences)
   assert.deepEqual((await call('/api/me/stats', { user: 'bob' })).data.preferences, {})
+  const libraryKey = 'library:all'
+  await call('/api/me/preferences', { method: 'PUT', user: 'alice', owner: alice, body: { [libraryKey]: { type: 'single', page: 0 } } })
+  const libraryPatch = await call('/api/me/preferences', {
+    method: 'PUT', user: 'alice', owner: alice, body: { [libraryKey]: { limit: 50, page: 0 } },
+  })
+  assert.deepEqual(libraryPatch.data.preferences[libraryKey], { type: 'single', limit: 50, page: 0 })
+  await call('/api/me/preferences', { method: 'PUT', user: 'alice', owner: alice, body: { [libraryKey]: { extra: 'unsupported' } }, status: 400 })
   const attemptPath = '/api/attempts/batch'
   const firstFixture = items.find((item) => item.id === first.id)
   const attempt = { eventId: randomUUID(), mode: 'practice', questionId: first.id, optionIds: [firstFixture.wrong], contentRevision: first.contentRevision ?? undefined }
@@ -444,6 +465,7 @@ async function runApiChecks(origin, db, items, secret) {
   await db.query('UPDATE topics SET name=$1 WHERE id=$2', [newName, 't01'])
   await db.query("UPDATE questions SET status='quarantined' WHERE id=$1", [first.id])
   await call(viewPath, { status: 404 })
+  await checkRetiredQuestion(call, db, first.id)
   await call('/api/internal/invalidate', { method: 'POST', bearer: 'wrong-token', status: 404 })
   const warmTopics = (await call(topicsPath)).data.topics
   assert.notEqual(warmTopics.find(({ id }) => id === 't01').name, newName)
@@ -456,6 +478,8 @@ async function runApiChecks(origin, db, items, secret) {
   assert.equal(refreshed.find(({ id }) => id === 't01').count, 25)
   assert.equal(updatedPage.total, 25)
   assert.equal(updatedPage.questions.some(({ id }) => id === first.id), false)
+
+  await checkBankOrder(call, db)
 
   const chatPath = '/api/chat'
   const chatAlice = { user: 'alice', owner: users.get('alice').id }
@@ -798,15 +822,28 @@ try {
       SELECT count(*)::int AS position FROM questions
       WHERE status='published' AND id <= (SELECT id FROM questions WHERE type='multiple')
     `)
-    await run(process.env.EQB_TEST_PYTHON || 'python', [join(root, 'tests', 'e2e', 'study-browser.py')], {
+    const browserEnv = { ...process.env, EQB_TEST_ORIGIN: origin, EQB_TEST_COOKIE_NAME: tokenCookie, EQB_TEST_COOKIE_TOKEN: 'browser',
+      EQB_TEST_MULTIPLE_POSITION: String(position), PYTHONUTF8: '1' }
+    const python = process.env.EQB_TEST_PYTHON || 'python'
+    await run(python, [join(root, 'tests', 'e2e', 'study-browser.py')], {
       cwd: root,
-      env: { ...process.env, EQB_TEST_ORIGIN: origin, EQB_TEST_COOKIE_NAME: tokenCookie, EQB_TEST_COOKIE_TOKEN: 'browser',
-        EQB_TEST_MULTIPLE_POSITION: String(position), PYTHONUTF8: '1' },
+      env: browserEnv,
     })
     const browserWrites = await db.query("SELECT mode, count(*)::int AS count FROM attempts WHERE user_id=$1 GROUP BY mode ORDER BY mode", [users.get('browser').id])
     assert.deepEqual(browserWrites.rows, [{ mode: 'exam', count: 24 }, { mode: 'practice', count: 2 }])
     const browserFavorites = await db.query('SELECT count(*)::int AS count FROM favorites WHERE user_id=$1', [users.get('browser').id])
     assert.equal(browserFavorites.rows[0].count, 0)
+    for (const account of ['conflict', 'receipt']) {
+      const { rows } = await db.query("SELECT count(*)::int AS count FROM attempts WHERE user_id=$1 AND mode='exam'", [users.get(account).id])
+      assert.equal(rows[0].count, 8)
+    }
+    await seedUnreadInbox(db)
+    await run(python, [join(root, 'tests', 'e2e', 'additional_study_browser.py')], { cwd: root, env: browserEnv })
+    const rejectedDrill = (await db.query(`
+      SELECT (SELECT count(*) FROM attempts WHERE user_id = $1)::int AS attempts,
+             (SELECT sum(attempt_count) FROM question_progress WHERE user_id = $1)::int AS progress
+    `, [users.get('rejection').id])).rows[0]
+    assert.deepEqual(rejectedDrill, { attempts: 1, progress: 1 })
   }
 } finally {
   if (server && server.exitCode === null) {

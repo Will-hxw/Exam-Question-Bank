@@ -1,23 +1,22 @@
 'use client'
 
 import { useCallback, useEffect, useEffectEvent, useRef, useState, useSyncExternalStore } from 'react'
-import { libraryPageSize, questionUrl, requestJson, type QuestionType, type Status } from './api'
+import { questionUrl, requestJson } from './api'
+import type { LibraryList, LibraryView } from './library-view'
+export { libraryPageSizes, readLibraryView, type LibraryList, type LibraryView } from './library-view'
 
 export type StudyPreferences = Record<string, unknown>
-export type LibraryList = 'all' | 'wrong' | 'favorite'
-export type LibraryView = { search: string; type: QuestionType | ''; topic: string; status: Status | ''; limit: number; page: number }
-export const libraryPageSizes = [10, libraryPageSize, 30, 50]
 
-export function readLibraryView(value: unknown): LibraryView {
-  const saved = value as Partial<LibraryView> | undefined
-  return {
-    search: typeof saved?.search === 'string' ? saved.search.slice(0, 100) : '',
-    type: saved?.type === 'single' || saved?.type === 'multiple' ? saved.type : '',
-    topic: typeof saved?.topic === 'string' && /^[a-z0-9-]{1,50}$/i.test(saved.topic) ? saved.topic : '',
-    status: saved?.status && ['done', 'undone', 'wrong', 'favorite'].includes(saved.status) ? saved.status : '',
-    limit: typeof saved?.limit === 'number' && libraryPageSizes.includes(saved.limit) ? saved.limit : libraryPageSize,
-    page: typeof saved?.page === 'number' && Number.isSafeInteger(saved.page) && saved.page >= 0 && saved.page <= 2000 ? saved.page : 0,
+function libraryFields(value: unknown) {
+  return (value && typeof value === 'object' && !Array.isArray(value) ? value : {}) as Record<string, unknown>
+}
+
+function mergePreferences(values: StudyPreferences, edits: StudyPreferences): StudyPreferences {
+  const merged = { ...values }
+  for (const [name, value] of Object.entries(edits)) {
+    merged[name] = name.startsWith('library:') ? { ...libraryFields(merged[name]), ...libraryFields(value) } : value
   }
+  return merged
 }
 
 export function libraryPath(list: LibraryList, view: LibraryView, q = view.search.trim()) {
@@ -54,12 +53,18 @@ export function useAccountStudyPreferences(userId: string, remote: StudyPreferen
   const [stored] = useState(() => readStudyPreference(key) as { values?: StudyPreferences; pending?: StudyPreferences } | undefined)
   const hydrated = useStudyPreferencesReady()
   const [confirmed, setConfirmed] = useState<StudyPreferences>({})
+  const [lastRemote, setLastRemote] = useState(remote)
   const [pending, setPending] = useState<StudyPreferences>(stored?.pending ?? {})
   const [syncFailed, setSyncFailed] = useState(false)
   const queue = useRef<StudyPreferences>(stored?.pending ?? {})
   const cache = useRef<StudyPreferences>(stored?.values ?? {})
   const active = useRef(false)
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  if (remote && remote !== lastRemote) {
+    setLastRemote(remote)
+    setConfirmed((previous) => Object.fromEntries(Object.entries(previous).filter(([name]) => !name.startsWith('library:'))))
+  }
 
   const persist = useCallback(() => writeStudyPreference(key, { values: cache.current, pending: queue.current }), [key])
   const flush = useCallback(async (keepalive = false) => {
@@ -68,14 +73,22 @@ export function useAccountStudyPreferences(userId: string, remote: StudyPreferen
     try {
       while (Object.keys(queue.current).length) {
         const batch = Object.fromEntries(Object.entries(queue.current).slice(0, 32))
-        await requestJson('/api/me/preferences', {
+        const saved = await requestJson<{ preferences?: StudyPreferences }>('/api/me/preferences', {
           method: 'PUT', keepalive, headers: { 'Content-Type': 'application/json', 'X-Study-Account': userId },
           body: JSON.stringify(batch),
         })
         for (const [name, value] of Object.entries(batch)) {
           if (queue.current[name] === value) delete queue.current[name]
+          else if (name.startsWith('library:')) {
+            const sent = libraryFields(value)
+            const rest = Object.fromEntries(Object.entries(libraryFields(queue.current[name])).filter(([field, next]) => next !== sent[field]))
+            if (Object.keys(rest).length) queue.current[name] = rest
+            else delete queue.current[name]
+          }
         }
-        setConfirmed((previous) => ({ ...previous, ...batch }))
+        const acknowledged = saved.preferences ?? batch
+        cache.current = mergePreferences(mergePreferences(cache.current, acknowledged), queue.current)
+        setConfirmed((previous) => mergePreferences(previous, acknowledged))
         setPending({ ...queue.current })
         persist()
       }
@@ -89,7 +102,7 @@ export function useAccountStudyPreferences(userId: string, remote: StudyPreferen
 
   useEffect(() => {
     if (!remote) return
-    cache.current = { ...remote, ...confirmed, ...queue.current }
+    cache.current = mergePreferences(mergePreferences(remote, confirmed), queue.current)
     persist()
   }, [confirmed, persist, remote])
 
@@ -110,8 +123,8 @@ export function useAccountStudyPreferences(userId: string, remote: StudyPreferen
   }, [flush])
 
   const save = useCallback((edits: StudyPreferences) => {
-    Object.assign(queue.current, edits)
-    Object.assign(cache.current, edits)
+    queue.current = mergePreferences(queue.current, edits)
+    cache.current = mergePreferences(cache.current, edits)
     setPending({ ...queue.current })
     persist()
     if (timer.current) clearTimeout(timer.current)
@@ -119,7 +132,7 @@ export function useAccountStudyPreferences(userId: string, remote: StudyPreferen
   }, [flush, persist])
 
   return {
-    values: { ...(remote ?? stored?.values), ...confirmed, ...pending },
+    values: mergePreferences(mergePreferences(remote ?? stored?.values ?? {}, confirmed), pending),
     ready: hydrated && (stored?.values !== undefined || remote !== undefined || !loading),
     save, syncFailed, retry: flush,
   }

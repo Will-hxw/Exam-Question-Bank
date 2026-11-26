@@ -1,5 +1,6 @@
 import 'server-only'
 import { requireStudyAccount } from '@/features/auth/server'
+import { validLibraryEdits } from '@/features/study/library-view'
 import { practiceUndonePreference } from '@/features/study/practice-undone'
 import { query } from './db'
 import { HttpError, uuid } from './http'
@@ -10,11 +11,13 @@ export async function account(request: Request, writing = false) {
 
 export async function studyStats(user: string) {
   const [stats] = await query<{ attempted: number; wrong: number; favorites: number; preferences: Record<string, unknown> }>(`
-    SELECT count(*) FILTER (WHERE attempt_count > 0)::int AS attempted,
-           count(*) FILTER (WHERE is_wrong)::int AS wrong,
-           (SELECT count(*)::int FROM favorites WHERE user_id = $1) AS favorites,
+    SELECT count(*) FILTER (WHERE p.attempt_count > 0)::int AS attempted,
+           count(*) FILTER (WHERE p.is_wrong)::int AS wrong,
+           count(f.question_id)::int AS favorites,
            COALESCE((SELECT jsonb_object_agg(name, value) FROM study_preferences WHERE user_id = $1), '{}') AS preferences
-    FROM question_progress WHERE user_id = $1
+    FROM active_bank_questions q
+    LEFT JOIN question_progress p ON p.user_id = $1 AND p.question_id = q.id
+    LEFT JOIN favorites f ON f.user_id = $1 AND f.question_id = q.id
   `, [user])
   return stats
 }
@@ -26,7 +29,8 @@ function validPreference(name: string, value: unknown) {
     return typeof value === 'number' && Number.isSafeInteger(value) && value >= 0 && value <= 1000000
   }
   if (!['practice', 'library:all', 'library:wrong', 'library:favorite', 'exam'].includes(name)) return false
-  return value !== null && typeof value === 'object' && !Array.isArray(value) && JSON.stringify(value).length <= 1200
+  if (!value || typeof value !== 'object' || Array.isArray(value) || JSON.stringify(value).length > 1200) return false
+  return !name.startsWith('library:') || validLibraryEdits(value)
 }
 
 export async function saveStudyPreferences(user: string, edits: Record<string, unknown>) {
@@ -35,12 +39,15 @@ export async function saveStudyPreferences(user: string, edits: Record<string, u
     throw new HttpError(400, '学习设置格式有误。')
   }
   await query('INSERT INTO profiles (user_id) VALUES ($1) ON CONFLICT DO NOTHING', [user])
-  await query(`
+  const saved = await query<{ name: string; value: unknown }>(`
     INSERT INTO study_preferences (user_id, name, value)
     SELECT $1, key, value FROM jsonb_each($2::jsonb) ORDER BY key
-    ON CONFLICT (user_id, name) DO UPDATE SET value = EXCLUDED.value
+    ON CONFLICT (user_id, name) DO UPDATE SET value = CASE
+      WHEN EXCLUDED.name LIKE 'library:%' THEN study_preferences.value || EXCLUDED.value
+      ELSE EXCLUDED.value END
+    RETURNING name, value
   `, [user, JSON.stringify(edits)])
-  return { ok: true }
+  return { ok: true, preferences: Object.fromEntries(saved.map(({ name, value }) => [name, value])) }
 }
 
 export async function questionStates(user: string, ids: string[]) {
@@ -49,6 +56,7 @@ export async function questionStates(user: string, ids: string[]) {
     SELECT i.id, COALESCE(p.attempt_count > 0, false) AS attempted,
       COALESCE(p.is_wrong, false) AS "isWrong", f.question_id IS NOT NULL AS "isFavorite"
     FROM unnest($2::uuid[]) i(id)
+    JOIN active_bank_questions q ON q.id = i.id
     LEFT JOIN question_progress p ON p.user_id = $1 AND p.question_id = i.id
     LEFT JOIN favorites f ON f.user_id = $1 AND f.question_id = i.id
   `, [user, ids])

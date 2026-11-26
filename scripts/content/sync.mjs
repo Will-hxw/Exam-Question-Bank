@@ -83,6 +83,85 @@ async function insertParts(client, items) {
   `, [data])
 }
 
+async function practiceOrder(client) {
+  const { rows } = await client.query('SELECT id, topic_id, bank_position FROM active_bank_questions ORDER BY bank_position NULLS LAST, id')
+  const groups = new Map([['sequence', rows], ['random-undone', rows]])
+  for (const item of rows) {
+    const scope = `topic:${item.topic_id}`
+    if (!groups.has(scope)) groups.set(scope, [])
+    groups.get(scope).push(item)
+  }
+  return groups
+}
+
+async function restorePracticePositions(client, previous, ranks) {
+  const current = await practiceOrder(client)
+  const moves = []
+  for (const [scope, oldQuestions] of previous) {
+    const questions = current.get(scope) ?? []
+    const positions = new Map(questions.map(({ id }, index) => [id, index]))
+    for (const [index, { id }] of oldQuestions.entries()) {
+      let position = positions.get(id)
+      if (position === undefined) {
+        const next = questions.findIndex(({ bank_position }) => bank_position > ranks.get(id))
+        position = next < 0 ? Math.max(0, questions.length - 1) : next
+      }
+      if (position !== index) moves.push({ name: `practice-position:${scope}`, old_position: index, new_position: position })
+    }
+  }
+  if (moves.length) await client.query(`
+    UPDATE study_preferences p SET value = to_jsonb(m.new_position)
+    FROM jsonb_to_recordset($1::jsonb) m(name text, old_position int, new_position int)
+    WHERE p.name = m.name AND p.value = to_jsonb(m.old_position)
+  `, [JSON.stringify(moves)])
+}
+
+const personalPracticeMembership = `
+  CASE p.name WHEN 'practice-position:favorite' THEN EXISTS (
+    SELECT 1 FROM favorites f WHERE f.user_id = p.user_id AND f.question_id = q.id
+  ) ELSE EXISTS (
+    SELECT 1 FROM question_progress w WHERE w.user_id = p.user_id AND w.question_id = q.id AND w.is_wrong
+  ) END
+`
+
+async function personalPracticeAnchors(client) {
+  const { rows } = await client.query(`
+    WITH bookmarks AS MATERIALIZED (
+      SELECT user_id, name, value::text::int AS old_position
+      FROM study_preferences
+      WHERE name IN ('practice-position:favorite', 'practice-position:wrong')
+        AND value::text ~ '^[0-9]{1,7}$'
+    )
+    SELECT p.user_id, p.name, p.old_position, anchor.id
+    FROM bookmarks p
+    CROSS JOIN LATERAL (
+      SELECT q.id FROM active_bank_questions q
+      WHERE ${personalPracticeMembership}
+      ORDER BY q.bank_position NULLS LAST, q.id OFFSET p.old_position LIMIT 1
+    ) anchor
+  `)
+  return rows
+}
+
+async function restorePersonalPracticePositions(client, anchors) {
+  if (!anchors.length) return
+  await client.query(`
+    WITH moves AS (
+      SELECT p.user_id, p.name, p.old_position, GREATEST(0, LEAST(
+        count(q.id) - 1, count(q.id) FILTER (WHERE q.bank_position < slot.position)
+      ))::int AS new_position
+      FROM jsonb_to_recordset($1::jsonb) p(user_id text, name text, old_position int, id uuid)
+      JOIN question_bank_positions slot ON slot.question_id = p.id
+      LEFT JOIN active_bank_questions q ON ${personalPracticeMembership}
+      GROUP BY p.user_id, p.name, p.old_position, slot.position
+    )
+    UPDATE study_preferences p SET value = to_jsonb(m.new_position)
+    FROM moves m
+    WHERE p.user_id = m.user_id AND p.name = m.name AND p.value = to_jsonb(m.old_position)
+      AND m.old_position <> m.new_position
+  `, [JSON.stringify(anchors)])
+}
+
 export async function syncCatalog(client, catalog, indexes, { dryRun = true } = {}) {
   const released = makeRelease(catalog, indexes).manifest.release
   await client.query('BEGIN')
@@ -93,6 +172,12 @@ export async function syncCatalog(client, catalog, indexes, { dryRun = true } = 
     if (existing.some(item => !indexes.questionIndex.has(item.id))) {
       throw new Error('已使用的题目 ID 必须保留。下架题请将 state 设为 withdrawn。')
     }
+    const order = (await client.query('SELECT question_id, position FROM question_bank_positions')).rows
+    if (order.some(({ question_id, position }) => indexes.orderIndex.get(question_id) !== position)) {
+      throw new Error('已登记的题目位置不可调整。新题请追加到 question-order.json 末尾。')
+    }
+    const previousPositions = await practiceOrder(client)
+    const personalAnchors = await personalPracticeAnchors(client)
     await updateCatalog(client, catalog)
     const ids = catalog.questions.map(item => item.id)
     const data = JSON.stringify(catalog.questions.map(item => ({
@@ -122,6 +207,11 @@ export async function syncCatalog(client, catalog, indexes, { dryRun = true } = 
         emotion_only = excluded.emotion_only, emotion_reason = excluded.emotion_reason,
         order_locked = excluded.order_locked, content_revision = excluded.content_revision, updated_at = now()
     `, [data])
+    await client.query(`
+      INSERT INTO question_bank_positions (question_id, position)
+      SELECT id::uuid, position FROM jsonb_array_elements_text($1::jsonb) WITH ORDINALITY AS slots(id, position)
+      ON CONFLICT (question_id) DO NOTHING
+    `, [JSON.stringify(catalog.questionOrder)])
     await insertParts(client, JSON.parse(data))
     await client.query(`
       INSERT INTO duplicate_reviews (first_question_id, second_question_id, outcome, reviewer, reason)
@@ -137,6 +227,8 @@ export async function syncCatalog(client, catalog, indexes, { dryRun = true } = 
     await client.query("UPDATE questions SET status = 'quarantined' WHERE id = ANY($1::uuid[])", [withdrawn])
     await client.query("UPDATE questions SET status = 'approved' WHERE id = ANY($1::uuid[])", [approved])
     await client.query("UPDATE questions SET status = 'published' WHERE id = ANY($1::uuid[])", [published])
+    await restorePracticePositions(client, previousPositions, indexes.orderIndex)
+    await restorePersonalPracticePositions(client, personalAnchors)
     await client.query(`
       INSERT INTO content_release (digest) VALUES ($1)
       ON CONFLICT (singleton) DO UPDATE SET digest = excluded.digest, published_at = now()

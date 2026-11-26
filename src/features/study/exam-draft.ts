@@ -1,9 +1,11 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { type Question, StudyRequestError, writeJson } from './api'
+import { type Question, requestJson, StudyRequestError, writeJson } from './api'
+import {
+  decodeExamDraft, type ExamDraft, mergeExamDraft, sameExamAnswers, sameExamDraft, unsubmittedAnswerIds,
+} from './exam-draft-merge'
 
-export type ExamDraft = { answers: Record<string, string[]>; marked: string[]; position: number; revision: number }
 export type Exam = ExamDraft & {
   id: string
   status: 'draft' | 'submitted'
@@ -14,91 +16,166 @@ export type Exam = ExamDraft & {
   correctness?: Record<string, boolean>
 }
 
+type SyncStatus = 'synced' | 'local' | 'pending' | 'error' | 'conflict'
+type PendingMerge = ReturnType<typeof mergeExamDraft> & { cloud: ExamDraft }
+type FinishedExam = { exam: Exam; elsewhere: boolean }
+
+function uncertainWrite(error: unknown) {
+  return !(error instanceof StudyRequestError) || error.status >= 500
+}
+
+function draftKey(userId: string, examId: string) {
+  return `cqu-study-draft:${userId}:${examId}`
+}
+
 function answerData(draft: ExamDraft): ExamDraft {
   return { answers: draft.answers, marked: draft.marked, position: draft.position, revision: draft.revision }
 }
 
 function loadLocal(key: string) {
   try {
-    const serialized = localStorage.getItem(key)
-    if (serialized) {
-      const value = JSON.parse(serialized) as ExamDraft
-      if (value && Number.isSafeInteger(value.revision) && value.revision >= 0 && Number.isSafeInteger(value.position)
-        && value.position >= 0 && Array.isArray(value.marked) && value.marked.every((id) => typeof id === 'string')
-        && value.answers && typeof value.answers === 'object' && !Array.isArray(value.answers)
-        && Object.values(value.answers).every((ids) => Array.isArray(ids) && ids.every((id) => typeof id === 'string'))) return value
-    }
+    const raw = localStorage.getItem(key)
+    const stored = raw && decodeExamDraft(JSON.parse(raw))
+    if (stored) return { raw, stored }
   } catch { /* The remote copy is still usable. */ }
   return null
 }
 
-function sameIds(left: string[], right: string[]) {
-  return left.length === right.length && left.every((id) => right.includes(id))
-}
-
-function sameDraft(left: ExamDraft, right: ExamDraft) {
-  const ids = new Set([...Object.keys(left.answers), ...Object.keys(right.answers)])
-  return left.position === right.position && sameIds(left.marked, right.marked)
-    && [...ids].every((id) => sameIds(left.answers[id] ?? [], right.answers[id] ?? []))
+export function readLocalExamDraft(userId: string, examId: string) {
+  return loadLocal(draftKey(userId, examId))?.stored ?? null
 }
 
 export function useExamDraft(userId: string, exam: Exam) {
-  const localKey = `cqu-study-draft:${userId}:${exam.id}`
-  const [recovered] = useState(() => loadLocal(localKey))
-  const hasLocalChanges = Boolean(recovered && !sameDraft(recovered, exam))
-  const pending = hasLocalChanges && recovered?.revision === exam.revision
-  const unresolved = hasLocalChanges && !pending
-  const [draft, setDraft] = useState<ExamDraft>(() => pending && recovered ? recovered : answerData(exam))
-  const [syncStatus, setSyncStatus] = useState<'synced' | 'local' | 'pending' | 'error' | 'conflict'>(unresolved ? 'conflict' : pending ? 'local' : 'synced')
-  const latest = useRef(draft)
-  const dirty = useRef(pending)
-  const conflict = useRef(unresolved)
-  const inFlight = useRef<Promise<ExamDraft> | null>(null)
-  const storageTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
-
-  const persist = useCallback((snapshot: ExamDraft) => {
-    try {
-      localStorage.setItem(localKey, JSON.stringify(snapshot))
-      return true
-    } catch {
-      return false
+  const localKey = draftKey(userId, exam.id)
+  const path = `/api/exams/${exam.id}`
+  const [initial] = useState(() => {
+    const saved = loadLocal(localKey)
+    const cloud = answerData(exam)
+    const stored = saved?.stored
+    if (!stored || sameExamDraft(stored.draft, cloud)) {
+      return { draft: cloud, base: cloud, dirty: false, refresh: false, raw: saved?.raw, sent: null }
     }
+    const refresh = stored.draft.revision !== cloud.revision
+    return { draft: stored.draft, base: refresh ? stored.base : cloud, dirty: true, refresh, raw: saved?.raw, sent: stored.sent ?? null }
+  })
+  const [draft, setDraft] = useState(initial.draft)
+  const [syncStatus, setSyncStatus] = useState<SyncStatus>(initial.dirty ? 'local' : 'synced')
+  const [pendingMerge, setPendingMerge] = useState<PendingMerge | null>(null)
+  const [finished, setFinished] = useState<FinishedExam | null>(null)
+  const latest = useRef(draft)
+  const base = useRef(initial.base)
+  const dirty = useRef(initial.dirty)
+  const refreshNeeded = useRef(initial.refresh)
+  const pendingAck = useRef(initial.sent)
+  const merge = useRef<PendingMerge | null>(null)
+  const closed = useRef(false)
+  const inFlight = useRef<Promise<void> | null>(null)
+  const storageTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const storedValue = useRef(initial.raw)
+
+  const persist = useCallback(() => {
+    try {
+      const value = JSON.stringify({ draft: latest.current, base: base.current, sent: pendingAck.current ?? undefined })
+      localStorage.setItem(localKey, value)
+      storedValue.current = value
+      return true
+    } catch { return false }
   }, [localKey])
 
   const clearStored = useCallback(() => {
-    try { localStorage.removeItem(localKey) } catch { /* The server already has the saved draft. */ }
+    try {
+      if (storedValue.current !== undefined && localStorage.getItem(localKey) === storedValue.current) {
+        localStorage.removeItem(localKey)
+      }
+    } catch { /* The server already has the saved draft. */ }
   }, [localKey])
 
-  const flush = useCallback(async (keepalive = false): Promise<ExamDraft> => {
+  const adopt = useCallback((next: ExamDraft, cloud: ExamDraft) => {
+    base.current = cloud
+    latest.current = next
+    dirty.current = !sameExamDraft(next, cloud)
+    setDraft(next)
+    if (dirty.current) setSyncStatus(persist() ? 'local' : 'pending')
+    else {
+      clearStored()
+      setSyncStatus('synced')
+    }
+  }, [clearStored, persist])
+
+  const finish = useCallback((result: Exam, elsewhere: boolean) => {
+    closed.current = true
+    if (unsubmittedAnswerIds({ draft: latest.current, base: base.current }, result).length) persist()
+    else clearStored()
+    setFinished({ exam: result, elsewhere })
+  }, [clearStored, persist])
+
+  const readCloud = useCallback(async () => {
+    const { exam: remote } = await requestJson<{ exam: Exam }>(path, { headers: { 'X-Study-Account': userId } })
+    return remote
+  }, [path, userId])
+
+  const refresh = useCallback(async () => {
+    const remote = await readCloud()
+    refreshNeeded.current = false
+    if (remote.status === 'submitted') {
+      finish(remote, true)
+      return
+    }
+    const cloud = answerData(remote)
+    const sent = pendingAck.current
+    if (sent && cloud.revision === sent.revision + 1 && sameExamDraft(sent, cloud)) base.current = cloud
+    if (sent && cloud.revision > sent.revision) pendingAck.current = null
+    const proposed = mergeExamDraft(latest.current, cloud, base.current)
+    if (proposed.conflicts.length) {
+      merge.current = { ...proposed, cloud }
+      setPendingMerge(merge.current)
+      setSyncStatus('conflict')
+    } else {
+      adopt(proposed.draft, cloud)
+    }
+  }, [adopt, finish, readCloud])
+
+  const flush = useCallback(async (keepalive = false) => {
     if (inFlight.current) return inFlight.current
-    if (conflict.current) throw new StudyRequestError(409)
-    if (!dirty.current) return latest.current
+    if (closed.current || merge.current || (!dirty.current && !refreshNeeded.current)) return
     const operation = (async () => {
       try {
-        while (dirty.current) {
+        let conflicts = 0
+        while (!closed.current && !merge.current && (dirty.current || refreshNeeded.current)) {
+          if (refreshNeeded.current) {
+            if (keepalive) return
+            await refresh()
+            continue
+          }
           const snapshot = latest.current
-          const saved = await writeJson<{ revision: number }>(`/api/exams/${exam.id}?ack=1`, userId, 'PUT', snapshot, keepalive)
-          dirty.current = latest.current !== snapshot
-          latest.current = { ...latest.current, revision: saved.revision }
-          setDraft(latest.current)
-          if (dirty.current) persist(latest.current)
-          else clearStored()
+          if (!pendingAck.current) {
+            pendingAck.current = snapshot
+            persist()
+          }
+          try {
+            const { revision } = await writeJson<{ revision: number }>(path + '?ack=1', userId, 'PUT', snapshot, keepalive)
+            pendingAck.current = null
+            adopt({ ...latest.current, revision }, { ...snapshot, revision })
+          } catch (error) {
+            if (!uncertainWrite(error) && (!(error instanceof StudyRequestError) || error.status !== 409)) {
+              pendingAck.current = null
+              throw error
+            }
+            refreshNeeded.current = true
+            if (keepalive || ++conflicts >= 3) throw error
+          }
         }
-        setSyncStatus('synced')
-        return latest.current
       } catch (error) {
-        conflict.current = error instanceof StudyRequestError && error.status === 409
-        setSyncStatus(conflict.current ? 'conflict' : 'error')
+        setSyncStatus('error')
         throw error
-      } finally {
-        inFlight.current = null
       }
     })()
     inFlight.current = operation
-    return operation
-  }, [clearStored, exam.id, persist, userId])
+    try { await operation } finally { inFlight.current = null }
+  }, [adopt, path, persist, refresh, userId])
 
   useEffect(() => {
+    if (!dirty.current && !closed.current) clearStored()
     const restore = () => { void flush().catch(() => {}) }
     const leaving = () => { void flush(true).catch(() => {}) }
     const timer = setTimeout(restore, 800)
@@ -113,35 +190,59 @@ export function useExamDraft(userId: string, exam: Exam) {
       window.removeEventListener('online', restore)
       window.removeEventListener('pagehide', leaving)
     }
-  }, [flush])
+  }, [clearStored, flush])
 
-  function update(change: Partial<Omit<ExamDraft, 'revision'>>) {
-    if (conflict.current) return
-    const next = { ...latest.current, ...change }
+  function update(change: (current: ExamDraft) => Partial<Omit<ExamDraft, 'revision'>>) {
+    if (merge.current || closed.current) return
+    const next = { ...latest.current, ...change(latest.current) }
+    if (sameExamDraft(latest.current, next)) return
     latest.current = next
     dirty.current = true
     setDraft(next)
-    setSyncStatus(persist(next) ? 'local' : 'pending')
+    setSyncStatus(persist() ? 'local' : 'pending')
     if (storageTimer.current) clearTimeout(storageTimer.current)
     storageTimer.current = setTimeout(() => { void flush().catch(() => {}) }, 750)
   }
 
+  function resolve(choices: Record<string, 'local' | 'cloud'>) {
+    const review = merge.current
+    if (!review || !review.conflicts.every(({ id }) => choices[id])) return
+    const answers = { ...review.draft.answers }
+    for (const conflict of review.conflicts) answers[conflict.id] = conflict[choices[conflict.id]]
+    merge.current = null
+    setPendingMerge(null)
+    adopt({ ...review.draft, answers }, review.cloud)
+    void flush().catch(() => {})
+  }
+
+  // If a rebase changes the answers after the user clicks confirm, require confirmation again.
   async function submit() {
     if (storageTimer.current) clearTimeout(storageTimer.current)
-    const snapshot = await flush()
-    const { exam: result } = await writeJson<{ exam: Exam }>(`/api/exams/${exam.id}/submit`, userId, 'POST', snapshot)
-    clearStored()
-    return result
+    const confirmed = latest.current
+    await flush()
+    if (closed.current || merge.current) return false
+    const snapshot = latest.current
+    if (!sameExamAnswers(confirmed, snapshot)) return true
+    try {
+      const { exam: result } = await writeJson<{ exam: Exam }>(path + '/submit', userId, 'POST', snapshot)
+      finish(result, result.revision !== snapshot.revision + 1 || !sameExamAnswers(snapshot, result))
+      return false
+    } catch (error) {
+      if (!(error instanceof StudyRequestError) || error.status !== 409) {
+        if (uncertainWrite(error)) {
+          const result = await readCloud().catch(() => null)
+          if (result?.status === 'submitted') {
+            finish(result, result.revision !== snapshot.revision + 1 || !sameExamAnswers(snapshot, result))
+            return false
+          }
+        }
+        throw error
+      }
+      refreshNeeded.current = true
+      await flush()
+      return !closed.current && !merge.current
+    }
   }
 
-  function abandonLocalDraft() {
-    latest.current = answerData(exam)
-    dirty.current = false
-    conflict.current = false
-    setDraft(latest.current)
-    setSyncStatus('synced')
-    clearStored()
-  }
-
-  return { draft, update, flush, submit, syncStatus, abandonLocalDraft }
+  return { draft, update, flush, submit, syncStatus, pendingMerge, resolve, finished }
 }

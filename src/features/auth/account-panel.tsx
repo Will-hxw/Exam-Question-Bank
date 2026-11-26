@@ -1,6 +1,5 @@
 "use client"
 
-import Link from "next/link"
 import { useState } from "react"
 import { authClient } from "./client"
 import { AuthScreen } from "./auth-screen"
@@ -37,7 +36,8 @@ export function AccountPanel({ email }: { email: string }) {
         </button>
       </div>
       <p className={styles.footer}>
-        <Link href="/" className={styles.link}>返回练习</Link>
+        {/* eslint-disable-next-line @next/next/no-html-link-for-pages -- A fresh document avoids reopening a cached footer fragment. */}
+        <a href="/" className={styles.link}>返回练习</a>
       </p>
     </AuthScreen>
   )

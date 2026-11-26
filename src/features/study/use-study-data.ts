@@ -39,8 +39,9 @@ export function createPersonalStudyReads(userId: string) {
 export function useStudyData<T>(path: string | null, revision = 0, {
   keepPreviousData = false, load, peek,
 }: { keepPreviousData?: boolean; load?: (path: string) => Promise<T>; peek?: (path: string) => T | undefined } = {}) {
-  const [retryCount, setRetryCount] = useState(0)
-  const key = `${path}:${retryCount}:${revision}`
+  const [retry, setRetry] = useState<{ count: number; override?: { path: string; load: (path: string) => Promise<T> } }>({ count: 0 })
+  const key = `${path}:${retry.count}:${revision}`
+  const freshLoad = retry.override?.path === path ? retry.override.load : undefined
   const [state, setState] = useState<DataState<T>>(() => {
     const cached = path ? peek?.(path) ?? (path.startsWith('/api/public/') ? cachedPublic<T>(path) : undefined) : undefined
     return { key: cached === undefined ? '' : key, path, data: cached ?? null, error: null }
@@ -48,7 +49,7 @@ export function useStudyData<T>(path: string | null, revision = 0, {
 
   useEffect(() => {
     if (!path?.startsWith('/api/public/')) return
-    const refresh = () => setRetryCount((count) => count + 1)
+    const refresh = () => setRetry((current) => ({ ...current, count: current.count + 1 }))
     window.addEventListener(bankReleaseEvent, refresh)
     return () => window.removeEventListener(bankReleaseEvent, refresh)
   }, [path])
@@ -56,7 +57,7 @@ export function useStudyData<T>(path: string | null, revision = 0, {
   useEffect(() => {
     if (!path) return
     let active = true
-    const get = load ?? (path.startsWith('/api/public/') ? readPublic<T> : requestJson<T>)
+    const get = freshLoad ?? load ?? (path.startsWith('/api/public/') ? readPublic<T> : requestJson<T>)
     void get(path).then((data) => {
       if (active) setState({ key, path, data, error: null })
     }, (error: unknown) => {
@@ -64,15 +65,18 @@ export function useStudyData<T>(path: string | null, revision = 0, {
       if (active) setState({ key, path, data: null, error: message })
     })
     return () => { active = false }
-  }, [key, path, load])
+  }, [key, path, load, freshLoad])
 
   const current = state.key === key
-  const snapshot = !current && path ? peek?.(path) ?? (path.startsWith('/api/public/') ? cachedPublic<T>(path) : undefined) : undefined
+  const snapshot = !current && path && !freshLoad ? peek?.(path) ?? (path.startsWith('/api/public/') ? cachedPublic<T>(path) : undefined) : undefined
   return {
     data: current ? state.data : snapshot ?? (keepPreviousData && path === state.path ? state.data : null),
     error: current ? state.error : null,
     loading: Boolean(path && !current && snapshot === undefined),
-    retry: () => setRetryCount((count) => count + 1),
+    retry: () => setRetry((current) => ({ ...current, count: current.count + 1 })),
+    reload: (load: (path: string) => Promise<T>) => {
+      if (path) setRetry((current) => ({ count: current.count + 1, override: { path, load } }))
+    },
   }
 }
 

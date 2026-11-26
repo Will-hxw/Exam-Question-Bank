@@ -401,3 +401,33 @@ test('replay migration preserves existing drafts and shuffles new replays at the
   assert.notEqual(singleReplay, single)
   assert.deepEqual(await order(singleReplay), ids.slice(0, 1))
 })
+
+test('retirement clears live state, preserves grades, and excludes the retired item from new replays', async () => {
+  const owner = 'retired-exam-questions'
+  const [removed, kept] = questions.slice(3, 5)
+  const query = async (sql, params) => (await pool.query(sql, params)).rows[0]
+  const start = async () => (await query('SELECT start_exam($1,$2) AS id', [owner, [removed.id, kept.id]])).id
+  const submit = async (id) => (await query(
+    "SELECT update_exam($1,$2,0,0,'{}'::uuid[],$3,true) AS status",
+    [owner, id, JSON.stringify({ [removed.id]: [removed.correct], [kept.id]: [kept.correct] })],
+  )).status
+  const source = await start()
+  assert.equal(await submit(source), 'ok')
+  assert.equal((await query('SELECT set_favorite($1,$2,true) AS ok', [owner, removed.id])).ok, true)
+  const draft = await start()
+  const reserved = await query('SELECT position FROM question_bank_positions WHERE question_id=$1', [removed.id])
+  assert.ok(reserved.position > 0)
+  await pool.query("UPDATE questions SET status='quarantined' WHERE id=$1", [removed.id])
+  assert.equal(await query('SELECT 1 FROM active_bank_questions WHERE id=$1', [removed.id]), undefined)
+  assert.equal(await query('SELECT 1 FROM favorites WHERE user_id=$1 AND question_id=$2', [owner, removed.id]), undefined)
+  assert.equal(await query('SELECT 1 FROM question_progress WHERE user_id=$1 AND question_id=$2', [owner, removed.id]), undefined)
+  assert.equal(await submit(draft), 'ok')
+  assert.equal((await query('SELECT score FROM exam_sessions WHERE id=$1', [draft])).score, 2)
+  assert.equal((await query('SELECT count(*)::int AS total FROM attempts WHERE user_id=$1 AND question_id=$2', [owner, removed.id])).total, 1)
+  assert.deepEqual(await query('SELECT position FROM question_bank_positions WHERE question_id=$1', [removed.id]), reserved)
+  assert.equal((await query('SELECT exam_snapshot($1,$2) AS exam', [owner, source])).exam.items.length, 2)
+  const replay = await query('SELECT exam_id, outcome FROM replay_exam($1,$2)', [owner, source])
+  assert.equal(replay.outcome, 'ok')
+  const snapshot = (await query('SELECT exam_snapshot($1,$2) AS exam', [owner, replay.exam_id])).exam
+  assert.deepEqual(snapshot.items.map(({ id }) => id), [kept.id])
+})
