@@ -3863,7 +3863,9 @@
     "state": "ready",
     "topicId": "t14",
     "knowledgePointId": "fe666235-56bf-419a-9b03-fe3054e08cc0",
-    "relatedKnowledgePointIds": [],
+    "relatedKnowledgePointIds": [
+      "a937c269-77d9-4794-99ac-1f748b16a150"
+    ],
     "type": "single",
     "stem": "“十五五”规划《建议》分领域战略任务的第一项是建设现代化产业体系、巩固壮大（ ）根基。",
     "scopeNote": "二十届四中全会公报及“十五五”《建议》、说明",
@@ -3949,8 +3951,8 @@
         ],
         "decision": "approved",
         "emotionOnly": false,
-        "notes": "正确项摘取原首项任务标题的实质落点，沿用原D的UUID。原误项是别的整章标题，新误项换作其他经济类别并各分配新UUID。",
-        "digest": "881171471f30e1869b2557c152b7b35c4a987072c1cac13168b592a93bdf4830"
+        "notes": "正确项摘取原首项任务标题的实质落点，沿用原D的UUID。原误项是别的整章标题，新误项换作其他经济类别并各分配新UUID。 本轮去重合并同一答点及过度相似的知识点关联，沿用已独立复核的题干、选项、答案和解析。",
+        "digest": "c8f20cc345f747a29e84610c259b5faaafc3d7b73848a6bf297dccb3c774b413"
       },
       "independent": {
         "reviewer": "Codex platform",
@@ -3960,8 +3962,8 @@
         ],
         "decision": "approved",
         "emotionOnly": false,
-        "notes": "C与《建议》第三部分标题一致。《说明》把产业发展列为分论首项；A数字经济另见《建议》第14项的融合部署，B民营经济和D县域经济均非此标题的用语。同类短名词，题干可按原文定位唯一一空。",
-        "digest": "881171471f30e1869b2557c152b7b35c4a987072c1cac13168b592a93bdf4830"
+        "notes": "C与《建议》第三部分标题一致。《说明》把产业发展列为分论首项；A数字经济另见《建议》第14项的融合部署，B民营经济和D县域经济均非此标题的用语。同类短名词，题干可按原文定位唯一一空。 本轮去重合并同一答点及过度相似的知识点关联，沿用已独立复核的题干、选项、答案和解析。",
+        "digest": "c8f20cc345f747a29e84610c259b5faaafc3d7b73848a6bf297dccb3c774b413"
       }
     }
   },
@@ -4393,7 +4395,9 @@
     "state": "ready",
     "topicId": "t14",
     "knowledgePointId": "eb0c04dc-af65-497b-8e93-6d2bff423f54",
-    "relatedKnowledgePointIds": [],
+    "relatedKnowledgePointIds": [
+      "40a9b481-bd84-43b3-b327-0a3d7e603871"
+    ],
     "type": "multiple",
     "stem": "“十五五”规划《建议》第五部分关于建设强大国内市场的具体任务有哪些？",
     "scopeNote": "二十届四中全会公报及“十五五”《建议》、说明",
@@ -4478,8 +4482,8 @@
         ],
         "decision": "approved",
         "emotionOnly": false,
-        "notes": "根据已公开正式原文缩短题干和干扰项，保留原知识点与正确选项标识。",
-        "digest": "9aae1607ffaf763620fa62c61c1b0761f969909fdaf6e560dee0f3a32878d278"
+        "notes": "根据已公开正式原文缩短题干和干扰项，保留原知识点与正确选项标识。 本轮去重合并同一答点及过度相似的知识点关联，沿用已独立复核的题干、选项、答案和解析。",
+        "digest": "e4397194aecaa8ce79b4bbde0252110c34ed36e759075b01e8ca8c59f35373a9"
       },
       "independent": {
         "reviewer": "Codex platform",
@@ -4491,8 +4495,8 @@
         ],
         "decision": "approved",
         "emotionOnly": false,
-        "notes": "D为第五部分第（15）项大力提振消费，A为第（16）项扩大有效投资，C为第（17）项破除阻碍全国统一大市场建设的卡点堵点。B在第七部分第（21）项。修订后的章节限定使范围清楚，正确项与原题一致。",
-        "digest": "9aae1607ffaf763620fa62c61c1b0761f969909fdaf6e560dee0f3a32878d278"
+        "notes": "D为第五部分第（15）项大力提振消费，A为第（16）项扩大有效投资，C为第（17）项破除阻碍全国统一大市场建设的卡点堵点。B在第七部分第（21）项。修订后的章节限定使范围清楚，正确项与原题一致。 本轮去重合并同一答点及过度相似的知识点关联，沿用已独立复核的题干、选项、答案和解析。",
+        "digest": "e4397194aecaa8ce79b4bbde0252110c34ed36e759075b01e8ca8c59f35373a9"
       }
     }
   },
@@ -13925,7 +13929,7 @@
   },
   {
     "id": "8b47fda8-1b5e-47f4-bcbe-4d1a457e37df",
-    "state": "ready",
+    "state": "withdrawn",
     "topicId": "t05",
     "knowledgePointId": "40a9b481-bd84-43b3-b327-0a3d7e603871",
     "relatedKnowledgePointIds": [],
@@ -14134,7 +14138,7 @@
   },
   {
     "id": "3dfc9bdd-f0e4-426d-a132-dcb8a3568fcf",
-    "state": "ready",
+    "state": "withdrawn",
     "topicId": "t05",
     "knowledgePointId": "a937c269-77d9-4794-99ac-1f748b16a150",
     "relatedKnowledgePointIds": [],
@@ -23155,7 +23159,7 @@
   },
   {
     "id": "7d9b912a-d0b0-4d88-98e3-195962fed7eb",
-    "state": "ready",
+    "state": "withdrawn",
     "topicId": "t04",
     "knowledgePointId": "6a522386-b596-48d4-a93a-a298267cdbaa",
     "relatedKnowledgePointIds": [],
@@ -26836,7 +26840,7 @@
   },
   {
     "id": "f58c963a-f1de-40ca-9fc7-df7bacf4588e",
-    "state": "ready",
+    "state": "withdrawn",
     "topicId": "t01",
     "knowledgePointId": "de500f79-8979-46ea-a9be-c70df786e24c",
     "relatedKnowledgePointIds": [],
@@ -33679,7 +33683,7 @@
   },
   {
     "id": "ca5dd9cd-bde4-49e5-b873-f71132bf29bc",
-    "state": "ready",
+    "state": "withdrawn",
     "topicId": "t01",
     "knowledgePointId": "ecf9754b-c127-41d8-acb0-e4cc118c001d",
     "relatedKnowledgePointIds": [],
@@ -35311,7 +35315,7 @@
   },
   {
     "id": "894f872c-dad3-43aa-8ce4-b0f8f9e5f4e4",
-    "state": "ready",
+    "state": "withdrawn",
     "topicId": "t09",
     "knowledgePointId": "18b48d88-96dc-44c1-968e-d24000c68181",
     "relatedKnowledgePointIds": [],
@@ -36232,7 +36236,9 @@
     "state": "ready",
     "topicId": "t04",
     "knowledgePointId": "f991cd66-f760-4b9e-b8a4-ba3e4f7bcf9a",
-    "relatedKnowledgePointIds": [],
+    "relatedKnowledgePointIds": [
+      "854d333f-ffe4-4a6e-8e04-9be2e2d3adc4"
+    ],
     "type": "single",
     "stem": "2024年福建考察讲话指出，衡量干部业绩好不好，关键要看（ ）。",
     "scopeNote": "2026年学习教育，列入第52期考试范围和第53期培训内容。",
@@ -36313,8 +36319,8 @@
         ],
         "decision": "approved",
         "emotionOnly": false,
-        "notes": "已检查官方文字段落和相邻句、现有题库的原子事实以及批次48与51。结论待独立盲审。",
-        "digest": "3e36a7337ad2dd1ea1513e2a84631f2ae65732a8b81e434a4ecae07586ab8afe"
+        "notes": "已检查官方文字段落和相邻句、现有题库的原子事实以及批次48与51。结论待独立盲审。 本轮去重合并同一答点及过度相似的知识点关联，沿用已独立复核的题干、选项、答案和解析。",
+        "digest": "dc03aa6767b07ae46f94a59ff0e296bea2a9ff4341ca5d41a5bc31140a7ce11e"
       },
       "independent": {
         "reviewer": "Codex baseline",
@@ -36324,8 +36330,8 @@
         ],
         "decision": "approved",
         "emotionOnly": false,
-        "notes": "讲话把老百姓口碑作为衡量干部业绩的关键。A考核名次、C项目投资规模、D机关内部评价都未获此定位。现库2018年分类考核题问地区和岗位的差异，与本题所问评价标准不同。",
-        "digest": "3e36a7337ad2dd1ea1513e2a84631f2ae65732a8b81e434a4ecae07586ab8afe"
+        "notes": "讲话把老百姓口碑作为衡量干部业绩的关键。A考核名次、C项目投资规模、D机关内部评价都未获此定位。现库2018年分类考核题问地区和岗位的差异，与本题所问评价标准不同。 本轮去重合并同一答点及过度相似的知识点关联，沿用已独立复核的题干、选项、答案和解析。",
+        "digest": "dc03aa6767b07ae46f94a59ff0e296bea2a9ff4341ca5d41a5bc31140a7ce11e"
       }
     }
   },
@@ -37759,7 +37765,7 @@
   },
   {
     "id": "84435bac-b33c-478f-8089-61be6eca34cb",
-    "state": "ready",
+    "state": "withdrawn",
     "topicId": "t09",
     "knowledgePointId": "47a25c33-18ca-4be9-a7e8-3b828e572ea0",
     "relatedKnowledgePointIds": [],
@@ -51028,7 +51034,7 @@
   },
   {
     "id": "f71ca0b6-8c78-4ede-bfb9-cbf48d90035e",
-    "state": "ready",
+    "state": "withdrawn",
     "topicId": "t08",
     "knowledgePointId": "0c2d1efc-28ed-4e93-b672-ac12d8d3a4e3",
     "relatedKnowledgePointIds": [],
@@ -53884,7 +53890,7 @@
   },
   {
     "id": "70e60a81-611b-429e-b68b-4d9a51f0a698",
-    "state": "ready",
+    "state": "withdrawn",
     "topicId": "t13",
     "knowledgePointId": "f55cb18e-6d3e-478c-8862-4c3e2a8d6efc",
     "relatedKnowledgePointIds": [],
@@ -55330,7 +55336,9 @@
     "state": "ready",
     "topicId": "t01",
     "knowledgePointId": "f4354143-8b56-4f99-8680-6b512bdba9b4",
-    "relatedKnowledgePointIds": [],
+    "relatedKnowledgePointIds": [
+      "de500f79-8979-46ea-a9be-c70df786e24c"
+    ],
     "type": "single",
     "stem": "在庆祝中国共产党成立95周年大会上，习近平把“四个自信”中的哪一项称为更基础、更广泛、更深厚的自信？",
     "scopeNote": "2026-11-26 扩库。按所引题源和判答依据各自的时点与适用范围。",
@@ -55411,8 +55419,8 @@
         ],
         "decision": "approved",
         "emotionOnly": false,
-        "notes": "复核原题定位、现行判答原文、备选项与解析。",
-        "digest": "13b4e41ce840d7e684c3d907f07f5d2983cc4046f5f94b56c8122e4608f67eb7"
+        "notes": "复核原题定位、现行判答原文、备选项与解析。 本轮去重合并同一答点及过度相似的知识点关联，沿用已独立复核的题干、选项、答案和解析。",
+        "digest": "d4f843fdbe227c324dd8d258d6895b4ef7d917d8729fc8076d1dd3cc2a4d4d3a"
       },
       "independent": {
         "reviewer": "Codex 主线程原文盲审",
@@ -55422,8 +55430,8 @@
         ],
         "decision": "approved",
         "emotionOnly": false,
-        "notes": "建党 95 周年讲话的四个自信段明确指出文化自信更基础、更广泛、更深厚。 盲审选项文本已复配到发布顺序。发布各位置对应盲卡 BDAC，独立选择 D 对应发布位置 B。",
-        "digest": "13b4e41ce840d7e684c3d907f07f5d2983cc4046f5f94b56c8122e4608f67eb7"
+        "notes": "建党 95 周年讲话的四个自信段明确指出文化自信更基础、更广泛、更深厚。 盲审选项文本已复配到发布顺序。发布各位置对应盲卡 BDAC，独立选择 D 对应发布位置 B。 本轮去重合并同一答点及过度相似的知识点关联，沿用已独立复核的题干、选项、答案和解析。",
+        "digest": "d4f843fdbe227c324dd8d258d6895b4ef7d917d8729fc8076d1dd3cc2a4d4d3a"
       }
     }
   },
@@ -58816,7 +58824,9 @@
     "state": "ready",
     "topicId": "t04",
     "knowledgePointId": "587c8929-ec0d-477a-88b8-3e3f568dc4ac",
-    "relatedKnowledgePointIds": [],
+    "relatedKnowledgePointIds": [
+      "6a522386-b596-48d4-a93a-a298267cdbaa"
+    ],
     "type": "single",
     "stem": "习近平在2026年1月省部级主要领导干部专题研讨班讲话中指出，创造真正造福人民的业绩，要从实际出发、按规律办事，并通过（ ）。",
     "scopeNote": "2026-11-26 扩库。按所引题源和判答依据各自的时点与适用范围。",
@@ -58897,8 +58907,8 @@
         ],
         "decision": "approved",
         "emotionOnly": false,
-        "notes": "已逐项按所列来源核对题干、答案和干扰项。",
-        "digest": "305914e199a2ec27789379bb070c0c3b9ec1ef3e92e7319ca364d77b5065aea2"
+        "notes": "已逐项按所列来源核对题干、答案和干扰项。 本轮去重合并同一答点及过度相似的知识点关联，沿用已独立复核的题干、选项、答案和解析。",
+        "digest": "0b076422d1b337a56ae6bb3f8016703b8902a2a1188626b4837454e8e0212be6"
       },
       "independent": {
         "reviewer": "Codex 高校线独立盲审",
@@ -58908,8 +58918,8 @@
         ],
         "decision": "approved",
         "emotionOnly": false,
-        "notes": "S49第二十五节将科学决策和实干苦干并列为路径；传播和考核不能代替二者。",
-        "digest": "305914e199a2ec27789379bb070c0c3b9ec1ef3e92e7319ca364d77b5065aea2"
+        "notes": "S49第二十五节将科学决策和实干苦干并列为路径；传播和考核不能代替二者。 本轮去重合并同一答点及过度相似的知识点关联，沿用已独立复核的题干、选项、答案和解析。",
+        "digest": "0b076422d1b337a56ae6bb3f8016703b8902a2a1188626b4837454e8e0212be6"
       }
     }
   },
@@ -61092,7 +61102,9 @@
     "state": "ready",
     "topicId": "t06",
     "knowledgePointId": "cf3d9067-9ece-4407-8861-6d57a5a178a9",
-    "relatedKnowledgePointIds": [],
+    "relatedKnowledgePointIds": [
+      "ecf9754b-c127-41d8-acb0-e4cc118c001d"
+    ],
     "type": "single",
     "stem": "邓小平在南方谈话中阐述社会主义本质时，将哪一项作为最终达到的目标？",
     "scopeNote": "2026-11-26 扩库。按所引题源和判答依据各自的时点与适用范围。",
@@ -61173,8 +61185,8 @@
         ],
         "decision": "approved",
         "emotionOnly": false,
-        "notes": "已对照定位的高校题面和现行判答依据，复核全部选项。",
-        "digest": "05bc62c7c44ed515a12e4fdf9fdb50e451421dbed450ccd2d2f0a7f90330f983"
+        "notes": "已对照定位的高校题面和现行判答依据，复核全部选项。 本轮去重合并同一答点及过度相似的知识点关联，沿用已独立复核的题干、选项、答案和解析。",
+        "digest": "a46bf1e18f17d5a8b86d71f07ca1eabcbe52c95661d16a79834a74b54b46bea9"
       },
       "independent": {
         "reviewer": "Codex 官方题源组盲审",
@@ -61184,8 +61196,8 @@
         ],
         "decision": "approved",
         "emotionOnly": false,
-        "notes": "1992年南方谈话条概括社会主义本质最终达到共同富裕。共同富裕并非把收入拉齐或取消一切差异。 盲审选项文本已复配到发布顺序。发布各位置对应盲卡 DBCA，独立选择 A 对应发布位置 D。",
-        "digest": "05bc62c7c44ed515a12e4fdf9fdb50e451421dbed450ccd2d2f0a7f90330f983"
+        "notes": "1992年南方谈话条概括社会主义本质最终达到共同富裕。共同富裕并非把收入拉齐或取消一切差异。 盲审选项文本已复配到发布顺序。发布各位置对应盲卡 DBCA，独立选择 A 对应发布位置 D。 本轮去重合并同一答点及过度相似的知识点关联，沿用已独立复核的题干、选项、答案和解析。",
+        "digest": "a46bf1e18f17d5a8b86d71f07ca1eabcbe52c95661d16a79834a74b54b46bea9"
       }
     }
   },
@@ -64377,7 +64389,7 @@
   },
   {
     "id": "8dbc72a1-be32-41b7-9afc-e73cd98d53bd",
-    "state": "ready",
+    "state": "withdrawn",
     "topicId": "t07",
     "knowledgePointId": "e25d04ef-0866-4ca8-915c-82d93b9c9370",
     "relatedKnowledgePointIds": [],
@@ -64992,7 +65004,9 @@
     "state": "ready",
     "topicId": "t07",
     "knowledgePointId": "9ecf4277-8b9b-4462-8662-bee225c6e1c8",
-    "relatedKnowledgePointIds": [],
+    "relatedKnowledgePointIds": [
+      "f55cb18e-6d3e-478c-8862-4c3e2a8d6efc"
+    ],
     "type": "single",
     "stem": "依据党章，党选拔干部所遵循的德才原则应当如何完整表述？",
     "scopeNote": "2026-11-26 扩库。按所引题源和判答依据各自的时点与适用范围。",
@@ -65073,8 +65087,8 @@
         ],
         "decision": "approved",
         "emotionOnly": false,
-        "notes": "已对照定位的高校题面和现行判答依据，复核全部选项。",
-        "digest": "a89e44752d8262539ec95956598991c03950046296101d679dcfeddc30186f38"
+        "notes": "已对照定位的高校题面和现行判答依据，复核全部选项。 本轮去重合并同一答点及过度相似的知识点关联，沿用已独立复核的题干、选项、答案和解析。",
+        "digest": "3b146e0d932b41510f2b67025c81b929f650d5d517215067d6a71716974b62e6"
       },
       "independent": {
         "reviewer": "Codex 官方题源组盲审",
@@ -65084,8 +65098,8 @@
         ],
         "decision": "approved",
         "emotionOnly": false,
-        "notes": "党章第三十五条第一款明确德才兼备、以德为先，其他选项把德才原则转为业绩或资历优先。",
-        "digest": "a89e44752d8262539ec95956598991c03950046296101d679dcfeddc30186f38"
+        "notes": "党章第三十五条第一款明确德才兼备、以德为先，其他选项把德才原则转为业绩或资历优先。 本轮去重合并同一答点及过度相似的知识点关联，沿用已独立复核的题干、选项、答案和解析。",
+        "digest": "3b146e0d932b41510f2b67025c81b929f650d5d517215067d6a71716974b62e6"
       }
     }
   },
@@ -68190,7 +68204,10 @@
     "state": "ready",
     "topicId": "t09",
     "knowledgePointId": "9e1e76fc-7437-412a-ba8f-838047eb891c",
-    "relatedKnowledgePointIds": [],
+    "relatedKnowledgePointIds": [
+      "18b48d88-96dc-44c1-968e-d24000c68181",
+      "47a25c33-18ca-4be9-a7e8-3b828e572ea0"
+    ],
     "type": "multiple",
     "stem": "党的二十大报告要求持续纠治“四风”，并把哪两种作风问题列为重点纠治对象？",
     "scopeNote": "2026-11-26 扩库。按所引题源和判答依据各自的时点与适用范围。",
@@ -68273,8 +68290,8 @@
         ],
         "decision": "approved",
         "emotionOnly": false,
-        "notes": "复核原题定位、现行判答原文、备选项与解析。",
-        "digest": "9044da906c29c9b369cc673c8f5327008f781ded63c862bdd67c46d0a8b23aa1"
+        "notes": "复核原题定位、现行判答原文、备选项与解析。 本轮去重合并同一答点及过度相似的知识点关联，沿用已独立复核的题干、选项、答案和解析。",
+        "digest": "a7d0576d760f37817fbac3c14b86b2200bb329a15eeaf406e361a8074305c92a"
       },
       "independent": {
         "reviewer": "Codex 主线程原文盲审",
@@ -68285,8 +68302,8 @@
         ],
         "decision": "approved",
         "emotionOnly": false,
-        "notes": "报告第十五部分第（六）项明确将形式主义和官僚主义列为深化纠治四风的重点对象。 盲审选项文本已复配到发布顺序。发布各位置对应盲卡 BDAC，独立选择 BC 对应发布位置 AD。",
-        "digest": "9044da906c29c9b369cc673c8f5327008f781ded63c862bdd67c46d0a8b23aa1"
+        "notes": "报告第十五部分第（六）项明确将形式主义和官僚主义列为深化纠治四风的重点对象。 盲审选项文本已复配到发布顺序。发布各位置对应盲卡 BDAC，独立选择 BC 对应发布位置 AD。 本轮去重合并同一答点及过度相似的知识点关联，沿用已独立复核的题干、选项、答案和解析。",
+        "digest": "a7d0576d760f37817fbac3c14b86b2200bb329a15eeaf406e361a8074305c92a"
       }
     }
   },
@@ -68499,7 +68516,9 @@
     "state": "ready",
     "topicId": "t09",
     "knowledgePointId": "b44aa6d3-0388-45d4-8783-ab3dacc81bc9",
-    "relatedKnowledgePointIds": [],
+    "relatedKnowledgePointIds": [
+      "0c2d1efc-28ed-4e93-b672-ac12d8d3a4e3"
+    ],
     "type": "single",
     "stem": "管理对象请负责审批的党员干部吃饭。依据纪律处分条例第一百零一条，认定接受该宴请违纪所需判断的条件是什么？",
     "scopeNote": "2026-11-26 扩库。按所引题源和判答依据各自的时点与适用范围。",
@@ -68580,8 +68599,8 @@
         ],
         "decision": "approved",
         "emotionOnly": false,
-        "notes": "复核原题定位、现行判答原文、备选项与解析。",
-        "digest": "e9a5395ca74af4f1fab4d4cdae92424608bbebabd7970f497ecbec6ec6eee138"
+        "notes": "复核原题定位、现行判答原文、备选项与解析。 本轮去重合并同一答点及过度相似的知识点关联，沿用已独立复核的题干、选项、答案和解析。",
+        "digest": "6859b276e7ff4a03286a2dc3dfba9652f36a7e6d9545544525392d3ebf8b4274"
       },
       "independent": {
         "reviewer": "Codex 主线程原文盲审",
@@ -68591,8 +68610,8 @@
         ],
         "decision": "approved",
         "emotionOnly": false,
-        "notes": "纪律处分条例第一百零一条把可能影响公正执行公务作为所规范的宴请特征，情节处分另有档次。 盲审选项文本已复配到发布顺序。发布各位置对应盲卡 CABD，独立选择 C 对应发布位置 A。",
-        "digest": "e9a5395ca74af4f1fab4d4cdae92424608bbebabd7970f497ecbec6ec6eee138"
+        "notes": "纪律处分条例第一百零一条把可能影响公正执行公务作为所规范的宴请特征，情节处分另有档次。 盲审选项文本已复配到发布顺序。发布各位置对应盲卡 CABD，独立选择 C 对应发布位置 A。 本轮去重合并同一答点及过度相似的知识点关联，沿用已独立复核的题干、选项、答案和解析。",
+        "digest": "6859b276e7ff4a03286a2dc3dfba9652f36a7e6d9545544525392d3ebf8b4274"
       }
     }
   },
@@ -72636,7 +72655,9 @@
     "state": "ready",
     "topicId": "t12",
     "knowledgePointId": "2cb869b5-00c8-4027-a6b1-2493519507b5",
-    "relatedKnowledgePointIds": [],
+    "relatedKnowledgePointIds": [
+      "e25d04ef-0866-4ca8-915c-82d93b9c9370"
+    ],
     "type": "single",
     "stem": "党员提出教育培训要求，参加党组织安排的集中轮训或网络培训，主要行使的是哪项权利？",
     "scopeNote": "2026-11-26 扩库。按所引题源和判答依据各自的时点与适用范围。",
@@ -72717,8 +72738,8 @@
         ],
         "decision": "approved",
         "emotionOnly": false,
-        "notes": "逐项对照题卡所列现行原文，核对适用范围与选项排他性。",
-        "digest": "bbb85cfcba12284c90634300d3d3dfeeb11367708e8a3bc2704d55ac44ad6914"
+        "notes": "逐项对照题卡所列现行原文，核对适用范围与选项排他性。 本轮去重合并同一答点及过度相似的知识点关联，沿用已独立复核的题干、选项、答案和解析。",
+        "digest": "70c04685b3891218d44f55c03c22f420a16d33256b569c3f42eb4700d82243fb"
       },
       "independent": {
         "reviewer": "Codex current-source reviewer",
@@ -72728,8 +72749,8 @@
         ],
         "decision": "approved",
         "emotionOnly": false,
-        "notes": "第八条直接列出主动提出教育培训要求、集中轮训和网络培训。请求权、申诉权和控告权有各自对象。 盲审选项文本已复配到发布顺序。发布各位置对应盲卡 BDCA，独立选择 A 对应发布位置 D。",
-        "digest": "bbb85cfcba12284c90634300d3d3dfeeb11367708e8a3bc2704d55ac44ad6914"
+        "notes": "第八条直接列出主动提出教育培训要求、集中轮训和网络培训。请求权、申诉权和控告权有各自对象。 盲审选项文本已复配到发布顺序。发布各位置对应盲卡 BDCA，独立选择 A 对应发布位置 D。 本轮去重合并同一答点及过度相似的知识点关联，沿用已独立复核的题干、选项、答案和解析。",
+        "digest": "70c04685b3891218d44f55c03c22f420a16d33256b569c3f42eb4700d82243fb"
       }
     }
   },
@@ -75105,7 +75126,7 @@
   },
   {
     "id": "431a7135-991e-424c-b521-ada6a02a4f50",
-    "state": "ready",
+    "state": "withdrawn",
     "topicId": "t13",
     "knowledgePointId": "854d333f-ffe4-4a6e-8e04-9be2e2d3adc4",
     "relatedKnowledgePointIds": [],
@@ -77146,6 +77167,1137 @@
         "emotionOnly": false,
         "notes": "S43第50项明确捍卫政治安全居首位，其余是所列安全领域但未置于首位。",
         "digest": "8f293016f91b9ebde2b65428360c19f75563c5c8c389be57ee304835fcc8d6c2"
+      }
+    }
+  },
+  {
+    "id": "107caa9e-3db6-4d9b-8c49-f06eca228628",
+    "state": "ready",
+    "topicId": "t06",
+    "knowledgePointId": "b71864cf-7f9b-45b2-9ab3-33859778323f",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "按党的百年历程的阶段划分，新中国成立后至改革开放前总体处于哪一时期？",
+    "scopeNote": "2026-11-26 题库去重补位。按题目所列现行原文及适用范围复习。",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "需区分所考事实、适用主体或条文表述。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "1726c62e-0424-411a-bccd-77f83398a7d1",
+        "text": "中国特色社会主义新时代",
+        "rationale": "这一时期从党的十八大以来开启。",
+        "evidence": [
+          {
+            "sourceId": "S52",
+            "location": "第二部分、第三部分的起始段落",
+            "claim": "这一时期从党的十八大以来开启。"
+          }
+        ]
+      },
+      {
+        "id": "4e229de7-5119-44cb-b31c-5a158c2bd309",
+        "text": "新民主主义革命时期",
+        "rationale": "这一阶段的胜利以新中国成立为标志。",
+        "evidence": [
+          {
+            "sourceId": "S52",
+            "location": "第二部分、第三部分的起始段落",
+            "claim": "这一阶段的胜利以新中国成立为标志。"
+          }
+        ]
+      },
+      {
+        "id": "4303c295-7d07-48f5-ab62-5b6888609fbd",
+        "text": "改革开放和社会主义现代化建设新时期",
+        "rationale": "这一阶段以党的十一届三中全会为重要起点。",
+        "evidence": [
+          {
+            "sourceId": "S52",
+            "location": "第二部分、第三部分的起始段落",
+            "claim": "这一阶段以党的十一届三中全会为重要起点。"
+          }
+        ]
+      },
+      {
+        "id": "65afdd0a-e738-4603-b247-0b4dde9ad0cf",
+        "text": "社会主义革命和建设时期",
+        "rationale": "该名称对应新中国成立后至改革开放前的总体历程。",
+        "evidence": [
+          {
+            "sourceId": "S52",
+            "location": "第二部分、第三部分的起始段落",
+            "claim": "该名称对应新中国成立后至改革开放前的总体历程。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "65afdd0a-e738-4603-b247-0b4dde9ad0cf"
+    ],
+    "explanation": "从新中国成立到党的十一届三中全会前，党领导人民完成社会主义革命、推进社会主义建设。",
+    "distinction": "从新中国成立到党的十一届三中全会前，党领导人民完成社会主义革命、推进社会主义建设。",
+    "evidence": [
+      {
+        "sourceId": "S52",
+        "location": "第二部分、第三部分的起始段落",
+        "claim": "从新中国成立到党的十一届三中全会前，党领导人民完成社会主义革命、推进社会主义建设。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex 高校试题编审",
+        "date": "2026-11-26",
+        "choice": [
+          "65afdd0a-e738-4603-b247-0b4dde9ad0cf"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "已对照定位的高校题面和现行判答依据，复核全部选项。",
+        "digest": "c4c4b4704b49a264b1cdc79ad6c7d0c7d33820790211f3e7b2f87bb7b7d1e8d4"
+      },
+      "independent": {
+        "reviewer": "Codex 官方题源组盲审",
+        "date": "2026-11-26",
+        "choice": [
+          "65afdd0a-e738-4603-b247-0b4dde9ad0cf"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "百年历史决议第二部分从新中国成立回顾社会主义革命和建设，第三部分转入改革开放新时期。 发布选项顺序对应原盲卡 ACDB，独审选项文本 B 映射至发布位置 D。",
+        "digest": "c4c4b4704b49a264b1cdc79ad6c7d0c7d33820790211f3e7b2f87bb7b7d1e8d4"
+      }
+    }
+  },
+  {
+    "id": "c25ebcec-3d6a-46ba-8379-fb4323973c20",
+    "state": "ready",
+    "topicId": "t06",
+    "knowledgePointId": "ec99d5d0-e4d1-45cf-88de-5da9a077e197",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "1925年，上海南京路枪击事件引发席卷各地的反帝运动，史称什么？",
+    "scopeNote": "2026-11-26 题库去重补位。按题目所列现行原文及适用范围复习。",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "需区分所考事实、适用主体或条文表述。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "4069d263-8aa9-4408-947c-0275bdb52ad6",
+        "text": "五四运动",
+        "rationale": "发生于1919年。",
+        "evidence": [
+          {
+            "sourceId": "S17",
+            "location": "1925年5月30日五卅惨案及全国反帝运动条",
+            "claim": "发生于1919年。"
+          }
+        ]
+      },
+      {
+        "id": "1c338cc8-a827-427e-946a-4595f7b82850",
+        "text": "一二·九运动",
+        "rationale": "是1935年的抗日救亡爱国运动。",
+        "evidence": [
+          {
+            "sourceId": "S17",
+            "location": "1925年5月30日五卅惨案及全国反帝运动条",
+            "claim": "是1935年的抗日救亡爱国运动。"
+          }
+        ]
+      },
+      {
+        "id": "cfa52651-339f-47a1-8d2a-0241b65d5f61",
+        "text": "五卅运动",
+        "rationale": "名称源自1925年5月30日史事。",
+        "evidence": [
+          {
+            "sourceId": "S17",
+            "location": "1925年5月30日五卅惨案及全国反帝运动条",
+            "claim": "名称源自1925年5月30日史事。"
+          }
+        ]
+      },
+      {
+        "id": "70ad24ce-7604-4686-9de2-35fe80324c5c",
+        "text": "五二〇运动",
+        "rationale": "是国民党统治区1947年的学生爱国运动。",
+        "evidence": [
+          {
+            "sourceId": "S17",
+            "location": "1925年5月30日五卅惨案及全国反帝运动条",
+            "claim": "是国民党统治区1947年的学生爱国运动。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "cfa52651-339f-47a1-8d2a-0241b65d5f61"
+    ],
+    "explanation": "1925年5月30日的五卅惨案引发五卅运动。",
+    "distinction": "1925年5月30日的五卅惨案引发五卅运动。",
+    "evidence": [
+      {
+        "sourceId": "S17",
+        "location": "1925年5月30日五卅惨案及全国反帝运动条",
+        "claim": "1925年5月30日的五卅惨案引发五卅运动。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex 高校试题编审",
+        "date": "2026-11-26",
+        "choice": [
+          "cfa52651-339f-47a1-8d2a-0241b65d5f61"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "已对照定位的高校题面和现行判答依据，复核全部选项。",
+        "digest": "1f05e8449519b73fb523f6f9fbd78d46864118919b8d24fb947abcb9575b7e3d"
+      },
+      "independent": {
+        "reviewer": "Codex 官方题源组盲审",
+        "date": "2026-11-26",
+        "choice": [
+          "cfa52651-339f-47a1-8d2a-0241b65d5f61"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "1925年5月30日上海反帝斗争为五卅运动，五四、一二·九、五二〇对应其他时期和事件。 发布选项顺序对应原盲卡 ABDC，独审选项文本 D 映射至发布位置 C。",
+        "digest": "1f05e8449519b73fb523f6f9fbd78d46864118919b8d24fb947abcb9575b7e3d"
+      }
+    }
+  },
+  {
+    "id": "fc782a7b-643a-4bfc-b683-97e4fe70cc34",
+    "state": "ready",
+    "topicId": "t01",
+    "knowledgePointId": "7755fb23-0435-45ac-ae45-c7f91e861308",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "党章提出建设社会主义生态文明，树立什么样的生态文明理念？",
+    "scopeNote": "2026-11-26 题库去重补位。按题目所列现行原文及适用范围复习。",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "需区分所考事实、适用主体或条文表述。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "6be94fa5-3021-4bdf-8eca-e3938689d9a8",
+        "text": "尊重自然、顺应自然、保护自然",
+        "rationale": "是该段所列生态文明理念。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "总纲中国共产党领导人民建设社会主义生态文明段",
+            "claim": "是该段所列生态文明理念。"
+          }
+        ]
+      },
+      {
+        "id": "939cef3d-62e3-4cd3-bb7e-e0c6a4135032",
+        "text": "人工修复优先、集中开发并优先扩产",
+        "rationale": "与总纲的自然恢复为主和保护方向不符。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "总纲中国共产党领导人民建设社会主义生态文明段",
+            "claim": "与总纲的自然恢复为主和保护方向不符。"
+          }
+        ]
+      },
+      {
+        "id": "4befc83f-c921-434c-98d1-5566990ccbd4",
+        "text": "节约优先、保护优先、自然恢复为主",
+        "rationale": "是同段的方针，题干问理念。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "总纲中国共产党领导人民建设社会主义生态文明段",
+            "claim": "是同段的方针，题干问理念。"
+          }
+        ]
+      },
+      {
+        "id": "2e20e7f2-f324-43ed-8d04-642215323505",
+        "text": "节能减排、循环发展、绿色转型",
+        "rationale": "有关生态治理的工作语汇，不是该处固定表述。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "总纲中国共产党领导人民建设社会主义生态文明段",
+            "claim": "有关生态治理的工作语汇，不是该处固定表述。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "6be94fa5-3021-4bdf-8eca-e3938689d9a8"
+    ],
+    "explanation": "党章要求树立尊重自然、顺应自然、保护自然的生态文明理念，同时另列节约优先、保护优先、自然恢复为主的方针。",
+    "distinction": "党章要求树立尊重自然、顺应自然、保护自然的生态文明理念，同时另列节约优先、保护优先、自然恢复为主的方针。",
+    "evidence": [
+      {
+        "sourceId": "S18",
+        "location": "总纲中国共产党领导人民建设社会主义生态文明段",
+        "claim": "党章要求树立尊重自然、顺应自然、保护自然的生态文明理念，同时另列节约优先、保护优先、自然恢复为主的方针。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex 高校试题编审",
+        "date": "2026-11-26",
+        "choice": [
+          "6be94fa5-3021-4bdf-8eca-e3938689d9a8"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "已对照定位的高校题面和现行判答依据，复核全部选项。",
+        "digest": "10f14e43f8cd96c48219563856046e507ed26fa083a1515308e3e7bd5cd5ebcb"
+      },
+      "independent": {
+        "reviewer": "Codex 官方题源组盲审",
+        "date": "2026-11-26",
+        "choice": [
+          "6be94fa5-3021-4bdf-8eca-e3938689d9a8"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "生态文明理念为尊重自然、顺应自然、保护自然，节约优先、保护优先、自然恢复为主是同段方针，考点不同。 发布选项顺序对应原盲卡 BACD，独审选项文本 B 映射至发布位置 A。",
+        "digest": "10f14e43f8cd96c48219563856046e507ed26fa083a1515308e3e7bd5cd5ebcb"
+      }
+    }
+  },
+  {
+    "id": "ba5f2530-dfdf-43f0-a052-b50b04ee92b5",
+    "state": "ready",
+    "topicId": "t01",
+    "knowledgePointId": "e0292e82-b4a2-46c0-bab1-83fa38393c8a",
+    "relatedKnowledgePointIds": [],
+    "type": "multiple",
+    "stem": "党章在部署推进“一带一路”建设时，明确应遵循哪些原则？",
+    "scopeNote": "2026-11-26 题库去重补位。按题目所列现行原文及适用范围复习。",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "需区分所考事实、适用主体或条文表述。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "a9b2dd46-085b-4330-90a3-768a17edd3e3",
+        "text": "共享",
+        "rationale": "列入这一原则。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "总纲坚持独立自主的和平外交政策段，推进一带一路句",
+            "claim": "列入这一原则。"
+          }
+        ]
+      },
+      {
+        "id": "050123f8-6fa7-4cc1-af9e-78a386646d83",
+        "text": "共商",
+        "rationale": "列入这一原则。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "总纲坚持独立自主的和平外交政策段，推进一带一路句",
+            "claim": "列入这一原则。"
+          }
+        ]
+      },
+      {
+        "id": "4313db7c-00ad-46db-9536-6586e3f882ef",
+        "text": "共建",
+        "rationale": "列入这一原则。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "总纲坚持独立自主的和平外交政策段，推进一带一路句",
+            "claim": "列入这一原则。"
+          }
+        ]
+      },
+      {
+        "id": "38d7b95a-7221-46d2-9f61-f08d01d55e78",
+        "text": "共管",
+        "rationale": "不在党章该处的固定表述中。",
+        "evidence": [
+          {
+            "sourceId": "S18",
+            "location": "总纲坚持独立自主的和平外交政策段，推进一带一路句",
+            "claim": "不在党章该处的固定表述中。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "a9b2dd46-085b-4330-90a3-768a17edd3e3",
+      "050123f8-6fa7-4cc1-af9e-78a386646d83",
+      "4313db7c-00ad-46db-9536-6586e3f882ef"
+    ],
+    "explanation": "党章总纲写明，遵循共商共建共享原则推进“一带一路”建设。",
+    "distinction": "党章总纲写明，遵循共商共建共享原则推进“一带一路”建设。",
+    "evidence": [
+      {
+        "sourceId": "S18",
+        "location": "总纲坚持独立自主的和平外交政策段，推进一带一路句",
+        "claim": "党章总纲写明，遵循共商共建共享原则推进“一带一路”建设。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex 高校试题编审",
+        "date": "2026-11-26",
+        "choice": [
+          "a9b2dd46-085b-4330-90a3-768a17edd3e3",
+          "050123f8-6fa7-4cc1-af9e-78a386646d83",
+          "4313db7c-00ad-46db-9536-6586e3f882ef"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "已对照定位的高校题面和现行判答依据，复核全部选项。",
+        "digest": "c1353551c4fd0de04067843876d5585080e4b4ce61d14583cc18cefdbdad83c4"
+      },
+      "independent": {
+        "reviewer": "Codex 官方题源组盲审",
+        "date": "2026-11-26",
+        "choice": [
+          "a9b2dd46-085b-4330-90a3-768a17edd3e3",
+          "050123f8-6fa7-4cc1-af9e-78a386646d83",
+          "4313db7c-00ad-46db-9536-6586e3f882ef"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "党章总纲规定遵循共商共建共享原则推进一带一路建设，未把共管纳入这一组。",
+        "digest": "c1353551c4fd0de04067843876d5585080e4b4ce61d14583cc18cefdbdad83c4"
+      }
+    }
+  },
+  {
+    "id": "31e3f04c-a320-48e5-87f9-62c810629352",
+    "state": "ready",
+    "topicId": "t09",
+    "knowledgePointId": "7a963d6d-fabf-4ec4-b25c-3d3b277b6ca9",
+    "relatedKnowledgePointIds": [],
+    "type": "multiple",
+    "stem": "某党政机关需配备执法执勤用车。下列哪些做法违反公务用车管理要求？",
+    "scopeNote": "2026-11-26 题库去重补位。按题目所列现行原文及适用范围复习。",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "依据文献用语、制度边界或历史事实选择。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "f5ef18cf-961c-44fd-8088-d6bce7b289ec",
+        "text": "将采购纳入统一编制、统一标准管理",
+        "rationale": "和条例规定的统一管理方式一致。",
+        "evidence": [
+          {
+            "sourceId": "BX25-ECONOMY",
+            "location": "第五章第二十八条第二款",
+            "claim": "和条例规定的统一管理方式一致。"
+          }
+        ]
+      },
+      {
+        "id": "fa56b18c-ffdd-438b-be16-4f97998ef20c",
+        "text": "接受企业赠送车辆",
+        "rationale": "第二十八条明确不得接受企事业单位或个人赠送的车辆。",
+        "evidence": [
+          {
+            "sourceId": "BX25-ECONOMY",
+            "location": "第五章第二十八条第二款",
+            "claim": "第二十八条明确不得接受企事业单位或个人赠送的车辆。"
+          }
+        ]
+      },
+      {
+        "id": "88e8d0f1-690d-404f-a5d1-38660ad24707",
+        "text": "按核定的车辆编制和标准配置",
+        "rationale": "属于依规配备。",
+        "evidence": [
+          {
+            "sourceId": "BX25-ECONOMY",
+            "location": "第五章第二十八条第二款",
+            "claim": "属于依规配备。"
+          }
+        ]
+      },
+      {
+        "id": "477e1ac1-f8c4-4c76-a43c-d83d10010394",
+        "text": "以特殊用途为由变相超编配备",
+        "rationale": "条例禁止以特殊用途等理由变相超编、超标配备。",
+        "evidence": [
+          {
+            "sourceId": "BX25-ECONOMY",
+            "location": "第五章第二十八条第二款",
+            "claim": "条例禁止以特殊用途等理由变相超编、超标配备。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "fa56b18c-ffdd-438b-be16-4f97998ef20c",
+      "477e1ac1-f8c4-4c76-a43c-d83d10010394"
+    ],
+    "explanation": "对执法执勤等用车应从严配备，条例禁止变相超编或超标准配备，也禁止接受企事业单位或个人赠送的车辆。",
+    "distinction": "对执法执勤等用车应从严配备，条例禁止变相超编或超标准配备，也禁止接受企事业单位或个人赠送的车辆。",
+    "evidence": [
+      {
+        "sourceId": "BX25-ECONOMY",
+        "location": "第五章第二十八条第二款",
+        "claim": "对执法执勤等用车应从严配备，条例禁止变相超编或超标准配备，也禁止接受企事业单位或个人赠送的车辆。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex 官方题源组",
+        "date": "2026-11-26",
+        "choice": [
+          "fa56b18c-ffdd-438b-be16-4f97998ef20c",
+          "477e1ac1-f8c4-4c76-a43c-d83d10010394"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "复核原题定位、现行判答原文、备选项与解析。",
+        "digest": "cf6bdcf73438f7280abd87adc56a567c3fcd88756c4e14c256e790d168b74a9e"
+      },
+      "independent": {
+        "reviewer": "Codex 主线程原文盲审",
+        "date": "2026-11-26",
+        "choice": [
+          "fa56b18c-ffdd-438b-be16-4f97998ef20c",
+          "477e1ac1-f8c4-4c76-a43c-d83d10010394"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "反浪费条例第二十八条禁止接受企事业单位赠车和以特种用途变相超编。按标准统一管理的两项符合规定。 发布选项顺序对应原盲卡 BADC，独审选项文本 AC 映射至发布位置 BD。",
+        "digest": "cf6bdcf73438f7280abd87adc56a567c3fcd88756c4e14c256e790d168b74a9e"
+      }
+    }
+  },
+  {
+    "id": "77a4a1ad-e540-4d4a-b0e0-4b05eaac34ae",
+    "state": "ready",
+    "topicId": "t05",
+    "knowledgePointId": "2a6612c7-3a82-42cf-9360-f3499f0c1b8d",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "按正式“十五五”规划《纲要》，完善全国一体化在线政务服务平台时，对政务数据共享提出的要求是（ ）。",
+    "scopeNote": "2026-11-26 题库去重补位。按题目所列现行原文及适用范围复习。",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "按题干所指定文件及原文条段选择。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "a645f232-21dd-4997-99e7-9f4f29be05a1",
+        "text": "推动跨部门、跨层级、跨地区共享利用",
+        "rationale": "三类共享均为原文提出的要求。",
+        "evidence": [
+          {
+            "sourceId": "S40",
+            "location": "第十三章第三节“提高政府治理数智化水平”",
+            "claim": "三类共享均为原文提出的要求。"
+          }
+        ]
+      },
+      {
+        "id": "021dfab0-2540-4fa9-a764-8347b96da311",
+        "text": "共享仅限同一部门",
+        "rationale": "遗漏跨部门共享要求。",
+        "evidence": [
+          {
+            "sourceId": "S40",
+            "location": "第十三章第三节“提高政府治理数智化水平”",
+            "claim": "遗漏跨部门共享要求。"
+          }
+        ]
+      },
+      {
+        "id": "b6356ae0-eea4-4f66-825e-e687e0081b21",
+        "text": "共享仅在同一地区进行",
+        "rationale": "遗漏跨地区共享要求。",
+        "evidence": [
+          {
+            "sourceId": "S40",
+            "location": "第十三章第三节“提高政府治理数智化水平”",
+            "claim": "遗漏跨地区共享要求。"
+          }
+        ]
+      },
+      {
+        "id": "9f4e539b-dc10-433d-812d-f24b67682d88",
+        "text": "上级可以共享，下级只采集不共享",
+        "rationale": "没有反映跨层级共享要求。",
+        "evidence": [
+          {
+            "sourceId": "S40",
+            "location": "第十三章第三节“提高政府治理数智化水平”",
+            "claim": "没有反映跨层级共享要求。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "a645f232-21dd-4997-99e7-9f4f29be05a1"
+    ],
+    "explanation": "《纲要》要求政务数据在部门之间、层级之间和地区之间共享利用。",
+    "distinction": "《纲要》要求政务数据在部门之间、层级之间和地区之间共享利用。",
+    "evidence": [
+      {
+        "sourceId": "S40",
+        "location": "第十三章第三节“提高政府治理数智化水平”",
+        "claim": "《纲要》要求政务数据在部门之间、层级之间和地区之间共享利用。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex current-source author",
+        "date": "2026-11-26",
+        "choice": [
+          "a645f232-21dd-4997-99e7-9f4f29be05a1"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "已逐项按所列来源核对题干、答案和干扰项。",
+        "digest": "c775e338fd13e23a553cc1811e7d5a502e507475b34f1298ac90b0b4b019ef18"
+      },
+      "independent": {
+        "reviewer": "Codex 高校线独立盲审",
+        "date": "2026-11-26",
+        "choice": [
+          "a645f232-21dd-4997-99e7-9f4f29be05a1"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "S40第十三章第三节提出政务数据跨部门跨层级跨地区共享利用，没有三种局部限制。 发布选项顺序对应原盲卡 DABC，独审选项文本 D 映射至发布位置 A。",
+        "digest": "c775e338fd13e23a553cc1811e7d5a502e507475b34f1298ac90b0b4b019ef18"
+      }
+    }
+  },
+  {
+    "id": "32825ab4-5d49-460f-90e0-a3f03c6e1d10",
+    "state": "ready",
+    "topicId": "t05",
+    "knowledgePointId": "bedcb270-d142-41ad-991e-1a2d694a0c91",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "正式“十五五”规划《纲要》要求健全的住房制度具有什么特点？",
+    "scopeNote": "2026-11-26 题库去重补位。按题目所列现行原文及适用范围复习。",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "按题干所指定文件及原文条段选择。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "5e3fe68b-0526-418c-a296-885d9397a645",
+        "text": "单一主体供给、多渠道保障、租购并举",
+        "rationale": "该制度要求由多种主体参与供给。",
+        "evidence": [
+          {
+            "sourceId": "S40",
+            "location": "第四十四章章首",
+            "claim": "该制度要求由多种主体参与供给。"
+          }
+        ]
+      },
+      {
+        "id": "e0f889c6-b38f-4bff-bb86-ff19cac02a1d",
+        "text": "多主体供给、单一渠道保障、租购并举",
+        "rationale": "该制度要求通过多种渠道保障。",
+        "evidence": [
+          {
+            "sourceId": "S40",
+            "location": "第四十四章章首",
+            "claim": "该制度要求通过多种渠道保障。"
+          }
+        ]
+      },
+      {
+        "id": "0f5e3d28-ddf9-4fb1-80ad-cb093aa7445d",
+        "text": "多主体供给、多渠道保障、租购并举",
+        "rationale": "三方面与第四十四章章首一致。",
+        "evidence": [
+          {
+            "sourceId": "S40",
+            "location": "第四十四章章首",
+            "claim": "三方面与第四十四章章首一致。"
+          }
+        ]
+      },
+      {
+        "id": "b07a75b7-bc1e-4157-9400-69f5dd07208c",
+        "text": "多主体供给、多渠道保障、只购不租",
+        "rationale": "制度要求租赁和购买并举。",
+        "evidence": [
+          {
+            "sourceId": "S40",
+            "location": "第四十四章章首",
+            "claim": "制度要求租赁和购买并举。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "0f5e3d28-ddf9-4fb1-80ad-cb093aa7445d"
+    ],
+    "explanation": "规划要求扩大供给主体和保障渠道，同时发挥住房租赁和购买两种方式的作用。",
+    "distinction": "规划要求扩大供给主体和保障渠道，同时发挥住房租赁和购买两种方式的作用。",
+    "evidence": [
+      {
+        "sourceId": "S40",
+        "location": "第四十四章章首",
+        "claim": "规划要求扩大供给主体和保障渠道，同时发挥住房租赁和购买两种方式的作用。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex current-source author",
+        "date": "2026-11-26",
+        "choice": [
+          "0f5e3d28-ddf9-4fb1-80ad-cb093aa7445d"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "已逐项按所列来源核对题干、答案和干扰项。",
+        "digest": "ae9a50e1f09a946fe424823fdcc243b2ab10726525f4e2e92b5c8751971fd309"
+      },
+      "independent": {
+        "reviewer": "Codex 高校线独立盲审",
+        "date": "2026-11-26",
+        "choice": [
+          "0f5e3d28-ddf9-4fb1-80ad-cb093aa7445d"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "S40第四十四章三个限定词是多主体、多渠道、租购并举；其余各替掉一项。",
+        "digest": "ae9a50e1f09a946fe424823fdcc243b2ab10726525f4e2e92b5c8751971fd309"
+      }
+    }
+  },
+  {
+    "id": "df36fb85-e7a8-43aa-b632-2193da370149",
+    "state": "ready",
+    "topicId": "t03",
+    "knowledgePointId": "e0cdb2bf-e033-4bcf-8370-8a3daf1d9d8c",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "二十届五中全会《决定》明确要求加强哪些监督之间的统筹衔接？",
+    "scopeNote": "2026-11-26 题库去重补位。按题目所列现行原文及适用范围复习。",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "按题干所指定文件及原文条段选择。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "0129a641-5f71-4ad9-a579-f0f83b048413",
+        "text": "纪律监督、监察监督、舆论监督、巡视监督",
+        "rationale": "原文这一组列的是派驻监督。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第八部分末段“完善党和国家监督体系”",
+            "claim": "原文这一组列的是派驻监督。"
+          }
+        ]
+      },
+      {
+        "id": "c021b9fa-5e45-4f65-84ce-6e3611666805",
+        "text": "纪律监督、审计监督、派驻监督、巡视监督",
+        "rationale": "原文这一组列的是监察监督。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第八部分末段“完善党和国家监督体系”",
+            "claim": "原文这一组列的是监察监督。"
+          }
+        ]
+      },
+      {
+        "id": "307a1cb9-0f78-4efc-ae6e-8e7a3188cf66",
+        "text": "监察监督、派驻监督、财会监督、巡视监督",
+        "rationale": "财会监督未替代原文中的纪律监督。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第八部分末段“完善党和国家监督体系”",
+            "claim": "财会监督未替代原文中的纪律监督。"
+          }
+        ]
+      },
+      {
+        "id": "9c0c39c6-bbe7-4312-ad13-3023010b6add",
+        "text": "纪律监督、监察监督、派驻监督、巡视监督",
+        "rationale": "符合第八部分末段所列的四类。",
+        "evidence": [
+          {
+            "sourceId": "S06",
+            "location": "第八部分末段“完善党和国家监督体系”",
+            "claim": "符合第八部分末段所列的四类。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "9c0c39c6-bbe7-4312-ad13-3023010b6add"
+    ],
+    "explanation": "该段列明纪律监督、监察监督、派驻监督、巡视监督四类统筹衔接。",
+    "distinction": "该段列明纪律监督、监察监督、派驻监督、巡视监督四类统筹衔接。",
+    "evidence": [
+      {
+        "sourceId": "S06",
+        "location": "第八部分末段“完善党和国家监督体系”",
+        "claim": "该段列明纪律监督、监察监督、派驻监督、巡视监督四类统筹衔接。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex current-source author",
+        "date": "2026-11-26",
+        "choice": [
+          "9c0c39c6-bbe7-4312-ad13-3023010b6add"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "已逐项按所列来源核对题干、答案和干扰项。",
+        "digest": "b9b57b5d31a613faf504757811988819b1080c5e298e7cfa21d575c73d0266c8"
+      },
+      "independent": {
+        "reviewer": "Codex 高校线独立盲审",
+        "date": "2026-11-26",
+        "choice": [
+          "9c0c39c6-bbe7-4312-ad13-3023010b6add"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "S06第八部分将纪律、监察、派驻、巡视并列为统筹衔接，审计、财会等属后句融合联动语境。",
+        "digest": "b9b57b5d31a613faf504757811988819b1080c5e298e7cfa21d575c73d0266c8"
+      }
+    }
+  },
+  {
+    "id": "226f7fc1-fc43-4503-ad9f-debdd0461f93",
+    "state": "ready",
+    "topicId": "t14",
+    "knowledgePointId": "11e3c7e8-cc55-4153-9eee-36f79a134674",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "按照二十届四中全会《建议》，在扩大高水平对外开放时，哪类开放被要求稳步扩大？",
+    "scopeNote": "2026-11-26 题库去重补位。按题目所列现行原文及适用范围复习。",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "按题干所指定文件及原文条段选择。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "9cbd6533-15cc-4170-8737-9ef4e4e147a2",
+        "text": "只开放货物进口",
+        "rationale": "原文稳步扩大的是制度型开放，开放范围不限于货物进口。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第七部分开头及第（21）项",
+            "claim": "原文稳步扩大的是制度型开放，开放范围不限于货物进口。"
+          }
+        ]
+      },
+      {
+        "id": "96afd4ae-7e04-4ffb-a881-3cbefbfb0a2c",
+        "text": "制度型开放",
+        "rationale": "第七部分总述明确提出。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第七部分开头及第（21）项",
+            "claim": "第七部分总述明确提出。"
+          }
+        ]
+      },
+      {
+        "id": "2b0b9151-8bae-433d-bd8c-41381b2dc635",
+        "text": "只扩大特定口岸客运开放",
+        "rationale": "原文指制度型开放，而非仅特定口岸客运。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第七部分开头及第（21）项",
+            "claim": "原文指制度型开放，而非仅特定口岸客运。"
+          }
+        ]
+      },
+      {
+        "id": "56c37a6a-3cd6-44db-8e39-d39c78bf7ee9",
+        "text": "单纯放开资本项目",
+        "rationale": "资本项目开放不能替代本段表述的制度型开放。",
+        "evidence": [
+          {
+            "sourceId": "S43",
+            "location": "第七部分开头及第（21）项",
+            "claim": "资本项目开放不能替代本段表述的制度型开放。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "96afd4ae-7e04-4ffb-a881-3cbefbfb0a2c"
+    ],
+    "explanation": "第七部分总述明确稳步扩大制度型开放，紧接着部署积极扩大自主开放、对接国际高标准经贸规则。",
+    "distinction": "第七部分总述明确稳步扩大制度型开放，紧接着部署积极扩大自主开放、对接国际高标准经贸规则。",
+    "evidence": [
+      {
+        "sourceId": "S43",
+        "location": "第七部分开头及第（21）项",
+        "claim": "第七部分总述明确稳步扩大制度型开放，紧接着部署积极扩大自主开放、对接国际高标准经贸规则。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex current-source author",
+        "date": "2026-11-26",
+        "choice": [
+          "96afd4ae-7e04-4ffb-a881-3cbefbfb0a2c"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "已逐项按所列来源核对题干、答案和干扰项。",
+        "digest": "f0260e0e0123a79673d2f1222506887dc202203ee5a84b5a041831cf5d4d9712"
+      },
+      "independent": {
+        "reviewer": "Codex 高校线独立盲审",
+        "date": "2026-11-26",
+        "choice": [
+          "96afd4ae-7e04-4ffb-a881-3cbefbfb0a2c"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "S43第七部分起句明确稳步扩大制度型开放，第21项部署扩大自主开放，选项B与稳步扩大搭配。",
+        "digest": "f0260e0e0123a79673d2f1222506887dc202203ee5a84b5a041831cf5d4d9712"
+      }
+    }
+  },
+  {
+    "id": "40bdfe3b-0e17-4781-b055-a7a0a6f275c0",
+    "state": "ready",
+    "topicId": "t12",
+    "knowledgePointId": "26b8a4a1-61f8-4f9d-a8b9-897591243d03",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "党员因缺乏阅读能力无法直接阅读党内有关文件。党组织应按规定提供什么帮助？",
+    "scopeNote": "2026-11-26 题库去重补位。按题目所列现行原文及适用范围复习。",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "按具体条文的适用主体、行为或条件判断。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "7e3cff46-334d-4934-85f1-104397522f98",
+        "text": "组织其按期完成书面摘录",
+        "rationale": "条例明确采用规定范围内传达文件精神的办法。",
+        "evidence": [
+          {
+            "sourceId": "S32",
+            "location": "第二十条第三款",
+            "claim": "条例明确采用规定范围内传达文件精神的办法。"
+          }
+        ]
+      },
+      {
+        "id": "bd0f4721-223a-4a1c-b724-3733f2c6e933",
+        "text": "向该党员传达文件精神",
+        "rationale": "第二十条第三款明确要求按规定传达文件精神。",
+        "evidence": [
+          {
+            "sourceId": "S32",
+            "location": "第二十条第三款",
+            "claim": "第二十条第三款明确要求按规定传达文件精神。"
+          }
+        ]
+      },
+      {
+        "id": "9b18462e-d4c6-4c5d-be53-048d5f1c9ffc",
+        "text": "由党员本人决定向社会公开文件",
+        "rationale": "党务公开范围由党组织按规定确定，并依规传达。",
+        "evidence": [
+          {
+            "sourceId": "S32",
+            "location": "第二十条第三款",
+            "claim": "党务公开范围由党组织按规定确定，并依规传达。"
+          }
+        ]
+      },
+      {
+        "id": "3e6915ab-a5a7-40f2-99e9-d933d53b4935",
+        "text": "只将该文件标题通知党员",
+        "rationale": "条文要求传达文件精神，范围超出文件名称。",
+        "evidence": [
+          {
+            "sourceId": "S32",
+            "location": "第二十条第三款",
+            "claim": "条文要求传达文件精神，范围超出文件名称。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "bd0f4721-223a-4a1c-b724-3733f2c6e933"
+    ],
+    "explanation": "党员因阅读能力等原因无法直接阅读文件时，党组织应按规定向其传达文件精神。",
+    "distinction": "党员因阅读能力等原因无法直接阅读文件时，党组织应按规定向其传达文件精神。",
+    "evidence": [
+      {
+        "sourceId": "S32",
+        "location": "第二十条第三款",
+        "claim": "党员因阅读能力等原因无法直接阅读文件时，党组织应按规定向其传达文件精神。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex 750 章规与校规编审",
+        "date": "2026-11-26",
+        "choice": [
+          "bd0f4721-223a-4a1c-b724-3733f2c6e933"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "逐项对照题卡所列现行原文，核对适用范围与选项排他性。",
+        "digest": "be403603339260ee00294db1ee12441510021b5fa182041da853f56f5e648333"
+      },
+      "independent": {
+        "reviewer": "Codex current-source reviewer",
+        "date": "2026-11-26",
+        "choice": [
+          "bd0f4721-223a-4a1c-b724-3733f2c6e933"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "第二十条第三款规定无法直接阅读文件时应按照规定传达文件精神。并无书面摘录、公开或仅告知标题的替代规定。",
+        "digest": "be403603339260ee00294db1ee12441510021b5fa182041da853f56f5e648333"
+      }
+    }
+  },
+  {
+    "id": "87e86b25-a04f-4a88-ad86-c13edd60906d",
+    "state": "ready",
+    "topicId": "t12",
+    "knowledgePointId": "6d50c36f-06dd-442b-862b-a21d8af889d4",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "以下哪项活动属于《党徽党旗条例》规定应当使用党旗的情形？",
+    "scopeNote": "2026-11-26 题库去重补位。按题目所列现行原文及适用范围复习。",
+    "difficulty": "intermediate",
+    "taskType": "distinction",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "按具体条文的适用主体、行为或条件判断。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "f1d7d583-19e4-41f5-9cec-ab81c879a013",
+        "text": "基层党组织开展一般主题党日",
+        "rationale": "第十条将基层组织开展主题党日列为可使用情形。",
+        "evidence": [
+          {
+            "sourceId": "S72-FLAG",
+            "location": "第九条、第十条",
+            "claim": "第十条将基层组织开展主题党日列为可使用情形。"
+          }
+        ]
+      },
+      {
+        "id": "eb404c66-b965-4574-bca8-4b2274db1769",
+        "text": "基层党组织举行普通党员大会",
+        "rationale": "第十条将召开党员大会列为可使用情形。",
+        "evidence": [
+          {
+            "sourceId": "S72-FLAG",
+            "location": "第九条、第十条",
+            "claim": "第十条将召开党员大会列为可使用情形。"
+          }
+        ]
+      },
+      {
+        "id": "2e27d614-5dcb-4768-972d-71c5754ba698",
+        "text": "在党群服务中心布置常设活动空间",
+        "rationale": "第十条将此类基层活动场所列为可使用情形。",
+        "evidence": [
+          {
+            "sourceId": "S72-FLAG",
+            "location": "第九条、第十条",
+            "claim": "第十条将此类基层活动场所列为可使用情形。"
+          }
+        ]
+      },
+      {
+        "id": "0127227a-33ac-456b-b801-9314d2227cd1",
+        "text": "举行新党员入党宣誓仪式",
+        "rationale": "第九条第（一）项明确此时应当使用党旗。",
+        "evidence": [
+          {
+            "sourceId": "S72-FLAG",
+            "location": "第九条、第十条",
+            "claim": "第九条第（一）项明确此时应当使用党旗。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "0127227a-33ac-456b-b801-9314d2227cd1"
+    ],
+    "explanation": "新党员入党宣誓和组织党员重温入党誓词都应当使用党旗。召开党员大会、基层组织主题党日等属于可以使用的情形。",
+    "distinction": "新党员入党宣誓和组织党员重温入党誓词都应当使用党旗。召开党员大会、基层组织主题党日等属于可以使用的情形。",
+    "evidence": [
+      {
+        "sourceId": "S72-FLAG",
+        "location": "第九条、第十条",
+        "claim": "新党员入党宣誓和组织党员重温入党誓词都应当使用党旗。召开党员大会、基层组织主题党日等属于可以使用的情形。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "Codex 750 章规与校规编审",
+        "date": "2026-11-26",
+        "choice": [
+          "0127227a-33ac-456b-b801-9314d2227cd1"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "逐项对照题卡所列现行原文，核对适用范围与选项排他性。",
+        "digest": "bc06afe40f0e7b0d23721f02c58ffca84bde5e1290637a48bb4e25fe28348454"
+      },
+      "independent": {
+        "reviewer": "Codex current-source reviewer",
+        "date": "2026-11-26",
+        "choice": [
+          "0127227a-33ac-456b-b801-9314d2227cd1"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "第九条包括新党员入党宣誓；一般主题党日、党员大会以及党群服务中心均属于第十条可使用范围。 发布选项顺序对应原盲卡 ABDC，独审选项文本 C 映射至发布位置 D。",
+        "digest": "bc06afe40f0e7b0d23721f02c58ffca84bde5e1290637a48bb4e25fe28348454"
       }
     }
   }
