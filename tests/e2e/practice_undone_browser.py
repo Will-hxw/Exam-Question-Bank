@@ -57,6 +57,10 @@ def check_undone_practice(browser, origin, host, cookie_name):
         expect(stem).to_have_text(favorite['stem'])
         assert modes.get_by_role('button').all_text_contents() == ['专题', '随机', '顺序', '只刷未做', '错题', '收藏']
         expect(switch).to_have_attribute('aria-pressed', 'false')
+        page.get_by_role('button', name='下一题', exact=True).tap()
+        expect(stem).to_have_text(topic_questions[1]['stem'])
+        page.get_by_role('button', name='上一题', exact=True).tap()
+        expect(stem).to_have_text(topic_questions[0]['stem'])
         with page.expect_response(lambda r: r.url == preferences_url and r.request.post_data_json.get(pref) is True) as saved:
             switch.tap()
         assert saved.value.ok
@@ -64,6 +68,16 @@ def check_undone_practice(browser, origin, host, cookie_name):
         active_color = modes.get_by_role('button', name='专题', exact=True).evaluate('(el) => getComputedStyle(el).backgroundColor')
         expect(switch).to_have_css('background-color', active_color)
         expect(stem).to_have_text(topic_questions[2]['stem'])
+        switch.tap()
+        expect(switch).to_have_attribute('aria-pressed', 'false')
+        page.get_by_role('button', name='上一题', exact=True).tap()
+        expect(stem).to_have_text(topic_questions[1]['stem'])
+        page.reload(wait_until='domcontentloaded')
+        expect(stem).to_have_text(topic_questions[1]['stem'])
+        page.get_by_role('button', name='下一题', exact=True).tap()
+        expect(stem).to_have_text(topic_questions[2]['stem'])
+        switch.tap()
+        expect(switch).to_have_attribute('aria-pressed', 'true')
         jump(14)
         expect(stem).to_have_text(topic_questions[13]['stem'])
         page.get_by_role('button', name='下一题', exact=True).tap()

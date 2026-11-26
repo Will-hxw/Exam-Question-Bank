@@ -3,6 +3,27 @@ import { test } from 'node:test'
 import { requestJson } from '../../src/features/study/api.ts'
 import { feedbackMail } from '../../src/features/auth/feedback-template.ts'
 import { initialUndonePosition, stepUndonePosition } from '../../src/features/study/practice-undone.ts'
+import { addPracticeBookmark, findPracticeBookmark, practiceHistoryLimit, restorePracticeHistory } from '../../src/features/study/practice-history.ts'
+
+test('rolling practice history keeps 50 bookmarks and preserves skipped entries for unfiltered backtracking', () => {
+  let history = restorePracticeHistory(null, { position: 0 })
+  for (let position = 1; position <= 70; position++) {
+    history = addPracticeBookmark(history, { position }, 'next')
+  }
+  assert.equal(history.entries.length, practiceHistoryLimit)
+  assert.equal(history.entries[0].position, 21)
+  assert.equal(history.entries[history.cursor].position, 70)
+  const filtered = findPracticeBookmark(history, 'previous', ({ position }) => position < 67)
+  assert.equal(history.entries[filtered].position, 66)
+  const afterToggle = findPracticeBookmark({ ...history, cursor: filtered }, 'next', () => true)
+  assert.equal(history.entries[afterToggle].position, 67)
+  const restored = restorePracticeHistory(JSON.parse(JSON.stringify(history)), { position: 70 })
+  assert.deepEqual(restored, history)
+  const jump = addPracticeBookmark({ ...history, cursor: filtered }, { position: 14 }, 'jump')
+  assert.equal(jump.entries[jump.cursor - 1].position, 66)
+  assert.equal(jump.entries.at(-1).position, 14)
+  assert.ok(jump.entries.length <= practiceHistoryLimit)
+})
 
 test('unattempted navigation keeps original positions and follows the seeded random order', () => {
   const remaining = [{ id: 'a', position: 1 }, { id: 'd', position: 4 }, { id: 'g', position: 7 }]

@@ -76,17 +76,21 @@ def library_preferences(browser):
         with primary.expect_response(lambda r: r.url.endswith('/api/me/preferences') and
                                      r.request.post_data_json.get('library:all', {}).get('type') == 'single'):
             single(primary).click()
-        size = stale.get_by_role('combobox', name='每页题量')
-        expect(size).to_have_value('20')
+        size = stale.locator('.pagination-size .topic-dropdown-btn')
+        expect(size).to_have_text('20 题')
+        size.click()
         with stale.expect_response(lambda r: r.url.endswith('/api/me/preferences') and
                                    r.request.post_data_json.get('library:all', {}).get('limit') == 50) as saved:
-            size.select_option('50')
+            stale.get_by_role('button', name='50 题', exact=True).click()
         assert saved.value.ok
         expect(single(stale)).to_have_attribute('aria-pressed', 'true')
-        expect(size).to_have_value('50')
+        expect(size).to_have_text('50 题')
         primary.reload()
         expect(single(primary)).to_have_attribute('aria-pressed', 'true')
-        expect(primary.get_by_role('combobox', name='每页题量')).to_have_value('50')
+        expect(primary.locator('.pagination-size .topic-dropdown-btn')).to_have_text('50 题')
+        item = primary.locator('.list-item').filter(has_not=primary.locator('.done-badge')).first
+        item.get_by_role('button', name='显示答案', exact=True).click()
+        expect(item.get_by_role('button', name='展开解析', exact=True)).to_be_disabled()
     finally:
         a.close()
         b.close()

@@ -10,6 +10,7 @@ import { useQuestionFavorite, useQuestionStates, useStudySessionContext } from '
 import { useStudyData } from './use-study-data'
 
 type ExamSummary = Pick<ExamData, 'id' | 'status' | 'startedAt' | 'submittedAt' | 'score'> & { total?: number }
+export type ExamHistory = { exams: ExamSummary[] }
 type ExamView = { screen: 'entrance' | 'history' | 'exam'; id: string | null; count: number; wrongOnly: boolean }
 
 function readExamView(value: unknown): ExamView {
@@ -293,7 +294,7 @@ function ExamResult({ exam, onBack, onRetry, wrongOnly, setWrongOnly, busy }: {
   </div>
 }
 
-function ExamContent() {
+function ExamContent({ initialHistory }: { initialHistory?: Promise<ExamHistory | null> }) {
   const { userId, refreshMe, personalReads, preferences, revision } = useStudySessionContext()
   const view = readExamView(preferences.values.exam)
   const selectedId = view.screen === 'exam' ? view.id : null
@@ -308,7 +309,7 @@ function ExamContent() {
   const loadingNow = useRef(false)
   const [restoreAttempt, setRestoreAttempt] = useState(0)
   const [restoreError, setRestoreError] = useState<{ id: string; message: string }>()
-  const list = useStudyData<{ exams: ExamSummary[] }>(exam ? null : '/api/exams', revision, personalReads)
+  const list = useStudyData<ExamHistory>(exam ? null : '/api/exams', revision, { ...personalReads, initial: initialHistory })
   const activeDraft = list.data?.exams.find((entry) => entry.status === 'draft')
   const historyItems = list.data?.exams.filter((entry) => entry.status === 'submitted') ?? []
 
@@ -426,7 +427,7 @@ function ExamContent() {
   </section>
 }
 
-export function Exam() {
+export function Exam({ initialHistory }: { initialHistory?: Promise<ExamHistory | null> }) {
   const { preferences } = useStudySessionContext()
-  return preferences.ready ? <ExamContent /> : <LoadMessage loading />
+  return preferences.ready ? <ExamContent initialHistory={initialHistory} /> : <LoadMessage loading />
 }

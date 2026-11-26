@@ -109,6 +109,7 @@ html[data-theme="dark"] .study-theme .dark-toggle { color: #e5e7eb; }
   padding: 6px; z-index: 20; max-height: 340px; overflow-y: auto;
 }
 .study-shell .topic-dropdown-panel.open { display: block; }
+.study-shell .topic-dropdown-end .topic-dropdown-panel { left: auto; right: 0; }
 .study-shell .topic-dropdown-panel .topic-option {
   display: block; width: 100%; text-align: left; padding: 10px 14px; border: none; border-radius: 7px;
   background: transparent; color: var(--text); font-size: 13.5px; font-family: inherit; cursor: pointer;
@@ -483,7 +484,7 @@ html[data-theme="dark"] .study-theme .jump-input { background: var(--surface); c
 .study-shell .study-pagination { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px; padding: 12px; }
 .study-shell .pagination-position { min-width: 3em; text-align: center; font-size: 14px; font-variant-numeric: tabular-nums; }
 .study-shell .pagination-size { display: inline-flex; align-items: center; gap: 6px; color: var(--text-secondary); font-size: 13px; }
-.study-shell .pagination-select { padding: 5px 6px; color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); }
+.study-shell .pagination-size .topic-dropdown-btn { padding: 6px 10px; font-size: inherit; }
 .study-shell .pagination-loading { flex-basis: 100%; min-height: 1.5em; color: var(--text-secondary); text-align: center; font-size: 12px; }
 .study-shell .study-message { color: var(--text-secondary); margin: 8px 0; font-size: 13px; }
 .study-shell .study-message.error { color: var(--danger); }

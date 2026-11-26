@@ -45,7 +45,6 @@ const nav = [
   { href: '/favorites', label: '收藏夹' },
 ]
 
-const routePrefetchOrder = ['/questions', '/exam', '/wrong', '/favorites', '/']
 type QuestionStates = { states: Record<string, QuestionState> }
 type QuestionStateRead = { revision: number; expiresAt: number; response: Promise<QuestionStates> }
 type FavoriteWrite = { desired: boolean }
@@ -100,7 +99,7 @@ function useTheme(theme: unknown, save: (edits: Record<string, unknown>) => void
   }
 }
 
-function useStudySession(userId: string) {
+function useStudySession(userId: string, initialStats: Promise<StudyStats | null>) {
   const [revision, setRevision] = useState(0)
   const [personalReads] = useState(() => createPersonalStudyReads(userId))
   const stateRevision = useRef(0)
@@ -116,7 +115,7 @@ function useStudySession(userId: string) {
     stateRevision.current += 1
     setRevision(stateRevision.current)
   }, [personalReads])
-  const stats = useStudyData<StudyStats>('/api/me/stats', revision, { ...personalReads, keepPreviousData: true })
+  const stats = useStudyData<StudyStats>('/api/me/stats', revision, { ...personalReads, initial: initialStats, keepPreviousData: true })
   const preferences = useAccountStudyPreferences(userId, stats.data?.preferences, stats.loading)
   const topics = useStudyData<{ topics: Topic[] }>('/api/public/topics')
   const attempts = useAttemptQueue(userId, refreshMe)
@@ -237,7 +236,9 @@ export function useQuestionFavorite(id: string, serverFavorite?: boolean) {
   }
 }
 
-export function StudyShell({ userId, author, children }: { userId: string; author: boolean; children: ReactNode }) {
+export function StudyShell({ userId, author, initialStats, children }: {
+  userId: string; author: boolean; initialStats: Promise<StudyStats | null>; children: ReactNode
+}) {
   const pathname = usePathname()
   const router = useRouter()
   const hash = useSyncExternalStore(subscribeHash, currentHash, emptyHash)
@@ -253,16 +254,15 @@ export function StudyShell({ userId, author, children }: { userId: string; autho
   const threadId = hash.startsWith(authorChatHash + '/') ? hash.slice(authorChatHash.length + 1) : undefined
   const footerPageOpen = sponsorOpen || feedbackOpen || chatOpen || authorChatOpen
   const { unread, sharedUnread, updateUnread, updateSharedUnread } = useChatUnread(userId, feedbackOpen || authorChatOpen)
-  const session = useStudySession(userId)
+  const session = useStudySession(userId, initialStats)
   const { personalReads, preferences } = session
   const toggleTheme = useTheme(preferences.values.theme, preferences.save)
   useAccountStudyScroll(pathname, preferences)
   const publicLibrary = libraryPath('all', readLibraryView(preferences.values['library:all']))
   const wrongLibrary = libraryPath('wrong', readLibraryView(preferences.values['library:wrong']))
   const favoriteLibrary = libraryPath('favorite', readLibraryView(preferences.values['library:favorite']))
-  const [warmRouteCount, setWarmRouteCount] = useState(0)
-  const practiceReady = Boolean(session.topics.data)
   const firstTopic = session.topics.data?.topics.find(({ count }) => count > 0)?.id
+  const warmedLibrary = useRef<string | undefined>(undefined)
   useEffect(() => {
     if (chatOpen) warmChat(userId)
   }, [chatOpen, userId])
@@ -272,23 +272,20 @@ export function StudyShell({ userId, author, children }: { userId: string; autho
     }
   }, [firstTopic, pathname, preferences.ready])
   useEffect(() => {
-    if (warmRouteCount >= routePrefetchOrder.length || !practiceReady) return
+    if (pathname !== '/' || footerPageOpen || !firstTopic || !preferences.ready
+      || !publicLibrary.startsWith('/api/public/') || warmedLibrary.current === publicLibrary) return
     const timer = setTimeout(() => {
-      if (!navigator.onLine || document.visibilityState !== 'visible') return
-      const target = routePrefetchOrder[warmRouteCount]
-      if (target === '/questions') void (publicLibrary.startsWith('/api/me/') ? personalReads.load(publicLibrary) : readPublic(publicLibrary)).catch(() => {})
-      if (target === '/exam') void personalReads.load('/api/exams').catch(() => {})
-      if (target === '/wrong' || target === '/favorites') void personalReads.load(target === '/wrong' ? wrongLibrary : favoriteLibrary).catch(() => {})
-      setWarmRouteCount((count) => count + 1)
-    }, warmRouteCount === 0 ? 400 : 220)
+      if (!navigator.onLine || document.hidden) return
+      warmedLibrary.current = publicLibrary
+      void readPublic(publicLibrary).catch(() => { warmedLibrary.current = undefined })
+    }, 800)
     return () => clearTimeout(timer)
-  }, [pathname, warmRouteCount, practiceReady, personalReads, publicLibrary, wrongLibrary, favoriteLibrary])
-
+  }, [firstTopic, footerPageOpen, pathname, preferences.ready, publicLibrary])
   function warmRoute(href: string) {
     if (pathname === href || !navigator.onLine) return
     if (href === '/questions') void (publicLibrary.startsWith('/api/me/') ? personalReads.load(publicLibrary) : readPublic(publicLibrary)).catch(() => {})
-    if (href === '/wrong' || href === '/favorites' || href === '/exam') {
-      void personalReads.load(href === '/wrong' ? wrongLibrary : href === '/favorites' ? favoriteLibrary : '/api/exams').catch(() => {})
+    if (href === '/wrong' || href === '/favorites') {
+      void personalReads.load(href === '/wrong' ? wrongLibrary : favoriteLibrary).catch(() => {})
     }
     router.prefetch(href)
   }
@@ -321,7 +318,7 @@ export function StudyShell({ userId, author, children }: { userId: string; autho
             {nav.map(({ href, label }) => {
               const active = !footerPageOpen && pathname === href
               return <Link key={href} href={href} scroll={false} aria-current={active ? 'page' : undefined} className={active ? 'active' : undefined}
-                prefetch={pathname !== href && routePrefetchOrder.indexOf(href) < warmRouteCount}
+                prefetch={false}
                 onPointerEnter={(event) => {
                   if (event.pointerType === 'mouse') warmRoute(href)
                 }}

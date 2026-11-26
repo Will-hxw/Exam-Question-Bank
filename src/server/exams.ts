@@ -1,5 +1,6 @@
 import 'server-only'
 import { randomInt } from 'node:crypto'
+import type { ExamHistory } from '@/features/study/exam'
 import { DEFAULT_EXAM_QUESTIONS, isExamQuestionCount, MAX_EXAM_QUESTIONS, MIN_EXAM_QUESTIONS } from '@/features/study/exam-size'
 import { query } from './db'
 import { HttpError, uuid } from './http'
@@ -50,8 +51,8 @@ const summaryFields = `
   s.revision, s.position, s.score, s.question_count AS total
 `
 
-export async function examHistory(user: string) {
-  return { exams: await query(`
+export async function examHistory(user: string): Promise<ExamHistory> {
+  return { exams: await query<ExamHistory['exams'][number]>(`
     SELECT ${summaryFields} FROM exam_sessions s WHERE s.user_id = $1
     ORDER BY (status = 'draft') DESC, started_at DESC LIMIT 30
   `, [user]) }

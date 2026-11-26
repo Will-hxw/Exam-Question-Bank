@@ -108,7 +108,8 @@ export const libraryPageSize = 20
 const sha256 = /^[0-9a-f]{64}$/
 const topicIdPattern = /^[a-z0-9][a-z0-9-]{0,49}$/
 const cursorPattern = /^[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}$/i
-const pageSize = 15
+export const practiceBankPageSize = 15
+const pageSize = practiceBankPageSize
 type Group = { total: number; pages: string[] }
 type BankManifest = { release: string; topics: Topic[]; pageSize: 15; groups: Record<string, Group> }
 type BankRead = { kind: 'topics' } | { kind: 'practice'; group: string; offset: number; cursor?: string }
@@ -126,7 +127,7 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return Boolean(value && typeof value === 'object' && !Array.isArray(value))
 }
 
-function validManifest(value: unknown): value is BankManifest {
+export function validManifest(value: unknown): value is BankManifest {
   if (!isRecord(value) || typeof value.release !== 'string' || !sha256.test(value.release)
     || value.pageSize !== pageSize || !Array.isArray(value.topics) || !isRecord(value.groups)) return false
   const ids = new Set<string>()
@@ -196,7 +197,7 @@ async function getManifest(): Promise<BankManifest | null> {
   return manifestRequest
 }
 
-function validPage(value: unknown, expectedCount: number, group: string, lastPage: boolean): value is QuestionPage {
+export function validPage(value: unknown, expectedCount: number, group: string, lastPage: boolean): value is QuestionPage {
   if (!isRecord(value) || !Array.isArray(value.questions) || value.questions.length !== expectedCount) return false
   const questions = value.questions as Array<Record<string, unknown>>
   return value.nextCursor === (lastPage ? null : questions.at(-1)?.id)

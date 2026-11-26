@@ -1,8 +1,8 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { answerLetters, type Explanation, letter, type Question, type QuestionPage, type QuestionState, type QuestionType, type Status } from './api'
-import { ExplanationPanel, LoadMessage, TopicPicker } from './controls'
+import { useEffect, useRef, useState } from 'react'
+import { answerLetters, type Explanation, letter, type Question, type QuestionPage, type QuestionState, type QuestionType, readPublic, type Status } from './api'
+import { ChoicePicker, ExplanationPanel, LoadMessage, TopicPicker } from './controls'
 import { libraryPageSizes, libraryPath, readLibraryView, type LibraryList, type LibraryView } from './preferences'
 import { useQuestionFavorite, useQuestionStates, useStudySessionContext } from './study-shell'
 import { useDebouncedSearch, useStudyData } from './use-study-data'
@@ -14,6 +14,12 @@ const statuses: { value: Status | ''; label: string }[] = [
   { value: '', label: '全部' }, { value: 'undone', label: '未做' }, { value: 'done', label: '已做' },
   { value: 'wrong', label: '错题' }, { value: 'favorite', label: '收藏' },
 ]
+const pageSizes = libraryPageSizes.map((value) => ({ value, label: `${value} 题` }))
+
+function warmExplanation(path: string) {
+  if (navigator.onLine) void readPublic<Explanation>(path).catch(() => {})
+}
+
 function QuestionRow({ question, state, list }: { question: Question; state?: Partial<QuestionState>; list: 'all' | 'wrong' | 'favorite' }) {
   const { removeWrong } = useStudySessionContext()
   const favoriteControl = useQuestionFavorite(question.id, state?.isFavorite ?? question.isFavorite)
@@ -21,7 +27,9 @@ function QuestionRow({ question, state, list }: { question: Question; state?: Pa
   const [expanded, setExpanded] = useState(false)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
-  const explanation = useStudyData<Explanation>(showAnswer ? `/api/public/questions/${question.id}/explanation` : null)
+  const explanationPath = `/api/public/questions/${question.id}/explanation`
+  const explanation = useStudyData<Explanation>(showAnswer ? explanationPath : null)
+  const attempted = state?.attempted ?? question.attempted ?? false
 
   async function clearWrong() {
     setSaving(true)
@@ -38,7 +46,7 @@ function QuestionRow({ question, state, list }: { question: Question; state?: Pa
   return <article className="list-item">
     <div className="q-header">
       <span className={`q-type ${question.type}`}>{question.type === 'single' ? '单选题' : '多选题'}</span>
-      {(state?.attempted || question.attempted) && <span className="done-badge">✓ 已答</span>}
+      {attempted && <span className="done-badge">✓ 已答</span>}
     </div>
     <p className="q-text">{question.stem}</p>
     <div className="list-options">
@@ -46,21 +54,25 @@ function QuestionRow({ question, state, list }: { question: Question; state?: Pa
         className={`opt-line${explanation.data?.answerIds.includes(option.id) ? ' answer-highlight' : ''}`}>{letter(index)}. {option.text}</span>)}
     </div>
     <div className="list-actions">
-      <button type="button" aria-expanded={showAnswer} onClick={() => { setShowAnswer(!showAnswer); setExpanded(false) }}>
+      <button type="button" aria-expanded={showAnswer} data-explanation-path={explanationPath}
+        onPointerEnter={(event) => { if (event.pointerType === 'mouse') warmExplanation(explanationPath) }}
+        onFocus={() => warmExplanation(explanationPath)} onPointerDown={() => warmExplanation(explanationPath)}
+        onClick={() => { setShowAnswer(!showAnswer); setExpanded(false) }}>
         {showAnswer ? '隐藏答案' : '显示答案'}
       </button>
       <button type="button" aria-pressed={favoriteControl.favorite} aria-busy={favoriteControl.pending || undefined} onClick={favoriteControl.toggle}>
         {favoriteControl.favorite ? '取消收藏' : '收藏'}
       </button>
       {list === 'wrong' && <button type="button" disabled={saving} onClick={() => void clearWrong()}>移出错题集</button>}
-      {explanation.data && <button type="button" aria-expanded={expanded} onClick={() => setExpanded(!expanded)}>{expanded ? '收起解析' : '展开解析'}</button>}
+      {explanation.data && <button type="button" aria-expanded={expanded && attempted} disabled={!attempted}
+        title={!attempted ? '作答后可展开解析' : undefined} onClick={() => setExpanded(!expanded)}>{expanded ? '收起解析' : '展开解析'}</button>}
     </div>
     {favoriteControl.error && <p className="study-message error" role="alert">{favoriteControl.error}</p>}
     {error && <p className="study-message error" role="alert">{error}</p>}
     {explanation.loading && <p className="study-message" role="status">加载答案中…</p>}
     {explanation.error && <div className="study-message error" role="alert">{explanation.error} <button className="btn btn-sm" type="button" onClick={explanation.retry}>重试</button></div>}
     {explanation.data && <p className="answer-reveal">答案：<span>{answerLetters(explanation.data.options, explanation.data.answerIds)}</span></p>}
-    {expanded && explanation.data && <ExplanationPanel content={explanation.data} />}
+    {attempted && expanded && explanation.data && <ExplanationPanel content={explanation.data} />}
   </article>
 }
 
@@ -69,6 +81,7 @@ function QuestionList({ view, q, status, list, onPageChange, onLimitChange }: {
   onPageChange: (index: number) => void; onLimitChange: (limit: number) => void
 }) {
   const [loaded, setLoaded] = useState<{ index: number; data: QuestionPage }>()
+  const rows = useRef<HTMLDivElement>(null)
   const { revision, personalReads } = useStudySessionContext()
   const { page: pageIndex, limit } = view
   const page = useStudyData<QuestionPage>(
@@ -86,6 +99,45 @@ function QuestionList({ view, q, status, list, onPageChange, onLimitChange }: {
   const currentIndex = Math.min(loaded?.index ?? 0, pageCount - 1)
   const questions = loaded?.data.questions ?? []
   const states = useQuestionStates(status ? [] : questions.map((question) => question.id))
+  const nextPage = page.data && currentIndex + 1 < pageCount ? libraryPath(list, { ...view, page: currentIndex + 1 }, q) : null
+
+  function warmPage(index: number) {
+    if (index < 0 || index >= pageCount || index === pageIndex || !navigator.onLine) return
+    const path = libraryPath(list, { ...view, page: index }, q)
+    void (status ? personalReads.load(path) : readPublic(path)).catch(() => {})
+  }
+
+  useEffect(() => {
+    if (!nextPage) return
+    const timer = setTimeout(() => {
+      if (navigator.onLine && !document.hidden) void (status ? personalReads.load(nextPage) : readPublic(nextPage)).catch(() => {})
+    }, 400)
+    return () => clearTimeout(timer)
+  }, [nextPage, personalReads, status])
+
+  useEffect(() => {
+    const buttons = rows.current?.querySelectorAll<HTMLElement>('[data-explanation-path]')
+    if (!buttons?.length) return
+    const pending = new Map<Element, ReturnType<typeof setTimeout>>()
+    const observer = new IntersectionObserver((entries) => {
+      for (const { target, isIntersecting } of entries) {
+        clearTimeout(pending.get(target))
+        pending.delete(target)
+        if (!isIntersecting) continue
+        const path = (target as HTMLElement).dataset.explanationPath
+        if (path) pending.set(target, setTimeout(() => {
+          observer.unobserve(target)
+          pending.delete(target)
+          if (!document.hidden) warmExplanation(path)
+        }, 500))
+      }
+    })
+    buttons.forEach((button) => observer.observe(button))
+    return () => {
+      observer.disconnect()
+      pending.forEach((timer) => clearTimeout(timer))
+    }
+  }, [loaded])
 
   function move(index: number) {
     if (page.loading) return
@@ -96,7 +148,7 @@ function QuestionList({ view, q, status, list, onPageChange, onLimitChange }: {
   return <>
     {loaded && <p className="stats-bar">{loaded.data.total} 道符合条件的题目</p>}
     {questions.length === 0 ? <LoadMessage loading={page.loading} error={page.error} retry={page.retry} /> : (
-      <div aria-busy={page.loading}>{questions.map((question) => <QuestionRow key={question.id} question={question}
+      <div aria-busy={page.loading} ref={rows}>{questions.map((question) => <QuestionRow key={question.id} question={question}
         state={states.data?.states[question.id]} list={list} />)}</div>
     )}
     {questions.length > 0 && page.error && <p className="study-message error" role="alert">
@@ -104,14 +156,16 @@ function QuestionList({ view, q, status, list, onPageChange, onLimitChange }: {
     </p>}
     {states.error && <p className="study-message error" role="alert">个人状态加载失败。 <button type="button" className="btn btn-sm" onClick={states.retry}>重试</button></p>}
     {loaded && total > 0 && <nav className="study-pagination" aria-label="题库分页">
-      <button type="button" className="btn btn-sm nav-step" disabled={currentIndex === 0} onClick={() => move(currentIndex - 1)}>上一页</button>
+      <button type="button" className="btn btn-sm nav-step" disabled={currentIndex === 0}
+        onPointerEnter={() => warmPage(currentIndex - 1)} onFocus={() => warmPage(currentIndex - 1)}
+        onClick={() => move(currentIndex - 1)}>上一页</button>
       <output className="pagination-position" aria-label="当前页 / 总页数">{currentIndex + 1}/{pageCount}</output>
-      <button type="button" className="btn btn-sm nav-step" disabled={currentIndex + 1 >= pageCount} onClick={() => move(currentIndex + 1)}>下一页</button>
-      {list === 'all' && <label className="pagination-size">每页题量
-        <select className="pagination-select" value={limit} onChange={(event) => onLimitChange(Number(event.target.value))}>
-          {libraryPageSizes.map((size) => <option key={size} value={size}>{size} 题</option>)}
-        </select>
-      </label>}
+      <button type="button" className="btn btn-sm nav-step" disabled={currentIndex + 1 >= pageCount}
+        onPointerEnter={() => warmPage(currentIndex + 1)} onFocus={() => warmPage(currentIndex + 1)}
+        onClick={() => move(currentIndex + 1)}>下一页</button>
+      {list === 'all' && <div className="pagination-size"><span>每页题量</span>
+        <ChoicePicker entries={pageSizes} value={limit} fallback={`${limit} 题`} label="每页题量" alignEnd onChange={onLimitChange} />
+      </div>}
       <p className="pagination-loading" role="status">
         {page.loading && currentIndex !== pageIndex ? `正在加载第 ${pageIndex + 1} 页…` : ''}
       </p>
@@ -123,7 +177,7 @@ function LibraryContent({ list }: { list: LibraryList }) {
   const { topics, stats, preferences } = useStudySessionContext()
   const key = `library:${list}`
   const view = readLibraryView(preferences.values[key])
-  const { search, type, topic, status, limit } = view
+  const { search, type, topic, status } = view
   const q = useDebouncedSearch(search)
   const filter = list === 'all' ? status : list
   const filterBy = (change: Partial<LibraryView>) => preferences.save({ [key]: { page: 0, ...change } })
@@ -146,7 +200,7 @@ function LibraryContent({ list }: { list: LibraryList }) {
           aria-pressed={entry.value === status} onClick={() => filterBy({ status: entry.value })}>{entry.label}</button>)}
       </div>}
     </div>
-    <QuestionList key={JSON.stringify([topic, type, q, filter, limit])} view={view} q={q} status={filter} list={list}
+    <QuestionList key={JSON.stringify([topic, type, q, filter])} view={view} q={q} status={filter} list={list}
       onPageChange={(index) => filterBy({ page: index })} onLimitChange={(size) => filterBy({ limit: size })} />
   </>
 }
