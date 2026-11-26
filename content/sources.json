@@ -665,15 +665,17 @@
   },
   {
     "id": "S32",
-    "title": "党员权利保障条例",
-    "publisher": "共产党员网（发布机构待逐文核对）",
+    "title": "中国共产党党员权利保障条例",
+    "publisher": "中共中央",
     "url": "https://www.12371.cn/2021/01/04/ARTI1609758791334452.shtml",
     "documentDate": "2020-12-25",
-    "retrievedOn": "2026-11-23",
+    "retrievedOn": "2026-11-26",
     "format": "HTML",
-    "status": "partial",
+    "status": "full",
     "sha256": "fd3f2890173641ca0b7969e321815b42e9792929a9a4224b8043ab997a5d6b4e",
-    "rightsNote": "公开文件字节已取得，正文待逐段复核。公开入口或公开资料线索；按权属引用。"
+    "rightsNote": "2020年修订全文。复核了原文及题目使用的条款。",
+    "webpageDate": "2021-01-04",
+    "effectiveFrom": "2020-12-25"
   },
   {
     "id": "S33",
@@ -769,11 +771,12 @@
     "publisher": "全国人民代表大会审查批准；新华社受权发布",
     "url": "https://www.12371.cn/2026/03/13/ARTI1773410307876581.shtml",
     "webpageDate": "2026-03-13",
-    "retrievedOn": "2026-11-23",
+    "retrievedOn": "2026-11-26",
     "format": "HTML",
-    "status": "partial",
+    "status": "full",
     "sha256": "12e2e831e5c76cd5c947c4f980ab9d40c6305d76d8b5c4f04e42233995c47263",
-    "rightsNote": "正式全文入口已打开，完整正文待分章节研读。公开入口；按权属引用。"
+    "rightsNote": "已取得正式全文和目录。题目按相关章节独立编写，题面区分四中全会审议通过的《建议》。",
+    "documentDate": "2026-03-12"
   },
   {
     "id": "S41",
@@ -909,9 +912,9 @@
     "publisher": "中共中央",
     "url": "https://www.12371.cn/2021/11/16/ARTI1637053281483114.shtml",
     "format": "HTML",
-    "status": "partial",
-    "retrievedOn": "2026-11-23",
-    "rightsNote": "官方原件已下载；本轮读核第四部分理论概括及新时代十三个成就领域标题。第四部分：理论概括和第（一）至第（十三）个领域。",
+    "status": "full",
+    "retrievedOn": "2026-11-26",
+    "rightsNote": "中央决议完整原件已获取。复核当批实际采用的理论概括、十三方面成就和党史段落。",
     "documentDate": "2021-11-11",
     "webpageDate": "2021-11-16",
     "sha256": "d3e27c107d6bea3596dc2dc1dd1f24b78ef9ab7dc2d87ac10ba037fda14a7ee5"
@@ -1055,14 +1058,14 @@
   },
   {
     "id": "S64",
-    "title": "毛泽东作七大政治报告——《论联合政府》",
+    "title": "论联合政府（中国共产党第七次全国代表大会政治报告）",
     "publisher": "毛泽东",
     "url": "https://fuwu.12371.cn/2012/09/21/ARTI1348215426480519.shtml",
-    "retrievedOn": "2026-11-23",
+    "retrievedOn": "2026-11-26",
     "format": "HTML",
-    "status": "partial",
+    "status": "full",
     "sha256": "41518194c1684b9fbcc41b77b6e0d03c484d139d4f92f1a19e183b430228fdad",
-    "rightsNote": "共产党员网历史文献全文已取得，本轮核读三大作风段。论中国共产党第七次全国代表大会上的报告，党的作风段。",
+    "rightsNote": "共产党员网刊载七大政治报告全文，定位第五部分概括三大作风的段落。",
     "documentDate": "1945-04-24",
     "webpageDate": "2012-09-21"
   },
@@ -1205,10 +1208,10 @@
     "url": "https://news.12371.cn/2014/07/01/ARTI1404160183563361.shtml",
     "documentDate": "2014-06-30",
     "webpageDate": "2014-07-01",
-    "retrievedOn": "2026-11-23",
+    "retrievedOn": "2026-11-26",
     "format": "HTML",
-    "status": "partial",
-    "rightsNote": "可公开阅读。已核位置为报道中的制度体系段；按权属和具体出处引用。"
+    "status": "full",
+    "rightsNote": "已核读采用的完整公开报道或公开节录；以定位段落支持题目，按权属引用。"
   },
   {
     "id": "S74",
@@ -1251,10 +1254,10 @@
     "url": "https://syss.12371.cn/2015/05/18/ARTI1431937047285524.shtml",
     "documentDate": "2012-11-29",
     "webpageDate": "2015-05-18",
-    "retrievedOn": "2026-11-23",
+    "retrievedOn": "2026-11-26",
     "format": "HTML",
-    "status": "partial",
-    "rightsNote": "可公开阅读。已核位置为讲话首段及注释第1条；按权属和具体出处引用。"
+    "status": "full",
+    "rightsNote": "已核读采用的完整公开报道或公开节录；以定位段落支持题目，按权属引用。"
   },
   {
     "id": "S78",
@@ -1392,5 +1395,222 @@
     "format": "HTML",
     "status": "full",
     "rightsNote": "核读正式闭幕报道全文，引用大会通过法律及实施日期。"
+  },
+  {
+    "id": "C750-01",
+    "title": "党史百年·天天读：1月12日",
+    "publisher": "中共中央党史和文献研究院",
+    "url": "https://www.12371.cn/2021/01/11/ARTI1610336088350415.shtml",
+    "webpageDate": "2021-01-11",
+    "rightsNote": "共产党员网刊载的中央党史和文献研究院公开党史回顾，完整正文已读。",
+    "format": "HTML",
+    "status": "full",
+    "retrievedOn": "2026-11-26"
+  },
+  {
+    "id": "C750-03",
+    "title": "发展新质生产力是推动高质量发展的内在要求和重要着力点",
+    "publisher": "习近平（《求是》刊发讲话节录）",
+    "url": "https://www.12371.cn/2024/05/31/ARTI1717139566050614.shtml",
+    "webpageDate": "2024-05-31",
+    "rightsNote": "共产党员网刊载公开讲话节录，所采用的文章正文完整，核对新质生产力的基本内涵、核心标志、特征和催生条件。",
+    "format": "HTML",
+    "status": "full",
+    "retrievedOn": "2026-11-26"
+  },
+  {
+    "id": "C750-05",
+    "title": "关于中国共产党党费收缴、使用和管理的规定",
+    "publisher": "中共中央组织部",
+    "url": "https://news.12371.cn/2015/10/28/ARTI1446023667889287.shtml",
+    "documentDate": "2008-02-04",
+    "effectiveFrom": "2008-04-01",
+    "webpageDate": "2015-10-28",
+    "rightsNote": "共产党员网公开的规定全文。预备党员党费起算依据第八条。",
+    "format": "HTML",
+    "status": "full",
+    "retrievedOn": "2026-11-26"
+  },
+  {
+    "id": "Q-T05-PEOPLE",
+    "title": "二十届五中全会精神学习自测",
+    "publisher": "人民网·中国共产党新闻网",
+    "url": "https://cpc.people.com.cn/GB/67481/462775/462878/index.html",
+    "retrievedOn": "2026-11-26",
+    "format": "HTML",
+    "status": "full",
+    "sha256": "391554a475146bcfe33b2d4582dd266f68c18a5dec2998588a16cc37f920aff3",
+    "rightsNote": "网页可见两组各5道，题源按附《公报》与附《决定》的题组及组内题号定位，判答另以正式文本为准。"
+  },
+  {
+    "id": "S-T-DJ14",
+    "title": "习近平党建思想鲜明提出“十四个坚持”",
+    "publisher": "共产党员网",
+    "url": "https://www.12371.cn/2026/06/24/ARTI1782288270787567.shtml",
+    "webpageDate": "2026-06-24",
+    "retrievedOn": "2026-11-26",
+    "format": "HTML",
+    "status": "full",
+    "rightsNote": "公开篇目正文。用于区分习近平党建思想的十四个坚持与其他数目相同的表述。"
+  },
+  {
+    "id": "S-T-DJCCTV",
+    "title": "焦点访谈｜思想的力量 理论品格固根基",
+    "publisher": "中央广播电视总台·央视网",
+    "url": "https://news.cctv.com/2026/10/27/ARTIA7XWPgeTNZEjDlHpYfsC261027.shtml",
+    "webpageDate": "2026-10-27",
+    "retrievedOn": "2026-11-26",
+    "format": "HTML",
+    "status": "full",
+    "rightsNote": "央视同名节目公开文字稿。依据原文解释科学思想方法和理论品格，不移植稿件长段落。"
+  },
+  {
+    "id": "S-T-DJREAD",
+    "title": "《习近平党建文选》第一卷、第二卷出版发行",
+    "publisher": "新华社（人民网刊载）",
+    "url": "https://cpc.people.com.cn/n1/2026/0624/c462335-40746242.html",
+    "webpageDate": "2026-06-24",
+    "retrievedOn": "2026-11-26",
+    "format": "HTML",
+    "status": "full",
+    "rightsNote": "新华社出版消息全文。用于考查编选定位及文献选读。"
+  },
+  {
+    "id": "S-T-DJSELECT",
+    "title": "《习近平党建文选》第一卷、第二卷主要篇目介绍",
+    "publisher": "新华社",
+    "url": "https://www3.xinhuanet.com/politics/leaders/20260623/3a50e85072d24ff2be78fc1211a6fa68/c.html",
+    "webpageDate": "2026-06-23",
+    "retrievedOn": "2026-11-26",
+    "format": "HTML",
+    "status": "full",
+    "rightsNote": "新华社原发主要篇目介绍全部正文，按介绍中的明确原文小标题引用。"
+  },
+  {
+    "id": "S-T-DJRM",
+    "title": "把习近平党建思想作为持之以恒推进全面从严治党的根本遵循",
+    "publisher": "人民日报",
+    "url": "https://paper.people.com.cn/rmrb/pc/content/202611/04/content_30189235.html",
+    "webpageDate": "2026-11-04",
+    "retrievedOn": "2026-11-26",
+    "format": "HTML",
+    "status": "full",
+    "rightsNote": "人民日报学习贯彻二十届五中全会署名文章全文，命题在题干限定文章对应段落。"
+  },
+  {
+    "id": "O-PCS4",
+    "title": "人民网中国共产党新闻网二十届四中全会精神学习自测",
+    "publisher": "人民网·中国共产党新闻网",
+    "url": "https://cpc.people.com.cn/GB/67481/461139/461401/index.html",
+    "retrievedOn": "2026-11-26",
+    "format": "HTML",
+    "status": "full",
+    "sha256": "789e2009670e88afab397023675a6a7ef3224c40dfbe21127fec18d462f7e4ae",
+    "rightsNote": "人民网公开自测正文及原文依据可查。保留组内题号和原考点，改编后按四中全会正式《建议》判答。"
+  },
+  {
+    "id": "O-MAO120",
+    "title": "习近平在纪念毛泽东同志诞辰120周年座谈会上的讲话",
+    "publisher": "习近平",
+    "url": "https://news.12371.cn/2013/12/26/ARTI1388046417272947.shtml",
+    "retrievedOn": "2026-11-26",
+    "format": "HTML",
+    "status": "full",
+    "rightsNote": "核读官方公开全文或完整采用节录，题面和解析按资料所述独立撰写。",
+    "documentDate": "2013-12-26",
+    "webpageDate": "2013-12-26"
+  },
+  {
+    "id": "O-THEME23",
+    "title": "在学习贯彻习近平新时代中国特色社会主义思想主题教育工作会议上的讲话",
+    "publisher": "习近平",
+    "url": "https://www.12371.cn/2023/04/30/ARTI1682840464343743.shtml",
+    "retrievedOn": "2026-11-26",
+    "format": "HTML",
+    "status": "full",
+    "rightsNote": "核读官方公开全文或完整采用节录，题面和解析按资料所述独立撰写。",
+    "documentDate": "2023-04-03",
+    "webpageDate": "2023-04-30"
+  },
+  {
+    "id": "O-CULT16",
+    "title": "在庆祝中国共产党成立95周年大会上的讲话",
+    "publisher": "习近平",
+    "documentDate": "2016-07-01",
+    "webpageDate": "2016-07-01",
+    "retrievedOn": "2026-11-26",
+    "url": "https://news.12371.cn/2016/07/01/ARTI1467383240864582.shtml",
+    "format": "HTML",
+    "status": "full",
+    "rightsNote": "核读采用的官方全文，题目与解析重新撰写。"
+  },
+  {
+    "id": "O-REFORM13",
+    "title": "中共中央关于全面深化改革若干重大问题的决定",
+    "publisher": "中国共产党第十八届中央委员会",
+    "documentDate": "2013-11-12",
+    "webpageDate": "2013-11-15",
+    "retrievedOn": "2026-11-26",
+    "url": "https://news.12371.cn/2013/11/15/ARTI1384512952195442.shtml",
+    "format": "HTML",
+    "status": "full",
+    "rightsNote": "核读采用的官方全文，题目与解析重新撰写。"
+  },
+  {
+    "id": "S49-CCDI",
+    "title": "习近平：树立和践行正确政绩观（中央纪委国家监委转载）",
+    "publisher": "《求是》杂志",
+    "url": "https://www.ccdi.gov.cn/toutiaon/202603/t20260331_482521.html",
+    "webpageDate": "2026-03-31",
+    "retrievedOn": "2026-11-26",
+    "format": "HTML",
+    "status": "full",
+    "rightsNote": "《求是》公开文章，由中央纪委国家监委转载。"
+  },
+  {
+    "id": "LH26-NPC-ORDERS",
+    "title": "中华人民共和国主席令（第七十号、第七十一号、第七十二号）",
+    "publisher": "中华人民共和国主席",
+    "url": "https://www.court.gov.cn/xinshidai/xiangqing/494341.html",
+    "documentDate": "2026-03-12",
+    "retrievedOn": "2026-11-26",
+    "format": "HTML",
+    "status": "full",
+    "rightsNote": "最高人民法院公开转载主席令。"
+  },
+  {
+    "id": "LH26-CODE-ORDER",
+    "title": "中华人民共和国主席令（第七十号）",
+    "publisher": "中华人民共和国主席",
+    "url": "https://www.moj.gov.cn/pub/sfbgw/zwgkztzl/2026nianzhuanti/2026qglh0206/lhsj20260206/202603/t20260312_532715.html",
+    "documentDate": "2026-03-12",
+    "retrievedOn": "2026-11-26",
+    "format": "HTML",
+    "status": "full",
+    "rightsNote": "司法部公开转载主席令。"
+  },
+  {
+    "id": "NPC-PARK-ORDER",
+    "title": "中华人民共和国主席令（第五十三号）",
+    "publisher": "中华人民共和国主席",
+    "url": "https://www.moe.gov.cn/jyb_xwfb/s6052/moe_838/202509/t20250915_1413492.html",
+    "documentDate": "2025-09-12",
+    "retrievedOn": "2026-11-26",
+    "format": "HTML",
+    "status": "full",
+    "rightsNote": "教育部公开转载主席令。"
+  },
+  {
+    "id": "S72-FLAG",
+    "title": "中国共产党党徽党旗条例",
+    "publisher": "中共中央",
+    "url": "https://www.12371.cn/2021/06/28/ARTI1624876462085241.shtml",
+    "documentDate": "2021-06-26",
+    "webpageDate": "2021-06-28",
+    "effectiveFrom": "2021-06-26",
+    "retrievedOn": "2026-11-26",
+    "format": "HTML",
+    "status": "full",
+    "rightsNote": "中央发布的公开条例正文，按条款引用。"
   }
 ]
