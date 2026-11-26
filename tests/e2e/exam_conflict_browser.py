@@ -14,10 +14,9 @@ def check_exam_receipts(browser, origin, host, cookie_name):
     page.on('requestfailed', lambda r: traffic.append((r.method, r.failure)) if '/api/exams/' in r.url else None)
 
     def drop_receipt(route):
-        request = route.request
-        committed = page.request.fetch(request.url, method=request.method, headers=headers, data=request.post_data_json)
+        committed = route.fetch(headers={**route.request.headers, **headers})
         assert committed.ok, committed.text()
-        route.abort('connectionreset')
+        route.fulfill(status=502, content_type='application/json', body='{"error":"验收代理未收到回执"}')
 
     try:
         page.goto(origin + '/exam')
@@ -27,7 +26,7 @@ def check_exam_receipts(browser, origin, host, cookie_name):
             page.get_by_role('button', name='开始考试').click()
         draft_path = origin + '/api/exams/' + started.value.json()['exam']['id']
         page.route(draft_path + '?ack=1', drop_receipt, times=1)
-        with page.expect_event('requestfailed', lambda req: req.url == draft_path + '?ack=1'):
+        with page.expect_response(lambda res: res.url == draft_path + '?ack=1' and res.status == 502):
             page.locator('.exam-question-card .option').first.click()
         try:
             expect(page.get_by_text('草稿已云端同步')).to_be_visible(timeout=12_000)
@@ -51,7 +50,7 @@ def check_exam_receipts(browser, origin, host, cookie_name):
         submit_path = draft_path + '/submit'
         page.route(submit_path, drop_receipt, times=1)
         page.get_by_role('button', name='交卷', exact=True).click()
-        with page.expect_event('requestfailed', lambda req: req.url == submit_path):
+        with page.expect_response(lambda res: res.url == submit_path and res.status == 502):
             page.get_by_role('dialog').get_by_role('button', name='确认交卷', exact=True).click()
         expect(page.locator('.exam-result-item')).to_have_count(8, timeout=12_000)
         result = page.request.get(draft_path, headers=headers).json()['exam']

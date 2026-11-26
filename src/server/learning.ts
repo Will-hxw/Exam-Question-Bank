@@ -9,12 +9,21 @@ export async function account(request: Request, writing = false) {
   return (await requireStudyAccount(request, writing)).id
 }
 
+const preferencesSql = `(
+  SELECT COALESCE(jsonb_object_agg(name, value), '{}') FROM study_preferences WHERE user_id = $1
+)`
+
+export async function readStudyPreferences(user: string) {
+  const [row] = await query<{ preferences: Record<string, unknown> }>(`SELECT ${preferencesSql} AS preferences`, [user])
+  return row.preferences
+}
+
 export async function studyStats(user: string) {
   const [stats] = await query<{ attempted: number; wrong: number; favorites: number; preferences: Record<string, unknown> }>(`
     SELECT count(*) FILTER (WHERE p.attempt_count > 0)::int AS attempted,
            count(*) FILTER (WHERE p.is_wrong)::int AS wrong,
            count(f.question_id)::int AS favorites,
-           COALESCE((SELECT jsonb_object_agg(name, value) FROM study_preferences WHERE user_id = $1), '{}') AS preferences
+           ${preferencesSql} AS preferences
     FROM active_bank_questions q
     LEFT JOIN question_progress p ON p.user_id = $1 AND p.question_id = q.id
     LEFT JOIN favorites f ON f.user_id = $1 AND f.question_id = q.id

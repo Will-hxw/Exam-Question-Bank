@@ -2,8 +2,7 @@
 
 import { Fragment, type FormEvent, useEffect, useEffectEvent, useMemo, useRef, useState } from 'react'
 import type { PracticeBootstrap } from '@/server/study-bootstrap'
-import { answerLetters, letter, practiceBankPageSize as batchSize, type Question, type QuestionPage, questionUrl, readPublic, requestJson,
-  type StudyStats, type Topic } from './api'
+import { answerLetters, letter, practiceBankPageSize as batchSize, rememberPublicPage, type Question, type QuestionPage, questionUrl, readPublic, requestJson, type StudyStats, type Topic } from './api'
 import { ExplanationPanel, LoadMessage, TopicPicker } from './controls'
 import { readStudyPreference, type StudyPreferences, writeStudyPreference } from './preferences'
 import { addPracticeBookmark, findPracticeBookmark, identifyPracticeBookmark, practiceHistoryLimit, restorePracticeHistory,
@@ -118,14 +117,13 @@ function PracticeStats({ data }: { data: StudyStats | null }) {
   </div>
 }
 
-function PracticeCard({ question, answer, record, progress, previous, next, checking, attempted, favorite, wrongMode, onRemoved }: {
+function PracticeCard({ question, answer, record, progress, previous, next, attempted, favorite, wrongMode, onRemoved }: {
   question: Question
   answer: Answer | undefined
   record: (answer: Answer) => void
   progress: React.ReactNode
   previous: (() => void) | null
   next: () => void
-  checking: boolean
   attempted: boolean
   favorite: boolean | undefined
   wrongMode: boolean
@@ -205,8 +203,8 @@ function PracticeCard({ question, answer, record, progress, previous, next, chec
       </div>
       <div className="action-bar">
         <button type="button" className="btn primary" disabled={Boolean(answer)} onClick={() => submit()}>确定</button>
-        <button type="button" className="btn nav-step" disabled={!previous || checking} onClick={previous ?? undefined}>上一题</button>
-        <button type="button" className="btn nav-step" disabled={checking} onClick={next}>下一题</button>
+        <button type="button" className="btn nav-step" disabled={!previous} onClick={previous ?? undefined}>上一题</button>
+        <button type="button" className="btn nav-step" onClick={next}>下一题</button>
         <button type="button" className="btn btn-sm" aria-pressed={favoriteControl.favorite}
           aria-busy={favoriteControl.pending || undefined} onClick={favoriteControl.toggle}>
           {favoriteControl.favorite ? '★ 取消收藏' : '☆ 收藏'}
@@ -250,14 +248,14 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
   const storageKey = `cqu-practice-history:${userId}:${positionKey(mode, topic)}`
   const onlyUndone = remaining !== undefined
   const undoneSeed = onlyUndone && mode === 'random' ? seed : undefined
-  const [verified, setVerified] = useState<{ base: PracticePosition[]; positions: PracticePosition[] }>()
   const attempted = attempts.recentlyAttemptedIds()
-  const available = (verified && verified.base === remaining ? verified.positions : remaining)?.filter(({ id }) => !attempted.has(id))
+  const available = remaining?.filter(({ id }) => !attempted.has(id))
   const eligible = eligibleBookmarks(available)
   const [trail, setTrail] = useState(() => {
     const restored = restorePracticeHistory(readStudyPreference(storageKey), start)
     const active = restored.entries[restored.cursor]
     const history = { ...restored, filtered: onlyUndone, empty: false }
+    if (available && !available.length) return { ...history, empty: true }
     if (!available || (restored.filtered && !restored.empty) || eligible(active)) return history
     const next = findPracticeBookmark(history, 'next', eligible)
     if (next >= 0) return { ...history, cursor: next }
@@ -269,8 +267,6 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
   const [round, setRound] = useState(0)
   const [answers, setAnswers] = useState<Record<string, Answer>>({})
   const [navigationMessage, setNavigationMessage] = useState('')
-  const [checking, setChecking] = useState(false)
-  const navigation = useRef<AbortController | null>(null)
   const refreshed = useRef(new Set<string>())
   const seededBatch = Boolean(active.seed)
   const ordered = mode === 'topic' || mode === 'sequence'
@@ -279,7 +275,11 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
   const { offset } = batchFor(requestedIndex)
   const query = trail.empty ? null : practicePagePath(mode, topic, active)
   const initialPage = useMemo(() => bootstrap && query && !personal
-    ? Promise.resolve(bootstrap).then((data) => data?.page?.path === query ? data.page.data : null) : undefined, [bootstrap, personal, query])
+    ? Promise.resolve(bootstrap).then((data) => {
+      if (data?.page?.path !== query) return null
+      rememberPublicPage(query, data.page.data)
+      return data.page.data
+    }) : undefined, [bootstrap, personal, query])
   const page = useStudyData<QuestionPage>(query, personal ? revision : 0,
     personal ? personalReads : { initial: initialPage })
   const visiblePage = page.data
@@ -305,7 +305,6 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
     if (!history.empty) syncPosition(history.entries[history.cursor])
   }, [history, storageKey])
 
-  useEffect(() => () => navigation.current?.abort(), [])
   const reload = page.reload
   useEffect(() => {
     if (!rejected || refreshed.current.has(rejected)) return
@@ -317,11 +316,12 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
     setTrail({ ...trail, entries: trail.entries.map((entry, at) => at === trail.cursor ? { position: index, id: questionId } : entry) })
   }
 
-  function findNeighbor(direction: PracticeDirection, candidates = available): PracticeBookmark | undefined {
-    if (candidates && question) {
-      const target = stepUndonePosition(candidates, { position: index, id: question.id }, direction, undoneSeed)
-      return target === null ? undefined : { position: target, id: candidates.find(({ position }) => position === target)?.id }
+  function findNeighbor(direction: PracticeDirection): PracticeBookmark | undefined {
+    if (available && question) {
+      const target = stepUndonePosition(available, { position: index, id: question.id }, direction, undoneSeed)
+      return target === null ? undefined : { position: target, id: available.find(({ position }) => position === target)?.id }
     }
+    if (mode === 'random' && !active.seed) return undefined
     const target = index + (direction === 'previous' ? -1 : 1)
     return target >= 0 && target < total ? { position: target, seed: active.seed } : undefined
   }
@@ -357,57 +357,25 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
   }
 
   function jump(next: number) {
-    if (navigation.current) {
-      navigation.current.abort()
-      navigation.current = null
-      setChecking(false)
-    }
     move(addPracticeBookmark(history, { position: next, seed: active.seed }, 'jump'))
   }
 
-  function navigateTo(direction: PracticeDirection, candidates = available) {
-    const recorded = findPracticeBookmark(history, direction, eligibleBookmarks(candidates))
+  function navigate(direction: PracticeDirection) {
+    const recorded = direction === 'previous' ? previousIndex : nextIndex
     if (recorded >= 0) {
       move({ ...history, cursor: recorded, empty: false })
       return
     }
-    const target = findNeighbor(direction, candidates)
+    const target = direction === 'previous' ? behind : ahead
     if (target) {
       move(addPracticeBookmark(history, target, direction))
-    } else if (candidates) {
+    } else if (available) {
       setNavigationMessage(direction === 'previous' ? '前面没有未做题。'
-        : candidates.length ? '只剩当前这道未做题。' : '这个范围的题都做过了。')
+        : available.length ? '只剩当前这道未做题。' : '这个范围的题都做过了。')
     } else if (direction === 'next') {
       move(addPracticeBookmark(history, { position: 0, seed: mode === 'random' ? crypto.randomUUID() : undefined }, 'next'))
       setRound((previous) => previous + 1)
       setAnswers({})
-    }
-  }
-
-  async function navigate(direction: PracticeDirection) {
-    if (!remaining || !navigator.onLine) {
-      navigateTo(direction)
-      return
-    }
-    if (navigation.current) return
-    const controller = new AbortController()
-    navigation.current = controller
-    setChecking(true)
-    try {
-      const fresh = await requestJson<{ positions: PracticePosition[] }>(undonePath(topic), {
-        headers: { 'X-Study-Account': userId }, signal: AbortSignal.any([controller.signal, AbortSignal.timeout(9000)]),
-      })
-      if (controller.signal.aborted) return
-      const local = attempts.recentlyAttemptedIds()
-      setVerified({ base: remaining, positions: fresh.positions })
-      navigateTo(direction, fresh.positions.filter(({ id }) => !local.has(id)))
-    } catch {
-      if (!controller.signal.aborted) setNavigationMessage('暂时无法核对未做题，请重试。')
-    } finally {
-      if (navigation.current === controller) {
-        navigation.current = null
-        setChecking(false)
-      }
     }
   }
 
@@ -426,7 +394,7 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
       record={(answer) => setAnswers((previous) => Object.fromEntries([...Object.entries(previous).filter(([key]) => key !== cardKey),
         [cardKey, answer]].slice(-practiceHistoryLimit)))}
       progress={<Progress mode={mode} index={index} total={total} fallback={fallback} onJump={jump} />}
-      previous={behind || index > 0 ? () => void navigate('previous') : null} next={() => void navigate('next')} checking={checking}
+      previous={behind ? () => navigate('previous') : null} next={() => navigate('next')}
       attempted={Boolean(attempted.has(question.id) || (activeState?.attempted ?? question.attempted))}
       favorite={activeState?.isFavorite ?? question.isFavorite} wrongMode={mode === 'wrong'}
       onRemoved={() => jump(Math.min(index, Math.max(0, total - 2)))} />

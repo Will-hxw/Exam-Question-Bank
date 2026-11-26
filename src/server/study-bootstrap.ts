@@ -5,7 +5,7 @@ import { join } from 'node:path'
 import { cache } from 'react'
 import { practiceBankPageSize, questionUrl, type QuestionPage, type Topic, validManifest, validPage } from '@/features/study/api'
 import { practiceUndonePreference } from '@/features/study/practice-undone'
-import { studyStats } from './learning'
+import { readStudyPreferences, studyStats } from './learning'
 
 export type PracticeBootstrap = { topics: Topic[]; page?: { path: string; data: QuestionPage } }
 
@@ -14,6 +14,7 @@ const shardPattern = /^\/bank\/pages\/([a-f0-9]{64})\.json$/
 const pageSize = practiceBankPageSize
 
 export const initialStudyStats = cache((userId: string) => studyStats(userId).catch(() => null))
+export const initialStudyPreferences = cache((userId: string) => readStudyPreferences(userId).catch(() => null))
 
 async function releaseManifest() {
   try {
@@ -25,10 +26,10 @@ async function releaseManifest() {
 }
 
 export async function initialPracticeBank(userId: string): Promise<PracticeBootstrap | null> {
-  const [manifest, stats] = await Promise.all([releaseManifest(), initialStudyStats(userId)])
+  const [manifest, preferences] = await Promise.all([releaseManifest(), initialStudyPreferences(userId)])
   if (!manifest) return null
   const topics = manifest.topics
-  const preferences = stats?.preferences ?? {}
+  if (!preferences) return { topics }
   const practice = preferences.practice as { mode?: string; topic?: string } | undefined
   const mode = practice?.mode ?? 'topic'
   if (preferences[practiceUndonePreference] === true || (mode !== 'topic' && mode !== 'sequence')) return { topics }

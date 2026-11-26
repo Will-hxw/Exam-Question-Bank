@@ -90,7 +90,7 @@ export async function createExam(user: string, questionCount: unknown = DEFAULT_
         ) candidate
       ) END AS candidates
   `, [user])
-  if (exam) return { exam }
+  if (exam) return { exam, reusedDraft: true }
   const selected = selectCandidates(candidates ?? [], questionCount)
   if (selected.length !== questionCount) throw new HttpError(409, `满足组卷要求的已审核题目尚不足 ${questionCount} 道，请减少题数后重试。`)
   const [{ exam: started }] = await query<{ exam: unknown }>('SELECT start_exam_snapshot($1, $2) AS exam', [user, selected])

@@ -261,6 +261,28 @@ export function cachedPublic<T>(path: string): T | undefined {
   }
 }
 
+export function rememberPublicPage(path: string, value: unknown) {
+  publicPages.delete(path)
+  publicPages.set(path, { value, expiresAt: Date.now() + 45_000 })
+  if (publicPages.size > 24) {
+    const first = publicPages.keys().next().value
+    if (first) publicPages.delete(first)
+  }
+}
+
+export function cachedQuestionExplanation(question: Pick<Question, 'id' | 'contentRevision'>): Explanation | undefined {
+  if (!question.contentRevision) return
+  for (const [path, { value }] of publicPages) {
+    if (!path.startsWith('/api/public/questions?') || new URLSearchParams(path.split('?')[1]).get('mode') !== 'practice') continue
+    const page = value as QuestionPage
+    if (!Array.isArray(page?.questions)) continue
+    const cached = page.questions.find((item) => item.id === question.id && item.contentRevision === question.contentRevision)
+    if (cached?.answerIds?.length && cached.explanation) {
+      return { answerIds: cached.answerIds, explanation: cached.explanation, options: cached.options, sources: cached.sources ?? [] }
+    }
+  }
+}
+
 export async function readPublic<T>(path: string): Promise<T> {
   if (new URLSearchParams(path.split('?')[1]).get('random') === '1') return requestJson<T>(path, { cache: 'no-store' })
   const bank = bankSelection(path)
@@ -273,12 +295,7 @@ export async function readPublic<T>(path: string): Promise<T> {
   const epoch = cacheEpoch
   const request = (bank ? readBank(path, bank) : requestJson<T>(path)).then((value) => {
     if (epoch !== cacheEpoch) return value
-    publicPages.delete(path)
-    publicPages.set(path, { value, expiresAt: Date.now() + 45_000 })
-    if (publicPages.size > 24) {
-      const oldest = publicPages.keys().next().value
-      if (oldest) publicPages.delete(oldest)
-    }
+    rememberPublicPage(path, value)
     return value
   }).finally(() => {
     if (publicRequests.get(path) === request) publicRequests.delete(path)
