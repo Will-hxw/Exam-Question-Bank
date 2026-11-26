@@ -269,15 +269,14 @@ def check_library_pages(page):
     page.route(pattern, pause)
     next_button.tap()
     expect(pagination.get_by_role('status').filter(has_text='正在加载')).to_have_text('正在加载第 2 页…')
-    expect(next_button).to_be_enabled()
-    expect(next_button).to_have_css('background-color', initial_color)
-    expect(next_button).to_have_css('opacity', '1')
+    expect(next_button).to_be_disabled()
     expect(rows.first.locator('.q-text')).to_have_text(first_stem)
     assert paused
     for route in paused:
         route.continue_()
     page.unroute(pattern, pause)
     expect(position).to_have_text('2/3')
+    page.wait_for_function('window.scrollY === 0')
     expect(next_button).to_have_css('background-color', initial_color)
     expect(next_button).to_be_enabled()
     next_button.tap()
@@ -774,6 +773,10 @@ def run(browser):
     page.get_by_role('button', name='历史记录').click()
     check_exam_history_header(page)
     expect(page.locator('.exam-history-score')).to_have_text([re.compile(r'^\d+/8$'), re.compile(r'^\d+/8$')])
+    page.locator('.exam-history-item').first.click()
+    expect(page.locator('.exam-result-question')).to_have_text(replay_order)
+    page.get_by_role('button', name='← 返回', exact=True).click()
+    check_exam_history_header(page)
     page.locator('.exam-history-item').first.click()
     expect(page.locator('.exam-result-question')).to_have_text(replay_order)
     replay_url = ORIGIN + '/api/exams/' + first_replay['id'] + '/replay'

@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { answerLetters, type Explanation, letter, type Question, type QuestionPage, type QuestionState, type QuestionType, type Status } from './api'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { answerLetters, cachedQuestionExplanation, type Explanation, letter, type Question, type QuestionPage, type QuestionState, type QuestionType, type Status } from './api'
 import { ExplanationPanel, LoadMessage, TopicPicker } from './controls'
 import { libraryPageSizes, libraryPath, readLibraryView, type LibraryList, type LibraryView } from './preferences'
 import { useQuestionFavorite, useQuestionStates, useStudySessionContext } from './study-shell'
@@ -21,7 +21,9 @@ function QuestionRow({ question, state, list }: { question: Question; state?: Pa
   const [expanded, setExpanded] = useState(false)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
-  const explanation = useStudyData<Explanation>(showAnswer ? `/api/public/questions/${question.id}/explanation` : null)
+  const cached = showAnswer ? cachedQuestionExplanation(question) : undefined
+  const explanation = useStudyData<Explanation>(showAnswer && !cached ? `/api/public/questions/${question.id}/explanation` : null)
+  const explanationData = cached ?? explanation.data
 
   async function clearWrong() {
     setSaving(true)
@@ -43,7 +45,7 @@ function QuestionRow({ question, state, list }: { question: Question; state?: Pa
     <p className="q-text">{question.stem}</p>
     <div className="list-options">
       {question.options.map((option, index) => <span key={option.id}
-        className={`opt-line${explanation.data?.answerIds.includes(option.id) ? ' answer-highlight' : ''}`}>{letter(index)}. {option.text}</span>)}
+        className={`opt-line${explanationData?.answerIds.includes(option.id) ? ' answer-highlight' : ''}`}>{letter(index)}. {option.text}</span>)}
     </div>
     <div className="list-actions">
       <button type="button" aria-expanded={showAnswer} onClick={() => { setShowAnswer(!showAnswer); setExpanded(false) }}>
@@ -53,14 +55,14 @@ function QuestionRow({ question, state, list }: { question: Question; state?: Pa
         {favoriteControl.favorite ? '取消收藏' : '收藏'}
       </button>
       {list === 'wrong' && <button type="button" disabled={saving} onClick={() => void clearWrong()}>移出错题集</button>}
-      {explanation.data && <button type="button" aria-expanded={expanded} onClick={() => setExpanded(!expanded)}>{expanded ? '收起解析' : '展开解析'}</button>}
+      {explanationData && <button type="button" aria-expanded={expanded} onClick={() => setExpanded(!expanded)}>{expanded ? '收起解析' : '展开解析'}</button>}
     </div>
     {favoriteControl.error && <p className="study-message error" role="alert">{favoriteControl.error}</p>}
     {error && <p className="study-message error" role="alert">{error}</p>}
     {explanation.loading && <p className="study-message" role="status">加载答案中…</p>}
     {explanation.error && <div className="study-message error" role="alert">{explanation.error} <button className="btn btn-sm" type="button" onClick={explanation.retry}>重试</button></div>}
-    {explanation.data && <p className="answer-reveal">答案：<span>{answerLetters(explanation.data.options, explanation.data.answerIds)}</span></p>}
-    {expanded && explanation.data && <ExplanationPanel content={explanation.data} />}
+    {explanationData && <p className="answer-reveal">答案：<span>{answerLetters(explanationData.options, explanationData.answerIds)}</span></p>}
+    {expanded && explanationData && <ExplanationPanel content={explanationData} />}
   </article>
 }
 
@@ -69,6 +71,7 @@ function QuestionList({ view, q, status, list, onPageChange, onLimitChange }: {
   onPageChange: (index: number) => void; onLimitChange: (limit: number) => void
 }) {
   const [loaded, setLoaded] = useState<{ index: number; data: QuestionPage }>()
+  const scrollOnPage = useRef<number | null>(null)
   const { revision, personalReads } = useStudySessionContext()
   const { page: pageIndex, limit } = view
   const page = useStudyData<QuestionPage>(
@@ -87,8 +90,16 @@ function QuestionList({ view, q, status, list, onPageChange, onLimitChange }: {
   const questions = loaded?.data.questions ?? []
   const states = useQuestionStates(status ? [] : questions.map((question) => question.id))
 
+  useLayoutEffect(() => {
+    const target = scrollOnPage.current
+    if (target === null || loaded?.index !== target || pageIndex !== target) return
+    scrollOnPage.current = null
+    window.scrollTo(0, 0)
+  }, [loaded, pageIndex])
+
   function move(index: number) {
     if (page.loading) return
+    if (list === 'all') scrollOnPage.current = index
     if (index === pageIndex) page.retry()
     else onPageChange(index)
   }
@@ -104,9 +115,9 @@ function QuestionList({ view, q, status, list, onPageChange, onLimitChange }: {
     </p>}
     {states.error && <p className="study-message error" role="alert">个人状态加载失败。 <button type="button" className="btn btn-sm" onClick={states.retry}>重试</button></p>}
     {loaded && total > 0 && <nav className="study-pagination" aria-label="题库分页">
-      <button type="button" className="btn btn-sm nav-step" disabled={currentIndex === 0} onClick={() => move(currentIndex - 1)}>上一页</button>
+      <button type="button" className="btn btn-sm nav-step" disabled={page.loading || currentIndex === 0} onClick={() => move(currentIndex - 1)}>上一页</button>
       <output className="pagination-position" aria-label="当前页 / 总页数">{currentIndex + 1}/{pageCount}</output>
-      <button type="button" className="btn btn-sm nav-step" disabled={currentIndex + 1 >= pageCount} onClick={() => move(currentIndex + 1)}>下一页</button>
+      <button type="button" className="btn btn-sm nav-step" disabled={page.loading || currentIndex + 1 >= pageCount} onClick={() => move(currentIndex + 1)}>下一页</button>
       {list === 'all' && <label className="pagination-size">每页题量
         <select className="pagination-select" value={limit} onChange={(event) => onLimitChange(Number(event.target.value))}>
           {libraryPageSizes.map((size) => <option key={size} value={size}>{size} 题</option>)}

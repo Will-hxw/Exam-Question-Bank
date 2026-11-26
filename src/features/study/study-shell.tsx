@@ -4,14 +4,14 @@ import Image from 'next/image'
 import dynamic from 'next/dynamic'
 import Link, { useLinkStatus } from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { createContext, type ReactNode, useCallback, useContext, useEffect, useRef, useSyncExternalStore, useState } from 'react'
+import { createContext, type MouseEvent, type ReactNode, useCallback, useContext, useEffect, useRef, useSyncExternalStore, useState } from 'react'
 import { authWordmarkImage, publicAuthorAvatar, sponsorQrImage } from '@/ui-images'
 import { warmSharedChat } from '../chat/shared-chat-cache'
 import { authorChatHash, unreadDescriptionId } from '../chat/types'
 import { useChatUnread } from '../chat/use-chat-unread'
 import { questionUrl, readPublic, requestJson, StudyRequestError, type QuestionState, type StudyStats, type Topic, writeJson } from './api'
 import { FeedbackPage, MailboxIcon } from './feedback-page'
-import { libraryPath, readLibraryView, useAccountStudyPreferences, useAccountStudyScroll } from './preferences'
+import { libraryPath, readLibraryView, type StudyPreferences, useAccountStudyPreferences, useAccountStudyScroll } from './preferences'
 import { useAttemptQueue } from './use-attempt-queue'
 import { createPersonalStudyReads, useStudyData } from './use-study-data'
 
@@ -77,6 +77,10 @@ function emptyHash() {
 function closeFooterPage(event: { preventDefault: () => void }) {
   event.preventDefault()
   const url = new URL(location.href)
+  if (history.state?.studyFooterBack === url.pathname + url.search) {
+    history.back()
+    return
+  }
   url.hash = ''
   history.replaceState(history.state, '', url)
   window.dispatchEvent(new HashChangeEvent('hashchange'))
@@ -100,7 +104,7 @@ function useTheme(theme: unknown, save: (edits: Record<string, unknown>) => void
   }
 }
 
-function useStudySession(userId: string) {
+function useStudySession(userId: string, initialPreferences: Promise<StudyPreferences | null>, initialStats: Promise<StudyStats | null>) {
   const [revision, setRevision] = useState(0)
   const [personalReads] = useState(() => createPersonalStudyReads(userId))
   const stateRevision = useRef(0)
@@ -116,8 +120,16 @@ function useStudySession(userId: string) {
     stateRevision.current += 1
     setRevision(stateRevision.current)
   }, [personalReads])
-  const stats = useStudyData<StudyStats>('/api/me/stats', revision, { ...personalReads, keepPreviousData: true })
-  const preferences = useAccountStudyPreferences(userId, stats.data?.preferences, stats.loading)
+  const stats = useStudyData<StudyStats>('/api/me/stats', revision, { ...personalReads, initial: initialStats, keepPreviousData: true })
+  const [bootstrapPreferences, setBootstrapPreferences] = useState<StudyPreferences>()
+  useEffect(() => {
+    let active = true
+    void Promise.resolve(initialPreferences).then((value) => {
+      if (value && active) setBootstrapPreferences(value)
+    }, () => {})
+    return () => { active = false }
+  }, [initialPreferences])
+  const preferences = useAccountStudyPreferences(userId, stats.data?.preferences ?? bootstrapPreferences, stats.loading)
   const topics = useStudyData<{ topics: Topic[] }>('/api/public/topics')
   const attempts = useAttemptQueue(userId, refreshMe)
 
@@ -237,7 +249,10 @@ export function useQuestionFavorite(id: string, serverFavorite?: boolean) {
   }
 }
 
-export function StudyShell({ userId, author, children }: { userId: string; author: boolean; children: ReactNode }) {
+export function StudyShell({ userId, author, initialPreferences, initialStats, children }: {
+  userId: string; author: boolean; initialPreferences: Promise<StudyPreferences | null>
+  initialStats: Promise<StudyStats | null>; children: ReactNode
+}) {
   const pathname = usePathname()
   const router = useRouter()
   const hash = useSyncExternalStore(subscribeHash, currentHash, emptyHash)
@@ -253,7 +268,7 @@ export function StudyShell({ userId, author, children }: { userId: string; autho
   const threadId = hash.startsWith(authorChatHash + '/') ? hash.slice(authorChatHash.length + 1) : undefined
   const footerPageOpen = sponsorOpen || feedbackOpen || chatOpen || authorChatOpen
   const { unread, sharedUnread, updateUnread, updateSharedUnread } = useChatUnread(userId, feedbackOpen || authorChatOpen)
-  const session = useStudySession(userId)
+  const session = useStudySession(userId, initialPreferences, initialStats)
   const { personalReads, preferences } = session
   const toggleTheme = useTheme(preferences.values.theme, preferences.save)
   useAccountStudyScroll(pathname, preferences)
@@ -261,7 +276,7 @@ export function StudyShell({ userId, author, children }: { userId: string; autho
   const wrongLibrary = libraryPath('wrong', readLibraryView(preferences.values['library:wrong']))
   const favoriteLibrary = libraryPath('favorite', readLibraryView(preferences.values['library:favorite']))
   const [warmRouteCount, setWarmRouteCount] = useState(0)
-  const practiceReady = Boolean(session.topics.data)
+  const practiceReady = Boolean(session.topics.data) && preferences.ready
   const firstTopic = session.topics.data?.topics.find(({ count }) => count > 0)?.id
   useEffect(() => {
     if (chatOpen) warmChat(userId)
@@ -277,7 +292,6 @@ export function StudyShell({ userId, author, children }: { userId: string; autho
       if (!navigator.onLine || document.visibilityState !== 'visible') return
       const target = routePrefetchOrder[warmRouteCount]
       if (target === '/questions') void (publicLibrary.startsWith('/api/me/') ? personalReads.load(publicLibrary) : readPublic(publicLibrary)).catch(() => {})
-      if (target === '/exam') void personalReads.load('/api/exams').catch(() => {})
       if (target === '/wrong' || target === '/favorites') void personalReads.load(target === '/wrong' ? wrongLibrary : favoriteLibrary).catch(() => {})
       setWarmRouteCount((count) => count + 1)
     }, warmRouteCount === 0 ? 400 : 220)
@@ -287,8 +301,8 @@ export function StudyShell({ userId, author, children }: { userId: string; autho
   function warmRoute(href: string) {
     if (pathname === href || !navigator.onLine) return
     if (href === '/questions') void (publicLibrary.startsWith('/api/me/') ? personalReads.load(publicLibrary) : readPublic(publicLibrary)).catch(() => {})
-    if (href === '/wrong' || href === '/favorites' || href === '/exam') {
-      void personalReads.load(href === '/wrong' ? wrongLibrary : href === '/favorites' ? favoriteLibrary : '/api/exams').catch(() => {})
+    if (href === '/wrong' || href === '/favorites') {
+      void personalReads.load(href === '/wrong' ? wrongLibrary : favoriteLibrary).catch(() => {})
     }
     router.prefetch(href)
   }
@@ -296,6 +310,19 @@ export function StudyShell({ userId, author, children }: { userId: string; autho
     if (pathname !== '/exam' || session.confirmLeaveExam()) return true
     event.preventDefault()
     return false
+  }
+
+  function openFooterPage(event: MouseEvent<HTMLAnchorElement>) {
+    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+    const destination = new URL(event.currentTarget.href)
+    event.preventDefault()
+    if (destination.hash === hash || !navigateFromExam(event)) return
+    if (footerPageOpen) {
+      history.replaceState(history.state, '', destination)
+    } else {
+      history.pushState({ ...history.state, studyFooterBack: destination.pathname + destination.search }, '', destination)
+    }
+    window.dispatchEvent(new HashChangeEvent('hashchange'))
   }
 
   return (
@@ -372,7 +399,7 @@ export function StudyShell({ userId, author, children }: { userId: string; autho
           <span id={unreadDescriptionId} hidden>有未读消息</span>
           <footer className="site-footer">
             <div className="footer-actions">
-              <a className="footer-action" href="#chat" aria-label="打开聊天区" onClick={navigateFromExam}
+              <a className="footer-action" href="#chat" aria-label="打开聊天区" onClick={openFooterPage}
                 aria-describedby={sharedUnread ? unreadDescriptionId : undefined}
                 onPointerEnter={() => warmChat(userId)} onPointerDown={() => warmChat(userId)} onFocus={() => warmChat(userId)}>
                 <span className="footer-action-icon footer-chat-icon" aria-hidden="true">
@@ -387,14 +414,14 @@ export function StudyShell({ userId, author, children }: { userId: string; autho
                 聊天区
               </a>
               <a className="footer-action" href="#feedback" aria-label="打开意见反馈页面"
-                aria-describedby={unread ? unreadDescriptionId : undefined} onClick={navigateFromExam}>
+                aria-describedby={unread ? unreadDescriptionId : undefined} onClick={openFooterPage}>
                 <span className="footer-action-icon footer-feedback-icon">
                   <MailboxIcon />{unread && <span className="message-unread-dot" aria-hidden="true" />}
                 </span>
                 意见反馈
               </a>
               <a className="footer-action" href="#sponsor" aria-label="打开友情赞助页面"
-                onClick={navigateFromExam}
+                onClick={openFooterPage}
                 onPointerEnter={() => warmImage(sponsorQrImage)} onFocus={() => warmImage(sponsorQrImage)}>
                 <span className="footer-action-icon footer-sponsor-icon" aria-hidden="true">💌</span>
                 友情赞助

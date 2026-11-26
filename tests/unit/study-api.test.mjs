@@ -3,6 +3,7 @@ import { test } from 'node:test'
 import { requestJson } from '../../src/features/study/api.ts'
 import { feedbackMail } from '../../src/features/auth/feedback-template.ts'
 import { initialUndonePosition, stepUndonePosition } from '../../src/features/study/practice-undone.ts'
+import { addPracticeBookmark, findPracticeBookmark, practiceHistoryLimit, restorePracticeHistory } from '../../src/features/study/practice-history.ts'
 
 test('unattempted navigation keeps original positions and follows the seeded random order', () => {
   const remaining = [{ id: 'a', position: 1 }, { id: 'd', position: 4 }, { id: 'g', position: 7 }]
@@ -13,6 +14,18 @@ test('unattempted navigation keeps original positions and follows the seeded ran
   assert.equal(stepUndonePosition(remaining, { id: 'f', position: 6 }, 'next', 'c'), 7)
   assert.equal(stepUndonePosition(remaining, { id: 'g', position: 7 }, 'next', 'c'), 1)
   assert.equal(stepUndonePosition(remaining, { id: 'd', position: 4 }, 'previous', 'c'), null)
+})
+
+test('recent practice bookmarks keep the previous round and cap the number of entries', () => {
+  let history = restorePracticeHistory(undefined, { position: 0 })
+  for (let position = 1; position <= practiceHistoryLimit; position++) {
+    history = addPracticeBookmark(history, { position }, 'next')
+  }
+  history = addPracticeBookmark(history, { position: 0 }, 'next')
+  assert.equal(history.entries.length, practiceHistoryLimit)
+  const previous = findPracticeBookmark(history, 'previous', () => true)
+  assert.equal(history.entries[previous].position, practiceHistoryLimit)
+  assert.equal(history.entries[findPracticeBookmark(history, 'previous', (entry) => entry.position < 10)].position, 9)
 })
 
 test('feedback mail derives the reply address and allows a rating without a comment', () => {

@@ -10,13 +10,18 @@ import { useQuestionFavorite, useQuestionStates, useStudySessionContext } from '
 import { useStudyData } from './use-study-data'
 
 type ExamSummary = Pick<ExamData, 'id' | 'status' | 'startedAt' | 'submittedAt' | 'score'> & { total?: number }
-type ExamView = { screen: 'entrance' | 'history' | 'exam'; id: string | null; count: number; wrongOnly: boolean }
+export type ExamHistory = { exams: ExamSummary[] }
+type ExamFilter = 'all' | 'wrong' | 'marked'
+type ExamView = { screen: 'entrance' | 'history' | 'exam'; id: string | null; count: number; filter: ExamFilter; fromHistory: boolean }
 
 function readExamView(value: unknown): ExamView {
-  const saved = value as Partial<ExamView> | undefined
+  const saved = value as (Partial<ExamView> & { wrongOnly?: boolean }) | undefined
   const id = typeof saved?.id === 'string' && /^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(saved.id) ? saved.id : null
   const screen = saved?.screen === 'history' ? 'history' : saved?.screen === 'exam' && id ? 'exam' : 'entrance'
-  return { screen, id, count: isExamQuestionCount(saved?.count) ? saved.count : DEFAULT_EXAM_QUESTIONS, wrongOnly: saved?.wrongOnly === true }
+  const preferredFilter = saved?.filter
+  const filter = preferredFilter === 'all' || preferredFilter === 'wrong' || preferredFilter === 'marked'
+    ? preferredFilter : saved?.wrongOnly === true ? 'wrong' : 'all'
+  return { screen, id, count: isExamQuestionCount(saved?.count) ? saved.count : DEFAULT_EXAM_QUESTIONS, filter, fromHistory: saved?.fromHistory === true }
 }
 
 function clock(seconds: number) {
@@ -192,7 +197,8 @@ function ExamTaking({ exam, onResult, onReload }: {
       </div>
       <div className="action-bar">
         <button type="button" className="btn nav-step" disabled={position === 0 || blocked} onClick={() => move(position - 1)}>上一题</button>
-        {item.type === 'multiple' && <button type="button" className="btn primary nav-step" disabled={position === count - 1 || blocked} onClick={() => move(position + 1)}>确定</button>}
+        {item.type === 'multiple' && <button type="button" className="btn primary nav-step" disabled={!selected.length || blocked}
+          onClick={() => position === count - 1 ? confirmHandIn() : move(position + 1)}>确定</button>}
         <button type="button" className="btn nav-step" disabled={position === count - 1 || blocked} onClick={() => move(position + 1)}>下一题</button>
         <ExamFavorite key={item.id} question={item} />
         <button type="button" className="btn btn-sm exam-mark" disabled={blocked} aria-pressed={draft.marked.includes(item.id)} onClick={() => update((current) => ({
@@ -215,7 +221,7 @@ function ExamTaking({ exam, onResult, onReload }: {
   </>
 }
 
-function ResultItem({ exam, question, index }: { exam: ExamData; question: Question; index: number }) {
+function ResultItem({ exam, question, index, marked }: { exam: ExamData; question: Question; index: number; marked: boolean }) {
   const [expanded, setExpanded] = useState(false)
   const correct = Boolean(exam.correctness?.[question.id])
   const answerIds = question.answerIds ?? []
@@ -226,6 +232,7 @@ function ResultItem({ exam, question, index }: { exam: ExamData; question: Quest
       <span className={`q-num${correct ? ' result-correct' : ''}`}>{correct ? '✓' : '✗'}</span>
       <span className="exam-result-num">{index + 1}</span>
       <span className={`q-type ${question.type}`}>{question.type === 'single' ? '单选题' : '多选题'}</span>
+      {marked && <span className="progress-info">已标记</span>}
     </div>
     <p className="exam-result-question">{question.stem}</p>
     <div className="exam-result-options">
@@ -243,9 +250,9 @@ function ResultItem({ exam, question, index }: { exam: ExamData; question: Quest
   </article>
 }
 
-function ExamResult({ exam, onBack, onRetry, wrongOnly, setWrongOnly, busy }: {
-  exam: ExamData; onBack: () => void; onRetry: () => void; wrongOnly: boolean
-  setWrongOnly: (value: boolean) => void; busy: boolean
+function ExamResult({ exam, onBack, onRetry, filter, setFilter, busy }: {
+  exam: ExamData; onBack: () => void; onRetry: () => void; filter: ExamFilter
+  setFilter: (value: ExamFilter) => void; busy: boolean
 }) {
   const { userId } = useStudySessionContext()
   const [local] = useState(() => readLocalExamDraft(userId, exam.id))
@@ -253,6 +260,12 @@ function ExamResult({ exam, onBack, onRetry, wrongOnly, setWrongOnly, busy }: {
   const score = exam.score ?? 0
   const count = exam.items.length
   const rate = count ? Math.round(score / count * 100) : 0
+  const marked = new Set(exam.marked)
+  const filters: { id: ExamFilter; label: string }[] = [
+    { id: 'all', label: `全部 ${count}` },
+    { id: 'wrong', label: `仅错题 ${count - score}` },
+  ]
+  if (marked.size) filters.push({ id: 'marked', label: `仅标记 ${marked.size}` })
   const circumference = 326.73
   const replayButton = <button type="button" className="btn primary exam-result-replay" onClick={onRetry}
     disabled={busy} aria-busy={busy || undefined}>{busy ? '正在载入原卷…' : '原卷重新考试'}</button>
@@ -282,10 +295,14 @@ function ExamResult({ exam, onBack, onRetry, wrongOnly, setWrongOnly, busy }: {
       )}</ul>
     </details>}
     <div className="exam-result-filter">
-      <button type="button" className={`filter-chip ${wrongOnly ? '' : 'active'}`} aria-pressed={!wrongOnly} onClick={() => setWrongOnly(false)}>全部 {count}</button>
-      <button type="button" className={`filter-chip ${wrongOnly ? 'active' : ''}`} aria-pressed={wrongOnly} onClick={() => setWrongOnly(true)}>仅错题 {count - score}</button>
+      {filters.map(({ id, label }) => <button key={id} type="button" className={`filter-chip ${filter === id ? 'active' : ''}`}
+        aria-pressed={filter === id} onClick={() => setFilter(id)}>{label}</button>)}
     </div>
-    {exam.items.map((question, index) => (!wrongOnly || !exam.correctness?.[question.id]) ? <ResultItem key={question.id} exam={exam} question={question} index={index} /> : null)}
+    {exam.items.map((question, index) => {
+      const isMarked = marked.has(question.id)
+      if ((filter === 'wrong' && exam.correctness?.[question.id]) || (filter === 'marked' && !isMarked)) return null
+      return <ResultItem key={question.id} exam={exam} question={question} index={index} marked={isMarked} />
+    })}
     <div className="exam-result-actions">
       {replayButton}
       <button type="button" className="btn nav-step" onClick={onBack} disabled={busy}>返回</button>
@@ -293,7 +310,7 @@ function ExamResult({ exam, onBack, onRetry, wrongOnly, setWrongOnly, busy }: {
   </div>
 }
 
-function ExamContent() {
+function ExamContent({ initialHistory }: { initialHistory?: Promise<ExamHistory | null> }) {
   const { userId, refreshMe, personalReads, preferences, revision } = useStudySessionContext()
   const view = readExamView(preferences.values.exam)
   const selectedId = view.screen === 'exam' ? view.id : null
@@ -303,13 +320,14 @@ function ExamContent() {
   const [error, setError] = useState('')
   const [submittedElsewhere, setSubmittedElsewhere] = useState(false)
   const [replayNotice, setReplayNotice] = useState('')
+  const [foundDraft, setFoundDraft] = useState<ExamSummary>()
   const [countEdit, setCountEdit] = useState<string>()
   const questionCount = countEdit ?? String(view.count)
   const loadingNow = useRef(false)
   const [restoreAttempt, setRestoreAttempt] = useState(0)
   const [restoreError, setRestoreError] = useState<{ id: string; message: string }>()
-  const list = useStudyData<{ exams: ExamSummary[] }>(exam ? null : '/api/exams', revision, personalReads)
-  const activeDraft = list.data?.exams.find((entry) => entry.status === 'draft')
+  const list = useStudyData<ExamHistory>(exam ? null : '/api/exams', revision, { ...personalReads, initial: initialHistory })
+  const activeDraft = foundDraft ?? list.data?.exams.find((entry) => entry.status === 'draft')
   const historyItems = list.data?.exams.filter((entry) => entry.status === 'submitted') ?? []
 
   function saveView(change: Partial<ExamView>) {
@@ -328,20 +346,30 @@ function ExamContent() {
   }, [exam, restoreAttempt, selectedId, userId])
 
   async function load(kind: 'new' | 'open' | 'replay', id?: string) {
-    if (loadingNow.current) return
+    if (loadingNow.current || (kind === 'new' && (!list.data || activeDraft))) return
     loadingNow.current = true
     setBusy(true)
     setError('')
     try {
-      const response = kind === 'open'
-        ? await requestJson<{ exam: ExamData }>(`/api/exams/${id}`, { headers: { 'X-Study-Account': userId } })
-        : await writeJson<{ exam: ExamData }>(kind === 'replay' ? `/api/exams/${id}/replay` : '/api/exams', userId, 'POST',
-          kind === 'new' ? { questionCount: Number(questionCount) } : undefined)
+      const requestedCount = Number(questionCount)
+      const response: { exam: ExamData; reusedDraft?: boolean } = kind === 'open'
+        ? await requestJson(`/api/exams/${id}`, { headers: { 'X-Study-Account': userId } })
+        : await writeJson(kind === 'replay' ? `/api/exams/${id}/replay` : '/api/exams', userId, 'POST',
+          kind === 'new' ? { questionCount: requestedCount } : undefined)
+      if (kind === 'new' && (response.reusedDraft || response.exam.items.length !== requestedCount)) {
+        setFoundDraft({ ...response.exam, total: response.exam.items.length })
+        setError('已有一份未交卷的试卷，请选择继续上次考试。')
+        refreshMe()
+        return
+      }
+      setFoundDraft(undefined)
       setSubmittedElsewhere(false)
       setReplayNotice(kind === 'replay' && exam && response.exam.items.length < exam.items.length
         ? `原卷中有题目已下架，本次重考共 ${response.exam.items.length} 题。` : '')
       setLoaded(response.exam)
-      if (selectedId !== response.exam.id) saveView({ screen: 'exam', id: response.exam.id, wrongOnly: false })
+      if (selectedId !== response.exam.id) saveView({
+        screen: 'exam', id: response.exam.id, filter: 'all', fromHistory: kind === 'open' && view.screen === 'history',
+      })
       if (kind !== 'open') refreshMe()
       window.scrollTo(0, 0)
     } catch (cause) {
@@ -349,8 +377,8 @@ function ExamContent() {
     } finally { loadingNow.current = false; setBusy(false) }
   }
 
-  function returnToEntrance() {
-    saveView({ screen: 'entrance', id: null })
+  function returnFromExam() {
+    saveView({ screen: view.screen === 'exam' && view.fromHistory ? 'history' : 'entrance', id: null, fromHistory: false })
     setError('')
     setRestoreError(undefined)
     window.scrollTo(0, 0)
@@ -363,7 +391,7 @@ function ExamContent() {
     onResult={(result, elsewhere) => {
       setSubmittedElsewhere(elsewhere)
       setLoaded(result)
-      saveView({ screen: 'exam', id: result.id, wrongOnly: false })
+      saveView({ screen: 'exam', id: result.id, filter: 'all' })
       refreshMe()
       window.scrollTo(0, 0)
     }} />
@@ -371,19 +399,19 @@ function ExamContent() {
   if (exam?.status === 'submitted') return <>
     {error && <p className="study-message error" role="alert">{error}</p>}
     {submittedElsewhere && <p className="study-message" role="status">这份试卷已交卷，以下是云端结果。</p>}
-    <ExamResult key={exam.id} exam={exam} onBack={returnToEntrance} onRetry={() => void load('replay', exam.id)} busy={busy}
-      wrongOnly={view.wrongOnly} setWrongOnly={(wrongOnly) => saveView({ wrongOnly })} />
+    <ExamResult key={exam.id} exam={exam} onBack={returnFromExam} onRetry={() => void load('replay', exam.id)} busy={busy}
+      filter={view.filter} setFilter={(filter) => saveView({ filter })} />
   </>
 
   if (selectedId) return <section>
-    <button type="button" className="btn nav-step" onClick={returnToEntrance}>← 返回</button>
+    <button type="button" className="btn nav-step" onClick={returnFromExam}>← 返回</button>
     <LoadMessage loading={restoreError?.id !== selectedId} error={restoreError?.id === selectedId ? restoreError.message : null}
       retry={() => { setRestoreError(undefined); setRestoreAttempt((count) => count + 1) }} />
   </section>
 
   if (view.screen === 'history') return <section className="exam-history-page" aria-labelledby="exam-history">
     <div className="exam-history-header">
-      <button type="button" className="btn btn-sm nav-step" onClick={returnToEntrance}>← 返回</button>
+      <button type="button" className="btn btn-sm nav-step" onClick={returnFromExam}>← 返回</button>
       <h3 id="exam-history">考试历史</h3>
     </div>
     {error && <p className="study-message error" role="alert">{error}</p>}
@@ -401,7 +429,7 @@ function ExamContent() {
     <div className="exam-info-chips"><span className="exam-info-chip">单选+多选</span><span className="exam-info-chip">⏱ 不限时</span></div>
     {activeDraft ? <p className="exam-resume"><button type="button" className="btn primary btn-start-exam" disabled={busy} aria-busy={busy || undefined} onClick={() => void load('open', activeDraft.id)}>
       {busy ? '正在读取试卷…' : `继续上次考试（${activeDraft.total ?? DEFAULT_EXAM_QUESTIONS} 题） →`}
-    </button></p> : <form className="exam-size-form" onSubmit={(event) => {
+    </button></p> : list.data ? <form className="exam-size-form" onSubmit={(event) => {
       event.preventDefault()
       if (isExamQuestionCount(Number(questionCount))) void load('new')
     }}>
@@ -419,14 +447,14 @@ function ExamContent() {
       <button type="submit" className="btn primary btn-start-exam" aria-busy={busy || undefined} disabled={busy || !isExamQuestionCount(Number(questionCount))}>
         {busy ? '正在生成试卷…' : '开始考试'}<span className="btn-arrow"> →</span>
       </button>
-    </form>}
+    </form> : list.loading ? <p className="study-message" role="status">正在检查考试草稿…</p> : null}
     <p><button type="button" className="btn btn-exam-history nav-step" onClick={() => saveView({ screen: 'history' })}>历史记录{historyItems.length > 0 ? `（${historyItems.length}）` : ''}</button></p>
     {list.error && <div className="study-message error" role="alert">无法读取草稿和历史。 <button type="button" className="btn btn-sm" onClick={list.retry}>重试</button></div>}
     {error && <p className="study-message error" role="alert">{error}</p>}
   </section>
 }
 
-export function Exam() {
+export function Exam({ initialHistory }: { initialHistory?: Promise<ExamHistory | null> }) {
   const { preferences } = useStudySessionContext()
-  return preferences.ready ? <ExamContent /> : <LoadMessage loading />
+  return preferences.ready ? <ExamContent initialHistory={initialHistory} /> : <LoadMessage loading />
 }

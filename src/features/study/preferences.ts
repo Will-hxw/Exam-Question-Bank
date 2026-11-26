@@ -34,7 +34,7 @@ export function useStudyPreferencesReady() {
   return useSyncExternalStore(subscribe, client, server)
 }
 
-function readStudyPreference(key: string): unknown {
+export function readStudyPreference(key: string): unknown {
   try {
     const text = localStorage.getItem(key)
     return text === null ? undefined : JSON.parse(text)

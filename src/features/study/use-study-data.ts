@@ -37,11 +37,17 @@ export function createPersonalStudyReads(userId: string) {
 }
 
 export function useStudyData<T>(path: string | null, revision = 0, {
-  keepPreviousData = false, load, peek,
-}: { keepPreviousData?: boolean; load?: (path: string) => Promise<T>; peek?: (path: string) => T | undefined } = {}) {
+  keepPreviousData = false, load, peek, initial,
+}: {
+  keepPreviousData?: boolean
+  load?: (path: string) => Promise<T>
+  peek?: (path: string) => T | undefined
+  initial?: Promise<T | null>
+} = {}) {
   const [retry, setRetry] = useState<{ count: number; override?: { path: string; load: (path: string) => Promise<T> } }>({ count: 0 })
   const key = `${path}:${retry.count}:${revision}`
   const freshLoad = retry.override?.path === path ? retry.override.load : undefined
+  const bootstrap = revision === 0 && retry.count === 0 ? initial : undefined
   const [state, setState] = useState<DataState<T>>(() => {
     const cached = path ? peek?.(path) ?? (path.startsWith('/api/public/') ? cachedPublic<T>(path) : undefined) : undefined
     return { key: cached === undefined ? '' : key, path, data: cached ?? null, error: null }
@@ -58,14 +64,15 @@ export function useStudyData<T>(path: string | null, revision = 0, {
     if (!path) return
     let active = true
     const get = freshLoad ?? load ?? (path.startsWith('/api/public/') ? readPublic<T> : requestJson<T>)
-    void get(path).then((data) => {
+    const request = bootstrap ? Promise.resolve(bootstrap).then((value) => value ?? get(path)) : get(path)
+    void request.then((data) => {
       if (active) setState({ key, path, data, error: null })
     }, (error: unknown) => {
       const message = error instanceof StudyRequestError ? error.message : '连接失败，请检查网络后重试。'
       if (active) setState({ key, path, data: null, error: message })
     })
     return () => { active = false }
-  }, [key, path, load, freshLoad])
+  }, [bootstrap, key, path, load, freshLoad])
 
   const current = state.key === key
   const snapshot = !current && path && !freshLoad ? peek?.(path) ?? (path.startsWith('/api/public/') ? cachedPublic<T>(path) : undefined) : undefined

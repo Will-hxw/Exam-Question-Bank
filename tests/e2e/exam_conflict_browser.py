@@ -14,8 +14,7 @@ def check_exam_receipts(browser, origin, host, cookie_name):
     page.on('requestfailed', lambda r: traffic.append((r.method, r.failure)) if '/api/exams/' in r.url else None)
 
     def drop_receipt(route):
-        request = route.request
-        committed = page.request.fetch(request.url, method=request.method, headers=headers, data=request.post_data_json)
+        committed = route.fetch(headers={**route.request.headers, **headers})
         assert committed.ok, committed.text()
         route.abort('connectionreset')
 
