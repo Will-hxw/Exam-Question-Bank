@@ -2,6 +2,7 @@ import assert from 'node:assert/strict'
 import { test } from 'node:test'
 import { practiceApproved, questionRevision, readCatalog, sha256, validateCatalog } from '../../scripts/content/catalog.mjs'
 import { makeRelease, qualityReport } from '../../scripts/content/release.mjs'
+import { syncCatalog } from '../../scripts/content/sync.mjs'
 
 test('withdrawal leaves surviving UUIDs in order and a new low UUID appends', async () => {
   const catalog = await readCatalog()
@@ -53,6 +54,40 @@ test('a style review applies only to the precise revision that was reviewed', as
   const fakeIndexes = { ...indexes, practiceIndex: new Map(indexes.practiceIndex) }
   fakeIndexes.practiceIndex.set(one.questionId, { ...one, digest: '0'.repeat(64) })
   assert.equal(qualityReport(catalog, fakeIndexes).review.practiceReady, actual.review.practiceReady - 1)
+})
+
+test('content sync rejects changing an existing revision or bypassing retirement', async () => {
+  const catalog = await readCatalog()
+  const indexes = validateCatalog(catalog)
+  const item = catalog.questions.find(question => question.state === 'ready')
+  const revision = questionRevision(item)
+  const statements = []
+  let status = 'published'
+  const client = {
+    async query(sql) {
+      statements.push(sql)
+      if (sql === 'SELECT id, status, content_revision FROM questions') {
+        return { rows: [{ id: item.id, status, content_revision: revision }] }
+      }
+      assert.match(sql, /^(BEGIN|SELECT pg_advisory_xact_lock|SET CONSTRAINTS|ROLLBACK)/)
+      return { rows: [] }
+    },
+  }
+
+  const original = item.explanation
+  item.explanation += ' 修订解析。'
+  await assert.rejects(syncCatalog(client, catalog, indexes), /内容已变更/)
+  assert.equal(statements.at(-1), 'ROLLBACK')
+
+  item.explanation = original
+  status = 'quarantined'
+  await assert.rejects(syncCatalog(client, catalog, indexes), /已下架/)
+  assert.equal(statements.at(-1), 'ROLLBACK')
+
+  status = 'published'
+  item.state = 'draft'
+  await assert.rejects(syncCatalog(client, catalog, indexes), /停止展示时/)
+  assert.equal(statements.at(-1), 'ROLLBACK')
 })
 
 test('single-answer position limits apply to reorderable choices while reporting locked choices', () => {

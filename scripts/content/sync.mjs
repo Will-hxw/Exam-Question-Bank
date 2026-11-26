@@ -168,9 +168,20 @@ export async function syncCatalog(client, catalog, indexes, { dryRun = true } = 
   try {
     await client.query("SELECT pg_advisory_xact_lock(hashtext('eqb/content-publish'))")
     await client.query('SET CONSTRAINTS ALL DEFERRED')
-    const existing = (await client.query('SELECT id FROM questions')).rows
-    if (existing.some(item => !indexes.questionIndex.has(item.id))) {
-      throw new Error('已使用的题目 ID 必须保留。下架题请将 state 设为 withdrawn。')
+    const existing = (await client.query('SELECT id, status, content_revision FROM questions')).rows
+    const revisions = new Map(catalog.questions.map(item => [item.id, questionRevision(item)]))
+    for (const { id, status, content_revision: revision } of existing) {
+      const item = indexes.questionIndex.get(id)
+      if (!item) throw new Error(`缺少已登记的题目 ${id}。下架题请将 state 设为 withdrawn。`)
+      if (revision !== null && revisions.get(id) !== revision) {
+        throw new Error(`题目 ${id} 的内容已变更。请保留原内容并下架旧题，再用新 ID 登记修订题。`)
+      }
+      if (status === 'quarantined' && item.state !== 'withdrawn') {
+        throw new Error(`题目 ${id} 已下架。再次收录时请使用新 ID。`)
+      }
+      if (status === 'published' && item.state !== 'withdrawn' && !practiceApproved(item, indexes.practiceIndex)) {
+        throw new Error(`题目 ${id} 已发布。停止展示时请将 state 设为 withdrawn。`)
+      }
     }
     const order = (await client.query('SELECT question_id, position FROM question_bank_positions')).rows
     if (order.some(({ question_id, position }) => indexes.orderIndex.get(question_id) !== position)) {
@@ -182,7 +193,7 @@ export async function syncCatalog(client, catalog, indexes, { dryRun = true } = 
     const ids = catalog.questions.map(item => item.id)
     const data = JSON.stringify(catalog.questions.map(item => ({
       ...item,
-      revision: questionRevision(item),
+      revision: revisions.get(item.id),
       searchText: [item.stem, ...item.options.map(option => option.text)].join('\n').normalize('NFKC').toLowerCase(),
       fullEvidence: item.evidence.concat(item.options.flatMap(option =>
         option.evidence.map(evidence => ({ ...evidence, optionId: option.id })))),

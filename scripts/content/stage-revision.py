@@ -1,4 +1,4 @@
-"""Apply independently checked edits while retaining permanent question IDs."""
+"""Replace independently checked questions with new question and option IDs."""
 
 import argparse
 import csv
@@ -6,6 +6,7 @@ import hashlib
 import json
 
 from pathlib import Path
+from uuid import uuid4
 
 CONTENT = Path(__file__).resolve().parents[2] / "content"
 
@@ -39,22 +40,22 @@ def main():
     questions = read("questions.json")
     current = {row["id"]: row for row in questions}
     practice = {row["questionId"]: row for row in read("practice-reviews.json")}
+    order = read("question-order.json")
 
     for key in args.select:
         proposal, review, seen = author[key], independent[key], blind[key]
-        item = current[proposal["questionId"]]
+        previous = current[proposal["questionId"]]
         texts = [option["text"] for option in proposal["options"]]
-        original_ids = [option["id"] for option in item["options"]]
+        if previous["state"] != "ready":
+            raise ValueError(f"The question must be ready before it can be replaced: {key}.")
         if review["decision"] != "approved" or seen["stem"] != proposal["stem"] or seen["options"] != texts:
             raise ValueError(f"Revision does not match the independently approved question {key}.")
-        if proposal["topic"] != item["topicId"] or proposal["knowledgePointId"] != item["knowledgePointId"]:
-            raise ValueError(f"Changing the examined fact requires a new question ID: {key}.")
-        if len(texts) != len(original_ids) or proposal["type"] != item["type"]:
-            raise ValueError(f"The structural change requires explicit option migration: {key}.")
+        if proposal["topic"] != previous["topicId"] or proposal["knowledgePointId"] != previous["knowledgePointId"]:
+            raise ValueError(f"Use the new-question workflow when the examined fact changes: {key}.")
         options = [
-            dict(id=option.get("id") or original_ids[position], text=option["text"], rationale=option["rationale"],
+            dict(id=str(uuid4()), text=option["text"], rationale=option["rationale"],
                  evidence=[dict(sourceId=option["sourceId"], location=option["location"], claim=option["rationale"])])
-            for position, option in enumerate(proposal["options"])
+            for option in proposal["options"]
         ]
         chosen = [
             options[position]["id"] for position, option in enumerate(proposal["options"]) if option["correct"]
@@ -62,9 +63,8 @@ def main():
         independent_choices = [options[ord(letter) - 65]["id"] for letter in review["independent_answer"].replace("+", "")]
         if len(chosen) != len(independent_choices) or set(chosen) != set(independent_choices):
             raise ValueError(f"Unresolved independent answer conflict: {key}.")
-        if set(chosen) != set(item["answerIds"]):
-            raise ValueError(f"Correct option IDs changed during the revision: {key}.")
-        item.update(state="ready", stem=proposal["stem"], options=options, answerIds=chosen,
+        item = previous.copy()
+        item.update(id=str(uuid4()), type=proposal["type"], stem=proposal["stem"], options=options, answerIds=chosen,
                     explanation=proposal["explanation"], distinction=proposal.get("distinction") or proposal["explanation"],
                     taskType=proposal.get("taskType", "recall"),
                     difficulty="basic", difficultyReason="直接考查指定考点的原文术语、主体或时限。",
@@ -84,9 +84,13 @@ def main():
         }
         practice[item["id"]] = dict(questionId=item["id"], digest=digest, reviewer=args.reviewer,
                                     decision="keep", reason=review["review_note"], proposal="")
+        previous["state"] = "withdrawn"
+        questions.append(item)
+        order.append(item["id"])
 
     save("questions.json", questions)
     save("practice-reviews.json", list(practice.values()))
+    save("question-order.json", order)
     print(f"Applied {len(args.select)} independently reviewed revisions.")
 
 
