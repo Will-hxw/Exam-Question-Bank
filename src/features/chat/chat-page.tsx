@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { type FormEvent, type MouseEventHandler, type PointerEvent, type ReactNode, type RefObject, useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { authorMention, messageLimit, nicknameLimit, type ChatMessage, type ChatProfile } from './types'
+import { authorMention, messageLimit, nicknameLimit, publicAuthorMention, type ChatMessage, type ChatProfile } from './types'
 import { chatError, useChatRoom } from './use-chat-room'
 import './chat.css'
 
@@ -17,8 +17,8 @@ export function messageTime(value: string) {
 
 export function Avatar({ profile, size, authorAvatar }: { profile: ChatProfile; size: number; authorAvatar?: string }) {
   const fallback = `/chat-avatars/${profile.avatar}.webp`
-  const src = profile.author && authorAvatar ? `data:image/webp;base64,${authorAvatar.replace(/\s/g, '')}`
-    : profile.avatarImageId ? `/api/chat/avatar?id=${profile.avatarImageId}` : fallback
+  const src = profile.avatarUrl ?? (profile.author && authorAvatar ? `data:image/webp;base64,${authorAvatar.replace(/\s/g, '')}`
+    : profile.avatarImageId ? `/api/chat/avatar?id=${profile.avatarImageId}` : fallback)
   return <Image className="chat-avatar" src={src} alt="" width={size} height={size} unoptimized
     onError={(event) => {
       if (event.currentTarget.getAttribute('src') !== fallback) event.currentTarget.src = fallback
@@ -80,7 +80,7 @@ function Message({ message, nickname, previous, authorAvatar, onMention }: {
       <div className="chat-message-content">
         <span className="chat-nickname">{nickname}</span>
         <p className={`chat-bubble${message.aiReplyTo ? ' chat-bubble-ai' : ''}`} dir="auto">
-          {message.aiReplyTo && <span className="chat-ai-label">AI 自动回复</span>}
+          {message.aiReplyTo && <span className="chat-ai-label">AI 自动</span>}
           {message.body}
         </p>
       </div>
@@ -286,7 +286,8 @@ export default function ChatPage({ backHref, backLabel = '返回练习', direct 
 
   function mention(profile?: ChatProfile) {
     if (sending || !room.profile) return
-    const name = !profile || profile.author ? authorMention : `@${room.displayNickname(profile)}`
+    const ownerMention = direct ? authorMention : publicAuthorMention
+    const name = !profile || profile.author ? ownerMention : `@${room.displayNickname(profile)}`
     insertText(name + ' ', true)
   }
 

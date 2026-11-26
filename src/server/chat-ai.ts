@@ -1,11 +1,11 @@
 import 'server-only'
 import { after } from 'next/server'
 import { authorEmail, isSiteAuthor, type VerifiedUser } from '@/features/auth/server'
-import { authorNickname, messageLimit, type ChatMessage } from '@/features/chat/types'
+import { publicAuthorNickname, messageLimit, type ChatMessage } from '@/features/chat/types'
 import { authorIdSql, presentChatProfile } from './chat'
 import { query } from './db'
 
-const mentionPattern = /(?<![A-Za-z0-9_.@])@(?:Hua[ \t]+Xiaowei(?:（作者）(?:（可@AI自动回复）)?)?|作者)(?![A-Za-z0-9_@])/gi
+const mentionPattern = /(?<![A-Za-z0-9_.@])@(?:肥鱼[ \t]*AI(?:[（(]可@[）)])?|Hua[ \t]+Xiaowei(?:（作者）(?:（可@AI自动回复）)?)?|作者)(?![A-Za-z0-9_@])/gi
 const defaultBaseUrl = 'https://discovery-api.intern-ai.org.cn/v1'
 const defaultModel = 'deepseek-v4.1-flash-1017'
 const historyLimit = 12
@@ -105,7 +105,7 @@ async function saveReply(user: VerifiedUser, messageId: string, reply: string, t
     WHERE (EXISTS (SELECT 1 FROM profile) OR EXISTS (SELECT 1 FROM profiles WHERE user_id = owner.id))
       AND EXISTS (SELECT 1 FROM chat_messages WHERE chat_messages.id = $5)
     ON CONFLICT (ai_reply_to) DO NOTHING
-  `, [authorEmail, authorNickname, await authorAvatar(), reply, messageId])
+  `, [authorEmail, publicAuthorNickname, await authorAvatar(), reply, messageId])
 }
 
 async function authorAvatar() {

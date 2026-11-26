@@ -2,6 +2,7 @@ import 'server-only'
 import { createHash, createHmac } from 'node:crypto'
 import { authorEmail, isSiteAuthor, type VerifiedUser } from '@/features/auth/server'
 import { authorNickname, chatPageSize, messageLimit, nicknameLimit, publicAuthorNickname, type ChatAuthor, type ChatMessage, type ChatPage, type ChatProfile, type ChatRoom } from '@/features/chat/types'
+import { publicAuthorAvatar } from '@/ui-images'
 import { query } from './db'
 import { HttpError, uuid } from './http'
 
@@ -23,7 +24,7 @@ function chatAuthorKey(user: string) {
 }
 
 type StoredAuthor = Omit<ChatAuthor, 'authorKey' | 'author'> & { authorUserId: string; author: boolean | null }
-type StoredMessage = Omit<ChatMessage, 'authorKey' | 'author' | 'aiReplyTo' | 'avatarImageId'> & StoredAuthor & {
+type StoredMessage = Omit<ChatMessage, 'authorKey' | 'author' | 'aiReplyTo' | 'avatarImageId' | 'avatarUrl'> & StoredAuthor & {
   avatarImageId: string | null
   aiReplyTo: string | null
 }
@@ -40,7 +41,8 @@ function avatarImage(avatarImageId: string | null) {
 }
 
 function presentMessage({ avatarImageId, aiReplyTo, ...message }: StoredMessage): ChatMessage {
-  return { ...presentAuthor(message), ...avatarImage(avatarImageId), ...(aiReplyTo ? { aiReplyTo } : {}) }
+  const picture = message.author ? { avatarUrl: publicAuthorAvatar } : avatarImage(avatarImageId)
+  return { ...presentAuthor(message), ...picture, ...(aiReplyTo ? { aiReplyTo } : {}) }
 }
 
 function defaultProfile(user: string): ChatProfile {
@@ -76,7 +78,7 @@ export function readChatText(value: unknown, limit: number, label: string, multi
 
 export async function saveChatNickname(user: string, value: unknown): Promise<ChatProfile> {
   const nickname = readChatText(value, nicknameLimit, '昵称', false)
-  if (/^hua\s+xiaowei(?:\s*\(|\s*$)/i.test(nickname.normalize('NFKC'))) {
+  if (/^(?:hua\s+xiaowei|肥鱼\s*ai)(?:\s*\(|\s*$)/i.test(nickname.normalize('NFKC'))) {
     throw new HttpError(400, '这是作者的专用昵称，请换一个。')
   }
   await query('INSERT INTO profiles (user_id) VALUES ($1) ON CONFLICT DO NOTHING', [user])
@@ -132,7 +134,6 @@ export async function chatRoom(user: VerifiedUser): Promise<ChatRoom> {
     nickname: string | null
     nicknameRevision: string | null
     avatarImageId: string | null
-    authorAvatar: string | null
     nicknameCursor: string
   }>(`
     WITH author_account AS (${authorIdSql} $2), recent AS (
@@ -144,9 +145,6 @@ export async function chatRoom(user: VerifiedUser): Promise<ChatRoom> {
     )
     SELECT (SELECT coalesce(jsonb_agg(recent ORDER BY recent.id::bigint DESC), '[]') FROM recent) AS messages,
       p.nickname, p.nickname_revision::text AS "nicknameRevision", a.id AS "avatarImageId",
-      (SELECT encode(image, 'base64') FROM chat_avatars
-        WHERE user_id = (SELECT id FROM author_account)
-          AND (user_id = $1 OR EXISTS (SELECT 1 FROM recent WHERE author))) AS "authorAvatar",
       (SELECT COALESCE(max(nickname_revision), 0)::text
         FROM chat_profiles WHERE nickname_revision > 0) AS "nicknameCursor"
     FROM (SELECT $1::text AS id) viewer
@@ -156,12 +154,12 @@ export async function chatRoom(user: VerifiedUser): Promise<ChatRoom> {
   const messages = room.messages.slice(0, chatPageSize).reverse().map((message) => (
     presentMessage({ ...message, sentAt: new Date(message.sentAt).toISOString() })
   ))
+  const author = isSiteAuthor(user)
+  const profile = presentChatProfile(user.id, { ...room, avatarImageId: author ? null : room.avatarImageId }, author)
   return {
     messages, hasMore: room.messages.length > chatPageSize,
-    profile: { ...presentChatProfile(user.id, room, isSiteAuthor(user)),
-      ...(isSiteAuthor(user) ? { nickname: publicAuthorNickname } : {}) },
+    profile: author ? { ...profile, nickname: publicAuthorNickname, avatarUrl: publicAuthorAvatar } : profile,
     nicknameCursor: room.nicknameCursor,
-    ...(room.authorAvatar ? { authorAvatar: room.authorAvatar } : {}),
   }
 }
 

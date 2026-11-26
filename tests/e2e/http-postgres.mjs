@@ -644,17 +644,37 @@ async function runApiChecks(origin, db, items, secret) {
 
   await call(chatPath, { ...author, method: 'PUT', body: { nickname: '仿作者' }, status: 403 })
   await call(chatPath, { ...chatBob, method: 'PUT', body: { nickname: 'Hua Xiaowei（作者）' }, status: 400 })
+  await call(chatPath, { ...chatBob, method: 'PUT', body: { nickname: '肥鱼 AI（可@）' }, status: 400 })
   const longName = '长昵称'.repeat(15)
   assert.equal((await call(chatPath, { ...chatBob, method: 'PUT', body: { nickname: longName } })).data.profile.nickname, longName)
   await call(chatPath, { ...chatBob, method: 'PUT', body: { nickname: longName + '长'.repeat(4) }, status: 400 })
-  const ownerName = (await call(chatPath, author)).data.profile.nickname
-  assert.equal(ownerName, 'Hua Xiaowei（作者）（可@AI自动回复）')
-  await write(chatPath, author, '作者上线')
-  await db.query('INSERT INTO chat_avatars (user_id, image) VALUES ($1, $2)', [author.owner, avatarImage])
+  const ownerPost = (await write(chatPath, author, '作者上线')).data.message
+  const { rows: [{ id: ownerAvatarId }] } = await db.query(
+    'INSERT INTO chat_avatars (user_id, image) VALUES ($1, $2) RETURNING id::text', [author.owner, avatarImage],
+  )
+  const { nickname: ownerName, avatarUrl: ownerAvatarUrl, avatarImageId: groupAvatarId } = (await call(chatPath, author)).data.profile
+  assert.equal(ownerName, '肥鱼 AI（可@）')
+  assert.match(ownerAvatarUrl, /^\/ui-images\/feiyu\.[a-f0-9]{10}\.webp$/)
+  assert.equal(groupAvatarId, undefined)
+  const publicAvatar = await fetch(origin + ownerAvatarUrl)
+  assert.equal(publicAvatar.status, 200)
+  assert.equal(publicAvatar.headers.get('content-type'), 'image/webp')
+  assert.deepEqual(Buffer.from(await publicAvatar.arrayBuffer()), await readFile(join(root, 'public', ownerAvatarUrl.slice(1))))
+  assert.equal(ownerPost.avatarUrl, ownerAvatarUrl)
   const recent = (await call(chatPath, chatAlice)).data
-  assert.equal(recent.messages.at(-1).nickname, ownerName)
-  assert.deepEqual(Buffer.from(recent.authorAvatar, 'base64'), avatarImage)
-  assert.deepEqual(Buffer.from((await call(thread, chatAlice)).data.authorAvatar, 'base64'), avatarImage)
+  const groupOwner = recent.messages.at(-1)
+  assert.equal(groupOwner.nickname, ownerName)
+  assert.equal(groupOwner.avatarUrl, ownerAvatarUrl)
+  assert.equal(groupOwner.avatarImageId, undefined)
+  assert.equal(recent.authorAvatar, undefined)
+  const privateRoom = (await call(thread, chatAlice)).data
+  assert.equal(privateRoom.peer.nickname, 'Hua Xiaowei')
+  assert.equal(privateRoom.peer.avatarImageId, ownerAvatarId)
+  assert.equal(privateRoom.peer.avatarUrl, undefined)
+  assert.deepEqual(Buffer.from(privateRoom.authorAvatar, 'base64'), avatarImage)
+  const ownerPrivateAvatar = `${chatPath}/avatar?id=${ownerAvatarId}`
+  await call(ownerPrivateAvatar, { ...chatBob, status: 404 })
+  assert.equal((await fetch(origin + ownerPrivateAvatar, { headers: { cookie: `${tokenCookie}=alice` } })).status, 200)
   const privateAvatar = `${chatPath}/avatar?id=${avatarImageId}`
   await call(privateAvatar, { ...chatBob, status: 404 })
   assert.equal((await fetch(origin + privateAvatar, { headers: { cookie: `${tokenCookie}=author` } })).status, 200)
@@ -662,10 +682,12 @@ async function runApiChecks(origin, db, items, secret) {
   const groupHint = (await write(chatPath, chatAlice, '这个头像是随机的吗？群聊记住一个词，春天')).data.message
   await write(chatPath, chatBob, '另一位同学的上下文')
   await db.query("UPDATE chat_messages SET sent_at = sent_at - interval '5 seconds' WHERE id = $1", [groupHint.id])
-  const publicWrite = { ...chatAlice, method: 'POST', body: { clientId: randomUUID(), message: '@作者 刚才那个词是什么？' } }
+  const publicWrite = { ...chatAlice, method: 'POST', body: { clientId: randomUUID(), message: '@肥鱼 AI（可@） 刚才那个词是什么？' } }
   const [publicAsk, retryAsk] = await Promise.all([call(chatPath, publicWrite), call(chatPath, publicWrite)])
   assert.equal(publicAsk.data.message.id, retryAsk.data.message.id)
-  await waitForChat(chatPath, chatAlice, (message) => message.aiReplyTo === publicAsk.data.message.id)
+  const publicReply = await waitForChat(chatPath, chatAlice, (message) => message.aiReplyTo === publicAsk.data.message.id)
+  assert.equal(publicReply.nickname, ownerName)
+  assert.equal(publicReply.avatarUrl, ownerAvatarUrl)
   assert.equal(modelCalls.length, 2)
   const publicInput = JSON.parse(modelCalls[1].messages.at(-1).content)
   assert.equal(publicInput.latest, '刚才那个词是什么？')

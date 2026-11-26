@@ -2,7 +2,9 @@ export const nicknameLimit = 48
 export const messageLimit = 500
 export const chatPageSize = 40
 export const authorNickname = 'Hua Xiaowei'
-export const publicAuthorNickname = `${authorNickname}（作者）（可@AI自动回复）`
+const publicAuthorName = '肥鱼 AI'
+export const publicAuthorNickname = `${publicAuthorName}（可@）`
+export const publicAuthorMention = `@${publicAuthorName}`
 export const authorMention = `@${authorNickname}`
 export const authorChatHash = '#author-chat'
 export const authorChatPath = '/api/author-chat'
@@ -14,7 +16,7 @@ export type ChatAuthor = {
   nicknameRevision: string
   author?: boolean
 }
-export type ChatProfile = ChatAuthor & { avatar: number; avatarImageId?: string }
+export type ChatProfile = ChatAuthor & { avatar: number; avatarImageId?: string; avatarUrl?: string }
 export type ChatMessage = ChatProfile & {
   id: string
   body: string

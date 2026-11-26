@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic'
 import Link, { useLinkStatus } from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { createContext, type ReactNode, useCallback, useContext, useEffect, useRef, useSyncExternalStore, useState } from 'react'
-import { authWordmarkImage, sponsorQrImage } from '@/ui-images'
+import { authWordmarkImage, publicAuthorAvatar, sponsorQrImage } from '@/ui-images'
 import { warmSharedChat } from '../chat/shared-chat-cache'
 import { authorChatHash, unreadDescriptionId } from '../chat/types'
 import { useChatUnread } from '../chat/use-chat-unread'
@@ -32,6 +32,7 @@ function warmImage(src: string) {
 
 function warmChat(userId: string) {
   if (!navigator.onLine) return
+  warmImage(publicAuthorAvatar)
   void loadChatPage().catch(() => {})
   void warmSharedChat(userId).catch(() => {})
 }

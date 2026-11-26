@@ -5,6 +5,9 @@ import re
 from playwright.sync_api import expect
 
 
+FEIYU_AVATAR_PATH = re.compile(r'/ui-images/feiyu\.[a-f0-9]{10}\.webp$')
+
+
 def check_feedback(page, origin, check_study_footer):
     check_study_footer(page)
     page.get_by_role('link', name='打开意见反馈页面').click()
@@ -144,13 +147,19 @@ def check_chat(browser, mobile_context, origin, host, cookie_name):
         entry.tap()
         expect(sender.locator('.chat-bubble').first).to_be_visible(timeout=3000)
         expect(sender.locator('.chat-ai-label')).to_have_count(0)
-        draft.fill('@作者 真ai吗🤔')
+        sender.get_by_role('button', name='提及作者').tap()
+        expect(draft).to_have_value('@肥鱼 AI ')
+        draft.fill('@肥鱼 AI 真ai吗🤔')
         sender.get_by_role('button', name='发送', exact=True).tap()
-        expect(sender.locator('.chat-bubble-ai .chat-ai-label')).to_have_text('AI 自动回复', timeout=12000)
+        expect(sender.locator('.chat-bubble-ai .chat-ai-label')).to_have_text('AI 自动', timeout=12000)
         expect(sender.locator('.chat-bubble-ai .chat-ai-label')).to_have_css('color', 'rgb(135, 85, 9)')
         expect(sender.locator('.chat-bubble-ai')).to_contain_text('真啊，不然我咋从网线里游过来的喵')
+        bot = sender.locator('.chat-message-row').filter(has=sender.locator('.chat-bubble-ai'))
+        expect(bot.locator('.chat-nickname')).to_have_text('肥鱼 AI（可@）')
+        expect(bot.locator('img')).to_have_attribute('src', FEIYU_AVATAR_PATH)
+        assert bot.locator('img').evaluate('(image) => image.decode().then(() => image.naturalWidth === 144)')
         if screenshots:
-            sender.locator('.chat-bubble-ai').screenshot(path=target / 'chat-ai-bubble.png')
+            bot.screenshot(path=target / 'chat-ai-bubble.png')
     finally:
         desktop.close()
         mobile.close()
@@ -199,6 +208,11 @@ def check_author_chat(browser, mobile_context, origin, host, cookie_name):
         expect(guest).to_have_url(origin + '/')
 
         inbox = owner.new_page()
+        inbox.goto(origin + '/#chat', wait_until='domcontentloaded')
+        owner_profile = inbox.locator('.chat-author-profile')
+        expect(owner_profile).to_have_text('肥鱼 AI（可@）')
+        expect(owner_profile.locator('img')).to_have_attribute('src', FEIYU_AVATAR_PATH)
+        expect(inbox.get_by_role('button', name='修改昵称')).to_have_count(0)
         inbox.goto(origin + '/#feedback', wait_until='domcontentloaded')
         inbox.get_by_role('link', name='作者对话').click()
         expect(inbox.get_by_role('heading', name='作者对话')).to_have_count(1)
@@ -251,7 +265,7 @@ def check_author_chat(browser, mobile_context, origin, host, cookie_name):
         contact.tap()
         composer.fill('@作者 真ai吗🤔')
         guest.get_by_role('button', name='发送', exact=True).tap()
-        expect(guest.locator('.chat-bubble-ai .chat-ai-label')).to_have_text('AI 自动回复', timeout=12000)
+        expect(guest.locator('.chat-bubble-ai .chat-ai-label')).to_have_text('AI 自动', timeout=12000)
         expect(guest.locator('.chat-bubble-ai')).to_contain_text('真啊，不然我咋从网线里游过来的喵')
     finally:
         owner.close()
