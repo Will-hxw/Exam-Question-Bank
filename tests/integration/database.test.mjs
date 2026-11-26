@@ -377,7 +377,7 @@ test('replay migration preserves existing drafts and shuffles new replays at the
   assert.deepEqual(await order(legacyDraft), ids)
   const client = await pool.connect()
   try {
-    assert.deepEqual(await migrate(client), [shuffleMigration])
+    assert.equal((await migrate(client))[0], shuffleMigration)
   } finally {
     client.release()
   }

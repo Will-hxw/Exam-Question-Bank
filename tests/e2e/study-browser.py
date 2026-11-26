@@ -2,11 +2,12 @@ import json
 import math
 import os
 import re
-from pathlib import Path
 from time import perf_counter
 from urllib.parse import parse_qs, urlsplit
 
 from playwright.sync_api import expect, sync_playwright
+from chat_browser import check_author_chat, check_chat, check_feedback
+from practice_undone_browser import check_undone_practice
 
 
 ORIGIN = os.environ['EQB_TEST_ORIGIN']
@@ -277,136 +278,20 @@ def check_study_footer(page):
     assert signature['y'] >= last['y'] + last['height'] + 12
 
 
-def check_feedback(page):
-    check_study_footer(page)
-    page.get_by_role('link', name='打开意见反馈页面').click()
-    expect(page).to_have_url(ORIGIN + '/#feedback')
-    heading = page.get_by_role('heading', name='意见反馈')
-    expect(heading).to_be_focused()
-    expect(page.locator('.question-card')).to_be_hidden()
-    form = page.get_by_role('region', name='意见反馈')
-    expect(form.locator('.feedback-contact')).to_have_text('紧急情况请联系 QQ 邮箱：1176843521@qq.com')
-    expect(form.get_by_role('link', name='1176843521@qq.com')).to_have_attribute('href', 'mailto:1176843521@qq.com')
-    ratings = form.get_by_role('radio')
-    expect(ratings).to_have_count(5)
-    assert [radio.get_attribute('value') for radio in ratings.all()] == ['夯', '顶级', '人上人', 'NPC', '拉完了']
-    message = form.get_by_role('textbox', name='你希望我们改进什么？')
-    submit = form.get_by_role('button', name='提交反馈')
-    submit.click()
-    assert not form.locator('form').evaluate('(form) => form.checkValidity()')
-    form.get_by_role('radio', name='NPC').check()
-    page.keyboard.press('ArrowRight')
-    lowest = form.get_by_role('radio', name='拉完了')
-    expect(lowest).to_be_checked()
-    message.fill('   ')
-    submit.click()
-    expect(form.get_by_role('alert')).to_contain_text('填写你的意见或建议')
-
-    feedback_api = ORIGIN + '/api/feedback'
-    body = '希望增加模考历史筛选。'
-    message.fill(body)
-    with page.expect_response(feedback_api) as request:
-        submit.click()
-    assert request.value.status == 503
-    assert request.value.request.post_data_json == {'rating': '拉完了', 'message': body}
-    expect(form.get_by_role('alert')).to_contain_text('暂时无法提交反馈')
-    expect(message).to_have_value(body)
-    expect(lowest).to_be_checked()
-
-    page.route(feedback_api, lambda route: route.fulfill(json={'sent': True}))
-    submit.click()
-    expect(form.get_by_role('status')).to_have_text('反馈已提交，感谢你的建议！')
-    expect(message).to_have_count(0)
-    page.unroute(feedback_api)
-    page.get_by_role('link', name='← 返回练习').click()
-    expect(page).to_have_url(ORIGIN + '/')
-    expect(page.locator('.question-card')).to_be_visible()
-
-
-def check_chat(browser):
-    mobile = mobile_context(browser)
-    desktop = browser.new_context(viewport={'width': 1280, 'height': 820}, locale='zh-CN')
-    desktop.add_cookies([{
-        'name': COOKIE_NAME, 'value': 'bob', 'domain': HOST, 'path': '/',
-        'secure': True, 'httpOnly': True, 'sameSite': 'Strict',
-    }])
-    try:
-        sender = mobile.new_page()
-        sender.goto(ORIGIN, wait_until='networkidle')
-        entry = sender.get_by_role('link', name='打开聊天区')
-        feedback = sender.get_by_role('link', name='打开意见反馈页面')
-        assert entry.bounding_box()['x'] < feedback.bounding_box()['x']
-        entry.tap()
-        expect(sender.get_by_role('heading', name='聊天区')).to_be_visible()
-        expect(sender.get_by_role('button', name='修改昵称')).to_be_visible()
-        expect(sender.get_by_role('region', name='聊天记录')).to_have_text('')
-        draft = sender.get_by_role('textbox', name='聊天消息')
-        expect(draft).to_have_value('')
-        assert draft.get_attribute('placeholder') is None
-        screenshots = os.getenv('EQB_CHAT_SCREENSHOTS')
-        if screenshots:
-            target = Path(screenshots)
-            target.mkdir(parents=True, exist_ok=True)
-            sender.locator('.chat-room').screenshot(path=target / 'chat-empty.png')
-        expect(sender.locator('.chat-profile img')).to_have_js_property('complete', True)
-        assert sender.locator('.chat-profile img').evaluate('(image) => image.naturalWidth') == 96
-        original_avatar = sender.locator('.chat-profile img').get_attribute('src')
-        sender.get_by_role('button', name='修改昵称').tap()
-        sender.get_by_label('聊天昵称').fill('刷题小噜噜')
-        sender.get_by_role('button', name='保存', exact=True).tap()
-        expect(sender.get_by_role('button', name='修改昵称')).to_contain_text('刷题小噜噜')
-        sender.reload(wait_until='domcontentloaded')
-        expect(sender.get_by_role('button', name='修改昵称')).to_contain_text('刷题小噜噜')
-        expect(sender.locator('.chat-profile img')).to_have_attribute('src', original_avatar)
-
-        receiver = desktop.new_page()
-        receiver.goto(ORIGIN + '/#chat', wait_until='networkidle')
-        expect(receiver.get_by_role('button', name='修改昵称')).to_be_visible()
-        expect(receiver.get_by_role('region', name='聊天记录')).to_have_text('')
-        draft.fill('刷题见面啦 ')
-        sender.get_by_role('button', name='插入表情').tap()
-        sender.get_by_role('button', name='🎉', exact=True).tap()
-        expect(draft).to_have_value('刷题见面啦 🎉')
-        sender.get_by_role('button', name='发送', exact=True).tap()
-        expect(sender.locator('.is-mine .chat-bubble')).to_have_text('刷题见面啦 🎉')
-        receiver.bring_to_front()
-        expect(receiver.locator('.chat-message-row:not(.is-mine) .chat-bubble')).to_have_text('刷题见面啦 🎉', timeout=12000)
-        expect(receiver.locator('.chat-nickname')).to_have_text('刷题小噜噜')
-
-        reply = receiver.get_by_role('textbox', name='聊天消息')
-        reply.fill('收到！')
-        reply.press('Shift+Enter')
-        reply.type('<b>下课再聊</b>')
-        reply.press('Enter')
-        expect(receiver.locator('.is-mine .chat-bubble')).to_have_text(re.compile(r'收到！\s*<b>下课再聊</b>'))
-        expect(receiver.locator('.chat-bubble b')).to_have_count(0)
-        sender.bring_to_front()
-        expect(sender.locator('.chat-message-row:not(.is-mine) .chat-bubble')).to_contain_text('下课再聊', timeout=12000)
-        other_nickname = sender.locator('.chat-message-row:not(.is-mine) .chat-nickname')
-        original_other_nickname = other_nickname.inner_text()
-        sender.get_by_role('button', name='修改昵称').tap()
-        sender.get_by_label('聊天昵称').fill('专注的奶娃')
-        sender.get_by_role('button', name='保存', exact=True).tap()
-        expect(sender.locator('.is-mine .chat-nickname')).to_have_text('专注的奶娃')
-        expect(other_nickname).to_have_text(original_other_nickname)
-        expect(sender.locator('.is-mine .chat-bubble')).to_have_text('刷题见面啦 🎉')
-        receiver.bring_to_front()
-        expect(receiver.locator('.chat-message-row:not(.is-mine) .chat-nickname')).to_have_text('专注的奶娃', timeout=12000)
-        expect(receiver.locator('.chat-message-row')).to_have_count(2)
-        assert sender.evaluate('document.documentElement.scrollWidth <= innerWidth')
-        if screenshots:
-            sender.locator('.chat-room').screenshot(path=target / 'chat-mobile.png')
-            receiver.locator('.chat-room').screenshot(path=target / 'chat-desktop.png')
-        sender.get_by_role('link', name='返回练习', exact=True).tap()
-        expect(sender).to_have_url(ORIGIN + '/')
-        expect(sender.locator('.chat-room')).to_have_count(0)
-        expect(sender.locator('.question-card .q-text')).to_be_visible()
-    finally:
-        desktop.close()
-        mobile.close()
-
-
 def run(browser):
+    no_script = browser.new_context(java_script_enabled=False)
+    try:
+        locked = no_script.new_page()
+        locked.goto(ORIGIN + '/login', wait_until='domcontentloaded')
+        expect(locked.locator('form')).to_have_attribute('method', 'post')
+        locked.locator('#auth-email').fill('browser@example.test')
+        locked.locator('#auth-password').fill('local-fixture-only')
+        expect(locked.get_by_role('button', name='继续')).to_be_disabled()
+        locked.locator('#auth-password').press('Enter')
+        expect(locked).to_have_url(ORIGIN + '/login')
+    finally:
+        no_script.close()
+
     for width in (390, 1440):
         context = browser.new_context(viewport={"width": width, "height": 900}, locale="zh-CN")
         page = context.new_page()
@@ -548,7 +433,7 @@ def run(browser):
     practice_stem = stem.inner_text()
     correct = int(practice_stem.rsplit(' ', 1)[1]) % 4
     option = page.locator('.question-card .option')
-    expect(page.locator('.stats-bar')).to_contain_text('已练习: 0')
+    expect(page.locator('.stats-bar')).to_contain_text('已练习 0')
     context.set_offline(True)
     favorite_button.click()
     expect(page.get_by_text('离线时无法更新收藏，请联网后重试。')).to_be_visible()
@@ -593,12 +478,12 @@ def run(browser):
     assert len(response.request.post_data_json['events']) == 1
     expect(page.locator('.study-sync')).to_contain_text('云端已同步', timeout=12_000)
     attempt_sync = milliseconds(start)
-    expect(page.locator('.stats-bar')).to_contain_text('已练习: 0')
+    expect(page.locator('.stats-bar')).to_contain_text('已练习 0')
     assert pending_refresh, 'The test must check the previous stats during background refresh.'
     for route in pending_refresh:
         route.continue_()
     page.unroute('**/api/me/stats', pause_stats)
-    expect(page.locator('.stats-bar')).to_contain_text('已练习: 1')
+    expect(page.locator('.stats-bar')).to_contain_text('已练习 1')
 
     section(page, '/questions')
     expect(page.get_by_role('searchbox', name='搜索题目')).to_be_visible()
@@ -745,9 +630,42 @@ def run(browser):
     expect(page.locator('.exam-nav-item.current')).to_have_text('4')
     assert page.evaluate('(key) => localStorage.getItem(key)', draft_cache_key) is None
 
+    submit = page.get_by_role('button', name='交卷', exact=True)
+    dialog = page.get_by_role('dialog', name='确认交卷')
+    accept_submit = dialog.get_by_role('button', name='确认交卷', exact=True)
+    nav = page.get_by_role('link', name='刷题', exact=True)
+    nav.scroll_into_view_if_needed()
+    nav_box = nav.bounding_box()
+    assert nav_box
+    submit.click()
+    expect(dialog.get_by_text('还有 7 道题未作答。', exact=False)).to_be_visible()
+    dialog.get_by_role('button', name='继续答题').click()
+    expect(dialog).to_be_hidden()
+    expect(page.locator('.exam-nav-item.current')).to_have_text('4')
+
+    submit_url = draft_url + '/submit'
+    page.route(submit_url, lambda route: route.fulfill(status=503, json={'error': '验收时模拟交卷失败'}), times=1)
+    submit.click()
+    accept_submit.click()
+    expect(dialog.get_by_role('alert')).to_have_text('交卷失败，请检查网络后重试。')
+    expect(page).to_have_url(ORIGIN + '/exam')
+
+    pending = []
+    page.route(submit_url, lambda route: pending.append(route), times=1)
     start = perf_counter()
-    page.get_by_role('button', name='交卷', exact=True).click()
+    with page.expect_request(submit_url):
+        accept_submit.click()
+    expect(dialog.get_by_role('button', name='交卷中…')).to_be_disabled()
+    page.keyboard.press('Escape')
+    expect(dialog).to_be_visible()
+    page.mouse.click(nav_box['x'] + nav_box['width'] / 2, nav_box['y'] + nav_box['height'] / 2)
+    expect(page).to_have_url(ORIGIN + '/exam')
+    expect(dialog).to_be_visible()
+    assert len(pending) == 1
+    pending[0].continue_()
     expect(page.locator('.exam-result-item')).to_have_count(8)
+    expect(dialog).to_be_hidden()
+    expect(page).to_have_url(ORIGIN + '/exam')
     browser_exam_submit = milliseconds(start)
     expect(page.locator('.exam-score-total')).to_have_text('/ 8')
     expect(page.locator('.exam-score-num')).to_have_text('0')
@@ -791,6 +709,7 @@ def run(browser):
     exam_nav.get_by_role('button', name=str(replay_order.index(wrong_exam_stem) + 1), exact=True).tap()
     page.locator('.question-card .option').nth(wrong_option).click()
     page.get_by_role('button', name='交卷', exact=True).click()
+    accept_submit.click()
     expect(page.locator('.exam-result-item')).to_have_count(8)
     expect(page.locator('.exam-result-question')).to_have_text(replay_order)
     section(page, '/wrong')
@@ -814,6 +733,7 @@ def run(browser):
     assert replayed['answers'] == {} and replayed['marked'] == [] and replayed['position'] == 0
     expect(page.locator('.exam-nav-item.current')).to_have_text('1')
     page.get_by_role('button', name='交卷', exact=True).click()
+    accept_submit.click()
     expect(page.locator('.exam-result-item')).to_have_count(8)
     with page.expect_response(lambda response: preference_write(response) and
                               response.request.post_data_json.get('exam', {}).get('screen') == 'entrance'):
@@ -821,7 +741,7 @@ def run(browser):
 
     section(page, '/')
     expect(stem).to_be_visible()
-    check_feedback(page)
+    check_feedback(page, ORIGIN, check_study_footer)
     page.get_by_role('link', name='打开友情赞助页面').click()
     expect(page.get_by_role('heading', name='友情赞助')).to_be_visible()
     section(page, '/')
@@ -886,7 +806,9 @@ def run(browser):
 with sync_playwright() as playwright:
     browser = playwright.chromium.launch(headless=True, ignore_default_args=['--hide-scrollbars'])
     try:
-        check_chat(browser)
+        check_chat(browser, mobile_context, ORIGIN, HOST, COOKIE_NAME)
+        check_author_chat(browser, mobile_context, ORIGIN, HOST, COOKIE_NAME)
+        check_undone_practice(browser, ORIGIN, HOST, COOKIE_NAME)
         print('CHAT_BROWSER_E2E two accounts, mobile and desktop, rename persistence, emoji and plain text')
         print('BROWSER_E2E ' + json.dumps(run(browser), ensure_ascii=False))
     finally:

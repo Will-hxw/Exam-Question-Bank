@@ -21,8 +21,11 @@ const users = new Map([
   ['alice', { id: 'e2e-alice', email: 'alice@example.test', emailVerified: true }],
   ['bob', { id: 'e2e-bob', email: 'bob@example.test', emailVerified: true }],
   ['browser', { id: 'e2e-browser', email: 'browser@example.test', emailVerified: true }],
+  ['undone', { id: 'e2e-undone', email: 'undone@example.test', emailVerified: true }],
+  ['author', { id: 'e2e-author', email: 'xiaoweihuacqu@gmail.com', emailVerified: true }],
   ['unverified', { id: 'e2e-unverified', email: 'unverified@example.test', emailVerified: false }],
 ])
+const modelCalls = []
 
 function authFixture(db) {
   const signupEmail = 'browser-signup@example.test'
@@ -57,7 +60,23 @@ function authFixture(db) {
     }
     const chunks = []
     for await (const chunk of request) chunks.push(chunk)
-    const { email, password, otp } = chunks.length ? JSON.parse(Buffer.concat(chunks).toString('utf8')) : {}
+    const input = chunks.length ? JSON.parse(Buffer.concat(chunks).toString('utf8')) : {}
+    if (path === '/deepseek/v1/chat/completions') {
+      if (request.headers.authorization !== 'Bearer local-completions-fixture') {
+        response.statusCode = 401
+        response.end('{}')
+        return
+      }
+      modelCalls.push(input)
+      if (input.messages.at(-1).content === '接口故障演练') {
+        response.statusCode = 502
+        response.end('{}')
+        return
+      }
+      response.end(JSON.stringify({ choices: [{ message: { content: '（晃晃尾巴）收到喵 (｡•̀ᴗ-)✧' } }] }))
+      return
+    }
+    const { email, password, otp } = input
     const success = (token) => {
       const data = authData(token)
       response.setHeader('set-cookie', `${tokenCookie}=${token}; Path=/; HttpOnly; Secure; SameSite=Strict`)
@@ -78,7 +97,8 @@ function authFixture(db) {
       }
       case '/auth/sign-up/email':
         if (email !== signupEmail) return response.end(JSON.stringify({ user: { email, emailVerified: false }, token: null }))
-        await db.query('INSERT INTO neon_auth."user" (email) VALUES ($1) ON CONFLICT DO NOTHING', [email])
+        await db.query('INSERT INTO neon_auth."user" (id,email,"emailVerified") VALUES ($1,$2,false) ON CONFLICT DO NOTHING',
+          ['e2e-signup', email])
         signup = { id: 'e2e-signup', email, emailVerified: false }
         signupPassword = password
         verificationCode = '412386'
@@ -91,6 +111,7 @@ function authFixture(db) {
         if (email !== signupEmail || !signup || !verificationCode || otp !== verificationCode) return reject(400, 'INVALID_OTP')
         verificationCode = undefined
         signup.emailVerified = true
+        await db.query('UPDATE neon_auth."user" SET "emailVerified" = true WHERE id = $1', [signup.id])
         return success(signupToken)
       case '/auth/forget-password/email-otp':
       case '/auth/email-otp/request-password-reset':
@@ -146,9 +167,10 @@ async function waitForHttp(origin) {
 
 async function seedDatabase(client) {
   await migrate(client)
-  await client.query('CREATE SCHEMA neon_auth; CREATE TABLE neon_auth."user" (email text PRIMARY KEY)')
-  await client.query('INSERT INTO neon_auth."user" (email) SELECT unnest($1::text[])',
-    [[...users.values()].map(({ email }) => email)])
+  await client.query('CREATE SCHEMA neon_auth; CREATE TABLE neon_auth."user" (id text PRIMARY KEY, email text UNIQUE, "emailVerified" boolean NOT NULL)')
+  for (const { id, email, emailVerified } of users.values()) {
+    await client.query('INSERT INTO neon_auth."user" VALUES ($1,$2,$3)', [id, email, emailVerified])
+  }
   const topics = JSON.parse(await readFile(join(root, 'content', 'topics.json'), 'utf8'))
   for (const [position, { id, name, scopeNote, active }] of topics.entries()) {
     await client.query('INSERT INTO topics (id, name, scope_note, sort_order, active) VALUES ($1,$2,$3,$4,$5)',
@@ -206,7 +228,8 @@ async function runApiChecks(origin, db, items, secret) {
   await call(feedbackPath, { ...feedback, owner: users.get('bob').id, status: 409 })
   await call(feedbackPath, { ...feedback, requestOrigin: 'https://other.example.test', status: 403 })
   await call(feedbackPath, { ...feedback, body: { ...feedback.body, rating: 5 }, status: 400 })
-  await call(feedbackPath, { ...feedback, body: { ...feedback.body, message: '  \n' }, status: 400 })
+  await call(feedbackPath, { ...feedback, body: { ...feedback.body, message: '  \n' }, status: 503 })
+  await call(feedbackPath, { ...feedback, body: { rating: '夯' }, status: 503 })
   await call(feedbackPath, { ...feedback, body: { ...feedback.body, message: '字'.repeat(1001) }, status: 400 })
   await call(feedbackPath, { ...feedback, body: { ...feedback.body, message: '字'.repeat(3000) }, status: 413 })
   await call(feedbackPath, { ...feedback, status: 503 })
@@ -270,9 +293,11 @@ async function runApiChecks(origin, db, items, secret) {
   assert.deepEqual((await call(shufflePath)).data.questions, (await call(shufflePath)).data.questions)
 
   const alice = users.get('alice').id
-  const samplePreferences = { theme: 'dark', practice: { mode: 'topic', topic: 't14' }, 'practice-position:topic:t14': 8 }
+  const samplePreferences = { theme: 'dark', practice: { mode: 'topic', topic: 't14' }, 'practice-position:topic:t14': 8,
+    'practice-only-undone': true, 'practice-position:random-undone': 21 }
   await call('/api/me/preferences', { method: 'PUT', user: 'alice', owner: alice, body: samplePreferences })
   await call('/api/me/preferences', { method: 'PUT', user: 'alice', owner: alice, body: { unknown: true }, status: 400 })
+  await call('/api/me/preferences', { method: 'PUT', user: 'alice', owner: alice, body: { 'practice-only-undone': 'true' }, status: 400 })
   await call('/api/me/preferences', { method: 'PUT', user: 'bob', owner: alice, body: { theme: 'light' }, status: 409 })
   await call('/api/me/stats', { user: 'bob', owner: alice, status: 409 })
   assert.deepEqual((await call('/api/me/stats', { user: 'alice' })).data.preferences, samplePreferences)
@@ -287,6 +312,15 @@ async function runApiChecks(origin, db, items, secret) {
   assert.ok(results.every(({ data }) => data.results[0].status === 'saved' && data.results[0].correct === false))
   const { rows } = await db.query('SELECT user_id, attempt_count, is_wrong FROM question_progress WHERE question_id=$1', [first.id])
   assert.deepEqual(rows, [{ user_id: alice, attempt_count: 1, is_wrong: true }])
+  const undonePath = '/api/me/practice-undone?topic=t01'
+  await call(undonePath, { status: 401 })
+  await call(undonePath + '&topic=t14', { user: 'alice', status: 400 })
+  const aliceUndone = (await call(undonePath, { user: 'alice' })).data.positions
+  const bobUndone = (await call(undonePath, { user: 'bob' })).data.positions
+  assert.equal(bobUndone.length, 26)
+  assert.deepEqual(bobUndone[0], { id: first.id, position: 0 })
+  assert.deepEqual(aliceUndone, bobUndone.slice(1))
+  assert.deepEqual(aliceUndone[0], { id: initialPage.questions[1].id, position: 1 })
   const revisionMismatch = await call(attemptPath, { ...writeOptions, body: { ownerId: alice, events: [{ ...attempt, eventId: randomUUID(), contentRevision: '0'.repeat(64) }] }, metric: undefined })
   assert.equal(revisionMismatch.data.results[0].status, 'unavailable')
   assert.equal((await db.query('SELECT attempt_count FROM question_progress WHERE user_id=$1 AND question_id=$2', [alice, first.id])).rows[0].attempt_count, 1)
@@ -418,6 +452,10 @@ async function runApiChecks(origin, db, items, secret) {
   const chatPath = '/api/chat'
   const chatAlice = { user: 'alice', owner: users.get('alice').id }
   const chatBob = { user: 'bob', owner: users.get('bob').id }
+  const sharedStatus = '/api/author-chat?withShared=1'
+  const groupReadPath = `${chatPath}/read`
+  const markGroupRead = (viewer, through, status = 200) => call(groupReadPath, { ...viewer, method: 'PUT', body: { through }, status })
+  assert.deepEqual((await call(sharedStatus, chatBob)).data, { unread: false, sharedUnread: false })
   const initialChat = (await call(chatPath, chatAlice)).data
   assert.deepEqual(initialChat.messages, [])
   assert.equal(initialChat.hasMore, false)
@@ -442,6 +480,16 @@ async function runApiChecks(origin, db, items, secret) {
   assert.equal(sentChat.mine, true)
   assert.equal(sentChat.nickname, savedChat.nickname)
   assert.equal(sentChat.body, chatWrite.body.message)
+  assert.equal((await call(sharedStatus, chatAlice)).data.sharedUnread, false)
+  assert.deepEqual((await call(sharedStatus, chatBob)).data, { unread: false, sharedUnread: true })
+  await markGroupRead({}, sentChat.id, 401)
+  await markGroupRead(chatAlice, sentChat.id, 404)
+  await markGroupRead({ ...chatBob, owner: chatAlice.owner }, sentChat.id, 409)
+  await markGroupRead(chatBob, 'abc', 400)
+  assert.deepEqual((await markGroupRead(chatBob, sentChat.id)).data, { unread: false })
+  assert.deepEqual((await call(sharedStatus, chatBob)).data, { unread: false, sharedUnread: false })
+  const inactiveReader = { user: 'browser', owner: users.get('browser').id }
+  assert.deepEqual((await markGroupRead(inactiveReader, sentChat.id)).data, { unread: false })
   await call(chatPath, { ...chatWrite, status: 409, body: { ...chatWrite.body, message: '不同的内容' } })
   await call(chatPath, { ...chatWrite, status: 429, body: { ...chatWrite.body, clientId: randomUUID() } })
   await call(chatPath, { ...chatWrite, status: 400, body: { ...chatWrite.body, message: '长'.repeat(501) } })
@@ -474,6 +522,9 @@ async function runApiChecks(origin, db, items, secret) {
     SELECT $1, gen_random_uuid(), '历史测试', 0, '历史消息 ' || i FROM generate_series(1, 48) i
   `, [chatAlice.owner])
   const latestChat = (await call(chatPath, chatBob)).data
+  assert.deepEqual((await markGroupRead(chatBob, sentChat.id)).data, { unread: true })
+  await markGroupRead(chatBob, latestChat.messages.at(-1).id)
+  assert.deepEqual((await markGroupRead(chatBob, sentChat.id)).data, { unread: false })
   assert.equal(latestChat.messages.length, 40)
   assert.equal(latestChat.hasMore, true)
   const chatHistory = (await call(`${chatPath}?before=${latestChat.messages[0].id}`, chatBob)).data
@@ -511,8 +562,113 @@ async function runApiChecks(origin, db, items, secret) {
   await db.query('DELETE FROM chat_messages WHERE user_id = $1', [chatAlice.owner])
   await call(avatarPath, { ...chatBob, status: 404 })
 
+  const author = { user: 'author', owner: users.get('author').id }
+  const authorPath = '/api/author-chat'
+  const write = (path, viewer, message) => call(path, { ...viewer, method: 'POST', body: { clientId: randomUUID(), message } })
+  const read = (path, viewer, through) => call(path, { ...viewer, method: 'PUT', body: { through } })
+  const waitForChat = async (path, viewer, predicate) => {
+    const timeout = Date.now() + 6000
+    while (Date.now() < timeout) {
+      const message = (await call(path, viewer)).data.messages.find(predicate)
+      if (message) return message
+      await sleep(60)
+    }
+    assert.fail('Automatic reply never appeared in chat history')
+  }
+  const simulatedReply = '（晃晃尾巴）收到喵 (｡•̀ᴗ-)✧'
+
+  await call(authorPath, { status: 401 })
+  await call(`${authorPath}?inbox=1`, { ...chatAlice, status: 403 })
+  await call(`${authorPath}?mine=1`, { ...chatAlice, status: 404 })
+  assert.deepEqual((await call(authorPath, chatAlice)).data, { unread: false })
+  assert.deepEqual((await call(`${authorPath}?inbox=1`, author)).data.conversations, [])
+  assert.equal((await db.query('SELECT count(*)::int AS count FROM author_messages')).rows[0].count, 0)
+  await call(authorPath, { ...author, method: 'POST', status: 403 })
+  const [opened, secondOpen] = await Promise.all(Array.from({ length: 2 }, () => call(authorPath, { ...chatAlice, method: 'POST' })))
+  assert.equal(opened.data.conversationId, secondOpen.data.conversationId)
+  assert.deepEqual(opened.data.messages, secondOpen.data.messages)
+  assert.equal(opened.data.messages.length, 1)
+  const [welcome] = opened.data.messages
+  assert.equal(welcome.body, '你好，感谢使用，欢迎分享，请问有什么问题吗？')
+  assert.equal(welcome.nickname, 'Hua Xiaowei')
+  assert.equal(opened.data.peer.email, undefined)
+  assert.deepEqual((await call(`${authorPath}?mine=1`, chatAlice)).data, opened.data)
+  assert.deepEqual((await call(authorPath, chatAlice)).data, { unread: true })
+  const thread = `${authorPath}?thread=${opened.data.conversationId}`
+  await call(thread, { ...chatBob, status: 404 })
+  await call(thread, { ...chatBob, method: 'PUT', body: { through: welcome.id }, status: 404 })
+  await call(thread, { ...chatBob, method: 'POST', body: { clientId: randomUUID(), message: '跨账号' }, status: 404 })
+  assert.equal((await read(thread, chatAlice, welcome.id)).data.unread, false)
+  const manual = (await write(thread, chatAlice, '私信历史标记，注册地址 alice@example.test')).data.message
+  assert.equal(manual.mine, true)
+  const inbox = (await call(`${authorPath}?inbox=1&unread=1`, author)).data
+  assert.equal(inbox.conversations.length, 1)
+  assert.equal(inbox.conversations[0].peer.email, 'alice@example.test')
+  assert.equal(inbox.conversations[0].preview, manual.body)
+  for (const q of ['ALICE@', inbox.conversations[0].peer.nickname.slice(0, 2)]) {
+    const match = (await call(`${authorPath}?inbox=1&unread=1&q=${encodeURIComponent(q)}`, author)).data
+    assert.deepEqual(match.conversations, inbox.conversations)
+  }
+  assert.deepEqual((await call(`${authorPath}?inbox=1&q=unknown`, author)).data.conversations, [])
+  await call(`${authorPath}?inbox=1&q=alice`, { ...chatBob, status: 403 })
+  assert.equal((await call(thread, author)).data.peer.email, 'alice@example.test')
+  assert.equal((await read(thread, author, manual.id)).data.unread, false)
+  assert.deepEqual((await call(`${authorPath}?inbox=1&unread=1`, author)).data.conversations, [])
+  assert.deepEqual((await call(`${authorPath}?inbox=1&unread=1&q=alice`, author)).data.conversations, [])
+  const ownerReply = (await write(thread, author, '管理员回复')).data.message
+  assert.equal((await read(thread, chatAlice, welcome.id)).data.unread, true)
+  assert.equal((await read(thread, chatAlice, ownerReply.id)).data.unread, false)
+  const oldDirect = (await call(`${thread}&before=${ownerReply.id}`, chatAlice)).data.messages
+  assert.deepEqual(oldDirect.map(({ id }) => id), [welcome.id, manual.id])
+
+  await db.query("UPDATE author_messages SET sent_at = sent_at - interval '5 seconds' WHERE id = $1", [manual.id])
+  const privateAsk = (await write(thread, chatAlice, '@Hua Xiaowei 结合私信上一条回答')).data.message
+  await waitForChat(thread, chatAlice, (message) => !message.mine && message.body === simulatedReply)
+  assert.equal(modelCalls.length, 1)
+  assert.equal(modelCalls[0].model, 'deepseek-v4.1-flash-1017')
+  const directContext = JSON.stringify(modelCalls[0].messages)
+  assert.match(directContext, /私信历史标记/)
+  assert.match(directContext, /管理员回复/)
+  assert.doesNotMatch(directContext, /alice@example\.test/)
+  assert.equal((await call(thread, author)).data.messages.find((message) => message.id === privateAsk.id).mine, false)
+
+  await call(chatPath, { ...author, method: 'PUT', body: { nickname: '仿作者' }, status: 403 })
+  await call(chatPath, { ...chatBob, method: 'PUT', body: { nickname: 'Hua Xiaowei（作者）' }, status: 400 })
+  const longName = '长昵称'.repeat(15)
+  assert.equal((await call(chatPath, { ...chatBob, method: 'PUT', body: { nickname: longName } })).data.profile.nickname, longName)
+  await call(chatPath, { ...chatBob, method: 'PUT', body: { nickname: longName + '长'.repeat(4) }, status: 400 })
+  const ownerName = (await call(chatPath, author)).data.profile.nickname
+  assert.equal(ownerName, 'Hua Xiaowei（作者）（可@AI自动回复）')
+  await write(chatPath, author, '作者上线')
+  await db.query('INSERT INTO chat_avatars (user_id, image) VALUES ($1, $2)', [author.owner, avatarImage])
+  const recent = (await call(chatPath, chatAlice)).data
+  assert.equal(recent.messages.at(-1).nickname, ownerName)
+  assert.deepEqual(Buffer.from(recent.authorAvatar, 'base64'), avatarImage)
+  assert.deepEqual(Buffer.from((await call(thread, chatAlice)).data.authorAvatar, 'base64'), avatarImage)
+  const privateAvatar = `${chatPath}/avatar?id=${avatarImageId}`
+  await call(privateAvatar, { ...chatBob, status: 404 })
+  assert.equal((await fetch(origin + privateAvatar, { headers: { cookie: `${tokenCookie}=author` } })).status, 200)
+
+  const groupHint = (await write(chatPath, chatAlice, '群聊记住一个词，春天')).data.message
+  await write(chatPath, chatBob, '另一位同学的上下文')
+  await db.query("UPDATE chat_messages SET sent_at = sent_at - interval '5 seconds' WHERE id = $1", [groupHint.id])
+  const publicWrite = { ...chatAlice, method: 'POST', body: { clientId: randomUUID(), message: '@作者 刚才那个词是什么？' } }
+  const [publicAsk, retryAsk] = await Promise.all([call(chatPath, publicWrite), call(chatPath, publicWrite)])
+  assert.equal(publicAsk.data.message.id, retryAsk.data.message.id)
+  await waitForChat(chatPath, chatAlice, (message) => message.aiReplyTo === publicAsk.data.message.id)
+  assert.equal(modelCalls.length, 2)
+  const publicContext = JSON.stringify(modelCalls[1].messages)
+  assert.match(publicContext, /春天/)
+  assert.doesNotMatch(publicContext, /私信历史标记|另一位同学的上下文/)
+  await db.query("UPDATE chat_messages SET sent_at = sent_at - interval '5 seconds' WHERE id = $1", [publicAsk.data.message.id])
+  const providerError = (await write(chatPath, chatAlice, '@作者 接口故障演练')).data.message
+  const fallback = await waitForChat(chatPath, chatAlice, (message) => message.aiReplyTo === providerError.id)
+  assert.match(fallback.body, /没连上/)
+  assert.equal(modelCalls[2].messages.at(-2).content, simulatedReply)
+  await db.query('DELETE FROM chat_messages; DELETE FROM author_conversations')
+
   return {
-    verified: ['anonymous/email verification gate', 'distinct fixture Auth owners', 'private no-store and public cache headers', 'real PostgreSQL and Chinese cursor pagination', 'fixed explanation and answer exposure', 'write idempotency and cross-owner rejection', 'default and custom exam size, random order, validation, resume, scoring, and history', 'Next Data Cache hot to changed after authorized invalidation', 'shared chat, stable profiles, rename, cursor pagination, concurrent retry, rate limit and privacy', 'account-specific chat avatars, historical messages and authenticated image delivery'],
+    verified: ['anonymous/email verification gate', 'distinct fixture Auth owners', 'private no-store and public cache headers', 'real PostgreSQL and Chinese cursor pagination', 'fixed explanation and answer exposure', 'write idempotency and cross-owner rejection', 'default and custom exam size, random order, validation, resume, scoring, and history', 'Next Data Cache hot to changed after authorized invalidation', 'shared chat, stable profiles, rename, cursor pagination, concurrent retry, rate limit and privacy', 'account-specific chat avatars, historical messages and authenticated image delivery', 'private conversation access, concurrent first open, author inbox and unread cursors', 'DeepSeek protocol, context isolation, concurrent request deduplication and provider error', 'rating-only feedback request validation'],
     invalidationToObservableRefreshMs: Number((performance.now() - start).toFixed(2)),
     timingsMs: Object.fromEntries(Object.entries(samples).map(([name, timings]) => {
       const values = timings.map(({ ms }) => ms)
@@ -555,7 +711,9 @@ try {
   const secret = randomBytes(32).toString('hex')
   const env = { ...process.env, DATABASE_URL: databaseUrl.toString(), NEON_AUTH_BASE_URL: `http://127.0.0.1:${authPort}/auth`,
     NEON_AUTH_COOKIE_SECRET: randomBytes(32).toString('hex'), CONTENT_INVALIDATION_SECRET: secret,
-    NEXT_PUBLIC_SITE_URL: origin, NEON_OTP_WEBHOOK_ENABLED: 'false', QQ_SMTP_AUTH_CODE: '', NEXT_TELEMETRY_DISABLED: '1' }
+    NEXT_PUBLIC_SITE_URL: origin, NEON_OTP_WEBHOOK_ENABLED: 'false', QQ_SMTP_AUTH_CODE: '', NEXT_TELEMETRY_DISABLED: '1',
+    DEEPSEEK_API_KEY: 'local-completions-fixture', DEEPSEEK_API_BASE_URL: `http://127.0.0.1:${authPort}/deepseek/v1`,
+    DEEPSEEK_MODEL: 'deepseek-v4.1-flash-1017' }
   await run(process.execPath, [next, 'build', '--webpack'], { cwd: buildDir, env })
   server = spawn(process.execPath, [next, 'start', '--hostname', '127.0.0.1', '--port', String(port)], { cwd: buildDir, env, stdio: 'inherit', windowsHide: true })
   await waitForHttp(origin)

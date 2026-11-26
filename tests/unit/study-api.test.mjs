@@ -1,6 +1,29 @@
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
 import { requestJson } from '../../src/features/study/api.ts'
+import { feedbackMail } from '../../src/features/auth/feedback-template.ts'
+import { initialUndonePosition, stepUndonePosition } from '../../src/features/study/practice-undone.ts'
+
+test('unattempted navigation keeps original positions and follows the seeded random order', () => {
+  const remaining = [{ id: 'a', position: 1 }, { id: 'd', position: 4 }, { id: 'g', position: 7 }]
+  assert.equal(initialUndonePosition(remaining, 2), 4)
+  assert.equal(stepUndonePosition(remaining, { id: 'z', position: 9 }, 'next'), 1)
+  assert.equal(stepUndonePosition(remaining, { id: 'f', position: 6 }, 'previous'), 4)
+  assert.equal(initialUndonePosition(remaining, null, 'c'), 4)
+  assert.equal(stepUndonePosition(remaining, { id: 'f', position: 6 }, 'next', 'c'), 7)
+  assert.equal(stepUndonePosition(remaining, { id: 'g', position: 7 }, 'next', 'c'), 1)
+  assert.equal(stepUndonePosition(remaining, { id: 'd', position: 4 }, 'previous', 'c'), null)
+})
+
+test('feedback mail derives the reply address and allows a rating without a comment', () => {
+  const email = 'student@example.test'
+  const ratingOnly = feedbackMail('夯', '', email)
+  assert.deepEqual(ratingOnly.replyTo, { name: '', address: email })
+  assert.equal(ratingOnly.subject, '【练习站意见反馈】夯')
+  assert.equal(ratingOnly.text, `整体评价：夯\n注册邮箱：${email}`)
+  assert.equal(feedbackMail('夯', '这个题和学院练习不一样。', email).text,
+    ratingOnly.text + '\n\n意见或建议：\n这个题和学院练习不一样。')
+})
 
 test('protected previews retry public reads with the browser access cookie', async (t) => {
   const calls = []
