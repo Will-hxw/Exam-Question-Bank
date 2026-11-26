@@ -38,6 +38,7 @@ test('Neon signup follow-up validates the trigger and calls the existing mail en
   const response = await scheduler.fetch(makeRequest('signup-followup-even-hours', '/', valid))
   assert.equal(response.status, 200)
   assert.equal((await response.json()).sent, 2)
+  assert.equal(calls[0].url, 'https://cqu.xiaoweihua.cn/api/internal/signup-followup')
   assert.equal(calls[0].method, 'POST')
   assert.equal(calls[0].headers.authorization, 'Bearer ' + token)
   assert.equal(calls[0].headers['x-eqb-scheduled-at'], '2026-11-26T14:00:00.000Z')
