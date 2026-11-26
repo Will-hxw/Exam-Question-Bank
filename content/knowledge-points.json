@@ -7508,5 +7508,115 @@
     "sourceId": "S43",
     "location": "第十三部分第（50）项",
     "scopeNote": "2026-11-26 扩库。按所引题源和判答依据各自的时点与适用范围。"
+  },
+  {
+    "id": "b71864cf-7f9b-45b2-9ab3-33859778323f",
+    "topicId": "t06",
+    "factKey": "t06-campus-history-stage-before-reform",
+    "fact": "从新中国成立到党的十一届三中全会前，党领导人民完成社会主义革命、推进社会主义建设。",
+    "importance": "general",
+    "sourceId": "S52",
+    "location": "第二部分、第三部分的起始段落",
+    "scopeNote": "2026-11-26 题库去重补位。按题目所列现行原文及适用范围复习。"
+  },
+  {
+    "id": "ec99d5d0-e4d1-45cf-88de-5da9a077e197",
+    "topicId": "t06",
+    "factKey": "t06-campus-may-thirtieth-movement",
+    "fact": "1925年5月30日的五卅惨案引发五卅运动。",
+    "importance": "general",
+    "sourceId": "S17",
+    "location": "1925年5月30日五卅惨案及全国反帝运动条",
+    "scopeNote": "2026-11-26 题库去重补位。按题目所列现行原文及适用范围复习。"
+  },
+  {
+    "id": "7755fb23-0435-45ac-ae45-c7f91e861308",
+    "topicId": "t01",
+    "factKey": "t01-campus-ecological-respect-principles",
+    "fact": "党章要求树立尊重自然、顺应自然、保护自然的生态文明理念，同时另列节约优先、保护优先、自然恢复为主的方针。",
+    "importance": "general",
+    "sourceId": "S18",
+    "location": "总纲中国共产党领导人民建设社会主义生态文明段",
+    "scopeNote": "2026-11-26 题库去重补位。按题目所列现行原文及适用范围复习。"
+  },
+  {
+    "id": "e0292e82-b4a2-46c0-bab1-83fa38393c8a",
+    "topicId": "t01",
+    "factKey": "t01-campus-belt-road-three-principles",
+    "fact": "党章总纲写明，遵循共商共建共享原则推进“一带一路”建设。",
+    "importance": "general",
+    "sourceId": "S18",
+    "location": "总纲坚持独立自主的和平外交政策段，推进一带一路句",
+    "scopeNote": "2026-11-26 题库去重补位。按题目所列现行原文及适用范围复习。"
+  },
+  {
+    "id": "7a963d6d-fabf-4ec4-b25c-3d3b277b6ca9",
+    "topicId": "t09",
+    "factKey": "t09-20261126-official-vehicle-supply-rules",
+    "fact": "对执法执勤等用车应从严配备，条例禁止变相超编或超标准配备，也禁止接受企事业单位或个人赠送的车辆。",
+    "importance": "general",
+    "sourceId": "BX25-ECONOMY",
+    "location": "第五章第二十八条第二款",
+    "scopeNote": "2026-11-26 题库去重补位。按题目所列现行原文及适用范围复习。"
+  },
+  {
+    "id": "2a6612c7-3a82-42cf-9360-f3499f0c1b8d",
+    "topicId": "t05",
+    "factKey": "t05-outline-data-sharing",
+    "fact": "《纲要》要求政务数据在部门之间、层级之间和地区之间共享利用。",
+    "importance": "general",
+    "sourceId": "S40",
+    "location": "第十三章第三节“提高政府治理数智化水平”",
+    "scopeNote": "2026-11-26 题库去重补位。按题目所列现行原文及适用范围复习。"
+  },
+  {
+    "id": "bedcb270-d142-41ad-991e-1a2d694a0c91",
+    "topicId": "t05",
+    "factKey": "t05-outline-housing-structure",
+    "fact": "规划要求扩大供给主体和保障渠道，同时发挥住房租赁和购买两种方式的作用。",
+    "importance": "general",
+    "sourceId": "S40",
+    "location": "第四十四章章首",
+    "scopeNote": "2026-11-26 题库去重补位。按题目所列现行原文及适用范围复习。"
+  },
+  {
+    "id": "e0cdb2bf-e033-4bcf-8370-8a3daf1d9d8c",
+    "topicId": "t03",
+    "factKey": "t03-supervision-coordination-four-types",
+    "fact": "该段列明纪律监督、监察监督、派驻监督、巡视监督四类统筹衔接。",
+    "importance": "general",
+    "sourceId": "S06",
+    "location": "第八部分末段“完善党和国家监督体系”",
+    "scopeNote": "2026-11-26 题库去重补位。按题目所列现行原文及适用范围复习。"
+  },
+  {
+    "id": "11e3c7e8-cc55-4153-9eee-36f79a134674",
+    "topicId": "t14",
+    "factKey": "t14-opening-institutional-level",
+    "fact": "第七部分总述明确稳步扩大制度型开放，紧接着部署积极扩大自主开放、对接国际高标准经贸规则。",
+    "importance": "general",
+    "sourceId": "S43",
+    "location": "第七部分开头及第（21）项",
+    "scopeNote": "2026-11-26 题库去重补位。按题目所列现行原文及适用范围复习。"
+  },
+  {
+    "id": "26b8a4a1-61f8-4f9d-a8b9-897591243d03",
+    "topicId": "t12",
+    "factKey": "t12-rights-reading-access-alternative",
+    "fact": "党员因阅读能力等原因无法直接阅读文件时，党组织应按规定向其传达文件精神。",
+    "importance": "core",
+    "sourceId": "S32",
+    "location": "第二十条第三款",
+    "scopeNote": "2026-11-26 题库去重补位。按题目所列现行原文及适用范围复习。"
+  },
+  {
+    "id": "6d50c36f-06dd-442b-862b-a21d8af889d4",
+    "topicId": "t12",
+    "factKey": "t12-flag-requirement-oath-setting",
+    "fact": "新党员入党宣誓和组织党员重温入党誓词都应当使用党旗。召开党员大会、基层组织主题党日等属于可以使用的情形。",
+    "importance": "core",
+    "sourceId": "S72-FLAG",
+    "location": "第九条、第十条",
+    "scopeNote": "2026-11-26 题库去重补位。按题目所列现行原文及适用范围复习。"
   }
 ]
