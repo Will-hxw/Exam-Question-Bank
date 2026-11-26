@@ -1,5 +1,5 @@
 import { requireStudyAccount } from '@/features/auth/server'
-import { authorChatUnread, authorInbox, markAuthorChatRead, openAuthorChat, postAuthorChat, readAuthorChat, readOwnAuthorChat } from '@/server/author-chat'
+import { authorChatUnread, authorInbox, markAuthorChatRead, openAuthorChat, openAuthorContact, postAuthorChat, readAuthorChat, readOwnAuthorChat } from '@/server/author-chat'
 import { scheduleChatReply } from '@/server/chat-ai'
 import { parseBody, route, uuid } from '@/server/http'
 
@@ -14,7 +14,10 @@ export const GET = route(async (request: Request) => {
 
 export const POST = route(async (request: Request) => {
   const user = await requireStudyAccount(request, true)
-  const threadId = new URL(request.url).searchParams.get('thread')
+  const params = new URL(request.url).searchParams
+  const threadId = params.get('thread')
+  const contact = params.get('contact')
+  if (threadId === null && contact !== null) return openAuthorContact(user, contact)
   if (threadId === null) return openAuthorChat(user)
   const thread = uuid(threadId)
   const sent = await postAuthorChat(user, thread, await parseBody(request, 4096))

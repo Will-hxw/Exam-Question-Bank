@@ -32,7 +32,7 @@ Neon Auth 生成并校验验证码，签名的 `send.otp` 事件由本站 `/api/
 
 ## 作者对话与自动回复
 
-发布包含作者对话和聊天区未读红点的版本前，先应用 `018_author_chat.sql`、`019_public_chat_mentions.sql` 和 `020_chat_reads.sql`。唯一的管理员是已验证邮箱 `xiaoweihuacqu@gmail.com` 对应的账号。反馈沿用 QQ SMTP，并使用提交者已验证的邮箱作为回信地址。
+发布包含作者对话和聊天区未读红点的版本前，先应用 `018_author_chat.sql` 至 `021_author_chat_contacts.sql`。唯一的管理员是已验证邮箱 `xiaoweihuacqu@gmail.com` 对应的账号。作者可以从联系人列表主动开始私信，欢迎语在用户首次打开作者对话时发送。反馈沿用 QQ SMTP，并使用提交者已验证的邮箱作为回信地址。
 
 在 Makers 的服务端加密变量中配置 `DEEPSEEK_API_KEY`，网关和模型默认值见变量示例。群聊与私信都只在 @ 作者时触发自动回复。供模型参考的消息上限为 12 条，群聊按当前发言者取历史，私信按当前会话取历史，文本内的邮箱会替换为占位内容。回复在聊天写入完成后生成。
 

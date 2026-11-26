@@ -29,10 +29,11 @@ export type ChatUpdates = ChatPage & { nicknames: ChatAuthor[]; hasMoreNicknames
 export type AuthorChatPeer = ChatProfile & { email?: string }
 export type AuthorChatRoom = ChatRoom & { conversationId: string; peer: AuthorChatPeer }
 export type AuthorConversation = {
-  id: string
+  id: string | null
+  userId: string
   peer: AuthorChatPeer
-  preview: string
-  sentAt: string
+  preview: string | null
+  sentAt: string | null
   unread: boolean
   mine: boolean
 }

@@ -14,6 +14,7 @@ const adjectives = [
   '嘴角上扬的', '脾气超好的', '还没睡醒的', '头顶冒泡的', '灵机一动的', '叼着饼干的',
   '心满意足的', '刚下课的', '元气满满的', '爱听八卦的', '正在思考的', '看热闹的',
 ]
+export const chatProfileDefaults = { characters, adjectives, seedPrefix: 'eqb/chat-profile:', avatarsPerCharacter: 12 }
 
 function chatAuthorKey(user: string) {
   const secret = process.env.NEON_AUTH_COOKIE_SECRET
@@ -44,9 +45,10 @@ function presentMessage({ avatarImageId, aiReplyTo, ...message }: StoredMessage)
 
 function defaultProfile(user: string): ChatProfile {
   // The assignment stays stable across devices without saving a profile on read.
-  const seed = createHash('sha256').update('eqb/chat-profile:').update(user).digest()
-  const avatar = seed.readUInt32BE(0) % 36
-  const character = characters[Math.floor(avatar / 12)]
+  const { seedPrefix, avatarsPerCharacter } = chatProfileDefaults
+  const seed = createHash('sha256').update(seedPrefix).update(user).digest()
+  const avatar = seed.readUInt32BE(0) % (characters.length * avatarsPerCharacter)
+  const character = characters[Math.floor(avatar / avatarsPerCharacter)]
   const adjective = adjectives[seed.readUInt32BE(4) % adjectives.length]
   return { authorKey: chatAuthorKey(user), nickname: adjective + character, avatar, nicknameRevision: '0' }
 }

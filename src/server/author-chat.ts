@@ -1,15 +1,16 @@
 import 'server-only'
 import { authorEmail, isSiteAuthor, type VerifiedUser } from '@/features/auth/server'
 import { chatPageSize, messageLimit, type AuthorChatRoom, type AuthorConversation, type AuthorInbox, type ChatMessage, type ChatPage } from '@/features/chat/types'
-import { authorIdSql, chatCursor, presentChatProfile, readChatText, sharedChatUnreadSql, validChatCursor } from './chat'
+import { authorIdSql, chatCursor, chatProfileDefaults, presentChatProfile, readChatText, sharedChatUnreadSql, validChatCursor } from './chat'
 import { query } from './db'
 import { HttpError, uuid } from './http'
 
 const authorGreeting = '你好，感谢使用，欢迎分享，请问有什么问题吗？'
 const inboxPageSize = 30
 const threadMissing = '会话不存在。'
+const contactIdPattern = /^[\da-zA-Z_-]{1,128}$/
 type StoredProfile = { nickname: string | null; nicknameRevision: string | null; avatarImageId: string | null }
-type StoredMessage = { id: string; body: string; sentAt: string; fromAuthor: boolean }
+type StoredMessage = { id: string; body: string; sentAt: string; fromAuthor: boolean; aiReplyTo: string | null }
 type StoredThread = {
   userId: string
   email: string
@@ -20,7 +21,7 @@ type StoredThread = {
   messages: StoredMessage[]
 }
 
-const messageFields = 'm.id::text AS id, m.body, m.sent_at AS "sentAt", m.from_author AS "fromAuthor"'
+const messageFields = 'm.id::text AS id, m.body, m.sent_at AS "sentAt", m.from_author AS "fromAuthor", m.ai_reply_to::text AS "aiReplyTo"'
 const profileJson = (profile: string, avatar: string) => `jsonb_build_object(
   'nickname', ${profile}.nickname, 'nicknameRevision', ${profile}.nickname_revision::text, 'avatarImageId', ${avatar}.id
 )`
@@ -30,9 +31,10 @@ function threadPage(row: StoredThread, author: boolean, forward: boolean): ChatP
   const userProfile = presentChatProfile(row.userId, row.userProfile)
   const page = row.messages.slice(0, chatPageSize)
   if (!forward) page.reverse()
-  return { hasMore: row.messages.length > chatPageSize, messages: page.map(({ fromAuthor, ...message }) => ({
+  return { hasMore: row.messages.length > chatPageSize, messages: page.map(({ fromAuthor, aiReplyTo, ...message }) => ({
     ...(fromAuthor ? authorProfile : userProfile), ...message,
     sentAt: new Date(message.sentAt).toISOString(), mine: fromAuthor === author,
+    ...(aiReplyTo ? { aiReplyTo } : {}),
   })) }
 }
 
@@ -46,34 +48,56 @@ export async function authorChatUnread(user: VerifiedUser, withShared = false) {
   return result
 }
 
+function inboxCursor(value: string | null) {
+  if (value === null) return { last: null, contact: null }
+  const [last, contact, extra] = value.split(':')
+  if (!validChatCursor(last) || extra !== undefined || (contact === undefined ? last === '0' : !contactIdPattern.test(contact))) {
+    throw new HttpError(400, '会话位置无效。')
+  }
+  return { last, contact: contact ?? null }
+}
+
+function unsignedWord(start: number) {
+  // PostgreSQL scans the same big-endian SHA-256 bytes as defaultProfile.
+  return `(${[24, 16, 8, 0].map((shift, offset) => `(get_byte(seed, ${start + offset})::bigint << ${shift})`).join(' | ')})`
+}
+
 export async function authorInbox(user: VerifiedUser, params: URLSearchParams): Promise<AuthorInbox> {
   if (!isSiteAuthor(user)) throw new HttpError(403, '仅作者可以查看会话列表。')
-  const before = params.get('before')
-  if (before !== null && (!validChatCursor(before) || before === '0')) throw new HttpError(400, '会话位置无效。')
+  const { last, contact } = inboxCursor(params.get('before'))
   const search = params.get('q')?.trim() ?? ''
   if (search.length > 100 || search.includes('\x00')) throw new HttpError(400, '搜索词无效。')
   const unreadOnly = params.get('unread') === '1'
-  const rows = await query<StoredProfile & Omit<AuthorConversation, 'peer'> & { userId: string; email: string; cursor: string }>(`
-    SELECT c.id, c.user_id AS "userId", u.email, p.nickname, p.nickname_revision::text AS "nicknameRevision",
-      a.id AS "avatarImageId", m.body AS preview, m.sent_at AS "sentAt", m.from_author AS mine,
-      c.last_user_id > c.author_read_id AS unread, c.last_message_id::text AS cursor
-    FROM author_conversations c
-    JOIN neon_auth."user" u ON u.id::text = c.user_id AND u."emailVerified"
-    JOIN author_messages m ON m.id = c.last_message_id
-    LEFT JOIN chat_profiles p ON p.user_id = c.user_id
-    LEFT JOIN chat_avatars a ON a.user_id = c.user_id
-    WHERE ($2::bigint IS NULL OR c.last_message_id < $2)
+  const directory = params.get('directory') === '1'
+  const { characters, adjectives, avatarsPerCharacter, seedPrefix } = chatProfileDefaults
+  const lastId = 'coalesce(c.last_message_id, 0)'
+  const defaultNickname = `($6::text[])[(${unsignedWord(4)} % ${adjectives.length})::int + 1]
+    || ($5::text[])[((${unsignedWord(0)} % ${characters.length * avatarsPerCharacter}) / ${avatarsPerCharacter})::int + 1]`
+  const rows = await query<StoredProfile & Omit<AuthorConversation, 'peer'> & { email: string; cursor: string }>(`
+    SELECT c.id, u.id::text AS "userId", u.email, p.nickname, p.nickname_revision::text AS "nicknameRevision",
+      a.id AS "avatarImageId", m.body AS preview, m.sent_at AS "sentAt", coalesce(m.from_author, false) AS mine,
+      coalesce(c.last_user_id > c.author_read_id, false) AS unread, (${lastId})::text AS cursor
+    FROM neon_auth."user" u
+    LEFT JOIN author_conversations c ON c.user_id = u.id::text
+    LEFT JOIN author_messages m ON m.id = c.last_message_id
+    LEFT JOIN chat_profiles p ON p.user_id = u.id::text
+    LEFT JOIN chat_avatars a ON a.user_id = u.id::text
+    CROSS JOIN LATERAL (SELECT sha256(convert_to($7::text || u.id::text, 'UTF8')) AS seed) hashed
+    WHERE u.id::text <> $4
+      AND ($2::bigint IS NULL OR ${lastId} < $2 OR (${lastId} = $2 AND u.id::text > $3::text))
       AND ($1::text = '' OR strpos(lower(u.email), lower($1)) > 0
-        OR strpos(lower(coalesce(p.nickname, c.default_nickname)), lower($1)) > 0)
+        OR strpos(lower(coalesce(p.nickname, c.default_nickname, ${defaultNickname})), lower($1)) > 0)
+      ${directory ? '' : 'AND u."emailVerified" AND m.id IS NOT NULL'}
       ${unreadOnly ? 'AND c.last_user_id > c.author_read_id' : ''}
-    ORDER BY c.last_message_id DESC LIMIT ${inboxPageSize + 1}
-  `, [search, before])
+    ORDER BY ${lastId} DESC, u.id::text ASC LIMIT ${inboxPageSize + 1}
+  `, [search, last, contact, user.id, characters, adjectives, seedPrefix])
+  const tail = rows.length > inboxPageSize ? rows[inboxPageSize - 1] : null
   return {
     conversations: rows.slice(0, inboxPageSize).map((row) => ({
-      id: row.id, peer: { ...presentChatProfile(row.userId, row), email: row.email },
+      id: row.id, userId: row.userId, peer: { ...presentChatProfile(row.userId, row), email: row.email },
       preview: row.preview, sentAt: row.sentAt, unread: row.unread, mine: row.mine,
     })),
-    nextCursor: rows.length > inboxPageSize ? rows[inboxPageSize - 1].cursor : null,
+    nextCursor: tail ? (directory ? `${tail.cursor}:${tail.userId}` : tail.cursor) : null,
   }
 }
 
@@ -92,7 +116,7 @@ export async function readAuthorChat(user: VerifiedUser, thread: string, params 
         ) recent) AS messages
     FROM author_conversations c
     CROSS JOIN author_account owner
-    JOIN neon_auth."user" u ON u.id::text = c.user_id AND u."emailVerified"
+    JOIN neon_auth."user" u ON u.id::text = c.user_id
     LEFT JOIN chat_profiles p ON p.user_id = c.user_id
     LEFT JOIN chat_avatars a ON a.user_id = c.user_id
     LEFT JOIN chat_profiles ap ON ap.user_id = owner.id
@@ -115,6 +139,18 @@ export async function openAuthorChat(user: VerifiedUser) {
     SELECT open_author_chat($1, $2, $3) AS id WHERE EXISTS (${authorIdSql} $4)
   `, [user.id, authorGreeting, nickname, authorEmail])
   if (!room) throw new HttpError(503, '作者对话暂不可用，请稍后再试。')
+  return readAuthorChat(user, room.id)
+}
+
+export async function openAuthorContact(user: VerifiedUser, contact: string) {
+  if (!isSiteAuthor(user)) throw new HttpError(403, '仅作者可以选择联系人。')
+  if (!contactIdPattern.test(contact) || contact === user.id) throw new HttpError(400, '联系人无效。')
+  const nickname = presentChatProfile(contact, { avatarImageId: null }).nickname
+  const [room] = await query<{ id: string }>(`
+    SELECT open_author_chat(u.id::text, NULL, $2) AS id
+    FROM neon_auth."user" u WHERE u.id::text = $1
+  `, [contact, nickname])
+  if (!room) throw new HttpError(404, '联系人不存在。')
   return readAuthorChat(user, room.id)
 }
 

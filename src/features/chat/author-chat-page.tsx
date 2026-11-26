@@ -12,7 +12,7 @@ function InboxList({ userId, onlyUnread, search }: { userId: string; onlyUnread:
   const [error, setError] = useState('')
   const [loadingMore, setLoadingMore] = useState(false)
   const [retry, setRetry] = useState(0)
-  const params = new URLSearchParams({ inbox: '1' })
+  const params = new URLSearchParams({ inbox: '1', directory: '1' })
   if (onlyUnread) params.set('unread', '1')
   if (search) params.set('q', search)
   const path = `${authorChatPath}?${params}`
@@ -58,7 +58,7 @@ function InboxList({ userId, onlyUnread, search }: { userId: string; onlyUnread:
     setLoadingMore(true)
     setError('')
     try {
-      const page = await requestJson<AuthorInbox>(`${path}&before=${next}`, { headers: { 'X-Study-Account': userId } })
+      const page = await requestJson<AuthorInbox>(`${path}&before=${encodeURIComponent(next)}`, { headers: { 'X-Study-Account': userId } })
       setMore((previous) => ({ ...page, conversations: [...(previous?.conversations ?? []), ...page.conversations] }))
     } catch (failure) {
       setError(chatError(failure, '暂时无法读取更早会话。'))
@@ -67,16 +67,16 @@ function InboxList({ userId, onlyUnread, search }: { userId: string; onlyUnread:
     }
   }
 
-  const unique = new Map(inbox?.conversations.map((row) => [row.id, row]))
-  for (const row of more?.conversations ?? []) if (!unique.has(row.id)) unique.set(row.id, row)
+  const unique = new Map(inbox?.conversations.map((row) => [row.userId, row]))
+  for (const row of more?.conversations ?? []) if (!unique.has(row.userId)) unique.set(row.userId, row)
   return <>
     {error && <p className="chat-sync" role="status">{error}{' '}
       <button className="chat-text-button" type="button" onClick={() => setRetry((value) => value + 1)}>重试</button>
     </p>}
     <div className="author-inbox-log" role="region" aria-label="作者会话列表">
       {unique.size > 0 ? <ul className="author-inbox-list">
-        {[...unique.values()].map((row) => <li key={row.id}>
-          <a href={`${authorChatHash}/${row.id}`} className="author-inbox-row"
+        {[...unique.values()].map((row) => <li key={row.userId}>
+          <a href={`${authorChatHash}/${row.id ?? `contact/${encodeURIComponent(row.userId)}`}`} className="author-inbox-row"
             aria-describedby={row.unread ? unreadDescriptionId : undefined}>
             <div className="author-inbox-avatar">
               <Avatar profile={row.peer} size={44} />
@@ -85,13 +85,13 @@ function InboxList({ userId, onlyUnread, search }: { userId: string; onlyUnread:
             <div className="author-inbox-details">
               <strong title={row.peer.nickname}>{row.peer.nickname}</strong>
               <small title={row.peer.email}>{row.peer.email}</small>
-              <p>{row.mine && '你：'}{row.preview}</p>
+              <p>{row.mine && '你：'}{row.preview ?? '暂无消息'}</p>
             </div>
-            <time dateTime={row.sentAt}>{messageTime(row.sentAt)}</time>
+            {row.sentAt && <time dateTime={row.sentAt}>{messageTime(row.sentAt)}</time>}
           </a>
         </li>)}
       </ul> : !error && <p className="chat-loading" role="status">
-        {!inbox ? '正在加载会话…' : search ? '没有匹配的会话' : onlyUnread ? '没有未读会话' : '还没有会话'}
+        {!inbox ? '正在加载会话…' : search ? '没有匹配的联系人' : onlyUnread ? '没有未读会话' : '暂无注册用户'}
       </p>}
       {next && <div className="chat-history">
         <button className="chat-text-button" type="button" disabled={loadingMore} onClick={() => void loadMore()}>
@@ -145,7 +145,8 @@ function Thread({ userId, author, threadId, allowCreate, onRead }: {
   allowCreate: boolean
   onRead: (unread: boolean) => void
 }) {
-  const room = useChatRoom(userId, { threadId, allowCreate })
+  const contact = threadId?.startsWith('contact/') ? threadId.slice('contact/'.length) : undefined
+  const room = useChatRoom(userId, { threadId: contact === undefined ? threadId : undefined, contact, allowCreate })
   return <ChatPage room={room} direct backHref={author ? authorChatHash : '#feedback'}
     backLabel={author ? '返回会话列表' : '返回意见反馈'} onRead={onRead} />
 }

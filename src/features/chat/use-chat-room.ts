@@ -9,10 +9,11 @@ export function chatError(error: unknown, fallback: string) {
   return error instanceof StudyRequestError ? error.message : fallback
 }
 
-export function useChatRoom(userId: string, direct?: { threadId?: string; allowCreate?: boolean }) {
+export function useChatRoom(userId: string, direct?: { threadId?: string; contact?: string; allowCreate?: boolean }) {
   const privateRoom = direct !== undefined
   const requestedThread = direct?.threadId
-  const allowCreate = direct?.allowCreate ?? false
+  const shouldOpen = Boolean(direct?.contact || direct?.allowCreate)
+  const openPath = direct?.contact ? `${authorChatPath}?contact=${encodeURIComponent(direct.contact)}` : authorChatPath
   const [cached] = useState(() => privateRoom ? undefined : currentSharedRoom(userId)?.data)
   const [profile, setProfile] = useState<ChatProfile | undefined>(cached?.profile)
   const [peer, setPeer] = useState<AuthorChatPeer>()
@@ -82,8 +83,8 @@ export function useChatRoom(userId: string, direct?: { threadId?: string; allowC
           const initial = privateRoom
             ? await (threadRef.current
               ? requestJson<AuthorChatRoom>(`${authorChatPath}?thread=${threadRef.current}`, options)
-              : allowCreate
-                ? requestJson<AuthorChatRoom>(authorChatPath, { ...options, method: 'POST' })
+              : shouldOpen
+                ? requestJson<AuthorChatRoom>(openPath, { ...options, method: 'POST' })
                 : requestJson<AuthorChatRoom>(`${authorChatPath}?mine=1`, options))
             : await warmSharedChat(userId)
           if (stop.signal.aborted) return
@@ -146,7 +147,7 @@ export function useChatRoom(userId: string, direct?: { threadId?: string; allowC
       window.removeEventListener('online', refresh)
       window.removeEventListener('offline', offline)
     }
-  }, [userId, revision, merge, mergeAuthors, privateRoom, allowCreate])
+  }, [userId, revision, merge, mergeAuthors, privateRoom, shouldOpen, openPath])
 
   const path = thread ? `${authorChatPath}?thread=${thread}` : chatPath
 
