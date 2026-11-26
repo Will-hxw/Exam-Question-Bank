@@ -37,6 +37,7 @@
     "server-only": "0.0.1"
   },
   "devDependencies": {
+    "@neon/functions": "0.11.0",
     "@types/node": "^24.19.2",
     "@types/nodemailer": "8.0.2",
     "@types/pg": "^8.15.0",
