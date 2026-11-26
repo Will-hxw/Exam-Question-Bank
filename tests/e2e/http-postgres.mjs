@@ -34,6 +34,8 @@ const modelCalls = []
 const proactiveCalls = []
 const simulatedReply = '记得啊，春天嘛'
 const simulatedIdentity = '真啊，不然我咋从网线里游过来的喵'
+const followUpQuestion = '？ 还能看图像？'
+const simulatedFollowUp = '我能看见你这张头像呀，还以为你在考本鱼呢'
 
 function modelInput(call) {
   const { content } = call.messages.at(-1)
@@ -92,6 +94,15 @@ function authFixture(db) {
       if (latest === '接口故障演练') {
         response.statusCode = 502
         response.end('{}')
+        return
+      }
+      const continuing = input.messages[0].content.includes('对方正在接你刚回给他的那句话')
+      if (continuing && latest === followUpQuestion) {
+        response.end(JSON.stringify({ choices: [{ message: { content: simulatedFollowUp } }] }))
+        return
+      }
+      if (continuing && latest === '我不信你还会接梗') {
+        response.end(JSON.stringify({ choices: [{ message: { content: '不信是吧，你接着出题嘛' } }] }))
         return
       }
       const retryInstruction = input.messages[0].content.includes('至少五个字')
@@ -773,15 +784,23 @@ async function runApiChecks(origin, db, items, secret) {
     FROM generate_series(1, 24) i
   `, [chatAlice.owner])
   const longAsk = (await write(chatPath, chatAlice, '@Hua Xiaowei 测试长上下文')).data.message
-  await waitForChat(chatPath, chatAlice, (message) => message.aiReplyTo === longAsk.id)
+  const longReply = await waitForChat(chatPath, chatAlice, (message) => message.aiReplyTo === longAsk.id)
   const longInput = modelInput(modelCalls[6])
   assert.equal(longInput.latest, '测试长上下文')
   assert.equal(longInput.history.length, 16)
   assert.match(longInput.history.at(-1).content, /^24:/)
   assert.ok(Buffer.byteLength(JSON.stringify(longInput.history)) <= 24 * 1024)
 
+  await db.query("UPDATE chat_messages SET sent_at = sent_at - interval '21 seconds' WHERE id IN ($1,$2)", [longAsk.id, longReply.id])
+  const followUp = (await write(chatPath, chatAlice, followUpQuestion)).data.message
+  const naturalReply = await waitForChat(chatPath, chatAlice, (message) => message.aiReplyTo === followUp.id)
+  assert.equal(naturalReply.body, simulatedFollowUp)
+  const followUpCall = modelCalls.find((input) => modelInput(input).latest === followUpQuestion)
+  assert.ok(followUpCall)
+  assert.equal(modelInput(followUpCall).history.at(-1).content, longReply.body)
+
   await db.query('DELETE FROM chat_ai_requests WHERE proactive')
-  await db.query("UPDATE chat_messages SET sent_at = sent_at - interval '5 seconds' WHERE id = $1", [longAsk.id])
+  await db.query("UPDATE chat_messages SET sent_at = sent_at - interval '5 seconds' WHERE id = $1", [followUp.id])
   await db.query(`
     INSERT INTO chat_messages (user_id, client_id, nickname, avatar, body)
     VALUES ($1, gen_random_uuid(), '群聊同学', 0, '另一位同学的最近发言')
@@ -801,6 +820,25 @@ async function runApiChecks(origin, db, items, secret) {
   assert.doesNotMatch(JSON.stringify(modelInput(calls[0]).history), /私信历史标记/)
   const avatarBlock = calls[0].messages.at(-1).content.find(({ type }) => type === 'image_url')
   assert.deepEqual(Buffer.from(avatarBlock.image_url.url.split(',')[1], 'base64'), avatarImage)
+
+  await db.query("UPDATE chat_messages SET sent_at = sent_at - interval '5 seconds' WHERE id = $1", [noMention.data.message.id])
+  await db.query('UPDATE chat_ai_requests SET claimed_at = clock_timestamp() WHERE message_id = $1', [noMention.data.message.id])
+  const banter = (await write(chatPath, chatAlice, '我不信你还会接梗')).data.message
+  const banterReply = await waitForChat(chatPath, chatBob, (message) => message.aiReplyTo === banter.id)
+  assert.equal(banterReply.body, '不信是吧，你接着出题嘛')
+
+  await db.query("UPDATE chat_ai_requests SET claimed_at = clock_timestamp() - interval '2 minutes' WHERE proactive")
+  await db.query("UPDATE chat_messages SET sent_at = sent_at - interval '5 seconds' WHERE user_id=$1 AND body='另一位同学的最近发言'", [chatBob.owner])
+  const bystander = (await write(chatPath, chatBob, followUpQuestion)).data.message
+  const deadline = Date.now() + 6000
+  while (!proactiveCalls.some((input) => modelInput(input).latest === followUpQuestion) && Date.now() < deadline) await sleep(60)
+  assert.equal(proactiveCalls.filter((input) => modelInput(input).latest === followUpQuestion).length, 1)
+  assert.equal(modelCalls.filter((input) => modelInput(input).latest === followUpQuestion).length, 1)
+  const { rows: [bystanderClaim] } = await db.query(`
+    SELECT proactive, EXISTS (SELECT 1 FROM chat_messages WHERE ai_reply_to=$1) AS answered
+    FROM chat_ai_requests WHERE message_id=$1
+  `, [bystander.id])
+  assert.deepEqual(bystanderClaim, { proactive: true, answered: false })
   await db.query('DELETE FROM chat_messages; DELETE FROM author_conversations')
 
   return {

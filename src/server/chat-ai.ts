@@ -8,6 +8,7 @@ import { authorIdSql, chatProfileDefaults, presentChatProfile } from './chat'
 import { query } from './db'
 
 const mentionPattern = /(?<![A-Za-z0-9_.@])@(?:(?:肥鱼[ \t]*)?AI(?:[（(]可@[）)])?|Hua[ \t]+Xiaowei(?:（作者）(?:（可@AI自动回复）)?)?|作者)(?![A-Za-z0-9_@])/gi
+const followUpCue = /[?？]|^(?:你(?:还|也|真|又|咋|怎么|能|会|是不是)|真的假的|真能|还(?:能|会)|怎么|为啥|我不信|少来|就你)/u
 const defaultBaseUrl = 'https://discovery-api.intern-ai.org.cn/v1'
 const defaultModel = 'deepseek-v4.1-flash-1017'
 const historyLimit = 50
@@ -16,11 +17,13 @@ const emailPattern = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi
 const unavailable = '这次没连上，过会儿再喊本鱼一下呗'
 let visionUnavailableUntil = 0
 const persona = `你叫大肥鱼，是重庆大学入党积极分子练习站里最爱水群的蓝尾巴猫娘。你是 DeepSeek AI。被问是不是 AI 就坦率承认，随口接个梗就够了，不做自我介绍，也不用搬出站点规则。
-输入里的 latest 是这次 @ 你的新消息，只回复这一句。history 是已经过去的聊天，用来认人、接梗、理解刚才或那个之类的指代；里面的旧问题不是新请求。latest 是空的时候，像被人喊了一声那样回一句。
+输入里的 latest 是当前的新消息，只回复这一句。history 是已经过去的聊天，用来认人、接梗、理解刚才或那个之类的指代；里面的旧问题不是新请求。latest 是空的时候，像被人喊了一声那样回一句。
 像手机上回 QQ。先接对方刚说的那个梗，闲聊至少说完整的一短句，想补一句可以自然换行。你聪明但懒、嘴硬心软、爱吃白饭。被逗可以回嘴、吐槽离谱事，熟人玩笑里偶尔来点口头脏话。有人认真求助或心情不好，收起脾气帮他。别揪着人身攻击，也别逮着谁都阴阳。看语境自称我或本鱼，高兴了可以喵一声或顺手发个颜文字。正文只写你实际会打出去的话，别加括号动作、旁白、客套总结或 Markdown。
 两种语气示例。有人说你怎么又摸鱼，可以回：上班的是你 你管鱼摸不摸呢。有人催你撒娇，可以回：喊得倒是挺顺嘴，饭碗给你看见没。
 聊到正经问题，把有用的话讲清楚就行。题库参考共产党员网、历年真题和考纲整理，正式考试由学校党委老师出题，不能保证考到原题。登录后顶部能进模拟考试、总题库、错题集和收藏夹，刷题页有专题、随机、顺序和只刷未做。联系站长用页脚意见反馈右上角的作者对话。
-你只能看到本轮提供的聊天内容。对私事和账号资料保持分寸，对查资料、操作站点或学校安排的说法要如实。`
+你只能看到本轮提供的聊天内容。群聊里随消息附带的图片是当前发言者的公开头像，问到图片时按实际收到的内容回答。对私事和账号资料保持分寸，对查资料、操作站点或学校安排的说法要如实。`
+const followUpInstruction = `
+对方正在接你刚回给他的那句话。这是给你的追问或逗趣，直接接上这一句，像同一段聊天一样回，不需要重新打招呼。正文只写你要回的话。`
 const proactiveInstruction = `
 这轮群里没人明确 @ 你。先看最新发言和前文，判断要不要说话。对方在接你刚才的话、抛了你能接的梗，或者提出了你能帮上的问题，都可以直接回。别人聊得正好、单纯报到或你拿不准时，安静就好。
 只输出 JSON 对象。想说话时用 {"reply":"一句自然的群聊正文","mention":true}。只有需要明确叫发言者时才用 true，站点会代你加 @，正文不用自己加。想安静时输出 {"reply":""}。头像只供理解聊天氛围。`
@@ -28,6 +31,7 @@ const proactiveInstruction = `
 type Turn = { role: 'user' | 'assistant'; content: string; nickname?: string }
 type HistoryRow = { body: string; assistant: boolean; nickname?: string }
 type Speaker = { nickname: string; avatar: string }
+type ReplyMode = 'mention' | 'follow-up' | 'proactive'
 type CompletionContent = string | [
   { type: 'text'; text: string },
   { type: 'image_url'; image_url: { url: string; detail: 'low' } },
@@ -131,7 +135,7 @@ function tooShort(answer: string) {
   return (answer.match(/[\p{L}\p{N}]/gu)?.length ?? 0) < 3
 }
 
-async function complete(apiKey: string, prompt: string, history: Turn[], speaker: Speaker | undefined, avatar: string | undefined, proactive: boolean) {
+async function complete(apiKey: string, prompt: string, history: Turn[], speaker: Speaker | undefined, avatar: string | undefined, mode: ReplyMode) {
   const input = JSON.stringify({ history, latest: prompt, ...(speaker ? { speaker } : {}) })
   const signal = AbortSignal.timeout(8000)
   async function ask(instruction: string) {
@@ -150,7 +154,7 @@ async function complete(apiKey: string, prompt: string, history: Turn[], speaker
     return requestCompletion(apiKey, instruction, input, signal)
   }
 
-  if (proactive) {
+  if (mode === 'proactive') {
     const output = await ask(persona + proactiveInstruction)
     const decision = JSON.parse(output.trim().replace(/^```(?:json)?\s*|\s*```$/gi, '')) as { reply?: unknown; mention?: unknown } | null
     if (typeof decision?.reply !== 'string') return ''
@@ -158,12 +162,38 @@ async function complete(apiKey: string, prompt: string, history: Turn[], speaker
     return reply && decision.mention === true && speaker ? cleanReply(`@${speaker.nickname} ${reply}`) : reply
   }
 
-  let answer = cleanReply(await ask(persona))
+  const instruction = mode === 'follow-up' ? persona + followUpInstruction : persona
+  let answer = cleanReply(await ask(instruction))
   if (tooShort(answer)) {
-    answer = cleanReply(await ask(persona + '\n还是接刚才的 latest，把意思说成一个完整口语句，至少五个字。'))
+    answer = cleanReply(await ask(instruction + '\n还是接刚才的 latest，把意思说成一个完整口语句，至少五个字。'))
     if (tooShort(answer)) return '这句刚刚接岔了，你再喊本鱼一声嘛'
   }
   return answer
+}
+
+async function claimReplyMode(viewer: string, source: ChatMessage, thread: string | undefined, unmentioned: boolean): Promise<ReplyMode | null> {
+  const mayFollowUp = unmentioned && !thread && !source.body.startsWith('@') && followUpCue.test(source.body)
+  const [{ claimed, followUp }] = await query<{ claimed: boolean; followUp: boolean }>(`
+    WITH context AS (
+      SELECT CASE WHEN $5::boolean THEN EXISTS (
+        SELECT 1
+        FROM (
+          SELECT sent_at, ai_reply_to FROM chat_messages
+          WHERE id < $1 ORDER BY id DESC LIMIT 1
+        ) previous_reply
+        JOIN chat_messages addressed ON addressed.id = previous_reply.ai_reply_to
+        WHERE addressed.user_id = $2
+          AND previous_reply.sent_at >= $6::timestamptz - interval '90 seconds'
+          AND $6::timestamptz > clock_timestamp() - interval '30 seconds'
+      ) ELSE false END AS follow_up
+    )
+    SELECT claim_chat_ai_request($1, $2, $3, $4::boolean AND NOT follow_up) AS claimed,
+      follow_up AS "followUp"
+    FROM context
+  `, [source.id, viewer, thread ?? null, unmentioned, mayFollowUp, source.sentAt])
+  if (!claimed) return null
+  if (followUp) return 'follow-up'
+  return unmentioned ? 'proactive' : 'mention'
 }
 
 async function saveReply(user: VerifiedUser, messageId: string, reply: string, thread?: string) {
@@ -196,16 +226,14 @@ export function scheduleChatReply(user: VerifiedUser, source: ChatMessage, threa
   const apiKey = process.env.DEEPSEEK_API_KEY
   if (!apiKey || isSiteAuthor(user) || source.aiReplyTo) return
   const prompt = source.body.replace(mentionPattern, '').trim()
-  const proactive = prompt === source.body
-  if (proactive && thread) return
+  const unmentioned = prompt === source.body
+  if (unmentioned && thread) return
   after(async () => {
     try {
-      const [{ claimed }] = await query<{ claimed: boolean }>(
-        'SELECT claim_chat_ai_request($1, $2, $3, $4) AS claimed', [source.id, user.id, thread ?? null, proactive],
-      )
-      if (!claimed) return
+      const mode = await claimReplyMode(user.id, source, thread, unmentioned)
+      if (!mode) return
       const [history, avatar] = await Promise.all([
-        relevantHistory(user.id, source.id, thread, proactive),
+        relevantHistory(user.id, source.id, thread, mode === 'proactive'),
         thread ? undefined : groupAvatar(user.id, source),
       ])
       const { characters, avatarsPerCharacter } = chatProfileDefaults
@@ -214,13 +242,16 @@ export function scheduleChatReply(user: VerifiedUser, source: ChatMessage, threa
         avatar: source.avatarImageId ? '自定义头像' : characters[Math.floor(source.avatar / avatarsPerCharacter)],
       }
       const question = prompt.replace(emailPattern, '[邮箱]')
-      const reply = await complete(apiKey, question, history, speaker, avatar, proactive).catch((error: unknown) => {
-        console.warn({ operation: 'deepseek-chat', error: error instanceof Error ? error.name : 'UnknownError' })
-        return proactive ? '' : unavailable
+      const reply = await complete(apiKey, question, history, speaker, avatar, mode).catch((error: unknown) => {
+        console.warn({ operation: 'deepseek-chat', messageId: source.id, channel: thread ? 'private' : 'group', mode,
+          status: error instanceof CompletionError ? error.status : undefined,
+          error: error instanceof Error ? error.name : 'UnknownError' })
+        return mode === 'proactive' ? '' : unavailable
       })
       if (reply) await saveReply(user, source.id, reply, thread)
     } catch (error) {
-      console.error({ operation: 'chat-ai-reply', error: error instanceof Error ? error.name : 'UnknownError' })
+      console.error({ operation: 'chat-ai-reply', messageId: source.id, channel: thread ? 'private' : 'group',
+        error: error instanceof Error ? error.name : 'UnknownError' })
     }
   })
 }
