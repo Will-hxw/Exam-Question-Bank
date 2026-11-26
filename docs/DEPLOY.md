@@ -34,7 +34,7 @@ Neon Auth 生成并校验验证码，签名的 `send.otp` 事件由本站 `/api/
 
 发布包含作者对话和聊天区未读红点的版本前，先应用 `018_author_chat.sql` 至 `021_author_chat_contacts.sql`。唯一的管理员是已验证邮箱 `xiaoweihuacqu@gmail.com` 对应的账号。作者可以从联系人列表主动开始私信，欢迎语在用户首次打开作者对话时发送。反馈沿用 QQ SMTP，并使用提交者已验证的邮箱作为回信地址。
 
-在 Makers 的服务端加密变量中配置 `DEEPSEEK_API_KEY`，网关和模型默认值见变量示例。群聊通过 @肥鱼 AI 触发，私信通过 @Hua Xiaowei 触发。模型最多参考最近 50 条历史，历史 JSON 最多 24 KiB，优先保留较新的整条消息。群聊读取当前发言者的消息及其收到的自动回复，私信读取当前会话，文本内的邮箱会替换为占位内容。回复在聊天写入完成后生成。
+在 Makers 的服务端加密变量中配置 `DEEPSEEK_API_KEY`，网关和模型默认值见变量示例。群聊通过 @AI 触发，私信通过 @Hua Xiaowei 触发。模型最多参考最近 50 条历史，历史 JSON 最多 24 KiB，优先保留较新的整条消息。群聊读取当前发言者的消息及其收到的自动回复，私信读取当前会话，文本内的邮箱会替换为占位内容。回复在聊天写入完成后生成。
 
 保存或更新生产环境变量后，重新部署 `main`，再核对作者对话和自动回复。Makers 将环境变量变更应用到后续部署。 [Makers 环境变量说明](https://pages.edgeone.ai/document/build-guide#environment-variable)
 

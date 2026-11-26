@@ -78,7 +78,7 @@ export function readChatText(value: unknown, limit: number, label: string, multi
 
 export async function saveChatNickname(user: string, value: unknown): Promise<ChatProfile> {
   const nickname = readChatText(value, nicknameLimit, '昵称', false)
-  if (/^(?:hua\s+xiaowei|肥鱼\s*ai)(?:\s*\(|\s*$)/i.test(nickname.normalize('NFKC'))) {
+  if (/^(?:hua\s+xiaowei|(?:肥鱼\s*)?ai)(?:\s*\(|\s*$)/i.test(nickname.normalize('NFKC'))) {
     throw new HttpError(400, '这是作者的专用昵称，请换一个。')
   }
   await query('INSERT INTO profiles (user_id) VALUES ($1) ON CONFLICT DO NOTHING', [user])

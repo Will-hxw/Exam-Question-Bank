@@ -42,7 +42,7 @@
 | 34 | [SigStick 水豚噜噜表情](https://cdn2.cdnstep.com/8PxGtJijCfghXH8zD2sK/10-1.thumb128.png) |
 | 35 | [平头哥_猛兽狂欢发布的水豚噜噜表情](https://i0.hdslb.com/bfs/new_dyn/7209e0420782c05beb1ca65eb3361c6866698693.png) |
 
-## 群聊作者头像
+## 群聊 AI 头像
 
 [深海女仆工坊·开心](https://github.com/HABAI182/ai-girls-atlas/blob/main/assets/maid-atelier/deepseek/maid-atelier-delighted.png) 的角色原设为 [上善](https://www.pixiv.net/users/62155430)，DeepSeek 女仆版本由 [ZipZipPipe](https://www.pixiv.net/users/18604994) 二创，表情头像由 [Small-tailqwq](https://github.com/Small-tailqwq/dsh-deep-whale/blob/e74fa8439b8584ed16113920894491b5e0e1e4a0/maid-atelier/NOTICE) 改编。
 

@@ -5,7 +5,7 @@ import { publicAuthorNickname, messageLimit, type ChatMessage } from '@/features
 import { authorIdSql, presentChatProfile } from './chat'
 import { query } from './db'
 
-const mentionPattern = /(?<![A-Za-z0-9_.@])@(?:肥鱼[ \t]*AI(?:[（(]可@[）)])?|Hua[ \t]+Xiaowei(?:（作者）(?:（可@AI自动回复）)?)?|作者)(?![A-Za-z0-9_@])/gi
+const mentionPattern = /(?<![A-Za-z0-9_.@])@(?:(?:肥鱼[ \t]*)?AI(?:[（(]可@[）)])?|Hua[ \t]+Xiaowei(?:（作者）(?:（可@AI自动回复）)?)?|作者)(?![A-Za-z0-9_@])/gi
 const defaultBaseUrl = 'https://discovery-api.intern-ai.org.cn/v1'
 const defaultModel = 'deepseek-v4.1-flash-1017'
 const historyLimit = 50

@@ -650,6 +650,7 @@ async function runApiChecks(origin, db, items, secret) {
   await call(chatPath, { ...author, method: 'PUT', body: { nickname: '仿作者' }, status: 403 })
   await call(chatPath, { ...chatBob, method: 'PUT', body: { nickname: 'Hua Xiaowei（作者）' }, status: 400 })
   await call(chatPath, { ...chatBob, method: 'PUT', body: { nickname: '肥鱼 AI（可@）' }, status: 400 })
+  await call(chatPath, { ...chatBob, method: 'PUT', body: { nickname: 'AI（可@）' }, status: 400 })
   const longName = '长昵称'.repeat(15)
   assert.equal((await call(chatPath, { ...chatBob, method: 'PUT', body: { nickname: longName } })).data.profile.nickname, longName)
   await call(chatPath, { ...chatBob, method: 'PUT', body: { nickname: longName + '长'.repeat(4) }, status: 400 })
@@ -658,7 +659,7 @@ async function runApiChecks(origin, db, items, secret) {
     'INSERT INTO chat_avatars (user_id, image) VALUES ($1, $2) RETURNING id::text', [author.owner, avatarImage],
   )
   const { nickname: ownerName, avatarUrl: ownerAvatarUrl, avatarImageId: groupAvatarId } = (await call(chatPath, author)).data.profile
-  assert.equal(ownerName, '肥鱼 AI（可@）')
+  assert.equal(ownerName, 'AI（可@）')
   assert.match(ownerAvatarUrl, /^\/ui-images\/feiyu\.[a-f0-9]{10}\.webp$/)
   assert.equal(groupAvatarId, undefined)
   const publicAvatar = await fetch(origin + ownerAvatarUrl)
@@ -689,10 +690,10 @@ async function runApiChecks(origin, db, items, secret) {
     SELECT $1, gen_random_uuid(), '历史测试', 0, '群聊上下文样本 ' || i, clock_timestamp() - interval '1 minute'
     FROM generate_series(1, 51) i
   `, [chatAlice.owner])
-  const groupHint = (await write(chatPath, chatAlice, '这个头像是随机的吗？群聊记住一个词，春天')).data.message
+  const groupHint = (await write(chatPath, chatAlice, '这个头像是随机的吗？群聊记住一个词，春天 @AIStudy')).data.message
   await write(chatPath, chatBob, '另一位同学的上下文')
   await db.query("UPDATE chat_messages SET sent_at = sent_at - interval '5 seconds' WHERE id = $1", [groupHint.id])
-  const publicWrite = { ...chatAlice, method: 'POST', body: { clientId: randomUUID(), message: '@肥鱼 AI（可@） 刚才那个词是什么？' } }
+  const publicWrite = { ...chatAlice, method: 'POST', body: { clientId: randomUUID(), message: '@AI（可@） 刚才那个词是什么？' } }
   const [publicAsk, retryAsk] = await Promise.all([call(chatPath, publicWrite), call(chatPath, publicWrite)])
   assert.equal(publicAsk.data.message.id, retryAsk.data.message.id)
   const publicReply = await waitForChat(chatPath, chatAlice, (message) => message.aiReplyTo === publicAsk.data.message.id)
@@ -705,9 +706,10 @@ async function runApiChecks(origin, db, items, secret) {
   assert.equal(publicInput.history[0].content, '群聊上下文样本 3')
   const publicContext = JSON.stringify(publicInput.history)
   assert.match(publicContext, /春天/)
+  assert.match(publicContext, /@AIStudy/)
   assert.doesNotMatch(publicContext, /私信历史标记|另一位同学的上下文/)
   await db.query("UPDATE chat_messages SET sent_at = sent_at - interval '5 seconds' WHERE id = $1", [publicAsk.data.message.id])
-  const identityAsk = (await write(chatPath, chatAlice, '@作者 真ai吗🤔')).data.message
+  const identityAsk = (await write(chatPath, chatAlice, '@肥鱼 AI 真ai吗🤔')).data.message
   const identityReply = await waitForChat(chatPath, chatAlice, (message) => message.aiReplyTo === identityAsk.id)
   assert.equal(identityReply.body, simulatedIdentity)
   const identityInput = JSON.parse(modelCalls[2].messages.at(-1).content)
