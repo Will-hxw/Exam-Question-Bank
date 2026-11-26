@@ -126,7 +126,7 @@ function LibraryContent({ list }: { list: LibraryList }) {
   const { search, type, topic, status, limit } = view
   const q = useDebouncedSearch(search)
   const filter = list === 'all' ? status : list
-  const filterBy = (change: Partial<LibraryView>) => preferences.save({ [key]: { ...view, page: 0, ...change } })
+  const filterBy = (change: Partial<LibraryView>) => preferences.save({ [key]: { page: 0, ...change } })
 
   return <>
     {list === 'all' && <input className="search-box" type="search" placeholder="搜索题干或选项…" maxLength={100} value={search}

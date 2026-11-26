@@ -302,6 +302,7 @@ function ExamContent() {
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
   const [submittedElsewhere, setSubmittedElsewhere] = useState(false)
+  const [replayNotice, setReplayNotice] = useState('')
   const [countEdit, setCountEdit] = useState<string>()
   const questionCount = countEdit ?? String(view.count)
   const loadingNow = useRef(false)
@@ -337,6 +338,8 @@ function ExamContent() {
         : await writeJson<{ exam: ExamData }>(kind === 'replay' ? `/api/exams/${id}/replay` : '/api/exams', userId, 'POST',
           kind === 'new' ? { questionCount: Number(questionCount) } : undefined)
       setSubmittedElsewhere(false)
+      setReplayNotice(kind === 'replay' && exam && response.exam.items.length < exam.items.length
+        ? `原卷中有题目已下架，本次重考共 ${response.exam.items.length} 题。` : '')
       setLoaded(response.exam)
       if (selectedId !== response.exam.id) saveView({ screen: 'exam', id: response.exam.id, wrongOnly: false })
       if (kind !== 'open') refreshMe()
@@ -355,6 +358,7 @@ function ExamContent() {
 
   if (exam?.status === 'draft') return <>
     {error && <p className="study-message error" role="alert">{error}</p>}
+    {replayNotice && <p className="study-message" role="status">{replayNotice}</p>}
     <ExamTaking key={`${exam.id}:${exam.revision}`} exam={exam} onReload={() => void load('open', exam.id)}
     onResult={(result, elsewhere) => {
       setSubmittedElsewhere(elsewhere)

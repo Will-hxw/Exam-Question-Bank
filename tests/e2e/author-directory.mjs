@@ -1,6 +1,23 @@
 import assert from 'node:assert/strict'
 import { randomUUID } from 'node:crypto'
 
+export async function seedUnreadInbox(db) {
+  await db.query(`
+    INSERT INTO neon_auth."user" (id,email,"emailVerified")
+    SELECT 'inbox-test-' || i, 'inbox-test-' || i || '@example.test', true FROM generate_series(1,32) i;
+    INSERT INTO profiles (user_id)
+    SELECT id FROM neon_auth."user" WHERE id LIKE 'inbox-test-%';
+    INSERT INTO author_conversations (user_id, default_nickname)
+    SELECT id, '分页测试' FROM neon_auth."user" WHERE id LIKE 'inbox-test-%';
+    WITH sent AS (
+      INSERT INTO author_messages (conversation_id, from_author, client_id, body)
+      SELECT id, false, gen_random_uuid(), '等待作者阅读' FROM author_conversations WHERE user_id LIKE 'inbox-test-%'
+      RETURNING id, conversation_id
+    )
+    UPDATE author_conversations c SET last_user_id = sent.id FROM sent WHERE c.id = sent.conversation_id;
+  `)
+}
+
 export async function checkAuthorDirectory(call, db, author, student) {
   const path = '/api/author-chat'
   const directory = `${path}?inbox=1&directory=1`

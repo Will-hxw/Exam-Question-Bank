@@ -20,6 +20,10 @@ type SyncStatus = 'synced' | 'local' | 'pending' | 'error' | 'conflict'
 type PendingMerge = ReturnType<typeof mergeExamDraft> & { cloud: ExamDraft }
 type FinishedExam = { exam: Exam; elsewhere: boolean }
 
+function uncertainWrite(error: unknown) {
+  return !(error instanceof StudyRequestError) || error.status >= 500
+}
+
 function draftKey(userId: string, examId: string) {
   return `cqu-study-draft:${userId}:${examId}`
 }
@@ -49,10 +53,10 @@ export function useExamDraft(userId: string, exam: Exam) {
     const cloud = answerData(exam)
     const stored = saved?.stored
     if (!stored || sameExamDraft(stored.draft, cloud)) {
-      return { draft: cloud, base: cloud, dirty: false, refresh: false, raw: saved?.raw }
+      return { draft: cloud, base: cloud, dirty: false, refresh: false, raw: saved?.raw, sent: null }
     }
     const refresh = stored.draft.revision !== cloud.revision
-    return { draft: stored.draft, base: refresh ? stored.base : cloud, dirty: true, refresh, raw: saved?.raw }
+    return { draft: stored.draft, base: refresh ? stored.base : cloud, dirty: true, refresh, raw: saved?.raw, sent: stored.sent ?? null }
   })
   const [draft, setDraft] = useState(initial.draft)
   const [syncStatus, setSyncStatus] = useState<SyncStatus>(initial.dirty ? 'local' : 'synced')
@@ -62,6 +66,7 @@ export function useExamDraft(userId: string, exam: Exam) {
   const base = useRef(initial.base)
   const dirty = useRef(initial.dirty)
   const refreshNeeded = useRef(initial.refresh)
+  const pendingAck = useRef(initial.sent)
   const merge = useRef<PendingMerge | null>(null)
   const closed = useRef(false)
   const inFlight = useRef<Promise<void> | null>(null)
@@ -70,7 +75,7 @@ export function useExamDraft(userId: string, exam: Exam) {
 
   const persist = useCallback(() => {
     try {
-      const value = JSON.stringify({ draft: latest.current, base: base.current })
+      const value = JSON.stringify({ draft: latest.current, base: base.current, sent: pendingAck.current ?? undefined })
       localStorage.setItem(localKey, value)
       storedValue.current = value
       return true
@@ -104,14 +109,22 @@ export function useExamDraft(userId: string, exam: Exam) {
     setFinished({ exam: result, elsewhere })
   }, [clearStored, persist])
 
-  const refresh = useCallback(async () => {
+  const readCloud = useCallback(async () => {
     const { exam: remote } = await requestJson<{ exam: Exam }>(path, { headers: { 'X-Study-Account': userId } })
+    return remote
+  }, [path, userId])
+
+  const refresh = useCallback(async () => {
+    const remote = await readCloud()
     refreshNeeded.current = false
     if (remote.status === 'submitted') {
       finish(remote, true)
       return
     }
     const cloud = answerData(remote)
+    const sent = pendingAck.current
+    if (sent && cloud.revision === sent.revision + 1 && sameExamDraft(sent, cloud)) base.current = cloud
+    if (sent && cloud.revision > sent.revision) pendingAck.current = null
     const proposed = mergeExamDraft(latest.current, cloud, base.current)
     if (proposed.conflicts.length) {
       merge.current = { ...proposed, cloud }
@@ -120,7 +133,7 @@ export function useExamDraft(userId: string, exam: Exam) {
     } else {
       adopt(proposed.draft, cloud)
     }
-  }, [adopt, finish, path, userId])
+  }, [adopt, finish, readCloud])
 
   const flush = useCallback(async (keepalive = false) => {
     if (inFlight.current) return inFlight.current
@@ -135,13 +148,21 @@ export function useExamDraft(userId: string, exam: Exam) {
             continue
           }
           const snapshot = latest.current
+          if (!pendingAck.current) {
+            pendingAck.current = snapshot
+            persist()
+          }
           try {
             const { revision } = await writeJson<{ revision: number }>(path + '?ack=1', userId, 'PUT', snapshot, keepalive)
+            pendingAck.current = null
             adopt({ ...latest.current, revision }, { ...snapshot, revision })
           } catch (error) {
-            if (!(error instanceof StudyRequestError) || error.status !== 409) throw error
+            if (!uncertainWrite(error) && (!(error instanceof StudyRequestError) || error.status !== 409)) {
+              pendingAck.current = null
+              throw error
+            }
             refreshNeeded.current = true
-            if (keepalive || ++conflicts >= 3) throw error
+            if (keepalive || !navigator.onLine || ++conflicts >= 3) throw error
           }
         }
       } catch (error) {
@@ -151,7 +172,7 @@ export function useExamDraft(userId: string, exam: Exam) {
     })()
     inFlight.current = operation
     try { await operation } finally { inFlight.current = null }
-  }, [adopt, path, refresh, userId])
+  }, [adopt, path, persist, refresh, userId])
 
   useEffect(() => {
     if (!dirty.current && !closed.current) clearStored()
@@ -207,7 +228,16 @@ export function useExamDraft(userId: string, exam: Exam) {
       finish(result, result.revision !== snapshot.revision + 1 || !sameExamAnswers(snapshot, result))
       return false
     } catch (error) {
-      if (!(error instanceof StudyRequestError) || error.status !== 409) throw error
+      if (!(error instanceof StudyRequestError) || error.status !== 409) {
+        if (uncertainWrite(error) && navigator.onLine) {
+          const result = await readCloud().catch(() => null)
+          if (result?.status === 'submitted') {
+            finish(result, result.revision !== snapshot.revision + 1 || !sameExamAnswers(snapshot, result))
+            return false
+          }
+        }
+        throw error
+      }
       refreshNeeded.current = true
       await flush()
       return !closed.current && !merge.current

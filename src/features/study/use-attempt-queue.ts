@@ -26,6 +26,7 @@ export function useAttemptQueue(userId: string, onSynced: () => void) {
   const busy = useRef(false)
   const syncedQuestions = useRef(new Set<string>())
   const [status, setStatus] = useState<'idle' | 'pending' | 'synced' | 'error' | 'rejected'>('idle')
+  const [rejections, setRejections] = useState<Record<string, string>>({})
 
   const flush = useCallback(async () => {
     if (busy.current) return
@@ -41,12 +42,17 @@ export function useAttemptQueue(userId: string, onSynced: () => void) {
         const events = batch.map(({ eventId, questionId, optionIds, mode, contentRevision }) => ({ eventId, questionId, optionIds, mode, contentRevision }))
         const { results } = await writeJson<{ results: AttemptResult[] }>('/api/attempts/batch', userId, 'POST', { ownerId: userId, events })
         const byId = new Map(results.map((result) => [result.eventId, result]))
+        const failed: Record<string, string> = {}
         for (const item of batch) {
           const outcome = byId.get(item.eventId)
           if (!outcome) throw new Error('Attempt response incomplete')
-          if (outcome.status !== 'saved') rejected = true
+          if (outcome.status !== 'saved') failed[item.eventId] = item.questionId
           else syncedQuestions.current.add(item.questionId)
           localStorage.removeItem(`${prefix}${item.eventId}`)
+        }
+        if (Object.keys(failed).length) {
+          rejected = true
+          setRejections((previous) => ({ ...previous, ...failed }))
         }
         queue = readQueue(prefix)
       }
@@ -78,11 +84,11 @@ export function useAttemptQueue(userId: string, onSynced: () => void) {
       localStorage.setItem(`${prefix}${item.eventId}`, JSON.stringify(item))
     } catch {
       setStatus('error')
-      return false
+      return null
     }
     setStatus('pending')
     void flush()
-    return true
+    return item.eventId
   }
 
   const recentlyAttemptedIds = useCallback(() => {
@@ -93,5 +99,5 @@ export function useAttemptQueue(userId: string, onSynced: () => void) {
     return ids
   }, [prefix])
 
-  return { enqueue, flush, status, recentlyAttemptedIds }
+  return { enqueue, flush, status, rejections, recentlyAttemptedIds }
 }

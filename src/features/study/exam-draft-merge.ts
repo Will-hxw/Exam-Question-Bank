@@ -1,5 +1,5 @@
 export type ExamDraft = { answers: Record<string, string[]>; marked: string[]; position: number; revision: number }
-export type StoredExamDraft = { draft: ExamDraft; base: ExamDraft | null }
+export type StoredExamDraft = { draft: ExamDraft; base: ExamDraft | null; sent?: ExamDraft }
 export type ExamAnswerConflict = { id: string; local: string[]; cloud: string[] }
 
 export function sameIds(left: string[], right: string[]) {
@@ -30,7 +30,8 @@ export function decodeExamDraft(value: unknown): StoredExamDraft | null {
   const stored = value as Partial<StoredExamDraft> | null
   if (!isDraft(stored?.draft)) return null
   const base = isDraft(stored.base) && stored.base.revision === stored.draft.revision ? stored.base : null
-  return { draft: stored.draft, base }
+  const sent = isDraft(stored.sent) && stored.sent.revision === stored.draft.revision ? stored.sent : undefined
+  return { draft: stored.draft, base, ...(sent ? { sent } : {}) }
 }
 
 export function mergeExamDraft(local: ExamDraft, cloud: ExamDraft, base: ExamDraft | null) {

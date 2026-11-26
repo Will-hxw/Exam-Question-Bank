@@ -1,7 +1,7 @@
 'use client'
 
 import { Fragment, type FormEvent, useEffect, useRef, useState } from 'react'
-import { answerLetters, letter, type Question, type QuestionPage, questionUrl, readPublic, type StudyStats } from './api'
+import { answerLetters, letter, type Question, type QuestionPage, type QuestionState, questionUrl, readPublic, requestJson, type StudyStats } from './api'
 import { ExplanationPanel, LoadMessage, TopicPicker } from './controls'
 import type { StudyPreferences } from './preferences'
 import { initialUndonePosition, practiceUndonePreference, stepUndonePosition, type PracticePosition } from './practice-undone'
@@ -17,7 +17,7 @@ const modes = [
 ] as const
 
 type Mode = typeof modes[number]['id']
-type Answer = { ids: string[]; correct: boolean; saved: boolean }
+type Answer = { ids: string[]; correct: boolean; eventId: string | null }
 type PracticeSettings = { mode: Mode; topic: string; seed: string }
 const batchSize = 15
 
@@ -116,13 +116,14 @@ function PracticeStats({ data }: { data: StudyStats | null }) {
   </div>
 }
 
-function PracticeCard({ question, answer, record, progress, previous, next, attempted, favorite, wrongMode, onRemoved }: {
+function PracticeCard({ question, answer, record, progress, previous, next, checking, attempted, favorite, wrongMode, onRemoved }: {
   question: Question
   answer: Answer | undefined
   record: (answer: Answer) => void
   progress: React.ReactNode
   previous: (() => void) | null
   next: () => void
+  checking: boolean
   attempted: boolean
   favorite: boolean | undefined
   wrongMode: boolean
@@ -139,12 +140,12 @@ function PracticeCard({ question, answer, record, progress, previous, next, atte
   const immediate = question.type === 'single'
 
   function saveAnswer(ids: string[], correct: boolean) {
-    if (submittedAnswer.current?.saved) return
-    const saved = attempts.enqueue(question.id, ids, question.contentRevision)
-    const result = { ids, correct, saved }
+    if (submittedAnswer.current?.eventId) return
+    const eventId = attempts.enqueue(question.id, ids, question.contentRevision)
+    const result = { ids, correct, eventId }
     submittedAnswer.current = result
     record(result)
-    setMessage(saved ? '' : '本次作答未能保存在本机。请重试保存。')
+    setMessage(eventId ? '' : '本次作答未能保存在本机。请重试保存。')
   }
 
   function submit(ids = selection) {
@@ -201,8 +202,8 @@ function PracticeCard({ question, answer, record, progress, previous, next, atte
       </div>
       <div className="action-bar">
         <button type="button" className="btn primary" disabled={Boolean(answer)} onClick={() => submit()}>确定</button>
-        <button type="button" className="btn nav-step" disabled={!previous} onClick={previous ?? undefined}>上一题</button>
-        <button type="button" className="btn nav-step" onClick={next}>下一题</button>
+        <button type="button" className="btn nav-step" disabled={!previous || checking} onClick={previous ?? undefined}>上一题</button>
+        <button type="button" className="btn nav-step" disabled={checking} onClick={next}>下一题</button>
         <button type="button" className="btn btn-sm" aria-pressed={favoriteControl.favorite}
           aria-busy={favoriteControl.pending || undefined} onClick={favoriteControl.toggle}>
           {favoriteControl.favorite ? '★ 取消收藏' : '☆ 收藏'}
@@ -211,7 +212,7 @@ function PracticeCard({ question, answer, record, progress, previous, next, atte
         <button type="button" className="btn btn-sm explanation-toggle" aria-expanded={expanded} onClick={() => {
           if (wrongMode && !answer) { setMessage('请先作答本题'); return }
           if (!explanation) { setMessage('本题解析暂不可用'); return }
-          if (answer?.saved !== false) setMessage('')
+          if (answer?.eventId !== null) setMessage('')
           setExpanded((previous) => !previous)
         }}>{expanded ? '收起解析' : '展开解析'}</button>
       </div>
@@ -220,7 +221,7 @@ function PracticeCard({ question, answer, record, progress, previous, next, atte
       {answer && <div role="status">
         <p className={`feedback ${answer.correct ? 'correct' : 'wrong'}`}>{answer.correct ? '✓ 正确' : '✗ 错误'}</p>
         <p className="answer-reveal">正确答案：<span>{answerLetters(question.options, question.answerIds ?? [])}</span> | 你的选择：<span>{answerLetters(question.options, answer.ids)}</span></p>
-        {!answer.saved && <button type="button" className="btn btn-sm" onClick={() => saveAnswer(answer.ids, answer.correct)}>重试保存本题</button>}
+        {!answer.eventId && <button type="button" className="btn btn-sm" onClick={() => saveAnswer(answer.ids, answer.correct)}>重试保存本题</button>}
       </div>}
       {message && <p className="study-message error" role="alert">{message}</p>}
     </article>
@@ -233,7 +234,7 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
   rememberPosition: (position: number, seed?: string) => void
   remaining?: PracticePosition[]
 }) {
-  const { attempts, personalReads, prefetchQuestionStates, revision } = useStudySessionContext()
+  const { attempts, personalReads, prefetchQuestionStates, revision, userId } = useStudySessionContext()
   const onlyUndone = remaining !== undefined
   const undoneSeed = onlyUndone && mode === 'random' ? seed : undefined
   const [filteredPosition, setFilteredPosition] = useState(() => {
@@ -246,6 +247,9 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
   const [round, setRound] = useState(0)
   const [answers, setAnswers] = useState<Record<string, Answer>>({})
   const [navigationMessage, setNavigationMessage] = useState('')
+  const [checking, setChecking] = useState(false)
+  const navigation = useRef<AbortController | null>(null)
+  const refreshed = useRef(new Set<string>())
   const random = mode === 'random' && !onlyUndone
   const ordered = mode === 'topic' || mode === 'sequence'
   const status = mode === 'wrong' || mode === 'favorite' ? mode : ''
@@ -259,6 +263,10 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
   const index = status && visiblePage?.total !== undefined ? Math.min(requestedIndex, Math.max(0, visiblePage.total - 1)) : requestedIndex
   const question = visiblePage?.questions[random ? index : index - offset]
   const questionId = question?.id
+  const cardKey = question ? `${round}:${index}:${question.id}:${question.contentRevision ?? ''}` : ''
+  const answer = answers[cardKey]
+  const rejected = answer?.eventId && attempts.rejections[answer.eventId] ? answer.eventId : undefined
+  const lastRejection = Object.entries(attempts.rejections).findLast(([, id]) => id === questionId)?.[0] ?? ''
   const states = useQuestionStates(personal ? [] : visiblePage?.questions.map(({ id }) => id) ?? [])
   const activeState = questionId ? states.data?.states[questionId] : null
   const canPrefetch = (ordered || onlyUndone) && Boolean(visiblePage?.nextCursor)
@@ -266,6 +274,14 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
   useEffect(() => {
     if (index !== requestedIndex) rememberPosition(index)
   }, [index, rememberPosition, requestedIndex])
+
+  useEffect(() => () => navigation.current?.abort(), [])
+  const reload = page.reload
+  useEffect(() => {
+    if (!rejected || refreshed.current.has(rejected)) return
+    refreshed.current.add(rejected)
+    reload((path) => requestJson<QuestionPage>(path.replace('/api/public/', '/api/me/'), { headers: { 'X-Study-Account': userId } }))
+  }, [rejected, reload, userId])
 
   useEffect(() => {
     if (!canPrefetch) return
@@ -289,11 +305,38 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
     rememberPosition(nextPosition)
   }
 
-  function navigate(direction: 'previous' | 'next') {
+  async function navigate(direction: 'previous' | 'next') {
     if (remaining && question) {
-      const attempted = attempts.recentlyAttemptedIds()
-      const available = remaining.filter(({ id }) => !attempted.has(id))
-      const target = stepUndonePosition(available, { position: index, id: question.id }, direction, undoneSeed)
+      if (navigation.current) return
+      const current = { position: index, id: question.id }
+      const availableFrom = (positions: PracticePosition[]) => {
+        const local = attempts.recentlyAttemptedIds()
+        return positions.filter(({ id }) => !local.has(id))
+      }
+      let available = availableFrom(remaining)
+      let target = stepUndonePosition(available, current, direction, undoneSeed)
+      const candidate = available.find(({ position }) => position === target)
+      if (candidate && navigator.onLine) {
+        const controller = new AbortController()
+        navigation.current = controller
+        setChecking(true)
+        try {
+          const options = { headers: { 'X-Study-Account': userId }, signal: AbortSignal.any([controller.signal, AbortSignal.timeout(9000)]) }
+          const { states } = await requestJson<{ states: Record<string, QuestionState> }>(`/api/me/question-state?ids=${candidate.id}`, options)
+          if (!states[candidate.id] || states[candidate.id].attempted) {
+            const { positions } = await requestJson<{ positions: PracticePosition[] }>(undonePath(topic), options)
+            available = availableFrom(positions)
+            target = stepUndonePosition(available, current, direction, undoneSeed)
+          }
+        } catch {
+          if (!controller.signal.aborted) setNavigationMessage('暂时无法核对未做题，请重试。')
+          return
+        } finally {
+          navigation.current = null
+          if (!controller.signal.aborted) setChecking(false)
+        }
+        if (controller.signal.aborted) return
+      }
       if (target !== null) move(target)
       else setNavigationMessage(direction === 'previous' ? '前面没有未做题。'
         : available.length ? '只剩当前这道未做题。' : '这个范围的题都做过了。')
@@ -317,17 +360,17 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
     {index > 0 && <div className="study-pagination"><button type="button" className="btn" onClick={() => move(0)}>回到第一题</button></div>}
   </>
 
-  const cardKey = `${round}:${index}:${question.id}:${question.contentRevision ?? ''}`
   const fallback = mode === 'wrong' ? `错题模式 · 剩余 ${total} 题` : mode === 'favorite' ? `收藏模式 · 共 ${total} 题` : '随机'
   return <>
-    <PracticeCard key={cardKey} question={question} answer={answers[cardKey]}
+    <PracticeCard key={`${cardKey}:${lastRejection}`} question={question} answer={rejected ? undefined : answer}
       record={(answer) => setAnswers((previous) => ({ ...previous, [cardKey]: answer }))}
       progress={<Progress mode={mode} index={index} total={total} fallback={fallback} onJump={move} />}
-      previous={index > 0 || undoneSeed ? () => navigate('previous') : null} next={() => navigate('next')}
+      previous={index > 0 || undoneSeed ? () => void navigate('previous') : null} next={() => void navigate('next')} checking={checking}
       attempted={activeState?.attempted ?? Boolean(question.attempted)}
       favorite={activeState?.isFavorite ?? question.isFavorite} wrongMode={mode === 'wrong'}
       onRemoved={() => rememberPosition(Math.min(index, Math.max(0, total - 2)))} />
     {navigationMessage && <p className="study-message" role="status">{navigationMessage}</p>}
+    {rejected && <p className="study-message error" role="status">本题作答未保存，请按最新题目重新作答。</p>}
     {states.error && !personal && <p className="study-message error" role="alert">个人状态加载失败。 <button type="button" className="btn btn-sm" onClick={states.retry}>重试</button></p>}
   </>
 }
