@@ -55,15 +55,16 @@ async function read(directory, filename, schema) {
 }
 
 export async function readCatalog(directory = CONTENT_DIRECTORY) {
-  const [topicRows, sourceRows, pointRows, questionRows, duplicateReviews, practiceReviews] = await Promise.all([
+  const [topicRows, sourceRows, pointRows, questionRows, duplicateReviews, practiceReviews, questionOrder] = await Promise.all([
     read(directory, 'topics.json', topics),
     read(directory, 'sources.json', sources),
     read(directory, 'knowledge-points.json', points),
     read(directory, 'questions.json', z.array(questionSchema)),
     read(directory, 'duplicate-reviews.json', duplicateSchema),
     read(directory, 'practice-reviews.json', practiceReviewSchema),
+    read(directory, 'question-order.json', z.array(uuid)),
   ])
-  return { topics: topicRows, sources: sourceRows, points: pointRows, questions: questionRows, duplicateReviews, practiceReviews }
+  return { topics: topicRows, sources: sourceRows, points: pointRows, questions: questionRows, duplicateReviews, practiceReviews, questionOrder }
 }
 
 function stable(value) {
@@ -166,7 +167,16 @@ export function validateCatalog(catalog) {
   for (const review of practiceIndex.values()) {
     if (!questionIndex.has(review.questionId)) throw new Error("考法复核对应的题目不存在：" + review.questionId)
   }
-  return { topicIndex, sourceIndex, pointIndex, questionIndex, duplicateIndex, practiceIndex }
+  const orderIndex = new Map(catalog.questionOrder.map((id, index) => [id, index + 1]))
+  if (orderIndex.size !== catalog.questionOrder.length || catalog.questionOrder.some((id) => !questionIndex.has(id))) {
+    throw new Error('题库顺序存在重复或未知题目 ID。')
+  }
+  for (const item of catalog.questions) {
+    if ((practiceApproved(item, practiceIndex) || item.state === 'withdrawn') && !orderIndex.has(item.id)) {
+      throw new Error(`待发布或下架的题缺少顺序记录：${item.id}。先运行 node scripts/content/release.mjs order。`)
+    }
+  }
+  return { topicIndex, sourceIndex, pointIndex, questionIndex, duplicateIndex, practiceIndex, orderIndex }
 }
 
 export function duplicateCandidates(questions) {

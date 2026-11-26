@@ -102,6 +102,7 @@ export async function replayExam(user: string, source: string) {
     'SELECT exam_id AS id, outcome FROM replay_exam($1, $2)', [user, source],
   )
   if (row.outcome === 'draft') throw new HttpError(409, '你有一份未交卷的试卷，请先继续完成。')
+  if (row.outcome === 'retired') throw new HttpError(409, '原卷题目已全部下架，请从考试入口重新组卷。')
   if (!row.id) throw new HttpError(404, '未找到可重考的试卷。')
   return examDetails(user, row.id)
 }

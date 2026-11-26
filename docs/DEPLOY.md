@@ -49,7 +49,9 @@ Neon Auth 生成并校验验证码，签名的 `send.otp` 事件由本站 `/api/
 
 开发项目的 `production` 是 Neon 自动创建的默认分支名，当前只用于预览联调。Neon CLI 同步的 `DATABASE_URL` 给 Node 应用，`DATABASE_URL_UNPOOLED` 给迁移与导入。向隔离的 Neon 开发库落预览题使用 `npm run content:sync -- --preview --apply`。
 
-紧急下架时在 JSON 标记题目为 `withdrawn`，同步数据库、失效 API 缓存并重新部署。验证新 manifest 和线上目录均不再返回该题。需要即时撤下旧哈希资源时在 Makers 清除对应路径。已离线设备恢复联网后重验目录。
+发布顺序保存在 `content/question-order.json`。新增的已审核题用 `node scripts/content/release.mjs order` 登记到末尾。沿用原题 ID 修订题目时保留其位置。专题与全库的顺序读取共用这一顺序，随机刷题沿用原有种子规则。
+
+下架时在 JSON 将题目标记为 `withdrawn`，保留 ID 与顺序记录，然后同步数据库、失效 API 缓存并重新部署。同步会清除该题当前的收藏和学习进度，并将已保存的顺序练习位置对齐到原题或相邻的可用题。旧试卷从原有快照读取，之后重考只纳入当前可用的原题。验证新 manifest 和线上目录均已移除该题。需要即时撤下旧哈希资源时在 Makers 清除对应路径。已离线设备恢复联网后重验目录。
 
 ## 回滚与备份
 

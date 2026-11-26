@@ -35,6 +35,7 @@ def stage(blind_path, author_path, review_path, reviewer, today, scope, task_typ
     points = json.loads((CONTENT / "knowledge-points.json").read_text(encoding="utf-8"))
     questions = json.loads((CONTENT / "questions.json").read_text(encoding="utf-8"))
     practice = json.loads((CONTENT / "practice-reviews.json").read_text(encoding="utf-8"))
+    question_order = json.loads((CONTENT / "question-order.json").read_text(encoding="utf-8"))
     existing = {point["factKey"] for point in points}
     staged = 0
 
@@ -86,6 +87,7 @@ def stage(blind_path, author_path, review_path, reviewer, today, scope, task_typ
         }
         questions.append(question)
         if practice_reviewed and accepted:
+            question_order.append(question["id"])
             practice.append(dict(questionId=question["id"], digest=digest, reviewer=result.get("reviewer") or reviewer,
                                  decision="keep", reason=result["review_note"], proposal=""))
         staged += int(accepted)
@@ -94,6 +96,7 @@ def stage(blind_path, author_path, review_path, reviewer, today, scope, task_typ
     dump("questions.json", questions)
     if practice_reviewed:
         dump("practice-reviews.json", practice)
+        dump("question-order.json", question_order)
     print(f"{staged} ready, {len(decisions) - staged} returned for revision")
 
 

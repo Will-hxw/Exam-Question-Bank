@@ -3,6 +3,22 @@ import { test } from 'node:test'
 import { practiceApproved, questionRevision, readCatalog, sha256, validateCatalog } from '../../scripts/content/catalog.mjs'
 import { makeRelease, qualityReport } from '../../scripts/content/release.mjs'
 
+test('withdrawal leaves surviving UUIDs in order and a new low UUID appends', async () => {
+  const catalog = await readCatalog()
+  const indexes = validateCatalog(catalog)
+  const idsFor = ({ manifest, files }) => manifest.groups._all.pages.flatMap((path) =>
+    JSON.parse(files.get(path.split('/').at(-1))).questions.map(({ id }) => id))
+  const before = idsFor(makeRelease(catalog, indexes))
+  const withdrawnId = before[2]
+  const withdrawn = indexes.questionIndex.get(withdrawnId)
+  withdrawn.state = 'withdrawn'
+  const added = { ...withdrawn, id: '00000000-0000-4000-8000-000000000001', state: 'ready' }
+  catalog.questions.unshift(added)
+  indexes.practiceIndex.set(added.id, { decision: 'keep', digest: questionRevision(added) })
+  indexes.orderIndex.set(added.id, catalog.questionOrder.length + 1)
+  assert.deepEqual(idsFor(makeRelease(catalog, indexes)), [...before.filter((id) => id !== withdrawnId), added.id])
+})
+
 test('the public manifest contains only fact and style approved content in hashed 15-question pages', async () => {
   const catalog = await readCatalog()
   const indexes = validateCatalog(catalog)
