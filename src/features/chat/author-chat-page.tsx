@@ -21,20 +21,22 @@ function InboxList({ userId, onlyUnread, search }: { userId: string; onlyUnread:
     const stop = new AbortController()
     let timer: ReturnType<typeof setTimeout>
     let loading = false
+    const readPage = (cursor?: string) => requestJson<AuthorInbox>(
+      cursor ? `${path}&before=${encodeURIComponent(cursor)}` : path, {
+        headers: { 'X-Study-Account': userId },
+        signal: AbortSignal.any([stop.signal, AbortSignal.timeout(9000)]),
+      },
+    )
     async function refresh() {
       clearTimeout(timer)
       if (loading || stop.signal.aborted || document.hidden) return
       loading = true
       try {
-        const options = {
-          headers: { 'X-Study-Account': userId },
-          signal: AbortSignal.any([stop.signal, AbortSignal.timeout(9000)]),
-        }
-        const first = await requestJson<AuthorInbox>(path, options)
+        const first = await readPage()
         const rows = new Map(first.conversations.map((row) => [row.userId, row]))
         let nextCursor = first.nextCursor
         for (let index = 1; index < depth && nextCursor; index++) {
-          const page = await requestJson<AuthorInbox>(`${path}&before=${encodeURIComponent(nextCursor)}`, options)
+          const page = await readPage(nextCursor)
           for (const row of page.conversations) if (!rows.has(row.userId)) rows.set(row.userId, row)
           nextCursor = page.nextCursor
         }

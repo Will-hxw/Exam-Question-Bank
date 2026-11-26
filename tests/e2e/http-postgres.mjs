@@ -839,6 +839,11 @@ try {
     }
     await seedUnreadInbox(db)
     await run(python, [join(root, 'tests', 'e2e', 'additional_study_browser.py')], { cwd: root, env: browserEnv })
+    const rejectedDrill = (await db.query(`
+      SELECT (SELECT count(*) FROM attempts WHERE user_id = $1)::int AS attempts,
+             (SELECT sum(attempt_count) FROM question_progress WHERE user_id = $1)::int AS progress
+    `, [users.get('rejection').id])).rows[0]
+    assert.deepEqual(rejectedDrill, { attempts: 1, progress: 1 })
   }
 } finally {
   if (server && server.exitCode === null) {
