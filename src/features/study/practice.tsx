@@ -242,7 +242,7 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
     return initialUndonePosition(remaining.filter(({ id }) => !attempted.has(id)), start, undoneSeed)
   })
   const position = onlyUndone ? filteredPosition : start
-  const index = position ?? 0
+  const requestedIndex = position ?? 0
   const [round, setRound] = useState(0)
   const [answers, setAnswers] = useState<Record<string, Answer>>({})
   const [navigationMessage, setNavigationMessage] = useState('')
@@ -250,17 +250,22 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
   const ordered = mode === 'topic' || mode === 'sequence'
   const status = mode === 'wrong' || mode === 'favorite' ? mode : ''
   const personal = Boolean(status) || onlyUndone
-  const { offset, limit } = batchFor(index)
-  const query = position === null ? null : practicePagePath(mode, topic, index, seed, onlyUndone)
+  const { offset, limit } = batchFor(requestedIndex)
+  const query = position === null ? null : practicePagePath(mode, topic, requestedIndex, seed, onlyUndone)
   const page = useStudyData<QuestionPage>(query, personal ? revision : 0,
     personal ? { ...personalReads, keepPreviousData: onlyUndone } : undefined)
   const visiblePage = page.data
-  const question = visiblePage?.questions[random ? index : index - offset]
   const total = (random ? visiblePage?.questions.length : visiblePage?.total) ?? topicCount
+  const index = status && visiblePage?.total !== undefined ? Math.min(requestedIndex, Math.max(0, visiblePage.total - 1)) : requestedIndex
+  const question = visiblePage?.questions[random ? index : index - offset]
   const questionId = question?.id
   const states = useQuestionStates(personal ? [] : visiblePage?.questions.map(({ id }) => id) ?? [])
   const activeState = questionId ? states.data?.states[questionId] : null
   const canPrefetch = (ordered || onlyUndone) && Boolean(visiblePage?.nextCursor)
+
+  useEffect(() => {
+    if (index !== requestedIndex) rememberPosition(index)
+  }, [index, rememberPosition, requestedIndex])
 
   useEffect(() => {
     if (!canPrefetch) return
@@ -307,7 +312,7 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
     {position === null && ordered && total > 0 && <div className="study-pagination">
       <Progress mode={mode} index={start ?? 0} total={total} fallback="" onJump={move} />
     </div>}
-    <LoadMessage loading={page.loading} error={page.error} retry={page.retry}
+    <LoadMessage loading={page.loading || (total > 0 && index < offset)} error={page.error} retry={page.retry}
       empty={position === null ? '这个范围没有未做题。' : mode === 'wrong' ? '暂无错题' : mode === 'favorite' ? '暂无收藏题目' : '这个范围暂无已发布题目'} />
     {index > 0 && <div className="study-pagination"><button type="button" className="btn" onClick={() => move(0)}>回到第一题</button></div>}
   </>

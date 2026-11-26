@@ -2,11 +2,14 @@
 
 import { useEffect, useRef, useState, useSyncExternalStore, useTransition, type FormEvent } from "react"
 import { useRouter } from "next/navigation"
+import { useTabDraft } from "@/use-tab-draft"
 import { authConstraintError, authErrorMessage, authFieldError, authIssue, type AuthField, type AuthStep } from "./client-errors"
 import { AuthScreen } from "./auth-screen"
+import type { StudyDestination } from "./study-destination"
 import styles from "./auth-panel.module.css"
 
 type FormError = { text: string; field?: AuthField }
+type AuthFlow = { step: AuthStep; email: string; resendAt: number }
 
 const views: Record<AuthStep, { title?: string; description?: string; action: string; failure: string }> = {
   login: { action: "继续", failure: "邮箱或密码有误，请检查后重试。" },
@@ -40,6 +43,15 @@ const loadAuthClient = () => import("./client").then(({ authClient }) => authCli
 const subscribeReady = () => () => {}
 const browserReady = () => true
 const serverReady = () => false
+const initialFlow: AuthFlow = { step: "login", email: "", resendAt: 0 }
+
+function readAuthFlow(value: unknown): AuthFlow | null {
+  const flow = value as Partial<AuthFlow> | null
+  if (typeof flow?.step !== "string" || !Object.hasOwn(views, flow.step) || typeof flow.email !== "string" || flow.email.length > 254) return null
+  if ((flow.step === "verify" || flow.step === "reset") && !flow.email) return null
+  const resendAt = typeof flow.resendAt === "number" && Number.isSafeInteger(flow.resendAt) ? flow.resendAt : 0
+  return { step: flow.step, email: flow.email, resendAt }
+}
 
 function warmPractice() {
   void import("@/features/study/api").then(async ({ readPublic, questionUrl }) => {
@@ -56,19 +68,21 @@ async function sessionIsVerified() {
   return Boolean(user?.id)
 }
 
-export function AuthPanel() {
+export function AuthPanel({ destination }: { destination: StudyDestination }) {
   const router = useRouter()
   const ready = useSyncExternalStore(subscribeReady, browserReady, serverReady)
   const [redirecting, navigate] = useTransition()
-  const [step, setStep] = useState<AuthStep>("login")
-  const [email, setEmail] = useState("")
+  const { value, save } = useTabDraft("cqu-auth-flow", readAuthFlow)
+  const flow = value ?? initialFlow
+  const { step, email, resendAt } = flow
   const [password, setPassword] = useState("")
   const [otp, setOtp] = useState("")
   const [showPassword, setShowPassword] = useState(false)
   const [formError, setFormError] = useState<FormError | null>(null)
   const [notice, setNotice] = useState("")
   const [pending, setPending] = useState<"submit" | "resend" | null>(null)
-  const [remaining, setRemaining] = useState(0)
+  const [now, setNow] = useState(Date.now)
+  const remaining = Math.max(0, Math.ceil((resendAt - now) / 1000))
   const inFlight = useRef(false)
   const focusAfterTransition = useRef(false)
   const heading = useRef<HTMLHeadingElement>(null)
@@ -83,9 +97,9 @@ export function AuthPanel() {
 
   useEffect(() => {
     if (remaining <= 0) return
-    const timer = setTimeout(() => setRemaining((count) => count - 1), 1_000)
+    const timer = setTimeout(() => setNow(Date.now()), Math.min(1_000, resendAt - now))
     return () => clearTimeout(timer)
-  }, [remaining])
+  }, [now, remaining, resendAt])
 
   useEffect(() => {
     if (focusAfterTransition.current) {
@@ -94,14 +108,21 @@ export function AuthPanel() {
     }
   }, [step])
 
-  function changeStep(next: AuthStep, nextNotice = "") {
+  function changeStep(next: AuthStep, nextNotice = "", address = email, cooldown = 0) {
     focusAfterTransition.current = next !== step
-    setStep(next)
+    const time = Date.now()
+    setNow(time)
+    save({ step: next, email: address, resendAt: cooldown ? time + cooldown : 0 })
     setPassword("")
     setShowPassword(false)
     setOtp("")
     setFormError(null)
     setNotice(nextNotice)
+  }
+
+  function finishSignIn() {
+    save(null)
+    navigate(() => router.replace(destination))
   }
 
   function clearFieldError(field: AuthField) {
@@ -143,19 +164,19 @@ export function AuthPanel() {
     const address = String(fields.get("email") ?? email).trim().toLowerCase()
     const submittedPassword = String(fields.get("password") ?? password)
     const submittedOtp = String(fields.get("otp") ?? otp)
-    setEmail(address)
+    save({ ...flow, email: address })
 
     try {
-      if (step === "login" || step === "verify") warmPractice()
+      if (destination === "/" && (step === "login" || step === "verify")) warmPractice()
       const authClient = await loadAuthClient()
       switch (step) {
         case "login": {
           const { data, error } = await authClient.signIn.email({ email: address, password: submittedPassword })
           if (error) throw error
           if ((data?.token && data.user?.emailVerified) || await sessionIsVerified()) {
-            navigate(() => router.replace("/"))
+            finishSignIn()
           } else {
-            changeStep("verify", requireVerification)
+            changeStep("verify", requireVerification, address)
           }
           break
         }
@@ -166,24 +187,23 @@ export function AuthPanel() {
             name: "同学",
           })
           if (error) throw error
-          changeStep("verify", "已有验证码即可验证。如未收到，请点击重新发送。")
+          changeStep("verify", "已有验证码即可验证。如未收到，请点击重新发送。", address)
           break
         }
         case "verify": {
           const { data, error } = await authClient.emailOtp.verifyEmail({ email: address, otp: submittedOtp })
           if (error) throw error
           if ((data?.token && data.user?.emailVerified) || await sessionIsVerified()) {
-            navigate(() => router.replace("/"))
+            finishSignIn()
           } else {
-            changeStep("login", "邮箱已验证，请登录。")
+            changeStep("login", "邮箱已验证，请登录。", address)
           }
           break
         }
         case "forgot": {
           const { error } = await authClient.forgetPassword.emailOtp({ email: address })
           if (error) throw error
-          setRemaining(60)
-          changeStep("reset", "如果该邮箱已注册，请查收密码重置验证码。")
+          changeStep("reset", "如果该邮箱已注册，请查收密码重置验证码。", address, 60_000)
           break
         }
         case "reset": {
@@ -193,14 +213,14 @@ export function AuthPanel() {
             password: submittedPassword,
           })
           if (error) throw error
-          changeStep("login", "密码已更新，请用新密码登录。")
+          changeStep("login", "密码已更新，请用新密码登录。", address)
           break
         }
       }
     } catch (error) {
       const issue = authIssue(error)
       if (step === "login" && issue?.code === "EMAIL_NOT_VERIFIED") {
-        changeStep("verify", requireVerification)
+        changeStep("verify", requireVerification, address)
       } else {
         const fieldError = issue && authFieldError(step, issue)
         setFormError(fieldError ?? {
@@ -221,7 +241,9 @@ export function AuthPanel() {
         ? await authClient.emailOtp.sendVerificationOtp({ email, type: "email-verification" })
         : await authClient.forgetPassword.emailOtp({ email })
       if (error) throw error
-      setRemaining(60)
+      const time = Date.now()
+      setNow(time)
+      save({ ...flow, resendAt: time + 60_000 })
       setNotice("如果该邮箱符合发送条件，请查收邮件。")
     } catch (error) {
       const issue = authIssue(error)
@@ -263,7 +285,7 @@ export function AuthPanel() {
                 aria-invalid={emailError ? true : undefined}
                 aria-describedby={emailError ? "auth-email-error" : undefined}
                 onChange={(event) => {
-                  setEmail(event.target.value)
+                  save({ ...flow, email: event.target.value })
                   clearFieldError("email")
                 }}
                 maxLength={254}

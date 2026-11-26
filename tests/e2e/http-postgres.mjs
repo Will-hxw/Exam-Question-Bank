@@ -23,6 +23,7 @@ const users = new Map([
   ['bob', { id: 'e2e-bob', email: 'bob@example.test', emailVerified: true }],
   ['browser', { id: 'e2e-browser', email: 'browser@example.test', emailVerified: true }],
   ['undone', { id: 'e2e-undone', email: 'undone@example.test', emailVerified: true }],
+  ['conflict', { id: 'e2e-conflict', email: 'conflict@example.test', emailVerified: true }],
   ['author', { id: 'e2e-author', email: 'xiaoweihuacqu@gmail.com', emailVerified: true }],
   ['unverified', { id: 'e2e-unverified', email: 'unverified@example.test', emailVerified: false }],
 ])
@@ -219,6 +220,16 @@ async function runApiChecks(origin, db, items, secret) {
 
   const { response: anonymous } = await call('/', { status: 307, redirect: 'manual' })
   assert.equal(anonymous.headers.get('location'), '/login')
+  for (const path of ['/questions', '/exam', '/favorites', '/wrong']) {
+    const { response } = await call(path, { status: 307, redirect: 'manual' })
+    assert.equal(response.headers.get('location'), '/login?' + new URLSearchParams({ next: path }))
+  }
+  for (const next of ['https://example.invalid', '//example.invalid', '/api/me/stats', '/login']) {
+    const { response } = await call('/login?' + new URLSearchParams({ next }), { user: 'alice', status: 307, redirect: 'manual' })
+    assert.equal(response.headers.get('location'), '/')
+  }
+  const { response: signedIn } = await call('/login?next=%2Fquestions', { user: 'alice', status: 307, redirect: 'manual' })
+  assert.equal(signedIn.headers.get('location'), '/questions')
   const { response: accountRedirect } = await call('/account', { status: 307, redirect: 'manual' })
   assert.equal(accountRedirect.headers.get('location'), '/login')
   const anonymousSession = await call('/api/me/session')
@@ -807,6 +818,8 @@ try {
     assert.deepEqual(browserWrites.rows, [{ mode: 'exam', count: 24 }, { mode: 'practice', count: 2 }])
     const browserFavorites = await db.query('SELECT count(*)::int AS count FROM favorites WHERE user_id=$1', [users.get('browser').id])
     assert.equal(browserFavorites.rows[0].count, 0)
+    const conflictWrites = await db.query("SELECT count(*)::int AS count FROM attempts WHERE user_id=$1 AND mode='exam'", [users.get('conflict').id])
+    assert.equal(conflictWrites.rows[0].count, 8)
   }
 } finally {
   if (server && server.exitCode === null) {

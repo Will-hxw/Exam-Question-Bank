@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { type FormEvent, type MouseEventHandler, type PointerEvent, type ReactNode, type RefObject, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useTabDraft } from '@/use-tab-draft'
 import { authorMention, messageLimit, nicknameLimit, publicAuthorMention, type ChatMessage, type ChatProfile } from './types'
 import { chatError, useChatRoom } from './use-chat-room'
 import './chat.css'
@@ -105,6 +106,16 @@ export function ChatHeader({ title, backHref, backLabel, onBack, heading, childr
   </header>
 }
 
+type ChatDraft = { text: string; clientId?: string }
+
+function readChatDraft(value: unknown): ChatDraft | null {
+  const draft = value as Partial<ChatDraft> | null
+  if (typeof draft?.text !== 'string') return null
+  const clientId = typeof draft.clientId === 'string' && /^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(draft.clientId)
+    ? draft.clientId : undefined
+  return { text: draft.text.slice(0, messageLimit), clientId }
+}
+
 export function PublicChat({ userId, backHref, onBack, onRead }: {
   userId: string
   backHref: string
@@ -112,14 +123,15 @@ export function PublicChat({ userId, backHref, onBack, onRead }: {
   onRead: (unread: boolean) => void
 }) {
   const room = useChatRoom(userId)
-  return <ChatPage room={room} backHref={backHref} onBack={onBack} onRead={onRead} />
+  return <ChatPage room={room} draftKey={`cqu-chat-draft:${userId}:public`} backHref={backHref} onBack={onBack} onRead={onRead} />
 }
 
-export default function ChatPage({ backHref, backLabel = '返回练习', direct = false, room, onBack, onRead }: {
+export default function ChatPage({ backHref, backLabel = '返回练习', direct = false, room, draftKey, onBack, onRead }: {
   backHref: string
   backLabel?: string
   direct?: boolean
   room: ReturnType<typeof useChatRoom>
+  draftKey: string
   onBack?: MouseEventHandler<HTMLAnchorElement>
   onRead?: (unread: boolean) => void
 }) {
@@ -135,13 +147,14 @@ export default function ChatPage({ backHref, backLabel = '返回练习', direct 
   const prepend = useRef<{ element: HTMLElement; offset: number } | null>(null)
   const newestSeen = useRef<string | undefined>(undefined)
   const readThrough = useRef<string | undefined>(undefined)
-  const pending = useRef<{ body: string; id: string } | null>(null)
+  const sendingNow = useRef(false)
   const [newMessages, setNewMessages] = useState(false)
   const [editingName, setEditingName] = useState(false)
   const [nickname, setNickname] = useState('')
   const [savingName, setSavingName] = useState(false)
   const [nameError, setNameError] = useState('')
-  const [draft, setDraft] = useState('')
+  const { value: storedDraft, save, clear } = useTabDraft(draftKey, readChatDraft)
+  const draft = storedDraft?.text ?? ''
   const [sending, setSending] = useState(false)
   const [sendError, setSendError] = useState('')
   const [showEmoji, setShowEmoji] = useState(false)
@@ -248,22 +261,28 @@ export default function ChatPage({ backHref, backLabel = '返回练习', direct 
     }
   }
 
+  function setDraft(text: string) {
+    save(text ? { text, clientId: text.trim() === draft.trim() ? storedDraft?.clientId : undefined } : null)
+  }
+
   async function sendMessage(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const body = draft.trim()
-    if (!room.profile || !body || sending) return
-    if (pending.current?.body !== body) pending.current = { body, id: crypto.randomUUID() }
+    if (!room.profile || !body || sendingNow.current) return
+    sendingNow.current = true
+    const clientId = storedDraft?.clientId ?? crypto.randomUUID()
+    const sent = save({ text: draft, clientId })
     setSending(true)
     setSendError('')
     setShowEmoji(false)
     try {
-      await room.send(body, pending.current.id)
-      pending.current = null
-      setDraft('')
+      await room.send(body, clientId)
+      clear(sent)
       scrollToLatest()
     } catch (error) {
       setSendError(chatError(error, '发送未获确认，请检查网络后再试。'))
     } finally {
+      sendingNow.current = false
       setSending(false)
     }
   }

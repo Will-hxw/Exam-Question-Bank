@@ -2,8 +2,18 @@
 
 import { type FormEvent, type MouseEventHandler, useEffect, useRef, useState } from 'react'
 import { authorChatHash, unreadDescriptionId } from '@/features/chat/types'
+import { useTabDraft } from '@/use-tab-draft'
 import { requestJson, StudyRequestError } from './api'
 import { feedbackMaxLength, feedbackRatings } from './feedback'
+
+type FeedbackDraft = { rating: typeof feedbackRatings[number] | ''; message: string }
+const emptyDraft: FeedbackDraft = { rating: '', message: '' }
+
+function readFeedbackDraft(value: unknown): FeedbackDraft | null {
+  const draft = value as Partial<FeedbackDraft> | null
+  if (typeof draft?.message !== 'string') return null
+  return { rating: feedbackRatings.find((rating) => rating === draft.rating) ?? '', message: draft.message.slice(0, feedbackMaxLength) }
+}
 
 export function MailboxIcon({ size = 20 }: { size?: number }) {
   return <svg aria-hidden="true" width={size} height={size} viewBox="0 0 24 24"
@@ -24,7 +34,9 @@ export function FeedbackPage({ pathname, userId, active, unread, onBack, warmAut
 }) {
   const page = useRef<HTMLElement>(null)
   const heading = useRef<HTMLHeadingElement>(null)
-  const [message, setMessage] = useState('')
+  const { value, snapshot, save, clear } = useTabDraft(`cqu-feedback-draft:${userId}`, readFeedbackDraft)
+  const draft = value ?? emptyDraft
+  const { rating, message } = draft
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent'>('idle')
   const [error, setError] = useState('')
 
@@ -37,7 +49,6 @@ export function FeedbackPage({ pathname, userId, active, unread, onBack, warmAut
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     if (status !== 'idle') return
-    const rating = new FormData(event.currentTarget).get('rating')
     const content = message.trim()
     if (!rating) {
       setError('请选择一档评价。')
@@ -53,6 +64,7 @@ export function FeedbackPage({ pathname, userId, active, unread, onBack, warmAut
         body: JSON.stringify({ rating, message: content }),
         signal: AbortSignal.timeout(20_000),
       })
+      clear(snapshot)
       setStatus('sent')
     } catch (failure) {
       setError(failure instanceof StudyRequestError ? failure.message : '提交未获确认，请检查网络后再试。')
@@ -90,7 +102,8 @@ export function FeedbackPage({ pathname, userId, active, unread, onBack, warmAut
             <div className="feedback-scale">
               {feedbackRatings.map((rating) => (
                 <label key={rating}>
-                  <input type="radio" name="rating" value={rating} required />
+                  <input type="radio" name="rating" value={rating} checked={draft.rating === rating}
+                    onChange={() => save({ ...draft, rating })} required />
                   <span lang={rating === 'NPC' ? 'en' : undefined}>{rating}</span>
                 </label>
               ))}
@@ -99,7 +112,7 @@ export function FeedbackPage({ pathname, userId, active, unread, onBack, warmAut
           <div className="feedback-message">
             <label htmlFor="feedback-message">你希望我们改进什么？<span>选填</span></label>
             <textarea id="feedback-message" name="message" rows={4} value={message} maxLength={feedbackMaxLength}
-              onChange={(event) => setMessage(event.target.value)} readOnly={status === 'sending'}
+              onChange={(event) => save({ ...draft, message: event.target.value })} readOnly={status === 'sending'}
               placeholder="遇到的问题、想增加的功能，都可以写在这里。" />
           </div>
           {error && <p className="study-message error" role="alert">{error}</p>}

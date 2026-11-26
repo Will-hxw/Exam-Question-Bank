@@ -7,6 +7,7 @@ from urllib.parse import parse_qs, urlsplit
 
 from playwright.sync_api import expect, sync_playwright
 from chat_browser import check_author_chat, check_chat, check_feedback
+from exam_conflict_browser import check_exam_conflict
 from practice_undone_browser import check_undone_practice
 
 
@@ -125,6 +126,8 @@ def expect_field_error(page, name, error_id, text):
 
 
 def check_auth_fields(page):
+    page.goto(ORIGIN + '/questions')
+    expect(page).to_have_url(ORIGIN + '/login?next=%2Fquestions')
     page.locator('#auth-email').fill('alice@example.test')
     password = page.locator('#auth-password')
     password.fill('incorrect-fixture-password')
@@ -148,6 +151,11 @@ def check_auth_fields(page):
     code = page.locator('#auth-code')
     expect(code).to_be_visible()
     code.fill('123456')
+    page.reload(wait_until='domcontentloaded')
+    expect(page.get_by_role('heading', name='验证邮箱')).to_be_visible()
+    expect(page.get_by_text('browser-signup@example.test', exact=True)).to_be_visible()
+    expect(code).to_have_value('')
+    code.fill('123456')
     page.get_by_role('button', name='验证邮箱', exact=True).click()
     expect_field_error(page, 'code', 'auth-code-error', '验证码错误，请重试。')
     expect(page.get_by_text(SITE_CREDIT, exact=True)).to_be_visible()
@@ -155,15 +163,26 @@ def check_auth_fields(page):
     expect(page.get_by_role('status').filter(has_text='请查收邮件')).to_be_visible()
     code.fill('732518')
     page.get_by_role('button', name='验证邮箱', exact=True).click()
-    expect(page).to_have_url(ORIGIN + '/')
+    expect(page).to_have_url(ORIGIN + '/questions')
+    expect(page.locator('.list-item').first).to_be_visible()
 
     page.get_by_role('link', name='账号', exact=True).click()
     page.get_by_role('button', name='退出登录', exact=True).click()
     expect(page).to_have_url(ORIGIN + '/login')
+    page.goto(ORIGIN + '/questions')
+    expect(page).to_have_url(ORIGIN + '/login?next=%2Fquestions')
     page.get_by_role('button', name='忘记密码', exact=True).click()
     page.locator('#auth-email').fill('browser-signup@example.test')
     page.get_by_role('button', name='发送重置验证码', exact=True).click()
     expect(page.get_by_role('heading', name='重置密码')).to_be_visible()
+    page.locator('#auth-code').fill('628154')
+    page.locator('#auth-password').fill('changed-fixture-only')
+    page.reload(wait_until='domcontentloaded')
+    expect(page.get_by_role('heading', name='重置密码')).to_be_visible()
+    expect(page.get_by_text('browser-signup@example.test', exact=True)).to_be_visible()
+    expect(page.locator('#auth-code')).to_have_value('')
+    expect(page.locator('#auth-password')).to_have_value('')
+    expect(page.get_by_role('button', name=re.compile('秒后可重发'))).to_be_disabled()
     expect(page.get_by_text(SITE_CREDIT, exact=True)).to_be_visible()
     page.locator('#auth-code').fill('628154')
     page.locator('#auth-password').fill('changed-fixture-only')
@@ -175,7 +194,44 @@ def check_auth_fields(page):
     expect_field_error(page, 'password', 'auth-password-error', '密码错误，请重试。')
     page.locator('#auth-password').fill('changed-fixture-only')
     page.get_by_role('button', name='继续', exact=True).click()
-    expect(page).to_have_url(ORIGIN + '/')
+    expect(page).to_have_url(ORIGIN + '/questions')
+    expect(page.locator('.list-item').first).to_be_visible()
+    assert page.evaluate("sessionStorage.getItem('cqu-auth-flow')") is None
+
+
+def check_favorite_tail(browser):
+    context = browser.new_context(service_workers='block')
+    context.add_cookies([{'name': COOKIE_NAME, 'value': 'conflict', 'domain': HOST, 'path': '/', 'secure': True}])
+    headers = {'Cookie': f'{COOKIE_NAME}=conflict', 'Origin': ORIGIN, 'X-Study-Account': 'e2e-conflict'}
+    page = context.new_page()
+    try:
+        page.goto(ORIGIN)
+        items = page.request.get(ORIGIN + '/api/public/questions?offset=0&limit=16').json()['questions']
+        mode = page.get_by_role('group', name='练习模式').get_by_role('button', name='收藏', exact=True)
+        card = page.get_by_role('article', name='练习题目')
+        stem = card.locator('.q-text')
+        unstar = card.get_by_role('button', name='★ 取消收藏')
+        for count in (2, 16):
+            for question in items[:count]:
+                write = page.request.put(ORIGIN + '/api/me/favorites/' + question['id'], headers=headers, data={'favorite': True})
+                assert write.ok
+            page.reload()
+            mode.click()
+            expect(page.get_by_text(f'收藏模式 · 共 {count} 题')).to_be_visible()
+            for question in items[:count - 1]:
+                expect(stem).to_have_text(question['stem'])
+                card.get_by_role('button', name='下一题', exact=True).click()
+            expect(stem).to_have_text(items[count - 1]['stem'])
+            unstar.click()
+            expect(stem).to_have_text(items[count - 2]['stem'])
+            expect(page.get_by_text(f'收藏模式 · 共 {count - 1} 题')).to_be_visible()
+            expect(page.get_by_text('暂无收藏题目')).to_have_count(0)
+            if count == 2:
+                unstar.click()
+                expect(page.get_by_text('暂无收藏题目')).to_be_visible()
+                expect(page.get_by_role('button', name='回到第一题')).to_have_count(0)
+    finally:
+        context.close()
 
 
 def check_auth_autofill(page):
@@ -615,19 +671,17 @@ def run(browser):
     assert page.request.put(draft_url, headers=test_headers, data={
         **{field: cloud[field] for field in ('revision', 'marked', 'answers')}, 'position': 3,
     }).ok
-    mark.tap()
-    expect(page.get_by_text('云端草稿已在别处更新', exact=False)).to_be_visible()
-    expect(marked).to_be_disabled()
-    expect(marked).to_have_css('opacity', '1')
-    expect(marked.locator('svg path')).to_have_css('fill', yellow)
     draft_cache_key = f'cqu-study-draft:e2e-browser:{draft_id}'
-    assert page.evaluate('(key) => localStorage.getItem(key)', draft_cache_key)
     page.route(draft_url, lambda route: route.fulfill(status=503, json={'error': '试卷暂时无法读取，请重试。'}), times=1)
-    page.get_by_role('button', name='改用云端草稿').tap()
-    expect(page.get_by_role('alert').filter(has_text='试卷暂时无法读取')).to_be_visible()
+    with page.expect_response(lambda response: response.url == draft_url and response.request.method == 'GET') as failed_refresh:
+        mark.tap()
+    assert failed_refresh.value.status == 503
+    expect(page.get_by_text('草稿同步失败')).to_be_visible()
     assert page.evaluate('(key) => localStorage.getItem(key)', draft_cache_key)
-    page.get_by_role('button', name='改用云端草稿').tap()
+    page.get_by_role('button', name='重试同步', exact=True).tap()
     expect(page.locator('.exam-nav-item.current')).to_have_text('4')
+    expect(page.locator('.exam-nav-item.marked')).to_have_text(['2', '3'])
+    expect(page.get_by_text('草稿已云端同步')).to_be_visible()
     assert page.evaluate('(key) => localStorage.getItem(key)', draft_cache_key) is None
 
     submit = page.get_by_role('button', name='交卷', exact=True)
@@ -755,6 +809,8 @@ def run(browser):
     expect(page).to_have_url(ORIGIN + '/account')
     expect(page.get_by_role('heading', name='账号')).to_be_visible()
     page.get_by_role('link', name='返回练习', exact=True).click()
+    expect(page).to_have_url(ORIGIN + '/')
+    expect(page.get_by_role('link', name='刷题', exact=True)).to_have_attribute('aria-current', 'page')
     expect(stem).to_be_visible()
     cookies = context.cookies()
     context.close()
@@ -809,6 +865,8 @@ with sync_playwright() as playwright:
         check_chat(browser, mobile_context, ORIGIN, HOST, COOKIE_NAME)
         check_author_chat(browser, mobile_context, ORIGIN, HOST, COOKIE_NAME)
         check_undone_practice(browser, ORIGIN, HOST, COOKIE_NAME)
+        check_favorite_tail(browser)
+        check_exam_conflict(browser, ORIGIN, HOST, COOKIE_NAME)
         print('CHAT_BROWSER_E2E two accounts, mobile and desktop, rename persistence, emoji and plain text')
         print('BROWSER_E2E ' + json.dumps(run(browser), ensure_ascii=False))
     finally:

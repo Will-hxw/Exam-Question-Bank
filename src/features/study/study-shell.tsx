@@ -385,6 +385,7 @@ export function StudyShell({ userId, author, children }: { userId: string; autho
                 意见反馈
               </a>
               <a className="footer-action" href="#sponsor" aria-label="打开友情赞助页面"
+                onClick={navigateFromExam}
                 onPointerEnter={() => warmImage(sponsorQrImage)} onFocus={() => warmImage(sponsorQrImage)}>
                 <span className="footer-action-icon footer-sponsor-icon" aria-hidden="true">💌</span>
                 友情赞助

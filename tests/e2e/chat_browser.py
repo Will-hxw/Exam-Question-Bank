@@ -33,6 +33,14 @@ def check_feedback(page, origin, check_study_footer):
     feedback_api = origin + '/api/feedback'
     body = '希望增加模考历史筛选。'
     message.fill(body)
+    page.get_by_role('link', name='打开聊天区').click()
+    expect(page.get_by_role('heading', name='聊天区')).to_be_visible()
+    page.get_by_role('link', name='打开意见反馈页面').click()
+    expect(message).to_have_value(body)
+    expect(lowest).to_be_checked()
+    page.reload(wait_until='domcontentloaded')
+    expect(message).to_have_value(body)
+    expect(lowest).to_be_checked()
     with page.expect_response(feedback_api) as request:
         submit.click()
     assert request.value.status == 503
@@ -52,6 +60,10 @@ def check_feedback(page, origin, check_study_footer):
     page.get_by_role('link', name='← 返回练习').click()
     expect(page).to_have_url(origin + '/')
     expect(page.locator('.question-card')).to_be_visible()
+    page.get_by_role('link', name='打开意见反馈页面').click()
+    expect(message).to_have_value('')
+    expect(form.locator('input:checked')).to_have_count(0)
+    page.get_by_role('link', name='← 返回练习').click()
 
 
 def check_chat(browser, mobile_context, origin, host, cookie_name):
@@ -99,6 +111,13 @@ def check_chat(browser, mobile_context, origin, host, cookie_name):
         badge = receiver_entry.locator('.message-unread-dot')
         expect(badge).to_have_count(0)
         draft.fill('刷题见面啦 ')
+        feedback.tap()
+        expect(sender.get_by_role('heading', name='意见反馈')).to_be_visible()
+        entry.tap()
+        expect(draft).to_have_value('刷题见面啦 ')
+        sender.reload(wait_until='domcontentloaded')
+        expect(draft).to_have_value('刷题见面啦 ')
+        draft.evaluate('(input) => { input.focus(); input.setSelectionRange(input.value.length, input.value.length) }')
         sender.get_by_role('button', name='插入表情').tap()
         expect(sender.locator('#chat-emoji-panel')).to_be_visible()
         sender.get_by_role('heading', name='聊天区').tap()
@@ -108,6 +127,7 @@ def check_chat(browser, mobile_context, origin, host, cookie_name):
         expect(draft).to_have_value('刷题见面啦 🎉')
         sender.get_by_role('button', name='发送', exact=True).tap()
         expect(sender.locator('.is-mine .chat-bubble')).to_have_text('刷题见面啦 🎉')
+        expect(draft).to_have_value('')
         expect(entry.locator('.message-unread-dot')).to_have_count(0)
         receiver.bring_to_front()
         expect(badge).to_be_visible(timeout=18000)
@@ -189,6 +209,14 @@ def check_author_chat(browser, mobile_context, origin, host, cookie_name):
         expect(guest.locator('.chat-counterpart')).to_have_text('Hua Xiaowei')
         expect(guest.locator('.chat-counterpart img')).to_have_attribute('src', re.compile(r'^data:image/webp;base64,'))
 
+        composer.fill('作者对话草稿')
+        guest.get_by_role('link', name='返回意见反馈').tap()
+        guest.get_by_role('link', name='打开聊天区').tap()
+        expect(composer).to_have_value('')
+        guest.get_by_role('link', name='打开意见反馈页面').tap()
+        contact.tap()
+        expect(composer).to_have_value('作者对话草稿')
+        composer.fill('')
         avatar = guest.get_by_role('button', name='提及 Hua Xiaowei')
         box = avatar.bounding_box()
         assert box
@@ -202,6 +230,7 @@ def check_author_chat(browser, mobile_context, origin, host, cookie_name):
         composer.fill('作者你好，这是浏览器测试。')
         guest.get_by_role('button', name='发送', exact=True).tap()
         expect(guest.locator('.is-mine .chat-bubble')).to_have_text('作者你好，这是浏览器测试。')
+        expect(composer).to_have_value('')
         guest.get_by_role('link', name='返回意见反馈').tap()
         expect(contact).to_be_visible()
         guest.get_by_role('link', name='← 返回练习').tap()

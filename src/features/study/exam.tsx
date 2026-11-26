@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { answerLetters, letter, type Question, requestJson, StudyRequestError, writeJson } from './api'
 import { ExplanationPanel, LoadMessage } from './controls'
-import { type Exam as ExamData, useExamDraft } from './exam-draft'
+import { type Exam as ExamData, readLocalExamDraft, useExamDraft } from './exam-draft'
+import { type ExamAnswerConflict, unsubmittedAnswerIds } from './exam-draft-merge'
 import { DEFAULT_EXAM_QUESTIONS, isExamQuestionCount, MAX_EXAM_QUESTIONS, MIN_EXAM_QUESTIONS } from './exam-size'
 import { useQuestionFavorite, useQuestionStates, useStudySessionContext } from './study-shell'
 import { useStudyData } from './use-study-data'
@@ -52,37 +53,80 @@ function ExamFavorite({ question }: { question: Question }) {
   </>
 }
 
-function ExamTaking({ exam, onResult, onReload }: { exam: ExamData; onResult: (exam: ExamData) => void; onReload: (onLoaded?: () => void) => void }) {
+function ExamConflictReview({ conflicts, items, onResolve }: {
+  conflicts: ExamAnswerConflict[]; items: Question[]
+  onResolve: (choices: Record<string, 'local' | 'cloud'>) => void
+}) {
+  const [choices, setChoices] = useState<Record<string, 'local' | 'cloud'>>({})
+  const byId = new Map(conflicts.map((conflict) => [conflict.id, conflict]))
+  return <form className="exam-conflict-review" aria-labelledby="exam-conflict-title" onSubmit={(event) => {
+    event.preventDefault()
+    onResolve(choices)
+  }}>
+    <h3 id="exam-conflict-title">确认冲突的答案</h3>
+    {items.map((question, index) => {
+      const conflict = byId.get(question.id)
+      if (!conflict) return null
+      return <fieldset key={question.id}>
+        <legend>第 {index + 1} 题 · {question.stem}</legend>
+        {(['local', 'cloud'] as const).map((side) => {
+          const answers = answerLetters(question.options, conflict[side]) || '未作答'
+          const text = question.options.filter((option) => conflict[side].includes(option.id)).map((option) => option.text).join('、')
+          return <label key={side}>
+            <input type="radio" name={question.id} value={side} checked={choices[question.id] === side}
+              onChange={() => setChoices((previous) => ({ ...previous, [question.id]: side }))} required />
+            <span>{side === 'local' ? '本机答案' : '云端答案'} · {answers}{text && `（${text}）`}</span>
+          </label>
+        })}
+      </fieldset>
+    })}
+    <button className="btn primary" type="submit" disabled={Object.keys(choices).length !== conflicts.length}>合并并继续</button>
+  </form>
+}
+
+function ExamTaking({ exam, onResult, onReload }: {
+  exam: ExamData; onResult: (exam: ExamData, elsewhere: boolean) => void; onReload: () => void
+}) {
   const { userId, markExamActive } = useStudySessionContext()
-  const { draft, update, flush, submit, syncStatus, abandonLocalDraft } = useExamDraft(userId, exam)
+  const { draft, update, flush, submit, syncStatus, pendingMerge, resolve, finished } = useExamDraft(userId, exam)
   const [submitting, setSubmitting] = useState(false)
   const submittingNow = useRef(false)
   const confirmation = useRef<HTMLDialogElement>(null)
   const [error, setError] = useState('')
+  const [reviewNotice, setReviewNotice] = useState(false)
   const autoAdvance = useRef<ReturnType<typeof setTimeout> | null>(null)
   const count = exam.items.length
   const position = Math.min(Math.max(draft.position, 0), count - 1)
   const item = exam.items[position]
   const done = Object.values(draft.answers).filter((choices) => choices.length > 0).length
   const selected = draft.answers[item?.id] ?? []
-  const markers = { local: '草稿本地已保存，待同步', synced: '草稿已云端同步', pending: '草稿正在保存', error: '草稿同步失败', conflict: '云端草稿已在别处更新，本机未同步的修改仍保留。' }
-  const blocked = submitting || syncStatus === 'conflict'
+  const markers = { local: '草稿本地已保存，待同步', synced: '草稿已云端同步', pending: '草稿正在保存', error: '草稿同步失败', conflict: '同一道题在本机与云端的答案不同，请选择保留哪一份。' }
+  const blocked = submitting || !!pendingMerge || !!finished
 
   useEffect(() => () => { if (autoAdvance.current) clearTimeout(autoAdvance.current) }, [])
   useEffect(() => {
     markExamActive(true)
     return () => markExamActive(false)
   }, [markExamActive])
+  useEffect(() => {
+    if (finished) onResult(finished.exam, finished.elsewhere)
+  }, [finished, onResult])
+  useEffect(() => {
+    if (pendingMerge) confirmation.current?.close()
+  }, [pendingMerge])
 
   function move(index: number) {
     if (autoAdvance.current) clearTimeout(autoAdvance.current)
-    if (index >= 0 && index < count) update({ position: index })
+    if (index >= 0 && index < count) update(() => ({ position: index }))
   }
 
   function choose(id: string) {
     if (autoAdvance.current) clearTimeout(autoAdvance.current)
-    const answer = item.type === 'single' ? [id] : selected.includes(id) ? selected.filter((value) => value !== id) : [...selected, id]
-    update({ answers: { ...draft.answers, [item.id]: answer } })
+    update((current) => {
+      const previous = current.answers[item.id] ?? []
+      const answer = item.type === 'single' ? [id] : previous.includes(id) ? previous.filter((value) => value !== id) : [...previous, id]
+      return { answers: { ...current.answers, [item.id]: answer } }
+    })
     if (item.type === 'single' && position + 1 < count) autoAdvance.current = setTimeout(() => move(position + 1), 180)
   }
 
@@ -90,6 +134,7 @@ function ExamTaking({ exam, onResult, onReload }: { exam: ExamData; onResult: (e
     if (blocked || confirmation.current?.open) return
     if (autoAdvance.current) clearTimeout(autoAdvance.current)
     setError('')
+    setReviewNotice(false)
     confirmation.current?.showModal()
   }
 
@@ -98,8 +143,11 @@ function ExamTaking({ exam, onResult, onReload }: { exam: ExamData; onResult: (e
     setError('')
     submittingNow.current = true
     setSubmitting(true)
-    try { onResult(await submit()) } catch (cause) {
-      setError(cause instanceof StudyRequestError && cause.status === 409 ? '草稿已有更新，请核对云端草稿后再交卷。' : '交卷失败，请检查网络后重试。')
+    try {
+      setReviewNotice(await submit())
+      confirmation.current?.close()
+    } catch (cause) {
+      setError(cause instanceof StudyRequestError && cause.status === 409 ? '其他设备正在同步试卷，请稍后重试。' : '交卷失败，请检查网络后重试。')
     } finally { submittingNow.current = false; setSubmitting(false) }
   }
 
@@ -132,11 +180,9 @@ function ExamTaking({ exam, onResult, onReload }: { exam: ExamData; onResult: (e
     </dialog>
     <p className="study-message" role="status">{markers[syncStatus]}{' '}
       {syncStatus === 'error' && <button type="button" className="btn btn-sm" onClick={() => void flush().catch(() => {})}>重试同步</button>}
-      {syncStatus === 'conflict' && <button type="button" className="btn btn-sm" onClick={() => {
-        if (!window.confirm('改用云端草稿将放弃本机未同步的修改。确定继续吗？')) return
-        onReload(abandonLocalDraft)
-      }}>改用云端草稿</button>}
     </p>
+    {reviewNotice && <p className="study-message" role="status">草稿已更新，请核对答案后再交卷。</p>}
+    {pendingMerge && <ExamConflictReview key={pendingMerge.cloud.revision} conflicts={pendingMerge.conflicts} items={exam.items} onResolve={resolve} />}
     <article className="question-card exam-question-card" aria-label="当前考题">
       <div className="q-header"><span className={`q-type ${item.type}`}>{item.type === 'single' ? '单选题' : '多选题'}</span><span className="progress-info">第 {position + 1}/{count} 题</span></div>
       <p className="q-text">{item.stem}</p>
@@ -149,9 +195,9 @@ function ExamTaking({ exam, onResult, onReload }: { exam: ExamData; onResult: (e
         {item.type === 'multiple' && <button type="button" className="btn primary nav-step" disabled={position === count - 1 || blocked} onClick={() => move(position + 1)}>确定</button>}
         <button type="button" className="btn nav-step" disabled={position === count - 1 || blocked} onClick={() => move(position + 1)}>下一题</button>
         <ExamFavorite key={item.id} question={item} />
-        <button type="button" className="btn btn-sm exam-mark" disabled={blocked} aria-pressed={draft.marked.includes(item.id)} onClick={() => update({
-          marked: draft.marked.includes(item.id) ? draft.marked.filter((id) => id !== item.id) : [...draft.marked, item.id],
-        })}>
+        <button type="button" className="btn btn-sm exam-mark" disabled={blocked} aria-pressed={draft.marked.includes(item.id)} onClick={() => update((current) => ({
+          marked: current.marked.includes(item.id) ? current.marked.filter((id) => id !== item.id) : [...current.marked, item.id],
+        }))}>
           <svg className="exam-mark-icon" aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 16 16">
             <path d="M2.5 3a.5.5 0 0 1 .5-.5h4.5l5.8 5.8-5 5L2.5 7.5Z" fill="#fbbf24" stroke="#854d0e" strokeLinejoin="round" />
             <circle cx="5.2" cy="5.2" r=".9" fill="#854d0e" />
@@ -201,6 +247,9 @@ function ExamResult({ exam, onBack, onRetry, wrongOnly, setWrongOnly, busy }: {
   exam: ExamData; onBack: () => void; onRetry: () => void; wrongOnly: boolean
   setWrongOnly: (value: boolean) => void; busy: boolean
 }) {
+  const { userId } = useStudySessionContext()
+  const [local] = useState(() => readLocalExamDraft(userId, exam.id))
+  const unsubmitted = new Set(local ? unsubmittedAnswerIds(local, exam) : [])
   const score = exam.score ?? 0
   const count = exam.items.length
   const rate = count ? Math.round(score / count * 100) : 0
@@ -226,6 +275,12 @@ function ExamResult({ exam, onBack, onRetry, wrongOnly, setWrongOnly, busy }: {
       <div className="exam-stat-card"><span className="exam-stat-value">{clock(elapsedSeconds(exam))}</span><span className="exam-stat-label">用时</span></div>
       <div className="exam-stat-card"><span className="exam-stat-value">{count - score}</span><span className="exam-stat-label">错题</span></div>
     </div>
+    {local && unsubmitted.size > 0 && <details className="exam-unsubmitted">
+      <summary>本机有 {unsubmitted.size} 道题的未同步答案，未计入成绩</summary>
+      <ul>{exam.items.map((question, index) => unsubmitted.has(question.id) &&
+        <li key={question.id}>第 {index + 1} 题 · {answerLetters(question.options, local.draft.answers[question.id]) || '未作答'}</li>
+      )}</ul>
+    </details>}
     <div className="exam-result-filter">
       <button type="button" className={`filter-chip ${wrongOnly ? '' : 'active'}`} aria-pressed={!wrongOnly} onClick={() => setWrongOnly(false)}>全部 {count}</button>
       <button type="button" className={`filter-chip ${wrongOnly ? 'active' : ''}`} aria-pressed={wrongOnly} onClick={() => setWrongOnly(true)}>仅错题 {count - score}</button>
@@ -246,6 +301,7 @@ function ExamContent() {
   const exam = loaded?.id === selectedId ? loaded : null
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
+  const [submittedElsewhere, setSubmittedElsewhere] = useState(false)
   const [countEdit, setCountEdit] = useState<string>()
   const questionCount = countEdit ?? String(view.count)
   const loadingNow = useRef(false)
@@ -270,7 +326,7 @@ function ExamContent() {
     return () => { active = false }
   }, [exam, restoreAttempt, selectedId, userId])
 
-  async function load(kind: 'new' | 'open' | 'replay', id?: string, afterLoad?: () => void) {
+  async function load(kind: 'new' | 'open' | 'replay', id?: string) {
     if (loadingNow.current) return
     loadingNow.current = true
     setBusy(true)
@@ -280,7 +336,7 @@ function ExamContent() {
         ? await requestJson<{ exam: ExamData }>(`/api/exams/${id}`, { headers: { 'X-Study-Account': userId } })
         : await writeJson<{ exam: ExamData }>(kind === 'replay' ? `/api/exams/${id}/replay` : '/api/exams', userId, 'POST',
           kind === 'new' ? { questionCount: Number(questionCount) } : undefined)
-      afterLoad?.()
+      setSubmittedElsewhere(false)
       setLoaded(response.exam)
       if (selectedId !== response.exam.id) saveView({ screen: 'exam', id: response.exam.id, wrongOnly: false })
       if (kind !== 'open') refreshMe()
@@ -299,8 +355,9 @@ function ExamContent() {
 
   if (exam?.status === 'draft') return <>
     {error && <p className="study-message error" role="alert">{error}</p>}
-    <ExamTaking key={`${exam.id}:${exam.revision}`} exam={exam} onReload={(afterLoad) => void load('open', exam.id, afterLoad)}
-    onResult={(result) => {
+    <ExamTaking key={`${exam.id}:${exam.revision}`} exam={exam} onReload={() => void load('open', exam.id)}
+    onResult={(result, elsewhere) => {
+      setSubmittedElsewhere(elsewhere)
       setLoaded(result)
       saveView({ screen: 'exam', id: result.id, wrongOnly: false })
       refreshMe()
@@ -309,7 +366,8 @@ function ExamContent() {
   </>
   if (exam?.status === 'submitted') return <>
     {error && <p className="study-message error" role="alert">{error}</p>}
-    <ExamResult exam={exam} onBack={returnToEntrance} onRetry={() => void load('replay', exam.id)} busy={busy}
+    {submittedElsewhere && <p className="study-message" role="status">这份试卷已交卷，以下是云端结果。</p>}
+    <ExamResult key={exam.id} exam={exam} onBack={returnToEntrance} onRetry={() => void load('replay', exam.id)} busy={busy}
       wrongOnly={view.wrongOnly} setWrongOnly={(wrongOnly) => saveView({ wrongOnly })} />
   </>
 

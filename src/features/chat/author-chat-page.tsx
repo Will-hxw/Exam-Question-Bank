@@ -147,7 +147,9 @@ function Thread({ userId, author, threadId, allowCreate, onRead }: {
 }) {
   const contact = threadId?.startsWith('contact/') ? threadId.slice('contact/'.length) : undefined
   const room = useChatRoom(userId, { threadId: contact === undefined ? threadId : undefined, contact, allowCreate })
-  return <ChatPage room={room} direct backHref={author ? authorChatHash : '#feedback'}
+  const participant = author ? room.peer?.authorKey ?? threadId : 'own'
+  const draftKey = `cqu-chat-draft:${userId}:author:${participant}`
+  return <ChatPage room={room} draftKey={draftKey} direct backHref={author ? authorChatHash : '#feedback'}
     backLabel={author ? '返回会话列表' : '返回意见反馈'} onRead={onRead} />
 }
 
