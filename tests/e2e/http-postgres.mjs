@@ -10,6 +10,7 @@ import { setTimeout as sleep } from 'node:timers/promises'
 import pg from 'pg'
 import { migrate } from '../../scripts/database/migrate.mjs'
 import { reviewFixture, seedQuestions } from '../integration/fixture.mjs'
+import { checkAuthorDirectory } from './author-directory.mjs'
 
 const root = fileURLToPath(new URL('../../', import.meta.url))
 const testUrl = process.env.TEST_DATABASE_URL && new URL(process.env.TEST_DATABASE_URL)
@@ -26,6 +27,8 @@ const users = new Map([
   ['unverified', { id: 'e2e-unverified', email: 'unverified@example.test', emailVerified: false }],
 ])
 const modelCalls = []
+const simulatedReply = '记得啊，春天嘛'
+const simulatedIdentity = '真啊，不然我咋从网线里游过来的喵'
 
 function authFixture(db) {
   const signupEmail = 'browser-signup@example.test'
@@ -68,12 +71,13 @@ function authFixture(db) {
         return
       }
       modelCalls.push(input)
-      if (input.messages.at(-1).content === '接口故障演练') {
+      const { latest } = JSON.parse(input.messages.at(-1).content)
+      if (latest === '接口故障演练') {
         response.statusCode = 502
         response.end('{}')
         return
       }
-      response.end(JSON.stringify({ choices: [{ message: { content: '（晃晃尾巴）收到喵 (｡•̀ᴗ-)✧' } }] }))
+      response.end(JSON.stringify({ choices: [{ message: { content: latest.includes('真ai吗') ? simulatedIdentity : simulatedReply } }] }))
       return
     }
     const { email, password, otp } = input
@@ -575,14 +579,13 @@ async function runApiChecks(origin, db, items, secret) {
     }
     assert.fail('Automatic reply never appeared in chat history')
   }
-  const simulatedReply = '（晃晃尾巴）收到喵 (｡•̀ᴗ-)✧'
-
   await call(authorPath, { status: 401 })
   await call(`${authorPath}?inbox=1`, { ...chatAlice, status: 403 })
   await call(`${authorPath}?mine=1`, { ...chatAlice, status: 404 })
   assert.deepEqual((await call(authorPath, chatAlice)).data, { unread: false })
   assert.deepEqual((await call(`${authorPath}?inbox=1`, author)).data.conversations, [])
   assert.equal((await db.query('SELECT count(*)::int AS count FROM author_messages')).rows[0].count, 0)
+  await checkAuthorDirectory(call, db, author, chatBob)
   await call(authorPath, { ...author, method: 'POST', status: 403 })
   const [opened, secondOpen] = await Promise.all(Array.from({ length: 2 }, () => call(authorPath, { ...chatAlice, method: 'POST' })))
   assert.equal(opened.data.conversationId, secondOpen.data.conversationId)
@@ -623,10 +626,13 @@ async function runApiChecks(origin, db, items, secret) {
 
   await db.query("UPDATE author_messages SET sent_at = sent_at - interval '5 seconds' WHERE id = $1", [manual.id])
   const privateAsk = (await write(thread, chatAlice, '@Hua Xiaowei 结合私信上一条回答')).data.message
-  await waitForChat(thread, chatAlice, (message) => !message.mine && message.body === simulatedReply)
+  const privateReply = await waitForChat(thread, chatAlice, (message) => !message.mine && message.body === simulatedReply)
+  assert.equal(privateReply.aiReplyTo, privateAsk.id)
   assert.equal(modelCalls.length, 1)
   assert.equal(modelCalls[0].model, 'deepseek-v4.1-flash-1017')
-  const directContext = JSON.stringify(modelCalls[0].messages)
+  const directInput = JSON.parse(modelCalls[0].messages.at(-1).content)
+  assert.equal(directInput.latest, '结合私信上一条回答')
+  const directContext = JSON.stringify(directInput.history)
   assert.match(directContext, /私信历史标记/)
   assert.match(directContext, /管理员回复/)
   assert.doesNotMatch(directContext, /alice@example\.test/)
@@ -649,7 +655,7 @@ async function runApiChecks(origin, db, items, secret) {
   await call(privateAvatar, { ...chatBob, status: 404 })
   assert.equal((await fetch(origin + privateAvatar, { headers: { cookie: `${tokenCookie}=author` } })).status, 200)
 
-  const groupHint = (await write(chatPath, chatAlice, '群聊记住一个词，春天')).data.message
+  const groupHint = (await write(chatPath, chatAlice, '这个头像是随机的吗？群聊记住一个词，春天')).data.message
   await write(chatPath, chatBob, '另一位同学的上下文')
   await db.query("UPDATE chat_messages SET sent_at = sent_at - interval '5 seconds' WHERE id = $1", [groupHint.id])
   const publicWrite = { ...chatAlice, method: 'POST', body: { clientId: randomUUID(), message: '@作者 刚才那个词是什么？' } }
@@ -657,14 +663,23 @@ async function runApiChecks(origin, db, items, secret) {
   assert.equal(publicAsk.data.message.id, retryAsk.data.message.id)
   await waitForChat(chatPath, chatAlice, (message) => message.aiReplyTo === publicAsk.data.message.id)
   assert.equal(modelCalls.length, 2)
-  const publicContext = JSON.stringify(modelCalls[1].messages)
+  const publicInput = JSON.parse(modelCalls[1].messages.at(-1).content)
+  assert.equal(publicInput.latest, '刚才那个词是什么？')
+  const publicContext = JSON.stringify(publicInput.history)
   assert.match(publicContext, /春天/)
   assert.doesNotMatch(publicContext, /私信历史标记|另一位同学的上下文/)
   await db.query("UPDATE chat_messages SET sent_at = sent_at - interval '5 seconds' WHERE id = $1", [publicAsk.data.message.id])
+  const identityAsk = (await write(chatPath, chatAlice, '@作者 真ai吗🤔')).data.message
+  const identityReply = await waitForChat(chatPath, chatAlice, (message) => message.aiReplyTo === identityAsk.id)
+  assert.equal(identityReply.body, simulatedIdentity)
+  const identityInput = JSON.parse(modelCalls[2].messages.at(-1).content)
+  assert.equal(identityInput.latest, '真ai吗🤔')
+  assert.ok(identityInput.history.some(({ content }) => content.includes('这个头像是随机的吗')))
+  await db.query("UPDATE chat_messages SET sent_at = sent_at - interval '5 seconds' WHERE id = $1", [identityAsk.id])
   const providerError = (await write(chatPath, chatAlice, '@作者 接口故障演练')).data.message
   const fallback = await waitForChat(chatPath, chatAlice, (message) => message.aiReplyTo === providerError.id)
   assert.match(fallback.body, /没连上/)
-  assert.equal(modelCalls[2].messages.at(-2).content, simulatedReply)
+  assert.equal(JSON.parse(modelCalls[3].messages.at(-1).content).history.at(-1).content, simulatedIdentity)
   await db.query('DELETE FROM chat_messages; DELETE FROM author_conversations')
 
   return {
