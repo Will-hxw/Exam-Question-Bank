@@ -307,6 +307,8 @@ async function runApiChecks(origin, db, items, secret) {
 
   const topicsPath = '/api/public/topics'
   const bankPath = '/api/public/questions?topic=t01&limit=15&mode=practice'
+  const bankReleasePath = '/api/public/bank-release'
+  assert.deepEqual((await call(bankReleasePath)).data, { release: null })
   const initialTopics = (await call(topicsPath, { metric: 'topicsCold' })).data.topics
   assert.equal(initialTopics.length, 14)
   const initialPage = (await call(bankPath, { metric: 'practicePageCold' })).data
@@ -495,8 +497,21 @@ async function runApiChecks(origin, db, items, secret) {
   const warmTopics = (await call(topicsPath)).data.topics
   assert.notEqual(warmTopics.find(({ id }) => id === 't01').name, newName)
   assert.ok((await call(bankPath)).data.questions.some(({ id }) => id === first.id))
+  const nextTestRelease = 'e'.repeat(64)
+  await db.query('INSERT INTO content_release (digest) VALUES ($1)', [nextTestRelease])
+  const versionDeadline = Date.now() + 25_000
+  let liveRelease
+  do {
+    liveRelease = (await call(bankReleasePath)).data.release
+    if (liveRelease !== nextTestRelease) await sleep(400)
+  } while (liveRelease !== nextTestRelease && Date.now() < versionDeadline)
+  assert.equal(liveRelease, nextTestRelease)
+  assert.equal((await call(topicsPath)).data.topics.find(({ id }) => id === 't01').count, 25)
+  assert.equal((await call(bankPath)).data.total, 25)
+
   const start = performance.now()
   await call('/api/internal/invalidate', { method: 'POST', bearer: secret, metric: 'invalidate' })
+  assert.deepEqual((await call(bankReleasePath)).data, { release: nextTestRelease })
   const refreshed = (await call(topicsPath, { metric: 'topicsAfterInvalidate' })).data.topics
   const updatedPage = (await call(bankPath, { metric: 'practiceAfterInvalidate' })).data
   assert.equal(refreshed.find(({ id }) => id === 't01').name, newName)

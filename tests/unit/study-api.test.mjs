@@ -72,3 +72,41 @@ test('protected previews retry public reads with the browser access cookie', asy
     ['/api/me/stats', 'same-origin', 'no-store'],
   ])
 })
+
+test('the static bank is used only for the active database release', async (t) => {
+  const windowDescriptor = Object.getOwnPropertyDescriptor(globalThis, 'window')
+  const navigatorDescriptor = Object.getOwnPropertyDescriptor(globalThis, 'navigator')
+  Object.defineProperty(globalThis, 'window', { configurable: true, value: new EventTarget() })
+  Object.defineProperty(globalThis, 'navigator', { configurable: true, value: { onLine: true } })
+  t.after(() => {
+    if (windowDescriptor) Object.defineProperty(globalThis, 'window', windowDescriptor)
+    else delete globalThis.window
+    Object.defineProperty(globalThis, 'navigator', navigatorDescriptor)
+  })
+
+  const activeRelease = 'a'.repeat(64)
+  const staticTopics = [{ id: 't01', name: '静态题库', count: 1 }]
+  const databaseTopics = [{ id: 't01', name: '数据库题库', count: 2 }]
+  const group = { total: 1, pages: ['/bank/pages/' + 'b'.repeat(64) + '.json'] }
+  let staticRelease = 'c'.repeat(64)
+  const paths = []
+  t.mock.method(globalThis, 'fetch', async (path) => {
+    paths.push(path)
+    if (path === '/bank/manifest.json') return Response.json({
+      release: staticRelease, topics: staticTopics, pageSize: 15, groups: { _all: group, t01: group },
+    })
+    if (path === '/api/public/bank-release') return Response.json({ release: activeRelease })
+    if (path === '/api/public/topics') return Response.json({ topics: databaseTopics })
+    throw new Error('Unexpected request ' + path)
+  })
+
+  const stale = await import('../../src/features/study/api.ts?bank-release-mismatch')
+  assert.deepEqual(await stale.readPublic('/api/public/topics'), { topics: databaseTopics })
+  assert.deepEqual(paths, ['/bank/manifest.json', '/api/public/bank-release', '/api/public/topics'])
+
+  staticRelease = activeRelease
+  paths.length = 0
+  const matching = await import('../../src/features/study/api.ts?bank-release-match')
+  assert.deepEqual(await matching.readPublic('/api/public/topics'), { topics: staticTopics })
+  assert.deepEqual(paths, ['/bank/manifest.json', '/api/public/bank-release'])
+})

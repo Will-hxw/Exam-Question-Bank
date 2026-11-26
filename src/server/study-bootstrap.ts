@@ -5,6 +5,7 @@ import { join } from 'node:path'
 import { cache } from 'react'
 import { practiceBankPageSize, questionUrl, type QuestionPage, type Topic, validManifest, validPage } from '@/features/study/api'
 import { practiceUndonePreference } from '@/features/study/practice-undone'
+import { bankRelease } from './content'
 import { readStudyPreferences, studyStats } from './learning'
 
 export type PracticeBootstrap = { topics: Topic[]; page?: { path: string; data: QuestionPage } }
@@ -26,8 +27,10 @@ async function releaseManifest() {
 }
 
 export async function initialPracticeBank(userId: string): Promise<PracticeBootstrap | null> {
-  const [manifest, preferences] = await Promise.all([releaseManifest(), initialStudyPreferences(userId)])
-  if (!manifest) return null
+  const [manifest, preferences, active] = await Promise.all([
+    releaseManifest(), initialStudyPreferences(userId), bankRelease().catch(() => null),
+  ])
+  if (!manifest || active?.release !== manifest.release) return null
   const topics = manifest.topics
   if (!preferences) return { topics }
   const practice = preferences.practice as { mode?: string; topic?: string } | undefined
