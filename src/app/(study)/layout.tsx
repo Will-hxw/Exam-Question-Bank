@@ -1,11 +1,9 @@
-import { connection } from 'next/server'
 import { isSiteAuthor } from '@/features/auth/server'
 import { loadStudyUser } from '@/features/auth/study-access'
 import { StudyShell } from '@/features/study/study-shell'
 import '@/features/study/study.css'
 
 export default async function StudyLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  await connection()
   const auth = await loadStudyUser()
 
   if (!auth.available) {
