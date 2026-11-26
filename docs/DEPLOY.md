@@ -24,11 +24,13 @@ Neon Auth 生成并校验验证码，签名的 `send.otp` 事件由本站 `/api/
 
 ## 新用户反馈与分享邮件
 
-先应用 `011_signup_followup_email.sql`，再部署包含 `Signup follow-up email` 工作流的版本。工作流每 2 小时检查一次，正式站复用 QQ SMTP 和验证码邮件外框逐封发送。内部发信入口只接受本仓库 `main` 上该工作流的 GitHub OIDC 令牌。
+正式站复用 QQ SMTP 和验证码邮件外框逐封发送。Neon 定时触发器按 UTC 每两小时运行，对应北京时间偶数小时的整点。GitHub 的 `Signup follow-up email` 工作流保留为手动入口。Neon 使用专用令牌，手动入口使用本仓库 `main` 的 GitHub OIDC 令牌。
 
-自动发送覆盖迁移部署后注册并验证邮箱的账号。迁移 `016_signup_followup_launch_gap.sql` 补入首批手动邮件名单生成后、自动发信迁移上线前注册的账号。首次检查到邮箱已验证满 24 小时，或已保存第 61 次非空作答即符合条件。练习和已交模考都计入。相同账号只保留一条发送记录。QQ 明确拒绝登录时至少暂停一小时，明确的暂时投递失败可重试。对于发送结果无法确认的记录，应先核对原邮件回执再处理。
+已验证账号累计保存至少 20 次非空作答即符合条件。普通练习和已交模考的实际作答都计入。已有邮件接收回执的账号保持已发送。QQ 明确拒绝登录时至少暂停一小时，明确的暂时投递失败可重试。对于发送结果无法确认的记录，应先核对原邮件回执再处理。
 
-部署后可手动运行该工作流并查看回执。GitHub 的定时检查可能延迟，公开仓库连续 60 天无活动时，GitHub 会停用定时工作流。 [GitHub 定时事件](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule)
+启用新触发器前，先把历史群发的服务器接收回执按账号补录到发信表，并应用 `024_signup_followup_verification_clock.sql` 和 `025_signup_followup_answer_threshold.sql`。专用令牌以 `eqb-followup-` 开头，后接 32 个随机字节的 43 位无填充 Base64URL 编码。在 `signup_followup_scheduler` 保存完整令牌的 SHA-256 摘要，在 Neon Function 端保存 `EQB_FOLLOWUP_SCHEDULER_TOKEN`。
+
+从 `functions/signup-followup` 目录运行 `neon deploy`，指定正式分支和本地密钥文件，并加 `--no-env-pull`。检查触发器计划和 `signup_followup_scheduler.last_checked_at`。部署时可临时创建名为 `signup-followup-probe`、路径为 `/probe` 的触发器。它使用 HEAD 检查正式发信入口的认证，核对通过后删除该临时触发器。 [Neon 定时触发器](https://neon.com/docs/cli/triggers)
 
 ## 作者对话与自动回复
 
