@@ -7,7 +7,7 @@ from urllib.parse import parse_qs, urlsplit
 
 from playwright.sync_api import expect, sync_playwright
 from chat_browser import check_author_chat, check_chat, check_feedback
-from exam_conflict_browser import check_exam_conflict
+from exam_conflict_browser import check_exam_conflict, check_exam_receipts
 from practice_undone_browser import check_undone_practice
 
 
@@ -867,6 +867,7 @@ with sync_playwright() as playwright:
         check_undone_practice(browser, ORIGIN, HOST, COOKIE_NAME)
         check_favorite_tail(browser)
         check_exam_conflict(browser, ORIGIN, HOST, COOKIE_NAME)
+        check_exam_receipts(browser, ORIGIN, HOST, COOKIE_NAME)
         print('CHAT_BROWSER_E2E two accounts, mobile and desktop, rename persistence, emoji and plain text')
         print('BROWSER_E2E ' + json.dumps(run(browser), ensure_ascii=False))
     finally:

@@ -162,7 +162,7 @@ export function useExamDraft(userId: string, exam: Exam) {
               throw error
             }
             refreshNeeded.current = true
-            if (keepalive || !navigator.onLine || ++conflicts >= 3) throw error
+            if (keepalive || ++conflicts >= 3) throw error
           }
         }
       } catch (error) {
@@ -229,7 +229,7 @@ export function useExamDraft(userId: string, exam: Exam) {
       return false
     } catch (error) {
       if (!(error instanceof StudyRequestError) || error.status !== 409) {
-        if (uncertainWrite(error) && navigator.onLine) {
+        if (uncertainWrite(error)) {
           const result = await readCloud().catch(() => null)
           if (result?.status === 'submitted') {
             finish(result, result.revision !== snapshot.revision + 1 || !sameExamAnswers(snapshot, result))

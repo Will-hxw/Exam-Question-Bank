@@ -26,6 +26,7 @@ const users = new Map([
   ['undone', { id: 'e2e-undone', email: 'undone@example.test', emailVerified: true }],
   ['conflict', { id: 'e2e-conflict', email: 'conflict@example.test', emailVerified: true }],
   ['rejection', { id: 'e2e-rejection', email: 'rejection@example.test', emailVerified: true }],
+  ['receipt', { id: 'e2e-receipt', email: 'receipt@example.test', emailVerified: true }],
   ['author', { id: 'e2e-author', email: 'xiaoweihuacqu@gmail.com', emailVerified: true }],
   ['unverified', { id: 'e2e-unverified', email: 'unverified@example.test', emailVerified: false }],
 ])
@@ -831,8 +832,10 @@ try {
     assert.deepEqual(browserWrites.rows, [{ mode: 'exam', count: 24 }, { mode: 'practice', count: 2 }])
     const browserFavorites = await db.query('SELECT count(*)::int AS count FROM favorites WHERE user_id=$1', [users.get('browser').id])
     assert.equal(browserFavorites.rows[0].count, 0)
-    const conflictWrites = await db.query("SELECT count(*)::int AS count FROM attempts WHERE user_id=$1 AND mode='exam'", [users.get('conflict').id])
-    assert.equal(conflictWrites.rows[0].count, 8)
+    for (const account of ['conflict', 'receipt']) {
+      const { rows } = await db.query("SELECT count(*)::int AS count FROM attempts WHERE user_id=$1 AND mode='exam'", [users.get(account).id])
+      assert.equal(rows[0].count, 8)
+    }
     await seedUnreadInbox(db)
     await run(python, [join(root, 'tests', 'e2e', 'additional_study_browser.py')], { cwd: root, env: browserEnv })
   }

@@ -1,6 +1,48 @@
 from playwright.sync_api import expect
 
 
+def check_exam_receipts(browser, origin, host, cookie_name):
+    context = browser.new_context(service_workers='block')
+    context.add_cookies([{
+        'name': cookie_name, 'value': 'receipt', 'domain': host, 'path': '/',
+        'secure': True, 'httpOnly': True, 'sameSite': 'Strict',
+    }])
+    page = context.new_page()
+    headers = {'Cookie': f'{cookie_name}=receipt', 'Origin': origin, 'X-Study-Account': 'e2e-receipt'}
+
+    def drop_receipt(route):
+        request = route.request
+        committed = page.request.fetch(request.url, method=request.method, headers=headers, data=request.post_data_json)
+        assert committed.ok, committed.text()
+        route.abort('connectionreset')
+
+    try:
+        page.goto(origin + '/exam')
+        page.get_by_role('spinbutton', name='题数').fill('8')
+        with page.expect_response(lambda response: response.url.endswith('/api/exams') and
+                                  response.request.method == 'POST') as started:
+            page.get_by_role('button', name='开始考试').click()
+        draft_path = origin + '/api/exams/' + started.value.json()['exam']['id']
+        page.route(draft_path + '?ack=1', drop_receipt, times=1)
+        with page.expect_event('requestfailed', lambda req: req.url == draft_path + '?ack=1'):
+            page.locator('.exam-question-card .option').first.click()
+        expect(page.get_by_text('草稿已云端同步')).to_be_visible(timeout=12_000)
+        expect(page.locator('.exam-nav-item.answered')).to_have_text('1')
+        assert len(page.request.get(draft_path, headers=headers).json()['exam']['answers']) == 1
+
+        submit_path = draft_path + '/submit'
+        page.route(submit_path, drop_receipt, times=1)
+        page.get_by_role('button', name='交卷', exact=True).click()
+        with page.expect_event('requestfailed', lambda req: req.url == submit_path):
+            page.get_by_role('dialog').get_by_role('button', name='确认交卷', exact=True).click()
+        expect(page.locator('.exam-result-item')).to_have_count(8, timeout=12_000)
+        result = page.request.get(draft_path, headers=headers).json()['exam']
+        assert result['status'] == 'submitted'
+        expect(page.locator('.exam-score-num')).to_have_text(str(result['score']))
+    finally:
+        context.close()
+
+
 def check_exam_conflict(browser, origin, host, cookie_name):
     def device():
         context = browser.new_context(service_workers='block')
@@ -31,18 +73,6 @@ def check_exam_conflict(browser, origin, host, cookie_name):
 
     first, second = device(), device()
     primary, lagging = first.new_page(), second.new_page()
-    receipts_lost = []
-    headers = {'Cookie': f'{cookie_name}=conflict', 'Origin': origin, 'X-Study-Account': 'e2e-conflict'}
-
-    def drop_receipt(route):
-        committed = route.request.frame.page.request.fetch(
-            route.request.url, method=route.request.method, headers=headers,
-            data=route.request.post_data_json,
-        )
-        assert committed.ok, committed.text()
-        receipts_lost.append(route.request.method)
-        route.abort('connectionreset')
-
     try:
         primary.goto(origin + '/exam')
         primary.get_by_role('spinbutton', name='题数').fill('8')
@@ -76,7 +106,6 @@ def check_exam_conflict(browser, origin, host, cookie_name):
         expect(lagging.locator('.exam-nav-item')).to_have_count(8)
 
         second.set_offline(True)
-        primary.route('**/api/exams/*?ack=1', drop_receipt, times=1)
         pick(primary, 1, 0)
         mark(primary, 4)
         synced(primary)
@@ -125,10 +154,8 @@ def check_exam_conflict(browser, origin, host, cookie_name):
         expect(lagging.get_by_text('草稿已更新，请核对答案后再交卷。')).to_be_visible()
         answered(lagging, [1, 2, 3, 6])
         expect(lagging.get_by_role('heading', name='考试结果')).to_have_count(0)
-        lagging.route('**/api/exams/*/submit', drop_receipt, times=1)
         hand_in(lagging)
         expect(lagging.locator('.exam-result-item')).to_have_count(8)
-        assert receipts_lost == ['PUT', 'POST']
         expect(lagging.locator('.exam-result-item').nth(6)).to_contain_text('未作答')
 
         first.set_offline(False)
