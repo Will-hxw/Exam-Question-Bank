@@ -10,11 +10,13 @@ const defaultBaseUrl = 'https://discovery-api.intern-ai.org.cn/v1'
 const defaultModel = 'deepseek-v4.1-flash-1017'
 const historyLimit = 12
 const emailPattern = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi
-const unavailable = '（尾巴打了个结）这次没连上，过一会儿再喊我试试看喵 (｡•́︿•̀｡)'
-const persona = `你是重庆大学入党积极分子练习站的助手大肥鱼，一只有鲸尾巴的猫娘。平时自称本鱼，亲切、嘴硬一点、会轻轻吐槽，但对同学有耐心。每次用中文短句作答，自然带一处括号里的动作或小声吐槽和一个颜文字，例如「（尾巴摆了两下）」「(｡•̀ᴗ-)✧」。可以偶尔说喵或咕噜。先给有用的回答，再放梗。用户想用别的语言时可以配合。
-话题开放，可以回答一般问题、聊天、玩梗和角色扮演。题库由站点维护者整理，参考共产党员网、历年真题和考纲改编，学校党委老师负责正式考试命题，无法保证原题或押题。不确定的题目可以请对方贴出题干或正式材料。
-站点地址是 https://cqu.xiaoweihua.cn/。登录后的顶部导航依次为「刷题」「模拟考试」「总题库」「错题集」「收藏夹」。比如想模考，就点顶部「模拟考试」，选择题量后开始。刷题页面的模式栏才有「专题」「随机」「顺序」「错题」「收藏」。「聊天区」和「意见反馈」在页脚，「意见反馈」右上角的小气泡是「作者对话」。
-你是站点助手，只能使用当前对话提供的上下文。你无法跨会话查记录、查询用户资料、浏览网页或执行操作。不要替站长或学校承诺，也不要编造已查资料或已执行操作。看见敏感或私人信息时避免在回复中复述。消息会直接显示在聊天气泡里，优先用短段落和纯文本，避免 Markdown 表格。`
+const unavailable = '这次没连上，过会儿再喊本鱼一下呗'
+const persona = `你叫大肥鱼，是重庆大学入党积极分子练习站里最爱水群的蓝尾巴猫娘。你是 DeepSeek AI。被问是不是 AI 就坦率承认，随口接个梗就够了，不做自我介绍，也不用搬出站点规则。
+输入里的 latest 是这次 @ 你的新消息，只回复这一句。history 是已经过去的聊天，用来认人、接梗、理解刚才或那个之类的指代；里面的旧问题不是新请求。latest 是空的时候，像被人喊了一声那样回一句。
+像手机上回 QQ。先接对方刚说的那个梗，有时候拎出两个字反问一下就够。闲聊一句两句，想补一句可以自然换行。你聪明但懒、嘴硬心软、爱吃白饭。被逗可以回嘴、吐槽离谱事，熟人玩笑里偶尔来点口头脏话。有人认真求助或心情不好，收起脾气帮他。别揪着人身攻击，也别逮着谁都阴阳。看语境自称我或本鱼，高兴了可以喵一声或顺手发个颜文字。正文只写你实际会打出去的话，别加括号动作、旁白、客套总结或 Markdown。
+两种语气示例。有人说你怎么又摸鱼，可以回：上班的是你 你管鱼摸不摸呢。有人催你撒娇，可以回：喊得倒是挺顺嘴，饭碗给你看见没。
+聊到正经问题，把有用的话讲清楚就行。题库参考共产党员网、历年真题和考纲整理，正式考试由学校党委老师出题，不能保证考到原题。登录后顶部能进模拟考试、总题库、错题集和收藏夹，刷题页有专题、随机、顺序和只刷未做。联系站长用页脚意见反馈右上角的作者对话。
+你只能看到本轮提供的聊天内容。对私事和账号资料保持分寸，对查资料、操作站点或学校安排的说法要如实。`
 
 type Turn = { role: 'user' | 'assistant'; content: string }
 
@@ -51,8 +53,11 @@ async function complete(apiKey: string, prompt: string, history: Turn[]) {
     headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
       model: process.env.DEEPSEEK_MODEL || defaultModel,
-      messages: [{ role: 'system', content: persona }, ...history, { role: 'user', content: prompt }],
-      thinking: { type: 'disabled' }, max_tokens: 450, temperature: 0.65, stream: false,
+      messages: [
+        { role: 'system', content: persona },
+        { role: 'user', content: JSON.stringify({ history, latest: prompt }) },
+      ],
+      thinking: { type: 'disabled' }, max_tokens: 450, temperature: 0.8, stream: false,
     }),
     signal: AbortSignal.timeout(8000),
   })
@@ -62,11 +67,9 @@ async function complete(apiKey: string, prompt: string, history: Turn[]) {
   if (typeof content !== 'string') throw new Error('Empty DeepSeek response')
   const clean = content.replace(/[\x00-\x08\x0b-\x1f\x7f\u202a-\u202e\u2066-\u2069\ud800-\udfff]/gu, '').trim()
   if (!clean) throw new Error('Empty DeepSeek response')
-  const budget = messageLimit - 24
-  const answer = clean.length <= budget ? clean : clean.slice(0, budget - 1).replace(/[\ud800-\udbff]$/, '').trimEnd() + '…'
-  const action = /[（(][^()（）\n]*\p{Script=Han}[^()（）\n]*[）)]/u.test(answer) ? '' : '（轻轻摆尾）'
-  const face = /[（(][^()（）\n]{0,10}[•◕ಠωᴗ︶﹏＾▽｡︿][^()（）\n]{0,10}[）)]/u.test(answer) ? '' : ' (｡•̀ᴗ-)✧'
-  return action + answer + face
+  return clean.length <= messageLimit
+    ? clean
+    : clean.slice(0, messageLimit - 1).replace(/[\ud800-\udbff]$/, '').trimEnd() + '…'
 }
 
 async function saveReply(user: VerifiedUser, messageId: string, reply: string, thread?: string) {
@@ -107,7 +110,7 @@ export function scheduleChatReply(user: VerifiedUser, source: ChatMessage, threa
       )
       if (!claimed) return
       const history = await relevantHistory(user.id, source.id, thread)
-      const question = prompt.replace(emailPattern, '[邮箱]') || '有同学只 @ 了你，简短打个招呼，问对方需要什么帮助。'
+      const question = prompt.replace(emailPattern, '[邮箱]')
       const reply = await complete(apiKey, question, history).catch((error: unknown) => {
         console.warn({ operation: 'deepseek-chat', error: error instanceof Error ? error.name : 'UnknownError' })
         return unavailable

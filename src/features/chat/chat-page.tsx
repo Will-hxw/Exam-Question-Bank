@@ -79,7 +79,10 @@ function Message({ message, nickname, previous, authorAvatar, onMention }: {
         : <MentionAvatar message={message} nickname={nickname} authorAvatar={authorAvatar} onMention={onMention} />}
       <div className="chat-message-content">
         <span className="chat-nickname">{nickname}</span>
-        <p className="chat-bubble" dir="auto">{message.body}</p>
+        <p className={`chat-bubble${message.aiReplyTo ? ' chat-bubble-ai' : ''}`} dir="auto">
+          {message.aiReplyTo && <span className="chat-ai-label">AI 自动回复</span>}
+          {message.body}
+        </p>
       </div>
     </div>
   </li>
