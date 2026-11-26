@@ -60,7 +60,6 @@
   -webkit-touch-callout: none;
 }
 .study-shell .chat-avatar-button img { pointer-events: none; }
-.study-shell .chat-mention { font-size: 21px; font-family: var(--ui-font); }
 .study-shell .chat-counterpart {
   display: flex;
   align-items: center;
@@ -204,7 +203,7 @@ html[data-theme="dark"] .study-shell .chat-ai-label { color: #f5ce70; }
 }
 .study-shell .chat-composer textarea:focus { outline: none; border-color: var(--border); }
 .study-shell .chat-composer-actions { display: flex; position: relative; align-items: center; gap: 8px; min-height: 38px; }
-.study-shell .chat-emoji { flex: none; }
+.study-shell :is(.chat-emoji, .chat-mention) { flex: none; }
 .study-shell .chat-emoji-panel {
   position: absolute;
   z-index: 1;

@@ -426,7 +426,12 @@ export default function ChatPage({ backHref, backLabel = '返回练习', direct 
           {emojis.map((emoji) => <button key={emoji} type="button" onClick={() => insertText(emoji)}>{emoji}</button>)}
         </div>}
         <button className="chat-icon-button chat-mention" type="button" aria-label={direct && room.peer && !room.peer.author ? '提及对方' : '提及作者'}
-          disabled={!room.profile} onClick={() => mention(room.peer)}>@</button>
+          disabled={!room.profile} onClick={() => mention(room.peer)}>
+          <svg aria-hidden="true" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.65" strokeLinecap="round">
+            <circle cx="12" cy="12" r="3.5" />
+            <path d="M15.5 8.5v4.85a2.65 2.65 0 0 0 5.3 0V12a8.8 8.8 0 1 0-3.52 7.04" />
+          </svg>
+        </button>
         {draft.length >= messageLimit - 50 && <span className="chat-length">{draft.length}/{messageLimit}</span>}
         <button className="btn btn-sm primary chat-send" type="submit" disabled={!room.profile || !draft.trim() || sending}>
           发送
