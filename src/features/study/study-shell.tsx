@@ -73,16 +73,41 @@ function emptyHash() {
   return ''
 }
 
+function footerPath(url: URL | Location) {
+  return url.pathname + url.search + url.hash
+}
+
+function footerHistory(): string[] {
+  const back = history.state?.studyFooterBack
+  return typeof back === 'string' ? [back] : back ?? []
+}
+
+function returnToFooterPath(url: URL) {
+  const entries = footerHistory()
+  const index = entries.lastIndexOf(footerPath(url))
+  if (index >= 0) {
+    history.go(index - entries.length)
+    return
+  }
+  history.replaceState(history.state, '', url)
+  window.dispatchEvent(new HashChangeEvent('hashchange'))
+}
+
 function closeFooterPage(event: { preventDefault: () => void }) {
   event.preventDefault()
   const url = new URL(location.href)
-  if (history.state?.studyFooterBack === url.pathname + url.search) {
-    history.back()
-    return
-  }
   url.hash = ''
-  history.replaceState(history.state, '', url)
-  window.dispatchEvent(new HashChangeEvent('hashchange'))
+  returnToFooterPath(url)
+}
+
+function isFooterLinkClick(event: MouseEvent<HTMLAnchorElement>) {
+  return !event.defaultPrevented && event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey
+}
+
+function backFromAuthorChat(event: MouseEvent<HTMLAnchorElement>) {
+  if (!isFooterLinkClick(event)) return
+  event.preventDefault()
+  returnToFooterPath(new URL(event.currentTarget.href))
 }
 
 function useTheme(theme: unknown, save: (edits: Record<string, unknown>) => void) {
@@ -308,17 +333,19 @@ export function StudyShell({ userId, author, initialPreferences, initialStats, c
     return false
   }
 
-  function openFooterPage(event: MouseEvent<HTMLAnchorElement>) {
-    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+  function openFooterPage(event: MouseEvent<HTMLAnchorElement>, nested = false) {
+    if (!isFooterLinkClick(event)) return false
     const destination = new URL(event.currentTarget.href)
     event.preventDefault()
-    if (destination.hash === hash || !navigateFromExam(event)) return
-    if (footerPageOpen) {
-      history.replaceState(history.state, '', destination)
-    } else {
-      history.pushState({ ...history.state, studyFooterBack: destination.pathname + destination.search }, '', destination)
+    if (destination.hash === hash || (!nested && !navigateFromExam(event))) return false
+    if (footerPageOpen && !nested) {
+      returnToFooterPath(destination)
+      return true
     }
+    const back = nested ? [...footerHistory(), footerPath(location)] : [destination.pathname + destination.search]
+    history.pushState({ ...history.state, studyFooterBack: back }, '', destination)
     window.dispatchEvent(new HashChangeEvent('hashchange'))
+    return true
   }
 
   return (
@@ -373,10 +400,11 @@ export function StudyShell({ userId, author, initialPreferences, initialStats, c
             {(feedbackOpen || authorChatOpen) && <div hidden={!feedbackOpen}>
               <FeedbackPage pathname={pathname} userId={userId} active={feedbackOpen} unread={unread}
                 onBack={closeFooterPage} warmAuthorChat={() => { void loadAuthorChat().catch(() => {}) }}
-                onOpenAuthorChat={() => setAuthorChatRequested(true)} />
+                onOpenAuthorChat={(event) => { if (openFooterPage(event, true)) setAuthorChatRequested(true) }} />
             </div>}
             {authorChatOpen && <AuthorChatPage userId={userId} author={author} threadId={threadId}
-              allowCreate={authorChatRequested} onRead={updateUnread} />}
+              allowCreate={authorChatRequested} onRead={updateUnread} onBack={backFromAuthorChat}
+              onOpenThread={(event) => openFooterPage(event, true)} />}
             {sponsorOpen && (
               <section className="sponsor-page" aria-labelledby="sponsor-title">
                 <a className="btn btn-sm footer-page-back sponsor-back" href={pathname} onClick={closeFooterPage}>← 返回练习</a>

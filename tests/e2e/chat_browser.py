@@ -212,6 +212,47 @@ def check_chat(browser, mobile_context, origin, host, cookie_name):
         mobile.close()
 
 
+def check_author_chat_history(page, origin):
+    library = origin + '/questions'
+    page.goto(origin, wait_until='domcontentloaded')
+    page.get_by_role('link', name='总题库').tap()
+    expect(page).to_have_url(library)
+
+    feedback = page.get_by_role('link', name='打开意见反馈页面')
+    author_chat = page.get_by_role('link', name='作者对话')
+    back_to_feedback = page.get_by_role('link', name='返回意见反馈')
+    back_to_library = page.get_by_role('link', name='← 返回练习')
+
+    feedback.tap()
+    author_chat.tap()
+    back_to_feedback.tap()
+    expect(page).to_have_url(library + '#feedback')
+    back_to_library.tap()
+    expect(page).to_have_url(library)
+    page.go_back()
+    expect(page).to_have_url(origin + '/')
+    page.go_forward()
+    expect(page).to_have_url(library)
+
+    page.go_forward()
+    expect(page).to_have_url(library + '#feedback')
+    page.go_forward()
+    expect(page).to_have_url(library + '#author-chat')
+    page.go_back()
+    expect(author_chat).to_be_visible()
+    back_to_library.tap()
+
+    # A direct link has no recorded parent and must keep its query when closed.
+    direct = library + '?navigation=direct'
+    page.goto(direct + '#author-chat', wait_until='domcontentloaded')
+    back_to_feedback.tap()
+    expect(page).to_have_url(direct + '#feedback')
+    back_to_library.tap()
+    expect(page).to_have_url(direct)
+    page.go_back()
+    expect(page).to_have_url(library)
+
+
 def check_author_chat(browser, mobile_context, origin, host, cookie_name):
     student = mobile_context(browser)
     owner = browser.new_context(viewport={'width': 1280, 'height': 820}, locale='zh-CN', color_scheme='dark')
@@ -263,6 +304,10 @@ def check_author_chat(browser, mobile_context, origin, host, cookie_name):
         guest.get_by_role('link', name='← 返回练习').tap()
         expect(guest).to_have_url(origin + '/')
 
+        history_page = student.new_page()
+        check_author_chat_history(history_page, origin)
+        history_page.close()
+
         inbox = owner.new_page()
         inbox.goto(origin + '/#chat', wait_until='domcontentloaded')
         owner_profile = inbox.locator('.chat-author-profile')
@@ -277,7 +322,13 @@ def check_author_chat(browser, mobile_context, origin, host, cookie_name):
         new_contact.click()
         expect(inbox.locator('.chat-counterpart small')).to_have_text('alice@example.test')
         expect(inbox.locator('.chat-bubble')).to_have_count(0)
+        thread_url = inbox.url
+        inbox.go_back()
+        expect(inbox).to_have_url(origin + '/#author-chat')
+        inbox.go_forward()
+        expect(inbox).to_have_url(thread_url)
         inbox.get_by_role('link', name='返回会话列表').click()
+        expect(inbox).to_have_url(origin + '/#author-chat')
         inbox.get_by_role('button', name='仅看未读').click()
         search = inbox.get_by_role('searchbox', name='搜索会话')
         search.fill('不存在的邮箱')

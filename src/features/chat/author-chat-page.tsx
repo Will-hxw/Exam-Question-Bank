@@ -1,12 +1,14 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { type MouseEventHandler, useEffect, useRef, useState } from 'react'
 import { requestJson } from '@/features/study/api'
 import ChatPage, { Avatar, ChatHeader, messageTime } from './chat-page'
 import { authorChatHash, authorChatPath, unreadDescriptionId, type AuthorInbox } from './types'
 import { chatError, useChatRoom } from './use-chat-room'
 
-function InboxList({ userId, onlyUnread, search }: { userId: string; onlyUnread: boolean; search: string }) {
+function InboxList({ userId, onlyUnread, search, onOpenThread }: {
+  userId: string; onlyUnread: boolean; search: string; onOpenThread: MouseEventHandler<HTMLAnchorElement>
+}) {
   const [inbox, setInbox] = useState<AuthorInbox>()
   const [depth, setDepth] = useState(1)
   const [error, setError] = useState('')
@@ -80,7 +82,7 @@ function InboxList({ userId, onlyUnread, search }: { userId: string; onlyUnread:
     <div className="author-inbox-log" role="region" aria-label="作者会话列表">
       {conversations.length > 0 ? <ul className="author-inbox-list">
         {conversations.map((row) => <li key={row.userId}>
-          <a href={`${authorChatHash}/${row.id ?? `contact/${encodeURIComponent(row.userId)}`}`} className="author-inbox-row"
+          <a href={`${authorChatHash}/${row.id ?? `contact/${encodeURIComponent(row.userId)}`}`} className="author-inbox-row" onClick={onOpenThread}
             aria-describedby={row.unread ? unreadDescriptionId : undefined}>
             <div className="author-inbox-avatar">
               <Avatar profile={row.peer} size={44} />
@@ -106,12 +108,14 @@ function InboxList({ userId, onlyUnread, search }: { userId: string; onlyUnread:
   </>
 }
 
-function Inbox({ userId, onlyUnread, setOnlyUnread, search, setSearch }: {
+function Inbox({ userId, onlyUnread, setOnlyUnread, search, setSearch, onBack, onOpenThread }: {
   userId: string
   onlyUnread: boolean
   setOnlyUnread: (value: boolean) => void
   search: string
   setSearch: (value: string) => void
+  onBack: MouseEventHandler<HTMLAnchorElement>
+  onOpenThread: MouseEventHandler<HTMLAnchorElement>
 }) {
   const section = useRef<HTMLElement>(null)
   const heading = useRef<HTMLHeadingElement>(null)
@@ -125,7 +129,7 @@ function Inbox({ userId, onlyUnread, setOnlyUnread, search, setSearch }: {
     return () => clearTimeout(timer)
   }, [search])
   return <section ref={section} className="chat-room" aria-labelledby="chat-title">
-    <ChatHeader title="作者对话" heading={heading} backHref="#feedback" backLabel="返回意见反馈" />
+    <ChatHeader title="作者对话" heading={heading} backHref="#feedback" backLabel="返回意见反馈" onBack={onBack} />
     <div className="author-inbox-controls">
       <div className="author-inbox-filter" role="group" aria-label="筛选会话">
         <button type="button" aria-pressed={!onlyUnread} onClick={() => setOnlyUnread(false)}>全部</button>
@@ -138,36 +142,39 @@ function Inbox({ userId, onlyUnread, setOnlyUnread, search, setSearch }: {
           value={search} onChange={(event) => setSearch(event.target.value)} />
       </label>
     </div>
-    <InboxList key={`${onlyUnread}:${query}`} userId={userId} onlyUnread={onlyUnread} search={query} />
+    <InboxList key={`${onlyUnread}:${query}`} userId={userId} onlyUnread={onlyUnread} search={query} onOpenThread={onOpenThread} />
   </section>
 }
 
-function Thread({ userId, author, threadId, allowCreate, onRead }: {
+function Thread({ userId, author, threadId, allowCreate, onRead, onBack }: {
   userId: string
   author: boolean
   threadId?: string
   allowCreate: boolean
   onRead: (unread: boolean) => void
+  onBack: MouseEventHandler<HTMLAnchorElement>
 }) {
   const contact = threadId?.startsWith('contact/') ? threadId.slice('contact/'.length) : undefined
   const room = useChatRoom(userId, { threadId: contact === undefined ? threadId : undefined, contact, allowCreate })
   const participant = author ? room.peer?.authorKey ?? threadId : 'own'
   const draftKey = `cqu-chat-draft:${userId}:author:${participant}`
   return <ChatPage room={room} draftKey={draftKey} direct backHref={author ? authorChatHash : '#feedback'}
-    backLabel={author ? '返回会话列表' : '返回意见反馈'} onRead={onRead} />
+    backLabel={author ? '返回会话列表' : '返回意见反馈'} onRead={onRead} onBack={onBack} />
 }
 
-export default function AuthorChatPage({ userId, author, threadId, allowCreate, onRead }: {
+export default function AuthorChatPage({ userId, author, threadId, allowCreate, onRead, onBack, onOpenThread }: {
   userId: string
   author: boolean
   threadId?: string
   allowCreate: boolean
   onRead: (unread: boolean) => void
+  onBack: MouseEventHandler<HTMLAnchorElement>
+  onOpenThread: MouseEventHandler<HTMLAnchorElement>
 }) {
   const [onlyUnread, setOnlyUnread] = useState(false)
   const [search, setSearch] = useState('')
   if (author && !threadId) return <Inbox userId={userId} onlyUnread={onlyUnread} setOnlyUnread={setOnlyUnread}
-    search={search} setSearch={setSearch} />
+    search={search} setSearch={setSearch} onBack={onBack} onOpenThread={onOpenThread} />
   return <Thread key={author ? threadId : userId} userId={userId} author={author}
-    threadId={author ? threadId : undefined} allowCreate={allowCreate} onRead={onRead} />
+    threadId={author ? threadId : undefined} allowCreate={allowCreate} onRead={onRead} onBack={onBack} />
 }

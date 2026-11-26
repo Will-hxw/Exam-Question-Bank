@@ -30,7 +30,7 @@ export function FeedbackPage({ pathname, userId, active, unread, onBack, warmAut
   unread: boolean
   onBack: MouseEventHandler<HTMLAnchorElement>
   warmAuthorChat: () => void
-  onOpenAuthorChat: () => void
+  onOpenAuthorChat: MouseEventHandler<HTMLAnchorElement>
 }) {
   const page = useRef<HTMLElement>(null)
   const heading = useRef<HTMLHeadingElement>(null)
