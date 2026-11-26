@@ -150948,5 +150948,219 @@
         "notes": "2025年反浪费条例第四条公开透明原则明确除国家秘密事项外，公务活动公共资金、资产、资源使用应按规定公开。登记备案不代替公开。"
       }
     }
+  },
+  {
+    "id": "40dfa276-2036-484d-8ab0-34765a0ea2fb",
+    "state": "ready",
+    "topicId": "t02",
+    "knowledgePointId": "e116e38a-c761-4b2a-bf1e-3eb7e5ed7bc7",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "二十大报告指出，坚持长期共存、（ ）、肝胆相照、荣辱与共。",
+    "scopeNote": "以题干所引公开文献的具体词位、对象和条件判答。",
+    "difficulty": "intermediate",
+    "taskType": "recall",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "四个选项都是政党合作或履职的常用四字术语，需回忆报告的固定词位。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "f33c3013-a6c1-4a23-9382-c9a344ba0cfe",
+        "text": "民主监督",
+        "rationale": "民主监督是民主党派基本职能之一，方针的第二项用互相监督。",
+        "evidence": [
+          {
+            "sourceId": "S-UFW-2020",
+            "location": "第三章第十二条",
+            "claim": "民主监督是民主党派基本职能之一，方针的第二项用互相监督。"
+          }
+        ]
+      },
+      {
+        "id": "a36e96c4-38fb-49ad-b5cd-6273f5ec71a9",
+        "text": "互相监督",
+        "rationale": "互相监督列在长期共存之后、肝胆相照之前。",
+        "evidence": [
+          {
+            "sourceId": "S03",
+            "location": "第六部分第（四）项发挥我国社会主义新型政党制度优势段",
+            "claim": "互相监督列在长期共存之后、肝胆相照之前。"
+          }
+        ]
+      },
+      {
+        "id": "01edf323-0ea4-439c-8259-de8b0d8f2180",
+        "text": "政治协商",
+        "rationale": "政治协商是民主党派基本职能之一，方针的第二项用互相监督。",
+        "evidence": [
+          {
+            "sourceId": "S-UFW-2020",
+            "location": "第三章第十二条",
+            "claim": "政治协商是民主党派基本职能之一，方针的第二项用互相监督。"
+          }
+        ]
+      },
+      {
+        "id": "118311c7-10b7-4001-b61e-4e48bddf8e3e",
+        "text": "参政议政",
+        "rationale": "参政议政是民主党派基本职能之一，方针的第二项用互相监督。",
+        "evidence": [
+          {
+            "sourceId": "S-UFW-2020",
+            "location": "第三章第十二条",
+            "claim": "参政议政是民主党派基本职能之一，方针的第二项用互相监督。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "a36e96c4-38fb-49ad-b5cd-6273f5ec71a9"
+    ],
+    "explanation": "二十大报告在爱国统一战线部分列明这四项，第二项为互相监督。",
+    "distinction": "四项基本方针中的互相监督与民主党派履职用语中的民主监督，需要分别识记。",
+    "evidence": [
+      {
+        "sourceId": "S03",
+        "location": "第六部分第（四）项发挥我国社会主义新型政党制度优势段",
+        "claim": "第二项为互相监督。"
+      },
+      {
+        "sourceId": "S-UFW-2020",
+        "location": "第三章第十二条",
+        "claim": "条例列出同一方针，并规定民主党派的基本职能。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "资料补核初审",
+        "date": "2026-11-27",
+        "choice": [
+          "a36e96c4-38fb-49ad-b5cd-6273f5ec71a9"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "P21-055 与副本 P27-055 同题，改成报告原文一个词位的单选。",
+        "digest": "01a99f0d2c2421796cbbee1aef585625dea0ad6f0ef68eebea281d75f13198ef"
+      },
+      "independent": {
+        "reviewer": "原文与考法复核",
+        "date": "2026-11-27",
+        "choice": [
+          "a36e96c4-38fb-49ad-b5cd-6273f5ec71a9"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "逐字对照二十大报告第六部分第四项，空位是互相监督。条例第十二条的三个履职术语用于同类干扰，且题库没有另一道考这四项方针的题。",
+        "digest": "01a99f0d2c2421796cbbee1aef585625dea0ad6f0ef68eebea281d75f13198ef"
+      }
+    }
+  },
+  {
+    "id": "3162378b-bfc2-4c8d-b7e6-700c079c1b82",
+    "state": "ready",
+    "topicId": "t12",
+    "knowledgePointId": "5bb52665-4c64-4fe3-a049-d3abc2900646",
+    "relatedKnowledgePointIds": [],
+    "type": "single",
+    "stem": "中央组织部公开答问将工作消极懈怠、不发挥先锋模范作用列为（ ）的主要适用情形。",
+    "scopeNote": "以题干所引公开文献的具体词位、对象和条件判答。",
+    "difficulty": "intermediate",
+    "taskType": "recall",
+    "difficultyReason": "根据题干指定的文献及适用范围对比选项。",
+    "emotionOnly": false,
+    "emotionReason": "四项均涉及教育管理中的党员处理或党籍状态，需要区分各自的适用情形。",
+    "orderLocked": false,
+    "options": [
+      {
+        "id": "92fa7919-dca3-477b-a50c-06749f655bef",
+        "text": "劝其退党",
+        "rationale": "因个人目的以退党相要挟且经教育不改等，属于劝其退党的情形。",
+        "evidence": [
+          {
+            "sourceId": "S-UQ-2024",
+            "location": "组织处置适用情形答问",
+            "claim": "因个人目的以退党相要挟且经教育不改等，属于劝其退党的情形。"
+          }
+        ]
+      },
+      {
+        "id": "d8fe18d9-4cd4-4e30-bfd1-5206747f4d67",
+        "text": "停止党籍",
+        "rationale": "党员失联六个月以上且经多种方式查找仍无法联系等，按规定予以停止党籍。",
+        "evidence": [
+          {
+            "sourceId": "S34",
+            "location": "第五章第二十四条",
+            "claim": "党员失联六个月以上且经多种方式查找仍无法联系等，按规定予以停止党籍。"
+          }
+        ]
+      },
+      {
+        "id": "d8334777-0e19-4187-84d5-28eea433febd",
+        "text": "限期改正",
+        "rationale": "答问把工作消极懈怠、不发挥先锋模范作用归入限期改正的主要情形。",
+        "evidence": [
+          {
+            "sourceId": "S-UQ-2024",
+            "location": "组织处置适用情形答问",
+            "claim": "答问把工作消极懈怠、不发挥先锋模范作用归入限期改正的主要情形。"
+          }
+        ]
+      },
+      {
+        "id": "c403d0e5-2f5e-4d9d-86f6-0be768226a5f",
+        "text": "除名",
+        "rationale": "理想信念缺失、政治立场动摇且已丧失党员条件等，属于除名的情形。",
+        "evidence": [
+          {
+            "sourceId": "S-UQ-2024",
+            "location": "组织处置适用情形答问",
+            "claim": "理想信念缺失、政治立场动摇且已丧失党员条件等，属于除名的情形。"
+          }
+        ]
+      }
+    ],
+    "answerIds": [
+      "d8334777-0e19-4187-84d5-28eea433febd"
+    ],
+    "explanation": "中央组织部公开答问将题干所列情形归入限期改正。实际处置还要核实主客观原因和具体情节。",
+    "distinction": "劝其退党和除名各有适用条件。停止党籍是党员党籍管理中的措施。",
+    "evidence": [
+      {
+        "sourceId": "S-UQ-2024",
+        "location": "组织处置适用情形答问",
+        "claim": "答问分别列举了限期改正、劝其退党、除名的适用情形。"
+      },
+      {
+        "sourceId": "S34",
+        "location": "第五章第二十四条",
+        "claim": "条例规定了失联党员停止党籍的条件。"
+      }
+    ],
+    "reviews": {
+      "initial": {
+        "reviewer": "资料补核初审",
+        "date": "2026-11-27",
+        "choice": [
+          "d8334777-0e19-4187-84d5-28eea433febd"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "P23-032 与 P33-032 源题混列不同年代的认定表述，采用现行办法公开答问的明确分类。",
+        "digest": "b9dcb9d9611de0e6c05763328a77f542d7dc8aa2bfd151323670d178c9d10e9a"
+      },
+      "independent": {
+        "reviewer": "原文与考法复核",
+        "date": "2026-11-27",
+        "choice": [
+          "d8334777-0e19-4187-84d5-28eea433febd"
+        ],
+        "decision": "approved",
+        "emotionOnly": false,
+        "notes": "答问把工作表现不佳的指定情形列在限期改正下。另两种组织处置与党籍措施都有各自适用条件，原材料的拼接归因已纠正。",
+        "digest": "b9dcb9d9611de0e6c05763328a77f542d7dc8aa2bfd151323670d178c9d10e9a"
+      }
+    }
   }
 ]

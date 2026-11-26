@@ -10078,5 +10078,25 @@
     "sourceId": "BX25-ECONOMY",
     "location": "第一章第四条，坚持公开透明原则",
     "scopeNote": "按所引正式文献适用的时点与对象判答。"
+  },
+  {
+    "id": "e116e38a-c761-4b2a-bf1e-3eb7e5ed7bc7",
+    "topicId": "t02",
+    "factKey": "twentieth-report-multiparty-cooperation-guideline",
+    "fact": "二十大报告列举的新型政党制度方针第二项是互相监督，其余三项为长期共存、肝胆相照、荣辱与共。",
+    "importance": "core",
+    "sourceId": "S03",
+    "location": "第六部分第（四）项发挥我国社会主义新型政党制度优势段",
+    "scopeNote": "以题干所引公开文献的具体词位、对象和条件判答。"
+  },
+  {
+    "id": "5bb52665-4c64-4fe3-a049-d3abc2900646",
+    "topicId": "t12",
+    "factKey": "unqualified-party-member-inactivity-corrective-period",
+    "fact": "中央组织部的组织处置答问将工作消极懈怠、不发挥先锋模范作用列为限期改正的主要情形。",
+    "importance": "general",
+    "sourceId": "S-UQ-2024",
+    "location": "组织处置适用情形答问",
+    "scopeNote": "以题干所引公开文献的具体词位、对象和条件判答。"
   }
 ]
