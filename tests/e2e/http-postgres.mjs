@@ -24,6 +24,7 @@ const users = new Map([
   ['bob', { id: 'e2e-bob', email: 'bob@example.test', emailVerified: true }],
   ['browser', { id: 'e2e-browser', email: 'browser@example.test', emailVerified: true }],
   ['undone', { id: 'e2e-undone', email: 'undone@example.test', emailVerified: true }],
+  ['personal-library', { id: 'e2e-personal-library', email: 'personal-library@example.test', emailVerified: true }],
   ['conflict', { id: 'e2e-conflict', email: 'conflict@example.test', emailVerified: true }],
   ['rejection', { id: 'e2e-rejection', email: 'rejection@example.test', emailVerified: true }],
   ['receipt', { id: 'e2e-receipt', email: 'receipt@example.test', emailVerified: true }],
@@ -914,6 +915,12 @@ try {
       assert.equal(rows[0].count, 8)
     }
     await seedUnreadInbox(db)
+    const libraryUser = users.get('personal-library').id
+    const libraryItems = items.slice(0, 21).map(({ id }) => id)
+    await db.query('INSERT INTO profiles (user_id) VALUES ($1)', [libraryUser])
+    await db.query('INSERT INTO favorites (user_id, question_id) SELECT $1, unnest($2::uuid[])', [libraryUser, libraryItems])
+    await db.query(`INSERT INTO question_progress (user_id, question_id, attempt_count, is_wrong)
+      SELECT $1, unnest($2::uuid[]), 1, true`, [libraryUser, libraryItems])
     await run(python, [join(root, 'tests', 'e2e', 'additional_study_browser.py')], { cwd: root, env: browserEnv })
     const rejectedDrill = (await db.query(`
       SELECT (SELECT count(*) FROM attempts WHERE user_id = $1)::int AS attempts,

@@ -156,7 +156,7 @@ function QuestionList({ view, q, status, list, onPageChange, onLimitChange }: {
 
   function move(index: number) {
     if (page.loading) return
-    if (list === 'all') scrollOnPage.current = index
+    scrollOnPage.current = index
     if (index === pageIndex) page.retry()
     else onPageChange(index)
   }
@@ -179,9 +179,9 @@ function QuestionList({ view, q, status, list, onPageChange, onLimitChange }: {
       <button type="button" className="btn btn-sm nav-step" disabled={page.loading || currentIndex + 1 >= pageCount}
         onPointerEnter={() => warmPage(currentIndex + 1)} onFocus={() => warmPage(currentIndex + 1)}
         onClick={() => move(currentIndex + 1)}>下一页</button>
-      {list === 'all' && <div className="pagination-size"><span>每页题量</span>
+      <div className="pagination-size"><span>每页题量</span>
         <ChoicePicker entries={pageSizes} value={limit} fallback={`${limit} 题`} label="每页题量" alignEnd onChange={onLimitChange} />
-      </div>}
+      </div>
       <p className="pagination-loading" role="status">
         {page.loading && currentIndex !== pageIndex ? `正在加载第 ${pageIndex + 1} 页…` : ''}
       </p>

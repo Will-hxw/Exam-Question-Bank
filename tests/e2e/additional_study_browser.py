@@ -10,8 +10,8 @@ HOST = urlsplit(ORIGIN).hostname
 assert HOST in ('127.0.0.1', 'localhost')
 
 
-def device(browser, token):
-    context = browser.new_context(service_workers='block')
+def device(browser, token, **context_options):
+    context = browser.new_context(service_workers='block', **context_options)
     context.add_cookies([{
         'name': COOKIE, 'value': token, 'domain': HOST, 'path': '/',
         'secure': True, 'httpOnly': True, 'sameSite': 'Strict',
@@ -96,6 +96,55 @@ def library_preferences(browser):
         b.close()
 
 
+def personal_library_pages(browser):
+    context = device(browser, 'personal-library', viewport={'width': 390, 'height': 700}, is_mobile=True, has_touch=True)
+    try:
+        page = context.new_page()
+        pagination = page.get_by_role('navigation', name='题库分页')
+        position = pagination.get_by_label('当前页 / 总页数')
+        previous = pagination.get_by_role('button', name='上一页')
+        next_page = pagination.get_by_role('button', name='下一页')
+        size = pagination.get_by_role('button', name='每页题量', exact=False)
+        rows = page.locator('.list-item')
+
+        for path, library, limit, page_count in [('/wrong', 'wrong', 10, 3), ('/favorites', 'favorite', 30, 1)]:
+            page.goto(ORIGIN + path)
+            expect(position).to_have_text('1/2')
+            expect(previous).to_be_disabled()
+            expect(size).to_have_text('20 题')
+            expect(rows).to_have_count(20)
+            next_page.scroll_into_view_if_needed()
+            assert page.evaluate('scrollY > 0')
+            next_page.tap()
+            expect(position).to_have_text('2/2')
+            expect(rows).to_have_count(1)
+            expect(next_page).to_be_disabled()
+            page.wait_for_function('scrollY === 0')
+            previous.tap()
+            expect(position).to_have_text('1/2')
+            expect(rows).to_have_count(20)
+            page.wait_for_function('scrollY === 0')
+
+            next_page.tap()
+            expect(position).to_have_text('2/2')
+            size.tap()
+            with page.expect_response(lambda r: r.url.endswith('/api/me/preferences') and
+                                      (r.request.post_data_json or {}).get(f'library:{library}', {}).get('limit') == limit) as saved:
+                pagination.get_by_role('button', name=f'{limit} 题', exact=True).tap()
+            assert saved.value.ok
+            expect(position).to_have_text(f'1/{page_count}')
+            expect(rows).to_have_count(min(limit, 21))
+            page.reload()
+            expect(size).to_have_text(f'{limit} 题')
+            expect(position).to_have_text(f'1/{page_count}')
+
+        page.goto(ORIGIN + '/wrong')
+        expect(size).to_have_text('10 题')
+        expect(position).to_have_text('1/3')
+    finally:
+        context.close()
+
+
 def paginated_inbox(browser):
     a, b = device(browser, 'author'), device(browser, 'author')
     try:
@@ -128,7 +177,8 @@ with sync_playwright() as playwright:
     try:
         rejected_answer(chromium)
         library_preferences(chromium)
+        personal_library_pages(chromium)
         paginated_inbox(chromium)
-        print('ADDITIONAL_BROWSER_E2E rejected answer, cross-device library fields, second-page unread refresh')
+        print('ADDITIONAL_BROWSER_E2E rejected answer, cross-device library fields, personal library pagination, second-page unread refresh')
     finally:
         chromium.close()
