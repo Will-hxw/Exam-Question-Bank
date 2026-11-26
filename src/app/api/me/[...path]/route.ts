@@ -1,4 +1,4 @@
-import { questionFilters, questionPage } from '@/server/content'
+import { practiceUndonePositions, questionFilters, questionPage } from '@/server/content'
 import { HttpError, parseBody, route, uuid } from '@/server/http'
 import { account, dismissWrong, favorite, questionStates, saveStudyPreferences, studyStats } from '@/server/learning'
 
@@ -12,6 +12,7 @@ export const GET = route(async (request: Request, context: RouteContext) => {
   switch (path[0]) {
     case 'stats': return studyStats(user)
     case 'questions': return questionPage(questionFilters(url, true), user)
+    case 'practice-undone': return practiceUndonePositions(user, url.searchParams)
     case 'question-state': {
       const ids = url.searchParams.get('ids')?.split(',') ?? []
       if (ids.length < 1 || ids.length > 50) throw new HttpError(400, '每批应包含 1 至 50 道题。')

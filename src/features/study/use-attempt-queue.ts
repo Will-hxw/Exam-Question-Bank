@@ -24,6 +24,7 @@ function readQueue(prefix: string) {
 export function useAttemptQueue(userId: string, onSynced: () => void) {
   const prefix = queuePrefix(userId)
   const busy = useRef(false)
+  const syncedQuestions = useRef(new Set<string>())
   const [status, setStatus] = useState<'idle' | 'pending' | 'synced' | 'error' | 'rejected'>('idle')
 
   const flush = useCallback(async () => {
@@ -44,6 +45,7 @@ export function useAttemptQueue(userId: string, onSynced: () => void) {
           const outcome = byId.get(item.eventId)
           if (!outcome) throw new Error('Attempt response incomplete')
           if (outcome.status !== 'saved') rejected = true
+          else syncedQuestions.current.add(item.questionId)
           localStorage.removeItem(`${prefix}${item.eventId}`)
         }
         queue = readQueue(prefix)
@@ -83,5 +85,13 @@ export function useAttemptQueue(userId: string, onSynced: () => void) {
     return true
   }
 
-  return { enqueue, flush, status }
+  const recentlyAttemptedIds = useCallback(() => {
+    const ids = new Set(syncedQuestions.current)
+    try {
+      for (const item of readQueue(prefix)) ids.add(item.questionId)
+    } catch { /* Answers already synced in this session are still available. */ }
+    return ids
+  }, [prefix])
+
+  return { enqueue, flush, status, recentlyAttemptedIds }
 }

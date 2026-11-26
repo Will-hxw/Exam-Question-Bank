@@ -1,6 +1,7 @@
 import 'server-only'
 import { randomUUID } from 'node:crypto'
 import { unstable_cache } from 'next/cache'
+import type { PracticePosition } from '@/features/study/practice-undone'
 import { query } from './db'
 import { HttpError, uuid } from './http'
 
@@ -93,6 +94,28 @@ export const topics = unstable_cache(async () => ({
     WHERE t.active GROUP BY t.id ORDER BY t.sort_order
   `),
 }), ['topic-list'], cacheOptions)
+
+export async function practiceUndonePositions(userId: string, params: URLSearchParams) {
+  const topic = params.get('topic')
+  if ([...params.keys()].some((key) => key !== 'topic') || params.getAll('topic').length > 1
+    || (topic !== null && !/^[a-z0-9][a-z0-9-]{0,49}$/.test(topic))) {
+    throw new HttpError(400, '专题参数无效。')
+  }
+  const positions = await query<PracticePosition>(`
+    WITH ordered AS (
+      SELECT q.id, (row_number() OVER (ORDER BY q.id) - 1)::int AS position
+      FROM questions q JOIN topics t ON t.id = q.topic_id AND t.active
+      WHERE q.status = 'published' AND ($2::text IS NULL OR q.topic_id = $2)
+    )
+    SELECT o.id, o.position FROM ordered o
+    WHERE NOT EXISTS (
+      SELECT 1 FROM question_progress p
+      WHERE p.question_id = o.id AND p.user_id = $1 AND p.attempt_count > 0
+    )
+    ORDER BY o.position
+  `, [userId, topic])
+  return { positions }
+}
 
 export async function questionPage(filters: Filters, userId: string | null = null) {
   const { topic, type, q, cursor, offset, limit, practice, random, status } = filters

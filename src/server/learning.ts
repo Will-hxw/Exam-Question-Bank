@@ -1,5 +1,6 @@
 import 'server-only'
 import { requireStudyAccount } from '@/features/auth/server'
+import { practiceUndonePreference } from '@/features/study/practice-undone'
 import { query } from './db'
 import { HttpError, uuid } from './http'
 
@@ -20,7 +21,8 @@ export async function studyStats(user: string) {
 
 function validPreference(name: string, value: unknown) {
   if (name === 'theme') return value === 'light' || value === 'dark'
-  if (/^practice-position:(topic:[a-z0-9-]{1,50}|random|sequence|wrong|favorite)$/.test(name) || /^scroll:(practice|questions|wrong|favorites|exam)$/.test(name)) {
+  if (name === practiceUndonePreference) return typeof value === 'boolean'
+  if (/^practice-position:(topic:[a-z0-9-]{1,50}|random|random-undone|sequence|wrong|favorite)$/.test(name) || /^scroll:(practice|questions|wrong|favorites|exam)$/.test(name)) {
     return typeof value === 'number' && Number.isSafeInteger(value) && value >= 0 && value <= 1000000
   }
   if (!['practice', 'library:all', 'library:wrong', 'library:favorite', 'exam'].includes(name)) return false

@@ -49,7 +49,7 @@ export class StudyRequestError extends Error {
   }
 }
 
-export function questionUrl({ topic, type, q, cursor, offset, limit, practice, status, random }: {
+export function questionUrl({ topic, type, q, cursor, offset, limit, practice, status, random, personal }: {
   topic?: string
   type?: QuestionType | ''
   q?: string
@@ -59,6 +59,7 @@ export function questionUrl({ topic, type, q, cursor, offset, limit, practice, s
   practice?: boolean
   status?: Status | ''
   random?: boolean | string
+  personal?: boolean
 }) {
   const params = new URLSearchParams()
   if (topic) params.set('topic', topic)
@@ -70,7 +71,7 @@ export function questionUrl({ topic, type, q, cursor, offset, limit, practice, s
   if (practice) params.set('mode', 'practice')
   if (random) params.set('random', typeof random === 'string' ? random : '1')
   if (status) params.set('status', status)
-  return `/api/${status ? 'me' : 'public'}/questions?${params}`
+  return `/api/${personal || status ? 'me' : 'public'}/questions?${params}`
 }
 
 export async function requestJson<T>(path: string, options: RequestInit = {}): Promise<T> {
