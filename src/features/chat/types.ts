@@ -22,6 +22,7 @@ export type ChatMessage = ChatProfile & {
   body: string
   sentAt: string
   mine: boolean
+  clientId?: string
   aiReplyTo?: string
 }
 export type ChatPage = { messages: ChatMessage[]; hasMore: boolean }

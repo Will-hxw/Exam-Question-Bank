@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { type FormEvent, type MouseEventHandler, type PointerEvent, type ReactNode, type RefObject, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { type FormEvent, type MouseEventHandler, type PointerEvent, type ReactNode, type RefObject, useEffect, useEffectEvent, useLayoutEffect, useRef, useState } from 'react'
 import { useTabDraft } from '@/use-tab-draft'
 import { authorMention, messageLimit, nicknameLimit, publicAuthorMention, type ChatMessage, type ChatProfile } from './types'
 import { chatError, useChatRoom } from './use-chat-room'
@@ -153,10 +153,17 @@ export default function ChatPage({ backHref, backLabel = '返回练习', direct 
   const [nickname, setNickname] = useState('')
   const [savingName, setSavingName] = useState(false)
   const [nameError, setNameError] = useState('')
-  const { value: storedDraft, save, clear } = useTabDraft(draftKey, readChatDraft)
-  const draft = storedDraft?.text ?? ''
+  const { value: storedDraft, snapshot, save, clear } = useTabDraft(draftKey, readChatDraft)
+  const acknowledged = !!storedDraft?.clientId && room.messages.some((message) => message.mine && message.clientId === storedDraft.clientId)
+  const draft = acknowledged ? '' : storedDraft?.text ?? ''
   const [sending, setSending] = useState(false)
-  const [sendError, setSendError] = useState('')
+  const [sendError, setSendError] = useState<{ clientId: string; text: string }>()
+  const visibleSendError = !acknowledged && sendError?.clientId === storedDraft?.clientId ? sendError?.text : undefined
+  const clearAcknowledged = useEffectEvent((sent: string | null) => clear(sent))
+
+  useEffect(() => {
+    if (acknowledged) clearAcknowledged(snapshot)
+  }, [acknowledged, snapshot])
   const [showEmoji, setShowEmoji] = useState(false)
 
   useEffect(() => {
@@ -273,14 +280,14 @@ export default function ChatPage({ backHref, backLabel = '返回练习', direct 
     const clientId = storedDraft?.clientId ?? crypto.randomUUID()
     const sent = save({ text: draft, clientId })
     setSending(true)
-    setSendError('')
+    setSendError(undefined)
     setShowEmoji(false)
     try {
       await room.send(body, clientId)
       clear(sent)
       scrollToLatest()
     } catch (error) {
-      setSendError(chatError(error, '发送未获确认，请检查网络后再试。'))
+      setSendError({ clientId, text: chatError(error, '发送未获确认，请检查网络后再试。') })
     } finally {
       sendingNow.current = false
       setSending(false)
@@ -395,7 +402,7 @@ export default function ChatPage({ backHref, backLabel = '返回练习', direct 
         </div>}
         <button className="chat-icon-button chat-mention" type="button" aria-label={direct && room.peer && !room.peer.author ? '提及对方' : '提及作者'}
           disabled={!room.profile || sending} onClick={() => mention(room.peer)}>@</button>
-        {sendError && <p className="chat-error chat-send-error" role="alert">{sendError}</p>}
+        {visibleSendError && <p className="chat-error chat-send-error" role="alert">{visibleSendError}</p>}
         {draft.length >= messageLimit - 50 && <span className="chat-length">{draft.length}/{messageLimit}</span>}
         <button className="btn btn-sm primary chat-send" type="submit" disabled={!room.profile || !draft.trim() || sending}>
           {sending ? '发送中…' : '发送'}

@@ -507,7 +507,10 @@ async function runApiChecks(origin, db, items, secret) {
   const [firstSend, replayedSend] = await Promise.all([call(chatPath, chatWrite), call(chatPath, chatWrite)])
   const sentChat = firstSend.data.message
   assert.deepEqual(replayedSend.data.message, sentChat)
-  assert.deepEqual(Object.keys(sentChat).sort(), ['authorKey', 'avatar', 'body', 'id', 'mine', 'nickname', 'nicknameRevision', 'sentAt'])
+  assert.deepEqual(Object.keys(sentChat).sort(), ['authorKey', 'avatar', 'body', 'clientId', 'id', 'mine', 'nickname', 'nicknameRevision', 'sentAt'])
+  const { clientId: echoedId, ...receivedChat } = sentChat
+  assert.equal(echoedId, chatWrite.body.clientId)
+  assert.equal((await call(`${chatPath}?after=0`, chatAlice)).data.messages[0].clientId, echoedId)
   assert.equal(sentChat.authorKey, savedChat.authorKey)
   assert.equal(sentChat.mine, true)
   assert.equal(sentChat.nickname, savedChat.nickname)
@@ -525,7 +528,7 @@ async function runApiChecks(origin, db, items, secret) {
   await call(chatPath, { ...chatWrite, status: 409, body: { ...chatWrite.body, message: '不同的内容' } })
   await call(chatPath, { ...chatWrite, status: 429, body: { ...chatWrite.body, clientId: randomUUID() } })
   await call(chatPath, { ...chatWrite, status: 400, body: { ...chatWrite.body, message: '长'.repeat(501) } })
-  assert.deepEqual((await call(`${chatPath}?after=0`, chatBob)).data.messages, [{ ...sentChat, mine: false }])
+  assert.deepEqual((await call(`${chatPath}?after=0`, chatBob)).data.messages, [{ ...receivedChat, mine: false }])
   assert.deepEqual((await call(`${chatPath}?after=${sentChat.id}`, chatBob)).data.messages, [])
   await call(`${chatPath}?before=${sentChat.id}&after=0`, { ...chatBob, status: 400 })
   await call(`${chatPath}?after=9223372036854775808`, { ...chatBob, status: 400 })
@@ -540,7 +543,7 @@ async function runApiChecks(origin, db, items, secret) {
   assert.equal(authorKey, sentChat.authorKey)
   assert.ok(BigInt(nicknameRevision) > BigInt(beforeRename.nicknameCursor))
   const updatedMessage = { ...sentChat, nickname, nicknameRevision }
-  assert.deepEqual((await call(chatPath, chatBob)).data.messages, [{ ...updatedMessage, mine: false }])
+  assert.deepEqual((await call(chatPath, chatBob)).data.messages, [{ ...receivedChat, nickname, nicknameRevision, mine: false }])
   assert.deepEqual((await call(chatPath, chatWrite)).data.message, updatedMessage)
 
   const privateProfile = (await call(chatPath, { ...chatBob, method: 'PUT', body: { nickname: '未发言的噜噜' } })).data.profile
