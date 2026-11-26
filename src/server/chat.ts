@@ -24,9 +24,10 @@ function chatAuthorKey(user: string) {
 }
 
 type StoredAuthor = Omit<ChatAuthor, 'authorKey' | 'author'> & { authorUserId: string; author: boolean | null }
-type StoredMessage = Omit<ChatMessage, 'authorKey' | 'author' | 'aiReplyTo' | 'avatarImageId' | 'avatarUrl'> & StoredAuthor & {
+type StoredMessage = Omit<ChatMessage, 'authorKey' | 'author' | 'aiReplyTo' | 'avatarImageId' | 'avatarUrl' | 'clientId'> & StoredAuthor & {
   avatarImageId: string | null
   aiReplyTo: string | null
+  clientId: string | null
 }
 
 export const authorIdSql = 'SELECT id::text FROM neon_auth."user" WHERE "emailVerified" AND email ='
@@ -40,9 +41,9 @@ function avatarImage(avatarImageId: string | null) {
   return avatarImageId ? { avatarImageId } : {}
 }
 
-function presentMessage({ avatarImageId, aiReplyTo, ...message }: StoredMessage): ChatMessage {
+function presentMessage({ avatarImageId, aiReplyTo, clientId, ...message }: StoredMessage): ChatMessage {
   const picture = message.author ? { avatarUrl: publicAuthorAvatar } : avatarImage(avatarImageId)
-  return { ...presentAuthor(message), ...picture, ...(aiReplyTo ? { aiReplyTo } : {}) }
+  return { ...presentAuthor(message), ...picture, ...(aiReplyTo ? { aiReplyTo } : {}), ...(clientId ? { clientId } : {}) }
 }
 
 function defaultProfile(user: string): ChatProfile {
@@ -97,7 +98,8 @@ export async function saveChatNickname(user: string, value: unknown): Promise<Ch
 
 const messageFields = `m.id::text AS id, m.user_id AS "authorUserId", COALESCE(p.nickname, m.nickname) AS nickname,
   COALESCE(p.nickname_revision, 0)::text AS "nicknameRevision", m.avatar, a.id AS "avatarImageId", m.body,
-  m.sent_at AS "sentAt", (m.user_id = $1) AS mine, m.ai_reply_to::text AS "aiReplyTo"`
+  m.sent_at AS "sentAt", (m.user_id = $1) AS mine, m.ai_reply_to::text AS "aiReplyTo",
+  CASE WHEN m.user_id = $1 AND m.ai_reply_to IS NULL THEN m.client_id::text END AS "clientId"`
 
 export function validChatCursor(value: string) {
   return /^(?:0|[1-9][0-9]{0,18})$/.test(value) && BigInt(value) <= 9223372036854775807n

@@ -222,7 +222,8 @@ html[data-theme="dark"] .study-shell .chat-ai-label { color: #f5ce70; }
 .study-shell .chat-send { margin-left: auto; min-width: 72px; min-height: 34px; white-space: nowrap; }
 .study-shell .chat-length { font: 13px "Times New Roman", serif; color: var(--text-muted); }
 .study-shell .chat-error { color: var(--danger); font-size: 13px; overflow-wrap: anywhere; }
-.study-shell .chat-send-error { line-height: 1.4; }
+.study-shell .chat-delivery { display: flex; align-items: center; gap: 8px; margin-top: 4px; font-size: 12px; }
+.study-shell .chat-delivery:not(.chat-error) { color: var(--text-muted); }
 .study-shell .author-inbox-controls { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 14px; }
 .study-shell .author-inbox-filter { display: flex; flex: none; align-items: center; gap: 4px; }
 .study-shell .author-inbox-filter button {

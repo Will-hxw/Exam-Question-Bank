@@ -10,7 +10,7 @@ const inboxPageSize = 30
 const threadMissing = '会话不存在。'
 const contactIdPattern = /^[\da-zA-Z_-]{1,128}$/
 type StoredProfile = { nickname: string | null; nicknameRevision: string | null; avatarImageId: string | null }
-type StoredMessage = { id: string; body: string; sentAt: string; fromAuthor: boolean; aiReplyTo: string | null }
+type StoredMessage = { id: string; body: string; sentAt: string; fromAuthor: boolean; aiReplyTo: string | null; clientId: string | null }
 type StoredThread = {
   userId: string
   email: string
@@ -21,7 +21,8 @@ type StoredThread = {
   messages: StoredMessage[]
 }
 
-const messageFields = 'm.id::text AS id, m.body, m.sent_at AS "sentAt", m.from_author AS "fromAuthor", m.ai_reply_to::text AS "aiReplyTo"'
+const messageFields = `m.id::text AS id, m.body, m.sent_at AS "sentAt", m.from_author AS "fromAuthor",
+  m.ai_reply_to::text AS "aiReplyTo", CASE WHEN m.from_author = $3 THEN m.client_id::text END AS "clientId"`
 const profileJson = (profile: string, avatar: string) => `jsonb_build_object(
   'nickname', ${profile}.nickname, 'nicknameRevision', ${profile}.nickname_revision::text, 'avatarImageId', ${avatar}.id
 )`
@@ -31,10 +32,11 @@ function threadPage(row: StoredThread, author: boolean, forward: boolean): ChatP
   const userProfile = presentChatProfile(row.userId, row.userProfile)
   const page = row.messages.slice(0, chatPageSize)
   if (!forward) page.reverse()
-  return { hasMore: row.messages.length > chatPageSize, messages: page.map(({ fromAuthor, aiReplyTo, ...message }) => ({
+  return { hasMore: row.messages.length > chatPageSize, messages: page.map(({ fromAuthor, aiReplyTo, clientId, ...message }) => ({
     ...(fromAuthor ? authorProfile : userProfile), ...message,
     sentAt: new Date(message.sentAt).toISOString(), mine: fromAuthor === author,
     ...(aiReplyTo ? { aiReplyTo } : {}),
+    ...(clientId ? { clientId } : {}),
   })) }
 }
 
@@ -178,7 +180,7 @@ export async function postAuthorChat(user: VerifiedUser, thread: string, body: R
   if (!row.id) throw new HttpError(429, '发得太快了，请稍后再试。')
   if (row.body !== content) throw new HttpError(409, '这条消息已发送，请重新输入。')
   const message: ChatMessage = { ...presentChatProfile(user.id, row, author),
-    id: row.id, body: row.body, sentAt: row.sentAt, mine: true,
+    id: row.id, body: row.body, sentAt: row.sentAt, mine: true, clientId,
   }
   return { message }
 }

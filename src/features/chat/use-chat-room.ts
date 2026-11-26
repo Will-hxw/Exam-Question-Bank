@@ -30,6 +30,8 @@ export function useChatRoom(userId: string, direct?: { threadId?: string; contac
   const [thread, setThread] = useState(requestedThread)
   const threadRef = useRef(requestedThread)
   const historyPending = useRef(false)
+  const refreshNow = useRef<() => void>(() => {})
+  const activeUntil = useRef(0)
   const headers = { 'X-Study-Account': userId }
 
   const mergeAuthors = useCallback((incoming: ChatAuthor[]) => {
@@ -72,7 +74,7 @@ export function useChatRoom(userId: string, direct?: { threadId?: string; contac
       clearTimeout(timer)
       if (fetching || halted || stop.signal.aborted || document.hidden || !navigator.onLine) return
       fetching = true
-      let delay = 5000
+      let delay = Date.now() < activeUntil.current ? 2000 : 5000
       try {
         const after = cursor.current
         const options = {
@@ -108,6 +110,10 @@ export function useChatRoom(userId: string, direct?: { threadId?: string; contac
           if (stop.signal.aborted) return
           const nicknames = 'nicknames' in page ? page.nicknames : [page.profile, page.peer]
           merge(page.messages)
+          if (page.messages.length) {
+            activeUntil.current = Date.now() + 12_000
+            delay = 2000
+          }
           mergeAuthors(nicknames)
           cursor.current = page.messages.at(-1)?.id ?? after
           if ('nicknames' in page) {
@@ -135,6 +141,7 @@ export function useChatRoom(userId: string, direct?: { threadId?: string; contac
       setReadError('网络已断开，联网后会自动同步。')
     }
 
+    refreshNow.current = refresh
     if (navigator.onLine) void refresh()
     else offline()
     document.addEventListener('visibilitychange', refresh)
@@ -142,6 +149,7 @@ export function useChatRoom(userId: string, direct?: { threadId?: string; contac
     window.addEventListener('offline', offline)
     return () => {
       stop.abort()
+      refreshNow.current = () => {}
       clearTimeout(timer)
       document.removeEventListener('visibilitychange', refresh)
       window.removeEventListener('online', refresh)
@@ -173,6 +181,8 @@ export function useChatRoom(userId: string, direct?: { threadId?: string; contac
   async function send(message: string, clientId: string) {
     const sent = await writeJson<{ message: ChatMessage }>(path, userId, 'POST', { message, clientId }, true)
     merge([sent.message])
+    activeUntil.current = Date.now() + 12_000
+    refreshNow.current()
   }
 
   async function rename(nickname: string) {

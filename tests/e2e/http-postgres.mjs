@@ -31,8 +31,14 @@ const users = new Map([
   ['unverified', { id: 'e2e-unverified', email: 'unverified@example.test', emailVerified: false }],
 ])
 const modelCalls = []
+const proactiveCalls = []
 const simulatedReply = '记得啊，春天嘛'
 const simulatedIdentity = '真啊，不然我咋从网线里游过来的喵'
+
+function modelInput(call) {
+  const { content } = call.messages.at(-1)
+  return JSON.parse(typeof content === 'string' ? content : content.find(({ type }) => type === 'text').text)
+}
 
 function authFixture(db) {
   const signupEmail = 'browser-signup@example.test'
@@ -74,8 +80,15 @@ function authFixture(db) {
         response.end('{}')
         return
       }
+      const { latest } = modelInput(input)
+      if (input.messages[0].content.includes('这轮群里没人明确')) {
+        proactiveCalls.push(input)
+        const decision = latest === '群聊没点名，肥鱼来接一下这个梗'
+          ? { reply: '这个梗本鱼接住了', mention: true } : { reply: '' }
+        response.end(JSON.stringify({ choices: [{ message: { content: JSON.stringify(decision) } }] }))
+        return
+      }
       modelCalls.push(input)
-      const { latest } = JSON.parse(input.messages.at(-1).content)
       if (latest === '接口故障演练') {
         response.statusCode = 502
         response.end('{}')
@@ -507,7 +520,9 @@ async function runApiChecks(origin, db, items, secret) {
   const [firstSend, replayedSend] = await Promise.all([call(chatPath, chatWrite), call(chatPath, chatWrite)])
   const sentChat = firstSend.data.message
   assert.deepEqual(replayedSend.data.message, sentChat)
-  assert.deepEqual(Object.keys(sentChat).sort(), ['authorKey', 'avatar', 'body', 'id', 'mine', 'nickname', 'nicknameRevision', 'sentAt'])
+  const { clientId: ownClientId, ...sharedMessage } = sentChat
+  assert.equal(ownClientId, chatWrite.body.clientId)
+  assert.deepEqual(Object.keys(sharedMessage).sort(), ['authorKey', 'avatar', 'body', 'id', 'mine', 'nickname', 'nicknameRevision', 'sentAt'])
   assert.equal(sentChat.authorKey, savedChat.authorKey)
   assert.equal(sentChat.mine, true)
   assert.equal(sentChat.nickname, savedChat.nickname)
@@ -525,7 +540,7 @@ async function runApiChecks(origin, db, items, secret) {
   await call(chatPath, { ...chatWrite, status: 409, body: { ...chatWrite.body, message: '不同的内容' } })
   await call(chatPath, { ...chatWrite, status: 429, body: { ...chatWrite.body, clientId: randomUUID() } })
   await call(chatPath, { ...chatWrite, status: 400, body: { ...chatWrite.body, message: '长'.repeat(501) } })
-  assert.deepEqual((await call(`${chatPath}?after=0`, chatBob)).data.messages, [{ ...sentChat, mine: false }])
+  assert.deepEqual((await call(`${chatPath}?after=0`, chatBob)).data.messages, [{ ...sharedMessage, mine: false }])
   assert.deepEqual((await call(`${chatPath}?after=${sentChat.id}`, chatBob)).data.messages, [])
   await call(`${chatPath}?before=${sentChat.id}&after=0`, { ...chatBob, status: 400 })
   await call(`${chatPath}?after=9223372036854775808`, { ...chatBob, status: 400 })
@@ -540,7 +555,7 @@ async function runApiChecks(origin, db, items, secret) {
   assert.equal(authorKey, sentChat.authorKey)
   assert.ok(BigInt(nicknameRevision) > BigInt(beforeRename.nicknameCursor))
   const updatedMessage = { ...sentChat, nickname, nicknameRevision }
-  assert.deepEqual((await call(chatPath, chatBob)).data.messages, [{ ...updatedMessage, mine: false }])
+  assert.deepEqual((await call(chatPath, chatBob)).data.messages, [{ ...sharedMessage, nickname, nicknameRevision, mine: false }])
   assert.deepEqual((await call(chatPath, chatWrite)).data.message, updatedMessage)
 
   const privateProfile = (await call(chatPath, { ...chatBob, method: 'PUT', body: { nickname: '未发言的噜噜' } })).data.profile
@@ -662,7 +677,8 @@ async function runApiChecks(origin, db, items, secret) {
   assert.equal(privateReply.aiReplyTo, privateAsk.id)
   assert.equal(modelCalls.length, 1)
   assert.equal(modelCalls[0].model, 'deepseek-v4.1-flash-1017')
-  const directInput = JSON.parse(modelCalls[0].messages.at(-1).content)
+  assert.equal(typeof modelCalls[0].messages.at(-1).content, 'string')
+  const directInput = modelInput(modelCalls[0])
   assert.equal(directInput.latest, '结合私信上一条回答')
   assert.equal(directInput.history.length, 19)
   const directContext = JSON.stringify(directInput.history)
@@ -724,7 +740,7 @@ async function runApiChecks(origin, db, items, secret) {
   assert.equal(publicReply.nickname, ownerName)
   assert.equal(publicReply.avatarUrl, ownerAvatarUrl)
   assert.equal(modelCalls.length, 2)
-  const publicInput = JSON.parse(modelCalls[1].messages.at(-1).content)
+  const publicInput = modelInput(modelCalls[1])
   assert.equal(publicInput.latest, '刚才那个词是什么？')
   assert.equal(publicInput.history.length, 50)
   assert.equal(publicInput.history[0].content, '群聊上下文样本 3')
@@ -736,20 +752,20 @@ async function runApiChecks(origin, db, items, secret) {
   const identityAsk = (await write(chatPath, chatAlice, '@肥鱼 AI 真ai吗🤔')).data.message
   const identityReply = await waitForChat(chatPath, chatAlice, (message) => message.aiReplyTo === identityAsk.id)
   assert.equal(identityReply.body, simulatedIdentity)
-  const identityInput = JSON.parse(modelCalls[2].messages.at(-1).content)
+  const identityInput = modelInput(modelCalls[2])
   assert.equal(identityInput.latest, '真ai吗🤔')
   assert.ok(identityInput.history.some(({ content }) => content.includes('这个头像是随机的吗')))
   await db.query("UPDATE chat_messages SET sent_at = sent_at - interval '5 seconds' WHERE id = $1", [identityAsk.id])
   const providerError = (await write(chatPath, chatAlice, '@作者 接口故障演练')).data.message
   const fallback = await waitForChat(chatPath, chatAlice, (message) => message.aiReplyTo === providerError.id)
   assert.match(fallback.body, /没连上/)
-  assert.equal(JSON.parse(modelCalls[3].messages.at(-1).content).history.at(-1).content, simulatedIdentity)
+  assert.equal(modelInput(modelCalls[3]).history.at(-1).content, simulatedIdentity)
   await db.query("UPDATE chat_messages SET sent_at = sent_at - interval '5 seconds' WHERE id = $1", [providerError.id])
   const shortAsk = (await write(chatPath, chatAlice, '@作者 测试短回复')).data.message
   const retried = await waitForChat(chatPath, chatAlice, (message) => message.aiReplyTo === shortAsk.id)
   assert.equal(retried.body, '刚才走神了一下，你接着说嘛')
   assert.equal(modelCalls.length, 6)
-  assert.equal(modelCalls[4].messages.at(-1).content, modelCalls[5].messages.at(-1).content)
+  assert.deepEqual(modelCalls[4].messages.at(-1).content, modelCalls[5].messages.at(-1).content)
   assert.match(modelCalls[5].messages[0].content, /至少五个字/)
   await db.query(`
     INSERT INTO chat_messages (user_id, client_id, nickname, avatar, body, sent_at)
@@ -758,11 +774,33 @@ async function runApiChecks(origin, db, items, secret) {
   `, [chatAlice.owner])
   const longAsk = (await write(chatPath, chatAlice, '@Hua Xiaowei 测试长上下文')).data.message
   await waitForChat(chatPath, chatAlice, (message) => message.aiReplyTo === longAsk.id)
-  const longInput = JSON.parse(modelCalls[6].messages.at(-1).content)
+  const longInput = modelInput(modelCalls[6])
   assert.equal(longInput.latest, '测试长上下文')
   assert.equal(longInput.history.length, 16)
   assert.match(longInput.history.at(-1).content, /^24:/)
   assert.ok(Buffer.byteLength(JSON.stringify(longInput.history)) <= 24 * 1024)
+
+  await db.query('DELETE FROM chat_ai_requests WHERE proactive')
+  await db.query("UPDATE chat_messages SET sent_at = sent_at - interval '5 seconds' WHERE id = $1", [longAsk.id])
+  await db.query(`
+    INSERT INTO chat_messages (user_id, client_id, nickname, avatar, body)
+    VALUES ($1, gen_random_uuid(), '群聊同学', 0, '另一位同学的最近发言')
+  `, [chatBob.owner])
+  const proactivePost = {
+    ...chatAlice, method: 'POST', body: { clientId: randomUUID(), message: '群聊没点名，肥鱼来接一下这个梗' },
+  }
+  const [noMention, retriedPost] = await Promise.all([call(chatPath, proactivePost), call(chatPath, proactivePost)])
+  assert.equal(noMention.data.message.id, retriedPost.data.message.id)
+  assert.equal(noMention.data.message.clientId, proactivePost.body.clientId)
+  const automatic = await waitForChat(chatPath, chatBob, (message) => message.aiReplyTo === noMention.data.message.id)
+  assert.equal(automatic.body, `@${noMention.data.message.nickname} 这个梗本鱼接住了`)
+  const calls = proactiveCalls.filter((input) => modelInput(input).latest === proactivePost.body.message)
+  assert.equal(calls.length, 1)
+  assert.equal(modelInput(calls[0]).speaker.nickname, noMention.data.message.nickname)
+  assert.match(JSON.stringify(modelInput(calls[0]).history), /另一位同学的最近发言/)
+  assert.doesNotMatch(JSON.stringify(modelInput(calls[0]).history), /私信历史标记/)
+  const avatarBlock = calls[0].messages.at(-1).content.find(({ type }) => type === 'image_url')
+  assert.deepEqual(Buffer.from(avatarBlock.image_url.url.split(',')[1], 'base64'), avatarImage)
   await db.query('DELETE FROM chat_messages; DELETE FROM author_conversations')
 
   return {

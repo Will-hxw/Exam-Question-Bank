@@ -18,9 +18,9 @@ function read(key: string) {
 
 export function useTabDraft<T>(key: string, decode: (value: unknown) => T | null) {
   const snapshot = useSyncExternalStore(subscribe, () => read(key), empty)
-  let value: T | null = null
-  if (snapshot !== null) {
-    try { value = decode(JSON.parse(snapshot)) } catch { /* Ignore damaged drafts. */ }
+  function parse(raw: string | null) {
+    if (raw === null) return null
+    try { return decode(JSON.parse(raw)) } catch { return null }
   }
 
   function save(draft: T | null) {
@@ -36,7 +36,9 @@ export function useTabDraft<T>(key: string, decode: (value: unknown) => T | null
     return next
   }
 
-  return { value, snapshot, save, clear: (expected: string | null) => {
+  return { value: parse(snapshot), snapshot, save, update: (transform: (current: T | null) => T | null) => {
+    return save(transform(parse(read(key))))
+  }, clear: (expected: string | null) => {
     if (read(key) === expected) save(null)
   } }
 }

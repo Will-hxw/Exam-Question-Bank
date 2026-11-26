@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 import re
+from time import perf_counter
 
 from playwright.sync_api import expect
 
@@ -125,8 +126,34 @@ def check_chat(browser, mobile_context, origin, host, cookie_name):
         sender.get_by_role('button', name='插入表情').tap()
         sender.get_by_role('button', name='🎉', exact=True).tap()
         expect(draft).to_have_value('刷题见面啦 🎉')
+        # Chromium does not expose keepalive requests to page.route.
+        sender.evaluate('''() => {
+          const send = window.fetch.bind(window);
+          window.chatSendBodies = [];
+          window.fetch = (input, init) => {
+            const url = new URL(String(input), location.href);
+            if (url.pathname === '/api/chat' && init?.method === 'POST') {
+              window.chatSendBodies.push(JSON.parse(init.body));
+              if (window.chatSendBodies.length === 1) {
+                return new Promise((resolve) => {
+                  window.failChatSend = () => resolve(Response.json({ error: '暂时无法发送' }, { status: 503 }));
+                });
+              }
+            }
+            return send(input, init);
+          };
+        }''')
+        shown = perf_counter()
         sender.get_by_role('button', name='发送', exact=True).tap()
         expect(sender.locator('.is-mine .chat-bubble')).to_have_text('刷题见面啦 🎉')
+        expect(sender.locator('.chat-delivery')).to_have_text('发送中…')
+        print(f'OPTIMISTIC_CHAT milliseconds_to_bubble={1000 * (perf_counter() - shown):.2f}')
+        sender.evaluate('window.failChatSend()')
+        expect(sender.locator('.chat-delivery')).to_contain_text('暂时无法发送')
+        sender.get_by_role('button', name='重发', exact=True).tap()
+        expect(sender.locator('.chat-delivery')).to_have_count(0)
+        attempts = sender.evaluate('window.chatSendBodies')
+        assert len(attempts) == 2 and attempts[0] == attempts[1]
         expect(draft).to_have_value('')
         expect(entry.locator('.message-unread-dot')).to_have_count(0)
         receiver.bring_to_front()

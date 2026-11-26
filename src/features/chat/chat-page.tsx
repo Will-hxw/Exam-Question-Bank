@@ -65,12 +65,15 @@ function MentionAvatar({ message, nickname, authorAvatar, onMention }: {
   </button>
 }
 
-function Message({ message, nickname, previous, authorAvatar, onMention }: {
+type OutgoingMessage = { id: string; body: string; sentAt: string; error?: string }
+
+function Message({ message, nickname, previous, authorAvatar, onMention, delivery }: {
   message: ChatMessage
   nickname: string
   previous?: ChatMessage
   authorAvatar?: string
   onMention: () => void
+  delivery?: ReactNode
 }) {
   const gap = previous ? Date.parse(message.sentAt) - Date.parse(previous.sentAt) : Infinity
   return <li className="chat-message" data-message-id={message.id}>
@@ -84,6 +87,7 @@ function Message({ message, nickname, previous, authorAvatar, onMention }: {
           {message.aiReplyTo && <span className="chat-ai-label">AI 自动</span>}
           {message.body}
         </p>
+        {delivery}
       </div>
     </div>
   </li>
@@ -107,13 +111,22 @@ export function ChatHeader({ title, backHref, backLabel, onBack, heading, childr
 }
 
 type ChatDraft = { text: string; clientId?: string }
+const messageKey = /^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i
 
 function readChatDraft(value: unknown): ChatDraft | null {
   const draft = value as Partial<ChatDraft> | null
   if (typeof draft?.text !== 'string') return null
-  const clientId = typeof draft.clientId === 'string' && /^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(draft.clientId)
+  const clientId = typeof draft.clientId === 'string' && messageKey.test(draft.clientId)
     ? draft.clientId : undefined
   return { text: draft.text.slice(0, messageLimit), clientId }
+}
+
+function readOutbox(value: unknown) {
+  if (!Array.isArray(value)) return null
+  return value.filter((entry): entry is OutgoingMessage => typeof entry?.id === 'string' && messageKey.test(entry.id)
+    && typeof entry.body === 'string' && entry.body.length > 0 && entry.body.length <= messageLimit
+    && typeof entry.sentAt === 'string' && Number.isFinite(Date.parse(entry.sentAt))
+    && (entry.error === undefined || typeof entry.error === 'string'))
 }
 
 export function PublicChat({ userId, backHref, onBack, onRead }: {
@@ -153,10 +166,11 @@ export default function ChatPage({ backHref, backLabel = '返回练习', direct 
   const [nickname, setNickname] = useState('')
   const [savingName, setSavingName] = useState(false)
   const [nameError, setNameError] = useState('')
-  const { value: storedDraft, save, clear } = useTabDraft(draftKey, readChatDraft)
+  const { value: storedDraft, save } = useTabDraft(draftKey, readChatDraft)
   const draft = storedDraft?.text ?? ''
-  const [sending, setSending] = useState(false)
-  const [sendError, setSendError] = useState('')
+  const { value: outgoing, snapshot: outboxSnapshot, update: updateOutbox } = useTabDraft(`${draftKey}:outbox`, readOutbox)
+  const [sendingId, setSendingId] = useState<string>()
+  const sending = sendingId !== undefined
   const [showEmoji, setShowEmoji] = useState(false)
 
   useEffect(() => {
@@ -197,7 +211,7 @@ export default function ChatPage({ backHref, backLabel = '返回练习', direct 
       setNewMessages(true)
     }
     newestSeen.current = last
-  }, [room.messages])
+  }, [room.messages, outboxSnapshot])
 
   const newestIncoming = room.messages.findLast((message) => !message.mine)?.id
   const { markRead } = room
@@ -265,26 +279,33 @@ export default function ChatPage({ backHref, backLabel = '返回练习', direct 
     save(text ? { text, clientId: text.trim() === draft.trim() ? storedDraft?.clientId : undefined } : null)
   }
 
-  async function sendMessage(event: FormEvent<HTMLFormElement>) {
+  async function deliver(message: OutgoingMessage) {
+    if (sendingNow.current) return
+    sendingNow.current = true
+    setSendingId(message.id)
+    updateOutbox((previous) => [
+      ...(previous ?? []).filter(({ id }) => id !== message.id), { ...message, error: undefined },
+    ])
+    scrollToLatest()
+    try {
+      await room.send(message.body, message.id)
+      updateOutbox((previous) => previous?.filter(({ id }) => id !== message.id) ?? null)
+    } catch (error) {
+      updateOutbox((previous) => previous?.map((item) => item.id === message.id
+        ? { ...item, error: chatError(error, '发送未获确认。') } : item) ?? null)
+    } finally {
+      sendingNow.current = false
+      setSendingId(undefined)
+    }
+  }
+
+  function sendMessage(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const body = draft.trim()
     if (!room.profile || !body || sendingNow.current) return
-    sendingNow.current = true
-    const clientId = storedDraft?.clientId ?? crypto.randomUUID()
-    const sent = save({ text: draft, clientId })
-    setSending(true)
-    setSendError('')
     setShowEmoji(false)
-    try {
-      await room.send(body, clientId)
-      clear(sent)
-      scrollToLatest()
-    } catch (error) {
-      setSendError(chatError(error, '发送未获确认，请检查网络后再试。'))
-    } finally {
-      sendingNow.current = false
-      setSending(false)
-    }
+    void deliver({ body, id: storedDraft?.clientId ?? crypto.randomUUID(), sentAt: new Date().toISOString() })
+    save(null)
   }
 
   function insertText(text: string, mention = false) {
@@ -304,12 +325,14 @@ export default function ChatPage({ backHref, backLabel = '返回练习', direct 
   }
 
   function mention(profile?: ChatProfile) {
-    if (sending || !room.profile) return
+    if (!room.profile) return
     const ownerMention = direct ? authorMention : publicAuthorMention
     const name = !profile || profile.author ? ownerMention : `@${room.displayNickname(profile)}`
     insertText(name + ' ', true)
   }
 
+  const profile = room.profile
+  const unconfirmed = outgoing?.filter((item) => !room.messages.some((message) => message.clientId === item.id)) ?? []
   return <section className="chat-room" ref={section} aria-labelledby="chat-title">
     <ChatHeader title={direct ? '作者对话' : '聊天区'} backHref={backHref} backLabel={backLabel} onBack={onBack} heading={heading}>
       {direct && room.peer && <div className="chat-counterpart">
@@ -361,10 +384,19 @@ export default function ChatPage({ backHref, backLabel = '返回练习', direct 
             disabled={room.loadingOlder}>{room.loadingOlder ? '正在加载…' : '查看更早消息'}</button>
           {room.historyError && <p className="chat-error" role="alert">{room.historyError}</p>}
         </div>}
-        {room.messages.length > 0 ? <ol className="chat-message-list">
-          {room.messages.map((message, index) => <Message key={message.id} message={message}
+        {room.messages.length > 0 || unconfirmed.length > 0 ? <ol className="chat-message-list">
+          {room.messages.map((message, index) => <Message key={message.clientId ?? message.id} message={message}
             nickname={room.displayNickname(message)} previous={room.messages[index - 1]}
             authorAvatar={room.authorAvatar} onMention={() => mention(message)} />)}
+          {profile && unconfirmed.map((item) => <Message key={item.id}
+            message={{ ...profile, ...item, mine: true }} nickname={profile.nickname} previous={room.messages.at(-1)}
+            authorAvatar={room.authorAvatar} onMention={() => {}} delivery={sendingId !== item.id ? (
+              <div className="chat-delivery chat-error" role="alert">
+                <span>{item.error ?? '发送未获确认。'}</span>
+                <button type="button" className="chat-text-button" disabled={sending} onClick={() => void deliver(item)}>重发</button>
+                <button type="button" className="chat-text-button" onClick={() => updateOutbox((before) => before?.filter(({ id }) => id !== item.id) ?? null)}>移除</button>
+              </div>
+            ) : <p className="chat-delivery" role="status">发送中…</p>} />)}
         </ol> : !room.profile && !room.readError && <p className="chat-loading" role="status">正在加载聊天记录…</p>}
       </div>
       {newMessages && <button type="button" className="chat-latest" onClick={scrollToLatest}>↓ 查看新消息</button>}
@@ -376,7 +408,7 @@ export default function ChatPage({ backHref, backLabel = '返回练习', direct 
       }
     }}>
       <textarea ref={composer} aria-label="聊天消息" rows={2} maxLength={messageLimit}
-        value={draft} disabled={!room.profile} readOnly={sending} onChange={(event) => setDraft(event.target.value)}
+        value={draft} disabled={!room.profile} onChange={(event) => setDraft(event.target.value)}
         onKeyDown={(event) => {
           if (event.key === 'Enter' && !event.shiftKey && !event.nativeEvent.isComposing
             && window.matchMedia('(pointer: fine)').matches) {
@@ -387,18 +419,17 @@ export default function ChatPage({ backHref, backLabel = '返回练习', direct 
       <div className="chat-composer-actions">
         <button type="button" className="chat-icon-button chat-emoji" ref={emojiButton} title="插入表情"
           aria-label="插入表情" aria-expanded={showEmoji} aria-controls="chat-emoji-panel"
-          disabled={!room.profile || sending} onClick={() => setShowEmoji((open) => !open)}>
+          disabled={!room.profile} onClick={() => setShowEmoji((open) => !open)}>
           <svg aria-hidden="true" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.65" strokeLinecap="round"><circle cx="12" cy="12" r="8.8" /><path d="M8.3 14.2a4 4 0 0 0 7.4 0M9 9.1h.1m5.8 0h.1" /></svg>
         </button>
         {showEmoji && <div className="chat-emoji-panel" ref={emojiPanel} id="chat-emoji-panel" aria-label="常用表情">
           {emojis.map((emoji) => <button key={emoji} type="button" onClick={() => insertText(emoji)}>{emoji}</button>)}
         </div>}
         <button className="chat-icon-button chat-mention" type="button" aria-label={direct && room.peer && !room.peer.author ? '提及对方' : '提及作者'}
-          disabled={!room.profile || sending} onClick={() => mention(room.peer)}>@</button>
-        {sendError && <p className="chat-error chat-send-error" role="alert">{sendError}</p>}
+          disabled={!room.profile} onClick={() => mention(room.peer)}>@</button>
         {draft.length >= messageLimit - 50 && <span className="chat-length">{draft.length}/{messageLimit}</span>}
         <button className="btn btn-sm primary chat-send" type="submit" disabled={!room.profile || !draft.trim() || sending}>
-          {sending ? '发送中…' : '发送'}
+          发送
         </button>
       </div>
     </form>

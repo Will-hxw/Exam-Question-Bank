@@ -9,6 +9,7 @@ const config: NextConfig = {
   outputFileTracingIncludes: {
     '/': ['./public/bank/manifest.json', './public/bank/pages/*.json'],
     '/api/webhooks/neon': ['./public/cqu-crest.png'],
+    '/api/chat': ['./public/chat-avatars/*.webp'],
   },
   async headers() {
     return [{
