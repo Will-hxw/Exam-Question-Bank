@@ -8,7 +8,8 @@ import { query } from './db'
 const mentionPattern = /(?<![A-Za-z0-9_.@])@(?:肥鱼[ \t]*AI(?:[（(]可@[）)])?|Hua[ \t]+Xiaowei(?:（作者）(?:（可@AI自动回复）)?)?|作者)(?![A-Za-z0-9_@])/gi
 const defaultBaseUrl = 'https://discovery-api.intern-ai.org.cn/v1'
 const defaultModel = 'deepseek-v4.1-flash-1017'
-const historyLimit = 12
+const historyLimit = 50
+const historyByteLimit = 24 * 1024
 const emailPattern = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi
 const unavailable = '这次没连上，过会儿再喊本鱼一下呗'
 const persona = `你叫大肥鱼，是重庆大学入党积极分子练习站里最爱水群的蓝尾巴猫娘。你是 DeepSeek AI。被问是不是 AI 就坦率承认，随口接个梗就够了，不做自我介绍，也不用搬出站点规则。
@@ -38,10 +39,18 @@ async function relevantHistory(viewer: string, sourceId: string, thread?: string
           WHERE r.user_id = $1 AND m.id < $2 ORDER BY m.id DESC LIMIT ${historyLimit})
       ) recent ORDER BY id DESC LIMIT ${historyLimit}
     `, [viewer, sourceId])
-  return rows.reverse().flatMap(({ body, assistant }) => {
+  const history: Turn[] = []
+  let bytes = 2 // JSON array brackets
+  for (const { body, assistant } of rows) {
     const content = body.replace(mentionPattern, '').replace(emailPattern, '[邮箱]').trim()
-    return content ? [{ role: assistant ? 'assistant' : 'user', content }] : []
-  })
+    if (!content) continue
+    const turn: Turn = { role: assistant ? 'assistant' : 'user', content }
+    const size = Buffer.byteLength(JSON.stringify(turn)) + (history.length ? 1 : 0)
+    if (bytes + size > historyByteLimit) break
+    history.push(turn)
+    bytes += size
+  }
+  return history.reverse()
 }
 
 async function requestCompletion(apiKey: string, instruction: string, input: string, signal: AbortSignal) {

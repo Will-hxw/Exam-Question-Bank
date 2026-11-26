@@ -629,6 +629,10 @@ async function runApiChecks(origin, db, items, secret) {
   assert.deepEqual(oldDirect.map(({ id }) => id), [welcome.id, manual.id])
 
   await db.query("UPDATE author_messages SET sent_at = sent_at - interval '5 seconds' WHERE id = $1", [manual.id])
+  await db.query(`
+    INSERT INTO author_messages (conversation_id, from_author, body)
+    SELECT $1, false, '私信上下文样本 ' || i FROM generate_series(1, 16) i
+  `, [opened.data.conversationId])
   const privateAsk = (await write(thread, chatAlice, '@Hua Xiaowei 结合私信上一条回答')).data.message
   const privateReply = await waitForChat(thread, chatAlice, (message) => !message.mine && message.body === simulatedReply)
   assert.equal(privateReply.aiReplyTo, privateAsk.id)
@@ -636,6 +640,7 @@ async function runApiChecks(origin, db, items, secret) {
   assert.equal(modelCalls[0].model, 'deepseek-v4.1-flash-1017')
   const directInput = JSON.parse(modelCalls[0].messages.at(-1).content)
   assert.equal(directInput.latest, '结合私信上一条回答')
+  assert.equal(directInput.history.length, 19)
   const directContext = JSON.stringify(directInput.history)
   assert.match(directContext, /私信历史标记/)
   assert.match(directContext, /管理员回复/)
@@ -679,6 +684,11 @@ async function runApiChecks(origin, db, items, secret) {
   await call(privateAvatar, { ...chatBob, status: 404 })
   assert.equal((await fetch(origin + privateAvatar, { headers: { cookie: `${tokenCookie}=author` } })).status, 200)
 
+  await db.query(`
+    INSERT INTO chat_messages (user_id, client_id, nickname, avatar, body, sent_at)
+    SELECT $1, gen_random_uuid(), '历史测试', 0, '群聊上下文样本 ' || i, clock_timestamp() - interval '1 minute'
+    FROM generate_series(1, 51) i
+  `, [chatAlice.owner])
   const groupHint = (await write(chatPath, chatAlice, '这个头像是随机的吗？群聊记住一个词，春天')).data.message
   await write(chatPath, chatBob, '另一位同学的上下文')
   await db.query("UPDATE chat_messages SET sent_at = sent_at - interval '5 seconds' WHERE id = $1", [groupHint.id])
@@ -691,6 +701,8 @@ async function runApiChecks(origin, db, items, secret) {
   assert.equal(modelCalls.length, 2)
   const publicInput = JSON.parse(modelCalls[1].messages.at(-1).content)
   assert.equal(publicInput.latest, '刚才那个词是什么？')
+  assert.equal(publicInput.history.length, 50)
+  assert.equal(publicInput.history[0].content, '群聊上下文样本 3')
   const publicContext = JSON.stringify(publicInput.history)
   assert.match(publicContext, /春天/)
   assert.doesNotMatch(publicContext, /私信历史标记|另一位同学的上下文/)
@@ -713,10 +725,22 @@ async function runApiChecks(origin, db, items, secret) {
   assert.equal(modelCalls.length, 6)
   assert.equal(modelCalls[4].messages.at(-1).content, modelCalls[5].messages.at(-1).content)
   assert.match(modelCalls[5].messages[0].content, /至少五个字/)
+  await db.query(`
+    INSERT INTO chat_messages (user_id, client_id, nickname, avatar, body, sent_at)
+    SELECT $1, gen_random_uuid(), '历史测试', 0, i || ':' || repeat('长', 495), clock_timestamp() - interval '1 minute'
+    FROM generate_series(1, 24) i
+  `, [chatAlice.owner])
+  const longAsk = (await write(chatPath, chatAlice, '@Hua Xiaowei 测试长上下文')).data.message
+  await waitForChat(chatPath, chatAlice, (message) => message.aiReplyTo === longAsk.id)
+  const longInput = JSON.parse(modelCalls[6].messages.at(-1).content)
+  assert.equal(longInput.latest, '测试长上下文')
+  assert.equal(longInput.history.length, 16)
+  assert.match(longInput.history.at(-1).content, /^24:/)
+  assert.ok(Buffer.byteLength(JSON.stringify(longInput.history)) <= 24 * 1024)
   await db.query('DELETE FROM chat_messages; DELETE FROM author_conversations')
 
   return {
-    verified: ['anonymous/email verification gate', 'distinct fixture Auth owners', 'private no-store and public cache headers', 'real PostgreSQL and Chinese cursor pagination', 'fixed explanation and answer exposure', 'write idempotency and cross-owner rejection', 'default and custom exam size, random order, validation, resume, scoring, and history', 'Next Data Cache hot to changed after authorized invalidation', 'shared chat, stable profiles, rename, cursor pagination, concurrent retry, rate limit and privacy', 'account-specific chat avatars, historical messages and authenticated image delivery', 'private conversation access, concurrent first open, author inbox and unread cursors', 'DeepSeek protocol, context isolation, concurrent request deduplication and provider error', 'rating-only feedback request validation'],
+    verified: ['anonymous/email verification gate', 'distinct fixture Auth owners', 'private no-store and public cache headers', 'real PostgreSQL and Chinese cursor pagination', 'fixed explanation and answer exposure', 'write idempotency and cross-owner rejection', 'default and custom exam size, random order, validation, resume, scoring, and history', 'Next Data Cache hot to changed after authorized invalidation', 'shared chat, stable profiles, rename, cursor pagination, concurrent retry, rate limit and privacy', 'account-specific chat avatars, historical messages and authenticated image delivery', 'private conversation access, concurrent first open, author inbox and unread cursors', 'DeepSeek protocol, bounded history outside the 12-message window, context isolation, concurrent request deduplication and provider error', 'rating-only feedback request validation'],
     invalidationToObservableRefreshMs: Number((performance.now() - start).toFixed(2)),
     timingsMs: Object.fromEntries(Object.entries(samples).map(([name, timings]) => {
       const values = timings.map(({ ms }) => ms)
