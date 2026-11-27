@@ -222,7 +222,10 @@ function PracticeCard({ question, answer, record, progress, previous, next, atte
       {!answer && canExplain && expanded && explanation && <p className="answer-reveal">正确答案：<span>{answerLetters(explanation.options, explanation.answerIds)}</span></p>}
       {answer && <div role="status">
         <p className={`feedback ${answer.correct ? 'correct' : 'wrong'}`}>{answer.correct ? '✓ 正确' : '✗ 错误'}</p>
-        <p className="answer-reveal">正确答案：<span>{answerLetters(question.options, question.answerIds ?? [])}</span> | 你的选择：<span>{answerLetters(question.options, answer.ids)}</span></p>
+        <div className="answer-comparison">
+          <p className="answer-reveal">正确答案：<span>{answerLetters(question.options, question.answerIds ?? [])}</span></p>
+          <p className="answer-reveal">你的选择：<span>{answerLetters(question.options, answer.ids)}</span></p>
+        </div>
         {!answer.eventId && <button type="button" className="btn btn-sm" onClick={() => saveAnswer(answer.ids, answer.correct)}>重试保存本题</button>}
       </div>}
       {message && <p className="study-message error" role="alert">{message}</p>}
