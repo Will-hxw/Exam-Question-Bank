@@ -10098,5 +10098,885 @@
     "sourceId": "S-UQ-2024",
     "location": "组织处置适用情形答问",
     "scopeNote": "以题干所引公开文献的具体词位、对象和条件判答。"
+  },
+  {
+    "id": "791f6b3d-de8e-4820-913d-467d4b0e373a",
+    "topicId": "t01",
+    "factKey": "three-criteria-for-work",
+    "importance": "general",
+    "fact": "党章明确把有利于发展生产力、增强综合国力、提高人民生活水平作为各项工作的总出发点和检验标准。",
+    "sourceId": "S18",
+    "location": "总纲社会主义初级阶段的各项工作检验标准段",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "b8209d43-3e21-4324-8526-635dc060b3df",
+    "topicId": "t06",
+    "factKey": "sinicization-of-marxism-first-proposition",
+    "importance": "general",
+    "fact": "1938年在延安举行的中共扩大的六届六中全会首次提出马克思主义中国化的命题。",
+    "sourceId": "S17",
+    "location": "1938年9月29日至11月6日六届六中全会条",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "cac82613-d14e-4ac8-9c9a-227cc7bcacad",
+    "topicId": "t03",
+    "factKey": "internet-companies-elevated-party-management",
+    "importance": "general",
+    "fact": "《决定》在新兴领域党的建设部分，明确建立互联网企业党组织提级管理动态调整机制。",
+    "sourceId": "S06",
+    "location": "第五部分第四项突出抓好新兴领域党的建设",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "a8d4143a-7f5d-4519-86d8-d21d89531b50",
+    "topicId": "t06",
+    "factKey": "gutian-two-principles",
+    "importance": "general",
+    "fact": "古田会议通过毛泽东起草的决议，确立思想建党、政治建军原则。",
+    "sourceId": "S17",
+    "location": "1929年12月28日至29日古田会议条",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "896ebadb-7689-4bae-a33c-df79788c9492",
+    "topicId": "t06",
+    "factKey": "sanwan-military-party-organization",
+    "importance": "general",
+    "fact": "三湾改编在班排设党小组，在连队建党支部，在营团建党委，并在连以上设置党代表。",
+    "sourceId": "W27-SANWAN",
+    "location": "1927年9月29日条第二项",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "8201dbad-5c30-4c23-8c97-9ab14c608fed",
+    "topicId": "t06",
+    "factKey": "august-seventh-policy",
+    "importance": "general",
+    "fact": "八七会议在汉口召开，确定土地革命和武装反抗国民党反动派的总方针。",
+    "sourceId": "S17",
+    "location": "1927年8月7日条",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "9205430c-b875-4702-8c78-79921b2a5968",
+    "topicId": "t06",
+    "factKey": "three-working-styles-at-seventh-congress",
+    "importance": "general",
+    "fact": "《论联合政府》列出理论和实践相结合、与人民群众紧密联系以及自我批评三种作风。",
+    "sourceId": "S64",
+    "location": "第五部分全党团结起来为实现党的任务而斗争，‘新的工作作风’段",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "3df305da-1b82-4447-8fb7-d8c0715a541b",
+    "topicId": "t06",
+    "factKey": "two-musts-working-styles",
+    "importance": "general",
+    "fact": "七届二中全会提出继续保持谦虚、谨慎、不骄、不躁，继续保持艰苦奋斗。",
+    "sourceId": "S17",
+    "location": "1949年3月5日至13日七届二中全会条",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "03d493e0-36cf-4211-85eb-8bef840a45b3",
+    "topicId": "t06",
+    "factKey": "founding-party-three-magic-weapons",
+    "importance": "general",
+    "fact": "三个法宝为统一战线、武装斗争和党的建设。",
+    "sourceId": "S17",
+    "location": "1939年10月4日条",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "89d4cc73-e0f3-467e-88fe-8a38e84ad212",
+    "topicId": "t06",
+    "factKey": "three-mountains-victory",
+    "importance": "general",
+    "fact": "新民主主义革命推翻帝国主义、封建主义、官僚资本主义三座大山。",
+    "sourceId": "S52",
+    "location": "第一部分夺取新民主主义革命伟大胜利，解放战争时期段",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "76c70afe-1b44-4b8f-83b3-e1f3f1bb054b",
+    "topicId": "t06",
+    "factKey": "eight-character-adjustment",
+    "importance": "general",
+    "fact": "党的八届九中全会正式通过调整、巩固、充实、提高的方针。",
+    "sourceId": "S17",
+    "location": "1961年1月14日至18日八届九中全会条",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "6ea00640-03a2-43cf-8b97-d2cca8de4100",
+    "topicId": "t06",
+    "factKey": "three-strategic-campaigns",
+    "importance": "general",
+    "fact": "三大战役是辽沈战役、淮海战役、平津战役。渡江战役在三大战役之后。",
+    "sourceId": "S52",
+    "location": "第一部分夺取新民主主义革命伟大胜利，解放战争时期段",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "09b0b255-adae-4f50-94c9-7bc27bb81b59",
+    "topicId": "t06",
+    "factKey": "first-economic-special-zones",
+    "importance": "general",
+    "fact": "1980年首批设立深圳、珠海、汕头、厦门经济特区。",
+    "sourceId": "S17",
+    "location": "1979年7月15日条末关于1980年设置四个经济特区的记载",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "39478153-aca7-498e-83be-350645acc92c",
+    "topicId": "t06",
+    "factKey": "zunyi-two-immediate-issues",
+    "importance": "general",
+    "fact": "党史大事记明确，遵义会议集中解决当时具有决定意义的军事和组织问题。",
+    "sourceId": "S17",
+    "location": "1935年1月15日至17日条",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "0192949f-f50a-4447-aacc-5cf16361c387",
+    "topicId": "t06",
+    "factKey": "long-march-three-metaphors",
+    "importance": "general",
+    "fact": "该文把长征分别比作宣言书、宣传队、播种机。",
+    "sourceId": "LONG-MARCH-HISTORY-QA",
+    "location": "党史百问正文，毛泽东概括长征意义段",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "f44eec42-5488-4cb8-b880-2cd59b0fe185",
+    "topicId": "t06",
+    "factKey": "fourth-congress-two-questions",
+    "importance": "general",
+    "fact": "中共四大明确提出无产阶级在民主革命中的领导权和工农联盟问题。",
+    "sourceId": "S17",
+    "location": "1925年1月11日至22日中共四大条",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "0fcb593b-0a02-49ed-85aa-0b9f46d3f908",
+    "topicId": "t06",
+    "factKey": "first-cpc-congress-comintern-representatives",
+    "importance": "general",
+    "fact": "中共一大召开时，共产国际代表马林、尼克尔斯基出席会议。",
+    "sourceId": "S17",
+    "location": "1921年7月23日中共一大条",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "32b085b4-ce67-4d29-9224-d3412eebd8bd",
+    "topicId": "t06",
+    "factKey": "first-cppcc-symbols-decisions",
+    "importance": "general",
+    "fact": "会议议定国都、纪年、代国歌和国旗，国徽图案随后于1950年确定。",
+    "sourceId": "S17",
+    "location": "1949年9月21日至30日中国人民政协第一届全体会议条",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "9128066e-a347-4247-aa7c-755a06a4c99e",
+    "topicId": "t06",
+    "factKey": "first-npc-officials",
+    "importance": "general",
+    "fact": "一届全国人大一次会议选举毛泽东为国家主席、刘少奇为全国人大常委会委员长，决定周恩来为国务院总理。",
+    "sourceId": "S17",
+    "location": "1954年9月15日至28日一届全国人大一次会议条",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "edd31006-25f1-45dd-a54e-13f9824e8300",
+    "topicId": "t06",
+    "factKey": "three-antis-movement",
+    "importance": "general",
+    "fact": "“三反”指反贪污、反浪费、反官僚主义。",
+    "sourceId": "S17",
+    "location": "1951年12月1日条、1952年1月26日条",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "d3e4305f-1e10-4bfa-9676-4a57d53acfe6",
+    "topicId": "t03",
+    "factKey": "plenary-five-inspection-methods",
+    "importance": "general",
+    "fact": "《决定》要求综合运用常规、专项、机动、提级巡视等方式。",
+    "sourceId": "S06",
+    "location": "第八部分后完善党和国家监督体系段，巡视方式",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "2a1bcf44-a08d-4963-b1a8-a406405859f7",
+    "topicId": "t03",
+    "factKey": "plenary-five-four-activities-downward",
+    "importance": "general",
+    "fact": "四项是宣传方针政策、调查研究、信访接待和现场办公下基层。",
+    "sourceId": "S06",
+    "location": "第六部分第一项走好新时代党的群众路线",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "d863a9d1-1bc1-4117-a7e8-412dc1311f82",
+    "topicId": "t03",
+    "factKey": "plenary-five-major-matters-supervision",
+    "importance": "general",
+    "fact": "《决定》列举重大决策、重要人事任免、重大项目安排和大额资金使用四类事项。",
+    "sourceId": "S06",
+    "location": "第三部分第三项，重大事项监督机制",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "152d7353-4a5a-43ad-ac84-3ce0921c84fd",
+    "topicId": "t03",
+    "factKey": "plenary-five-discipline-reminder-milestones",
+    "importance": "general",
+    "fact": "这组节点包括入党入职、职务变动、家庭变化、离职退休，要求加强纪律提醒。",
+    "sourceId": "S06",
+    "location": "第六部分第五项全周期纪律教育段",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "36ecb5b8-2115-4e55-8649-4819d76136f3",
+    "topicId": "t03",
+    "factKey": "plenary-five-four-forms-supervision",
+    "importance": "general",
+    "fact": "《决定》明确加强纪律监督、监察监督、派驻监督和巡视监督的统筹衔接。",
+    "sourceId": "S06",
+    "location": "第八部分后完善党和国家监督体系段，监督统筹衔接",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "84ad787d-e5ae-41cb-87b7-7f7731dc122d",
+    "topicId": "t03",
+    "factKey": "plenary-five-party-spirit-appraisals",
+    "importance": "general",
+    "fact": "《决定》把党性作为干部考察和党员民主评议的重要内容。",
+    "sourceId": "S06",
+    "location": "第二部分第五项加强党性鉴别",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "8486b0c6-a3ea-460a-a2fd-5975ea87ddd4",
+    "topicId": "t03",
+    "factKey": "plenary-five-regulation-lifecycle",
+    "importance": "general",
+    "fact": "《决定》在完善党内法规制度体系一项中要求统筹党内法规立改废释。",
+    "sourceId": "S06",
+    "location": "第八部分第一项完善党内法规制度体系",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "9c4db932-4d51-46a3-95c4-29529756adfc",
+    "topicId": "t03",
+    "factKey": "plenary-five-anti-corruption-coordinated-effort",
+    "importance": "general",
+    "fact": "《决定》要求不敢腐、不能腐、不想腐同时发力、同向发力、综合发力。",
+    "sourceId": "S06",
+    "location": "第七部分第四项一体推进不敢腐不能腐不想腐综合效能",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "4a0f792f-65a9-47f2-8504-bf9eebcb0480",
+    "topicId": "t03",
+    "factKey": "plenary-five-personnel-selection-principles",
+    "importance": "general",
+    "fact": "《决定》提出坚持组织选人、公正用人、以事择人。",
+    "sourceId": "S06",
+    "location": "第四部分第二项精准科学选人用人首段",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "44e5cc3e-5658-4b86-83f5-24d9f0a64a82",
+    "topicId": "t03",
+    "factKey": "plenary-five-model-organs",
+    "importance": "general",
+    "fact": "这组模范机关要求是讲政治、守纪律、负责任、有效率。",
+    "sourceId": "S06",
+    "location": "第五部分第一项中央和国家机关党组织表率作用",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "116b6870-54c0-43b1-8cec-15c8207b8db7",
+    "topicId": "t03",
+    "factKey": "plenary-five-decision-procedures",
+    "importance": "general",
+    "fact": "《决定》并列提出加强重大决策的调查研究、科学论证、风险评估，并另行要求加强合规合法性审查。",
+    "sourceId": "S06",
+    "location": "第三部分第三项严格执行领导班子决策议事规则",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "008612f0-0f10-4a14-a63d-7fdaff3c33b3",
+    "topicId": "t03",
+    "factKey": "plenary-five-emerging-party-organizations",
+    "importance": "general",
+    "fact": "《决定》强调新经济组织、新社会组织、新就业群体的党的组织覆盖和工作覆盖。",
+    "sourceId": "S06",
+    "location": "第五部分第四项突出抓好新兴领域党的建设",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "1078fb62-ece6-44af-86b7-35c9e55a8f02",
+    "topicId": "t03",
+    "factKey": "plenary-five-organizational-communication",
+    "importance": "general",
+    "fact": "《决定》列出上级部署传达落实、基层情况向上反映、矛盾问题协同解决。",
+    "sourceId": "S06",
+    "location": "第五部分第六项完善党的各级组织贯通机制首句",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "96bf93ee-4ba7-417b-9a98-77eef69d12d5",
+    "topicId": "t13",
+    "factKey": "party-building-four-identifications",
+    "importance": "general",
+    "fact": "通知要求增进政治认同、思想认同、理论认同、情感认同。",
+    "sourceId": "S37",
+    "location": "公开报道理论品格段末句",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "d46684aa-572c-4383-ac7c-82a760380026",
+    "topicId": "t13",
+    "factKey": "party-building-truth-and-personality",
+    "importance": "general",
+    "fact": "通知在理论品格段要求体悟真理力量和人格力量。",
+    "sourceId": "S37",
+    "location": "公开报道理论品格段末句",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "ff5010eb-f8a5-47f8-ace4-be14171145c0",
+    "topicId": "t13",
+    "factKey": "party-building-work-arrangements",
+    "importance": "general",
+    "fact": "工作安排要求扎实开展学习培训、精心组织宣传阐释、全面抓好贯彻落实。",
+    "sourceId": "S37",
+    "location": "公开报道工作要求段",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "2babbca9-59b6-402d-a1ff-0ce349c43b6e",
+    "topicId": "t13",
+    "factKey": "party-self-revolution-four-abilities",
+    "importance": "general",
+    "fact": "报告写到自我净化、自我完善、自我革新、自我提高能力显著增强。",
+    "sourceId": "S03",
+    "location": "第一部分新时代十年的伟大变革，自我革命段",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "e3bfd0fb-9586-453f-9af2-25a5019d92d8",
+    "topicId": "t13",
+    "factKey": "two-answers-to-historical-cycle",
+    "importance": "general",
+    "fact": "《决定》并举让人民来监督政府和自我革命。党的二十大报告把自我革命称为跳出治乱兴衰历史周期率的第二个答案。",
+    "sourceId": "S06",
+    "location": "第一部分第一项讲党的独特创造段",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "a9ba0ec1-fd59-4d0d-8f74-aec1650ef47f",
+    "topicId": "t13",
+    "factKey": "party-building-fundamental-guide",
+    "importance": "general",
+    "fact": "通知把习近平党建思想定位为深入推进新时代党的建设新的伟大工程的根本遵循和行动指南。",
+    "sourceId": "S37",
+    "location": "公开报道阐明重要定位段",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "66fc89e0-0da5-46c1-9575-2a221d39dafe",
+    "topicId": "t01",
+    "factKey": "four-consciousnesses",
+    "importance": "general",
+    "fact": "五中全会《决定》明确列举政治意识、大局意识、核心意识、看齐意识。",
+    "sourceId": "S06",
+    "location": "第二部分第一项关于强化对党忠诚教育",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "139e0136-8b17-4f3a-b65b-1723e887cdfd",
+    "topicId": "t01",
+    "factKey": "ecological-protection-policy",
+    "importance": "general",
+    "fact": "党章明确节约优先、保护优先、自然恢复为主。",
+    "sourceId": "S18",
+    "location": "总纲领导人民建设社会主义生态文明段",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "7f8b0f47-fe10-4440-94d3-80c2a19e732e",
+    "topicId": "t01",
+    "factKey": "themed-education-four-learning-outcomes",
+    "importance": "general",
+    "fact": "这四项要求是以学铸魂、以学增智、以学正风和以学促干。",
+    "sourceId": "T01-EDUCATION23",
+    "location": "第二部分准确把握主题教育的目标要求，根本任务段",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "e3fe6e35-2279-4f6e-aad0-fe0aa7aaccee",
+    "topicId": "t04",
+    "factKey": "right-performance-assessment-find-issues",
+    "importance": "general",
+    "fact": "通知公开报道列举通过督促检查、调查研究、了解群众反映等途径深入查找政绩观偏差和不足。",
+    "sourceId": "S10",
+    "location": "县处级以上领导班子及其成员查找政绩观问题段",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "ce46c392-1e64-4fb3-a069-a59e3ba7e97d",
+    "topicId": "t04",
+    "factKey": "right-performance-assessment-finding-supervision",
+    "importance": "general",
+    "fact": "指示提出结合巡视巡察、审计监督、统计监督等，精准发现政绩观问题。",
+    "sourceId": "T04-SUMMARY26",
+    "location": "新华社8月24日电，习近平强调段",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "8c75f359-18da-4015-a8bc-d3aa0c649f3c",
+    "topicId": "t04",
+    "factKey": "right-performance-rectification-two-orientations",
+    "importance": "general",
+    "fact": "2026年2月5日指示强调，坚持目标导向和问题导向相结合，对突出问题作出整改安排。",
+    "sourceId": "S49",
+    "location": "公开节录2026年2月5日指示关于整改突出问题段",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "574ddec9-357f-41f5-a9c4-3a4dc75331e4",
+    "topicId": "t07",
+    "factKey": "party-national-conference-powers",
+    "importance": "general",
+    "fact": "第二十一条规定，全国代表会议讨论和决定重大问题，并可调整和增选中央委员会、中央纪律检查委员会的部分成员。",
+    "sourceId": "S18",
+    "location": "第二十一条",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "74c65949-f8d3-4a7d-a392-255d77c8d490",
+    "topicId": "t07",
+    "factKey": "local-congress-elected-bodies",
+    "importance": "general",
+    "fact": "第二十六条规定，地方各级党代会选举同级党委、同级纪委。第二十八条另行规定常委会的选举主体。",
+    "sourceId": "S18",
+    "location": "第二十六条第（四）项",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "28f52932-df1f-4e43-9200-1cae3e649df9",
+    "topicId": "t07",
+    "factKey": "interparty-relations-principles",
+    "importance": "general",
+    "fact": "发展党际关系遵循独立自主、完全平等、互相尊重、互不干涉内部事务。国与国交往的相邻表述为平等互利、互不干涉内政等。",
+    "sourceId": "S18",
+    "location": "总纲“中国共产党坚持独立自主的和平外交政策”段",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "d6b904b0-abbf-4f14-9f12-428b4c543258",
+    "topicId": "t07",
+    "factKey": "different-kinds-of-social-contradictions",
+    "importance": "general",
+    "fact": "党章总纲在加强和创新社会治理处要求严格区分和正确处理敌我矛盾和人民内部矛盾。",
+    "sourceId": "S18",
+    "location": "总纲“中国共产党领导人民构建社会主义和谐社会”段",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "def6c884-830c-44eb-9b12-ca9027634203",
+    "topicId": "t07",
+    "factKey": "spiritual-civilization-rule-law-morality",
+    "importance": "general",
+    "fact": "党章总纲在建设社会主义精神文明处写明实行依法治国和以德治国相结合。",
+    "sourceId": "S18",
+    "location": "总纲“中国共产党领导人民发展社会主义先进文化”段",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "04ae1aa4-9640-4e98-992f-159c8e2f1c10",
+    "topicId": "t07",
+    "factKey": "national-self-respect-confidence-strength",
+    "importance": "general",
+    "fact": "社会主义先进文化段写作增强民族自尊、自信和自强精神。",
+    "sourceId": "S18",
+    "location": "总纲“中国共产党领导人民发展社会主义先进文化”段",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "afeaa122-6cf9-404d-9f47-e0e1dac8e38a",
+    "topicId": "t07",
+    "factKey": "civilized-development-road-features",
+    "importance": "general",
+    "fact": "总纲规定坚持生产发展、生活富裕、生态良好的文明发展道路，并另有资源节约型、环境友好型社会的表述。",
+    "sourceId": "S18",
+    "location": "总纲“中国共产党领导人民建设社会主义生态文明”段",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "f9daec26-be70-430c-a71d-c740d79051ce",
+    "topicId": "t07",
+    "factKey": "five-goals-for-building-world",
+    "importance": "general",
+    "fact": "总纲列出持久和平、普遍安全、共同繁荣、开放包容、清洁美丽五项取向。",
+    "sourceId": "S18",
+    "location": "总纲“中国共产党坚持独立自主的和平外交政策”段",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "6551862e-9bbd-405f-83ac-86482e6223b8",
+    "topicId": "t07",
+    "factKey": "party-leadership-core-organizing-principles",
+    "importance": "general",
+    "fact": "党章总纲将该原则表述为总揽全局、协调各方。",
+    "sourceId": "S18",
+    "location": "总纲“中国共产党的领导是中国特色社会主义最本质的特征”段",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "91af77e0-ee02-4e18-917c-178a4bcd7276",
+    "topicId": "t07",
+    "factKey": "party-leaders-basic-conduct-multi",
+    "importance": "general",
+    "fact": "党章要求党的各级领导干部信念坚定、为民服务、勤政务实、敢于担当、清正廉洁。",
+    "sourceId": "S18",
+    "location": "第三十六条首款",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "08423d76-97ec-45ab-8d04-57f4c8c25a01",
+    "topicId": "t02",
+    "factKey": "chinese-discourse-and-narrative-systems",
+    "importance": "general",
+    "fact": "报告将中国话语和中国叙事列为需要加快构建的体系，同段提出讲好中国故事、传播好中国声音。",
+    "sourceId": "S03",
+    "location": "第八部分第（五）项“增强中华文明传播力影响力”",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "fec4ad62-af15-4e6e-a4ec-942552c68627",
+    "topicId": "t02",
+    "factKey": "party-regulations-authority-enforcement",
+    "importance": "general",
+    "fact": "报告关于完善党的自我革命制度规范体系的部署，要求增强党内法规权威性和执行力。",
+    "sourceId": "S03",
+    "location": "第十五部分第（三）项“完善党的自我革命制度规范体系”",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "5a255b84-7b2c-4468-bb32-10d4ce61be7b",
+    "topicId": "t02",
+    "factKey": "new-era-great-achievements-action-words",
+    "importance": "general",
+    "fact": "报告在总结新时代十年的伟大变革时使用拼出来、干出来、奋斗出来三种表述。",
+    "sourceId": "S03",
+    "location": "第一部分“过去五年的工作和新时代十年的伟大变革”结尾",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "50e4b445-073d-40c3-98ce-a48beb353382",
+    "topicId": "t02",
+    "factKey": "people-orientation-of-party-theory",
+    "importance": "general",
+    "fact": "报告在论述人民至上时，将党的理论表述为来自人民、为了人民、造福人民的理论。",
+    "sourceId": "S03",
+    "location": "第二部分“开辟马克思主义中国化时代化新境界”中“必须坚持人民至上”段",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "1a5b4728-0e38-4a12-92eb-7c0ee1eccb7a",
+    "topicId": "t02",
+    "factKey": "people-oriented-city-work-areas",
+    "importance": "general",
+    "fact": "该部分关于人民城市的句子逐项列出城市规划、建设和治理。城市更新是同段提出的行动。",
+    "sourceId": "S03",
+    "location": "第四部分第（四）项“促进区域协调发展”",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "134ffeb8-9cc9-4c03-8e39-c0fb9f2d3c3d",
+    "topicId": "t02",
+    "factKey": "three-education-talent-innovation-strategies",
+    "importance": "general",
+    "fact": "报告在相关部分首段同时提出科教兴国战略、人才强国战略和创新驱动发展战略。",
+    "sourceId": "S03",
+    "location": "第五部分“实施科教兴国战略，强化现代化建设人才支撑”首段",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "3853cf2d-76f4-41af-8920-85ab97b1c57e",
+    "topicId": "t08",
+    "factKey": "disciplinary-treatment-after-disappearance",
+    "importance": "general",
+    "fact": "严重违纪且应开除党籍的，党组织应当作出开除党籍决定。其余情形下落不明超过六个月的，按党章规定除名。",
+    "sourceId": "S19",
+    "location": "第三十七条",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "088c8211-6a8c-4fef-96db-e3bb68859d36",
+    "topicId": "t01",
+    "factKey": "new-quality-productive-forces-three-features",
+    "importance": "general",
+    "fact": "2024年公开发表的论述将新质生产力的特征概括为高科技、高效能、高质量。",
+    "sourceId": "C750-03",
+    "location": "“什么是新质生产力、如何发展新质生产力”段",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "9464b734-7c10-4575-abbc-6446286ee8ab",
+    "topicId": "t12",
+    "factKey": "party-membership-transfer-which-changes",
+    "importance": "general",
+    "fact": "条例第二十五条规定，工作单位或经常居住地发生变动的，应当转移组织关系。",
+    "sourceId": "S34",
+    "location": "第二十五条第三款",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "fbe7a78e-1e83-4b24-94f7-403fad416999",
+    "topicId": "t12",
+    "factKey": "integrity-code-ordinary-member-standards",
+    "importance": "general",
+    "fact": "准则第一至第四条规定党员行为规范。廉洁用权是第六条专门列明的党员领导干部规范。",
+    "sourceId": "SZCS-LZ2015",
+    "location": "第一至第四条；第六条",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "8ecd2ff1-2ddf-4817-aeb6-b29a90f4b7d5",
+    "topicId": "t10",
+    "factKey": "cqu-fifty-third-november-training-deadline",
+    "importance": "general",
+    "fact": "11月20日是完成培训和上报名单的共同节点。计划表提前填报，全校结业考试另行安排。",
+    "sourceId": "C06",
+    "location": "六、工作要求第2、3项；第1项",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "945fc682-0874-42e2-949b-21ed1dbdfbc3",
+    "topicId": "t10",
+    "factKey": "active-applicant-training-contact-tasks",
+    "importance": "general",
+    "fact": "培养联系人负责思想学习引导和培养考察并提出意见。转入材料审查和确定积极分子由相应党组织办理。",
+    "sourceId": "S35",
+    "location": "第九条第一项、第四项；第八条；第十二条",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "e4e3f50f-fa53-40cc-bbac-c0a9ce0f4a13",
+    "topicId": "t12",
+    "factKey": "named-party-complaint-acceptance-feedback",
+    "importance": "general",
+    "fact": "实名检举控告按规定优先办理、优先处置，并告知受理情况、反馈处理结果。检举控告材料适用严格保密要求。",
+    "sourceId": "S32",
+    "location": "第三十二条第二款",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "5e8dff33-7c08-465a-945c-9c0bafdd9bad",
+    "topicId": "t10",
+    "factKey": "party-reception-meeting-roles",
+    "importance": "general",
+    "fact": "大会由发展对象先汇报，随后入党介绍人介绍情况并表明意见。领表属于预审之后的环节，受党委指派谈话属于党委审批之前的环节。",
+    "sourceId": "S35",
+    "location": "第二十条第一、二项；第十八条；第二十三条",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "15412714-7a17-4727-83f2-6c3988861ee0",
+    "topicId": "t12",
+    "factKey": "party-member-training-right-direct-modes",
+    "importance": "general",
+    "fact": "第八条列举集中学习教育、专题学习教育、集中轮训、脱产培训和网络培训。按条文列举范围选择。",
+    "sourceId": "S32",
+    "location": "第八条",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "88531a7c-8c2d-41eb-a440-5bbf1f2e1f8c",
+    "topicId": "t07",
+    "factKey": "party-constitution-first-three-subordination-rules",
+    "importance": "general",
+    "fact": "这三项均由党章第十条第（一）项直接列举。地方纪委的双重领导体制由第四十五条规定。",
+    "sourceId": "S18",
+    "location": "第十条第（一）项；第四十五条第一款",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "82e8ecf4-f990-4472-a8be-7b17c11f8e4b",
+    "topicId": "t07",
+    "factKey": "party-congress-elects-central-committees",
+    "importance": "general",
+    "fact": "全国代表大会选举中央委员会和中央纪律检查委员会。中央委员会全体会议选举中央政治局及其常务委员会。",
+    "sourceId": "S18",
+    "location": "第二十条第五、六项",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "604bffe8-626a-4046-9c0d-71ba08634e3d",
+    "topicId": "t07",
+    "factKey": "party-constitution-correction-and-admonition",
+    "importance": "general",
+    "fact": "按错误性质和情节轻重，党章列出批评教育、责令检查、诫勉直至纪律处分。",
+    "sourceId": "S18",
+    "location": "第四十条第二款",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "7b6b64cc-dc42-4a50-9540-a507b2be1068",
+    "topicId": "t07",
+    "factKey": "party-constitution-discipline-inspection-stationed-units",
+    "importance": "general",
+    "fact": "纪委按照规定向有关国有企业、事业单位派驻党的纪律检查组。同级党和国家机关适用本款的全面派驻规定。",
+    "sourceId": "S18",
+    "location": "第四十五条第四款",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "e6234954-5e06-4b5c-ae58-030ad8054ec7",
+    "topicId": "t07",
+    "factKey": "party-constitution-political-organizational-functions",
+    "importance": "general",
+    "fact": "坚持新时代党的组织路线，必须增强党组织的政治功能和组织功能。",
+    "sourceId": "S18",
+    "location": "总纲“第三，坚持新时代党的组织路线”段",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "fbda03a5-ce33-4b37-8c29-37acdcfcfad0",
+    "topicId": "t07",
+    "factKey": "party-constitution-security-interests",
+    "importance": "general",
+    "fact": "党章总纲在总体国家安全观这句明确列举的是国家主权、安全和发展利益。",
+    "sourceId": "S18",
+    "location": "总纲“领导人民构建社会主义和谐社会”段",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "80fc93a1-51a8-452c-8b42-c3382696dae5",
+    "topicId": "t07",
+    "factKey": "party-constitution-common-human-values-middle",
+    "importance": "general",
+    "fact": "党章列举的是和平、发展、公平、正义、民主、自由。",
+    "sourceId": "S18",
+    "location": "总纲对外关系段全人类共同价值",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "ab463d80-78b0-4858-b9e3-0d88ff1a703c",
+    "topicId": "t06",
+    "factKey": "great-founding-spirit-middle-elements",
+    "importance": "general",
+    "fact": "伟大建党精神的第二组是践行初心、担当使命，第三组是不怕牺牲、英勇斗争。",
+    "sourceId": "S60",
+    "location": "伟大建党精神段",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "080638e4-dd66-4e09-8ce1-7466f0c621f6",
+    "topicId": "t10",
+    "factKey": "political-review-basic-methods",
+    "importance": "general",
+    "fact": "政审包括同本人谈话、查阅有关档案材料、找有关单位和人员了解情况及必要的函调或者外调。掌握情况已经清楚时，可以不函调或外调。",
+    "sourceId": "S35",
+    "location": "第十六条第三款",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "149de46d-7ce2-4102-89e8-e662f3b5dfe9",
+    "topicId": "t08",
+    "factKey": "party-member-disciplinary-sanctions-middle",
+    "importance": "general",
+    "fact": "对党员的五种党纪处分依次是警告、严重警告、撤销党内职务、留党察看和开除党籍。",
+    "sourceId": "S19",
+    "location": "第八条",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "f1f2b92a-261b-4532-bb02-ab6715f0967b",
+    "topicId": "t09",
+    "factKey": "central-eight-rules-personal-publications-greetings",
+    "importance": "general",
+    "fact": "第七项要求，除中央统一安排外，个人不公开出版著作、讲话单行本，不发贺信、贺电，不题词、题字。",
+    "sourceId": "S20",
+    "location": "第七项",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "7504d82d-0960-4fa3-a719-2f3046fcaaea",
+    "topicId": "t08",
+    "factKey": "probationary-member-minor-discipline-handling",
+    "importance": "general",
+    "fact": "第三十六条规定，情节较轻且可以保留预备党员资格时，应当批评教育或者延长预备期。情节较重时，应取消其预备党员资格。",
+    "sourceId": "S19",
+    "location": "第三十六条",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "2364c92c-bac2-4f58-abd3-8cfeba9884d9",
+    "topicId": "t08",
+    "factKey": "factional-political-environment-deterioration-sanctions",
+    "importance": "general",
+    "fact": "在党内搞拉帮结派等非组织活动，导致本地区、本部门、本单位政治生态恶化的，给予留党察看或者开除党籍。",
+    "sourceId": "S19",
+    "location": "第五十四条",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "28ccd7f6-25b3-4fe8-84a3-e0f2be563454",
+    "topicId": "t09",
+    "factKey": "central-eight-rules-meeting-effective-requirements",
+    "importance": "general",
+    "fact": "第二项明确开短会、讲短话，力戒空话、套话。",
+    "sourceId": "S20",
+    "location": "第二项",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "80d78cf8-6530-454e-80c1-b1081c49a37d",
+    "topicId": "t09",
+    "factKey": "central-eight-rules-research-reception-requirements",
+    "importance": "general",
+    "fact": "基层调研要简化接待。第一项列出不张贴悬挂标语横幅、不安排群众迎送、不铺设迎宾地毯、不摆放花草和不安排宴请。",
+    "sourceId": "S20",
+    "location": "第一项",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "5c7fffff-8d16-4326-90e6-4fa58a888100",
+    "topicId": "t12",
+    "factKey": "party-training-plan-learning-hours-matrix",
+    "importance": "general",
+    "fact": "一般要求为党员5年集中培训至少160学时、基层党组织书记至少280学时。基层党组织书记参加县级以上党委举办的脱产培训每年累计一般不少于40学时，党的创新理论教育应至少占总学时的一半。",
+    "sourceId": "PARTY-TRAINING-2024-2028",
+    "location": "第一部分“总体要求”主要目标后段",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "74da2b61-1a67-49bd-a526-2ce550bb790f",
+    "topicId": "t12",
+    "factKey": "party-flag-required-oath-activities",
+    "importance": "general",
+    "fact": "新党员宣誓、重温入党誓词属于应当使用党旗的情形。一般党员大会和基层党组织主题党日列在可以使用的条款。",
+    "sourceId": "S72-FLAG",
+    "location": "第九条第一项",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
+  },
+  {
+    "id": "60f69c1e-55a6-4a56-89ba-164e53ab69dd",
+    "topicId": "t12",
+    "factKey": "party-member-education-management-assessment-types",
+    "importance": "general",
+    "fact": "上级党组织开展年度考核、任期考核时，应考核检查下级党组织的党员教育管理工作。",
+    "sourceId": "S34",
+    "location": "第四十三条末句",
+    "scopeNote": "按题干所列文献的具体对象与条段判答。"
   }
 ]

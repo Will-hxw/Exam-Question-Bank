@@ -333,14 +333,14 @@
   {
     "id": "Q22",
     "title": "第十七期入党积极分子培训班结业考试题参考答案",
-    "publisher": "武汉东湖学院党建站点",
+    "publisher": "武昌首义学院党建站点（发布时校名为华中科技大学武昌分校）",
     "url": "https://djzx.wsyu.edu.cn/2010/0429/c47a29045/pagem.htm",
     "attachmentUrl": "https://djzx.wsyu.edu.cn/_upload/article/files/c9/5f/8891064c4860ae86b71e7985cb4c/8eb83c1c-3062-4f33-97fa-90541c497693.doc",
     "webpageDate": "2010-04-29",
     "retrievedOn": "2026-11-23",
     "format": "HTML/DOC",
     "status": "full",
-    "rightsNote": "参考答案附件已全文提取，含 26 个可读题干。用于考法比对；答案依据现行原文。"
+    "rightsNote": "参考答案附件已全文提取，含 26 个可读题干。用于考法比对；答案依据现行原文。 官网校史与招生章程已确认站点归属，原附件题头没有学校署名。"
   },
   {
     "id": "Q23",
@@ -1012,11 +1012,11 @@
     "url": "https://www.12371.cn/2021/07/01/ARTI1625122624003841.shtml",
     "documentDate": "2021-07-01",
     "webpageDate": "2021-07-01",
-    "retrievedOn": "2026-11-23",
+    "retrievedOn": "2026-11-27",
     "format": "HTML",
-    "status": "partial",
+    "status": "full",
     "sha256": "db315b7e34547365580dffea53992807422806eadef4ac48fcb318d605aa8672",
-    "rightsNote": "官方全文文件已保存；本轮核读建党精神和以史为鉴、开创未来的相关段。讲话中伟大建党精神段及按项列举的要求。"
+    "rightsNote": "已下载共产党员网完整讲话并复核 SHA-256。采用四组伟大建党精神的原词。"
   },
   {
     "id": "S61",
@@ -2067,8 +2067,8 @@
   {
     "id": "HIST-PROTRACTED-WAR",
     "title": "毛泽东选集第二卷：论持久战",
-    "url": "https://www.shkjdw.gov.cn/c/2014-05-13/489654.shtml",
     "publisher": "上海科技党建",
+    "url": "https://www.shkjdw.gov.cn/c/2014-05-13/489654.shtml",
     "webpageDate": "2014-05-13",
     "retrievedOn": "2026-11-27",
     "format": "HTML",
@@ -2078,8 +2078,8 @@
   {
     "id": "HIST-1957-FEB27",
     "title": "党史百年·天天读：2月27日",
-    "url": "https://www.12371.cn/2021/02/25/ARTI1614213365963167.shtml",
     "publisher": "共产党员网",
+    "url": "https://www.12371.cn/2021/02/25/ARTI1614213365963167.shtml",
     "webpageDate": "2021-02-25",
     "retrievedOn": "2026-11-27",
     "format": "HTML",
@@ -2143,5 +2143,48 @@
     "format": "HTML",
     "status": "full",
     "rightsNote": "采用全文公开答问中明确列举的处置方式与适用情形。"
+  },
+  {
+    "id": "W27-SANWAN",
+    "title": "党史百年·天天读：9月29日",
+    "publisher": "共产党员网",
+    "url": "https://www.12371.cn/2021/09/27/ARTI1632736621713682.shtml",
+    "webpageDate": "2021-09-27",
+    "retrievedOn": "2026-11-27",
+    "format": "HTML",
+    "status": "full",
+    "rightsNote": "公开全文，采用1927年9月29日条中三湾改编组织设置，并与党史百问对读。"
+  },
+  {
+    "id": "W27-LONG-MAO",
+    "title": "精神篇：长征精神",
+    "publisher": "国家发展改革委网站",
+    "url": "https://www.ndrc.gov.cn/fggz/fgjh/djzc/202104/t20210429_1278648_ext.html",
+    "retrievedOn": "2026-11-27",
+    "format": "HTML",
+    "status": "full",
+    "rightsNote": "在公开文章正文中核对引用的毛泽东文献篇名与三项比喻。"
+  },
+  {
+    "id": "W27-NATIONAL-EMBLEM",
+    "title": "中华人民共和国国徽法",
+    "publisher": "国家市场监督管理总局网站",
+    "url": "https://www.samr.gov.cn/zw/zfxxgk/fdzdgknr/bgt/art/2023/art_f79dc4897ec5425188bf7be71cd77d9a.html",
+    "retrievedOn": "2026-11-27",
+    "format": "HTML",
+    "status": "full",
+    "rightsNote": "采用所附国徽图案通过和公布日期，用于区分1949年和1950年事项。"
+  },
+  {
+    "id": "SZCS-LZ2015",
+    "title": "中国共产党廉洁自律准则",
+    "publisher": "中共中央（工业和信息化部江苏省通信管理局刊载）",
+    "url": "https://jsca.miit.gov.cn/ztzl/jgdj/xxyd/art/2020/art_0558b99f0bf84f1baad3e92bb1a87d41.html",
+    "documentDate": "2015-10-12",
+    "effectiveFrom": "2016-01-01",
+    "retrievedOn": "2026-11-27",
+    "format": "HTML",
+    "status": "full",
+    "rightsNote": "部委派出机构公开刊载准则正文。按原文第一至第四条和第五至第八条核对适用对象及条目。"
   }
 ]
