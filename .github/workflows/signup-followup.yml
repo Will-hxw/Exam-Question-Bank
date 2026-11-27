@@ -12,7 +12,7 @@ concurrency:
 
 jobs:
   deliver:
-    if: github.repository == 'Will-hxw/Exam-Question-Bank' && github.ref == 'refs/heads/main'
+    if: github.repository_id == '1266193307' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:

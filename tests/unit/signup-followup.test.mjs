@@ -18,10 +18,13 @@ test("signup scheduled endpoint accepts only its signed production workflow iden
   const { privateKey, publicKey } = await generateKeyPair("RS256")
   const resolveKey = async () => publicKey
   const audience = "https://cqu.xiaoweihua.cn/api/internal/signup-followup"
+  const repository = "Will-hxw/cqu-rudang"
+  const workflow = "/.github/workflows/signup-followup.yml@refs/heads/main"
   async function authorize(claims = {}, tokenAudience = audience, expiration = "4m") {
     const token = await new SignJWT({
+      repository,
       repository_id: "1266193307",
-      workflow_ref: "Will-hxw/Exam-Question-Bank/.github/workflows/signup-followup.yml@refs/heads/main",
+      workflow_ref: repository + workflow,
       event_name: "schedule",
       ...claims,
     }).setProtectedHeader({ alg: "RS256" })
@@ -33,7 +36,12 @@ test("signup scheduled endpoint accepts only its signed production workflow iden
   assert.equal(await authorize({ event_name: "workflow_dispatch" }), true)
   assert.equal(await authorize({ event_name: "pull_request" }), false)
   assert.equal(await authorize({ repository_id: "123" }), false)
-  assert.equal(await authorize({ workflow_ref: "Will-hxw/Exam-Question-Bank/.github/workflows/signup-followup.yml@refs/heads/preview" }), false)
+  const renamed = "Will-hxw/renamed-repository"
+  assert.equal(await authorize({ repository: renamed, workflow_ref: renamed + workflow }), true)
+  const transferred = "another-owner/cqu-rudang"
+  assert.equal(await authorize({ repository: transferred, workflow_ref: transferred + workflow }), false)
+  assert.equal(await authorize({ workflow_ref: renamed + workflow }), false)
+  assert.equal(await authorize({ workflow_ref: repository + workflow.replace("/main", "/preview") }), false)
   assert.equal(await authorize({}, "https://another.example.test"), false)
   assert.equal(await authorize({}, audience, Math.floor(Date.now() / 1000) - 60), false)
   assert.equal(await isSignupFollowupRunner(null, resolveKey), false)
