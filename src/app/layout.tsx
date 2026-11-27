@@ -4,6 +4,7 @@ import './globals.css'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://cqu.xiaoweihua.cn'),
+  applicationName: 'cqu-rudang',
   title: '重庆大学入党积极分子练习',
   description: '重庆大学入党积极分子专题练习、模拟考试与复盘。',
   icons: { icon: [{ url: '/cqu-crest.png', type: 'image/png', sizes: '256x256' }] },

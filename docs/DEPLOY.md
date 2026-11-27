@@ -8,7 +8,7 @@
 | Makers 预览 | 在 `examquestionbank` 项目中选择相应预览部署 | 独立评测库、开发 Auth 和授权测试收件人 |
 | 正式站 | [cqu.xiaoweihua.cn](https://cqu.xiaoweihua.cn/)，从 GitHub `main` 自动构建 | 独立 Neon 生产库和生产 Auth |
 
-Makers 项目 `examquestionbank` 关联 GitHub 仓库 `Will-hxw/Exam-Question-Bank`。项目的构建、Node.js 版本和缓存配置以根目录的 `edgeone.json` 为准。正式域继续使用现有的 CNAME 和 TLS 绑定。变更 DNS 时仅操作 `cqu` 子域。
+Makers 项目关联 [GitHub 仓库 `Will-hxw/cqu-rudang`](https://github.com/Will-hxw/cqu-rudang)。项目的构建、Node.js 版本和缓存配置以根目录的 `edgeone.json` 为准。正式域继续使用现有的 CNAME 和 TLS 绑定。变更 DNS 时仅操作 `cqu` 子域。
 
 正式库使用 Neon 新加坡项目 `cqu-exam-question-bank-prod`（`raspy-mud-91046199`）。配置环境时对照 [变量示例](../.env.example)，在相应托管环境中设置数据库连接、Auth 地址和 Cookie 密钥、本站 URL 与内容失效密钥。生产站点 URL 和生产 Auth 的可信域名均为 `https://cqu.xiaoweihua.cn`。
 
