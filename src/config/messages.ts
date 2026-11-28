@@ -340,7 +340,6 @@ export const messages = {
     resetOtpSentNotice: '如果该邮箱已注册，请查收密码重置验证码。',
     passwordUpdatedNotice: '密码已更新，请用新密码登录。',
     networkError: '暂时无法完成请求，请检查网络后重试。',
-    resendSuccessNotice: '如果该邮箱符合发送条件，请查收邮件。',
     resendFallbackError: '验证码请求未完成，请稍后重试。',
     resendNetworkError: '暂时无法发送验证码，请检查网络后重试。',
     emailLabel: '邮箱',

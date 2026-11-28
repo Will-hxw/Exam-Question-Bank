@@ -225,7 +225,6 @@ export function AuthPanel({ destination }: { destination: StudyDestination }) {
       const time = Date.now()
       setNow(time)
       save({ ...flow, resendAt: time + siteConfig.timings.resendCooldownMs })
-      setNotice(messages.auth.resendSuccessNotice)
     } catch (error) {
       const issue = authIssue(error)
       setFormError({
