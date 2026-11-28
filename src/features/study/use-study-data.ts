@@ -64,18 +64,19 @@ export function useStudyData<T>(path: string | null, revision = 0, {
 
   useEffect(() => {
     if (!path) return
-    if (syncInitial !== undefined && state.key === key && state.data === syncInitial) return
     let active = true
     const get = freshLoad ?? load ?? (path.startsWith('/api/public/') ? readPublic<T> : requestJson<T>)
     const request = bootstrap ? Promise.resolve(bootstrap).then((value) => value ?? get(path)) : get(path)
     void request.then((data) => {
-      if (active) setState({ key, path, data, error: null })
+      if (active) setState((previous) =>
+        previous.key === key && previous.data === data && previous.error === null
+          ? previous : { key, path, data, error: null })
     }, (error: unknown) => {
       const message = error instanceof StudyRequestError ? error.message : '连接失败，请检查网络后重试。'
       if (active) setState({ key, path, data: null, error: message })
     })
     return () => { active = false }
-  }, [bootstrap, key, path, load, freshLoad, state.data, state.key, syncInitial])
+  }, [bootstrap, key, path, load, freshLoad])
 
   const current = state.key === key
   const snapshot = !current && path && !freshLoad ? peek?.(path) ?? (path.startsWith('/api/public/') ? cachedPublic<T>(path) : undefined) : undefined

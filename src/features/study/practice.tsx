@@ -733,7 +733,7 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
 function PracticeContent({ bootstrap, initialSeed: serverSeed }: { bootstrap?: BankBootstrap; initialSeed?: string }) {
   const { topics: shellTopics, preferences, personalReads, revision } = useStudySessionContext()
   const bootTopics = useStudyData<{ topics: Topic[] }>(bootstrap ? siteConfig.api.topics : null, 0, {
-    initial: bootstrap ? { topics: bootstrap.topics } : undefined,
+    initial: bootstrap,
   })
   const topics = bootTopics.data ? bootTopics : shellTopics
   const [initialSeed] = useState(() => serverSeed ?? crypto.randomUUID())
