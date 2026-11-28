@@ -25,16 +25,33 @@ def check_exam_receipts(browser, origin, host, cookie_name):
                                   response.request.method == 'POST') as started:
             page.get_by_role('button', name='开始考试').click()
         draft_path = origin + '/api/exams/' + started.value.json()['exam']['id']
+        page.set_viewport_size({'width': 390, 'height': 350})
+        progress = page.get_by_role('progressbar', name='答题进度')
+        expect(progress).to_have_count(1)
+        expect(progress).to_be_visible()
+        expect(progress).to_have_attribute('aria-valuemin', '0')
+        expect(progress).to_have_attribute('aria-valuenow', '0')
+        expect(progress).to_have_attribute('aria-valuemax', '8')
+        options = page.get_by_role('group', name='选择答案')
+        actions = page.get_by_role('navigation', name='试题操作')
+        actions.scroll_into_view_if_needed()
+        options_box, actions_box = options.bounding_box(), actions.bounding_box()
+        assert 0 <= actions_box['y'] - options_box['y'] - options_box['height'] <= 20
+        assert actions.evaluate("(nav) => getComputedStyle(nav).position") != 'fixed'
+        assert page.locator('footer:has(a[href="#feedback"])').bounding_box()['y'] >= actions_box['y'] + actions_box['height']
+        actions.get_by_role('button', name='答题卡').click()
+        page.get_by_role('group', name='题目导航').get_by_role('button').first.click()
+        page.set_viewport_size({'width': 1280, 'height': 820})
         page.route(draft_path + '?ack=1', drop_receipt, times=1)
         with page.expect_response(lambda res: res.url == draft_path + '?ack=1' and res.status == 502):
-            page.locator('.exam-question-card .option').first.click()
+            page.locator('article[aria-label=当前考题] [role=group] button').first.click()
         try:
             expect(page.get_by_text('草稿已云端同步')).to_be_visible(timeout=12_000)
         except AssertionError:
             remote = page.request.get(draft_path, headers=headers).json()['exam']
             raise AssertionError({
                 'traffic': traffic,
-                'status': page.locator('.study-message').all_text_contents(),
+                'status': page.locator('main [role=status]').all_text_contents(),
                 'online': page.evaluate('navigator.onLine'),
                 'remote': {key: remote[key] for key in ('status', 'revision', 'position')},
                 'stored': page.evaluate("""() => {
@@ -44,7 +61,12 @@ def check_exam_receipts(browser, origin, host, cookie_name):
                         [name, { revision: value.revision, position: value.position }]));
                 }"""),
             }) from None
-        expect(page.locator('.exam-nav-item.answered')).to_have_text('1')
+        expect(page.locator('[aria-label=题目导航]:visible button[aria-label*=已答]')).to_have_text('1')
+        for width in (390, 1280):
+            page.set_viewport_size({'width': width, 'height': 820})
+            expect(progress).to_have_count(1)
+            expect(progress).to_have_attribute('aria-valuenow', '1')
+            expect(progress).to_have_attribute('aria-valuemax', '8')
         assert len(page.request.get(draft_path, headers=headers).json()['exam']['answers']) == 1
 
         submit_path = draft_path + '/submit'
@@ -52,10 +74,10 @@ def check_exam_receipts(browser, origin, host, cookie_name):
         page.get_by_role('button', name='交卷', exact=True).click()
         with page.expect_response(lambda res: res.url == submit_path and res.status == 502):
             page.get_by_role('dialog').get_by_role('button', name='确认交卷', exact=True).click()
-        expect(page.locator('.exam-result-item')).to_have_count(8, timeout=12_000)
+        expect(page.locator('main article')).to_have_count(8, timeout=12_000)
         result = page.request.get(draft_path, headers=headers).json()['exam']
         assert result['status'] == 'submitted'
-        expect(page.locator('.exam-score-num')).to_have_text(str(result['score']))
+        expect(page.locator('output[aria-label=考试得分]')).to_have_text(str(result['score']))
     finally:
         context.close()
 
@@ -70,12 +92,12 @@ def check_exam_conflict(browser, origin, host, cookie_name):
         return context
 
     def pick(page, question, option):
-        page.locator('.exam-nav-item').nth(question - 1).click()
-        expect(page.locator('.exam-nav-item.current')).to_have_text(str(question))
-        page.locator('.exam-question-card .option').nth(option).click()
+        page.locator('[aria-label=题目导航]:visible button').nth(question - 1).click()
+        expect(page.locator('[aria-label=题目导航]:visible button[aria-current=step]')).to_have_text(str(question))
+        page.locator('article[aria-label=当前考题] [role=group] button').nth(option).click()
 
     def mark(page, question):
-        page.locator('.exam-nav-item').nth(question - 1).click()
+        page.locator('[aria-label=题目导航]:visible button').nth(question - 1).click()
         page.get_by_role('button', name='标记', exact=True).click()
 
     def synced(page):
@@ -86,7 +108,7 @@ def check_exam_conflict(browser, origin, host, cookie_name):
         page.get_by_role('dialog').get_by_role('button', name='确认交卷', exact=True).click()
 
     def answered(page, positions):
-        expect(page.locator('.exam-nav-item.answered')).to_have_text([str(position) for position in positions])
+        expect(page.locator('[aria-label=题目导航]:visible button[aria-label*=已答]')).to_have_text([str(position) for position in positions])
 
     first, second = device(), device()
     primary, lagging = first.new_page(), second.new_page()
@@ -94,33 +116,33 @@ def check_exam_conflict(browser, origin, host, cookie_name):
         primary.goto(origin + '/exam')
         primary.get_by_role('spinbutton', name='题数').fill('8')
         primary.get_by_role('button', name='开始考试').click()
-        expect(primary.locator('.exam-nav-item')).to_have_count(8)
+        expect(primary.locator('[aria-label=题目导航]:visible button')).to_have_count(8)
 
         def cancel_leave(dialog):
             dialog.dismiss()
 
         primary.on('dialog', cancel_leave)
-        for link in ['打开聊天区', '打开意见反馈页面', '打开友情赞助页面']:
+        for fragment in ['chat', 'feedback', 'sponsor']:
             with primary.expect_event('dialog') as prompt:
-                primary.get_by_role('link', name=link).click()
+                primary.locator(f'footer a[href="#{fragment}"]:visible').click()
             assert '正在考试中' in prompt.value.message
-            expect(primary.locator('.exam-question-card')).to_be_visible()
+            expect(primary.locator('article[aria-label=当前考题]')).to_be_visible()
             expect(primary).to_have_url(origin + '/exam')
         primary.remove_listener('dialog', cancel_leave)
         accept_leave = lambda dialog: dialog.accept()
         primary.on('dialog', accept_leave)
-        primary.get_by_role('link', name='打开友情赞助页面').click()
+        primary.locator('footer a[href="#sponsor"]:visible').click()
         expect(primary.get_by_role('heading', name='友情赞助')).to_be_visible()
         primary.get_by_role('link', name='← 返回练习').click()
-        expect(primary.locator('.exam-nav-item.current')).to_have_text('1')
+        expect(primary.locator('[aria-label=题目导航]:visible button[aria-current=step]')).to_have_text('1')
         primary.remove_listener('dialog', accept_leave)
 
         lagging.goto(origin + '/exam')
         resume = lagging.get_by_role('button', name='继续上次考试')
-        expect(resume.or_(lagging.locator('.exam-nav-item').first)).to_be_visible()
+        expect(resume.or_(lagging.locator('[aria-label=题目导航]:visible button').first)).to_be_visible()
         if resume.is_visible():
             resume.click()
-        expect(lagging.locator('.exam-nav-item')).to_have_count(8)
+        expect(lagging.locator('[aria-label=题目导航]:visible button')).to_have_count(8)
 
         second.set_offline(True)
         pick(primary, 1, 0)
@@ -132,7 +154,7 @@ def check_exam_conflict(browser, origin, host, cookie_name):
         second.set_offline(False)
         synced(lagging)
         answered(lagging, [1, 2])
-        expect(lagging.locator('.exam-nav-item.marked')).to_have_text(['4', '5'])
+        expect(lagging.locator('[aria-label=题目导航]:visible button[aria-label*=已标记]')).to_have_text(['4', '5'])
 
         primary.reload()
         answered(primary, [1, 2])
@@ -155,8 +177,8 @@ def check_exam_conflict(browser, origin, host, cookie_name):
         synced(lagging)
         expect(review).to_have_count(0)
         answered(lagging, [1, 2, 3])
-        lagging.locator('.exam-nav-item').nth(2).click()
-        expect(lagging.locator('.exam-question-card .option').nth(2)).to_have_attribute('aria-pressed', 'true')
+        lagging.locator('[aria-label=题目导航]:visible button').nth(2).click()
+        expect(lagging.locator('article[aria-label=当前考题] [role=group] button').nth(2)).to_have_attribute('aria-pressed', 'true')
         synced(lagging)
 
         primary.reload()
@@ -172,15 +194,15 @@ def check_exam_conflict(browser, origin, host, cookie_name):
         answered(lagging, [1, 2, 3, 6])
         expect(lagging.get_by_role('heading', name='考试结果')).to_have_count(0)
         hand_in(lagging)
-        expect(lagging.locator('.exam-result-item')).to_have_count(8)
-        expect(lagging.locator('.exam-result-item').nth(6)).to_contain_text('未作答')
+        expect(lagging.locator('main article')).to_have_count(8)
+        expect(lagging.locator('main article').nth(6)).to_contain_text('未作答')
 
         first.set_offline(False)
-        expect(primary.locator('.exam-result-item')).to_have_count(8)
+        expect(primary.locator('main article')).to_have_count(8)
         expect(primary.get_by_text('这份试卷已交卷，以下是云端结果。')).to_be_visible()
         primary.reload()
         primary.get_by_text('本机有 1 道题的未同步答案').click()
-        expect(primary.locator('.exam-unsubmitted li')).to_have_text('第 7 题 · B')
+        expect(primary.locator("details:has(summary:text('本机有')) li")).to_have_text('第 7 题 · B')
     finally:
         first.close()
         second.close()
