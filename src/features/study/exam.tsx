@@ -504,7 +504,7 @@ function ExamResult({ exam, onBack, onRetry, filter, setFilter, busy }: {
   )
 }
 
-function ExamContent({ initialHistory }: { initialHistory?: ExamHistory | null }) {
+function ExamContent({ initialHistory }: { initialHistory?: Promise<ExamHistory | null> }) {
   const { userId, refreshMe, personalReads, preferences, revision } = useStudySessionContext()
   const view = readExamView(preferences.values.exam)
   const selectedId = view.screen === 'exam' ? view.id : null
@@ -793,7 +793,7 @@ function ExamContent({ initialHistory }: { initialHistory?: ExamHistory | null }
   )
 }
 
-export function Exam({ initialHistory }: { initialHistory?: ExamHistory | null }) {
+export function Exam({ initialHistory }: { initialHistory?: Promise<ExamHistory | null> }) {
   const { preferences } = useStudySessionContext()
   return preferences.ready ? <ExamContent initialHistory={initialHistory} /> : <LoadMessage loading />
 }

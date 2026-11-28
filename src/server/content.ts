@@ -105,6 +105,22 @@ export async function topics() {
   return topicsAtRelease((await bankRelease()).release)
 }
 
+export async function practiceBookmarkPosition(id: string, params: URLSearchParams) {
+  const topic = params.get('topic')
+  if ([...params.keys()].some((key) => key !== 'topic') || params.getAll('topic').length > 1
+    || (topic !== null && !/^[a-z0-9][a-z0-9-]{0,49}$/.test(topic))) {
+    throw new HttpError(400, '专题参数无效。')
+  }
+  const [entry] = await query<Pick<PracticePosition, 'position'>>(`
+    SELECT position FROM (
+      SELECT q.id, (row_number() OVER (ORDER BY q.bank_position NULLS LAST, q.id) - 1)::int AS position
+      FROM active_bank_questions q
+      WHERE ($2::text IS NULL OR q.topic_id = $2)
+    ) ordered WHERE id = $1
+  `, [id, topic])
+  return { position: entry?.position ?? null }
+}
+
 export async function practiceUndonePositions(userId: string, params: URLSearchParams) {
   const topic = params.get('topic')
   if ([...params.keys()].some((key) => key !== 'topic') || params.getAll('topic').length > 1
