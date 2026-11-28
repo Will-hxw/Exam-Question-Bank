@@ -153,7 +153,7 @@ export const messages = {
     localAnswer: '本机答案',
     cloudAnswer: '云端答案',
     mergeAndContinue: '合并并继续',
-    saveErrorLabel: '保存失败',
+    saveErrorLabel: '草稿同步失败',
     conflictHint: '同一道题在本机与云端的答案不同，请选择保留哪一份。',
     conflictSubmitError: '其他设备正在同步试卷，请稍后重试。',
     submitNetworkError: '交卷失败，请检查网络后重试。',

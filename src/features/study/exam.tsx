@@ -3,12 +3,13 @@
 import Image from 'next/image'
 import { type CSSProperties, useEffect, useRef, useState } from 'react'
 import { BookmarkIcon } from '@/components/icons'
-import { Badge, BottomDrawer, Button, CollapsePanel, OptionCard, ProgressBar, StatTile, TextInput } from '@/components/ui'
+import { Badge, BottomDrawer, Button, OptionCard, ProgressBar, StatTile, TextInput } from '@/components/ui'
 import { messages } from '@/config/messages'
 import { siteConfig } from '@/config/site'
 import { cssVarRef } from '@/config/theme'
 import { answerLetters, letter, type Question, requestJson, StudyRequestError, writeJson } from './api'
-import { ExplanationPanel, LoadMessage } from './controls'
+import { LoadMessage } from './controls'
+import { ExamResultItem } from './exam-result-item'
 import { type Exam as ExamData, readLocalExamDraft, useExamDraft } from './exam-draft'
 import { type ExamAnswerConflict, unsubmittedAnswerIds } from './exam-draft-merge'
 import { DEFAULT_EXAM_QUESTIONS, isExamQuestionCount, MAX_EXAM_QUESTIONS, MIN_EXAM_QUESTIONS } from './exam-size'
@@ -104,7 +105,7 @@ function ExamConflictReview({ conflicts, items, onResolve }: {
                     onChange={() => setChoices((previous) => ({ ...previous, [question.id]: side }))}
                     required
                   />
-                  <span>{side === 'local' ? messages.exam.localAnswer : messages.exam.cloudAnswer} {answers}{text && `（${text}）`}</span>
+                  <span>{side === 'local' ? messages.exam.localAnswer : messages.exam.cloudAnswer} · {answers}{text && `（${text}）`}</span>
                 </label>
               )
             })}
@@ -136,7 +137,10 @@ function ExamTaking({ exam, onResult, onReload }: {
   const item = exam.items[position]
   const done = Object.values(draft.answers).filter((choices) => choices.length > 0).length
   const selected = draft.answers[item?.id] ?? []
-  const markers: Partial<Record<typeof syncStatus, string>> = {
+  const syncLabels: Record<typeof syncStatus, string> = {
+    synced: '草稿已云端同步',
+    local: '草稿本地已保存，待同步',
+    pending: '草稿正在保存',
     error: messages.exam.saveErrorLabel,
     conflict: messages.exam.conflictHint,
   }
@@ -214,6 +218,7 @@ function ExamTaking({ exam, onResult, onReload }: {
             type="button"
             disabled={blocked}
             className={`sheet-cell ${cls}`}
+            aria-label={`${messages.exam.questionNumber(index)}，${answered ? '已答' : '未答'}${qMarked ? '，已标记' : ''}`}
             aria-current={isCurrent ? 'step' : undefined}
             onClick={() => move(index)}
           >
@@ -239,6 +244,10 @@ function ExamTaking({ exam, onResult, onReload }: {
             </Button>
           </div>
 
+          <div className={`mb-4 flex items-center gap-2 text-meta ${syncStatus === 'error' ? 'text-wrong-ink' : 'text-ink-secondary'}`} role="status">
+            <span>{syncLabels[syncStatus]}</span>
+            {syncStatus === 'error' && <Button size="xs" onClick={() => void flush().catch(() => {})}>重试同步</Button>}
+          </div>
           {reviewNotice && <p className="mb-3 text-meta text-missed-ink" role="status">{messages.exam.draftUpdatedNotice}</p>}
           {pendingMerge && <ExamConflictReview key={pendingMerge.cloud.revision} conflicts={pendingMerge.conflicts} items={exam.items} onResolve={resolve} />}
 
@@ -251,7 +260,7 @@ function ExamTaking({ exam, onResult, onReload }: {
               <div className="flex items-center gap-2.5">
                 <Badge>{item.type === 'single' ? messages.common.singleChoice : messages.common.multipleChoice}</Badge>
                 <span className="tabular-nums text-meta font-medium text-ink-secondary">{messages.exam.questionProgress(position + 1, count)}</span>
-                <ProgressBar percent={Math.max(siteConfig.examRing.minProgressPct, (done / count) * 100)} />
+                <ProgressBar percent={(done / count) * 100} />
               </div>
               <div className="flex items-center gap-2">
                 <button
@@ -291,21 +300,28 @@ function ExamTaking({ exam, onResult, onReload }: {
               })}
             </div>
 
-            <div className="hidden lg:flex items-center gap-2.5 mt-7">
-              <Button variant="surface" size="lg" className="px-4.5 text-sm" disabled={position === 0 || blocked} onClick={() => move(position - 1)}>
-                {messages.common.previousQuestion}
-              </Button>
-              <Button
-                variant="cta"
-                size="lg"
-                className="flex-1 px-5.5"
-                disabled={blocked}
-                onClick={() => position === count - 1 ? confirmHandIn() : move(position + 1)}
-              >
-                {position === count - 1 ? messages.exam.submitAndViewResult : messages.common.nextQuestion}
-              </Button>
-            </div>
           </article>
+          <nav aria-label="试题操作" className="mt-3 flex items-center gap-2 lg:mt-5">
+            <Button className="flex-1 min-h-11 px-2" size="md" disabled={position === 0 || blocked} onClick={() => move(position - 1)}>
+              {messages.common.previousQuestion}
+            </Button>
+            {item.type === 'multiple' && (
+              <Button className="flex-1 min-h-11 px-2" variant="cta" size="md" disabled={!selected.length || blocked}
+                onClick={() => position === count - 1 ? confirmHandIn() : move(position + 1)}>
+                确定
+              </Button>
+            )}
+            <Button className="flex-1 min-h-11 px-2" variant={item.type === 'multiple' ? 'surface' : 'cta'} size="md"
+              disabled={(position === count - 1 && item.type === 'multiple') || blocked} onClick={() => position === count - 1 ? confirmHandIn() : move(position + 1)}>
+              {position === count - 1 && item.type === 'single' ? messages.exam.submitAndViewResult : messages.common.nextQuestion}
+            </Button>
+            <Button className="lg:hidden flex-1 min-h-11 px-2" size="md" aria-haspopup="dialog" onClick={(event) => {
+              event.currentTarget.focus({ preventScroll: true })
+              setSheetOpen(true)
+            }}>
+              {messages.practice.answerSheet}
+            </Button>
+          </nav>
         </div>
 
         {/* Desktop sticky right exam rail */}
@@ -320,14 +336,6 @@ function ExamTaking({ exam, onResult, onReload }: {
               <span className="tabular-nums font-semibold">{done} / {count}</span>
             </div>
             <ProgressBar variant="full" percent={(done / count) * 100} ariaLabel={messages.exam.progressLabel} valueNow={done} valueMax={count} />
-            {markers[syncStatus] && (
-              <div className="text-xs text-wrong-ink flex items-center justify-between" role="status">
-                <span>{markers[syncStatus]}</span>
-                {syncStatus === 'error' && (
-                  <button type="button" className="tactile px-2 py-0.5 rounded-tag bg-canvas text-ink-primary" onClick={() => void flush().catch(() => {})}>{messages.common.retry}</button>
-                )}
-              </div>
-            )}
             <Button variant="cta" size="md" className="w-full h-11 rounded-control text-sm mt-1" disabled={blocked} onClick={confirmHandIn}>
               {messages.exam.submitPaper}
             </Button>
@@ -338,25 +346,6 @@ function ExamTaking({ exam, onResult, onReload }: {
           </div>
         </aside>
       </div>
-
-      {/* Mobile bottom bar */}
-      <footer className="glass-footer lg:hidden">
-        <Button variant="surface" size="lg" className="px-4 text-sm shrink-0" disabled={position === 0 || blocked} onClick={() => move(position - 1)}>
-          {messages.common.previousQuestion}
-        </Button>
-        <Button variant="surface" size="lg" className="px-4 text-sm shrink-0" onClick={() => setSheetOpen(true)}>
-          {messages.practice.answerSheet}
-        </Button>
-        <Button
-          variant="cta"
-          size="lg"
-          className="flex-1 px-5"
-          disabled={blocked}
-          onClick={() => position === count - 1 ? confirmHandIn() : move(position + 1)}
-        >
-          {position === count - 1 ? messages.exam.submitPaper : messages.common.nextQuestion}
-        </Button>
-      </footer>
 
       {/* Mobile answer sheet drawer */}
       <BottomDrawer
@@ -393,76 +382,6 @@ function ExamTaking({ exam, onResult, onReload }: {
   )
 }
 
-function ResultItem({ exam, question, index, marked }: { exam: ExamData; question: Question; index: number; marked: boolean }) {
-  const [expanded, setExpanded] = useState(false)
-  const correct = Boolean(exam.correctness?.[question.id])
-  const answerIds = question.answerIds ?? []
-  const selected = exam.answers[question.id] ?? []
-
-  return (
-    <article className="p-4.5 lg:p-5 rounded-option bg-surface flex flex-col gap-3">
-      <div className="flex items-center justify-between gap-2">
-        <div className="flex items-center gap-2">
-          <Badge tone={correct ? 'correct' : 'wrong'} className="font-semibold animate-badge-pop">
-            {correct ? messages.common.correct : messages.common.wrong}
-          </Badge>
-          <span className="tabular-nums text-xs font-medium text-ink-muted">{messages.exam.questionNumber(index)}</span>
-          <Badge tone="canvas">{question.type === 'single' ? messages.common.singleChoice : messages.common.multipleChoice}</Badge>
-        </div>
-        {marked && <Badge tone="missed" size="status">{messages.exam.marked}</Badge>}
-      </div>
-
-      <p className="font-serif m-0 text-item-stem font-semibold text-ink-primary">{question.stem}</p>
-
-      <div className="flex flex-col gap-1.5">
-        {question.options.map((option, i) => {
-          const isAns = answerIds.includes(option.id)
-          const isChosen = selected.includes(option.id)
-          let cls = 'bg-canvas text-ink-body'
-          let tag = ''
-          if (isChosen && isAns) cls = 'bg-correct-fill text-correct-ink font-medium'
-          else if (isChosen && !isAns) cls = 'bg-wrong-fill text-wrong-ink font-medium'
-          else if (!isChosen && isAns) {
-            cls = 'bg-missed-fill text-missed-ink font-medium'
-            tag = messages.common.missed
-          }
-          return (
-            <div key={option.id} className={`px-3 py-2 rounded-micro text-sm flex items-center justify-between gap-2 ${cls}`}>
-              <span><strong className="mr-2 tabular-nums">{letter(i)}</strong>{option.text}</span>
-              {tag && <span className="missed-tag">{tag}</span>}
-            </div>
-          )
-        })}
-      </div>
-
-      {!correct && (
-        <div className="flex items-baseline gap-5 flex-wrap text-meta">
-          <span className="text-ink-secondary">{messages.common.correctAnswer} <strong className="text-correct-ink tabular-nums ml-1">{answerLetters(question.options, answerIds)}</strong></span>
-          <span className="text-ink-secondary">{messages.common.yourChoice} <strong className="text-wrong-ink tabular-nums ml-1">{answerLetters(question.options, selected) || messages.common.unanswered}</strong></span>
-        </div>
-      )}
-
-      {question.explanation && (
-        <div>
-          <button
-            type="button"
-            className="tactile h-8.5 px-3.5 rounded-micro text-meta font-medium bg-canvas text-ink-primary"
-            onClick={() => setExpanded(!expanded)}
-            aria-expanded={expanded}
-          >
-            {expanded ? messages.common.collapseExplanation : messages.common.expandExplanation}
-          </button>
-          <CollapsePanel open={expanded}>
-            <div className="mt-3">
-              <ExplanationPanel content={{ answerIds, explanation: question.explanation, options: question.options, sources: question.sources ?? [] }} hideHeading />
-            </div>
-          </CollapsePanel>
-        </div>
-      )}
-    </article>
-  )
-}
-
 function ExamResult({ exam, onBack, onRetry, filter, setFilter, busy }: {
   exam: ExamData; onBack: () => void; onRetry: () => void; filter: ExamFilter
   setFilter: (value: ExamFilter) => void; busy: boolean
@@ -482,16 +401,18 @@ function ExamResult({ exam, onBack, onRetry, filter, setFilter, busy }: {
   const { viewBox, center, strokeWidth, radius, circumference, excellentRate, passRate } = siteConfig.examRing
   const ringStroke = rate >= excellentRate ? cssVarRef('correct-badge') : rate >= passRate ? cssVarRef('selected-badge') : cssVarRef('wrong-badge')
 
+  const backButton = <Button size="sm" onClick={onBack} disabled={busy}>{messages.common.back}</Button>
+  const replayButton = (
+    <Button variant="cta" size="sm" className="px-4" onClick={onRetry} disabled={busy} aria-busy={busy || undefined}>
+      {busy ? messages.common.loadingGeneric : messages.exam.retakeSamePaper}
+    </Button>
+  )
   return (
     <div className="max-w-result mx-auto flex flex-col gap-6 animate-view-enter">
       <div className="flex items-center justify-between gap-3">
-        <Button variant="surface" size="sm" onClick={onBack} disabled={busy}>
-          {messages.common.back}
-        </Button>
+        {backButton}
         <h1 className="font-serif m-0 text-sub-title font-bold">{messages.exam.resultTitle}</h1>
-        <Button variant="cta" size="sm" className="px-4" onClick={onRetry} disabled={busy} aria-busy={busy || undefined}>
-          {busy ? messages.common.loadingGeneric : messages.exam.retakeSamePaper}
-        </Button>
+        {replayButton}
       </div>
 
       <div className="flex flex-col items-center py-2">
@@ -515,7 +436,7 @@ function ExamResult({ exam, onBack, onRetry, filter, setFilter, busy }: {
             />
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className={`tabular-nums text-3xl font-bold leading-none ${rate < passRate ? 'text-wrong-ink' : 'text-ink-primary'}`}>{score}</span>
+            <output aria-label="考试得分" className={`tabular-nums text-3xl font-bold leading-none ${rate < passRate ? 'text-wrong-ink' : 'text-ink-primary'}`}>{score}</output>
             <span className="tabular-nums text-xs text-ink-muted mt-1">/ {count}</span>
           </div>
         </div>
@@ -532,7 +453,7 @@ function ExamResult({ exam, onBack, onRetry, filter, setFilter, busy }: {
           <summary className="cursor-pointer font-medium">{messages.exam.unsubmittedSummary(unsubmitted.size)}</summary>
           <ul className="m-0 mt-2 pl-4 flex flex-col gap-1">
             {exam.items.map((question, index) => unsubmitted.has(question.id) && (
-              <li key={question.id}>{messages.exam.questionNumber(index)} {answerLetters(question.options, local.draft.answers[question.id]) || messages.common.unanswered}</li>
+              <li key={question.id}>{messages.exam.questionNumber(index)} · {answerLetters(question.options, local.draft.answers[question.id]) || messages.common.unanswered}</li>
             ))}
           </ul>
         </details>
@@ -556,9 +477,10 @@ function ExamResult({ exam, onBack, onRetry, filter, setFilter, busy }: {
         {exam.items.map((question, index) => {
           const isMarked = marked.has(question.id)
           if ((filter === 'wrong' && exam.correctness?.[question.id]) || (filter === 'marked' && !isMarked)) return null
-          return <ResultItem key={question.id} exam={exam} question={question} index={index} marked={isMarked} />
+          return <ExamResultItem key={question.id} exam={exam} question={question} index={index} marked={isMarked} />
         })}
       </div>
+      <div className="flex items-center justify-between gap-3">{backButton}{replayButton}</div>
     </div>
   )
 }
@@ -641,6 +563,7 @@ function ExamContent({ initialHistory }: { initialHistory?: ExamHistory | null }
     return (
       <>
         {error && <p className="mb-3 text-meta text-wrong-ink" role="alert">{error}</p>}
+        {replayNotice && <p className="m-0 text-meta text-ink-secondary" role="status">{replayNotice}</p>}
         <ExamTaking
           key={`${exam.id}:${exam.revision}`}
           exam={exam}
@@ -724,25 +647,25 @@ function ExamContent({ initialHistory }: { initialHistory?: ExamHistory | null }
   }
 
   return (
-    <section className="max-w-exam mx-auto flex flex-col gap-6 animate-view-enter" aria-labelledby="exam-title">
+    <section className="max-w-exam mx-auto w-full min-h-[min(66svh,580px)] lg:min-h-[min(68vh,680px)] flex flex-col items-center justify-evenly gap-9 py-5 lg:gap-12 lg:py-8 text-center animate-view-enter" aria-labelledby="exam-title">
       <div>
-        <div className="flex items-center gap-2.5 mb-3">
+        <div className="flex justify-center items-center gap-2.5 mb-4">
           <Image src={siteConfig.assets.crest} alt="" width={siteConfig.imageDimensions.examBadgeCrest} height={siteConfig.imageDimensions.examBadgeCrest} className="rounded-full bg-white object-contain" unoptimized />
           {messages.exam.badges.map((badge) => (
             <Badge key={badge}>{badge}</Badge>
           ))}
         </div>
         <h1 id="exam-title" className="font-serif m-0 text-hero-title font-bold">{messages.exam.heroTitle}</h1>
-        <p className="m-0 mt-1.5 text-body text-ink-secondary">{messages.exam.heroSubtitle}</p>
+        <p className="m-0 mt-3 text-body text-ink-secondary">{messages.exam.heroSubtitle}</p>
       </div>
 
       {activeDraft ? (
-        <div className="p-5 rounded-option bg-surface flex flex-col gap-3">
+        <div className="px-6 py-5 rounded-option bg-surface flex flex-col gap-5">
           <p className="m-0 text-sm text-ink-secondary">{messages.exam.existingDraftPrompt}</p>
           <Button
             variant="cta"
             size="lg"
-            className="px-6 self-start"
+            className="px-6 self-center"
             disabled={busy}
             aria-busy={busy || undefined}
             onClick={() => void load('open', activeDraft.id)}
@@ -752,17 +675,17 @@ function ExamContent({ initialHistory }: { initialHistory?: ExamHistory | null }
         </div>
       ) : list.data ? (
         <form
-          className="flex flex-col gap-5"
+          className="w-full flex flex-col items-center gap-8 lg:gap-10"
           onSubmit={(event) => {
             event.preventDefault()
             if (isExamQuestionCount(Number(questionCount))) void load('new')
           }}
         >
           <div>
-            <label htmlFor="exam-question-count" className="block text-xs font-medium text-ink-muted mb-2.5">
+            <label htmlFor="exam-question-count" className="block text-meta font-medium text-ink-secondary mb-4">
               {messages.exam.questionCountLabel(MIN_EXAM_QUESTIONS, MAX_EXAM_QUESTIONS)}
             </label>
-            <div className="flex items-center gap-2 flex-wrap mb-3">
+            <div className="flex justify-center items-center gap-2 flex-wrap">
               {siteConfig.examQuickCounts.map((preset) => {
                 const active = Number(questionCount) === preset
                 return (
@@ -770,6 +693,8 @@ function ExamContent({ initialHistory }: { initialHistory?: ExamHistory | null }
                     key={preset}
                     variant={active ? 'selected' : 'surface'}
                     size="md"
+                    aria-pressed={active}
+                    disabled={busy}
                     className="h-10 text-sm tabular-nums"
                     onClick={() => {
                       setCountEdit(String(preset))
@@ -784,7 +709,7 @@ function ExamContent({ initialHistory }: { initialHistory?: ExamHistory | null }
                 id="exam-question-count"
                 type="number"
                 inputMode="numeric"
-                className="w-24 h-10 tabular-nums text-center"
+                className="max-w-24 h-10 tabular-nums text-center"
                 min={MIN_EXAM_QUESTIONS}
                 max={MAX_EXAM_QUESTIONS}
                 step={1}
@@ -800,31 +725,18 @@ function ExamContent({ initialHistory }: { initialHistory?: ExamHistory | null }
             </div>
           </div>
 
-          <div className="flex items-center gap-3 flex-wrap">
-            <Button
-              type="submit"
-              variant="cta"
-              size="lg"
-              className="px-7"
-              aria-busy={busy || undefined}
-              disabled={busy || !isExamQuestionCount(Number(questionCount))}
-            >
-              {busy ? messages.exam.generatingPaper : messages.exam.startExamButton}
-            </Button>
-            <Button
-              variant="surface"
-              size="lg"
-              className="px-5 text-sm"
-              onClick={() => saveView({ screen: 'history' })}
-            >
-              {messages.exam.historyButton(historyItems.length)}
-            </Button>
-          </div>
+          <Button type="submit" variant="cta" size="lg" className="px-7 self-center" aria-busy={busy || undefined}
+            disabled={busy || !isExamQuestionCount(Number(questionCount))}>
+            {busy ? messages.exam.generatingPaper : messages.exam.startExamButton}
+          </Button>
         </form>
       ) : list.loading ? (
         <p className="m-0 text-sm text-ink-muted" role="status">{messages.common.loading}</p>
       ) : null}
 
+      <Button size="md" onClick={() => saveView({ screen: 'history' })}>
+        {messages.exam.historyButton(historyItems.length)}
+      </Button>
       {list.error && (
         <div className="text-meta text-wrong-ink flex items-center gap-2" role="alert">
           <span>{messages.exam.draftLoadError}</span>
@@ -832,7 +744,6 @@ function ExamContent({ initialHistory }: { initialHistory?: ExamHistory | null }
         </div>
       )}
       {error && <p className="m-0 text-meta text-wrong-ink" role="alert">{error}</p>}
-      {replayNotice && <p className="m-0 text-meta text-ink-secondary" role="status">{replayNotice}</p>}
     </section>
   )
 }
