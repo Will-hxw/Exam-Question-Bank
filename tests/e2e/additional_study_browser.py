@@ -246,9 +246,89 @@ def practice_recovery(browser, token='recovery'):
         page.evaluate('document.activeElement.blur()')
         page.keyboard.press('ArrowRight')
         expect(stem).to_have_text(last)
+        page.get_by_role('spinbutton', name='跳转题号').fill('5')
+        page.get_by_role('button', name='跳转', exact=True).click()
+        expect(stem).to_have_text(qs[4]['stem'])
+        article.get_by_role('button', name='上一题', exact=True).click()
+        expect(stem).to_have_text(last)
+        page.reload()
+        expect(stem).to_have_text(last)
+        article.get_by_role('button', name='下一题', exact=True).click()
+        expect(stem).to_have_text(qs[4]['stem'])
         print('PRACTICE_RECOVERY preference retry, visit history, focused shortcuts and last question passed', flush=True)
     finally:
         context.close()
+
+def moved_bookmark(browser, token='bookmark-recovery'):
+    context = device(browser, token)
+    try:
+        page = context.new_page()
+        owner = f'e2e-{token}'
+        headers = {'Cookie': f'{COOKIE}={token}', 'Origin': ORIGIN, 'X-Study-Account': owner}
+        bank = ORIGIN + '/api/public/questions?mode=practice&limit=15'
+        older = page.request.get(bank).json()['questions'][1]
+        moved = page.request.get(bank + '&offset=15').json()['questions'][3]
+        position = ORIGIN + '/api/public/questions/' + moved['id'] + '/position'
+        assert page.request.get(position).json() == {'position': 18}
+        assert page.request.get(position + '?topic=t02').json() == {'position': None}
+        assert page.request.get(position + '?topic=t01&topic=t14').status == 400
+        assert page.request.put(ORIGIN + '/api/me/preferences', headers=headers, data={
+            'practice': {'mode': 'sequence'}, 'practice-position:sequence': 1,
+        }).ok
+        page.add_init_script(f"""localStorage.setItem('cqu-practice-history:{owner}:sequence', JSON.stringify({{
+          entries: [{{position: 1, id: '{moved['id']}'}}], cursor: 0
+        }}));""")
+        page.goto(ORIGIN)
+        article = page.get_by_role('article', name='练习题目')
+        expect(article.get_by_role('heading', level=1)).to_have_text(moved['stem'])
+        expect(article).not_to_contain_text(older['stem'])
+        assert page.evaluate('owner => { const h = JSON.parse(localStorage.getItem(`cqu-practice-history:${owner}:sequence`)); return h.entries[h.cursor].position }', owner) == 18
+        print('PRACTICE_MOVED_BOOKMARK restored the same question across batches', flush=True)
+    finally:
+        context.close()
+
+def auth_and_chat_presentation(browser, token='recovery'):
+    desktop = browser.new_context(viewport={'width': 1440, 'height': 900}, color_scheme='dark')
+    mobile = browser.new_context(viewport={'width': 440, 'height': 956}, is_mobile=True, has_touch=True, color_scheme='dark')
+    try:
+        page = desktop.new_page()
+        page.goto(ORIGIN + '/login')
+        screen = page.locator('main')
+        expect(screen).to_have_css('color-scheme', 'light')
+        page.get_by_role('button', name=re.compile('忘记密码')).click()
+        expect(screen).to_have_css('color-scheme', 'light')
+        page.evaluate('document.fonts.ready')
+        assert page.evaluate("performance.getEntriesByType('resource').every(r => !/\\.woff2?(?:$|\\?)/.test(r.name))")
+
+        for context in (desktop, mobile):
+            context.add_cookies([{'name': COOKIE, 'value': token, 'domain': HOST, 'path': '/', 'secure': True}])
+            page = context.new_page()
+            page.goto(ORIGIN)
+            expect(page.locator('html')).to_have_attribute('data-theme', 'dark')
+            page.get_by_role('link', name='账号', exact=True).click()
+            expect(page).to_have_url(ORIGIN + '/account')
+            expect(page.locator('main')).to_have_css('color-scheme', 'dark')
+            page.reload()
+            expect(page.locator('main')).to_have_css('color-scheme', 'dark')
+
+            page.goto(ORIGIN + '/#chat')
+            composer = page.locator('textarea.chat-composer-input')
+            expect(composer).to_be_enabled()
+            if context is mobile:
+                composer.tap()
+            else:
+                composer.click()
+                page.keyboard.press('Tab')
+                page.keyboard.press('Shift+Tab')
+            expect(composer).to_be_focused()
+            composer.fill('仅验证输入框样式')
+            expect(composer).to_have_css('outline-style', 'none')
+            expect(composer).to_have_value('仅验证输入框样式')
+            expect(page.get_by_role('button', name='发送')).to_be_enabled()
+        print('AUTH_CHAT_PRESENTATION auth light, account dark after reload, and composer focused without a frame', flush=True)
+    finally:
+        desktop.close()
+        mobile.close()
 
 def mobile_question_actions(browser, token='mobile-actions'):
     for width in (320, 390):
@@ -484,8 +564,7 @@ def explanation_links(browser, token='source-links'):
             page.goto(ORIGIN + path)
             if path == '/exam':
                 history = page.get_by_role('button', name=re.compile('历史记录'))
-                if history.count():
-                    history.click()
+                history.click()
                 page.get_by_role('button', name=re.compile('用时.*分')).first.click()
             article = page.locator('main article').first
             button = article.get_by_role('button', name='展开解析', exact=True)
@@ -530,6 +609,15 @@ def explanation_links(browser, token='source-links'):
                 article.get_by_role('button', name='展开解析', exact=True).click()
                 article.get_by_role('button', name='收起解析', exact=True).click()
                 expect(answer).to_be_visible()
+            if path == '/':
+                article.get_by_role('button', name='收起解析', exact=True).click()
+                page.mouse.move(1, 1)
+                expect(button).to_have_css('background-color', 'rgb(23, 25, 31)')
+                expect(button).to_have_css('color', 'rgb(148, 163, 184)')
+                button.hover()
+                expect(button).to_have_css('background-color', 'rgb(31, 34, 42)')
+                button.click()
+                expect(source).to_be_visible()
             print(f'SOURCE_LINK verified {path} light/dark/underline/focus', flush=True)
     finally:
         context.close()
@@ -544,6 +632,8 @@ if __name__ == '__main__':
             personal_library_pages(chromium)
             paginated_inbox(chromium)
             practice_recovery(chromium)
+            moved_bookmark(chromium)
+            auth_and_chat_presentation(chromium)
             practice_error_controls(chromium)
             touch_navigation(chromium)
             mobile_question_actions(chromium)
@@ -551,3 +641,9 @@ if __name__ == '__main__':
             print('ADDITIONAL_BROWSER_E2E rejected answer, cross-device library fields, personal library pagination, second-page unread refresh')
         finally:
             chromium.close()
+        if os.environ.get('EQB_TEST_WEBKIT') == '1':
+            webkit = playwright.webkit.launch(headless=True)
+            try:
+                auth_and_chat_presentation(webkit)
+            finally:
+                webkit.close()
