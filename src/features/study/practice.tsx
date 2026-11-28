@@ -1,24 +1,23 @@
 'use client'
 
 import { Fragment, type FormEvent, useEffect, useEffectEvent, useMemo, useRef, useState } from 'react'
-import { BookmarkIcon, CheckIcon, CrossIcon } from '@/components/icons'
-import { Badge, BottomDrawer, Button, CollapsePanel, OptionCard, type OptionCardState, ProgressBar, StatTile, TextInput } from '@/components/ui'
+import { BottomDrawer, Button, StatTile, TextInput } from '@/components/ui'
 import { messages } from '@/config/messages'
 import { siteConfig } from '@/config/site'
 import type { PracticeBootstrap } from '@/server/study-bootstrap'
-import { answerLetters, letter, practiceBankPageSize as batchSize, rememberPublicPage, type Question, type QuestionPage, questionUrl, readPublic, requestJson, type Topic } from './api'
-import { ExplanationPanel, LoadMessage, TopicPicker } from './controls'
+import { practiceBankPageSize as batchSize, rememberPublicPage, type QuestionPage, questionUrl, readPublic, requestJson, type Topic } from './api'
+import { LoadMessage, TopicPicker } from './controls'
 import { readStudyPreference, type StudyPreferences, useStudyPreferencesReady, writeStudyPreference } from './preferences'
 import { addPracticeBookmark, findPracticeBookmark, identifyPracticeBookmark, practiceHistoryLimit, restorePracticeHistory,
   sameBookmark, type PracticeBookmark, type PracticeDirection } from './practice-history'
 import { initialUndonePosition, practiceUndonePreference, stepUndonePosition, type PracticePosition } from './practice-undone'
-import { useQuestionFavorite, useQuestionStates, useStudySessionContext } from './study-shell'
+import { useQuestionStates, useStudySessionContext } from './study-shell'
 import { useStudyData } from './use-study-data'
+import { PracticeCard, type PracticeAnswer } from './practice-card'
 
 const modes = siteConfig.practiceModes
 
 type Mode = typeof modes[number]['id']
-type Answer = { ids: string[]; correct: boolean; eventId: string | null }
 type PracticeSettings = { mode: Mode; topic: string; seed: string; randomOnBank?: boolean }
 type BankBootstrap = PracticeBootstrap | null
 
@@ -135,330 +134,6 @@ function PracticeSheetPanel({ ordered, index, total, onJump }: {
   )
 }
 
-function PracticeCard({
-  question,
-  answer,
-  record,
-  resetRecord,
-  mode,
-  index,
-  total,
-  fallback,
-  previous,
-  next,
-  attempted,
-  favorite,
-  wrongMode,
-  onRemoved,
-  onOpenSheet,
-  direction = 'jump',
-}: {
-  question: Question
-  answer: Answer | undefined
-  record: (answer: Answer) => void
-  resetRecord: () => void
-  mode: Mode
-  index: number
-  total: number
-  fallback: string
-  previous: (() => void) | null
-  next: () => void
-  attempted: boolean
-  favorite: boolean | undefined
-  wrongMode: boolean
-  onRemoved: () => void
-  onOpenSheet: () => void
-  direction?: 'forward' | 'backward' | 'jump'
-}) {
-  const { attempts, removeWrong } = useStudySessionContext()
-  const favoriteControl = useQuestionFavorite(question.id, favorite)
-  const [selection, setSelection] = useState<string[]>([])
-  const [expanded, setExpanded] = useState(true)
-  const [message, setMessage] = useState('')
-  const [removing, setRemoving] = useState(false)
-  const submittedAnswer = useRef(answer)
-  const selected = answer?.ids ?? selection
-  const immediate = question.type === 'single'
-  const canExplain = Boolean(answer?.eventId || (!wrongMode && attempted))
-  const ordered = mode === 'topic' || mode === 'sequence'
-  const pct = total > 0 ? Math.max(siteConfig.examRing.minProgressPct, Math.min(100, ((index + 1) / total) * 100)) : 0
-
-  function saveAnswer(ids: string[], correct: boolean) {
-    if (submittedAnswer.current?.eventId) return true
-    const eventId = attempts.enqueue(question.id, ids, question.contentRevision)
-    const result = { ids, correct, eventId }
-    submittedAnswer.current = result
-    record(result)
-    setMessage(eventId ? '' : messages.practice.saveLocalError)
-    return Boolean(eventId)
-  }
-
-  function submit(ids = selection) {
-    if (submittedAnswer.current) return
-    if (!ids.length) { setMessage(messages.practice.pickAnswerPrompt); return }
-    if (!question.answerIds?.length) { setMessage(messages.practice.answerUnavailable); return }
-    const correct = ids.length === question.answerIds.length && ids.every((id) => question.answerIds?.includes(id))
-    if (saveAnswer(ids, correct)) setExpanded(true)
-  }
-
-  function redoCurrent() {
-    submittedAnswer.current = undefined
-    setSelection([])
-    setMessage('')
-    resetRecord()
-  }
-
-  async function clearWrong() {
-    setRemoving(true)
-    try {
-      await removeWrong(question.id)
-      onRemoved()
-    } catch (error) {
-      setMessage(error instanceof Error ? error.message : messages.practice.removeWrongError)
-    } finally {
-      setRemoving(false)
-    }
-  }
-
-  useEffect(() => {
-    function handleKey(event: KeyboardEvent) {
-      if (['INPUT', 'TEXTAREA', 'SELECT'].includes((document.activeElement as HTMLElement | null)?.tagName ?? '')) return
-      if (['1', '2', '3', '4', '5', '6'].includes(event.key) && !submittedAnswer.current) {
-        const option = question.options[Number(event.key) - 1]
-        if (!option) return
-        if (immediate) {
-          const ids = [option.id]
-          setSelection(ids)
-          submit(ids)
-        } else {
-          setMessage('')
-          setSelection((before) => before.includes(option.id) ? before.filter((id) => id !== option.id) : [...before, option.id])
-        }
-      } else if (event.key === 'Enter') {
-        if (!submittedAnswer.current && selection.length) submit()
-        else if (submittedAnswer.current) next()
-      } else if (event.key === 'ArrowLeft' && previous) {
-        previous()
-      } else if (event.key === 'ArrowRight' && submittedAnswer.current) {
-        next()
-      }
-    }
-    document.addEventListener('keydown', handleKey)
-    return () => document.removeEventListener('keydown', handleKey)
-  })
-
-  const explanation = question.answerIds && question.explanation ? {
-    answerIds: question.answerIds, explanation: question.explanation, options: question.options, sources: question.sources ?? [],
-  } : null
-
-  const enterAnim = direction === 'forward' ? 'animate-slide-next' : direction === 'backward' ? 'animate-slide-prev' : 'animate-question-enter'
-
-  return (
-    <>
-      <article aria-label={messages.practice.articleAria} className={enterAnim}>
-        {/* Question metadata & favorite */}
-        <div className="flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2.5 flex-wrap">
-            <Badge>{question.type === 'single' ? messages.common.singleChoice : messages.common.multipleChoice}</Badge>
-            <span className="tabular-nums text-meta font-medium text-ink-secondary">
-              {ordered && total > 0 ? `${index + 1} / ${total}` : fallback}
-            </span>
-            {ordered && total > 0 && <ProgressBar percent={pct} />}
-            {(answer || attempted) && (
-              <Badge tone="correct" size="status" className="animate-badge-pop">{messages.common.answeredShort}</Badge>
-            )}
-          </div>
-
-          <button
-            type="button"
-            className={`tactile w-9 h-9 rounded-micro flex items-center justify-center shrink-0 ${favoriteControl.favorite ? 'bg-missed-fill text-missed-badge animate-bookmark-pop' : 'bg-surface text-ink-secondary hover:bg-surface-hover'}`}
-            aria-pressed={favoriteControl.favorite}
-            aria-busy={favoriteControl.pending || undefined}
-            aria-label={favoriteControl.favorite ? messages.common.unfavoriteQuestion : messages.common.favoriteQuestion}
-            onClick={favoriteControl.toggle}
-          >
-            <BookmarkIcon filled={favoriteControl.favorite} />
-          </button>
-        </div>
-
-        {/* Stem */}
-        <h1 className="font-serif mt-4 mb-6 text-stem lg:text-stem-lg font-semibold text-ink-primary">
-          {question.stem}
-        </h1>
-
-        {/* Options stack (6-state matrix) */}
-        <div className="flex flex-col gap-3" role="group" aria-label={messages.practice.optionsAria}>
-          {question.options.map((option, optIndex) => {
-            const chosen = selected.includes(option.id)
-            const isCorrect = Boolean(question.answerIds?.includes(option.id))
-
-            let state: OptionCardState = 'idle'
-            let indicator: React.ReactNode = null
-
-            if (!answer) {
-              if (chosen) state = 'selected'
-            } else if (chosen && isCorrect) {
-              state = 'correct'
-              indicator = (
-                <span className="text-correct-badge flex shrink-0" aria-label={messages.common.correctShort}>
-                  <CheckIcon animated />
-                </span>
-              )
-            } else if (chosen && !isCorrect) {
-              state = 'wrong'
-              indicator = (
-                <span className="text-wrong-badge flex shrink-0" aria-label={messages.common.wrongShort}>
-                  <CrossIcon />
-                </span>
-              )
-            } else if (!chosen && isCorrect) {
-              state = 'missed'
-              indicator = (
-                <span className="missed-tag animate-badge-pop">
-                  {messages.common.missed}
-                </span>
-              )
-            } else {
-              state = 'muted'
-            }
-
-            return (
-              <OptionCard
-                key={option.id}
-                letter={letter(optIndex)}
-                text={option.text}
-                state={state}
-                staggerIndex={optIndex}
-                indicator={indicator}
-                pressed={chosen}
-                disabled={Boolean(answer)}
-                onClick={() => {
-                  if (submittedAnswer.current) return
-                  if (immediate) {
-                    const ids = [option.id]
-                    setSelection(ids)
-                    submit(ids)
-                    return
-                  }
-                  setMessage('')
-                  setSelection((before) => before.includes(option.id) ? before.filter((id) => id !== option.id) : [...before, option.id])
-                }}
-              />
-            )
-          })}
-        </div>
-
-        {/* Wrong & favorite error messages */}
-        {favoriteControl.error && <p className="mt-3 text-meta text-wrong-ink" role="alert">{favoriteControl.error}</p>}
-        {message && <p className="mt-3 text-meta text-wrong-ink" role="alert">{message}</p>}
-
-        {/* Feedback & explanation section */}
-        {(answer || (canExplain && expanded && explanation)) && (
-          <section className="mt-7 animate-feedback-bloom" role="status">
-            {answer && (
-              <>
-                <div className="flex items-center justify-between gap-3 flex-wrap">
-                  <span className={`${answer.correct ? 'status-pill-correct' : 'status-pill-wrong'} animate-badge-pop`}>
-                    {answer.correct ? messages.practice.answeredCorrectly : messages.practice.answeredWrong}
-                  </span>
-                  <div className="flex items-center gap-2">
-                    {wrongMode && (
-                      <Button variant="surface" size="sm" className="h-auto py-1.5" disabled={removing} onClick={() => void clearWrong()}>
-                        {messages.common.removeFromWrong}
-                      </Button>
-                    )}
-                    <Button variant="surface" size="sm" className="h-auto py-1.5" onClick={redoCurrent}>
-                      {messages.practice.redoQuestion}
-                    </Button>
-                  </div>
-                </div>
-
-                <div className="mt-3.5 flex items-baseline gap-6 flex-wrap">
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-meta text-ink-secondary">{messages.common.correctAnswer}</span>
-                    <span className="tabular-nums text-action font-semibold text-correct-ink">
-                      {answerLetters(question.options, question.answerIds ?? [])}
-                    </span>
-                  </div>
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-meta text-ink-secondary">{messages.common.yourChoice}</span>
-                    <span className={`tabular-nums text-action font-semibold ${answer.correct ? 'text-correct-ink' : 'text-wrong-ink'}`}>
-                      {answerLetters(question.options, answer.ids) || messages.common.unselected}
-                    </span>
-                  </div>
-                </div>
-
-                {!answer.eventId && (
-                  <Button variant="surface" size="sm" className="mt-3 text-xs" onClick={() => saveAnswer(answer.ids, answer.correct)}>
-                    {messages.practice.retrySaveQuestion}
-                  </Button>
-                )}
-              </>
-            )}
-
-            {canExplain && explanation && (
-              <div className="mt-6">
-                <div className="flex items-center justify-between">
-                  <h2 className="font-serif m-0 text-base font-bold text-ink-primary">{messages.practice.explanationHeading}</h2>
-                  <button
-                    type="button"
-                    className="tactile px-2.5 py-1 rounded-tag text-meta font-medium text-ink-secondary hover:bg-surface"
-                    aria-expanded={expanded}
-                    onClick={() => setExpanded((prev) => !prev)}
-                  >
-                    {expanded ? messages.practice.collapse : messages.practice.expand}
-                  </button>
-                </div>
-                <CollapsePanel open={expanded}>
-                  <div className="mt-2.5">
-                    <ExplanationPanel content={explanation} hideHeading />
-                  </div>
-                </CollapsePanel>
-              </div>
-            )}
-          </section>
-        )}
-
-        {/* Desktop action bar */}
-        <div className="hidden lg:flex items-center gap-2.5 mt-7">
-          <Button variant="surface" size="lg" className="px-4.5 text-sm" disabled={!previous} onClick={previous ?? undefined}>
-            {messages.common.previousQuestion}
-          </Button>
-          {!answer ? (
-            <Button variant="cta" size="lg" className="flex-1 px-5.5" disabled={!selected.length} onClick={() => submit()}>
-              {messages.common.submitConfirm}
-            </Button>
-          ) : (
-            <Button variant="cta" size="lg" className="flex-1 px-5.5" onClick={next}>
-              {messages.common.nextQuestion}
-            </Button>
-          )}
-          <span className="text-xs text-ink-muted ml-1.5">{siteConfig.shortcutsHint}</span>
-        </div>
-      </article>
-
-      {/* Mobile glass footer */}
-      <footer className="glass-footer lg:hidden">
-        <Button variant="surface" size="lg" className="px-4 text-sm shrink-0" disabled={!previous} onClick={previous ?? undefined}>
-          {messages.common.previousQuestion}
-        </Button>
-        <Button variant="surface" size="lg" className="px-4 text-sm shrink-0" onClick={onOpenSheet}>
-          {messages.practice.answerSheet}
-        </Button>
-        {!answer ? (
-          <Button variant="cta" size="lg" className="flex-1 px-5" disabled={!selected.length} onClick={() => submit()}>
-            {messages.common.submitConfirm}
-          </Button>
-        ) : (
-          <Button variant="cta" size="lg" className="flex-1 px-5" onClick={next}>
-            {messages.common.nextQuestion}
-          </Button>
-        )}
-      </footer>
-    </>
-  )
-}
-
 function eligibleBookmarks(positions?: PracticePosition[]) {
   if (!positions) return () => true
   const ids = new Set(positions.map(({ id }) => id))
@@ -505,11 +180,11 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
     () => userTrail ?? buildPracticeTrail(hydrated ? readStudyPreference(storageKey) : undefined, start, onlyUndone, available, undoneSeed),
     [available, hydrated, onlyUndone, start, storageKey, undoneSeed, userTrail],
   )
+  if (hydrated && !userTrail) setTrail(trail)
   const active = trail.entries[trail.cursor]
   const { position: requestedIndex } = active
   const [round, setRound] = useState(0)
-  const [answers, setAnswers] = useState<Record<string, Answer>>({})
-  const [navigationMessage, setNavigationMessage] = useState('')
+  const [answers, setAnswers] = useState<Record<string, PracticeAnswer>>({})
   const [sheetOpen, setSheetOpen] = useState(false)
   const [navDirection, setNavDirection] = useState<'forward' | 'backward' | 'jump'>('jump')
   const refreshed = useRef(new Set<string>())
@@ -544,9 +219,10 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
   })
 
   useEffect(() => {
+    if (!hydrated) return
     writeStudyPreference(storageKey, history)
     if (!history.empty) syncPosition(history.entries[history.cursor])
-  }, [history, storageKey])
+  }, [history, hydrated, storageKey])
 
   const reload = page.reload
   useEffect(() => {
@@ -573,6 +249,7 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
   const previousIndex = findPracticeBookmark(history, 'previous', eligible)
   const ahead = nextIndex >= 0 ? history.entries[nextIndex] : findNeighbor('next')
   const behind = previousIndex >= 0 ? history.entries[previousIndex] : findNeighbor('previous')
+  const canNext = onlyUndone ? Boolean(ahead) : mode === 'random' || index + 1 < total
   const warmPaths = question
     ? [...new Set([ahead, behind].flatMap((entry) => entry ? [practicePagePath(mode, topic, entry)] : []))]
       .filter((path) => path !== query).join('\n') : ''
@@ -592,7 +269,6 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
   }, [personal, personalReads, prefetchQuestionStates, warmPaths])
 
   function move(next: typeof history) {
-    setNavigationMessage('')
     setTrail(next)
     writeStudyPreference(storageKey, next)
     const bookmark = next.entries[next.cursor]
@@ -615,18 +291,15 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
     const target = direction === 'previous' ? behind : ahead
     if (target) {
       move(addPracticeBookmark(history, target, direction))
-    } else if (available) {
-      setNavigationMessage(direction === 'previous' ? messages.practice.noPrevUndone
-        : available.length ? messages.practice.onlyCurrentUndone : messages.practice.allDoneInRange)
-    } else if (direction === 'next') {
-      move(addPracticeBookmark(history, { position: 0, seed: mode === 'random' ? crypto.randomUUID() : undefined }, 'next'))
+    } else if (!available && direction === 'next' && mode === 'random') {
+      move(addPracticeBookmark(history, { position: 0, seed: crypto.randomUUID() }, 'next'))
       setRound((previous) => previous + 1)
       setAnswers({})
     }
   }
 
   const statData = stats.data
-  const syncLabel = { pending: '', synced: '', error: messages.practice.syncErrorLabel, rejected: messages.practice.syncRejectedLabel, idle: '' }[attempts.status]
+  const syncLabel = { pending: '本地已保存，待同步', synced: '云端已同步', error: messages.practice.syncErrorLabel, rejected: messages.practice.syncRejectedLabel, idle: '' }[attempts.status]
   const fallback = mode === 'wrong'
     ? messages.practice.wrongModeFallback(total)
     : mode === 'favorite'
@@ -636,6 +309,13 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
   return (
     <div className="study-two-col">
       <div>
+        {(syncLabel || stats.error) && (
+          <div className="flex flex-wrap items-center gap-2 text-xs text-ink-secondary mb-3" role="status">
+            {syncLabel && <span>{syncLabel}</span>}
+            {attempts.status === 'error' && <Button variant="surface" size="xs" onClick={() => void attempts.flush()}>{messages.practice.retrySync}</Button>}
+            {stats.error && <Button variant="surface" size="xs" onClick={stats.retry}>重试统计</Button>}
+          </div>
+        )}
         {!question ? (
           <>
             <LoadMessage
@@ -650,6 +330,9 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
                     ? messages.practice.emptyFavorite
                     : messages.practice.emptyDefault}
             />
+            {trail.empty && ordered && total > 0 && (
+              <Button variant="surface" size="md" className="lg:hidden" onClick={() => setSheetOpen(true)}>{messages.practice.answerSheet}</Button>
+            )}
             {index > 0 && !trail.empty && (
               <div className="mt-4 flex justify-center">
                 <Button variant="surface" size="md" className="h-10 px-5 rounded-control text-sm" onClick={() => jump(0)}>
@@ -678,7 +361,7 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
               total={total}
               fallback={fallback}
               previous={behind ? () => navigate('previous') : null}
-              next={() => navigate('next')}
+              next={canNext ? () => navigate('next') : null}
               attempted={Boolean(attempted.has(question.id) || (activeState?.attempted ?? question.attempted))}
               favorite={activeState?.isFavorite ?? question.isFavorite}
               wrongMode={mode === 'wrong'}
@@ -686,7 +369,7 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
               onOpenSheet={() => setSheetOpen(true)}
               direction={navDirection}
             />
-            {navigationMessage && <p className="mt-3 text-meta text-ink-secondary" role="status">{navigationMessage}</p>}
+            {onlyUndone && !canNext && <p className="mt-3 text-meta text-ink-secondary" role="status">{available?.length ? messages.practice.onlyCurrentUndone : messages.practice.allDoneInRange}</p>}
             {rejected && <p className="mt-3 text-meta text-wrong-ink" role="status">{messages.practice.rejectedNotice}</p>}
             {states.error && !personal && (
               <p className="mt-3 text-meta text-wrong-ink" role="alert">
@@ -700,21 +383,13 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
 
       {/* Desktop sticky right rail */}
       <aside className="study-rail">
-        <div className="grid grid-cols-3 gap-2.5">
+        <div role="group" aria-label="练习统计" className="grid grid-cols-3 gap-2.5">
           <StatTile label={messages.common.practicedStat} value={statData?.attempted ?? '—'} />
           <StatTile label={messages.common.wrongStat} value={statData?.wrong ?? '—'} valueClassName="text-wrong-ink" />
           <StatTile label={messages.common.favoriteStat} value={statData?.favorites ?? '—'} />
         </div>
-        {syncLabel && (
-          <div className="flex items-center justify-between text-xs text-ink-muted px-1" role="status">
-            <span>{syncLabel}</span>
-            {attempts.status === 'error' && (
-              <Button variant="surface" size="xs" onClick={() => void attempts.flush()}>{messages.practice.retrySync}</Button>
-            )}
-          </div>
-        )}
         {rightRailHeader}
-        <PracticeSheetPanel ordered={ordered} index={index} total={total} onJump={jump} />
+        <PracticeSheetPanel key={index} ordered={ordered} index={index} total={total} onJump={jump} />
       </aside>
 
       {/* Mobile answer sheet bottom drawer */}
@@ -724,7 +399,7 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
         title={messages.practice.answerSheet}
         closeLabel={messages.common.close}
       >
-        <PracticeSheetPanel ordered={ordered} index={index} total={total} onJump={jump} />
+        <PracticeSheetPanel key={index} ordered={ordered} index={index} total={total} onJump={jump} />
       </BottomDrawer>
     </div>
   )
@@ -823,8 +498,14 @@ function PracticeContent({ bootstrap, initialSeed: serverSeed }: { bootstrap?: B
     </div>
   )
 
-  if (mode === 'topic' && !topic) return <LoadMessage error={topics.error} loading={topics.loading} retry={topics.retry} empty={messages.practice.emptyTopics} />
-  if (filtering && !remaining.data) return <LoadMessage error={remaining.error} loading={remaining.loading} retry={remaining.retry} />
+  const missingTopics = mode === 'topic' && !topic
+  if (missingTopics || (filtering && !remaining.data)) {
+    const state = missingTopics ? topics : remaining
+    return <div className="study-two-col">
+      <LoadMessage error={state.error} loading={state.loading} retry={state.retry} empty={missingTopics ? messages.practice.emptyTopics : undefined} />
+      <aside className="study-rail">{rightRailHeader}</aside>
+    </div>
+  }
 
   return (
     <PracticeDeck

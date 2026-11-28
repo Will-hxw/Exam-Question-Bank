@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui'
 import { messages } from '@/config/messages'
-import type { Explanation } from './api'
+import { letter, type Explanation } from './api'
 
 export function ExplanationPanel({
   content,
@@ -23,12 +23,22 @@ export function ExplanationPanel({
     <div className={className} aria-label={title}>
       {!hideHeading && <div className="text-xs font-medium text-ink-muted mb-1.5">{title}</div>}
       <p className="m-0 text-body text-ink-secondary leading-relaxed whitespace-pre-wrap">{text || empty}</p>
+      {content?.options && content.answerIds && (
+        <ul className="list-none m-0 mt-3 p-0 flex flex-col gap-2.5" aria-label="选项解析">
+          {content.options.map((option, index) => (
+            <li key={option.id} className="text-sm leading-relaxed text-ink-body">
+              <strong>{letter(index)}. {option.text}</strong>（{content.answerIds?.includes(option.id) ? messages.common.correctShort : messages.common.wrongShort}）
+              {option.rationale && <p className="m-0 mt-0.5 text-ink-secondary">{option.rationale}</p>}
+            </li>
+          ))}
+        </ul>
+      )}
       {sources.length > 0 && (
         <ul className="m-0 mt-2.5 pl-4 text-xs text-ink-muted flex flex-col gap-1">
           {sources.map((source) => (
             <li key={`${source.url}:${source.location}`}>
-              {source.url ? (
-                <a className="underline hover:text-ink-primary" href={source.url} target="_blank" rel="noreferrer">
+              {/^https?:\/\//i.test(source.url) ? (
+                <a className="text-ink-secondary visited:text-ink-secondary underline" href={source.url} target="_blank" rel="noreferrer">
                   {source.title}
                 </a>
               ) : source.title}

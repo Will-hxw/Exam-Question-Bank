@@ -107,18 +107,14 @@ function QuestionRow({ question, state, list, index = 0 }: { question: Question;
           </button>
         )}
 
-        {explanationData && (
-          <button
-            type="button"
-            className="tactile h-8.5 px-3.5 rounded-micro text-meta font-medium bg-canvas text-ink-secondary disabled:opacity-45"
-            aria-expanded={expanded && attempted}
-            disabled={!attempted}
-            title={!attempted ? messages.library.expandHint : undefined}
-            onClick={() => setExpanded(!expanded)}
-          >
-            {expanded ? messages.common.collapseExplanation : messages.common.expandExplanation}
-          </button>
-        )}
+        <button
+          type="button"
+          className="tactile h-8.5 px-3.5 rounded-micro text-meta font-medium bg-canvas text-ink-secondary"
+          aria-expanded={expanded}
+          onClick={() => { setExpanded(!expanded); setShowAnswer(true) }}
+        >
+          {expanded ? messages.common.collapseExplanation : messages.common.expandExplanation}
+        </button>
       </div>
 
       {favoriteControl.error && <p className="m-0 text-xs text-wrong-ink" role="alert">{favoriteControl.error}</p>}
@@ -135,7 +131,7 @@ function QuestionRow({ question, state, list, index = 0 }: { question: Question;
           {messages.common.correctAnswer} <span className="font-semibold tabular-nums text-correct-ink ml-1">{answerLetters(explanationData.options, explanationData.answerIds)}</span>
         </p>
       )}
-      {attempted && explanationData && (
+      {expanded && explanationData && (
         <CollapsePanel open={expanded}>
           <div className="pt-2">
             <ExplanationPanel content={explanationData} />
@@ -146,22 +142,17 @@ function QuestionRow({ question, state, list, index = 0 }: { question: Question;
   )
 }
 
-function QuestionList({ view, q, status, list, initialPage, onPageChange, onLimitChange }: {
+function QuestionList({ view, q, status, list, onPageChange, onLimitChange }: {
   view: LibraryView; q: string; status: Status | ''; list: LibraryList
-  initialPage?: { path: string; data: QuestionPage } | null
   onPageChange: (index: number) => void; onLimitChange: (limit: number) => void
 }) {
-  const currentPath = libraryPath(list, view, q)
-  const [loaded, setLoaded] = useState<{ index: number; data: QuestionPage } | undefined>(() =>
-    !status && initialPage?.path === currentPath ? { index: view.page, data: initialPage.data } : undefined,
-  )
+  const [loaded, setLoaded] = useState<{ index: number; data: QuestionPage }>()
   const scrollOnPage = useRef<number | null>(null)
   const rows = useRef<HTMLDivElement>(null)
   const { revision, personalReads } = useStudySessionContext()
   const { page: pageIndex, limit } = view
   const page = useStudyData<QuestionPage>(
-    currentPath, status ? revision : 0,
-    status ? personalReads : { initial: initialPage?.path === currentPath ? initialPage.data : undefined },
+    libraryPath(list, view, q), status ? revision : 0, status ? personalReads : undefined,
   )
   const total = page.data?.total ?? loaded?.data.total ?? 0
   const pageCount = Math.max(1, Math.ceil(total / limit))
@@ -224,6 +215,9 @@ function QuestionList({ view, q, status, list, initialPage, onPageChange, onLimi
     window.scrollTo(0, 0)
   }, [loaded, pageIndex])
 
+  const empty = view.topic || view.type || q || view.status ? '没有符合条件的题目'
+    : list === 'wrong' ? messages.practice.emptyWrong : list === 'favorite' ? messages.practice.emptyFavorite : '暂无题目'
+
   function move(index: number) {
     if (page.loading) return
     scrollOnPage.current = index
@@ -239,7 +233,7 @@ function QuestionList({ view, q, status, list, initialPage, onPageChange, onLimi
         </p>
       )}
       {questions.length === 0 ? (
-        <LoadMessage loading={page.loading} error={page.error} retry={page.retry} />
+        <LoadMessage loading={page.loading} error={page.error} retry={page.retry} empty={empty} />
       ) : (
         <div className="flex flex-col gap-3.5" aria-busy={page.loading} ref={rows}>
           {questions.map((question, index) => (
@@ -303,7 +297,7 @@ function QuestionList({ view, q, status, list, initialPage, onPageChange, onLimi
   )
 }
 
-function LibraryContent({ list, initialPage }: { list: LibraryList; initialPage?: { path: string; data: QuestionPage } | null }) {
+function LibraryContent({ list }: { list: LibraryList }) {
   const { topics, stats, preferences } = useStudySessionContext()
   const key = `library:${list}`
   const view = readLibraryView(preferences.values[key])
@@ -389,7 +383,6 @@ function LibraryContent({ list, initialPage }: { list: LibraryList; initialPage?
         q={q}
         status={filter}
         list={list}
-        initialPage={initialPage}
         onPageChange={(index) => filterBy({ page: index })}
         onLimitChange={(size) => filterBy({ limit: size })}
       />
@@ -397,7 +390,7 @@ function LibraryContent({ list, initialPage }: { list: LibraryList; initialPage?
   )
 }
 
-export function Library({ list, initialPage }: { list: LibraryList; initialPage?: { path: string; data: QuestionPage } | null }) {
+export function Library({ list }: { list: LibraryList }) {
   const { preferences } = useStudySessionContext()
-  return preferences.ready ? <LibraryContent list={list} initialPage={initialPage} /> : <LoadMessage loading />
+  return preferences.ready ? <LibraryContent list={list} /> : <LoadMessage loading />
 }

@@ -4,9 +4,8 @@ import { readFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { cache } from 'react'
 import { practiceBankPageSize, questionUrl, type QuestionPage, type Topic, validManifest, validPage } from '@/features/study/api'
-import { readLibraryView } from '@/features/study/library-view'
 import { practiceUndonePreference } from '@/features/study/practice-undone'
-import { bankRelease, topics as listTopics } from './content'
+import { bankRelease } from './content'
 import { readStudyPreferences, studyStats } from './learning'
 
 export type PracticeBootstrap = { topics: Topic[]; page?: { path: string; data: QuestionPage } }
@@ -60,39 +59,3 @@ export async function initialPracticeBank(userId: string): Promise<PracticeBoots
   } catch { /* The client can load the question batch from the CDN or the public API. */ }
   return { topics }
 }
-
-export const initialStudyTopics = cache(async (): Promise<{ topics: Topic[] } | null> => {
-  const [manifest, active] = await Promise.all([releaseManifest(), bankRelease().catch(() => null)])
-  if (manifest && active?.release === manifest.release) return { topics: manifest.topics }
-  return listTopics().catch(() => null)
-})
-
-export const initialLibraryPage = cache(async (userId: string): Promise<{ path: string; data: QuestionPage } | null> => {
-  const [manifest, preferences, active] = await Promise.all([
-    releaseManifest(), initialStudyPreferences(userId), bankRelease().catch(() => null),
-  ])
-  if (!manifest || active?.release !== manifest.release) return null
-  const view = readLibraryView(preferences?.['library:all'])
-  const q = view.search.trim()
-  if (q || view.status || view.type || view.limit !== pageSize) return null
-  const group = view.topic || '_all'
-  const bank = manifest.groups[group]
-  if (!bank?.total) return null
-  const pageCount = Math.max(1, Math.ceil(bank.total / pageSize))
-  const pageIndex = Math.min(view.page, pageCount - 1)
-  const offset = pageIndex * pageSize
-  const digest = shardPattern.exec(bank.pages[pageIndex])?.[1]
-  if (!digest) return null
-  try {
-    const bytes = await readFile(join(bankRoot, 'pages', `${digest}.json`))
-    if (createHash('sha256').update(bytes).digest('hex') !== digest) return null
-    const data: unknown = JSON.parse(bytes.toString('utf8'))
-    if (validPage(data, Math.min(pageSize, bank.total - offset), group, pageIndex === bank.pages.length - 1)) {
-      const path = questionUrl({
-        topic: view.topic, type: view.type, q: '', status: '', offset: pageIndex ? offset : undefined, limit: pageSize,
-      })
-      return { path, data: { ...data, total: bank.total } }
-    }
-  } catch { /* Fallback to client load if shard is unreadable. */ }
-  return null
-})

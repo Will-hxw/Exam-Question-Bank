@@ -51,27 +51,15 @@ export function writeStudyPreference(key: string, value: unknown) {
 export function useAccountStudyPreferences(userId: string, remote: StudyPreferences | undefined, loading: boolean) {
   const key = `cqu-account-preferences:${userId}`
   const hydrated = useStudyPreferencesReady()
-  const stored = hydrated
-    ? (readStudyPreference(key) as { values?: StudyPreferences; pending?: StudyPreferences } | undefined)
-    : undefined
+  const [stored] = useState(() => readStudyPreference(key) as { values?: StudyPreferences; pending?: StudyPreferences } | undefined)
   const [confirmed, setConfirmed] = useState<StudyPreferences>({})
   const [lastRemote, setLastRemote] = useState(remote)
-  const [pending, setPending] = useState<StudyPreferences>({})
+  const [pending, setPending] = useState<StudyPreferences>(stored?.pending ?? {})
   const [syncFailed, setSyncFailed] = useState(false)
-  const queue = useRef<StudyPreferences>({})
-  const cache = useRef<StudyPreferences>(remote ?? {})
+  const queue = useRef<StudyPreferences>(stored?.pending ?? {})
+  const cache = useRef<StudyPreferences>(stored?.values ?? remote ?? {})
   const active = useRef(false)
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const hydratedRefs = useRef(false)
-
-  useEffect(() => {
-    if (!hydrated || hydratedRefs.current) return
-    hydratedRefs.current = true
-    const local = readStudyPreference(key) as { values?: StudyPreferences; pending?: StudyPreferences } | undefined
-    if (!local) return
-    if (local.pending) queue.current = mergePreferences(local.pending, queue.current)
-    if (local.values) cache.current = mergePreferences(local.values, cache.current)
-  }, [hydrated, key])
 
   if (remote && remote !== lastRemote) {
     setLastRemote(remote)
@@ -144,7 +132,7 @@ export function useAccountStudyPreferences(userId: string, remote: StudyPreferen
   }, [flush, persist])
 
   return {
-    values: hydrated ? mergePreferences(mergePreferences(remote ?? stored?.values ?? {}, confirmed), { ...stored?.pending, ...pending }) : (remote ?? {}),
+    values: hydrated ? mergePreferences(mergePreferences(remote ?? stored?.values ?? {}, confirmed), pending) : (remote ?? {}),
     ready: remote !== undefined || (hydrated && (stored?.values !== undefined || !loading)),
     save, syncFailed, retry: flush,
   }
