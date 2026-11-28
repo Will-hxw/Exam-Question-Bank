@@ -117,9 +117,9 @@ function Message({ message, nickname, previous, authorAvatar, onMention, deliver
         ) : (
           <MentionAvatar message={message} nickname={nickname} authorAvatar={authorAvatar} onMention={onMention} />
         )}
-        <div className={`flex flex-col gap-1 max-w-bubble ${message.mine ? 'items-end' : 'items-start'}`}>
-          <span data-nickname="" className="text-xs font-medium text-ink-secondary px-1">{nickname}</span>
-          <p className={`m-0 px-3.75 py-2.75 rounded-option text-body break-words whitespace-pre-wrap ${bubbleCls}`} dir="auto">
+        <div className={`flex min-w-0 flex-col gap-1 max-w-bubble ${message.mine ? 'items-end' : 'items-start'}`}>
+          <span data-nickname="" className="max-w-full [overflow-wrap:anywhere] text-xs font-medium text-ink-secondary px-1">{nickname}</span>
+          <p className={`m-0 px-3.75 py-2.75 rounded-option text-body max-w-full [overflow-wrap:anywhere] whitespace-pre-wrap ${bubbleCls}`} dir="auto">
             {message.aiReplyTo && (
               <span className="inline-flex mr-1.5 px-1.5 py-0.5 rounded-tag bg-selected-badge text-white text-nano font-semibold align-middle">
                 {messages.chat.aiAutoTag}

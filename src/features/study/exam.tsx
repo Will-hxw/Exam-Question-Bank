@@ -260,7 +260,7 @@ function ExamTaking({ exam, onResult, onReload }: {
               <div className="flex items-center gap-2.5">
                 <Badge>{item.type === 'single' ? messages.common.singleChoice : messages.common.multipleChoice}</Badge>
                 <span className="tabular-nums text-meta font-medium text-ink-secondary">{messages.exam.questionProgress(position + 1, count)}</span>
-                <ProgressBar percent={(done / count) * 100} />
+                <ProgressBar percent={(done / count) * 100} ariaLabel={messages.exam.progressLabel} valueNow={done} valueMax={count} />
               </div>
               <div className="flex items-center gap-2">
                 <button
@@ -335,7 +335,7 @@ function ExamTaking({ exam, onResult, onReload }: {
               <span className="text-ink-secondary">{messages.exam.progressLabel}</span>
               <span className="tabular-nums font-semibold">{done} / {count}</span>
             </div>
-            <ProgressBar variant="full" percent={(done / count) * 100} ariaLabel={messages.exam.progressLabel} valueNow={done} valueMax={count} />
+            <ProgressBar variant="full" percent={(done / count) * 100} />
             <Button variant="cta" size="md" className="w-full h-11 rounded-control text-sm mt-1" disabled={blocked} onClick={confirmHandIn}>
               {messages.exam.submitPaper}
             </Button>
