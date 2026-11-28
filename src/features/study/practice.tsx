@@ -201,7 +201,6 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
   const undoneSeed = onlyUndone && mode === 'random' ? seed : undefined
   const attempted = attempts.recentlyAttemptedIds()
   const available = useMemo(() => remaining?.filter(({ id }) => !attempted.has(id)), [attempted, remaining])
-  const eligible = eligibleBookmarks(available)
   const hydrated = useStudyPreferencesReady()
   const [userTrail, setTrail] = useState<PracticeHistory | null>(null)
   const trail = useMemo(
@@ -237,7 +236,8 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
     ? `${siteConfig.api.publicPrefix}questions/${active.id}/position${topic ? '?' + new URLSearchParams({ topic }) : ''}` : null
   const position = useStudyData<{ position: number | null }>(positionPath)
   const relocating = Boolean(positionPath && !position.data)
-  const fallbackIndex = personal && visiblePage?.total !== undefined ? Math.min(requestedIndex, Math.max(0, total - 1)) : requestedIndex
+  const fallbackIndex = (personal || ordered) && visiblePage?.total !== undefined
+    ? Math.min(requestedIndex, Math.max(0, total - 1)) : requestedIndex
   const index = inBatch >= 0 ? offset + inBatch : position.data?.position ?? fallbackIndex
   const question = relocating ? undefined : visiblePage?.questions[seededBatch ? index : index - offset]
   const questionId = question?.id
@@ -265,7 +265,7 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
     reload((path) => requestJson<QuestionPage>(path.replace(siteConfig.api.publicPrefix, siteConfig.api.mePrefix), { headers: { [siteConfig.api.accountHeader]: userId } }))
   }, [rejected, reload, userId])
 
-  if (index !== requestedIndex) {
+  if (!relocating && index !== requestedIndex) {
     setTrail({ ...trail, entries: trail.entries.map((entry, at) => at === trail.cursor
       ? { ...entry, position: index, id: position.data?.position === index ? active.id : questionId } : entry) })
   }
@@ -280,6 +280,8 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
     return target >= 0 && target < total ? { position: target, seed: active.seed } : undefined
   }
 
+  const eligible = available ? eligibleBookmarks(available) : (entry: PracticeBookmark) =>
+    entry.position < total || Boolean(entry.seed || (ordered && entry.id))
   const nextIndex = findPracticeBookmark(history, 'next', eligible)
   const previousIndex = findPracticeBookmark(history, 'previous', eligible)
   const ahead = nextIndex >= 0 ? history.entries[nextIndex] : findNeighbor('next')

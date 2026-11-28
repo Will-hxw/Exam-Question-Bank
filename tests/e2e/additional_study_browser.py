@@ -268,6 +268,8 @@ def moved_bookmark(browser, token='bookmark-recovery'):
         bank = ORIGIN + '/api/public/questions?mode=practice&limit=15'
         older = page.request.get(bank).json()['questions'][1]
         moved = page.request.get(bank + '&offset=15').json()['questions'][3]
+        still_published = page.request.get(bank + '&offset=30').json()['questions'][0]
+        last_batch = page.request.get(bank + '&offset=45').json()['questions']
         position = ORIGIN + '/api/public/questions/' + moved['id'] + '/position'
         assert page.request.get(position).json() == {'position': 18}
         assert page.request.get(position + '?topic=t02').json() == {'position': None}
@@ -276,13 +278,18 @@ def moved_bookmark(browser, token='bookmark-recovery'):
             'practice': {'mode': 'sequence'}, 'practice-position:sequence': 1,
         }).ok
         page.add_init_script(f"""localStorage.setItem('cqu-practice-history:{owner}:sequence', JSON.stringify({{
-          entries: [{{position: 1, id: '{moved['id']}'}}], cursor: 0
+          entries: [{{position: 1, id: '{moved['id']}'}}, {{position: 95}}, {{position: 96, id: '{still_published['id']}'}},
+            {{position: 97, id: '{uuid4()}'}}], cursor: 0
         }}));""")
         page.goto(ORIGIN)
         article = page.get_by_role('article', name='练习题目')
         expect(article.get_by_role('heading', level=1)).to_have_text(moved['stem'])
         expect(article).not_to_contain_text(older['stem'])
         assert page.evaluate('owner => { const h = JSON.parse(localStorage.getItem(`cqu-practice-history:${owner}:sequence`)); return h.entries[h.cursor].position }', owner) == 18
+        article.get_by_role('button', name='下一题', exact=True).click()
+        expect(article.get_by_role('heading', level=1)).to_have_text(still_published['stem'])
+        article.get_by_role('button', name='下一题', exact=True).click()
+        expect(article.get_by_role('heading', level=1)).to_have_text(last_batch[-1]['stem'])
         print('PRACTICE_MOVED_BOOKMARK restored the same question across batches', flush=True)
     finally:
         context.close()
