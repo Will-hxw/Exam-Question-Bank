@@ -120,7 +120,10 @@ function useTheme(theme: unknown, save: (edits: Record<string, unknown>) => void
     }
     applyPreference()
     preference.addEventListener('change', applyPreference)
-    return () => preference.removeEventListener('change', applyPreference)
+    return () => {
+      preference.removeEventListener('change', applyPreference)
+      delete document.documentElement.dataset.theme
+    }
   }, [theme])
 
   function toggleTheme() {
@@ -133,7 +136,7 @@ function useTheme(theme: unknown, save: (edits: Record<string, unknown>) => void
   return { resolvedTheme, toggleTheme }
 }
 
-function useStudySession(userId: string, initialPreferences: StudyPreferences | null, initialStats: StudyStats | null) {
+function useStudySession(userId: string, initialPreferences: Promise<StudyPreferences | null>, initialStats: Promise<StudyStats | null>) {
   const [revision, setRevision] = useState(0)
   const [personalReads] = useState(() => createPersonalStudyReads(userId))
   const stateRevision = useRef(0)
@@ -150,7 +153,15 @@ function useStudySession(userId: string, initialPreferences: StudyPreferences | 
     setRevision(stateRevision.current)
   }, [personalReads])
   const stats = useStudyData<StudyStats>(siteConfig.api.stats, revision, { ...personalReads, initial: initialStats, keepPreviousData: true })
-  const preferences = useAccountStudyPreferences(userId, stats.data?.preferences ?? initialPreferences ?? undefined, stats.loading)
+  const [bootstrapPreferences, setBootstrapPreferences] = useState<StudyPreferences>()
+  useEffect(() => {
+    let active = true
+    void Promise.resolve(initialPreferences).then((value) => {
+      if (active && value) setBootstrapPreferences(value)
+    }, () => {})
+    return () => { active = false }
+  }, [initialPreferences])
+  const preferences = useAccountStudyPreferences(userId, stats.data?.preferences ?? bootstrapPreferences, stats.loading)
   const topics = useStudyData<{ topics: Topic[] }>(siteConfig.api.topics)
   const attempts = useAttemptQueue(userId, refreshMe)
 
@@ -271,8 +282,8 @@ export function useQuestionFavorite(id: string, serverFavorite?: boolean) {
 }
 
 export function StudyShell({ userId, author, initialPreferences, initialStats, brandSlot, sponsorSlot, children }: {
-  userId: string; author: boolean; initialPreferences: StudyPreferences | null
-  initialStats: StudyStats | null
+  userId: string; author: boolean; initialPreferences: Promise<StudyPreferences | null>
+  initialStats: Promise<StudyStats | null>
   brandSlot: ReactNode; sponsorSlot: ReactNode; children: ReactNode
 }) {
   const pathname = usePathname()

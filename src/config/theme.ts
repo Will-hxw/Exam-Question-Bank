@@ -227,8 +227,8 @@ export const typographyTheme = {
   },
   fontFamily: {
     credit: '"Times New Roman", Times, Georgia, serif',
-    serif: 'var(--font-serif), "Noto Serif SC", "Songti SC", "STSong", serif',
-    sans: 'var(--font-sans), "Inter", -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif',
+    serif: '"Songti SC", "STSong", "Noto Serif CJK SC", SimSun, serif',
+    sans: '-apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif',
   },
 }
 
@@ -239,10 +239,13 @@ export function buildThemePreflight(): string {
   const darkVars = Object.values(semanticColors)
     .map(({ cssVar, dark }) => `${cssVar}:${dark};`)
     .join('')
+  const darkTheme = `color-scheme:dark;${darkVars}--desktop-shadow:${layoutVars.desktopShadowDark};--nav-pill-shadow:${layoutVars.navPillShadowDark};`
 
   return [
     `:root{color-scheme:light;${lightVars}--desktop-shadow:${layoutVars.desktopShadowLight};--nav-pill-shadow:${layoutVars.navPillShadowLight};--study-main-max:${layoutVars.studyMainMax};--study-rail-width:${layoutVars.studyRailWidth};--ease-silk:${motionVars.easeSilk};--ease-spring:${motionVars.easeSpring};--ease-bounce:${motionVars.easeBounce};--motion-tactile:${motionVars.tactile};--motion-popover:${motionVars.popover};--motion-msg:${motionVars.msg};--motion-option:${motionVars.option};--motion-question:${motionVars.question};--motion-collapse:${motionVars.collapse};--motion-view:${motionVars.view};--motion-feedback:${motionVars.feedback};--motion-drawer:${motionVars.drawer};--motion-scrim:${motionVars.scrim};--motion-progress:${motionVars.progress};--motion-ring:${motionVars.ring};--motion-pop:${motionVars.pop};--motion-shake:${motionVars.shake};--motion-check:${motionVars.check};--motion-check-delay:${motionVars.checkDelay};--motion-ring-delay:${motionVars.ringDelay};--motion-theme:${motionVars.themeTransition};--motion-icon-swap:${motionVars.iconSwap};--motion-stagger-step:${motionVars.staggerStep};--check-stroke-len:${motionVars.checkStrokeLen};}`,
-    `:root[data-theme="dark"]{color-scheme:dark;${darkVars}--desktop-shadow:${layoutVars.desktopShadowDark};--nav-pill-shadow:${layoutVars.navPillShadowDark};}`,
+    `[data-theme="light"],[data-theme="system"]{color-scheme:light;${lightVars}--desktop-shadow:${layoutVars.desktopShadowLight};--nav-pill-shadow:${layoutVars.navPillShadowLight};}`,
+    `[data-theme="dark"]{${darkTheme}}`,
+    `@media (prefers-color-scheme:dark){[data-theme="system"]{${darkTheme}}}`,
     '*,*::before,*::after{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}',
     'body{transition:background-color var(--motion-theme) var(--ease-silk),color var(--motion-theme) var(--ease-silk);}',
     'button,input,select,textarea{font:inherit;}',

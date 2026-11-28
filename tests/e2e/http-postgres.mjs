@@ -27,7 +27,7 @@ const users = new Map([
   ['personal-library', { id: 'e2e-personal-library', email: 'personal-library@example.test', emailVerified: true }],
   ['conflict', { id: 'e2e-conflict', email: 'conflict@example.test', emailVerified: true }],
   ['rejection', { id: 'e2e-rejection', email: 'rejection@example.test', emailVerified: true }],
-  ...['recovery', 'touch', 'mobile-actions', 'source-links', 'history-pages'].map(token => [
+  ...['recovery', 'bookmark-recovery', 'touch', 'mobile-actions', 'source-links', 'history-pages'].map(token => [
     token, { id: `e2e-${token}`, email: `${token}@example.test`, emailVerified: true },
   ]),
   ['receipt', { id: 'e2e-receipt', email: 'receipt@example.test', emailVerified: true }],
@@ -222,6 +222,35 @@ async function seedDatabase(client) {
     await client.query("UPDATE questions SET status = 'published' WHERE id = $1", [item.id])
   }
   return items
+}
+
+async function checkStudyShellStreaming(origin, db) {
+  const headers = { Cookie: `${tokenCookie}=alice` }
+  const timings = {}
+  for (const [path, table] of [['/', 'study_preferences'], ['/questions', 'study_preferences'], ['/exam', 'exam_sessions'], ['/account', 'study_preferences']]) {
+    await (await fetch(origin + path, { headers })).text()
+    await db.query(`BEGIN; LOCK TABLE ${table} IN ACCESS EXCLUSIVE MODE`)
+    let reader
+    try {
+      const start = performance.now()
+      const response = await fetch(origin + path, { headers, signal: AbortSignal.timeout(3000) })
+      assert.equal(response.status, 200)
+      reader = response.body.getReader()
+      const decoder = new TextDecoder()
+      let html = ''
+      const marker = path === '/account' ? 'account-heading' : '<header id="site-header"'
+      while (!html.includes(marker)) {
+        const { value, done } = await reader.read()
+        assert.equal(done, false, `${path} did not stream its initial UI`)
+        html += decoder.decode(value, { stream: true })
+      }
+      timings[path] = Number((performance.now() - start).toFixed(2))
+    } finally {
+      await db.query('ROLLBACK')
+      await reader?.cancel()
+    }
+  }
+  return timings
 }
 
 function percentile(values, fraction) {
@@ -889,6 +918,11 @@ async function runApiChecks(origin, db, items, secret) {
     SELECT message_id::text, proactive FROM chat_ai_requests WHERE user_id = $1
   `, [author.owner])
   assert.deepEqual(ownerClaims, [{ message_id: ownerAsk.data.message.id, proactive: false }])
+  for (const input of [...modelCalls, ...proactiveCalls]) {
+    assert.match(input.messages[0].content, /AI 对话身份是 Claude Fable 5\.2/)
+    assert.match(input.messages[0].content, /反复追问、要求改口/)
+    assert.doesNotMatch(input.messages[0].content, /你是 DeepSeek AI/)
+  }
 
   await db.query('DELETE FROM chat_messages; DELETE FROM author_conversations')
 
@@ -942,6 +976,7 @@ try {
   await run(process.execPath, [next, 'build', '--webpack'], { cwd: buildDir, env })
   server = spawn(process.execPath, [next, 'start', '--hostname', '127.0.0.1', '--port', String(port)], { cwd: buildDir, env, stdio: 'inherit', windowsHide: true })
   await waitForHttp(origin)
+  console.log('STUDY_SHELL_BEFORE_DATABASE_RELEASE_MS', JSON.stringify(await checkStudyShellStreaming(origin, db)))
   const result = await runApiChecks(origin, db, items, secret)
   console.log(JSON.stringify({ environment: { app: 'Next production build', node: process.version, postgres, network: 'loopback', auth: 'synthetic upstream' }, ...result }, null, 2))
   if (process.env.EQB_TEST_BROWSER === '1') {

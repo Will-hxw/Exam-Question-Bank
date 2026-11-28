@@ -1,7 +1,29 @@
 @unocss;
 
+[data-theme="dark"] .auth-wordmark {
+  filter: invert(1) brightness(1.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-theme="system"] .auth-wordmark {
+    filter: invert(1) brightness(1.1);
+  }
+}
+
+main[data-theme="light"] .auth-wordmark {
+  filter: none;
+}
+
 [data-auth-otp] :focus-visible {
   outline-color: var(--ink-primary);
+}
+
+.chat-composer-input:focus-visible {
+  outline: none;
+}
+
+.chat-composer-form:has(.chat-composer-input:focus-visible) {
+  background-color: var(--surface-hover);
 }
 
 html:has(#site-header) {

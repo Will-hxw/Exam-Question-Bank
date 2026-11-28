@@ -9,7 +9,7 @@ import { practiceBankPageSize as batchSize, rememberPublicPage, type QuestionPag
 import { LoadMessage, TopicPicker } from './controls'
 import { readStudyPreference, type StudyPreferences, useStudyPreferencesReady, writeStudyPreference } from './preferences'
 import { addPracticeBookmark, findPracticeBookmark, identifyPracticeBookmark, practiceHistoryLimit, restorePracticeHistory,
-  sameBookmark, type PracticeBookmark, type PracticeDirection } from './practice-history'
+  sameBookmark, type PracticeBookmark, type PracticeDirection, type PracticeHistory } from './practice-history'
 import { initialUndonePosition, practiceUndonePreference, stepUndonePosition, type PracticePosition } from './practice-undone'
 import { useQuestionStates, useStudySessionContext } from './study-shell'
 import { useStudyData } from './use-study-data'
@@ -19,7 +19,7 @@ const modes = siteConfig.practiceModes
 
 type Mode = typeof modes[number]['id']
 type PracticeSettings = { mode: Mode; topic: string; seed: string; randomOnBank?: boolean }
-type BankBootstrap = PracticeBootstrap | null
+type BankBootstrap = Promise<PracticeBootstrap | null>
 
 function readSettings(value: unknown, initialSeed: string): PracticeSettings {
   const saved = value as Partial<PracticeSettings> | undefined
@@ -201,9 +201,8 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
   const undoneSeed = onlyUndone && mode === 'random' ? seed : undefined
   const attempted = attempts.recentlyAttemptedIds()
   const available = useMemo(() => remaining?.filter(({ id }) => !attempted.has(id)), [attempted, remaining])
-  const eligible = eligibleBookmarks(available)
   const hydrated = useStudyPreferencesReady()
-  const [userTrail, setTrail] = useState<ReturnType<typeof restorePracticeHistory> & { filtered?: boolean; empty?: boolean } | null>(null)
+  const [userTrail, setTrail] = useState<PracticeHistory | null>(null)
   const trail = useMemo(
     () => userTrail ?? buildPracticeTrail(hydrated ? readStudyPreference(storageKey) : undefined, start, onlyUndone, available, undoneSeed),
     [available, hydrated, onlyUndone, start, storageKey, undoneSeed, userTrail],
@@ -222,18 +221,25 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
   const personal = Boolean(status)
   const { offset } = batchFor(requestedIndex)
   const query = trail.empty ? null : practicePagePath(mode, topic, active)
-  const initialPage = bootstrap && query && !personal && bootstrap.page?.path === query ? bootstrap.page.data : undefined
-  useEffect(() => {
-    if (query && initialPage) rememberPublicPage(query, initialPage)
-  }, [initialPage, query])
+  const initialPage = useMemo(() => bootstrap && query && !personal
+    ? Promise.resolve(bootstrap).then((data) => {
+      if (data?.page?.path !== query) return null
+      rememberPublicPage(query, data.page.data)
+      return data.page.data
+    }) : undefined, [bootstrap, personal, query])
   const page = useStudyData<QuestionPage>(query, personal ? revision : 0,
     personal ? personalReads : { initial: initialPage })
   const visiblePage = page.data
   const total = (seededBatch ? visiblePage?.questions.length : visiblePage?.total) ?? topicCount
-  const relocated = personal && active.id ? visiblePage?.questions.findIndex(({ id }) => id === active.id) ?? -1 : -1
-  const index = relocated >= 0 ? offset + relocated
-    : personal && visiblePage?.total !== undefined ? Math.min(requestedIndex, Math.max(0, total - 1)) : requestedIndex
-  const question = visiblePage?.questions[seededBatch ? index : index - offset]
+  const inBatch = (personal || ordered) && active.id ? visiblePage?.questions.findIndex(({ id }) => id === active.id) ?? -1 : -1
+  const positionPath = ordered && visiblePage && active.id && inBatch < 0
+    ? `${siteConfig.api.publicPrefix}questions/${active.id}/position${topic ? '?' + new URLSearchParams({ topic }) : ''}` : null
+  const position = useStudyData<{ position: number | null }>(positionPath)
+  const relocating = Boolean(positionPath && !position.data)
+  const fallbackIndex = (personal || ordered) && visiblePage?.total !== undefined
+    ? Math.min(requestedIndex, Math.max(0, total - 1)) : requestedIndex
+  const index = inBatch >= 0 ? offset + inBatch : position.data?.position ?? fallbackIndex
+  const question = relocating ? undefined : visiblePage?.questions[seededBatch ? index : index - offset]
   const questionId = question?.id
   const cardKey = question ? `${round}:${active.seed ?? ''}:${index}:${question.id}:${question.contentRevision ?? ''}` : ''
   const answer = answers[cardKey]
@@ -247,10 +253,10 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
   })
 
   useEffect(() => {
-    if (!hydrated) return
+    if (!hydrated || relocating) return
     writeStudyPreference(storageKey, history)
     if (!history.empty) syncPosition(history.entries[history.cursor])
-  }, [history, hydrated, storageKey])
+  }, [history, hydrated, relocating, storageKey])
 
   const reload = page.reload
   useEffect(() => {
@@ -259,8 +265,9 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
     reload((path) => requestJson<QuestionPage>(path.replace(siteConfig.api.publicPrefix, siteConfig.api.mePrefix), { headers: { [siteConfig.api.accountHeader]: userId } }))
   }, [rejected, reload, userId])
 
-  if (index !== requestedIndex) {
-    setTrail({ ...trail, entries: trail.entries.map((entry, at) => at === trail.cursor ? { position: index, id: questionId } : entry) })
+  if (!relocating && index !== requestedIndex) {
+    setTrail({ ...trail, entries: trail.entries.map((entry, at) => at === trail.cursor
+      ? { ...entry, position: index, id: position.data?.position === index ? active.id : questionId } : entry) })
   }
 
   function findNeighbor(direction: PracticeDirection): PracticeBookmark | undefined {
@@ -273,11 +280,13 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
     return target >= 0 && target < total ? { position: target, seed: active.seed } : undefined
   }
 
+  const eligible = available ? eligibleBookmarks(available) : (entry: PracticeBookmark) =>
+    entry.position < total || Boolean(entry.seed || (ordered && entry.id))
   const nextIndex = findPracticeBookmark(history, 'next', eligible)
   const previousIndex = findPracticeBookmark(history, 'previous', eligible)
   const ahead = nextIndex >= 0 ? history.entries[nextIndex] : findNeighbor('next')
   const behind = previousIndex >= 0 ? history.entries[previousIndex] : findNeighbor('previous')
-  const canNext = onlyUndone ? Boolean(ahead) : mode === 'random' || index + 1 < total
+  const canNext = Boolean(ahead) || (!onlyUndone && mode === 'random')
   const warmPaths = question
     ? [...new Set([ahead, behind].flatMap((entry) => entry ? [practicePagePath(mode, topic, entry)] : []))]
       .filter((path) => path !== query).join('\n') : ''
@@ -341,9 +350,9 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
         {!question ? (
           <>
             <LoadMessage
-              loading={page.loading}
-              error={page.error}
-              retry={page.retry}
+              loading={page.loading || position.loading}
+              error={page.error ?? position.error}
+              retry={position.error ? position.retry : page.retry}
               empty={trail.empty
                 ? messages.practice.emptyUndone
                 : mode === 'wrong'
@@ -418,9 +427,9 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
 
 function PracticeContent({ bootstrap, initialSeed: serverSeed }: { bootstrap?: BankBootstrap; initialSeed?: string }) {
   const { topics: shellTopics, preferences, personalReads, revision } = useStudySessionContext()
-  const bootTopics = useStudyData<{ topics: Topic[] }>(bootstrap ? siteConfig.api.topics : null, 0, {
-    initial: bootstrap,
-  })
+  const initialTopics = useMemo(() => bootstrap
+    ? Promise.resolve(bootstrap).then((data) => data ? { topics: data.topics } : null) : undefined, [bootstrap])
+  const bootTopics = useStudyData<{ topics: Topic[] }>(initialTopics ? siteConfig.api.topics : null, 0, { initial: initialTopics })
   const topics = bootTopics.data ? bootTopics : shellTopics
   const [initialSeed] = useState(() => serverSeed ?? crypto.randomUUID())
   const settings = readSettings(preferences.values.practice, initialSeed)

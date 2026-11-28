@@ -2,10 +2,11 @@ import type { Metadata } from "next"
 import { redirect } from "next/navigation"
 import { connection } from "next/server"
 import { messages } from "@/config/messages"
-import { AuthScreen } from "@/features/auth/auth-screen"
 import { AccountPanel } from "@/features/auth/account-panel"
+import { AccountScreen } from "@/features/auth/account-screen"
 import { getVerifiedUser } from "@/features/auth/server"
 import { siteConfig } from "@/config/site"
+import { initialStudyPreferences } from "@/server/study-bootstrap"
 
 export const metadata: Metadata = { title: messages.common.accountTitle(siteConfig.title) }
 
@@ -14,5 +15,7 @@ export default async function AccountPage() {
   const user = await getVerifiedUser().catch(() => null)
   if (!user) redirect(siteConfig.routes.login)
 
-  return <AuthScreen><AccountPanel email={user.email} /></AuthScreen>
+  return <AccountScreen userId={user.id} preferences={initialStudyPreferences(user.id)}>
+    <AccountPanel email={user.email} />
+  </AccountScreen>
 }

@@ -20,17 +20,12 @@ export default async function StudyLayout({ children }: Readonly<{ children: Rea
   }
   if (!auth.user) return children
 
-  const [initialPreferences, initialStats] = await Promise.all([
-    initialStudyPreferences(auth.user.id),
-    initialStudyStats(auth.user.id),
-  ])
-
   return (
     <StudyShell
       userId={auth.user.id}
       author={isSiteAuthor(auth.user)}
-      initialPreferences={initialPreferences}
-      initialStats={initialStats}
+      initialPreferences={initialStudyPreferences(auth.user.id)}
+      initialStats={initialStudyStats(auth.user.id)}
       brandSlot={<BrandMark />}
       sponsorSlot={<SponsorCard />}
       key={auth.user.id}

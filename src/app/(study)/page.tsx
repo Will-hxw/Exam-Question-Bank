@@ -5,7 +5,7 @@ import { initialPracticeBank } from '@/server/study-bootstrap'
 
 export default async function PracticePage() {
   const access = await loadStudyUser()
-  const bootstrap = access.available && access.user ? await initialPracticeBank(access.user.id) : null
+  const bootstrap = access.available && access.user ? initialPracticeBank(access.user.id) : undefined
   const initialSeed = crypto.randomUUID()
   return (
     <StudyPage path={siteConfig.routes.practice}>

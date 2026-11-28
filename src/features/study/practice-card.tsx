@@ -315,7 +315,7 @@ export function PracticeCard({
                   <h2 className="font-serif m-0 text-base font-bold text-ink-primary">{messages.practice.explanationHeading}</h2>
                   <button
                     type="button"
-                    className="tactile px-2.5 py-1 rounded-tag text-meta font-medium text-ink-secondary hover:bg-surface"
+                    className="tactile px-2.5 py-1 rounded-tag text-meta font-medium bg-surface text-ink-secondary hover:bg-surface-hover"
                     aria-expanded={expanded}
                     onClick={() => setExpanded((prev) => !prev)}
                   >

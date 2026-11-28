@@ -42,15 +42,13 @@ export function useStudyData<T>(path: string | null, revision = 0, {
   keepPreviousData?: boolean
   load?: (path: string) => Promise<T>
   peek?: (path: string) => T | undefined
-  initial?: T | null | Promise<T | null>
+  initial?: Promise<T | null>
 } = {}) {
   const [retry, setRetry] = useState<{ count: number; override?: { path: string; load: (path: string) => Promise<T> } }>({ count: 0 })
   const key = `${path}:${retry.count}:${revision}`
   const freshLoad = retry.override?.path === path ? retry.override.load : undefined
   const bootstrap = revision === 0 && retry.count === 0 ? initial : undefined
-  const syncInitial = bootstrap !== undefined && bootstrap !== null && !(bootstrap instanceof Promise) ? bootstrap : undefined
   const [state, setState] = useState<DataState<T>>(() => {
-    if (syncInitial !== undefined) return { key, path, data: syncInitial, error: null }
     const cached = path ? peek?.(path) ?? (path.startsWith('/api/public/') ? cachedPublic<T>(path) : undefined) : undefined
     return { key: cached === undefined ? '' : key, path, data: cached ?? null, error: null }
   })

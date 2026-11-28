@@ -25,7 +25,7 @@ export function restorePracticeHistory(value: unknown, start: PracticeBookmark):
     && saved.cursor! >= 0 && saved.cursor! < saved.entries.length) {
     const history = { entries: saved.entries, cursor: saved.cursor!, filtered: saved.filtered === true, empty: saved.empty === true }
     return sameBookmark(history.entries[history.cursor], start)
-      ? history : addPracticeBookmark({ ...history, filtered: false }, start, 'jump')
+      ? history : addPracticeBookmark({ ...history, filtered: false }, start, 'next')
   }
   return { entries: [start], cursor: 0, filtered: false, empty: false }
 }

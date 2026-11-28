@@ -105,25 +105,38 @@ export async function topics() {
   return topicsAtRelease((await bankRelease()).release)
 }
 
-export async function practiceUndonePositions(userId: string, params: URLSearchParams) {
+const orderedPracticeBank = `
+  SELECT q.id, (row_number() OVER (ORDER BY q.bank_position NULLS LAST, q.id) - 1)::int AS position
+  FROM active_bank_questions q
+  WHERE ($2::text IS NULL OR q.topic_id = $2)
+`
+
+function practiceTopic(params: URLSearchParams) {
   const topic = params.get('topic')
   if ([...params.keys()].some((key) => key !== 'topic') || params.getAll('topic').length > 1
     || (topic !== null && !/^[a-z0-9][a-z0-9-]{0,49}$/.test(topic))) {
     throw new HttpError(400, '专题参数无效。')
   }
+  return topic
+}
+
+export async function practiceBookmarkPosition(id: string, params: URLSearchParams) {
+  const [entry] = await query<Pick<PracticePosition, 'position'>>(`
+    SELECT position FROM (${orderedPracticeBank}) ordered WHERE id = $1
+  `, [id, practiceTopic(params)])
+  return { position: entry?.position ?? null }
+}
+
+export async function practiceUndonePositions(userId: string, params: URLSearchParams) {
   const positions = await query<PracticePosition>(`
-    WITH ordered AS (
-      SELECT q.id, (row_number() OVER (ORDER BY q.bank_position NULLS LAST, q.id) - 1)::int AS position
-      FROM active_bank_questions q
-      WHERE ($2::text IS NULL OR q.topic_id = $2)
-    )
+    WITH ordered AS (${orderedPracticeBank})
     SELECT o.id, o.position FROM ordered o
     WHERE NOT EXISTS (
       SELECT 1 FROM question_progress p
       WHERE p.question_id = o.id AND p.user_id = $1 AND p.attempt_count > 0
     )
     ORDER BY o.position
-  `, [userId, topic])
+  `, [userId, practiceTopic(params)])
   return { positions }
 }
 
