@@ -1,0 +1,19 @@
+legacy_id,disposition,source_ids,source_urls,locator,review_note,candidate_id,reviewed_on,reviewer
+q_000184,hold_source_and_scope,PLENUM3-DEC,https://www.12371.cn/2024/07/21/ARTI1721551217863166.shtml,决定第一部分第（1）项,已核这个位置表述为改革开放使党和人民事业大踏步赶上时代的重要法宝。旧题将另一处关键一招说法与本次全会笼统绑定，须核确切讲话。三中内容也未列为当前独立专题。, ,2026-11-23,Codex root
+q_000185,scope_historical,PLENUM3-DEC,https://www.12371.cn/2024/07/21/ARTI1721551217863166.shtml,决定第四部分第（16）项,该项确有加快建设国家战略人才力量。选项用全面取消限制不够同类。本题按三中出处存历史候选，长期内容按现行来源和归属单独核定。, ,2026-11-23,Codex root
+q_000249,scope_historical,PLENUM3-COMM;PLENUM3-DEC,https://www.12371.cn/2024/07/18/ARTI1721291343859528.shtml;https://www.12371.cn/2024/07/21/ARTI1721551217863166.shtml,公报审议决定段和决定题注,主表C的文件指向正确。三中通过文件与当前网站四中和五中独立专项不同，按历史候选保留，不加入现行全会专练。, ,2026-11-23,Codex root
+q_000251,hold_source_and_scope,PLENUM3-DEC,https://www.12371.cn/2024/07/21/ARTI1721551217863166.shtml,决定第十五部分开头,原句包含进一步全面深化改革和推进中国式现代化两层，旧题缩为后半层。三中独立考法不在当前范围，若迁移到基础题须另核文献原句。, ,2026-11-23,Codex root
+q_000252,reclassify,T02;S03;PLENUM3-DEC,https://www.12371.cn/2022/10/25/ARTI1666705047474465.shtml;https://www.12371.cn/2024/07/21/ARTI1721551217863166.shtml,二十大报告第四部分开头及三中决定第三部分开头,主表C可由二十大报告直接核证。该常识按二十大原文用一个短设问表示，避免又在历史全会以同义题复现。, ,2026-11-23,Codex root
+q_000253,reclassify,S03;PLENUM3-DEC,https://www.12371.cn/2022/10/25/ARTI1666705047474465.shtml;https://www.12371.cn/2024/07/21/ARTI1721551217863166.shtml,决定第八部分开头与报告第三部分本质要求段,主表D成立。把过程人民民主纳入中国式现代化本质要求的事实已有二十大原文依据，后续同事实只保留一个代表题。, ,2026-11-23,Codex root
+q_000256,reclassify,S03;PLENUM3-DEC,https://www.12371.cn/2022/10/25/ARTI1666705047474465.shtml;https://www.12371.cn/2024/07/21/ARTI1721551217863166.shtml,党的二十大报告第五部分开头和决定第四部分开头,教育科技人才正确。旧题以三中为题源，所问事实可按二十大报告第五部分编为固定搭配题。与q_000721只留一个知识实体。, ,2026-11-23,Codex root
+q_000257,scope_historical,PLENUM3-DEC,https://www.12371.cn/2024/07/21/ARTI1721551217863166.shtml,决定第一部分第（3）项目标段,主表D2035年核实。旧三中独立文件指定的阶段任务，不能套成五中全会或2026两会的年度目标。, ,2026-11-23,Codex root
+q_000258,scope_historical,PLENUM3-DEC,https://www.12371.cn/2024/07/21/ARTI1721551217863166.shtml,决定第九部分开头,主表B对应法治为重要保障。保留出处定位供历史检索，现行基础题按当前指定文献核归属。, ,2026-11-23,Codex root
+q_000259,scope_historical,PLENUM3-DEC,https://www.12371.cn/2024/07/21/ARTI1721551217863166.shtml,决定第三部分第（8）项,决定列有因地制宜发展新质生产力体制机制。旧题以计划和传统产业等明显异类衬托长正确项。三中当前范围已替代；长期概念另按现行原文短题审核。, ,2026-11-23,Codex root
+q_000260,scope_historical,PLENUM3-DEC,https://www.12371.cn/2024/07/21/ARTI1721551217863166.shtml,决定第一部分第（3）项,主表C回到决定的总目标原文。归历史范围并与q_000723记录为同一考点，当前不直接沿用。, ,2026-11-23,Codex root
+q_000719,reject_all_correct,PLENUM3-DEC,https://www.12371.cn/2024/07/21/ARTI1721551217863166.shtml,决定第三部分第（8）至（11）项,四个选项均对应本部分部署。与q_000259共享新质生产力体制机制项。整组全选且属于旧三中范围，排除为当前单独考题。, ,2026-11-23,Codex root
+q_000720,reject_all_correct,PLENUM3-DEC,https://www.12371.cn/2024/07/21/ARTI1721551217863166.shtml,决定第二至第八部分有关改革部署,旧题泛问改革领域，四个宽泛方向全部判正确，缺少同类边界；三中专题保留历史材料。, ,2026-11-23,Codex root
+q_000721,duplicate,S03;PLENUM3-DEC,https://www.12371.cn/2022/10/25/ARTI1666705047474465.shtml;https://www.12371.cn/2024/07/21/ARTI1721551217863166.shtml,决定第四部分开头和报告第五部分开头,三个正确项与q_000256的合并正确项是相同文字事实。以二十大相关基础题记录一次。, ,2026-11-23,Codex root
+q_000722,reject_all_correct,PLENUM3-DEC,https://www.12371.cn/2024/07/21/ARTI1721551217863166.shtml,决定第一部分第（2）项及公报,四项均涉及统筹协调，但题干把布局和安全等不同层级通称为关系，全选缺少辨识度。, ,2026-11-23,Codex root
+q_000723,duplicate,PLENUM3-DEC,https://www.12371.cn/2024/07/21/ARTI1721551217863166.shtml,决定第一部分第（3）项,旧正确集合B+C与q_000260把两部分连写为一个正确项考的相同，保留历史出处即可。, ,2026-11-23,Codex root
+q_000724,reject_all_correct,PLENUM3-DEC,https://www.12371.cn/2024/07/21/ARTI1721551217863166.shtml,决定第一部分第（4）项,六项均可在本条找到，旧题六选全选。与二十大方法论的六个必须坚持分别处理，不能挪到当前通用专题。, ,2026-11-23,Codex root
+q_000725,hold_source_and_scope,PLENUM3-DEC,https://www.12371.cn/2024/07/21/ARTI1721551217863166.shtml,决定第六部分开头,正式文本中的城乡规划建设治理融合水平是整体表述。旧A和B拆成单独提高水平，不等价于该条的完整条件。旧三中时效范围也不作为当前专题。, ,2026-11-23,Codex root

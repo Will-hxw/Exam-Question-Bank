@@ -4,7 +4,7 @@ export default defineConfig({
   functions: {
     signupfollowup: {
       name: 'Exam Question Bank signup follow-up',
-      source: './index.ts',
+      source: './index.mjs',
       env: {
         EQB_FOLLOWUP_SCHEDULER_TOKEN: {
           value: process.env.EQB_FOLLOWUP_SCHEDULER_TOKEN,

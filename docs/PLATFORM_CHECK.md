@@ -15,7 +15,7 @@
 
 ## Makers 构建、域名与缓存
 
-- Next.js App Router 保持服务端构建，采用 `pnpm install --frozen-lockfile`、`pnpm run build` 和 `.next`。Makers 支持 Next.js 16 与 Route Handlers，列出预装 Node 22 和 24 的多个版本。本机 Node 为 24.5.0，云端构建与函数执行的版本分别从实际日志采证。配置重写时使用平台的 `edgeone.json`。[Next.js 指南](https://pages.edgeone.ai/document/framework-nextjs) · [构建指南](https://pages.edgeone.ai/document/build-guide)
+- Next.js App Router 保持服务端构建，采用 `npm ci`、`npm run build` 和 `.next`。Makers 支持 Next.js 16 与 Route Handlers，列出预装 Node 22 和 24 的多个版本。本机 Node 为 24.5.0，云端构建与函数执行的版本分别从实际日志采证。配置重写时使用平台的 `edgeone.json`。[Next.js 指南](https://pages.edgeone.ai/document/framework-nextjs) · [构建指南](https://pages.edgeone.ai/document/build-guide)
 - 导入 [GitHub 仓库 `Will-hxw/cqu-rudang`](https://github.com/Will-hxw/cqu-rudang)（现名）。授权范围限定该仓库，Production 关联 `main`，Preview 使用隔离数据库及 Auth 设置。在 GitHub 给 `main` 配置必需检查，或将必要验证接入 Makers 构建命令。先验证预览环境，再设置生产构建。应用构建期间保持生产数据库迁移和内容发布独立。[Git 导入](https://pages.edgeone.ai/document/importing-a-git-repository) · [构建环境](https://pages.edgeone.ai/document/build-guide)
 - 选择全球可用区（不含中国大陆）。海外免费云函数默认 `ap-singapore`，免费版固定区域。Makers 官网给出的免费云函数月额度为 100 万次、50,000 GB-s、5 GB 函数传输，超过额度对应功能受限。默认项目域名及部署域名在大陆的预览链接有效期为 3 小时，正式接入使用自定义域名。[域名和区域](https://pages.edgeone.ai/document/domain-overview) · [云函数](https://pages.edgeone.ai/document/cloud-functions) · [套餐比较](https://pages.edgeone.ai/document/billing-plan-comparison)
 - Google 与 Cloudflare 公共 DoH 均返回 `cqu.xiaoweihua.cn CNAME cqu.xiaoweihua.cn.pages.dnsoe6.com`，TTL 为 600 秒。使用两条公开 A 地址通过 `curl --noproxy "*" --resolve` 直连，两次 TLS 均通过，首页均为 `404`，服务器标识为 `edgeone makers`。控制台已确认沿用当前 `cqu` 域名绑定及 CNAME。[域名配置](https://pages.edgeone.ai/document/custom-domain)

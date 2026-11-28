@@ -2,26 +2,26 @@
   "name": "cqu-rudang",
   "version": "0.0.0",
   "private": true,
-  "packageManager": "pnpm@12.23.0",
   "type": "module",
   "engines": {
     "node": ">=22.0.0"
   },
   "scripts": {
-    "dev": "pnpm run content:build && next dev",
-    "build": "pnpm run content:build && next build",
+    "dev": "npm run content:build && next dev",
+    "build": "npm run content:build && next build",
     "start": "next start",
     "typecheck": "next typegen && tsc --noEmit",
-    "lint": "eslint --flag unstable_native_nodejs_ts_config .",
-    "test:integration": "node --test tests/integration/*.test.ts",
-    "test:e2e": "node tests/e2e/http-postgres.ts",
-    "db:migrate": "node --env-file-if-exists=.env --env-file-if-exists=.env.local scripts/database/migrate.ts",
+    "lint": "eslint .",
+    "test": "node --test tests/unit/*.test.mjs",
+    "test:integration": "node --test tests/integration/*.test.mjs",
+    "test:e2e": "node tests/e2e/http-postgres.mjs",
+    "db:migrate": "node --env-file-if-exists=.env --env-file-if-exists=.env.local scripts/database/migrate.mjs",
     "content:inventory": "python scripts/content/inventory.py",
-    "content:validate": "node scripts/content/release.ts check",
-    "content:quality": "node scripts/content/release.ts report",
+    "content:validate": "node scripts/content/release.mjs check",
+    "content:quality": "node scripts/content/release.mjs report",
     "content:review": "python scripts/content/review-export.py",
-    "content:build": "node scripts/content/release.ts build",
-    "content:sync": "node --env-file-if-exists=.env --env-file-if-exists=.env.local scripts/content/sync.ts"
+    "content:build": "node scripts/content/release.mjs build",
+    "content:sync": "node --env-file-if-exists=.env --env-file-if-exists=.env.local scripts/content/sync.mjs"
   },
   "dependencies": {
     "@neon/auth": "0.8.2",

@@ -1,0 +1,77 @@
+{
+  "note": "供后续纳入引用表的候选元数据。本批作者卡只引用现有已登记 full 正式来源。下列讲话已核所列相关段，未声称整份逐段审读。学校资料只用于核查考点和考法。",
+  "authoritativeCandidates": [
+    {
+      "id": "SX-CORE-VALUES-2014",
+      "title": "青年要自觉践行社会主义核心价值观——在北京大学师生座谈会上的讲话",
+      "publisher": "习近平（新华社／人民网刊载）",
+      "url": "https://cpc.people.com.cn/n/2014/0505/c64094-24973220.html",
+      "documentDate": "2014-05-04",
+      "webpageDate": "2014-05-05",
+      "retrievedOn": "2026-11-23",
+      "format": "HTML",
+      "status": "partial",
+      "rightsNote": "已核三层价值要求相关段，明确社会层面的第四项为‘法治’。湘潭Q40简答第1题确实要求列举，历史参考答案印作‘法制’，不能用旧键。"
+    },
+    {
+      "id": "SX-NEW-DEVELOPMENT-2016",
+      "title": "深入理解新发展理念",
+      "publisher": "习近平（《求是》，共产党员网刊载）",
+      "url": "https://www.12371.cn/2019/05/16/ARTI1557969383087897.shtml",
+      "documentDate": "2016-01-18",
+      "webpageDate": "2019-05-16",
+      "retrievedOn": "2026-11-23",
+      "format": "HTML",
+      "status": "partial",
+      "rightsNote": "已核共享发展第五部分开头，原文指出逐步实现共同富裕。学校Q40并未测该概念；Q26官方自测出现这一词位。待全文阅读后再更新证据状态。"
+    },
+    {
+      "id": "SX-CENTRAL-ORGANS-2019",
+      "title": "在中央和国家机关党的建设工作会议上的讲话",
+      "publisher": "习近平（共产党员网刊载）",
+      "url": "https://www.12371.cn/2019/11/01/ARTI1572570525091358.shtml",
+      "documentDate": "2019-07-09",
+      "webpageDate": "2019-11-01",
+      "retrievedOn": "2026-11-23",
+      "format": "HTML",
+      "status": "partial",
+      "rightsNote": "已核‘带头做到两个维护’为中央和国家机关党建首要任务的段落，支持Q26机关党建词位，不作全体基层党建首要任务的泛化。"
+    },
+    {
+      "id": "SX-SELF-REFORM-2024",
+      "title": "深入推进党的自我革命",
+      "publisher": "习近平（《求是》，共产党员网刊载）",
+      "url": "https://www.12371.cn/2024/12/15/ARTI1734246513115852.shtml",
+      "documentDate": "2024-01-08",
+      "webpageDate": "2024-12-15",
+      "retrievedOn": "2026-11-23",
+      "format": "HTML",
+      "status": "partial",
+      "rightsNote": "已核讲话公开节录中九个以的第四至第七点；可用于区分战略目标和主攻方向。"
+    },
+    {
+      "id": "SX-REFORM-DECISION-2013",
+      "title": "中共中央关于全面深化改革若干重大问题的决定",
+      "publisher": "中共中央（新华社受权发布，共产党员网刊载）",
+      "url": "https://news.12371.cn/2013/11/15/ARTI1384512952195442.shtml",
+      "documentDate": "2013-11-12",
+      "webpageDate": "2013-11-15",
+      "retrievedOn": "2026-11-23",
+      "format": "HTML",
+      "status": "partial",
+      "rightsNote": "已核第一部分第（3）项政府与市场关系、市场决定性作用原文。Q26同词位用于考法，此正式决定用于答案。"
+    }
+  ],
+  "researchSampleCandidates": [
+    {
+      "id": "Q-SJTU-ME-REFERENCE",
+      "title": "机械与动力工程学院入党笔试参考题库",
+      "publisher": "上海交通大学机械与动力工程学院",
+      "url": "https://me.sjtu.edu.cn/xsgz/upload/file/20250123/20250123155619.pdf",
+      "retrievedOn": "2026-11-23",
+      "format": "PDF",
+      "status": "partial",
+      "rightsNote": "学院公开参考材料，证据身份有别于正式考试原卷。已核文本层p1第8、9题与p8第65、66题。公开网址的文件目录含20250123，不能据此推知试卷届次或精确出卷时间。仅取实际设问和考点，答案以正式文献另核。"
+    }
+  ]
+}

@@ -45,15 +45,15 @@ Neon Auth 生成并校验验证码，签名的 `send.otp` 事件由本站 `/api/
 ## 内容同步
 
 
-运行迁移和题库同步的账号持有发布权限。在本地安全环境注入对应连接串，先运行 `pnpm run db:migrate`，再执行 `pnpm run content:sync -- --release`。校验通过后，使用同一 Git 提交执行 `pnpm run content:sync -- --release --apply`，然后部署该提交。生产构建同样执行覆盖与质量门禁。
+运行迁移和题库同步的账号持有发布权限。在本地安全环境注入对应连接串，先运行 `npm run db:migrate`，再执行 `npm run content:sync -- --release`。校验通过后，使用同一 Git 提交执行 `npm run content:sync -- --release --apply`，然后部署该提交。生产构建同样执行覆盖与质量门禁。
 
 同一份 Git 内容派生 CDN 分片和 PostgreSQL 投影。用 `/bank/manifest.json` 的 release 值对照 PostgreSQL 的 `content_release.digest`。命中的 CDN 分片按哈希长期缓存，入口重新验证。题目内容摘要参与同步判分，过期作答提示未保存。公开 API 的 DB 兜底缓存可通过带发布密钥的 `POST /api/internal/invalidate` 失效。
 
 练习入口和在线客户端通过发布摘要验证静态清单。清单摘要和数据库发布摘要一致时读取静态分片，切换期间从当前数据库读取。专题列表和首批题目的缓存按发布摘要隔开。验证时对照 `/api/public/bank-release`、`/api/public/topics` 和静态清单。
 
-开发项目的 `production` 是 Neon 自动创建的默认分支名，当前只用于预览联调。Neon CLI 同步的 `DATABASE_URL` 给 Node 应用，`DATABASE_URL_UNPOOLED` 给迁移与导入。向隔离的 Neon 开发库落预览题使用 `pnpm run content:sync -- --preview --apply`。
+开发项目的 `production` 是 Neon 自动创建的默认分支名，当前只用于预览联调。Neon CLI 同步的 `DATABASE_URL` 给 Node 应用，`DATABASE_URL_UNPOOLED` 给迁移与导入。向隔离的 Neon 开发库落预览题使用 `npm run content:sync -- --preview --apply`。
 
-发布顺序保存在 `content/question-order.json`。新增或修订的已审核题使用新题和选项 UUID，用 `node scripts/content/release.ts order` 将新题登记到末尾。专题与全库的顺序读取共用这一顺序，随机刷题沿用原有种子规则。
+发布顺序保存在 `content/question-order.json`。新增或修订的已审核题使用新题和选项 UUID，用 `node scripts/content/release.mjs order` 将新题登记到末尾。专题与全库的顺序读取共用这一顺序，随机刷题沿用原有种子规则。
 
 下架时在 JSON 将题目标记为 `withdrawn`，保留原题内容、ID 与顺序记录。同步在事务内校验已登记版本，停用旧题并发布新题。同时清除旧题在收藏、学习进度和错题中的状态，将顺序、专题、收藏与错题练习的已保存位置对齐到原题或相邻的可用题。新题从未作答、未收藏开始。旧试卷从原有快照读取，之后重考只纳入当前可用的原题。同步后失效 API 缓存并重新部署，验证新 manifest 和线上目录均已移除旧题。需要即时撤下旧哈希资源时在 Makers 清除对应路径。已离线设备恢复联网后重验目录。
 

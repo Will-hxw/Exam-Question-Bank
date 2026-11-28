@@ -2,7 +2,7 @@
 
 ## 复跑端到端测试
 
-准备独立、允许 `CREATEDB` 的环回 PostgreSQL，设置 `TEST_DATABASE_URL` 后运行 `pnpm run test:e2e`。测试会创建随机临时库和临时生产构建，结束时清理。
+准备独立、允许 `CREATEDB` 的环回 PostgreSQL，设置 `TEST_DATABASE_URL` 后运行 `npm run test:e2e`。测试会创建随机临时库和临时生产构建，结束时清理。
 
 如需验证浏览器登录和学习流程，安装 Python Playwright 与 Chromium，并设置 `EQB_TEST_BROWSER=1`。可用 `EQB_TEST_PYTHON` 指定 Python 可执行文件。测试在隔离环境通过登录界面使用测试账号，并覆盖刷题、收藏、错题、模考和草稿恢复。
 

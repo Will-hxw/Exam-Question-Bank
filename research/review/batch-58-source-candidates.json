@@ -1,0 +1,39 @@
+{
+  "note": "供本批候选来源登记核查；LH26-CPPCC 如已随第55批纳入正式来源表，复用同一 ID。官方自测为已读取的短题形式证据，答案仍按正式全文。",
+  "authoritativeCandidates": [
+    {
+      "id": "BX25-ECONOMY",
+      "title": "党政机关厉行节约反对浪费条例（2025年修订）",
+      "publisher": "中共中央、国务院（共产党员网发布）",
+      "url": "https://www.12371.cn/2025/05/18/ARTI1747560633770820.shtml",
+      "webpageDate": "2025-05-18",
+      "retrievedOn": "2026-11-23",
+      "format": "HTML",
+      "status": "full",
+      "rightsNote": "核读官方全文及印发通知。题目按条例明确的党政机关具体规则，区分中央八项规定本身与其制度化落实。"
+    },
+    {
+      "id": "LH26-CLOSE",
+      "title": "十四届全国人大四次会议在京闭幕",
+      "publisher": "新华社，经共产党员网发布",
+      "url": "https://www.12371.cn/2026/03/12/ARTI1773316487610330.shtml",
+      "webpageDate": "2026-03-12",
+      "retrievedOn": "2026-11-23",
+      "format": "HTML",
+      "status": "full",
+      "rightsNote": "核读正式闭幕报道全文，引用大会通过法律及实施日期。"
+    },
+    {
+      "id": "LH26-CPPCC",
+      "title": "2026年中国人民政治协商会议全国委员会常务委员会工作报告",
+      "publisher": "新华社，经共产党员网发布",
+      "url": "https://www.12371.cn/2026/03/11/ARTI1773224055733985.shtml",
+      "documentDate": "2026-03-04",
+      "webpageDate": "2026-03-11",
+      "retrievedOn": "2026-11-23",
+      "format": "HTML",
+      "status": "full",
+      "rightsNote": "核读正式全国政协常委会报告全文及会期。题目依据2026年工作安排的协商式监督定位。"
+    }
+  ]
+}

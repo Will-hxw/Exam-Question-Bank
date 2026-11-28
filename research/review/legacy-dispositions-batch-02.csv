@@ -1,0 +1,68 @@
+legacy_id,disposition,source_ids,source_urls,locator,review_note,candidate_id,reviewed_on,reviewer
+q_3_001,retain_verified,S42,https://www.12371.cn/2025/10/23/ARTI1761209942911315.shtml,题注及正文开篇首段,会议举办日与通过公报日区分；B符合原文，其他三组时间不符合四中开会日期。,,2026-11-23,Codex sources
+q_3_002,rewrite,S42;S43;S44;S40;S06,https://www.12371.cn/2025/10/23/ARTI1761209942911315.shtml;https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml;https://www.12371.cn/2025/10/28/ARTI1761640597323164.shtml;https://www.12371.cn/2026/03/13/ARTI1773410307876581.shtml;https://www.12371.cn/2026/11/01/ARTI1793518665119207.shtml,S42议程段；S43通过题注；S44开头；S40正式公开纲要；S06题名与题注,B确实是审议通过文件；保留文件辨析，改用四中《建议》、两会《纲要》、五中《决定》和四中《说明》的邻近文献。,B2-01,2026-11-23,Codex sources
+q_3_003,duplicate,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,题名下通过题注,A正确；将同一‘四中通过十五五建议’倒问，合并到文件辨析题。,B2-01,2026-11-23,Codex sources
+q_3_004,rewrite,S43;S44,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml;https://www.12371.cn/2025/10/28/ARTI1761640597323164.shtml,S43第一部分第（2）项；S44第三部分第一个重点问题,A直接对应。题干只测试对程度形容词的判断，改为比较十四五、十五五及2035的阶段定位。,B2-02,2026-11-23,Codex sources
+q_3_005,equivalent_replacement,S43;S44,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml;https://www.12371.cn/2025/10/28/ARTI1761640597323164.shtml,S43第一部分第（2）项；S44第三部分第一个重点问题,C准确；和 q_3_004 出自同一段，新的阶段定位题覆盖‘夯实基础、全面发力’。,B2-02,2026-11-23,Codex sources
+q_3_006,rewrite,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第二部分第（4）项,A正确，其他答案离同句结构较远。用同一指导思想中不同功能的相近术语做匹配。,B2-03,2026-11-23,Codex sources
+q_3_007,equivalent_replacement,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第二部分第（4）项,C正确。原题只问根本动力，统一用指导思想角色辨析覆盖。,B2-03,2026-11-23,Codex sources
+q_3_008,equivalent_replacement,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第二部分第（4）项,B正确。原题可用选项长度及唯一民生导向作答，归并至指导思想角色辨析。,B2-03,2026-11-23,Codex sources
+q_3_009,equivalent_replacement,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第二部分第（4）项,D正确。根本保障与其他政策措施难以形成同层级干扰，归并至指导思想角色辨析。,B2-03,2026-11-23,Codex sources
+q_3_010,retain_verified,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第二部分第（4）项,A正确。区分工作总基调与其他工作方法表述。,,2026-11-23,Codex sources
+q_3_011,retain_verified,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第二部分第（5）项第一则,D正确。四个选项中均为该项文件提出的原则，需区分各自作用。与 q_3_032 同源事实合并。,,2026-11-23,Codex sources
+q_3_012,retain_verified,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第二部分第（5）项第五则,C正确；市场在资源配置中的作用与更好发挥政府作用须同时理解。,,2026-11-23,Codex sources
+q_3_013,retain_verified,S43;S42,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml;https://www.12371.cn/2025/10/23/ARTI1761209942911315.shtml,S43第二部分第（6）项；S42主要目标段,C正确。逐条统计七项五年目标，2035段另列，没有计入。覆盖优先级一般。,,2026-11-23,Codex sources
+q_3_014,retain_verified,S43;S44,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml;https://www.12371.cn/2025/10/28/ARTI1761640597323164.shtml,S43第二部分第（6）项之后的2035段；S44第三部分第二个重点问题,D正确。2035远景的人均国内生产总值表述不能用于2026年年度指标。,,2026-11-23,Codex sources
+q_3_015,retain_verified,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第三部分引入段,A正确。物质技术基础与作为骨干的先进制造业是不同表述。,,2026-11-23,Codex sources
+q_3_016,retain_verified,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第三部分引入段,D准确。发力对象为实体经济；其他选项并非段落所定总体着力点。,,2026-11-23,Codex sources
+q_3_017,rewrite,S43;S44,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml;https://www.12371.cn/2025/10/28/ARTI1761640597323164.shtml,S43第三部分标题；S44第二部分关于第二板块的说明,B与分论排序一致；旧题引用发布会但未指定讲话人、时间和公开文献，改按《建议》及《说明》可核的分论首项提问。,B2-04,2026-11-23,Codex sources
+q_3_018,retain_verified,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第四部分引入段,B准确。该段总述科技现代化这一支撑；其余并非原文对应领域。,,2026-11-23,Codex sources
+q_3_019,retain_verified,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第五部分引入段第一句,C准确。‘战略依托’与第二句的‘战略基点’分别是国内市场和扩大内需。,,2026-11-23,Codex sources
+q_3_020,retain_verified,S43;S44,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml;https://www.12371.cn/2025/10/28/ARTI1761640597323164.shtml,S43第五部分引入段第二句；S44第三部分第四个重点问题,A准确。扩大内需被定位为战略基点，概念表述与打造国内市场的战略依托不同。,,2026-11-23,Codex sources
+q_3_021,reject_low_quality,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第六部分引入段,D准确；其余选项被‘唯一目标’或明显跨域的‘生态底线、文化前提’轻易排除。暂保留知识点证据。,,2026-11-23,Codex sources
+q_3_022,reject_low_quality,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第七部分引入段,B准确；其他均是临时/局部语义，很容易按语言强弱猜中。保留开放部署事实作为后续覆盖线索。,,2026-11-23,Codex sources
+q_3_023,retain_verified,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第八部分引入段第一句,C准确。农村现代化在本文件中与中国式现代化全局和成色相连。,,2026-11-23,Codex sources
+q_3_024,reject_low_quality,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第八部分引入段第二句,B准确；阶段性、一般性、地方自主与一项醒目褒义绝对评价对照，未形成真实辨析。,,2026-11-23,Codex sources
+q_3_025,reject_low_quality,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第九部分引入段第一句,A准确；附加、外部、短期设置成统一弱项，缺少和相邻文件要求的辨析。,,2026-11-23,Codex sources
+q_3_026,reject_low_quality,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第九部分第（31）项,C准确；其他三项统一选择行政、土地扩张、速度这种易排除的单一导向。仍登记新型城镇化知识点。,,2026-11-23,Codex sources
+q_3_027,reject_low_quality,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第十部分引入段第一句,A准确。‘外部/临时/唯一’比任选四个近似法定定位弱，容易按正向修饰词作答。,,2026-11-23,Codex sources
+q_3_028,reject_low_quality,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第十一部分引入段第一句,A准确。‘技术路径/阶段性口号/唯一指标’与题干语义差距大，正确项过于突出。,,2026-11-23,Codex sources
+q_3_029,reject_low_quality,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第十二部分引入段第一句,A准确。其余选项统一设置临时、局部、外部三个弱修饰词。保留原文作为绿色转型知识点。,,2026-11-23,Codex sources
+q_3_030,reject_low_quality,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第十三部分引入段,C准确。其他三个不是同层级近概念，两个刻意写成‘单一/局部’，可凭词义猜中。,,2026-11-23,Codex sources
+q_3_031,retain_verified,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第十四部分引入段第一句,C准确。作为宏观政策文件术语对应；没有增加具体战术、技术或实施解读。,,2026-11-23,Codex sources
+q_3_032,duplicate,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第十五部分引入段；第二部分第（5）项第一则,B准确；与 q_3_011 都考全面领导的根本保障定位，后者四选项均为原文原则。,,2026-11-23,Codex sources
+q_3_033,equivalent_replacement,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第二部分第（5）项各分则,A-D 均为独立原则，旧题全选。与 q_3_034 合并考查标题和原则内举措的层级。,B2-05,2026-11-23,Codex sources
+q_3_034,rewrite,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第二部分第（5）项第三、第五、第六则,以独立标题计 AD 正确；B、C 事实上也是原文下层要求，原题未限定标题导致歧义。,B2-05,2026-11-23,Codex sources
+q_3_035,equivalent_replacement,S42;S43;S44,https://www.12371.cn/2025/10/23/ARTI1761209942911315.shtml;https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml;https://www.12371.cn/2025/10/28/ARTI1761640597323164.shtml,S42主要目标段；S43第二部分第（6）项；S44第三部分第二个重点问题,A-D 均为五年主要目标，旧题全选；改辨五年目标和2035指标。,B2-06,2026-11-23,Codex sources
+q_3_036,rewrite,S43;S44,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml;https://www.12371.cn/2025/10/28/ARTI1761640597323164.shtml,S43第二部分第（6）项与后续2035段；S44第三部分第二个重点问题,ACD属五年目标，B给出明显跨历史阶段的干扰。改用同一文献相邻2035目标区分。,B2-06,2026-11-23,Codex sources
+q_3_037,reject_all_correct,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第三部分第（7）至（10）项,A-D均为该部分四个编号任务，实际全选；各任务保留为原子知识点覆盖线索。,,2026-11-23,Codex sources
+q_3_038,rewrite,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第三部分第（8）项第一、第二段,A-D均属未来产业，全选削弱辨析。改以同条列举的战略性新兴产业与未来产业区分。,B2-07,2026-11-23,Codex sources
+q_3_039,reject_all_correct,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第四部分第（11）至（14）项,A-D全选，分别对应四个编号部署。从中抽取数字中国、科技产业创新等不同原子知识点。,,2026-11-23,Codex sources
+q_3_040,rewrite,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第四部分第（14）项；第（12）项,BCD正确；A以‘放松治理’明显提示答案。换成相邻条文中标准表述，并限定第（14）项。,B2-08,2026-11-23,Codex sources
+q_3_041,rewrite,S43;S44,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml;https://www.12371.cn/2025/10/28/ARTI1761640597323164.shtml,S43第五部分第（15）至（17）项；第七部分第（21）项；S44第三部分第四个重点问题,ABD对应国内市场三个标题，C明显失真。以第七部分开放任务作为可辨的相邻干扰。,B2-09,2026-11-23,Codex sources
+q_3_042,reject_low_quality,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第六部分第（18）至（20）项,ABC均为编号项，D‘取消社会主义基本经济制度’与引入段直接矛盾且明显失真。保留已核三项作为知识点。,,2026-11-23,Codex sources
+q_3_043,reject_all_correct,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第七部分第（21）至（24）项,A-D均为该部分编号项，旧题全选；用跨章节真实条目做分类可覆盖。,,2026-11-23,Codex sources
+q_3_044,reject_low_quality,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第八部分第（25）至（27）项,ABC均为编号项，D‘取消粮食等重要农产品供给保障要求’明显暴露干扰；原子知识点按条重建。,,2026-11-23,Codex sources
+q_3_045,rewrite,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第九部分第（28）至（32）项；第八部分第（26）项,A-D均为区域协调部署，本节实际还有第（32）项；换成区域条目与乡村建设对照，并明确选择范围。,B2-10,2026-11-23,Codex sources
+q_3_046,reject_all_correct,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第十部分第（33）至（36）项,A-D均为编号项，旧题全选；四任务仍可分别提取。,,2026-11-23,Codex sources
+q_3_047,reject_all_correct,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第十一部分第（37）至（40）项,A-D全选，只是节内前半组，不能当作对完整民生章节的覆盖。,,2026-11-23,Codex sources
+q_3_048,reject_all_correct,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第十一部分第（41）至（44）项,A-D全选，是民生章节后半组，与前题松散列举重复形式。,,2026-11-23,Codex sources
+q_3_049,reject_all_correct,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第十二部分第（45）至（48）项,A-D全选；绿色转型各编号措施已有明确定位，待用相近概念采题。,,2026-11-23,Codex sources
+q_3_050,reject_all_correct,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第十三部分第（49）至（52）项,A-D全选，保留四项作为覆盖线索而不沿用题型。,,2026-11-23,Codex sources
+q_3_051,reject_low_quality,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第十四部分引入段和第（53）至（55）项,ABC均为对应编号任务；D以‘放弃’对照原文的加快融合发展，极易排除。,,2026-11-23,Codex sources
+q_3_052,reject_all_correct,S43,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml,第十五部分第（56）项,A-D都能逐项定位于同一条，旧题全选；四项亦需与党建思想、八项规定重叠事实去重。,,2026-11-23,Codex sources
+q_3_053,reject_all_correct,S43;S44,https://www.12371.cn/2025/10/28/ARTI1761640401107119.shtml;https://www.12371.cn/2025/10/28/ARTI1761640597323164.shtml,S43第十五部分第（56）至（60）项；S44第二部分第三板块,A合并两个编号项，B/C/D也均属同一部分，旧题全选；可在后续原子事实题分别计入覆盖。,,2026-11-23,Codex sources
+q_8_001,hold_scope,S23,https://cmse.cqu.edu.cn/info/1647/4503.htm,第一条领导机制；第三条职责分工,学院公开旧实施细则第一条写党支部具体落实、二级党组织负责实施；第三条也用具体负责落实描述二级党组织。需限定第一条语境且先核当期校内适用性。,,2026-11-23,Codex sources
+q_8_002,hold_scope,S23;S35,https://cmse.cqu.edu.cn/info/1647/4503.htm;https://www.12371.cn/2026/05/18/ARTI1779102179030620.shtml,S23第七条和第十三条；S35第六至七条,旧校文支持要求本人书面手写；现行全国细则这两条没有同样具体限定，尚未核实现行校内文件要求，仅作学校旧规线索。,,2026-11-23,Codex sources
+q_8_003,equivalent_replacement,S23;S35,https://cmse.cqu.edu.cn/info/1647/4503.htm;https://www.12371.cn/2026/05/18/ARTI1779102179030620.shtml,S23第七条；S35第七条,两份文本均规定一个月。现行全国细则明确起算为收到申请书，B11 已独立检查该时点。,B11,2026-11-23,Codex sources
+q_8_004,reject_all_correct,S23;S35,https://cmse.cqu.edu.cn/info/1647/4503.htm;https://www.12371.cn/2026/05/18/ARTI1779102179030620.shtml,S23第七条；S35第五条,按旧校文，旧题四项均指入党申请条件；全国条文还明确人员范围，并特指执行决议、按期交纳党费。不能直接沿用旧题全选与简化措辞。,,2026-11-23,Codex sources
+q_8_006,reject_low_quality,S35,https://www.12371.cn/2026/05/18/ARTI1779102179030620.shtml,第五至第八条,D在流程上成立，题干已经称其为入党申请人。其他身份需要推进程序，作答基本不需掌握新增知识。,,2026-11-23,Codex sources
+q_8_007,equivalent_replacement,S23;S35,https://cmse.cqu.edu.cn/info/1647/4503.htm;https://www.12371.cn/2026/05/18/ARTI1779102179030620.shtml,S23第八条；S35第八条,旧题A对应决定主体；学校旧用语支部大会与2026正式细则表述需同步，且班委会等选项过易排除。已用 B12 核证设支委会的权限和备案。,B12,2026-11-23,Codex sources
+q_8_008,hold_scope,S23;S35;S24,https://cmse.cqu.edu.cn/info/1647/4503.htm;https://www.12371.cn/2026/05/18/ARTI1779102179030620.shtml;https://sps.cqu.edu.cn/__local/3/4C/C5/7A4630F889AFFDA5B37DC6B69D9_CCF7E8B7_96037.pdf,S23第八条；S35第八条和第十三条；S24第十四至第十七条,旧校文确有支部范围公示后报二级党组织；现行全国规定该环节报上级党委备案，另在发展对象拟列阶段明确公示；校团推优公示属于另一个程序。待校方说明接续适用。,,2026-11-23,Codex sources
+q_8_009,reject_answer_conflict,S35;S23,https://www.12371.cn/2026/05/18/ARTI1779102179030620.shtml;https://cmse.cqu.edu.cn/info/1647/4503.htm,S35第八条；S23第八条,旧钥ACD。题干问产生人选的方式，党员推荐、群团组织推优为 C/D；支委会研究决定是后续决定环节，A混入两个阶段。B12名称已区分。,B12,2026-11-23,Codex sources
+q_8_010,retain_verified,S35;S23,https://www.12371.cn/2026/05/18/ARTI1779102179030620.shtml;https://cmse.cqu.edu.cn/info/1647/4503.htm,S35第九条第一款；S23第八条第二段,B准确；正式党员身份并非唯一任职条件，还需考虑经历、责任心等要求，保留为资格的最小辨析。,,2026-11-23,Codex sources
+q_8_011,hold_scope,S35;S23,https://www.12371.cn/2026/05/18/ARTI1779102179030620.shtml;https://cmse.cqu.edu.cn/info/1647/4503.htm,S35第九条第（一）至（四）项、第十五条；S23第八条,旧校规A指定至少每季度汇报，现行全国规定及时汇报并填表，不设该频率；B/D确为联系人职责，C属介绍人职责。校内频率适用性未确认。,,2026-11-23,Codex sources
+q_8_012,reject_low_quality,S23;S24,https://cmse.cqu.edu.cn/info/1647/4503.htm;https://sps.cqu.edu.cn/__local/3/4C/C5/7A4630F889AFFDA5B37DC6B69D9_CCF7E8B7_96037.pdf,S23第八条第三段；S24第五至十条、第十二至十四条、第二十条,旧钥ABD可对应校文原则。唯一错误选项‘单纯凭成绩’过于显眼；保留推优可核的主体、表决和适用例外。,,2026-11-23,Codex sources
+q_8_013,rewrite,S35;S23,https://www.12371.cn/2026/05/18/ARTI1779102179030620.shtml;https://cmse.cqu.edu.cn/info/1647/4503.htm,S35第十一条；S23第九条第二段,B确为支部考察周期；与队伍状况分析周期可能混淆，改为同时辨析工作主体、对象和时点。,B2-11,2026-11-23,Codex sources
+q_8_014,equivalent_replacement,S35;S23,https://www.12371.cn/2026/05/18/ARTI1779102179030620.shtml;https://cmse.cqu.edu.cn/info/1647/4503.htm,S35第十一条；S23第九条第二段,旧校文D是每年分析。现行全国细则明确分析主体为县级党委组织部门和基层党委，和党支部半年一次个体考察合并辨析。,B2-11,2026-11-23,Codex sources
+q_8_015,reject_low_quality,S23;S35,https://cmse.cqu.edu.cn/info/1647/4503.htm;https://www.12371.cn/2026/05/18/ARTI1779102179030620.shtml,S23第九条第一段；S35第十条,旧题BCD属教育所需知识；A用‘可以不再接受教育’作唯一显眼负面命题，且与题型不对称。,,2026-11-23,Codex sources

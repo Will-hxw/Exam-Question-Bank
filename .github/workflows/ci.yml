@@ -27,14 +27,14 @@ jobs:
           --health-retries=10
     steps:
       - uses: actions/checkout@v6
-      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm run lint
-      - run: pnpm run typecheck
-      - run: pnpm run test:integration
-      - run: pnpm run content:validate
-      - run: pnpm run build
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run test:integration
+      - run: npm run content:validate
+      - run: npm run build
