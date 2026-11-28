@@ -33,6 +33,7 @@ export default defineConfig({
     ...typographyTheme,
   },
   shortcuts: {
+    'auth-footer-link': 'min-h-11 appearance-none border-0 bg-transparent p-0 cursor-pointer underline decoration-1 underline-offset-3 disabled:cursor-default',
     tactile:
       'transition-all duration-tactile ease-spring active:scale-97 cursor-pointer select-none border-0 outline-none',
     'btn-surface':

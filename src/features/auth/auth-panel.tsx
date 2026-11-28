@@ -371,20 +371,20 @@ export function AuthPanel({ destination }: { destination: StudyDestination }) {
       <div className={`mt-5 flex items-center text-meta text-ink-secondary ${step === "login" ? "justify-between" : "justify-center"}`}>
         {step === "login" ? (
           <>
-            <button type="button" className="tactile text-ink-secondary hover:text-ink-primary" disabled={!!pending}
+            <button type="button" className="auth-footer-link text-ink-secondary hover:text-ink-primary" disabled={!!pending}
               onClick={() => changeStep("forgot")}>
               {messages.auth.forgotPassword}
             </button>
             <span className="flex items-center gap-1.5">
               <span>{messages.auth.firstTimePrefix}</span>
-              <button type="button" className="tactile text-selected-ink font-medium" disabled={!!pending}
+              <button type="button" className="auth-footer-link text-selected-ink font-medium" disabled={!!pending}
                 onClick={() => changeStep("register")}>
                 {messages.auth.registerLink}
               </button>
             </span>
           </>
         ) : (
-          <button type="button" className="tactile text-ink-secondary hover:text-ink-primary" disabled={!!pending}
+          <button type="button" className="auth-footer-link text-ink-secondary hover:text-ink-primary" disabled={!!pending}
             onClick={() => changeStep("login")}>
             {messages.auth.backToLogin}
           </button>
