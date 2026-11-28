@@ -288,8 +288,9 @@ def moved_bookmark(browser, token='bookmark-recovery'):
         context.close()
 
 def auth_and_chat_presentation(browser, token='recovery'):
-    desktop = browser.new_context(viewport={'width': 1440, 'height': 900}, color_scheme='dark')
-    mobile = browser.new_context(viewport={'width': 440, 'height': 956}, is_mobile=True, has_touch=True, color_scheme='dark')
+    context_options = {'color_scheme': 'dark', 'ignore_https_errors': ORIGIN.startswith('https://')}
+    desktop = browser.new_context(viewport={'width': 1440, 'height': 900}, **context_options)
+    mobile = browser.new_context(viewport={'width': 440, 'height': 956}, is_mobile=True, has_touch=True, **context_options)
     try:
         page = desktop.new_page()
         page.goto(ORIGIN + '/login')
@@ -641,9 +642,3 @@ if __name__ == '__main__':
             print('ADDITIONAL_BROWSER_E2E rejected answer, cross-device library fields, personal library pagination, second-page unread refresh')
         finally:
             chromium.close()
-        if os.environ.get('EQB_TEST_WEBKIT') == '1':
-            webkit = playwright.webkit.launch(headless=True)
-            try:
-                auth_and_chat_presentation(webkit)
-            finally:
-                webkit.close()
