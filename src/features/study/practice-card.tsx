@@ -116,13 +116,22 @@ export function PracticeCard({
     swipe.current = { id: point.identifier, x: point.clientX, y: point.clientY }
   }
 
-  function trackSwipe(event: TouchEvent<HTMLElement>) {
-    const start = swipe.current
-    if (!start) return
-    const point = event.touches[0]
-    const dy = Math.abs(point.clientY - start.y)
-    if (event.touches.length !== 1 || (dy > 12 && dy >= Math.abs(point.clientX - start.x))) swipe.current = null
-  }
+  useEffect(() => {
+    const card = article.current
+    if (!card) return
+    function trackSwipe(event: globalThis.TouchEvent) {
+      const start = swipe.current
+      if (!start) return
+      if (event.touches.length !== 1) { swipe.current = null; return }
+      const dx = Math.abs(event.touches[0].clientX - start.x)
+      const dy = Math.abs(event.touches[0].clientY - start.y)
+      if (dy > 8 && dy >= dx) swipe.current = null
+      // Keep an interior horizontal drag out of the browser's pan gesture, which can consume the next tap.
+      else if (dx > 8 && dx >= 1.5 * dy && event.cancelable) event.preventDefault()
+    }
+    card.addEventListener('touchmove', trackSwipe, { passive: false })
+    return () => card.removeEventListener('touchmove', trackSwipe)
+  }, [])
 
   function endSwipe(event: TouchEvent<HTMLElement>) {
     const start = swipe.current
@@ -182,7 +191,7 @@ export function PracticeCard({
   return (
     <>
       <article ref={article} aria-label={messages.practice.articleAria} className={enterAnim}
-        onTouchStart={startSwipe} onTouchMove={trackSwipe} onTouchEnd={endSwipe} onTouchCancel={() => { swipe.current = null }}>
+        onTouchStart={startSwipe} onTouchEnd={endSwipe} onTouchCancel={() => { swipe.current = null }}>
         {/* Question metadata & favorite */}
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-2.5 flex-wrap">
@@ -196,21 +205,16 @@ export function PracticeCard({
             )}
           </div>
 
-          <div className="inline-flex items-center gap-2 shrink-0">
-            {!canExplain && <Button variant="surface" size="sm" disabled title="作答后可展开解析">
-              {messages.common.expandExplanation}
-            </Button>}
-            <button
-              type="button"
-              className={`tactile w-9 h-9 rounded-micro flex items-center justify-center shrink-0 ${favoriteControl.favorite ? 'bg-missed-fill text-missed-badge animate-bookmark-pop' : 'bg-surface text-ink-secondary hover:bg-surface-hover'}`}
-              aria-pressed={favoriteControl.favorite}
-              aria-busy={favoriteControl.pending || undefined}
-              aria-label={favoriteControl.favorite ? messages.common.unfavoriteQuestion : messages.common.favoriteQuestion}
-              onClick={favoriteControl.toggle}
-            >
-              <BookmarkIcon filled={favoriteControl.favorite} />
-            </button>
-          </div>
+          <button
+            type="button"
+            className={`tactile w-9 h-9 rounded-micro flex items-center justify-center shrink-0 ${favoriteControl.favorite ? 'bg-missed-fill text-missed-badge animate-bookmark-pop' : 'bg-surface text-ink-secondary hover:bg-surface-hover'}`}
+            aria-pressed={favoriteControl.favorite}
+            aria-busy={favoriteControl.pending || undefined}
+            aria-label={favoriteControl.favorite ? messages.common.unfavoriteQuestion : messages.common.favoriteQuestion}
+            onClick={favoriteControl.toggle}
+          >
+            <BookmarkIcon filled={favoriteControl.favorite} />
+          </button>
         </div>
 
         {/* Stem */}

@@ -93,7 +93,7 @@ function QuestionRow({ question, state, list, index = 0 }: { question: Question;
           aria-busy={favoriteControl.pending || undefined}
           onClick={favoriteControl.toggle}
         >
-          {favoriteControl.favorite ? messages.common.favorited : messages.common.favorite}
+          {favoriteControl.favorite ? messages.common.unfavoriteQuestion : messages.common.favorite}
         </button>
 
         {list === 'wrong' && (
