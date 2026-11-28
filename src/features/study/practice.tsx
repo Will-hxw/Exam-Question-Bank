@@ -160,6 +160,34 @@ function buildPracticeTrail(
   return position === null ? { ...history, empty: true } : addPracticeBookmark(history, { position }, 'next')
 }
 
+function PracticeLayout({ children, rail }: { children: React.ReactNode; rail: React.ReactNode }) {
+  const { attempts, stats } = useStudySessionContext()
+  const statData = stats.data
+  const syncLabel = { pending: '本地已保存，待同步', synced: '云端已同步', error: messages.practice.syncErrorLabel, rejected: messages.practice.syncRejectedLabel, idle: '' }[attempts.status]
+  return (
+    <div className="study-two-col">
+      <div>
+        {(syncLabel || stats.error) && (
+          <div className="flex flex-wrap items-center gap-2 text-xs text-ink-secondary mb-3" role="status">
+            {syncLabel && <span>{syncLabel}</span>}
+            {attempts.status === 'error' && <Button variant="surface" size="xs" onClick={() => void attempts.flush()}>{messages.practice.retrySync}</Button>}
+            {stats.error && <Button variant="surface" size="xs" onClick={stats.retry}>重试统计</Button>}
+          </div>
+        )}
+        {children}
+      </div>
+      <aside className="study-rail">
+        <div role="group" aria-label="练习统计" className="grid grid-cols-3 gap-2.5">
+          <StatTile label={messages.common.practicedStat} value={statData?.attempted ?? '—'} />
+          <StatTile label={messages.common.wrongStat} value={statData?.wrong ?? '—'} valueClassName="text-wrong-ink" />
+          <StatTile label={messages.common.favoriteStat} value={statData?.favorites ?? '—'} />
+        </div>
+        {rail}
+      </aside>
+    </div>
+  )
+}
+
 function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, remaining, bootstrap, rightRailHeader }: {
   mode: Mode; topic: string; topicCount: number; seed: string; start: PracticeBookmark
   rememberPosition: (bookmark: PracticeBookmark) => void
@@ -167,7 +195,7 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
   bootstrap?: BankBootstrap
   rightRailHeader: React.ReactNode
 }) {
-  const { userId, attempts, personalReads, prefetchQuestionStates, revision, stats } = useStudySessionContext()
+  const { userId, attempts, personalReads, prefetchQuestionStates, revision } = useStudySessionContext()
   const storageKey = siteConfig.storageKeys.practiceHistory(userId, positionKey(mode, topic))
   const onlyUndone = remaining !== undefined
   const undoneSeed = onlyUndone && mode === 'random' ? seed : undefined
@@ -298,8 +326,6 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
     }
   }
 
-  const statData = stats.data
-  const syncLabel = { pending: '本地已保存，待同步', synced: '云端已同步', error: messages.practice.syncErrorLabel, rejected: messages.practice.syncRejectedLabel, idle: '' }[attempts.status]
   const fallback = mode === 'wrong'
     ? messages.practice.wrongModeFallback(total)
     : mode === 'favorite'
@@ -307,15 +333,11 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
       : messages.practice.randomModeFallback
 
   return (
-    <div className="study-two-col">
-      <div>
-        {(syncLabel || stats.error) && (
-          <div className="flex flex-wrap items-center gap-2 text-xs text-ink-secondary mb-3" role="status">
-            {syncLabel && <span>{syncLabel}</span>}
-            {attempts.status === 'error' && <Button variant="surface" size="xs" onClick={() => void attempts.flush()}>{messages.practice.retrySync}</Button>}
-            {stats.error && <Button variant="surface" size="xs" onClick={stats.retry}>重试统计</Button>}
-          </div>
-        )}
+    <>
+      <PracticeLayout rail={<>
+        {rightRailHeader}
+        <PracticeSheetPanel key={index} ordered={ordered} index={index} total={total} onJump={jump} />
+      </>}>
         {!question ? (
           <>
             <LoadMessage
@@ -379,18 +401,7 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
             )}
           </>
         )}
-      </div>
-
-      {/* Desktop sticky right rail */}
-      <aside className="study-rail">
-        <div role="group" aria-label="练习统计" className="grid grid-cols-3 gap-2.5">
-          <StatTile label={messages.common.practicedStat} value={statData?.attempted ?? '—'} />
-          <StatTile label={messages.common.wrongStat} value={statData?.wrong ?? '—'} valueClassName="text-wrong-ink" />
-          <StatTile label={messages.common.favoriteStat} value={statData?.favorites ?? '—'} />
-        </div>
-        {rightRailHeader}
-        <PracticeSheetPanel key={index} ordered={ordered} index={index} total={total} onJump={jump} />
-      </aside>
+      </PracticeLayout>
 
       {/* Mobile answer sheet bottom drawer */}
       <BottomDrawer
@@ -401,7 +412,7 @@ function PracticeDeck({ mode, topic, topicCount, seed, start, rememberPosition, 
       >
         <PracticeSheetPanel key={index} ordered={ordered} index={index} total={total} onJump={jump} />
       </BottomDrawer>
-    </div>
+    </>
   )
 }
 
@@ -501,10 +512,9 @@ function PracticeContent({ bootstrap, initialSeed: serverSeed }: { bootstrap?: B
   const missingTopics = mode === 'topic' && !topic
   if (missingTopics || (filtering && !remaining.data)) {
     const state = missingTopics ? topics : remaining
-    return <div className="study-two-col">
+    return <PracticeLayout rail={rightRailHeader}>
       <LoadMessage error={state.error} loading={state.loading} retry={state.retry} empty={missingTopics ? messages.practice.emptyTopics : undefined} />
-      <aside className="study-rail">{rightRailHeader}</aside>
-    </div>
+    </PracticeLayout>
   }
 
   return (

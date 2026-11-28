@@ -179,7 +179,7 @@ export function PracticeCard({
   const enterAnim = direction === 'forward' ? 'animate-slide-next' : direction === 'backward' ? 'animate-slide-prev' : 'animate-question-enter'
 
   const confirm = !answer && (
-    <Button variant="cta" size="lg" className="flex-1 !px-2 !text-sm lg:!px-5 lg:!text-action" disabled={!selected.length} onClick={() => submit()}>
+    <Button variant="cta" size="lg" className="flex-1 !px-2 !text-sm lg:!px-5 lg:!text-action" onClick={() => submit()}>
       {messages.common.submitConfirm}
     </Button>
   )
