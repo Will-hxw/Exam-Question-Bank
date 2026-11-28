@@ -67,6 +67,7 @@ export const siteConfig = {
   },
   storageKeys: {
     authFlow: 'cqu-auth-flow',
+    studyPreferences: (userId: string) => `cqu-account-preferences:${userId}`,
     practiceHistory: (userId: string, scope: string) => `cqu-practice-history:${userId}:${scope}`,
     feedbackDraft: (userId: string) => `cqu-feedback-draft:${userId}`,
     chatDraft: (userId: string, scope: string) => `cqu-chat-draft:${userId}:${scope}`,

@@ -1,21 +1,7 @@
 import type { Metadata } from 'next'
-import { Inter, Noto_Serif_SC } from 'next/font/google'
 import { siteConfig } from '@/config/site'
 import { ServiceWorker } from './service-worker'
 import './uno.css'
-
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-sans',
-  display: 'swap',
-})
-
-const notoSerifSc = Noto_Serif_SC({
-  weight: ['500', '600', '700'],
-  preload: false,
-  variable: '--font-serif',
-  display: 'swap',
-})
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -28,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="zh-CN" className={`${inter.variable} ${notoSerifSc.variable}`}>
+    <html lang="zh-CN">
       <body className="m-0 min-h-dvh bg-canvas text-ink-primary font-sans antialiased">
         {children}
         <ServiceWorker />

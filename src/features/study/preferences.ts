@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useEffectEvent, useRef, useState, useSyncExternalStore } from 'react'
+import { siteConfig } from '@/config/site'
 import { questionUrl, requestJson } from './api'
 import type { LibraryList, LibraryView } from './library-view'
 export { libraryPageSizes, readLibraryView, type LibraryList, type LibraryView } from './library-view'
@@ -49,7 +50,7 @@ export function writeStudyPreference(key: string, value: unknown) {
 }
 
 export function useAccountStudyPreferences(userId: string, remote: StudyPreferences | undefined, loading: boolean) {
-  const key = `cqu-account-preferences:${userId}`
+  const key = siteConfig.storageKeys.studyPreferences(userId)
   const hydrated = useStudyPreferencesReady()
   const [stored] = useState(() => readStudyPreference(key) as { values?: StudyPreferences; pending?: StudyPreferences } | undefined)
   const [confirmed, setConfirmed] = useState<StudyPreferences>({})
