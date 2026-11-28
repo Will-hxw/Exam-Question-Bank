@@ -224,10 +224,10 @@ async function authorAvatar() {
 
 export function scheduleChatReply(user: VerifiedUser, source: ChatMessage, thread?: string) {
   const apiKey = process.env.DEEPSEEK_API_KEY
-  if (!apiKey || isSiteAuthor(user) || source.aiReplyTo) return
+  if (!apiKey || source.aiReplyTo || (thread && isSiteAuthor(user))) return
   const prompt = source.body.replace(mentionPattern, '').trim()
   const unmentioned = prompt === source.body
-  if (unmentioned && thread) return
+  if (unmentioned && (thread || isSiteAuthor(user))) return
   after(async () => {
     try {
       const mode = await claimReplyMode(user.id, source, thread, unmentioned)
