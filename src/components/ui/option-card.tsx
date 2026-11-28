@@ -56,7 +56,7 @@ export function OptionCard({
       disabled={disabled}
       aria-pressed={pressed}
       onClick={onClick}
-      className={`group option-row animate-option-in stagger-${staggerIndex} ${rowStateClassMap[state]}${className ? ` ${className}` : ''}`}
+      className={`group option-row ${state === 'idle' || state === 'selected' ? `animate-option-in stagger-${staggerIndex}` : ''} ${rowStateClassMap[state]}${className ? ` ${className}` : ''}`}
     >
       <span className="flex items-center gap-3.5 min-w-0">
         <span className={`option-badge ${badgeStateClassMap[state]}`}>

@@ -47,7 +47,7 @@ export default defineConfig({
       'px-2.5 py-1 rounded-tag text-label font-medium bg-surface text-ink-secondary inline-flex items-center gap-1.5',
     'icon-btn': 'btn-surface w-9.5 h-9.5 rounded-compact flex items-center justify-center shrink-0',
     'option-row':
-      'tactile w-full px-4 py-3.75 min-h-14 rounded-option flex items-center justify-between gap-3 text-left hover:-translate-y-0.25 active:translate-y-0 active:scale-985',
+      'cursor-pointer select-none border-0 w-full px-4 py-3.75 min-h-14 rounded-option flex items-center justify-between gap-3 text-left transition-colors duration-tactile',
     'option-badge':
       'w-7.5 h-7.5 rounded-micro text-meta font-semibold tabular-nums flex items-center justify-center shrink-0 transition-all duration-tactile ease-spring group-hover:scale-106 group-active:scale-95',
     'stat-tile': 'p-3.5 rounded-control bg-surface',
@@ -68,10 +68,10 @@ export default defineConfig({
     'study-rail': 'hidden lg:flex lg:flex-col lg:gap-5 lg:sticky lg:top-22',
     'dropdown-panel':
       'animate-popover-in origin-top absolute top-full mt-1.5 min-w-full w-max max-w-80 bg-canvas rounded-option shadow-desktop p-1.5 z-30 max-h-72 overflow-y-auto no-scrollbar flex flex-col gap-0.5',
-    'chat-shell': 'max-w-chat w-full mx-auto flex flex-col gap-4 h-chat min-h-chat',
-    'chat-log-viewport': 'flex-1 min-h-0 overflow-y-auto no-scrollbar py-2 flex flex-col gap-3',
+    'chat-shell': 'max-w-chat w-full mx-auto flex flex-1 min-h-0 flex-col gap-3 overflow-hidden',
+    'chat-log-viewport': 'flex-1 min-h-0 overflow-y-auto overscroll-contain no-scrollbar py-2 flex flex-col gap-3',
     'chat-composer-form':
-      'shrink-0 sticky bottom-3 lg:bottom-0 z-10 p-3 rounded-option bg-surface flex flex-col gap-2.5',
+      'shrink-0 relative z-10 p-3 rounded-option bg-surface flex flex-col gap-2.5',
     'chat-composer-input':
       'w-full min-h-15 p-1 bg-transparent text-ink-primary text-body border-0 resize-none',
     'emoji-popover':
@@ -86,7 +86,7 @@ export default defineConfig({
     'status-pill-wrong':
       'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-micro text-meta font-semibold bg-wrong-fill text-wrong-ink',
     'missed-tag':
-      'px-2 py-0.5 rounded-tag text-micro font-semibold bg-missed-badge/15 text-missed-ink shrink-0',
+      'px-2 py-0.5 rounded-tag text-micro font-semibold bg-missed-label-fill text-missed-label-ink shrink-0',
     'confirm-dialog':
       'rounded-sheet bg-canvas text-ink-primary p-6 max-w-sm w-11/12 shadow-desktop border-0 backdrop:bg-scrim',
     'collapse-grid':
@@ -97,8 +97,6 @@ export default defineConfig({
     ['shadow-desktop', { 'box-shadow': 'var(--desktop-shadow)' }],
     ['shadow-nav-pill', { 'box-shadow': 'var(--nav-pill-shadow)' }],
     ['study-grid-cols', { 'grid-template-columns': 'minmax(0, var(--study-main-max)) var(--study-rail-width)' }],
-    ['h-chat', { height: 'calc(100dvh - var(--chat-viewport-offset))' }],
-    ['min-h-chat', { 'min-height': 'var(--chat-shell-min)' }],
     ['ease-silk', { 'transition-timing-function': 'var(--ease-silk)' }],
     ['ease-spring', { 'transition-timing-function': 'var(--ease-spring)' }],
     ['ease-bounce', { 'transition-timing-function': 'var(--ease-bounce)' }],

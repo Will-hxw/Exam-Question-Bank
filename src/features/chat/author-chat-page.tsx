@@ -79,7 +79,7 @@ function InboxList({ userId, onlyUnread, search, onOpenThread }: {
 
   const conversations = inbox?.conversations ?? []
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-1 min-h-0 flex-col gap-3 overflow-y-auto overscroll-contain">
       {error && (
         <p className="m-0 text-xs text-wrong-ink flex items-center gap-2" role="status">
           <span>{error}</span>
@@ -145,19 +145,17 @@ function Inbox({ userId, onlyUnread, setOnlyUnread, search, setSearch, onBack, o
   onBack: MouseEventHandler<HTMLAnchorElement>
   onOpenThread: MouseEventHandler<HTMLAnchorElement>
 }) {
-  const section = useRef<HTMLElement>(null)
   const heading = useRef<HTMLHeadingElement>(null)
   const [query, setQuery] = useState(search.trim())
   useEffect(() => {
     heading.current?.focus({ preventScroll: true })
-    section.current?.scrollIntoView({ block: 'start' })
   }, [])
   useEffect(() => {
     const timer = setTimeout(() => setQuery(search.trim()), siteConfig.timings.searchDebounceMs)
     return () => clearTimeout(timer)
   }, [search])
   return (
-    <section ref={section} className="max-w-chat mx-auto flex flex-col gap-4 animate-view-enter" aria-labelledby="chat-title">
+    <section className="chat-shell" aria-labelledby="chat-title">
       <ChatHeader title={messages.chat.authorTitle} heading={heading} backHref={siteConfig.hashes.feedback} backLabel={messages.authorChat.backToFeedback} onBack={onBack} />
       <div className="flex items-center gap-2.5 flex-wrap">
         <div className="flex items-center gap-1.5" role="group" aria-label={messages.authorChat.filterThreadsAria}>

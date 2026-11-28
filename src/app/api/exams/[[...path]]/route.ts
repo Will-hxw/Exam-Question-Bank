@@ -10,7 +10,10 @@ const examDraftBodyLimit = 40000
 export const GET = route(async (request: Request, context: Context) => {
   const user = await account(request)
   const { path = [] } = await context.params
-  if (!path.length) return examHistory(user)
+  if (!path.length) {
+    const before = new URL(request.url).searchParams.get('before')
+    return examHistory(user, before === null ? null : uuid(before))
+  }
   if (path.length === 1) return examDetails(user, uuid(path[0]))
   throw new HttpError(404, '接口不存在。')
 })

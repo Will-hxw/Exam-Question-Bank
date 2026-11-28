@@ -1,12 +1,13 @@
 'use client'
 
-import { type TouchEvent, useEffect, useEffectEvent, useRef, useState } from 'react'
+import { type TouchEvent, useEffect, useRef, useState } from 'react'
 import { BookmarkIcon, CheckIcon, CrossIcon } from '@/components/icons'
 import { Badge, Button, OptionCard, type OptionCardState, ProgressBar } from '@/components/ui'
 import { messages } from '@/config/messages'
 import { siteConfig } from '@/config/site'
 import { answerLetters, letter, type Question } from './api'
 import { ExplanationPanel } from './explanation-panel'
+import { useQuestionShortcuts } from './use-question-shortcuts'
 import { useQuestionFavorite, useStudySessionContext } from './study-shell'
 
 export type PracticeAnswer = { ids: string[]; correct: boolean; eventId: string | null }
@@ -146,31 +147,16 @@ export function PracticeCard({
     else previous?.()
   }
 
-  const handleKey = useEffectEvent((event: KeyboardEvent) => {
-    const card = article.current
-    const target = event.target
-    if (!card || document.hidden || card.closest('[hidden],[inert]') || !card.getClientRects().length
-      || document.querySelector('dialog[open],[role="dialog"][aria-modal="true"],.drawer-overlay[aria-hidden="false"]')
-      || event.defaultPrevented || event.isComposing || event.repeat || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return
-    if (target instanceof Element) {
-      if (target.closest('input,textarea,select,a,[contenteditable]:not([contenteditable="false"])')) return
-      if (target !== document.body && target !== document.documentElement && !card.contains(target)) return
-      if (event.key === 'Enter' && target.closest('button,[role="button"]')) return
-    }
-    const option = /^[1-6]$/.test(event.key) ? question.options[Number(event.key) - 1] : undefined
+  useQuestionShortcuts(article, (key) => {
+    const option = /^[1-6]$/.test(key) ? question.options[Number(key) - 1] : undefined
     if (option && !submittedAnswer.current) selectOption(option.id)
-    else if (event.key === 'ArrowLeft' && previous) previous()
-    else if (event.key === 'ArrowRight' && next) next()
-    else if (event.key === 'Enter' && !submittedAnswer.current && selection.length) submit()
-    else if (event.key === 'Enter' && submittedAnswer.current && next) next()
-    else return
-    event.preventDefault()
+    else if (key === 'ArrowLeft' && previous) previous()
+    else if (key === 'ArrowRight' && next) next()
+    else if (key === 'Enter' && !submittedAnswer.current && selection.length) submit()
+    else if (key === 'Enter' && submittedAnswer.current && next) next()
+    else return false
+    return true
   })
-  useEffect(() => {
-    const listener = (event: KeyboardEvent) => handleKey(event)
-    document.addEventListener('keydown', listener)
-    return () => document.removeEventListener('keydown', listener)
-  }, [])
 
   const explanation = question.answerIds && question.explanation ? {
     answerIds: question.answerIds, explanation: question.explanation, options: question.options, sources: question.sources ?? [],

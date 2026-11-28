@@ -295,13 +295,16 @@ export function StudyShell({ userId, author, initialPreferences, initialStats, b
   const [authorChatRequested, setAuthorChatRequested] = useState(false)
   const threadId = hash.startsWith(authorChatHash + '/') ? hash.slice(authorChatHash.length + 1) : undefined
   const footerPageOpen = sponsorOpen || feedbackOpen || chatOpen || authorChatOpen
+  const chatPageOpen = chatOpen || authorChatOpen
+  const viewportPageOpen = chatPageOpen || feedbackOpen
+  const viewportShell = useRef<HTMLDivElement>(null)
   const { unread, sharedUnread, updateUnread, updateSharedUnread } = useChatUnread(userId, feedbackOpen || authorChatOpen)
   const session = useStudySession(userId, initialPreferences, initialStats)
   const { personalReads, preferences } = session
   const { resolvedTheme, toggleTheme } = useTheme(preferences.values.theme, preferences.save)
   const [overviewOpen, setOverviewOpen] = useState(false)
   const [mobileSettingsOpen, setMobileSettingsOpen] = useState(false)
-  useAccountStudyScroll(pathname, preferences)
+  useAccountStudyScroll(footerPageOpen ? '' : pathname, preferences)
   const publicLibrary = libraryPath('all', readLibraryView(preferences.values['library:all']))
   const wrongLibrary = libraryPath('wrong', readLibraryView(preferences.values['library:wrong']))
   const favoriteLibrary = libraryPath('favorite', readLibraryView(preferences.values['library:favorite']))
@@ -312,6 +315,25 @@ export function StudyShell({ userId, author, initialPreferences, initialStats, b
   const [navIndicator, setNavIndicator] = useState({ left: 0, width: 0, visible: false })
 
   useLayoutEffect(() => {
+    const shell = viewportShell.current
+    const viewport = window.visualViewport
+    if (!viewportPageOpen || !shell || !viewport) return
+    const fitViewport = () => {
+      shell.style.setProperty('--panel-height', `${viewport.height}px`)
+      shell.style.setProperty('--panel-top', `${viewport.offsetTop}px`)
+    }
+    fitViewport()
+    viewport.addEventListener('resize', fitViewport)
+    viewport.addEventListener('scroll', fitViewport)
+    return () => {
+      viewport.removeEventListener('resize', fitViewport)
+      viewport.removeEventListener('scroll', fitViewport)
+      shell.style.removeProperty('--panel-height')
+      shell.style.removeProperty('--panel-top')
+    }
+  }, [viewportPageOpen])
+
+  useLayoutEffect(() => {
     const activeHref = !footerPageOpen ? siteConfig.nav.find(({ href }) => href === pathname)?.href : undefined
     const updateIndicator = () => {
       const target = activeHref ? navLinkRefs.current[activeHref] : null
@@ -319,7 +341,9 @@ export function StudyShell({ userId, author, initialPreferences, initialStats, b
         setNavIndicator((prev) => (prev.visible ? { ...prev, visible: false } : prev))
         return
       }
-      setNavIndicator({ left: target.offsetLeft, width: target.offsetWidth, visible: true })
+      const { offsetLeft: left, offsetWidth: width } = target
+      setNavIndicator((prev) => prev.visible && prev.left === left && prev.width === width
+        ? prev : { left, width, visible: true })
     }
     updateIndicator()
     const navEl = navRef.current
@@ -403,8 +427,8 @@ export function StudyShell({ userId, author, initialPreferences, initialStats, b
 
   return (
     <StudyContext.Provider value={session}>
-      <div className="min-h-dvh bg-canvas text-ink-primary flex flex-col">
-        <header id="site-header" className="floating-header bg-canvas-header backdrop-blur-md">
+      <div ref={viewportShell} data-study-panel={viewportPageOpen ? '' : undefined} className="min-h-dvh bg-canvas text-ink-primary flex flex-col">
+        <header id="site-header" hidden={chatPageOpen} className="floating-header shrink-0 bg-canvas-header backdrop-blur-md">
           <div className="max-w-topbar mx-auto w-full px-3 py-2 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-2 gap-y-2 lg:h-16 lg:flex lg:justify-between lg:gap-5 lg:px-7 lg:py-0">
             {brandSlot}
 
@@ -487,7 +511,7 @@ export function StudyShell({ userId, author, initialPreferences, initialStats, b
         </header>
 
         {/* Main canvas */}
-        <main className={`max-w-shell w-full mx-auto px-5 lg:px-7 pt-4 lg:pt-7 flex-1 ${(chatOpen || (authorChatOpen && (!author || Boolean(threadId)))) ? 'pb-4 lg:pb-2' : feedbackOpen ? 'pb-4 lg:pb-6 flex flex-col' : 'pb-6 lg:pb-12'}`}>
+        <main className={`max-w-shell w-full mx-auto px-5 lg:px-7 flex-1 ${viewportPageOpen ? 'study-panel-main' : 'pt-4 lg:pt-7 pb-6 lg:pb-12'}`}>
           {pathname === siteConfig.routes.practice && !footerPageOpen && (
             <button
               type="button"
@@ -506,7 +530,7 @@ export function StudyShell({ userId, author, initialPreferences, initialStats, b
               <ChevronDownIcon />
             </button>
           )}
-          {preferences.syncFailed && (
+          {preferences.syncFailed && !footerPageOpen && (
             <div className="mb-4 px-4 py-3 rounded-control bg-wrong-fill text-wrong-ink text-control flex items-center justify-between gap-3" role="status">
               <span>{messages.shell.syncError}</span>
               <Button variant="surface" size="xs" className="bg-canvas text-ink-primary" onClick={() => void preferences.retry()}>
@@ -517,7 +541,7 @@ export function StudyShell({ userId, author, initialPreferences, initialStats, b
           <div key={pathname} hidden={footerPageOpen} inert={footerPageOpen}>{children}</div>
           {chatOpen && <PublicChat backHref={pathname} userId={userId} onBack={closeFooterPage} onRead={updateSharedUnread} />}
           {(feedbackOpen || authorChatOpen) && (
-            <div hidden={!feedbackOpen} className={feedbackOpen ? 'flex flex-1 flex-col' : undefined}>
+            <div hidden={!feedbackOpen} className={feedbackOpen ? 'flex flex-1 min-h-0 flex-col overflow-hidden' : undefined}>
               <FeedbackPage
                 pathname={pathname}
                 userId={userId}
@@ -552,7 +576,7 @@ export function StudyShell({ userId, author, initialPreferences, initialStats, b
 
         <span id={unreadDescriptionId} hidden>{messages.common.unreadBadgeText}</span>
 
-        <footer className="community-footer mx-auto w-full max-w-shell px-5 lg:px-7">
+        <footer hidden={viewportPageOpen} className="community-footer mx-auto w-full max-w-shell px-5 lg:px-7">
           <div className="border-t border-0 border-solid border-surface-hover py-4 flex flex-col items-center gap-3 sm:flex-row sm:justify-between">
             <nav aria-label="社区与支持" className="flex items-center justify-center gap-4 sm:gap-5">
               <a className="community-link" aria-label="打开聊天区" href={siteConfig.hashes.chat}
@@ -584,26 +608,6 @@ export function StudyShell({ userId, author, initialPreferences, initialStats, b
           closeLabel={messages.common.done}
           bodyClassName="flex flex-col gap-6"
         >
-          <div>
-            <div className="text-xs font-medium text-ink-muted mb-2.5">{messages.shell.sectionModules}</div>
-            <div className="flex flex-wrap gap-2">
-              {siteConfig.nav.map(({ href, label }) => {
-                const active = !footerPageOpen && pathname === href
-                return (
-                  <Link
-                    key={href}
-                    href={href}
-                    scroll={false}
-                    className={`tactile h-10 px-4 rounded-compact inline-flex items-center justify-center text-control font-medium no-underline ${active ? 'bg-cta text-cta-ink' : 'bg-surface text-ink-primary'}`}
-                    onClick={() => setMobileSettingsOpen(false)}
-                    onNavigate={(event) => navigateToModule(href, event)}
-                  >
-                    {label}
-                  </Link>
-                )
-              })}
-            </div>
-          </div>
           {pathname === '/' && (
             <>
               <div>
@@ -688,13 +692,13 @@ export function StudyShell({ userId, author, initialPreferences, initialStats, b
           </div>
           <div className="flex flex-wrap gap-2">
             <ActionLink variant="surface" size="md" className="h-10 text-control" href={siteConfig.hashes.chat} onClick={(event) => openFooterPage(event)}>
-              {messages.shell.chatLink}{sharedUnread && <UnreadDot />}
+              <ChatBubbleIcon />{messages.shell.chatLink}{sharedUnread && <UnreadDot />}
             </ActionLink>
             <ActionLink variant="surface" size="md" className="h-10 text-control" href={siteConfig.hashes.feedback} onClick={(event) => openFooterPage(event)}>
               <MailboxIcon size={16} />{messages.shell.feedbackLink}{unread && <UnreadDot />}
             </ActionLink>
             <ActionLink variant="surface" size="md" className="h-10 text-control" href={siteConfig.hashes.sponsor} onClick={(event) => openFooterPage(event)}>
-              {messages.shell.sponsorLink}
+              <SponsorIcon />{messages.shell.sponsorLink}
             </ActionLink>
             <Link className="btn-surface h-10 px-4 rounded-compact inline-flex items-center text-control font-medium no-underline" href={siteConfig.routes.account} onClick={() => setOverviewOpen(false)} onNavigate={navigateFromExam}>
               {messages.common.accountManage}

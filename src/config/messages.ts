@@ -85,7 +85,6 @@ export const messages = {
     sponsorLink: '友情赞助',
     drawerSettingsTitle: '练习设置',
     drawerOverviewTitle: '学习概览',
-    sectionModules: '功能模块',
     sectionModes: '刷题模式',
     sectionTopics: '练习专题',
     onlyUndone: '只刷未做',

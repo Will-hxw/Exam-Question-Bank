@@ -27,7 +27,7 @@ const users = new Map([
   ['personal-library', { id: 'e2e-personal-library', email: 'personal-library@example.test', emailVerified: true }],
   ['conflict', { id: 'e2e-conflict', email: 'conflict@example.test', emailVerified: true }],
   ['rejection', { id: 'e2e-rejection', email: 'rejection@example.test', emailVerified: true }],
-  ...['recovery', 'touch', 'mobile-actions', 'source-links'].map(token => [
+  ...['recovery', 'touch', 'mobile-actions', 'source-links', 'history-pages'].map(token => [
     token, { id: `e2e-${token}`, email: `${token}@example.test`, emailVerified: true },
   ]),
   ['receipt', { id: 'e2e-receipt', email: 'receipt@example.test', emailVerified: true }],
@@ -482,6 +482,21 @@ async function runApiChecks(origin, db, items, secret) {
   assert.deepEqual(history.map(({ id, total, score }) => ({ id, total, score })), [
     { id: rerolled.id, total: 52, score: null }, { id: large.id, total: 52, score: 52 },
   ])
+  const historyOwner = users.get('history-pages').id
+  await db.query('INSERT INTO profiles (user_id) VALUES ($1)', [historyOwner])
+  await db.query(`INSERT INTO exam_sessions (user_id, status, started_at, submitted_at, score, question_count)
+    SELECT $1, 'submitted', now(), now(), 0, 1 FROM generate_series(1, 32)`, [historyOwner])
+  await db.query('INSERT INTO exam_sessions (user_id) VALUES ($1)', [historyOwner])
+  const head = (await call('/api/exams', { user: 'history-pages' })).data
+  assert.equal(head.exams.length, 30)
+  assert.equal(head.exams[0].status, 'draft')
+  assert.equal(head.nextCursor, head.exams[29].id)
+  const older = (await call(`/api/exams?before=${head.nextCursor}`, { user: 'history-pages' })).data
+  assert.equal(older.exams.length, 3)
+  assert.equal(older.nextCursor, null)
+  assert.equal(new Set([...head.exams, ...older.exams].map(entry => entry.id)).size, 33)
+  const otherOwner = (await call(`/api/exams?before=${head.nextCursor}`, { user: 'bob' })).data
+  assert.deepEqual(otherOwner, { exams: [], nextCursor: null })
 
   for (let sample = 0; sample < 30; sample++) {
     await call(topicsPath, { metric: 'topicsWarm' })

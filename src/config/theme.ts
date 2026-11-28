@@ -32,6 +32,8 @@ export const semanticColors = {
   'wrong-badge': { cssVar: '--wrong-badge', light: '#DC2626', dark: '#DC2626' },
   'missed-fill': { cssVar: '--missed-fill', light: '#FFFBEB', dark: 'rgba(245, 158, 11, 0.14)' },
   'missed-ink': { cssVar: '--missed-ink', light: '#B45309', dark: '#FBBF24' },
+  'missed-label-fill': { cssVar: '--missed-label-fill', light: '#FFE5CC', dark: '#422612' },
+  'missed-label-ink': { cssVar: '--missed-label-ink', light: '#8C4017', dark: '#FFCF9E' },
   'missed-badge': { cssVar: '--missed-badge', light: '#D97706', dark: '#D97706' },
   'progress-track': { cssVar: '--progress-track', light: '#ECEEF2', dark: '#232732' },
   'progress-fill': { cssVar: '--progress-fill', light: '#111318', dark: '#F3F4F6' },
@@ -52,9 +54,6 @@ export const layoutVars = {
   desktopShadowDark: '0 24px 72px rgba(0, 0, 0, 0.55)',
   navPillShadowLight: '0 1px 3px rgba(17, 19, 24, 0.06), 0 1px 2px rgba(17, 19, 24, 0.04)',
   navPillShadowDark: '0 1px 4px rgba(0, 0, 0, 0.35)',
-  chatViewportOffsetMobile: '5.5rem',
-  chatViewportOffsetDesktop: '12rem',
-  chatShellMin: '26rem',
   studyMainMax: '660px',
   studyRailWidth: '320px',
 } as const
@@ -63,13 +62,13 @@ export const motionVars = {
   easeSilk: 'cubic-bezier(0.16, 1, 0.3, 1)',
   easeSpring: 'cubic-bezier(0.22, 1, 0.36, 1)',
   easeBounce: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
-  tactile: '240ms',
+  tactile: '160ms',
   popover: '260ms',
   msg: '340ms',
-  option: '380ms',
-  question: '420ms',
+  option: '180ms',
+  question: '220ms',
   collapse: '420ms',
-  view: '460ms',
+  view: '200ms',
   feedback: '480ms',
   drawer: '440ms',
   scrim: '340ms',
@@ -131,8 +130,8 @@ export const onDemandAnimations: Record<string, AnimationSpec> = {
   },
   'shake-wrong': {
     keyframeName: 'shake-wrong',
-    keyframes: '0%,100%{transform:translate3d(0,0,0)}18%{transform:translate3d(-5px,0,0)}42%{transform:translate3d(4px,0,0)}66%{transform:translate3d(-2.5px,0,0)}84%{transform:translate3d(1px,0,0)}',
-    declaration: 'shake-wrong var(--motion-shake) var(--ease-spring)',
+    keyframes: '0%,100%{transform:translate3d(0,0,0)}22%{transform:translate3d(-3px,0,0)}47%{transform:translate3d(3px,0,0)}72%{transform:translate3d(-1px,0,0)}',
+    declaration: 'shake-wrong var(--motion-shake) ease-out',
   },
   'badge-pop': {
     keyframeName: 'badge-pop',
@@ -242,8 +241,7 @@ export function buildThemePreflight(): string {
     .join('')
 
   return [
-    `:root{color-scheme:light;${lightVars}--desktop-shadow:${layoutVars.desktopShadowLight};--nav-pill-shadow:${layoutVars.navPillShadowLight};--study-main-max:${layoutVars.studyMainMax};--study-rail-width:${layoutVars.studyRailWidth};--ease-silk:${motionVars.easeSilk};--ease-spring:${motionVars.easeSpring};--ease-bounce:${motionVars.easeBounce};--motion-tactile:${motionVars.tactile};--motion-popover:${motionVars.popover};--motion-msg:${motionVars.msg};--motion-option:${motionVars.option};--motion-question:${motionVars.question};--motion-collapse:${motionVars.collapse};--motion-view:${motionVars.view};--motion-feedback:${motionVars.feedback};--motion-drawer:${motionVars.drawer};--motion-scrim:${motionVars.scrim};--motion-progress:${motionVars.progress};--motion-ring:${motionVars.ring};--motion-pop:${motionVars.pop};--motion-shake:${motionVars.shake};--motion-check:${motionVars.check};--motion-check-delay:${motionVars.checkDelay};--motion-ring-delay:${motionVars.ringDelay};--motion-theme:${motionVars.themeTransition};--motion-icon-swap:${motionVars.iconSwap};--motion-stagger-step:${motionVars.staggerStep};--check-stroke-len:${motionVars.checkStrokeLen};--chat-viewport-offset:${layoutVars.chatViewportOffsetMobile};--chat-shell-min:${layoutVars.chatShellMin};}`,
-    `@media (min-width:1024px){:root{--chat-viewport-offset:${layoutVars.chatViewportOffsetDesktop};}}`,
+    `:root{color-scheme:light;${lightVars}--desktop-shadow:${layoutVars.desktopShadowLight};--nav-pill-shadow:${layoutVars.navPillShadowLight};--study-main-max:${layoutVars.studyMainMax};--study-rail-width:${layoutVars.studyRailWidth};--ease-silk:${motionVars.easeSilk};--ease-spring:${motionVars.easeSpring};--ease-bounce:${motionVars.easeBounce};--motion-tactile:${motionVars.tactile};--motion-popover:${motionVars.popover};--motion-msg:${motionVars.msg};--motion-option:${motionVars.option};--motion-question:${motionVars.question};--motion-collapse:${motionVars.collapse};--motion-view:${motionVars.view};--motion-feedback:${motionVars.feedback};--motion-drawer:${motionVars.drawer};--motion-scrim:${motionVars.scrim};--motion-progress:${motionVars.progress};--motion-ring:${motionVars.ring};--motion-pop:${motionVars.pop};--motion-shake:${motionVars.shake};--motion-check:${motionVars.check};--motion-check-delay:${motionVars.checkDelay};--motion-ring-delay:${motionVars.ringDelay};--motion-theme:${motionVars.themeTransition};--motion-icon-swap:${motionVars.iconSwap};--motion-stagger-step:${motionVars.staggerStep};--check-stroke-len:${motionVars.checkStrokeLen};}`,
     `:root[data-theme="dark"]{color-scheme:dark;${darkVars}--desktop-shadow:${layoutVars.desktopShadowDark};--nav-pill-shadow:${layoutVars.navPillShadowDark};}`,
     '*,*::before,*::after{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}',
     'body{transition:background-color var(--motion-theme) var(--ease-silk),color var(--motion-theme) var(--ease-silk);}',

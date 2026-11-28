@@ -143,7 +143,7 @@ export function ChatHeader({ title, backHref, backLabel, onBack, heading, childr
   children?: ReactNode
 }) {
   return (
-    <header className="flex items-center justify-between gap-3 flex-wrap pb-2">
+    <header className="flex shrink-0 items-center justify-between gap-3 flex-wrap pb-2">
       <div className="flex items-center gap-2.5">
         <a
           className="icon-btn no-underline"
@@ -201,7 +201,6 @@ export default function ChatPage({ backHref, backLabel = messages.common.backToP
   onBack?: MouseEventHandler<HTMLAnchorElement>
   onRead?: (unread: boolean) => void
 }) {
-  const section = useRef<HTMLElement>(null)
   const heading = useRef<HTMLHeadingElement>(null)
   const list = useRef<HTMLDivElement>(null)
   const composer = useRef<HTMLTextAreaElement>(null)
@@ -228,7 +227,6 @@ export default function ChatPage({ backHref, backLabel = messages.common.backToP
 
   useEffect(() => {
     heading.current?.focus({ preventScroll: true })
-    section.current?.scrollIntoView({ block: 'start' })
   }, [])
   useEffect(() => { if (editingName) nicknameInput.current?.focus() }, [editingName])
   useEffect(() => {
@@ -387,7 +385,7 @@ export default function ChatPage({ backHref, backLabel = messages.common.backToP
   const unconfirmed = outgoing?.filter((item) => !room.messages.some((message) => message.clientId === item.id)) ?? []
 
   return (
-    <section className="chat-shell animate-view-enter" ref={section} aria-labelledby="chat-title">
+    <section className="chat-shell" aria-labelledby="chat-title">
       <ChatHeader title={direct ? messages.chat.authorTitle : messages.chat.publicTitle} backHref={backHref} backLabel={backLabel} onBack={onBack} heading={heading}>
         {direct && room.peer && (
           <div role="group" aria-label="对话对象" className="flex max-w-full min-w-0 items-center gap-2.5 bg-surface px-3 py-1.5 rounded-control">
@@ -432,7 +430,7 @@ export default function ChatPage({ backHref, backLabel = messages.common.backToP
       {editingName && (
         <form
           id="chat-edit-name"
-          className="p-3.5 rounded-option bg-surface flex items-center gap-2 flex-wrap"
+          className="p-3.5 rounded-option bg-surface shrink-0 flex items-center gap-2 flex-wrap"
           onSubmit={saveNickname}
           onKeyDown={(event) => { if (event.key === 'Escape' && !savingName && !event.nativeEvent.isComposing) closeNickname() }}
         >

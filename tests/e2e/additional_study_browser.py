@@ -521,6 +521,15 @@ def explanation_links(browser, token='source-links'):
                 expect(source).to_be_focused()
                 expect(source).to_have_css('outline-style', 'solid')
                 expect(source).to_have_css('outline-width', '2px')
+            if path in ('/questions', '/wrong', '/favorites'):
+                answer = article.get_by_text(re.compile(r'^正确答案'))
+                expect(answer).to_be_visible()
+                article.get_by_role('button', name='收起解析', exact=True).click()
+                expect(answer).to_have_count(0)
+                article.get_by_role('button', name='显示答案', exact=True).click()
+                article.get_by_role('button', name='展开解析', exact=True).click()
+                article.get_by_role('button', name='收起解析', exact=True).click()
+                expect(answer).to_be_visible()
             print(f'SOURCE_LINK verified {path} light/dark/underline/focus', flush=True)
     finally:
         context.close()
