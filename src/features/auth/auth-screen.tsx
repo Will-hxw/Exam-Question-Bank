@@ -19,8 +19,8 @@ export function AuthScreen({ children }: { children: ReactNode }) {
         </div>
         <div className="w-full">{children}</div>
       </div>
-      <footer className="mt-10 text-ink-muted text-center flex flex-col items-center gap-1.5" lang="en">
-        <span className="text-xs">{siteConfig.visibleCredit}</span>
+      <footer className="mt-10 font-credit text-lg text-ink-secondary text-center" lang="en">
+        {siteConfig.visibleCredit}
       </footer>
     </main>
   )

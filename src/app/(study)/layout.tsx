@@ -4,7 +4,7 @@ import { isSiteAuthor } from '@/features/auth/server'
 import { loadStudyUser } from '@/features/auth/study-access'
 import { SponsorCard } from '@/features/study/sponsor-card'
 import { StudyShell } from '@/features/study/study-shell'
-import { initialStudyPreferences, initialStudyStats, initialStudyTopics } from '@/server/study-bootstrap'
+import { initialStudyPreferences, initialStudyStats } from '@/server/study-bootstrap'
 
 export default async function StudyLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const auth = await loadStudyUser()
@@ -20,10 +20,9 @@ export default async function StudyLayout({ children }: Readonly<{ children: Rea
   }
   if (!auth.user) return children
 
-  const [initialPreferences, initialStats, initialTopics] = await Promise.all([
+  const [initialPreferences, initialStats] = await Promise.all([
     initialStudyPreferences(auth.user.id),
     initialStudyStats(auth.user.id),
-    initialStudyTopics(),
   ])
 
   return (
@@ -32,7 +31,6 @@ export default async function StudyLayout({ children }: Readonly<{ children: Rea
       author={isSiteAuthor(auth.user)}
       initialPreferences={initialPreferences}
       initialStats={initialStats}
-      initialTopics={initialTopics}
       brandSlot={<BrandMark />}
       sponsorSlot={<SponsorCard />}
       key={auth.user.id}

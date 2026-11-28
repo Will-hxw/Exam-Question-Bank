@@ -259,7 +259,7 @@ export function AuthPanel({ destination }: { destination: StudyDestination }) {
       >
         {!hasOtp && (
           <div className="flex flex-col gap-1.5">
-            <label htmlFor="auth-email" className="text-xs font-medium text-ink-muted">{messages.auth.emailLabel}</label>
+            <label htmlFor="auth-email" className="text-sm font-medium text-ink-secondary">{messages.auth.emailLabel}</label>
             <TextInput
               id="auth-email"
               name="email"
@@ -286,7 +286,7 @@ export function AuthPanel({ destination }: { destination: StudyDestination }) {
 
         {hasOtp && (
           <div className="flex flex-col gap-1.5">
-            <label htmlFor="auth-code" className="text-xs font-medium text-ink-muted">{messages.auth.otpLabel}</label>
+            <label htmlFor="auth-code" className="text-sm font-medium text-ink-secondary">{messages.auth.otpLabel}</label>
             <TextInput
               id="auth-code"
               name="otp"
@@ -312,7 +312,7 @@ export function AuthPanel({ destination }: { destination: StudyDestination }) {
 
         {hasPassword && (
           <div className="flex flex-col gap-1.5">
-            <label htmlFor="auth-password" className="text-xs font-medium text-ink-muted">
+            <label htmlFor="auth-password" className="text-sm font-medium text-ink-secondary">
               {step === "reset" ? messages.auth.newPasswordLabel : messages.auth.passwordLabel}
             </label>
             <div className="relative">
@@ -337,7 +337,7 @@ export function AuthPanel({ destination }: { destination: StudyDestination }) {
               />
               <button
                 type="button"
-                className="tactile absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-tag text-ink-secondary hover:bg-surface-hover flex items-center justify-center"
+                className="absolute right-1 top-1/2 -translate-y-1/2 w-11 h-11 appearance-none border-0 bg-transparent p-0 text-selected-ink flex items-center justify-center"
                 aria-controls="auth-password"
                 aria-label={showPassword ? messages.auth.hidePasswordAria : messages.auth.showPasswordAria}
                 onClick={() => setShowPassword(!showPassword)}

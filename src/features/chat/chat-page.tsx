@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { type FormEvent, type MouseEventHandler, type PointerEvent, type ReactNode, type RefObject, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { BackArrowIcon, EditPencilIcon, EmojiIcon, MentionIcon } from '@/components/icons'
-import { Badge, Button, TextInput } from '@/components/ui'
+import { Button, TextInput } from '@/components/ui'
 import { messages } from '@/config/messages'
 import { siteConfig } from '@/config/site'
 import { useTabDraft } from '@/use-tab-draft'
@@ -105,7 +105,7 @@ function Message({ message, nickname, previous, authorAvatar, onMention, deliver
       : 'bg-surface text-ink-primary'
 
   return (
-    <li className="flex flex-col gap-2 animate-msg-in" data-message-id={message.id}>
+    <li className="flex flex-col gap-2 animate-msg-in" data-message-id={message.id} data-mine={message.mine}>
       {gap >= 5 * 60 * 1000 && (
         <time className="text-center text-micro text-ink-muted my-1" dateTime={message.sentAt}>
           {messageTime(message.sentAt)}
@@ -118,12 +118,12 @@ function Message({ message, nickname, previous, authorAvatar, onMention, deliver
           <MentionAvatar message={message} nickname={nickname} authorAvatar={authorAvatar} onMention={onMention} />
         )}
         <div className={`flex flex-col gap-1 max-w-bubble ${message.mine ? 'items-end' : 'items-start'}`}>
-          <span className="text-xs font-medium text-ink-secondary px-1">{nickname}</span>
+          <span data-nickname="" className="text-xs font-medium text-ink-secondary px-1">{nickname}</span>
           <p className={`m-0 px-3.75 py-2.75 rounded-option text-body break-words whitespace-pre-wrap ${bubbleCls}`} dir="auto">
             {message.aiReplyTo && (
-              <Badge tone="selected" size="xs" className="mr-1.5 bg-selected-badge text-white align-middle">
+              <span className="inline-flex mr-1.5 px-1.5 py-0.5 rounded-tag bg-selected-badge text-white text-nano font-semibold align-middle">
                 {messages.chat.aiAutoTag}
-              </Badge>
+              </span>
             )}
             {message.body}
           </p>
@@ -390,11 +390,11 @@ export default function ChatPage({ backHref, backLabel = messages.common.backToP
     <section className="chat-shell animate-view-enter" ref={section} aria-labelledby="chat-title">
       <ChatHeader title={direct ? messages.chat.authorTitle : messages.chat.publicTitle} backHref={backHref} backLabel={backLabel} onBack={onBack} heading={heading}>
         {direct && room.peer && (
-          <div className="flex items-center gap-2.5 bg-surface px-3 py-1.5 rounded-control">
+          <div role="group" aria-label="对话对象" className="flex max-w-full min-w-0 items-center gap-2.5 bg-surface px-3 py-1.5 rounded-control">
             <Avatar profile={room.peer} size={28} authorAvatar={room.authorAvatar} />
-            <div className="flex flex-col leading-tight">
-              <span className="text-meta font-medium" title={room.peer.nickname}>{room.peer.nickname}</span>
-              {room.peer.email && <small className="text-micro text-ink-muted" title={room.peer.email}>{room.peer.email}</small>}
+            <div className="min-w-0 flex flex-col leading-tight">
+              <span className="truncate text-meta font-medium" title={room.peer.nickname}>{room.peer.nickname}</span>
+              {room.peer.email && <small className="truncate text-micro text-ink-muted" title={room.peer.email}>{room.peer.email}</small>}
             </div>
           </div>
         )}
@@ -558,7 +558,7 @@ export default function ChatPage({ backHref, backLabel = messages.common.backToP
           ref={composer}
           className="chat-composer-input"
           aria-label={messages.chat.composerAria}
-          placeholder={direct ? messages.chat.composerDirectPlaceholder : messages.chat.composerPublicPlaceholder}
+          placeholder={direct ? (room.profile?.author ? messages.chat.composerReplyPlaceholder : messages.chat.composerDirectPlaceholder) : messages.chat.composerPublicPlaceholder}
           rows={2}
           maxLength={messageLimit}
           value={draft}
@@ -590,7 +590,7 @@ export default function ChatPage({ backHref, backLabel = messages.common.backToP
             <button
               className="tactile w-9 h-9 rounded-micro bg-canvas text-ink-secondary hover:bg-surface-hover flex items-center justify-center"
               type="button"
-              aria-label={direct && room.peer && !room.peer.author ? messages.chat.mentionPeer : messages.chat.mentionAuthor}
+              aria-label={direct ? (room.peer && !room.peer.author ? messages.chat.mentionPeer : messages.chat.mentionAuthor) : messages.chat.mentionAi}
               disabled={!room.profile}
               onClick={() => mention(room.peer)}
             >

@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { redirect } from "next/navigation"
 import { connection } from "next/server"
 import { messages } from "@/config/messages"
+import { AuthScreen } from "@/features/auth/auth-screen"
 import { AccountPanel } from "@/features/auth/account-panel"
 import { getVerifiedUser } from "@/features/auth/server"
 import { siteConfig } from "@/config/site"
@@ -13,5 +14,5 @@ export default async function AccountPage() {
   const user = await getVerifiedUser().catch(() => null)
   if (!user) redirect(siteConfig.routes.login)
 
-  return <AccountPanel email={user.email} />
+  return <AuthScreen><AccountPanel email={user.email} /></AuthScreen>
 }

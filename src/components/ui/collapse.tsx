@@ -12,7 +12,11 @@ export function CollapsePanel({
   contentClassName?: string
 }) {
   return (
-    <div className={`collapse-grid ${open ? 'collapse-open' : ''}${className ? ` ${className}` : ''}`}>
+    <div
+      className={`collapse-grid ${open ? 'collapse-open' : 'grid-rows-collapsed'}${className ? ` ${className}` : ''}`}
+      aria-hidden={!open}
+      inert={!open}
+    >
       <div className={`collapse-inner${contentClassName ? ` ${contentClassName}` : ''}`}>
         {children}
       </div>

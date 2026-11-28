@@ -103,8 +103,8 @@ export const messages = {
 
   sponsor: {
     title: '友情赞助',
-    body: '如果这个刷题平台帮到了你，欢迎扫码请作者喝杯咖啡，非常感谢支持！',
-    qrAlt: '微信赞赏码',
+    lines: ['如果有帮助的话，感谢支持维护🥰', '如果遗憾没帮助，我会努力改善🥹'],
+    qrAlt: '微信收款码',
   },
 
   practice: {
@@ -254,9 +254,9 @@ export const messages = {
     sentTitle: '感谢你的反馈，已收到！',
     sentSubtitle: '如需进一步沟通，可点击上方“作者对话”直接私信。',
     writeAnother: '再写一条',
-    ratingLabel: '整体使用评价',
-    messageLabel: (length: number, max: number) => `具体意见或建议（选填，${length}/${max}）`,
-    messagePlaceholder: '例如：某道题解析有误、界面建议或功能期待…',
+    ratingLabel: '你觉得练习站怎么样？',
+    messageLabel: '你希望我们改进什么？',
+    messagePlaceholder: '遇到的问题、想增加的功能，都可以写在这里。',
     submitting: '正在提交…',
     submitButton: '提交反馈',
   },
@@ -281,9 +281,11 @@ export const messages = {
     jumpToLatest: '↓ 查看新消息',
     composerAria: '聊天消息',
     composerDirectPlaceholder: '给作者发消息…',
+    composerReplyPlaceholder: '给对方发消息…',
     composerPublicPlaceholder: '说点什么，或 @AI 提问…',
     insertEmoji: '插入表情',
     mentionPeer: '提及对方',
+    mentionAi: '提及 AI',
     mentionAuthor: '提及作者',
     send: '发送',
     emojiPanelAria: '常用表情',
@@ -366,8 +368,9 @@ export const messages = {
   },
 
   account: {
-    signedInAs: '已登录账号',
+    signedInAs: '已验证邮箱',
     signOut: '退出登录',
     signingOut: '正在退出…',
+    signOutFailed: '暂时无法退出，请重试。',
   },
 } as const

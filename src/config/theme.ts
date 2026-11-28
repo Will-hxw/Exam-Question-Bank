@@ -227,6 +227,7 @@ export const typographyTheme = {
     tag: '8px',
   },
   fontFamily: {
+    credit: '"Times New Roman", Times, Georgia, serif',
     serif: 'var(--font-serif), "Noto Serif SC", "Songti SC", "STSong", serif',
     sans: 'var(--font-sans), "Inter", -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif',
   },

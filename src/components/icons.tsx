@@ -55,6 +55,22 @@ export function UserIcon() {
   )
 }
 
+export function OverviewIcon() {
+  return (
+    <svg aria-hidden="true" width={iconSizes.standard} height={iconSizes.standard} viewBox={iconViewBox} fill="none" stroke="currentColor" strokeWidth={iconStrokes.nav} strokeLinecap="round">
+      <path d="M5 19V11m7 8V5m7 14v-9" />
+    </svg>
+  )
+}
+
+export function SponsorIcon() {
+  return (
+    <svg aria-hidden="true" width={iconSizes.standard} height={iconSizes.standard} viewBox={iconViewBox} fill="none" stroke="currentColor" strokeWidth={iconStrokes.nav} strokeLinejoin="round">
+      <path d="M20.3 5.9a5 5 0 0 0-7.1 0L12 7.2l-1.2-1.3a5 5 0 0 0-7.1 7.1L12 21l8.3-8a5 5 0 0 0 0-7.1Z" />
+    </svg>
+  )
+}
+
 export function ChevronDownIcon({ className = 'w-4 h-4 shrink-0 text-ink-secondary' }: { className?: string }) {
   return (
     <svg aria-hidden="true" className={className} viewBox={chevronViewBox} fill="none" stroke="currentColor" strokeWidth={iconStrokes.chevron}>

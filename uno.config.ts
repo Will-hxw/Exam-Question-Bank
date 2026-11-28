@@ -35,14 +35,14 @@ export default defineConfig({
   shortcuts: {
     'auth-footer-link': 'min-h-11 appearance-none border-0 bg-transparent p-0 cursor-pointer underline decoration-1 underline-offset-3 disabled:cursor-default',
     tactile:
-      'transition-all duration-tactile ease-spring active:scale-97 cursor-pointer select-none border-0 outline-none',
+      'transition-[transform,color,background-color,box-shadow] duration-tactile ease-spring active:scale-97 cursor-pointer select-none border-0',
     'btn-surface':
       'tactile bg-surface text-ink-primary hover:bg-surface-hover disabled:opacity-35 disabled:cursor-default',
     'btn-cta':
       'tactile bg-cta text-cta-ink disabled:bg-cta-disabled disabled:text-cta-disabled-ink disabled:cursor-default',
     'floating-header': 'bg-transparent sticky top-0 z-20 pointer-events-none',
     'glass-footer':
-      'bg-canvas-footer backdrop-blur-xl fixed bottom-0 inset-x-0 z-20 px-5 py-3 flex items-center gap-2.5',
+      'mt-5 flex items-center gap-2.5',
     'badge-tag':
       'px-2.5 py-1 rounded-tag text-label font-medium bg-surface text-ink-secondary inline-flex items-center gap-1.5',
     'icon-btn': 'btn-surface w-9.5 h-9.5 rounded-compact flex items-center justify-center shrink-0',
@@ -54,13 +54,15 @@ export default defineConfig({
     'sheet-cell':
       'tactile h-11 rounded-compact text-control font-semibold tabular-nums flex items-center justify-center',
     'input-flat':
-      'w-full h-12 px-4 rounded-control bg-surface text-ink-primary text-body border-0 outline-none transition-colors duration-tactile ease-silk focus:bg-surface-hover',
+      'w-full h-12 px-4 rounded-control bg-surface text-ink-primary text-body border-0 transition-colors duration-tactile ease-silk focus:bg-surface-hover',
     'textarea-flat':
       'w-full min-h-28 p-4 rounded-option bg-surface text-ink-primary text-body leading-relaxed border-0 outline-none resize-y transition-colors duration-tactile ease-silk focus:bg-surface-hover',
     'drawer-overlay':
-      'fixed inset-0 z-40 flex flex-col justify-end bg-scrim backdrop-blur-sm transition-opacity duration-scrim ease-silk',
+      'fixed inset-0 m-0 w-full max-w-none h-dvh max-h-none p-0 border-0 bg-transparent text-ink-primary backdrop:bg-scrim',
     'drawer-panel':
-      'bg-canvas rounded-t-sheet max-h-5/6 flex flex-col transition-transform duration-drawer ease-silk',
+      'bg-canvas rounded-t-sheet max-h-[85dvh] min-h-0 flex flex-col',
+    'community-link': 'inline-flex flex-col sm:flex-row items-center gap-1.5 min-w-15 min-h-11 justify-center text-meta font-medium text-ink-secondary no-underline hover:text-selected-ink',
+    'community-icon': 'relative w-9 h-9 rounded-full inline-flex items-center justify-center bg-surface text-ink-primary',
     'study-two-col':
       'lg:grid lg:study-grid-cols lg:justify-between lg:gap-10 lg:items-start',
     'study-rail': 'hidden lg:flex lg:flex-col lg:gap-5 lg:sticky lg:top-22',
@@ -71,7 +73,7 @@ export default defineConfig({
     'chat-composer-form':
       'shrink-0 sticky bottom-3 lg:bottom-0 z-10 p-3 rounded-option bg-surface flex flex-col gap-2.5',
     'chat-composer-input':
-      'w-full min-h-15 p-1 bg-transparent text-ink-primary text-body border-0 outline-none resize-none',
+      'w-full min-h-15 p-1 bg-transparent text-ink-primary text-body border-0 resize-none',
     'emoji-popover':
       'animate-popover-up origin-bottom-left absolute bottom-full mb-2 left-0 p-2 rounded-option bg-canvas shadow-desktop grid grid-cols-8 gap-1 z-30',
     'otp-input': 'input-flat tabular-nums tracking-widest text-center text-base font-semibold',
@@ -88,7 +90,7 @@ export default defineConfig({
     'confirm-dialog':
       'rounded-sheet bg-canvas text-ink-primary p-6 max-w-sm w-11/12 shadow-desktop border-0 backdrop:bg-scrim',
     'collapse-grid':
-      'grid grid-rows-collapsed transition-rows duration-collapse ease-silk motion-reduce:transition-none',
+      'grid transition-rows duration-collapse ease-silk motion-reduce:transition-none',
     'collapse-inner': 'overflow-hidden',
   },
   rules: [

@@ -71,8 +71,8 @@ export function FeedbackPage({ pathname, userId, active, unread, onBack, warmAut
   }
 
   return (
-    <section ref={page} className="max-w-feedback mx-auto py-2 animate-view-enter" aria-labelledby="feedback-title">
-      <ActionLink variant="surface" size="sm" className="mb-5" href={pathname} onClick={onBack}>
+    <section ref={page} className="max-w-feedback w-full mx-auto py-2 flex flex-1 flex-col animate-view-enter" aria-labelledby="feedback-title">
+      <ActionLink variant="surface" size="sm" className="mb-5 self-start" href={pathname} onClick={onBack}>
         {messages.common.backToPractice}
       </ActionLink>
 
@@ -99,8 +99,8 @@ export function FeedbackPage({ pathname, userId, active, unread, onBack, warmAut
         </ActionLink>
       </div>
 
-      <p className="text-control text-ink-secondary">
-        紧急情况请联系 QQ 邮箱：<a className="underline" href={`mailto:${siteConfig.feedbackEmail}`}>{siteConfig.feedbackEmail}</a>
+      <p className="m-0 mb-7 text-control text-ink-secondary">
+        紧急情况请联系 QQ 邮箱：<a className="text-ink-secondary underline underline-offset-2 hover:text-ink-primary" href={`mailto:${siteConfig.feedbackEmail}`}>{siteConfig.feedbackEmail}</a>
       </p>
 
       {status === 'sent' ? (
@@ -112,50 +112,39 @@ export function FeedbackPage({ pathname, userId, active, unread, onBack, warmAut
           </Button>
         </div>
       ) : (
-        <form className="flex flex-col gap-5" onSubmit={(event) => void submit(event)}>
-          <div>
-            <div className="text-xs font-medium text-ink-muted mb-2.5">{messages.feedback.ratingLabel}</div>
-            <div className="flex flex-wrap gap-2" role="radiogroup" aria-label={messages.feedback.ratingLabel}>
-              {feedbackRatings.map((option) => {
-                const activeOption = rating === option
-                return (
-                  <Button
-                    key={option}
-                    variant={activeOption ? 'selected' : 'surface'}
-                    size="md"
-                    role="radio"
-                    aria-checked={activeOption}
-                    className="h-10 text-control"
-                    onClick={() => {
-                      setError('')
-                      save({ ...draft, rating: option })
-                    }}
-                  >
-                    {option}
-                  </Button>
-                )
-              })}
+        <form className="flex flex-1 flex-col gap-5" onSubmit={(event) => void submit(event)}>
+          <fieldset className="m-0 min-w-0 p-0 border-0" disabled={status === 'sending'}>
+            <legend className="text-body font-medium text-ink-primary">{messages.feedback.ratingLabel}</legend>
+            <div className="relative isolate mt-3 grid grid-cols-5">
+              <span aria-hidden="true" className="absolute top-4 left-1/10 right-1/10 h-px bg-progress-track" />
+              {feedbackRatings.map((option) => (
+                <label key={option} className="relative flex min-h-12 cursor-pointer flex-col items-center gap-1.5 py-2 text-meta text-ink-secondary">
+                  <input type="radio" name="rating" value={option} checked={rating === option} required
+                    className="m-0 h-4 w-4 accent-[var(--selected-badge)]"
+                    onChange={() => { setError(''); save({ ...draft, rating: option }) }} />
+                  <span lang={option === 'NPC' ? 'en' : undefined} className={rating === option ? 'font-semibold text-ink-primary' : ''}>{option}</span>
+                </label>
+              ))}
             </div>
-          </div>
+          </fieldset>
 
-          <div>
-            <label htmlFor="feedback-message" className="block text-xs font-medium text-ink-muted mb-2.5">
-              {messages.feedback.messageLabel(message.length, feedbackMaxLength)}
+          <div className="flex flex-1 flex-col">
+            <label htmlFor="feedback-message" className="block mb-2.5 text-body font-medium text-ink-primary">
+              {messages.feedback.messageLabel}<span className="ml-2 text-xs font-normal text-ink-secondary">选填</span>
             </label>
-            <TextArea
-              id="feedback-message"
-              maxLength={feedbackMaxLength}
-              placeholder={messages.feedback.messagePlaceholder}
-              value={message}
-              onChange={(event) => save({ ...draft, message: event.target.value })}
-            />
+            <TextArea id="feedback-message" name="message" rows={8} className="block flex-1" maxLength={feedbackMaxLength}
+              placeholder={messages.feedback.messagePlaceholder} value={message} readOnly={status === 'sending'}
+              onChange={(event) => save({ ...draft, message: event.target.value })} />
           </div>
 
           {error && <p className="m-0 text-meta text-wrong-ink" role="alert">{error}</p>}
 
-          <Button type="submit" variant="cta" size="lg" className="w-full" disabled={status === 'sending'}>
-            {status === 'sending' ? messages.feedback.submitting : messages.feedback.submitButton}
-          </Button>
+          <div className="mt-auto flex items-center justify-between gap-3">
+            <span className="text-meta tabular-nums text-ink-secondary">{message.length} / {feedbackMaxLength}</span>
+            <Button type="submit" variant="cta" size="lg" className="px-7" disabled={status === 'sending'} aria-busy={status === 'sending'}>
+              {status === 'sending' ? messages.feedback.submitting : messages.feedback.submitButton}
+            </Button>
+          </div>
         </form>
       )}
     </section>

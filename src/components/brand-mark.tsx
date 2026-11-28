@@ -4,7 +4,8 @@ import { siteConfig } from '@/config/site'
 export function BrandMark() {
   return (
     <a
-      className="pointer-events-auto flex items-center gap-2.5 shrink-0 no-underline text-ink-primary bg-canvas-header backdrop-blur-md px-3 py-1.5 -ml-3 rounded-control"
+      className="pointer-events-auto min-w-0 inline-flex items-center gap-2 lg:gap-2.5 no-underline text-ink-primary py-1.5 rounded-control"
+      aria-label={siteConfig.title}
       href={siteConfig.links.partyStudyHome}
       target="_blank"
       rel="noreferrer"
@@ -17,7 +18,10 @@ export function BrandMark() {
         height={siteConfig.imageDimensions.headerCrest}
         unoptimized
       />
-      <span className="font-serif text-base font-bold tracking-tight">{siteConfig.title}</span>
+      <span className="font-serif font-bold tracking-tight leading-tight">
+        <span className="block text-sm lg:inline lg:text-base">{siteConfig.shortTitle}</span>
+        <span className="block text-xs lg:inline lg:text-base">{siteConfig.subTitle}</span>
+      </span>
     </a>
   )
 }

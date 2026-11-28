@@ -7,7 +7,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { createContext, Fragment, type MouseEvent, type ReactNode, useCallback, useContext, useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { siteConfig } from '@/config/site'
 import { messages } from '@/config/messages'
-import { ChatBubbleIcon, ChevronDownIcon, MailboxIcon, MoonIcon, SunIcon, UserIcon } from '@/components/icons'
+import { ChatBubbleIcon, ChevronDownIcon, MailboxIcon, MoonIcon, OverviewIcon, SponsorIcon, SunIcon, UserIcon } from '@/components/icons'
 import { ActionLink, BottomDrawer, Button, StatTile, UnreadDot } from '@/components/ui'
 import { warmSharedChat } from '../chat/shared-chat-cache'
 import { authorChatHash, unreadDescriptionId } from '../chat/types'
@@ -133,7 +133,7 @@ function useTheme(theme: unknown, save: (edits: Record<string, unknown>) => void
   return { resolvedTheme, toggleTheme }
 }
 
-function useStudySession(userId: string, initialPreferences: StudyPreferences | null, initialStats: StudyStats | null, initialTopics: { topics: Topic[] } | null) {
+function useStudySession(userId: string, initialPreferences: StudyPreferences | null, initialStats: StudyStats | null) {
   const [revision, setRevision] = useState(0)
   const [personalReads] = useState(() => createPersonalStudyReads(userId))
   const stateRevision = useRef(0)
@@ -151,7 +151,7 @@ function useStudySession(userId: string, initialPreferences: StudyPreferences | 
   }, [personalReads])
   const stats = useStudyData<StudyStats>(siteConfig.api.stats, revision, { ...personalReads, initial: initialStats, keepPreviousData: true })
   const preferences = useAccountStudyPreferences(userId, stats.data?.preferences ?? initialPreferences ?? undefined, stats.loading)
-  const topics = useStudyData<{ topics: Topic[] }>(siteConfig.api.topics, 0, { initial: initialTopics })
+  const topics = useStudyData<{ topics: Topic[] }>(siteConfig.api.topics)
   const attempts = useAttemptQueue(userId, refreshMe)
 
   const readQuestionStates = useCallback((path: string) => {
@@ -270,9 +270,9 @@ export function useQuestionFavorite(id: string, serverFavorite?: boolean) {
   }
 }
 
-export function StudyShell({ userId, author, initialPreferences, initialStats, initialTopics, brandSlot, sponsorSlot, children }: {
+export function StudyShell({ userId, author, initialPreferences, initialStats, brandSlot, sponsorSlot, children }: {
   userId: string; author: boolean; initialPreferences: StudyPreferences | null
-  initialStats: StudyStats | null; initialTopics: { topics: Topic[] } | null
+  initialStats: StudyStats | null
   brandSlot: ReactNode; sponsorSlot: ReactNode; children: ReactNode
 }) {
   const pathname = usePathname()
@@ -296,7 +296,7 @@ export function StudyShell({ userId, author, initialPreferences, initialStats, i
   const threadId = hash.startsWith(authorChatHash + '/') ? hash.slice(authorChatHash.length + 1) : undefined
   const footerPageOpen = sponsorOpen || feedbackOpen || chatOpen || authorChatOpen
   const { unread, sharedUnread, updateUnread, updateSharedUnread } = useChatUnread(userId, feedbackOpen || authorChatOpen)
-  const session = useStudySession(userId, initialPreferences, initialStats, initialTopics)
+  const session = useStudySession(userId, initialPreferences, initialStats)
   const { personalReads, preferences } = session
   const { resolvedTheme, toggleTheme } = useTheme(preferences.values.theme, preferences.save)
   const [overviewOpen, setOverviewOpen] = useState(false)
@@ -363,6 +363,15 @@ export function StudyShell({ userId, author, initialPreferences, initialStats, i
     return false
   }
 
+  function navigateToModule(href: string, event: { preventDefault: () => void }) {
+    if (footerPageOpen && href === pathname) {
+      closeFooterPage(event)
+    } else if ((href === siteConfig.routes.exam || navigateFromExam(event)) && href === initialFooterPath) {
+      event.preventDefault()
+      if (href !== pathname) window.location.assign(href)
+    }
+  }
+
   function openFooterPage(event: MouseEvent<HTMLAnchorElement>, nested = false) {
     if (!isFooterLinkClick(event)) return false
     const destination = new URL(event.currentTarget.href)
@@ -380,15 +389,14 @@ export function StudyShell({ userId, author, initialPreferences, initialStats, i
     return true
   }
 
-  const currentNavLabel = siteConfig.nav.find((item) => item.href === pathname)?.label ?? siteConfig.title
   const topicEntries = session.topics.data?.topics ?? []
   const practicePref = (preferences.values.practice as { mode?: string; topic?: string } | undefined) ?? {}
   const practiceMode = siteConfig.practiceModes.find((m) => m.id === practicePref.mode)?.id ?? 'topic'
   const practiceModeLabel = siteConfig.practiceModes.find((m) => m.id === practiceMode)?.label ?? messages.shell.practiceModes.topic
   const activeTopic = topicEntries.find((entry) => entry.id === practicePref.topic) ?? topicEntries.find((entry) => entry.count > 0) ?? topicEntries[0]
   const practiceOnlyUndone = preferences.values[practiceUndonePreference] === true
-  const mobileSubtitle = pathname === '/' ? `${practiceModeLabel}${messages.shell.practiceSubtitleSuffix}${practiceOnlyUndone ? messages.shell.practiceOnlyUndoneTag : ''}` : siteConfig.shortTitle
-  const mobileTitle = pathname === '/' ? (practiceMode === 'topic' ? (activeTopic?.name ?? messages.shell.topicPracticeTitle) : `${practiceModeLabel}${messages.shell.practiceSubtitleSuffix}`) : currentNavLabel
+  const mobileSubtitle = `${practiceModeLabel}${messages.shell.practiceSubtitleSuffix}${practiceOnlyUndone ? messages.shell.practiceOnlyUndoneTag : ''}`
+  const mobileTitle = practiceMode === 'topic' ? (activeTopic?.name ?? messages.shell.topicPracticeTitle) : messages.shell.drawerSettingsTitle
   const statValues = session.stats.data
 
   const themeIcon = resolvedTheme === 'dark' ? <SunIcon /> : <MoonIcon />
@@ -396,12 +404,11 @@ export function StudyShell({ userId, author, initialPreferences, initialStats, i
   return (
     <StudyContext.Provider value={session}>
       <div className="min-h-dvh bg-canvas text-ink-primary flex flex-col">
-        {/* Desktop 64px transparent floating header */}
-        <header id="site-header" className="floating-header hidden lg:block">
-          <div className="h-16 px-7 max-w-topbar w-full mx-auto flex items-center justify-between gap-5">
+        <header id="site-header" className="floating-header bg-canvas-header backdrop-blur-md">
+          <div className="max-w-topbar mx-auto w-full px-3 py-2 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-2 gap-y-2 lg:h-16 lg:flex lg:justify-between lg:gap-5 lg:px-7 lg:py-0">
             {brandSlot}
 
-            <nav id="top-nav" ref={navRef} className="relative pointer-events-auto flex items-center gap-1.5 bg-surface p-1 rounded-control" aria-label={messages.shell.navAriaLabel}>
+            <nav id="top-nav" ref={navRef} className="relative pointer-events-auto order-last col-span-2 flex items-center gap-0.5 bg-surface p-1 rounded-control lg:order-none lg:gap-1.5" aria-label={messages.shell.navAriaLabel}>
               <span
                 aria-hidden="true"
                 className="nav-indicator"
@@ -420,18 +427,12 @@ export function StudyShell({ userId, author, initialPreferences, initialStats, i
                     href={href}
                     scroll={false}
                     aria-current={active ? 'page' : undefined}
-                    className={`tactile relative z-10 h-9 px-4 rounded-micro flex items-center justify-center text-control no-underline ${active ? 'text-ink-primary font-semibold' : 'text-ink-secondary font-medium hover:text-ink-primary'}`}
+                    className={`tactile relative z-10 min-w-0 flex-1 whitespace-nowrap h-9 px-1 rounded-micro lg:flex-none lg:px-4 flex items-center justify-center text-control no-underline ${active ? 'text-ink-primary font-semibold' : 'text-ink-secondary font-medium hover:text-ink-primary'}`}
                     prefetch={false}
                     onPointerEnter={(event) => { if (event.pointerType === 'mouse') warmRoute(href) }}
                     onPointerDown={(event) => { if (event.pointerType !== 'mouse') warmRoute(href) }}
                     onFocus={() => warmRoute(href)}
-                    onNavigate={(event) => {
-                      if (footerPageOpen && href === pathname) closeFooterPage(event)
-                      else if ((href === siteConfig.routes.exam || navigateFromExam(event)) && href === initialFooterPath) {
-                        event.preventDefault()
-                        if (href !== pathname) window.location.assign(href)
-                      }
-                    }}
+                    onNavigate={(event) => navigateToModule(href, event)}
                   >
                     {label}
                     <StudyNavigationStatus />
@@ -440,7 +441,7 @@ export function StudyShell({ userId, author, initialPreferences, initialStats, i
               })}
             </nav>
 
-            <div className="pointer-events-auto flex items-center gap-2 shrink-0">
+            <div className="pointer-events-auto flex items-center justify-end gap-1 shrink-0 lg:gap-2">
               <a
                 className="icon-btn relative no-underline"
                 href={siteConfig.hashes.chat}
@@ -457,6 +458,19 @@ export function StudyShell({ userId, author, initialPreferences, initialStats, i
               <Button variant="icon" onClick={toggleTheme} aria-label={messages.shell.toggleThemeAria}>
                 <span key={resolvedTheme} className="inline-flex animate-icon-swap">{themeIcon}</span>
               </Button>
+              <Button
+                variant="icon"
+                className="relative lg:hidden"
+                aria-label={messages.shell.openOverviewAria}
+                aria-haspopup="dialog"
+                onClick={(event) => {
+                  event.currentTarget.focus({ preventScroll: true })
+                  setOverviewOpen(true)
+                }}
+              >
+                <OverviewIcon />
+                {(unread || sharedUnread) && <UnreadDot className="absolute top-2 right-2" />}
+              </Button>
               <Link
                 className="icon-btn relative no-underline"
                 href={siteConfig.routes.account}
@@ -472,49 +486,26 @@ export function StudyShell({ userId, author, initialPreferences, initialStats, i
           </div>
         </header>
 
-        {/* Mobile floating header */}
-        <header className="floating-header lg:hidden px-5 pt-3.5 pb-3 flex items-center justify-between gap-3">
-          <button
-            type="button"
-            className="btn-surface pointer-events-auto min-w-0 flex-1 max-w-trigger px-3 py-2 rounded-control flex items-center justify-between gap-2 text-left"
-            aria-label={messages.shell.openSettingsAria}
-            onClick={() => setMobileSettingsOpen(true)}
-          >
-            <div className="min-w-0 flex items-center gap-2.5">
-              <Image
-                className="rounded-full bg-white shrink-0 object-contain"
-                src={siteConfig.assets.crest}
-                alt=""
-                width={siteConfig.imageDimensions.mobileCrest}
-                height={siteConfig.imageDimensions.mobileCrest}
-                unoptimized
-              />
-              <div className="min-w-0 flex flex-col">
-                <span className="text-micro font-medium text-ink-muted leading-tight">{mobileSubtitle}</span>
-                <span className="mt-0.5 text-sm font-semibold truncate text-ink-primary">{mobileTitle}</span>
-              </div>
-            </div>
-            <ChevronDownIcon />
-          </button>
-
-          <div className="pointer-events-auto flex items-center gap-2 shrink-0">
-            <Button variant="icon" onClick={toggleTheme} aria-label={messages.shell.toggleThemeAria}>
-              <span key={resolvedTheme} className="inline-flex animate-icon-swap">{themeIcon}</span>
-            </Button>
-            <Button
-              variant="icon"
-              className="relative"
-              onClick={() => setOverviewOpen(true)}
-              aria-label={messages.shell.openOverviewAria}
-            >
-              <UserIcon />
-              {(unread || sharedUnread) && <UnreadDot className="absolute top-2 right-2" />}
-            </Button>
-          </div>
-        </header>
-
         {/* Main canvas */}
-        <main className={`max-w-shell w-full mx-auto px-5 lg:px-7 pt-4 lg:pt-7 flex-1 ${(chatOpen || (authorChatOpen && (!author || Boolean(threadId)))) ? 'pb-4 lg:pb-2' : 'pb-28 lg:pb-16'}`}>
+        <main className={`max-w-shell w-full mx-auto px-5 lg:px-7 pt-4 lg:pt-7 flex-1 ${(chatOpen || (authorChatOpen && (!author || Boolean(threadId)))) ? 'pb-4 lg:pb-2' : feedbackOpen ? 'pb-4 lg:pb-6 flex flex-col' : 'pb-6 lg:pb-12'}`}>
+          {pathname === siteConfig.routes.practice && !footerPageOpen && (
+            <button
+              type="button"
+              className="btn-surface min-w-0 max-w-full mb-4 px-3 py-2 rounded-control inline-flex items-center gap-2 text-left lg:hidden"
+              aria-label={messages.shell.openSettingsAria}
+              aria-haspopup="dialog"
+              onClick={(event) => {
+                event.currentTarget.focus({ preventScroll: true })
+                setMobileSettingsOpen(true)
+              }}
+            >
+              <span className="min-w-0 flex flex-col">
+                <span className="text-xs font-medium text-ink-secondary">{mobileSubtitle}</span>
+                <span className="mt-0.5 text-sm font-semibold truncate text-ink-primary">{mobileTitle}</span>
+              </span>
+              <ChevronDownIcon />
+            </button>
+          )}
           {preferences.syncFailed && (
             <div className="mb-4 px-4 py-3 rounded-control bg-wrong-fill text-wrong-ink text-control flex items-center justify-between gap-3" role="status">
               <span>{messages.shell.syncError}</span>
@@ -523,10 +514,10 @@ export function StudyShell({ userId, author, initialPreferences, initialStats, i
               </Button>
             </div>
           )}
-          <div key={pathname} className="animate-view-enter" hidden={footerPageOpen}>{children}</div>
+          <div key={pathname} hidden={footerPageOpen} inert={footerPageOpen}>{children}</div>
           {chatOpen && <PublicChat backHref={pathname} userId={userId} onBack={closeFooterPage} onRead={updateSharedUnread} />}
           {(feedbackOpen || authorChatOpen) && (
-            <div hidden={!feedbackOpen}>
+            <div hidden={!feedbackOpen} className={feedbackOpen ? 'flex flex-1 flex-col' : undefined}>
               <FeedbackPage
                 pathname={pathname}
                 userId={userId}
@@ -561,25 +552,27 @@ export function StudyShell({ userId, author, initialPreferences, initialStats, i
 
         <span id={unreadDescriptionId} hidden>{messages.common.unreadBadgeText}</span>
 
-        {/* Desktop footer */}
-        <footer className="hidden lg:flex flex-col items-center gap-1.5 px-7 py-6 text-xs text-ink-muted">
-          <div className="flex items-center justify-center gap-5">
-            <a className="tactile text-ink-secondary hover:text-ink-primary no-underline inline-flex items-center gap-1.5" href={siteConfig.hashes.chat} onClick={(event) => openFooterPage(event)}>
-              {messages.shell.chatLink}{sharedUnread && <UnreadDot size="sm" />}
-            </a>
-            <a className="tactile text-ink-secondary hover:text-ink-primary no-underline inline-flex items-center gap-1.5" href={siteConfig.hashes.feedback} onClick={(event) => openFooterPage(event)}>
-              {messages.shell.feedbackLink}{unread && <UnreadDot size="sm" />}
-            </a>
-            <a
-              className="tactile text-ink-secondary hover:text-ink-primary no-underline"
-              href={siteConfig.hashes.sponsor}
-              onClick={(event) => openFooterPage(event)}
-              onPointerEnter={() => warmImage(siteConfig.assets.sponsorQr)}
-              onFocus={() => warmImage(siteConfig.assets.sponsorQr)}
-            >
-              {messages.shell.sponsorLink}
-            </a>
-            <span lang="en">{siteConfig.visibleCredit}</span>
+        <footer className="community-footer mx-auto w-full max-w-shell px-5 lg:px-7">
+          <div className="border-t border-0 border-solid border-surface-hover py-4 flex flex-col items-center gap-3 sm:flex-row sm:justify-between">
+            <nav aria-label="社区与支持" className="flex items-center justify-center gap-4 sm:gap-5">
+              <a className="community-link" aria-label="打开聊天区" href={siteConfig.hashes.chat}
+                aria-describedby={sharedUnread ? unreadDescriptionId : undefined}
+                onClick={(event) => openFooterPage(event)} onPointerEnter={() => warmChat(userId)} onFocus={() => warmChat(userId)}>
+                <span className="community-icon"><ChatBubbleIcon />{sharedUnread && <UnreadDot className="absolute right-0 top-0" />}</span>
+                {messages.shell.chatLink}
+              </a>
+              <a className="community-link" aria-label="打开意见反馈页面" href={siteConfig.hashes.feedback}
+                aria-describedby={unread ? unreadDescriptionId : undefined} onClick={(event) => openFooterPage(event)}>
+                <span className="community-icon"><MailboxIcon />{unread && <UnreadDot className="absolute right-0 top-0" />}</span>
+                {messages.shell.feedbackLink}
+              </a>
+              <a className="community-link" aria-label="打开友情赞助页面" href={siteConfig.hashes.sponsor}
+                onClick={(event) => openFooterPage(event)} onPointerEnter={() => warmImage(siteConfig.assets.sponsorQr)} onFocus={() => warmImage(siteConfig.assets.sponsorQr)}>
+                <span className="community-icon"><SponsorIcon /></span>
+                {messages.shell.sponsorLink}
+              </a>
+            </nav>
+            <span className="font-credit text-base text-ink-secondary" lang="en">{siteConfig.visibleCredit}</span>
           </div>
         </footer>
 
@@ -603,7 +596,7 @@ export function StudyShell({ userId, author, initialPreferences, initialStats, i
                     scroll={false}
                     className={`tactile h-10 px-4 rounded-compact inline-flex items-center justify-center text-control font-medium no-underline ${active ? 'bg-cta text-cta-ink' : 'bg-surface text-ink-primary'}`}
                     onClick={() => setMobileSettingsOpen(false)}
-                    onNavigate={navigateFromExam}
+                    onNavigate={(event) => navigateToModule(href, event)}
                   >
                     {label}
                   </Link>
@@ -708,7 +701,7 @@ export function StudyShell({ userId, author, initialPreferences, initialStats, i
             </Link>
           </div>
           <div className="flex flex-col items-center gap-1.5 text-center" lang="en">
-            <span className="text-xs text-ink-muted">{siteConfig.visibleCredit}</span>
+            <span className="font-credit text-base text-ink-secondary">{siteConfig.visibleCredit}</span>
           </div>
         </BottomDrawer>
       </div>
