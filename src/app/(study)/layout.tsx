@@ -1,25 +1,45 @@
+import { BrandMark } from '@/components/brand-mark'
+import { ColophonCredit } from '@/components/colophon-credit'
+import { messages } from '@/config/messages'
 import { isSiteAuthor } from '@/features/auth/server'
 import { loadStudyUser } from '@/features/auth/study-access'
+import { SponsorCard } from '@/features/study/sponsor-card'
 import { StudyShell } from '@/features/study/study-shell'
-import { initialStudyPreferences, initialStudyStats } from '@/server/study-bootstrap'
-import '@/features/study/study.css'
+import { initialStudyPreferences, initialStudyStats, initialStudyTopics } from '@/server/study-bootstrap'
 
 export default async function StudyLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const auth = await loadStudyUser()
 
   if (!auth.available) {
-    return <main className="study-theme"><div className="study-shell">
-      <div className="empty-state" role="alert">
-        <p>暂时无法验证登录状态。请稍后刷新页面。</p>
-      </div>
-    </div></main>
+    return (
+      <main className="min-h-dvh bg-canvas flex items-center justify-center px-5">
+        <div className="p-6 rounded-option bg-surface text-center max-w-sm" role="alert">
+          <p className="m-0 text-sm text-ink-secondary">{messages.shell.authUnavailable}</p>
+        </div>
+      </main>
+    )
   }
   if (!auth.user) return children
 
-  const initialPreferences = initialStudyPreferences(auth.user.id)
-  const initialStats = initialStudyStats(auth.user.id)
-  return <StudyShell userId={auth.user.id} author={isSiteAuthor(auth.user)}
-    initialPreferences={initialPreferences} initialStats={initialStats} key={auth.user.id}>
-    {children}
-  </StudyShell>
+  const [initialPreferences, initialStats, initialTopics] = await Promise.all([
+    initialStudyPreferences(auth.user.id),
+    initialStudyStats(auth.user.id),
+    initialStudyTopics(),
+  ])
+
+  return (
+    <StudyShell
+      userId={auth.user.id}
+      author={isSiteAuthor(auth.user)}
+      initialPreferences={initialPreferences}
+      initialStats={initialStats}
+      initialTopics={initialTopics}
+      brandSlot={<BrandMark />}
+      colophonSlot={<ColophonCredit />}
+      sponsorSlot={<SponsorCard />}
+      key={auth.user.id}
+    >
+      {children}
+    </StudyShell>
+  )
 }

@@ -1,7 +1,10 @@
 'use client'
 
 import { useEffect, useId, useRef, useState } from 'react'
-import { type Explanation, letter, type Topic } from './api'
+import { ChevronDownIcon } from '@/components/icons'
+import { messages } from '@/config/messages'
+import { type Topic } from './api'
+export { ExplanationPanel, LoadMessage } from './explanation-panel'
 
 export function ChoicePicker<Value extends string | number>({ entries, value, fallback, label, alignEnd, onChange }: {
   entries: { value: Value; label: string }[]
@@ -38,20 +41,44 @@ export function ChoicePicker<Value extends string | number>({ entries, value, fa
   const selected = entries.find((entry) => entry.value === value)?.label ?? fallback
 
   return (
-    <div className={`topic-dropdown${alignEnd ? ' topic-dropdown-end' : ''}`} ref={panel}>
-      <button type="button" className="topic-dropdown-btn" aria-label={label && `${label}，当前 ${selected}`}
-        aria-expanded={open} aria-controls={open ? id : undefined} ref={trigger} onClick={() => setOpen(!open)}>
-        <span>{selected}</span>
-        <span className="topic-dropdown-arrow" aria-hidden="true" />
+    <div className="relative inline-block max-w-full" ref={panel}>
+      <button
+        type="button"
+        className="btn-surface h-10 px-3.5 rounded-compact inline-flex items-center justify-between gap-2 text-control font-medium max-w-full"
+        aria-label={label && messages.controls.pickerAria(label, selected)}
+        aria-expanded={open}
+        aria-controls={open ? id : undefined}
+        ref={trigger}
+        onClick={() => setOpen(!open)}
+      >
+        <span className="truncate">{selected}</span>
+        <ChevronDownIcon className={`w-4 h-4 shrink-0 text-ink-secondary transition-transform duration-300 ease-silk ${open ? 'rotate-180' : ''}`} />
       </button>
-      {open && <div className="topic-dropdown-panel open" id={id}>
-        {entries.map((entry) => (
-          <button key={entry.value} type="button" aria-pressed={value === entry.value} className={`topic-option${value === entry.value ? ' active' : ''}`}
-            onClick={() => { onChange(entry.value); setOpen(false); trigger.current?.focus() }}>
-            {entry.label}
-          </button>
-        ))}
-      </div>}
+      {open && (
+        <div
+          className={`dropdown-panel ${alignEnd ? 'right-0' : 'left-0'}`}
+          id={id}
+        >
+          {entries.map((entry) => {
+            const active = value === entry.value
+            return (
+              <button
+                key={entry.value}
+                type="button"
+                aria-pressed={active}
+                className={`tactile w-full text-left px-3 py-2.5 rounded-micro text-control leading-snug ${active ? 'bg-selected-fill text-selected-ink font-semibold' : 'bg-transparent text-ink-primary hover:bg-surface'}`}
+                onClick={() => {
+                  onChange(entry.value)
+                  setOpen(false)
+                  trigger.current?.focus()
+                }}
+              >
+                {entry.label}
+              </button>
+            )
+          })}
+        </div>
+      )}
     </div>
   )
 }
@@ -63,34 +90,6 @@ export function TopicPicker({ topics, value, allowAll = false, onChange }: {
   onChange: (value: string) => void
 }) {
   const entries = topics.map(({ id, name }) => ({ value: id, label: name }))
-  if (allowAll) entries.unshift({ value: '', label: '全部' })
-  return <ChoicePicker entries={entries} value={value} fallback={allowAll ? '全部' : '请选择'} onChange={onChange} />
-}
-
-export function LoadMessage({ error, loading, empty, retry }: { error?: string | null; loading?: boolean; empty?: string; retry?: () => void }) {
-  return <div className="empty-state" role={error ? 'alert' : 'status'}>
-    <p>{error || (loading ? '加载中…' : empty || '暂无题目')}</p>
-    {error && retry && <button type="button" className="btn btn-sm" onClick={retry}>重试</button>}
-  </div>
-}
-
-export function ExplanationPanel({ content, onClose }: { content: Explanation; onClose?: () => void }) {
-  return (
-    <section className="explanation-panel" aria-label="题目解析">
-      <h2>题目解析 {onClose && <button type="button" className="btn btn-sm" onClick={onClose}>收起</button>}</h2>
-      <p>{content.explanation}</p>
-      <ul>
-        {content.options.map((option, index) => <li key={option.id}>
-          <strong>{letter(index)}. {option.text}</strong>（{content.answerIds.includes(option.id) ? '正确' : '错误'}）{option.rationale && <p>{option.rationale}</p>}
-        </li>)}
-      </ul>
-      {content.sources.length > 0 && <div className="explanation-sources">
-        <p>参考出处</p>
-        <ul>{content.sources.map((source, index) => <li key={`${source.url}-${index}`}>
-          {/^https?:\/\//i.test(source.url) ? <a href={source.url} target="_blank" rel="noreferrer">{source.title}</a> : source.title}
-          {source.location && ` · ${source.location}`}
-        </li>)}</ul>
-      </div>}
-    </section>
-  )
+  if (allowAll) entries.unshift({ value: '', label: messages.common.all })
+  return <ChoicePicker entries={entries} value={value} fallback={allowAll ? messages.common.all : messages.common.choose} onChange={onChange} />
 }

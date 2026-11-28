@@ -1,44 +1,28 @@
-"use client"
+import Link from 'next/link'
+import { BackArrowIcon } from '@/components/icons'
+import { messages } from '@/config/messages'
+import { siteConfig } from '@/config/site'
+import { SignOutButton } from './sign-out-button'
 
-import { useState } from "react"
-import { authClient } from "./client"
-import { AuthScreen } from "./auth-screen"
-import styles from "./auth-panel.module.css"
-
-export function AccountPanel({ email }: { email: string }) {
-  const [pending, setPending] = useState(false)
-  const [failed, setFailed] = useState(false)
-
-  async function signOut() {
-    setPending(true)
-    setFailed(false)
-    try {
-      const { error } = await authClient.signOut()
-      if (error) throw new Error("sign-out rejected")
-      window.location.replace("/login")
-    } catch {
-      setFailed(true)
-      setPending(false)
-    }
-  }
-
+export function AccountPanel({ email, name }: { email?: string; name?: string }) {
   return (
-    <AuthScreen>
-      <header className={styles.heading}>
-        <h1 className={styles.brand}><span className={styles.siteName}>账号</span></h1>
-        <p>已验证邮箱</p>
-        <p className={styles.address}>{email}</p>
-      </header>
-      <div className={styles.form}>
-        {failed && <p className={styles.error} role="alert">暂时无法退出，请重试。</p>}
-        <button type="button" className={styles.submit} disabled={pending} onClick={signOut}>
-          {pending ? "正在退出…" : "退出登录"}
-        </button>
+    <section aria-labelledby="account-heading" className="w-full max-w-auth-card mx-auto pt-6 animate-view-enter">
+      <h1 id="account-heading" className="font-serif m-0 mb-6 text-page-title font-bold text-ink-primary tracking-tight">
+        {messages.common.accountLabel}
+      </h1>
+      <div className="p-6 rounded-option bg-surface flex flex-col gap-5">
+        <div className="flex flex-col gap-1">
+          <span className="text-xs font-medium text-ink-muted">{messages.account.signedInAs}</span>
+          <strong className="text-base font-semibold text-ink-primary break-all">{email || name || messages.common.accountLabel}</strong>
+        </div>
+        <div className="flex items-center justify-between gap-3 flex-wrap pt-2">
+          <Link href={siteConfig.routes.practice} className="btn-surface h-10 px-4 rounded-compact inline-flex items-center gap-1.5 text-meta font-medium no-underline">
+            <BackArrowIcon />
+            {messages.common.backToPractice}
+          </Link>
+          <SignOutButton />
+        </div>
       </div>
-      <p className={styles.footer}>
-        {/* eslint-disable-next-line @next/next/no-html-link-for-pages -- A fresh document avoids reopening a cached footer fragment. */}
-        <a href="/" className={styles.link}>返回练习</a>
-      </p>
-    </AuthScreen>
+    </section>
   )
 }

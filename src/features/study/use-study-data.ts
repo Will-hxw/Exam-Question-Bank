@@ -42,13 +42,15 @@ export function useStudyData<T>(path: string | null, revision = 0, {
   keepPreviousData?: boolean
   load?: (path: string) => Promise<T>
   peek?: (path: string) => T | undefined
-  initial?: Promise<T | null>
+  initial?: T | null | Promise<T | null>
 } = {}) {
   const [retry, setRetry] = useState<{ count: number; override?: { path: string; load: (path: string) => Promise<T> } }>({ count: 0 })
   const key = `${path}:${retry.count}:${revision}`
   const freshLoad = retry.override?.path === path ? retry.override.load : undefined
   const bootstrap = revision === 0 && retry.count === 0 ? initial : undefined
+  const syncInitial = bootstrap !== undefined && bootstrap !== null && !(bootstrap instanceof Promise) ? bootstrap : undefined
   const [state, setState] = useState<DataState<T>>(() => {
+    if (syncInitial !== undefined) return { key, path, data: syncInitial, error: null }
     const cached = path ? peek?.(path) ?? (path.startsWith('/api/public/') ? cachedPublic<T>(path) : undefined) : undefined
     return { key: cached === undefined ? '' : key, path, data: cached ?? null, error: null }
   })
@@ -62,6 +64,7 @@ export function useStudyData<T>(path: string | null, revision = 0, {
 
   useEffect(() => {
     if (!path) return
+    if (syncInitial !== undefined && state.key === key && state.data === syncInitial) return
     let active = true
     const get = freshLoad ?? load ?? (path.startsWith('/api/public/') ? readPublic<T> : requestJson<T>)
     const request = bootstrap ? Promise.resolve(bootstrap).then((value) => value ?? get(path)) : get(path)
@@ -72,7 +75,7 @@ export function useStudyData<T>(path: string | null, revision = 0, {
       if (active) setState({ key, path, data: null, error: message })
     })
     return () => { active = false }
-  }, [bootstrap, key, path, load, freshLoad])
+  }, [bootstrap, key, path, load, freshLoad, state.data, state.key, syncInitial])
 
   const current = state.key === key
   const snapshot = !current && path && !freshLoad ? peek?.(path) ?? (path.startsWith('/api/public/') ? cachedPublic<T>(path) : undefined) : undefined

@@ -2,26 +2,26 @@
   "name": "cqu-rudang",
   "version": "0.0.0",
   "private": true,
+  "packageManager": "pnpm@12.23.0",
   "type": "module",
   "engines": {
     "node": ">=22.0.0"
   },
   "scripts": {
-    "dev": "npm run content:build && next dev",
-    "build": "npm run content:build && next build",
+    "dev": "pnpm run content:build && next dev",
+    "build": "pnpm run content:build && next build",
     "start": "next start",
     "typecheck": "next typegen && tsc --noEmit",
-    "lint": "eslint .",
-    "test": "node --test tests/unit/*.test.mjs",
-    "test:integration": "node --test tests/integration/*.test.mjs",
-    "test:e2e": "node tests/e2e/http-postgres.mjs",
-    "db:migrate": "node --env-file-if-exists=.env --env-file-if-exists=.env.local scripts/database/migrate.mjs",
+    "lint": "eslint --flag unstable_native_nodejs_ts_config .",
+    "test:integration": "node --test tests/integration/*.test.ts",
+    "test:e2e": "node tests/e2e/http-postgres.ts",
+    "db:migrate": "node --env-file-if-exists=.env --env-file-if-exists=.env.local scripts/database/migrate.ts",
     "content:inventory": "python scripts/content/inventory.py",
-    "content:validate": "node scripts/content/release.mjs check",
-    "content:quality": "node scripts/content/release.mjs report",
+    "content:validate": "node scripts/content/release.ts check",
+    "content:quality": "node scripts/content/release.ts report",
     "content:review": "python scripts/content/review-export.py",
-    "content:build": "node scripts/content/release.mjs build",
-    "content:sync": "node --env-file-if-exists=.env --env-file-if-exists=.env.local scripts/content/sync.mjs"
+    "content:build": "node scripts/content/release.ts build",
+    "content:sync": "node --env-file-if-exists=.env --env-file-if-exists=.env.local scripts/content/sync.ts"
   },
   "dependencies": {
     "@neon/auth": "0.8.2",
@@ -43,9 +43,11 @@
     "@types/pg": "^8.15.0",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
+    "@unocss/postcss": "^66.13.0",
     "eslint": "^9.0.0",
     "eslint-config-next": "16.4.6",
     "typescript": "5.9.3",
+    "unocss": "^66.13.0",
     "zod": "4.6.7"
   }
 }

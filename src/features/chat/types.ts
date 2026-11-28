@@ -1,13 +1,15 @@
+import { siteConfig } from '@/config/site'
+
 export const nicknameLimit = 48
 export const messageLimit = 500
 export const chatPageSize = 40
-export const authorNickname = 'Hua Xiaowei'
+export const authorNickname = siteConfig.authorName
 const publicAuthorName = 'AI'
 export const publicAuthorNickname = `${publicAuthorName}（可@）`
 export const publicAuthorMention = `@${publicAuthorName}`
 export const authorMention = `@${authorNickname}`
-export const authorChatHash = '#author-chat'
-export const authorChatPath = '/api/author-chat'
+export const authorChatHash = siteConfig.hashes.authorChat
+export const authorChatPath = siteConfig.api.authorChat
 export const unreadDescriptionId = 'author-chat-unread-description'
 
 export type ChatAuthor = {

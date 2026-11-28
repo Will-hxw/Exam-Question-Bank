@@ -4,24 +4,28 @@ import Image from 'next/image'
 import dynamic from 'next/dynamic'
 import Link, { useLinkStatus } from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { createContext, type MouseEvent, type ReactNode, useCallback, useContext, useEffect, useRef, useSyncExternalStore, useState } from 'react'
-import { authWordmarkImage, publicAuthorAvatar, sponsorQrImage } from '@/ui-images'
+import { createContext, Fragment, type MouseEvent, type ReactNode, useCallback, useContext, useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from 'react'
+import { siteConfig } from '@/config/site'
+import { messages } from '@/config/messages'
+import { ChatBubbleIcon, ChevronDownIcon, MailboxIcon, MoonIcon, SunIcon, UserIcon } from '@/components/icons'
+import { ActionLink, BottomDrawer, Button, StatTile, UnreadDot } from '@/components/ui'
 import { warmSharedChat } from '../chat/shared-chat-cache'
 import { authorChatHash, unreadDescriptionId } from '../chat/types'
 import { useChatUnread } from '../chat/use-chat-unread'
 import { questionUrl, readPublic, requestJson, StudyRequestError, type QuestionState, type StudyStats, type Topic, writeJson } from './api'
-import { FeedbackPage, MailboxIcon } from './feedback-page'
+import { FeedbackPage } from './feedback-page'
+import { practiceUndonePreference } from './practice-undone'
 import { libraryPath, readLibraryView, type StudyPreferences, useAccountStudyPreferences, useAccountStudyScroll } from './preferences'
 import { useAttemptQueue } from './use-attempt-queue'
 import { createPersonalStudyReads, useStudyData } from './use-study-data'
 
 const loadChatPage = () => import('../chat/chat-page')
 const PublicChat = dynamic(() => loadChatPage().then(({ PublicChat }) => PublicChat), {
-  loading: () => <p className="empty-state" role="status">正在打开聊天区…</p>,
+  loading: () => <p className="py-12 text-center text-sm text-ink-secondary" role="status">{messages.shell.openingChat}</p>,
 })
 const loadAuthorChat = () => import('../chat/author-chat-page')
 const AuthorChatPage = dynamic(loadAuthorChat, {
-  loading: () => <p className="empty-state" role="status">正在打开作者对话…</p>,
+  loading: () => <p className="py-12 text-center text-sm text-ink-secondary" role="status">{messages.shell.openingAuthorChat}</p>,
 })
 
 function warmImage(src: string) {
@@ -32,18 +36,10 @@ function warmImage(src: string) {
 
 function warmChat(userId: string) {
   if (!navigator.onLine) return
-  warmImage(publicAuthorAvatar)
+  warmImage(siteConfig.assets.aiAvatar)
   void loadChatPage().catch(() => {})
   void warmSharedChat(userId).catch(() => {})
 }
-
-const nav = [
-  { href: '/', label: '刷题' },
-  { href: '/exam', label: '模拟考试' },
-  { href: '/questions', label: '总题库' },
-  { href: '/wrong', label: '错题集' },
-  { href: '/favorites', label: '收藏夹' },
-]
 
 type QuestionStates = { states: Record<string, QuestionState> }
 type QuestionStateRead = { revision: number; expiresAt: number; response: Promise<QuestionStates> }
@@ -55,9 +51,11 @@ function statesPath(ids: string[]) {
 
 function StudyNavigationStatus() {
   const { pending } = useLinkStatus()
-  return <span className="study-navigation-status" role="status">
-    {pending && <span className="study-navigation-pending">正在切换页面</span>}
-  </span>
+  return (
+    <span className="sr-only" role="status">
+      {pending && <span className="study-navigation-pending">{messages.shell.pageSwitching}</span>}
+    </span>
+  )
 }
 
 function subscribeHash(change: () => void) {
@@ -111,24 +109,31 @@ function backFromAuthorChat(event: MouseEvent<HTMLAnchorElement>) {
 }
 
 function useTheme(theme: unknown, save: (edits: Record<string, unknown>) => void) {
+  const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('light')
+
   useEffect(() => {
     const preference = window.matchMedia('(prefers-color-scheme: dark)')
     function applyPreference() {
-      document.documentElement.dataset.theme = theme === 'dark' || (theme !== 'light' && preference.matches) ? 'dark' : 'light'
+      const next = theme === 'dark' || (theme !== 'light' && preference.matches) ? 'dark' : 'light'
+      document.documentElement.dataset.theme = next
+      setResolvedTheme(next)
     }
     applyPreference()
     preference.addEventListener('change', applyPreference)
     return () => preference.removeEventListener('change', applyPreference)
   }, [theme])
 
-  return () => {
-    const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'
-    document.documentElement.dataset.theme = theme
-    save({ theme })
+  function toggleTheme() {
+    const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'
+    document.documentElement.dataset.theme = next
+    setResolvedTheme(next)
+    save({ theme: next })
   }
+
+  return { resolvedTheme, toggleTheme }
 }
 
-function useStudySession(userId: string, initialPreferences: Promise<StudyPreferences | null>, initialStats: Promise<StudyStats | null>) {
+function useStudySession(userId: string, initialPreferences: StudyPreferences | null, initialStats: StudyStats | null, initialTopics: { topics: Topic[] } | null) {
   const [revision, setRevision] = useState(0)
   const [personalReads] = useState(() => createPersonalStudyReads(userId))
   const stateRevision = useRef(0)
@@ -144,17 +149,9 @@ function useStudySession(userId: string, initialPreferences: Promise<StudyPrefer
     stateRevision.current += 1
     setRevision(stateRevision.current)
   }, [personalReads])
-  const stats = useStudyData<StudyStats>('/api/me/stats', revision, { ...personalReads, initial: initialStats, keepPreviousData: true })
-  const [bootstrapPreferences, setBootstrapPreferences] = useState<StudyPreferences>()
-  useEffect(() => {
-    let active = true
-    void Promise.resolve(initialPreferences).then((value) => {
-      if (value && active) setBootstrapPreferences(value)
-    }, () => {})
-    return () => { active = false }
-  }, [initialPreferences])
-  const preferences = useAccountStudyPreferences(userId, stats.data?.preferences ?? bootstrapPreferences, stats.loading)
-  const topics = useStudyData<{ topics: Topic[] }>('/api/public/topics')
+  const stats = useStudyData<StudyStats>(siteConfig.api.stats, revision, { ...personalReads, initial: initialStats, keepPreviousData: true })
+  const preferences = useAccountStudyPreferences(userId, stats.data?.preferences ?? initialPreferences ?? undefined, stats.loading)
+  const topics = useStudyData<{ topics: Topic[] }>(siteConfig.api.topics, 0, { initial: initialTopics })
   const attempts = useAttemptQueue(userId, refreshMe)
 
   const readQuestionStates = useCallback((path: string) => {
@@ -191,7 +188,7 @@ function useStudySession(userId: string, initialPreferences: Promise<StudyPrefer
         saved = favorite
       } while (saved !== write.desired)
     } catch (error) {
-      const message = error instanceof StudyRequestError ? error.message : '收藏未保存，请重试。'
+      const message = error instanceof StudyRequestError ? error.message : messages.shell.favoriteSaveError
       setFavoriteErrors((previous) => ({ ...previous, [id]: message }))
     } finally {
       favoriteWrites.current.delete(id)
@@ -209,7 +206,7 @@ function useStudySession(userId: string, initialPreferences: Promise<StudyPrefer
 
   function toggleFavorite(id: string, favorite: boolean) {
     if (!navigator.onLine) {
-      setFavoriteErrors((previous) => ({ ...previous, [id]: '离线时无法更新收藏，请联网后重试。' }))
+      setFavoriteErrors((previous) => ({ ...previous, [id]: messages.shell.favoriteOfflineError }))
       return
     }
     setFavoriteErrors((previous) => {
@@ -236,7 +233,7 @@ function useStudySession(userId: string, initialPreferences: Promise<StudyPrefer
   }
 
   function confirmLeaveExam() {
-    return !examActive.current || window.confirm('正在考试中，确定离开吗？你可以从考试入口继续草稿。')
+    return !examActive.current || window.confirm(messages.shell.leaveExamConfirm)
   }
 
   return {
@@ -273,62 +270,95 @@ export function useQuestionFavorite(id: string, serverFavorite?: boolean) {
   }
 }
 
-export function StudyShell({ userId, author, initialPreferences, initialStats, children }: {
-  userId: string; author: boolean; initialPreferences: Promise<StudyPreferences | null>
-  initialStats: Promise<StudyStats | null>; children: ReactNode
+export function StudyShell({ userId, author, initialPreferences, initialStats, initialTopics, brandSlot, colophonSlot, sponsorSlot, children }: {
+  userId: string; author: boolean; initialPreferences: StudyPreferences | null
+  initialStats: StudyStats | null; initialTopics: { topics: Topic[] } | null
+  brandSlot: ReactNode; colophonSlot: ReactNode; sponsorSlot: ReactNode; children: ReactNode
 }) {
   const pathname = usePathname()
   const router = useRouter()
   const hash = useSyncExternalStore(subscribeHash, currentHash, emptyHash)
   const [initialFooterPath] = useState(() => {
-    if (typeof window === 'undefined' || !/^#(?:chat|feedback|sponsor|author-chat(?:\/.*)?)$/.test(window.location.hash)) return null
-    return window.location.pathname
+    if (typeof window === 'undefined') return null
+    const current = window.location.hash
+    const matched = current === siteConfig.hashes.chat
+      || current === siteConfig.hashes.feedback
+      || current === siteConfig.hashes.sponsor
+      || current === siteConfig.hashes.authorChat
+      || current.startsWith(`${siteConfig.hashes.authorChat}/`)
+    return matched ? window.location.pathname : null
   })
-  const sponsorOpen = hash === '#sponsor'
-  const feedbackOpen = hash === '#feedback'
-  const chatOpen = hash === '#chat'
+  const sponsorOpen = hash === siteConfig.hashes.sponsor
+  const feedbackOpen = hash === siteConfig.hashes.feedback
+  const chatOpen = hash === siteConfig.hashes.chat
   const authorChatOpen = hash === authorChatHash || hash.startsWith(authorChatHash + '/')
   const [authorChatRequested, setAuthorChatRequested] = useState(false)
   const threadId = hash.startsWith(authorChatHash + '/') ? hash.slice(authorChatHash.length + 1) : undefined
   const footerPageOpen = sponsorOpen || feedbackOpen || chatOpen || authorChatOpen
   const { unread, sharedUnread, updateUnread, updateSharedUnread } = useChatUnread(userId, feedbackOpen || authorChatOpen)
-  const session = useStudySession(userId, initialPreferences, initialStats)
+  const session = useStudySession(userId, initialPreferences, initialStats, initialTopics)
   const { personalReads, preferences } = session
-  const toggleTheme = useTheme(preferences.values.theme, preferences.save)
+  const { resolvedTheme, toggleTheme } = useTheme(preferences.values.theme, preferences.save)
+  const [overviewOpen, setOverviewOpen] = useState(false)
+  const [mobileSettingsOpen, setMobileSettingsOpen] = useState(false)
   useAccountStudyScroll(pathname, preferences)
   const publicLibrary = libraryPath('all', readLibraryView(preferences.values['library:all']))
   const wrongLibrary = libraryPath('wrong', readLibraryView(preferences.values['library:wrong']))
   const favoriteLibrary = libraryPath('favorite', readLibraryView(preferences.values['library:favorite']))
   const firstTopic = session.topics.data?.topics.find(({ count }) => count > 0)?.id
   const warmedLibrary = useRef<string | undefined>(undefined)
+  const navRef = useRef<HTMLElement>(null)
+  const navLinkRefs = useRef<Record<string, HTMLAnchorElement | null>>({})
+  const [navIndicator, setNavIndicator] = useState({ left: 0, width: 0, visible: false })
+
+  useLayoutEffect(() => {
+    const activeHref = !footerPageOpen ? siteConfig.nav.find(({ href }) => href === pathname)?.href : undefined
+    const updateIndicator = () => {
+      const target = activeHref ? navLinkRefs.current[activeHref] : null
+      if (!target) {
+        setNavIndicator((prev) => (prev.visible ? { ...prev, visible: false } : prev))
+        return
+      }
+      setNavIndicator({ left: target.offsetLeft, width: target.offsetWidth, visible: true })
+    }
+    updateIndicator()
+    const navEl = navRef.current
+    if (!navEl || typeof ResizeObserver === 'undefined') return
+    const observer = new ResizeObserver(updateIndicator)
+    observer.observe(navEl)
+    return () => observer.disconnect()
+  }, [footerPageOpen, pathname])
+
   useEffect(() => {
     if (chatOpen) warmChat(userId)
   }, [chatOpen, userId])
   useEffect(() => {
-    if (pathname === '/' && !preferences.ready && firstTopic && navigator.onLine) {
+    if (pathname === siteConfig.routes.practice && !preferences.ready && firstTopic && navigator.onLine) {
       void readPublic(questionUrl({ topic: firstTopic, offset: 0, limit: 15, practice: true })).catch(() => {})
     }
   }, [firstTopic, pathname, preferences.ready])
   useEffect(() => {
-    if (pathname !== '/' || footerPageOpen || !firstTopic || !preferences.ready
-      || !publicLibrary.startsWith('/api/public/') || warmedLibrary.current === publicLibrary) return
+    if (pathname !== siteConfig.routes.practice || footerPageOpen || !firstTopic || !preferences.ready
+      || !publicLibrary.startsWith(siteConfig.api.publicPrefix) || warmedLibrary.current === publicLibrary) return
     const timer = setTimeout(() => {
       if (!navigator.onLine || document.hidden) return
       warmedLibrary.current = publicLibrary
       void readPublic(publicLibrary).catch(() => { warmedLibrary.current = undefined })
-    }, 800)
+    }, siteConfig.timings.libraryPrefetchMs * 2)
     return () => clearTimeout(timer)
   }, [firstTopic, footerPageOpen, pathname, preferences.ready, publicLibrary])
+
   function warmRoute(href: string) {
     if (pathname === href || !navigator.onLine) return
-    if (href === '/questions') void (publicLibrary.startsWith('/api/me/') ? personalReads.load(publicLibrary) : readPublic(publicLibrary)).catch(() => {})
-    if (href === '/wrong' || href === '/favorites') {
-      void personalReads.load(href === '/wrong' ? wrongLibrary : favoriteLibrary).catch(() => {})
+    if (href === siteConfig.routes.questions) void (publicLibrary.startsWith(siteConfig.api.mePrefix) ? personalReads.load(publicLibrary) : readPublic(publicLibrary)).catch(() => {})
+    if (href === siteConfig.routes.wrong || href === siteConfig.routes.favorites) {
+      void personalReads.load(href === siteConfig.routes.wrong ? wrongLibrary : favoriteLibrary).catch(() => {})
     }
     router.prefetch(href)
   }
+
   function navigateFromExam(event: { preventDefault: () => void }) {
-    if (pathname !== '/exam' || session.confirmLeaveExam()) return true
+    if (pathname !== siteConfig.routes.exam || session.confirmLeaveExam()) return true
     event.preventDefault()
     return false
   }
@@ -337,6 +367,8 @@ export function StudyShell({ userId, author, initialPreferences, initialStats, c
     if (!isFooterLinkClick(event)) return false
     const destination = new URL(event.currentTarget.href)
     event.preventDefault()
+    setOverviewOpen(false)
+    setMobileSettingsOpen(false)
     if (destination.hash === hash || (!nested && !navigateFromExam(event))) return false
     if (footerPageOpen && !nested) {
       returnToFooterPath(destination)
@@ -348,112 +380,339 @@ export function StudyShell({ userId, author, initialPreferences, initialStats, c
     return true
   }
 
+  const currentNavLabel = siteConfig.nav.find((item) => item.href === pathname)?.label ?? siteConfig.title
+  const topicEntries = session.topics.data?.topics ?? []
+  const practicePref = (preferences.values.practice as { mode?: string; topic?: string } | undefined) ?? {}
+  const practiceMode = siteConfig.practiceModes.find((m) => m.id === practicePref.mode)?.id ?? 'topic'
+  const practiceModeLabel = siteConfig.practiceModes.find((m) => m.id === practiceMode)?.label ?? messages.shell.practiceModes.topic
+  const activeTopic = topicEntries.find((entry) => entry.id === practicePref.topic) ?? topicEntries.find((entry) => entry.count > 0) ?? topicEntries[0]
+  const practiceOnlyUndone = preferences.values[practiceUndonePreference] === true
+  const mobileSubtitle = pathname === '/' ? `${practiceModeLabel}${messages.shell.practiceSubtitleSuffix}${practiceOnlyUndone ? messages.shell.practiceOnlyUndoneTag : ''}` : siteConfig.shortTitle
+  const mobileTitle = pathname === '/' ? (practiceMode === 'topic' ? (activeTopic?.name ?? messages.shell.topicPracticeTitle) : `${practiceModeLabel}${messages.shell.practiceSubtitleSuffix}`) : currentNavLabel
+  const statValues = session.stats.data
+
+  const themeIcon = resolvedTheme === 'dark' ? <SunIcon /> : <MoonIcon />
+
   return (
     <StudyContext.Provider value={session}>
-      <div className="study-theme">
-        <div className="study-shell">
-          <header id="site-header">
-            <a className="site-title" href="https://www.12371.cn/special/zxzc/" target="_blank" rel="noreferrer">
-              <Image className="site-crest" src="/cqu-crest.png" alt="" width={38} height={38} unoptimized />
-              <span className="site-title-name"><span className="site-title-text">重庆大学</span><span className="site-title-text">入党积极分子练习</span></span>
-            </a>
-            <div className="site-header-right">
-              <button className="dark-toggle" type="button" onClick={toggleTheme} aria-label="切换明暗主题">
-                <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.39 5.403 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z" /></svg>
-              </button>
-              <Link className="account-link" href="/account" aria-label="账号" onNavigate={navigateFromExam}
-                onPointerEnter={() => warmImage(authWordmarkImage)} onFocus={() => warmImage(authWordmarkImage)}>
-                账号<StudyNavigationStatus />
-              </Link>
-            </div>
-          </header>
-          <nav id="top-nav" aria-label="学习导航">
-            {nav.map(({ href, label }) => {
-              const active = !footerPageOpen && pathname === href
-              return <Link key={href} href={href} scroll={false} aria-current={active ? 'page' : undefined} className={active ? 'active' : undefined}
-                prefetch={false}
-                onPointerEnter={(event) => {
-                  if (event.pointerType === 'mouse') warmRoute(href)
+      <div className="min-h-dvh bg-canvas text-ink-primary flex flex-col">
+        {/* Desktop 64px transparent floating header */}
+        <header id="site-header" className="floating-header hidden lg:block">
+          <div className="h-16 px-7 max-w-topbar w-full mx-auto flex items-center justify-between gap-5">
+            {brandSlot}
+
+            <nav id="top-nav" ref={navRef} className="relative pointer-events-auto flex items-center gap-1.5 bg-surface p-1 rounded-control" aria-label={messages.shell.navAriaLabel}>
+              <span
+                aria-hidden="true"
+                className="nav-indicator"
+                style={{
+                  width: `${navIndicator.width}px`,
+                  transform: `translate3d(${navIndicator.left}px, 0, 0)`,
+                  opacity: navIndicator.visible ? 1 : 0,
                 }}
-                onPointerDown={(event) => {
-                  if (event.pointerType !== 'mouse') warmRoute(href)
-                }}
-                onFocus={() => warmRoute(href)}
-                onNavigate={(event) => {
-                  if (footerPageOpen && href === pathname) closeFooterPage(event)
-                  else if ((href === '/exam' || navigateFromExam(event)) && href === initialFooterPath) {
-                    // The initial Next.js route cache can include the footer fragment.
-                    event.preventDefault()
-                    if (href !== pathname) window.location.assign(href)
-                  }
-                }}>
-                {label}<StudyNavigationStatus />
-              </Link>
-            })}
-          </nav>
-          <main className="study-main">
-            {preferences.syncFailed && <p className="study-message error" role="status">
-              学习设置暂未同步。 <button className="btn btn-sm" type="button" onClick={() => void preferences.retry()}>重试同步设置</button>
-            </p>}
-            <div hidden={footerPageOpen}>{children}</div>
-            {chatOpen && <PublicChat backHref={pathname} userId={userId} onBack={closeFooterPage} onRead={updateSharedUnread} />}
-            {(feedbackOpen || authorChatOpen) && <div hidden={!feedbackOpen}>
-              <FeedbackPage pathname={pathname} userId={userId} active={feedbackOpen} unread={unread}
-                onBack={closeFooterPage} warmAuthorChat={() => { void loadAuthorChat().catch(() => {}) }}
-                onOpenAuthorChat={(event) => { if (openFooterPage(event, true)) setAuthorChatRequested(true) }} />
-            </div>}
-            {authorChatOpen && <AuthorChatPage userId={userId} author={author} threadId={threadId}
-              allowCreate={authorChatRequested} onRead={updateUnread} onBack={backFromAuthorChat}
-              onOpenThread={(event) => openFooterPage(event, true)} />}
-            {sponsorOpen && (
-              <section className="sponsor-page" aria-labelledby="sponsor-title">
-                <a className="btn btn-sm footer-page-back sponsor-back" href={pathname} onClick={closeFooterPage}>← 返回练习</a>
-                <div className="sponsor-hero">
-                  <span className="sponsor-heart" aria-hidden="true">💖</span>
-                  <h1 id="sponsor-title">友情赞助</h1>
-                  <p>如果有帮助的话，感谢支持维护🥰</p>
-                  <p>如果遗憾没帮助，我会努力改善🥹</p>
-                </div>
-                <div className="sponsor-qr-card">
-                  <Image src={sponsorQrImage} alt="微信收款码" width={309} height={309} fetchPriority="high" unoptimized />
-                </div>
-              </section>
-            )}
-          </main>
-          <span id={unreadDescriptionId} hidden>有未读消息</span>
-          <footer className="site-footer">
-            <div className="footer-actions">
-              <a className="footer-action" href="#chat" aria-label="打开聊天区" onClick={openFooterPage}
+              />
+              {siteConfig.nav.map(({ href, label }) => {
+                const active = !footerPageOpen && pathname === href
+                return (
+                  <Link
+                    key={href}
+                    ref={(el) => { navLinkRefs.current[href] = el }}
+                    href={href}
+                    scroll={false}
+                    aria-current={active ? 'page' : undefined}
+                    className={`tactile relative z-10 h-9 px-4 rounded-micro flex items-center justify-center text-control no-underline ${active ? 'text-ink-primary font-semibold' : 'text-ink-secondary font-medium hover:text-ink-primary'}`}
+                    prefetch={false}
+                    onPointerEnter={(event) => { if (event.pointerType === 'mouse') warmRoute(href) }}
+                    onPointerDown={(event) => { if (event.pointerType !== 'mouse') warmRoute(href) }}
+                    onFocus={() => warmRoute(href)}
+                    onNavigate={(event) => {
+                      if (footerPageOpen && href === pathname) closeFooterPage(event)
+                      else if ((href === siteConfig.routes.exam || navigateFromExam(event)) && href === initialFooterPath) {
+                        event.preventDefault()
+                        if (href !== pathname) window.location.assign(href)
+                      }
+                    }}
+                  >
+                    {label}
+                    <StudyNavigationStatus />
+                  </Link>
+                )
+              })}
+            </nav>
+
+            <div className="pointer-events-auto flex items-center gap-2 shrink-0">
+              <a
+                className="icon-btn relative no-underline"
+                href={siteConfig.hashes.chat}
+                aria-label={messages.shell.openChatAria}
                 aria-describedby={sharedUnread ? unreadDescriptionId : undefined}
-                onPointerEnter={() => warmChat(userId)} onPointerDown={() => warmChat(userId)} onFocus={() => warmChat(userId)}>
-                <span className="footer-action-icon footer-chat-icon" aria-hidden="true">
-                  <svg width="23" height="23" viewBox="0 0 24 24" fill="none">
-                    <path fill="currentColor" d="M7.5 5.5h6.6a5.8 5.8 0 0 1 0 11.6h-4.6l-4.7 3.1.7-3.6a5.8 5.8 0 0 1 2-11.1Z" />
-                    <path d="M7.25 10.35h6.5m-6.5 2.85h4" stroke="#fff" strokeWidth="1.45" strokeLinecap="round" />
-                    <path d="M19 1.7c.4 2.15 1.55 3.3 3.7 3.7-2.15.4-3.3 1.55-3.7 3.7-.4-2.15-1.55-3.3-3.7-3.7 2.15-.4 3.3-1.55 3.7-3.7Z"
-                      fill="#f5ae2e" stroke="#fff" strokeWidth=".65" strokeLinejoin="round" />
-                  </svg>
-                  {sharedUnread && <span className="message-unread-dot" aria-hidden="true" />}
-                </span>
-                聊天区
+                onClick={(event) => openFooterPage(event)}
+                onPointerEnter={() => warmChat(userId)}
+                onPointerDown={() => warmChat(userId)}
+                onFocus={() => warmChat(userId)}
+              >
+                <ChatBubbleIcon />
+                {sharedUnread && <UnreadDot className="absolute top-2 right-2" />}
               </a>
-              <a className="footer-action" href="#feedback" aria-label="打开意见反馈页面"
-                aria-describedby={unread ? unreadDescriptionId : undefined} onClick={openFooterPage}>
-                <span className="footer-action-icon footer-feedback-icon">
-                  <MailboxIcon />{unread && <span className="message-unread-dot" aria-hidden="true" />}
-                </span>
-                意见反馈
-              </a>
-              <a className="footer-action" href="#sponsor" aria-label="打开友情赞助页面"
-                onClick={openFooterPage}
-                onPointerEnter={() => warmImage(sponsorQrImage)} onFocus={() => warmImage(sponsorQrImage)}>
-                <span className="footer-action-icon footer-sponsor-icon" aria-hidden="true">💌</span>
-                友情赞助
-              </a>
+              <Button variant="icon" onClick={toggleTheme} aria-label={messages.shell.toggleThemeAria}>
+                <span key={resolvedTheme} className="inline-flex animate-icon-swap">{themeIcon}</span>
+              </Button>
+              <Link
+                className="icon-btn relative no-underline"
+                href={siteConfig.routes.account}
+                aria-label={messages.common.accountLabel}
+                onNavigate={navigateFromExam}
+                onPointerEnter={() => warmImage(siteConfig.assets.wordmark)}
+                onFocus={() => warmImage(siteConfig.assets.wordmark)}
+              >
+                <UserIcon />
+                <StudyNavigationStatus />
+              </Link>
             </div>
-            <p className="footer-credit" lang="en">Hua Xiaowei — ZJU</p>
-          </footer>
-        </div>
+          </div>
+        </header>
+
+        {/* Mobile floating header */}
+        <header className="floating-header lg:hidden px-5 pt-3.5 pb-3 flex items-center justify-between gap-3">
+          <button
+            type="button"
+            className="btn-surface pointer-events-auto min-w-0 flex-1 max-w-trigger px-3 py-2 rounded-control flex items-center justify-between gap-2 text-left"
+            aria-label={messages.shell.openSettingsAria}
+            onClick={() => setMobileSettingsOpen(true)}
+          >
+            <div className="min-w-0 flex items-center gap-2.5">
+              <Image
+                className="rounded-full bg-white shrink-0 object-contain"
+                src={siteConfig.assets.crest}
+                alt=""
+                width={siteConfig.imageDimensions.mobileCrest}
+                height={siteConfig.imageDimensions.mobileCrest}
+                unoptimized
+              />
+              <div className="min-w-0 flex flex-col">
+                <span className="text-micro font-medium text-ink-muted leading-tight">{mobileSubtitle}</span>
+                <span className="mt-0.5 text-sm font-semibold truncate text-ink-primary">{mobileTitle}</span>
+              </div>
+            </div>
+            <ChevronDownIcon />
+          </button>
+
+          <div className="pointer-events-auto flex items-center gap-2 shrink-0">
+            <Button variant="icon" onClick={toggleTheme} aria-label={messages.shell.toggleThemeAria}>
+              <span key={resolvedTheme} className="inline-flex animate-icon-swap">{themeIcon}</span>
+            </Button>
+            <Button
+              variant="icon"
+              className="relative"
+              onClick={() => setOverviewOpen(true)}
+              aria-label={messages.shell.openOverviewAria}
+            >
+              <UserIcon />
+              {(unread || sharedUnread) && <UnreadDot className="absolute top-2 right-2" />}
+            </Button>
+          </div>
+        </header>
+
+        {/* Main canvas */}
+        <main className={`max-w-shell w-full mx-auto px-5 lg:px-7 pt-4 lg:pt-7 flex-1 ${(chatOpen || (authorChatOpen && (!author || Boolean(threadId)))) ? 'pb-4 lg:pb-2' : 'pb-28 lg:pb-16'}`}>
+          {preferences.syncFailed && (
+            <div className="mb-4 px-4 py-3 rounded-control bg-wrong-fill text-wrong-ink text-control flex items-center justify-between gap-3" role="status">
+              <span>{messages.shell.syncError}</span>
+              <Button variant="surface" size="xs" className="bg-canvas text-ink-primary" onClick={() => void preferences.retry()}>
+                {messages.shell.retrySync}
+              </Button>
+            </div>
+          )}
+          <div key={pathname} className="animate-view-enter" hidden={footerPageOpen}>{children}</div>
+          {chatOpen && <PublicChat backHref={pathname} userId={userId} onBack={closeFooterPage} onRead={updateSharedUnread} />}
+          {(feedbackOpen || authorChatOpen) && (
+            <div hidden={!feedbackOpen}>
+              <FeedbackPage
+                pathname={pathname}
+                userId={userId}
+                active={feedbackOpen}
+                unread={unread}
+                onBack={closeFooterPage}
+                warmAuthorChat={() => { void loadAuthorChat().catch(() => {}) }}
+                onOpenAuthorChat={(event) => { if (openFooterPage(event, true)) setAuthorChatRequested(true) }}
+              />
+            </div>
+          )}
+          {authorChatOpen && (
+            <AuthorChatPage
+              userId={userId}
+              author={author}
+              threadId={threadId}
+              allowCreate={authorChatRequested}
+              onRead={updateUnread}
+              onBack={backFromAuthorChat}
+              onOpenThread={(event) => openFooterPage(event, true)}
+            />
+          )}
+          {sponsorOpen && (
+            <section className="max-w-sponsor mx-auto py-4 animate-view-enter" aria-labelledby="sponsor-title">
+              <ActionLink variant="surface" size="sm" className="mb-6" href={pathname} onClick={closeFooterPage}>
+                {messages.common.backToPractice}
+              </ActionLink>
+              {sponsorSlot}
+            </section>
+          )}
+        </main>
+
+        <span id={unreadDescriptionId} hidden>{messages.common.unreadBadgeText}</span>
+
+        {/* Desktop footer */}
+        <footer className="hidden lg:flex flex-col items-center gap-1.5 px-7 py-6 text-xs text-ink-muted">
+          <div className="flex items-center justify-center gap-5">
+            <a className="tactile text-ink-secondary hover:text-ink-primary no-underline inline-flex items-center gap-1.5" href={siteConfig.hashes.chat} onClick={(event) => openFooterPage(event)}>
+              {messages.shell.chatLink}{sharedUnread && <UnreadDot size="sm" />}
+            </a>
+            <a className="tactile text-ink-secondary hover:text-ink-primary no-underline inline-flex items-center gap-1.5" href={siteConfig.hashes.feedback} onClick={(event) => openFooterPage(event)}>
+              {messages.shell.feedbackLink}{unread && <UnreadDot size="sm" />}
+            </a>
+            <a
+              className="tactile text-ink-secondary hover:text-ink-primary no-underline"
+              href={siteConfig.hashes.sponsor}
+              onClick={(event) => openFooterPage(event)}
+              onPointerEnter={() => warmImage(siteConfig.assets.sponsorQr)}
+              onFocus={() => warmImage(siteConfig.assets.sponsorQr)}
+            >
+              {messages.shell.sponsorLink}
+            </a>
+            <span lang="en">{siteConfig.visibleCredit}</span>
+          </div>
+          {colophonSlot}
+        </footer>
+
+        {/* Mobile Drawer 1: Practice settings & navigation */}
+        <BottomDrawer
+          open={mobileSettingsOpen}
+          onClose={() => setMobileSettingsOpen(false)}
+          title={messages.shell.drawerSettingsTitle}
+          closeLabel={messages.common.done}
+          bodyClassName="flex flex-col gap-6"
+        >
+          <div>
+            <div className="text-xs font-medium text-ink-muted mb-2.5">{messages.shell.sectionModules}</div>
+            <div className="flex flex-wrap gap-2">
+              {siteConfig.nav.map(({ href, label }) => {
+                const active = !footerPageOpen && pathname === href
+                return (
+                  <Link
+                    key={href}
+                    href={href}
+                    scroll={false}
+                    className={`tactile h-10 px-4 rounded-compact inline-flex items-center justify-center text-control font-medium no-underline ${active ? 'bg-cta text-cta-ink' : 'bg-surface text-ink-primary'}`}
+                    onClick={() => setMobileSettingsOpen(false)}
+                    onNavigate={navigateFromExam}
+                  >
+                    {label}
+                  </Link>
+                )
+              })}
+            </div>
+          </div>
+          {pathname === '/' && (
+            <>
+              <div>
+                <div className="text-xs font-medium text-ink-muted mb-2.5">{messages.shell.sectionModes}</div>
+                <div className="flex flex-wrap gap-2">
+                  {siteConfig.practiceModes.map((entry) => (
+                    <Fragment key={entry.id}>
+                      <Button
+                        variant={practiceMode === entry.id ? 'selected' : 'surface'}
+                        size="md"
+                        className="h-10 text-control"
+                        aria-pressed={practiceMode === entry.id}
+                        onClick={() => { if (practiceMode !== entry.id) preferences.save({ practice: { ...practicePref, mode: entry.id } }) }}
+                      >
+                        {entry.label}
+                      </Button>
+                      {entry.id === 'sequence' && (
+                        <Button
+                          variant={practiceOnlyUndone ? 'selected' : 'surface'}
+                          size="md"
+                          className="h-10 text-control"
+                          aria-pressed={practiceOnlyUndone}
+                          onClick={() => preferences.save({ [practiceUndonePreference]: !practiceOnlyUndone })}
+                        >
+                          {messages.shell.onlyUndone}
+                        </Button>
+                      )}
+                    </Fragment>
+                  ))}
+                </div>
+              </div>
+              {topicEntries.length > 0 && (
+                <div>
+                  <div className="text-xs font-medium text-ink-muted mb-2.5">{messages.shell.sectionTopics}</div>
+                  <div className="flex flex-col gap-2">
+                    {topicEntries.map((entry) => {
+                      const active = practiceMode === 'topic' && activeTopic?.id === entry.id
+                      return (
+                        <button
+                          key={entry.id}
+                          type="button"
+                          className={`tactile px-4 py-3.5 rounded-control flex items-center justify-between gap-3 text-left ${active ? 'bg-selected-fill text-selected-ink' : 'bg-surface text-ink-primary'}`}
+                          onClick={() => {
+                            preferences.save({ practice: { ...practicePref, mode: 'topic', topic: entry.id } })
+                            setMobileSettingsOpen(false)
+                          }}
+                        >
+                          <span className="text-body font-medium leading-snug">{entry.name}</span>
+                          <span className={`tabular-nums text-xs shrink-0 ${active ? 'text-selected-ink' : 'text-ink-muted'}`}>{messages.common.questionCount(entry.count)}</span>
+                        </button>
+                      )
+                    })}
+                  </div>
+                </div>
+              )}
+            </>
+          )}
+        </BottomDrawer>
+
+        {/* Mobile Drawer 2: Study overview & community */}
+        <BottomDrawer
+          open={overviewOpen}
+          onClose={() => setOverviewOpen(false)}
+          closeLabel={messages.common.close}
+          headerContent={(
+            <div className="flex items-center gap-3">
+              <Image className="rounded-full bg-white shrink-0 object-contain" src={siteConfig.assets.crest} alt="" width={siteConfig.imageDimensions.drawerCrest} height={siteConfig.imageDimensions.drawerCrest} unoptimized />
+              <div>
+                <h2 className="font-serif m-0 text-drawer-title font-bold">{messages.shell.drawerOverviewTitle}</h2>
+                <div className="mt-1 flex items-center gap-2 flex-wrap">
+                  <span className="text-meta text-ink-secondary">{siteConfig.title}</span>
+                </div>
+              </div>
+            </div>
+          )}
+          bodyClassName="flex flex-col gap-5"
+        >
+          <div className="grid grid-cols-3 gap-2.5">
+            <StatTile label={messages.common.practicedStat} value={statValues?.attempted ?? '—'} />
+            <StatTile label={messages.common.wrongStat} value={statValues?.wrong ?? '—'} valueClassName="text-wrong-ink" />
+            <StatTile label={messages.common.favoriteStat} value={statValues?.favorites ?? '—'} />
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <ActionLink variant="surface" size="md" className="h-10 text-control" href={siteConfig.hashes.chat} onClick={(event) => openFooterPage(event)}>
+              {messages.shell.chatLink}{sharedUnread && <UnreadDot />}
+            </ActionLink>
+            <ActionLink variant="surface" size="md" className="h-10 text-control" href={siteConfig.hashes.feedback} onClick={(event) => openFooterPage(event)}>
+              <MailboxIcon size={16} />{messages.shell.feedbackLink}{unread && <UnreadDot />}
+            </ActionLink>
+            <ActionLink variant="surface" size="md" className="h-10 text-control" href={siteConfig.hashes.sponsor} onClick={(event) => openFooterPage(event)}>
+              {messages.shell.sponsorLink}
+            </ActionLink>
+            <Link className="btn-surface h-10 px-4 rounded-compact inline-flex items-center text-control font-medium no-underline" href={siteConfig.routes.account} onClick={() => setOverviewOpen(false)} onNavigate={navigateFromExam}>
+              {messages.common.accountManage}
+            </Link>
+          </div>
+          <div className="flex flex-col items-center gap-1.5 text-center" lang="en">
+            <span className="text-xs text-ink-muted">{siteConfig.visibleCredit}</span>
+            {colophonSlot}
+          </div>
+        </BottomDrawer>
       </div>
     </StudyContext.Provider>
   )

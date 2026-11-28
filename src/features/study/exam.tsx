@@ -1,6 +1,12 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
+import { type CSSProperties, useEffect, useRef, useState } from 'react'
+import { BookmarkIcon } from '@/components/icons'
+import { Badge, BottomDrawer, Button, CollapsePanel, OptionCard, ProgressBar, StatTile, TextInput } from '@/components/ui'
+import { messages } from '@/config/messages'
+import { siteConfig } from '@/config/site'
+import { cssVarRef } from '@/config/theme'
 import { answerLetters, letter, type Question, requestJson, StudyRequestError, writeJson } from './api'
 import { ExplanationPanel, LoadMessage } from './controls'
 import { type Exam as ExamData, readLocalExamDraft, useExamDraft } from './exam-draft'
@@ -42,20 +48,28 @@ function ExamTimer({ exam }: { exam: ExamData }) {
     const interval = setInterval(() => setNow(Date.now()), 1000)
     return () => clearInterval(interval)
   }, [])
-  return <span className="exam-timer running">{clock(elapsedSeconds(exam, now))}</span>
+  return <span className="tabular-nums px-3 py-1.5 rounded-micro bg-surface text-sm font-semibold text-ink-primary">{clock(elapsedSeconds(exam, now))}</span>
 }
 
 function ExamFavorite({ question }: { question: Question }) {
   useQuestionStates([question.id])
   const favoriteControl = useQuestionFavorite(question.id)
 
-  return <>
-    <button className="btn btn-sm" type="button" aria-pressed={favoriteControl.favorite}
-      aria-busy={favoriteControl.pending || undefined} onClick={favoriteControl.toggle}>
-      {favoriteControl.favorite ? '★ 取消收藏' : '☆ 收藏'}
-    </button>
-    {favoriteControl.error && <p className="study-message error" role="alert">{favoriteControl.error}</p>}
-  </>
+  return (
+    <>
+      <button
+        className={`tactile w-9 h-9 rounded-micro flex items-center justify-center shrink-0 ${favoriteControl.favorite ? 'bg-missed-fill text-missed-badge' : 'bg-surface text-ink-secondary hover:bg-surface-hover'}`}
+        type="button"
+        aria-pressed={favoriteControl.favorite}
+        aria-busy={favoriteControl.pending || undefined}
+        aria-label={favoriteControl.favorite ? messages.common.unfavoriteQuestion : messages.common.favoriteQuestion}
+        onClick={favoriteControl.toggle}
+      >
+        <BookmarkIcon filled={favoriteControl.favorite} />
+      </button>
+      {favoriteControl.error && <p className="m-0 text-xs text-wrong-ink" role="alert">{favoriteControl.error}</p>}
+    </>
+  )
 }
 
 function ExamConflictReview({ conflicts, items, onResolve }: {
@@ -64,29 +78,44 @@ function ExamConflictReview({ conflicts, items, onResolve }: {
 }) {
   const [choices, setChoices] = useState<Record<string, 'local' | 'cloud'>>({})
   const byId = new Map(conflicts.map((conflict) => [conflict.id, conflict]))
-  return <form className="exam-conflict-review" aria-labelledby="exam-conflict-title" onSubmit={(event) => {
-    event.preventDefault()
-    onResolve(choices)
-  }}>
-    <h3 id="exam-conflict-title">确认冲突的答案</h3>
-    {items.map((question, index) => {
-      const conflict = byId.get(question.id)
-      if (!conflict) return null
-      return <fieldset key={question.id}>
-        <legend>第 {index + 1} 题 · {question.stem}</legend>
-        {(['local', 'cloud'] as const).map((side) => {
-          const answers = answerLetters(question.options, conflict[side]) || '未作答'
-          const text = question.options.filter((option) => conflict[side].includes(option.id)).map((option) => option.text).join('、')
-          return <label key={side}>
-            <input type="radio" name={question.id} value={side} checked={choices[question.id] === side}
-              onChange={() => setChoices((previous) => ({ ...previous, [question.id]: side }))} required />
-            <span>{side === 'local' ? '本机答案' : '云端答案'} · {answers}{text && `（${text}）`}</span>
-          </label>
-        })}
-      </fieldset>
-    })}
-    <button className="btn primary" type="submit" disabled={Object.keys(choices).length !== conflicts.length}>合并并继续</button>
-  </form>
+  return (
+    <form
+      className="p-5 rounded-option bg-missed-fill mb-6 flex flex-col gap-4"
+      aria-labelledby="exam-conflict-title"
+      onSubmit={(event) => { event.preventDefault(); onResolve(choices) }}
+    >
+      <h3 id="exam-conflict-title" className="font-serif m-0 text-base font-bold text-missed-ink">{messages.exam.conflictTitle}</h3>
+      {items.map((question, index) => {
+        const conflict = byId.get(question.id)
+        if (!conflict) return null
+        return (
+          <fieldset key={question.id} className="border-0 m-0 p-0 flex flex-col gap-2">
+            <legend className="text-sm font-medium text-ink-primary mb-1.5">{messages.exam.questionNumber(index)} {question.stem}</legend>
+            {(['local', 'cloud'] as const).map((side) => {
+              const answers = answerLetters(question.options, conflict[side]) || messages.common.unanswered
+              const text = question.options.filter((option) => conflict[side].includes(option.id)).map((option) => option.text).join('、')
+              return (
+                <label key={side} className="p-3 rounded-compact bg-canvas flex items-center gap-2.5 text-sm cursor-pointer">
+                  <input
+                    type="radio"
+                    name={question.id}
+                    value={side}
+                    checked={choices[question.id] === side}
+                    onChange={() => setChoices((previous) => ({ ...previous, [question.id]: side }))}
+                    required
+                  />
+                  <span>{side === 'local' ? messages.exam.localAnswer : messages.exam.cloudAnswer} {answers}{text && `（${text}）`}</span>
+                </label>
+              )
+            })}
+          </fieldset>
+        )
+      })}
+      <Button variant="cta" size="md" className="h-11 px-5 rounded-control text-sm self-start" type="submit" disabled={Object.keys(choices).length !== conflicts.length}>
+        {messages.exam.mergeAndContinue}
+      </Button>
+    </form>
+  )
 }
 
 function ExamTaking({ exam, onResult, onReload }: {
@@ -95,6 +124,8 @@ function ExamTaking({ exam, onResult, onReload }: {
   const { userId, markExamActive } = useStudySessionContext()
   const { draft, update, flush, submit, syncStatus, pendingMerge, resolve, finished } = useExamDraft(userId, exam)
   const [submitting, setSubmitting] = useState(false)
+  const [sheetOpen, setSheetOpen] = useState(false)
+  const [navDirection, setNavDirection] = useState<'forward' | 'backward' | 'jump'>('jump')
   const submittingNow = useRef(false)
   const confirmation = useRef<HTMLDialogElement>(null)
   const [error, setError] = useState('')
@@ -105,7 +136,10 @@ function ExamTaking({ exam, onResult, onReload }: {
   const item = exam.items[position]
   const done = Object.values(draft.answers).filter((choices) => choices.length > 0).length
   const selected = draft.answers[item?.id] ?? []
-  const markers = { local: '草稿本地已保存，待同步', synced: '草稿已云端同步', pending: '草稿正在保存', error: '草稿同步失败', conflict: '同一道题在本机与云端的答案不同，请选择保留哪一份。' }
+  const markers: Partial<Record<typeof syncStatus, string>> = {
+    error: messages.exam.saveErrorLabel,
+    conflict: messages.exam.conflictHint,
+  }
   const blocked = submitting || !!pendingMerge || !!finished
 
   useEffect(() => () => { if (autoAdvance.current) clearTimeout(autoAdvance.current) }, [])
@@ -122,7 +156,11 @@ function ExamTaking({ exam, onResult, onReload }: {
 
   function move(index: number) {
     if (autoAdvance.current) clearTimeout(autoAdvance.current)
-    if (index >= 0 && index < count) update(() => ({ position: index }))
+    setSheetOpen(false)
+    if (index >= 0 && index < count) {
+      setNavDirection(Math.abs(index - position) > 1 ? 'jump' : index > position ? 'forward' : index < position ? 'backward' : 'jump')
+      update(() => ({ position: index }))
+    }
   }
 
   function choose(id: string) {
@@ -132,7 +170,7 @@ function ExamTaking({ exam, onResult, onReload }: {
       const answer = item.type === 'single' ? [id] : previous.includes(id) ? previous.filter((value) => value !== id) : [...previous, id]
       return { answers: { ...current.answers, [item.id]: answer } }
     })
-    if (item.type === 'single' && position + 1 < count) autoAdvance.current = setTimeout(() => move(position + 1), 180)
+    if (item.type === 'single' && position + 1 < count) autoAdvance.current = setTimeout(() => move(position + 1), siteConfig.timings.examAutoAdvanceMs)
   }
 
   function confirmHandIn() {
@@ -152,73 +190,207 @@ function ExamTaking({ exam, onResult, onReload }: {
       setReviewNotice(await submit())
       confirmation.current?.close()
     } catch (cause) {
-      setError(cause instanceof StudyRequestError && cause.status === 409 ? '其他设备正在同步试卷，请稍后重试。' : '交卷失败，请检查网络后重试。')
+      setError(cause instanceof StudyRequestError && cause.status === 409 ? messages.exam.conflictSubmitError : messages.exam.submitNetworkError)
     } finally { submittingNow.current = false; setSubmitting(false) }
   }
 
-  if (!item) return <LoadMessage error="试卷内容暂不可用。" retry={() => onReload()} />
+  if (!item) return <LoadMessage error={messages.exam.paperUnavailable} retry={() => onReload()} />
 
-  return <>
-    <div className="exam-header">
-      <div className="exam-header-left">
-        <div className="exam-progress-row"><span className="exam-progress-label">答题进度</span><span className="exam-progress-count">{done}<span className="exam-progress-total">/{count}</span></span></div>
-        <div className="exam-progress-bar" role="progressbar" aria-label="答题进度" aria-valuenow={done} aria-valuemin={0} aria-valuemax={count}>
-          <div className="exam-progress-fill" style={{ width: `${done / count * 100}%` }} />
+  const isMarked = draft.marked.includes(item.id)
+
+  const sheetGrid = (
+    <div className="grid grid-cols-5 gap-2" role="group" aria-label={messages.exam.navAria}>
+      {exam.items.map((question, index) => {
+        const isCurrent = index === position
+        const answered = Boolean(draft.answers[question.id]?.length)
+        const qMarked = draft.marked.includes(question.id)
+        let cls = 'bg-surface text-ink-secondary hover:bg-surface-hover'
+        if (isCurrent) cls = 'bg-selected-badge text-white'
+        else if (qMarked) cls = 'bg-missed-fill text-missed-ink'
+        else if (answered) cls = 'bg-selected-fill text-selected-ink'
+        return (
+          <button
+            key={question.id}
+            type="button"
+            disabled={blocked}
+            className={`sheet-cell ${cls}`}
+            aria-current={isCurrent ? 'step' : undefined}
+            onClick={() => move(index)}
+          >
+            {index + 1}
+          </button>
+        )
+      })}
+    </div>
+  )
+
+  return (
+    <>
+      <div className="lg:grid study-two-col">
+        <div>
+          {/* Mobile top exam status bar */}
+          <div className="flex items-center justify-between gap-3 mb-5 lg:hidden">
+            <div className="flex items-center gap-2.5">
+              <ExamTimer exam={exam} />
+              <span className="tabular-nums text-meta font-medium text-ink-secondary">{messages.exam.answeredProgress(done, count)}</span>
+            </div>
+            <Button variant="cta" size="sm" className="px-4" disabled={blocked} onClick={confirmHandIn}>
+              {messages.exam.submitPaper}
+            </Button>
+          </div>
+
+          {reviewNotice && <p className="mb-3 text-meta text-missed-ink" role="status">{messages.exam.draftUpdatedNotice}</p>}
+          {pendingMerge && <ExamConflictReview key={pendingMerge.cloud.revision} conflicts={pendingMerge.conflicts} items={exam.items} onResolve={resolve} />}
+
+          <article
+            key={item.id}
+            aria-label={messages.exam.currentQuestionAria}
+            className={navDirection === 'forward' ? 'animate-slide-next' : navDirection === 'backward' ? 'animate-slide-prev' : 'animate-question-enter'}
+          >
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex items-center gap-2.5">
+                <Badge>{item.type === 'single' ? messages.common.singleChoice : messages.common.multipleChoice}</Badge>
+                <span className="tabular-nums text-meta font-medium text-ink-secondary">{messages.exam.questionProgress(position + 1, count)}</span>
+                <ProgressBar percent={Math.max(siteConfig.examRing.minProgressPct, (done / count) * 100)} />
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  className={`tactile h-9 px-3 rounded-micro text-xs font-medium ${isMarked ? 'bg-missed-fill text-missed-ink' : 'bg-surface text-ink-secondary hover:bg-surface-hover'}`}
+                  disabled={blocked}
+                  aria-pressed={isMarked}
+                  onClick={() => update((current) => ({
+                    marked: current.marked.includes(item.id) ? current.marked.filter((id) => id !== item.id) : [...current.marked, item.id],
+                  }))}
+                >
+                  {isMarked ? messages.exam.marked : messages.exam.mark}
+                </button>
+                <ExamFavorite key={item.id} question={item} />
+              </div>
+            </div>
+
+            <h1 className="font-serif mt-4 mb-6 text-stem lg:text-stem-lg font-semibold text-ink-primary">
+              {item.stem}
+            </h1>
+
+            <div className="flex flex-col gap-3" role="group" aria-label={messages.practice.optionsAria}>
+              {item.options.map((option, index) => {
+                const chosen = selected.includes(option.id)
+                return (
+                  <OptionCard
+                    key={option.id}
+                    letter={letter(index)}
+                    text={option.text}
+                    state={chosen ? 'selected' : 'idle'}
+                    staggerIndex={index}
+                    disabled={blocked}
+                    pressed={chosen}
+                    onClick={() => choose(option.id)}
+                  />
+                )
+              })}
+            </div>
+
+            <div className="hidden lg:flex items-center gap-2.5 mt-7">
+              <Button variant="surface" size="lg" className="px-4.5 text-sm" disabled={position === 0 || blocked} onClick={() => move(position - 1)}>
+                {messages.common.previousQuestion}
+              </Button>
+              <Button
+                variant="cta"
+                size="lg"
+                className="flex-1 px-5.5"
+                disabled={blocked}
+                onClick={() => position === count - 1 ? confirmHandIn() : move(position + 1)}
+              >
+                {position === count - 1 ? messages.exam.submitAndViewResult : messages.common.nextQuestion}
+              </Button>
+            </div>
+          </article>
         </div>
+
+        {/* Desktop sticky right exam rail */}
+        <aside className="study-rail">
+          <div className="p-4 rounded-option bg-surface flex flex-col gap-3">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-medium text-ink-muted">{messages.exam.timerLabel}</span>
+              <ExamTimer exam={exam} />
+            </div>
+            <div className="flex items-center justify-between text-meta">
+              <span className="text-ink-secondary">{messages.exam.progressLabel}</span>
+              <span className="tabular-nums font-semibold">{done} / {count}</span>
+            </div>
+            <ProgressBar variant="full" percent={(done / count) * 100} ariaLabel={messages.exam.progressLabel} valueNow={done} valueMax={count} />
+            {markers[syncStatus] && (
+              <div className="text-xs text-wrong-ink flex items-center justify-between" role="status">
+                <span>{markers[syncStatus]}</span>
+                {syncStatus === 'error' && (
+                  <button type="button" className="tactile px-2 py-0.5 rounded-tag bg-canvas text-ink-primary" onClick={() => void flush().catch(() => {})}>{messages.common.retry}</button>
+                )}
+              </div>
+            )}
+            <Button variant="cta" size="md" className="w-full h-11 rounded-control text-sm mt-1" disabled={blocked} onClick={confirmHandIn}>
+              {messages.exam.submitPaper}
+            </Button>
+          </div>
+          <div>
+            <div className="text-meta font-semibold mb-2.5">{messages.exam.navTitle}</div>
+            {sheetGrid}
+          </div>
+        </aside>
       </div>
-      <ExamTimer exam={exam} />
-      <button type="button" className="btn btn-submit-exam" disabled={blocked} onClick={confirmHandIn}>交卷</button>
-    </div>
-    <dialog ref={confirmation} className="exam-submit-dialog" aria-labelledby="exam-submit-title" aria-describedby="exam-submit-description"
-      onCancel={(event) => { if (submittingNow.current) event.preventDefault() }}>
-      <h2 id="exam-submit-title">确认交卷</h2>
-      <p id="exam-submit-description">
-        {count > done ? `还有 ${count - done} 道题未作答。交卷后可查看成绩和解析。` : '交卷后可查看成绩和解析。'}
-      </p>
-      {error && <p className="study-message error" role="alert">{error}</p>}
-      <div className="exam-submit-actions">
-        <button className="btn" type="button" disabled={submitting} onClick={() => confirmation.current?.close()}>继续答题</button>
-        <button className="btn primary" type="button" disabled={blocked} aria-busy={submitting || undefined} onClick={() => void handIn()}>
-          {submitting ? '交卷中…' : '确认交卷'}
-        </button>
-      </div>
-    </dialog>
-    <p className="study-message" role="status">{markers[syncStatus]}{' '}
-      {syncStatus === 'error' && <button type="button" className="btn btn-sm" onClick={() => void flush().catch(() => {})}>重试同步</button>}
-    </p>
-    {reviewNotice && <p className="study-message" role="status">草稿已更新，请核对答案后再交卷。</p>}
-    {pendingMerge && <ExamConflictReview key={pendingMerge.cloud.revision} conflicts={pendingMerge.conflicts} items={exam.items} onResolve={resolve} />}
-    <article className="question-card exam-question-card" aria-label="当前考题">
-      <div className="q-header"><span className={`q-type ${item.type}`}>{item.type === 'single' ? '单选题' : '多选题'}</span><span className="progress-info">第 {position + 1}/{count} 题</span></div>
-      <p className="q-text">{item.stem}</p>
-      <div className="options-list" role="group" aria-label="选择答案">
-        {item.options.map((option, index) => <button key={option.id} type="button" className={`option ${selected.includes(option.id) ? 'selected' : ''}`}
-          disabled={blocked} aria-pressed={selected.includes(option.id)} onClick={() => choose(option.id)}>{letter(index)}. {option.text}</button>)}
-      </div>
-      <div className="action-bar">
-        <button type="button" className="btn nav-step" disabled={position === 0 || blocked} onClick={() => move(position - 1)}>上一题</button>
-        {item.type === 'multiple' && <button type="button" className="btn primary nav-step" disabled={!selected.length || blocked}
-          onClick={() => position === count - 1 ? confirmHandIn() : move(position + 1)}>确定</button>}
-        <button type="button" className="btn nav-step" disabled={position === count - 1 || blocked} onClick={() => move(position + 1)}>下一题</button>
-        <ExamFavorite key={item.id} question={item} />
-        <button type="button" className="btn btn-sm exam-mark" disabled={blocked} aria-pressed={draft.marked.includes(item.id)} onClick={() => update((current) => ({
-          marked: current.marked.includes(item.id) ? current.marked.filter((id) => id !== item.id) : [...current.marked, item.id],
-        }))}>
-          <svg className="exam-mark-icon" aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 16 16">
-            <path d="M2.5 3a.5.5 0 0 1 .5-.5h4.5l5.8 5.8-5 5L2.5 7.5Z" fill="#fbbf24" stroke="#854d0e" strokeLinejoin="round" />
-            <circle cx="5.2" cy="5.2" r=".9" fill="#854d0e" />
-          </svg>
-          {draft.marked.includes(item.id) ? '已标记' : '标记'}
-        </button>
-      </div>
-    </article>
-    <p className="exam-nav-label">题目导航</p>
-    <div className="exam-nav" role="group" aria-label="题目导航">
-      {exam.items.map((question, index) => <button type="button" key={question.id} disabled={blocked}
-        className={`exam-nav-item${index === position ? ' current' : ''}${draft.answers[question.id]?.length ? ' answered' : ''}${draft.marked.includes(question.id) ? ' marked' : ''}`}
-        aria-current={index === position ? 'step' : undefined} onClick={() => move(index)}>{index + 1}</button>)}
-    </div>
-  </>
+
+      {/* Mobile bottom bar */}
+      <footer className="glass-footer lg:hidden">
+        <Button variant="surface" size="lg" className="px-4 text-sm shrink-0" disabled={position === 0 || blocked} onClick={() => move(position - 1)}>
+          {messages.common.previousQuestion}
+        </Button>
+        <Button variant="surface" size="lg" className="px-4 text-sm shrink-0" onClick={() => setSheetOpen(true)}>
+          {messages.practice.answerSheet}
+        </Button>
+        <Button
+          variant="cta"
+          size="lg"
+          className="flex-1 px-5"
+          disabled={blocked}
+          onClick={() => position === count - 1 ? confirmHandIn() : move(position + 1)}
+        >
+          {position === count - 1 ? messages.exam.submitPaper : messages.common.nextQuestion}
+        </Button>
+      </footer>
+
+      {/* Mobile answer sheet drawer */}
+      <BottomDrawer
+        open={sheetOpen}
+        onClose={() => setSheetOpen(false)}
+        title={messages.practice.answerSheet}
+        closeLabel={messages.common.close}
+      >
+        {sheetGrid}
+      </BottomDrawer>
+
+      <dialog
+        ref={confirmation}
+        className="confirm-dialog"
+        aria-labelledby="exam-submit-title"
+        aria-describedby="exam-submit-description"
+        onCancel={(event) => { if (submittingNow.current) event.preventDefault() }}
+      >
+        <h2 id="exam-submit-title" className="font-serif m-0 text-lg font-bold">{messages.exam.confirmSubmitTitle}</h2>
+        <p id="exam-submit-description" className="m-0 mt-2 text-sm text-ink-secondary">
+          {count > done ? messages.exam.confirmSubmitUnanswered(count - done) : messages.exam.confirmSubmitAllAnswered}
+        </p>
+        {error && <p className="m-0 mt-3 text-xs text-wrong-ink" role="alert">{error}</p>}
+        <div className="mt-5 flex items-center gap-2.5">
+          <Button variant="surface" size="md" className="flex-1 h-11 rounded-control text-sm" disabled={submitting} onClick={() => confirmation.current?.close()}>
+            {messages.exam.continueAnswering}
+          </Button>
+          <Button variant="cta" size="md" className="flex-1 h-11 rounded-control text-sm" disabled={blocked} aria-busy={submitting || undefined} onClick={() => void handIn()}>
+            {submitting ? messages.exam.submitting : messages.exam.confirmSubmitButton}
+          </Button>
+        </div>
+      </dialog>
+    </>
+  )
 }
 
 function ResultItem({ exam, question, index, marked }: { exam: ExamData; question: Question; index: number; marked: boolean }) {
@@ -227,27 +399,68 @@ function ResultItem({ exam, question, index, marked }: { exam: ExamData; questio
   const answerIds = question.answerIds ?? []
   const selected = exam.answers[question.id] ?? []
 
-  return <article className={`exam-result-item ${correct ? 'result-correct' : 'result-wrong'}`}>
-    <div className="exam-result-header">
-      <span className={`q-num${correct ? ' result-correct' : ''}`}>{correct ? '✓' : '✗'}</span>
-      <span className="exam-result-num">{index + 1}</span>
-      <span className={`q-type ${question.type}`}>{question.type === 'single' ? '单选题' : '多选题'}</span>
-      {marked && <span className="progress-info">已标记</span>}
-    </div>
-    <p className="exam-result-question">{question.stem}</p>
-    <div className="exam-result-options">
-      {question.options.map((option, i) => <button key={option.id} type="button" disabled
-        className={`option ${answerIds.includes(option.id) ? 'correct' : selected.includes(option.id) ? 'wrong' : ''}`}>
-        {letter(i)}. {option.text}
-      </button>)}
-    </div>
-    {!correct && <div className="exam-wrong-answers">
-      <p className="answer-row wrong-row">✗ 你的答案：{answerLetters(question.options, selected) || '未作答'}</p>
-      <p className="answer-row correct-row">✓ 正确答案：{answerLetters(question.options, answerIds)}</p>
-    </div>}
-    {question.explanation && <button type="button" className="btn btn-sm explanation-toggle" onClick={() => setExpanded(!expanded)} aria-expanded={expanded}>{expanded ? '收起解析' : '展开解析'}</button>}
-    {expanded && question.explanation && <ExplanationPanel content={{ answerIds, explanation: question.explanation, options: question.options, sources: question.sources ?? [] }} />}
-  </article>
+  return (
+    <article className="p-4.5 lg:p-5 rounded-option bg-surface flex flex-col gap-3">
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2">
+          <Badge tone={correct ? 'correct' : 'wrong'} className="font-semibold animate-badge-pop">
+            {correct ? messages.common.correct : messages.common.wrong}
+          </Badge>
+          <span className="tabular-nums text-xs font-medium text-ink-muted">{messages.exam.questionNumber(index)}</span>
+          <Badge tone="canvas">{question.type === 'single' ? messages.common.singleChoice : messages.common.multipleChoice}</Badge>
+        </div>
+        {marked && <Badge tone="missed" size="status">{messages.exam.marked}</Badge>}
+      </div>
+
+      <p className="font-serif m-0 text-item-stem font-semibold text-ink-primary">{question.stem}</p>
+
+      <div className="flex flex-col gap-1.5">
+        {question.options.map((option, i) => {
+          const isAns = answerIds.includes(option.id)
+          const isChosen = selected.includes(option.id)
+          let cls = 'bg-canvas text-ink-body'
+          let tag = ''
+          if (isChosen && isAns) cls = 'bg-correct-fill text-correct-ink font-medium'
+          else if (isChosen && !isAns) cls = 'bg-wrong-fill text-wrong-ink font-medium'
+          else if (!isChosen && isAns) {
+            cls = 'bg-missed-fill text-missed-ink font-medium'
+            tag = messages.common.missed
+          }
+          return (
+            <div key={option.id} className={`px-3 py-2 rounded-micro text-sm flex items-center justify-between gap-2 ${cls}`}>
+              <span><strong className="mr-2 tabular-nums">{letter(i)}</strong>{option.text}</span>
+              {tag && <span className="missed-tag">{tag}</span>}
+            </div>
+          )
+        })}
+      </div>
+
+      {!correct && (
+        <div className="flex items-baseline gap-5 flex-wrap text-meta">
+          <span className="text-ink-secondary">{messages.common.correctAnswer} <strong className="text-correct-ink tabular-nums ml-1">{answerLetters(question.options, answerIds)}</strong></span>
+          <span className="text-ink-secondary">{messages.common.yourChoice} <strong className="text-wrong-ink tabular-nums ml-1">{answerLetters(question.options, selected) || messages.common.unanswered}</strong></span>
+        </div>
+      )}
+
+      {question.explanation && (
+        <div>
+          <button
+            type="button"
+            className="tactile h-8.5 px-3.5 rounded-micro text-meta font-medium bg-canvas text-ink-primary"
+            onClick={() => setExpanded(!expanded)}
+            aria-expanded={expanded}
+          >
+            {expanded ? messages.common.collapseExplanation : messages.common.expandExplanation}
+          </button>
+          <CollapsePanel open={expanded}>
+            <div className="mt-3">
+              <ExplanationPanel content={{ answerIds, explanation: question.explanation, options: question.options, sources: question.sources ?? [] }} hideHeading />
+            </div>
+          </CollapsePanel>
+        </div>
+      )}
+    </article>
+  )
 }
 
 function ExamResult({ exam, onBack, onRetry, filter, setFilter, busy }: {
@@ -262,55 +475,95 @@ function ExamResult({ exam, onBack, onRetry, filter, setFilter, busy }: {
   const rate = count ? Math.round(score / count * 100) : 0
   const marked = new Set(exam.marked)
   const filters: { id: ExamFilter; label: string }[] = [
-    { id: 'all', label: `全部 ${count}` },
-    { id: 'wrong', label: `仅错题 ${count - score}` },
+    { id: 'all', label: messages.exam.filterAll(count) },
+    { id: 'wrong', label: messages.exam.filterWrong(count - score) },
   ]
-  if (marked.size) filters.push({ id: 'marked', label: `仅标记 ${marked.size}` })
-  const circumference = 326.73
-  const replayButton = <button type="button" className="btn primary exam-result-replay" onClick={onRetry}
-    disabled={busy} aria-busy={busy || undefined}>{busy ? '正在载入原卷…' : '原卷重新考试'}</button>
+  if (marked.size) filters.push({ id: 'marked', label: messages.exam.filterMarked(marked.size) })
+  const { viewBox, center, strokeWidth, radius, circumference, excellentRate, passRate } = siteConfig.examRing
+  const ringStroke = rate >= excellentRate ? cssVarRef('correct-badge') : rate >= passRate ? cssVarRef('selected-badge') : cssVarRef('wrong-badge')
 
-  return <div className="exam-result">
-    <div className="exam-result-top">
-      <button type="button" className="btn nav-step exam-result-back" onClick={onBack} disabled={busy}>← 返回</button>
-      <h2>考试结果</h2>
-      {replayButton}
+  return (
+    <div className="max-w-result mx-auto flex flex-col gap-6 animate-view-enter">
+      <div className="flex items-center justify-between gap-3">
+        <Button variant="surface" size="sm" onClick={onBack} disabled={busy}>
+          {messages.common.back}
+        </Button>
+        <h1 className="font-serif m-0 text-sub-title font-bold">{messages.exam.resultTitle}</h1>
+        <Button variant="cta" size="sm" className="px-4" onClick={onRetry} disabled={busy} aria-busy={busy || undefined}>
+          {busy ? messages.common.loadingGeneric : messages.exam.retakeSamePaper}
+        </Button>
+      </div>
+
+      <div className="flex flex-col items-center py-2">
+        <div className="relative w-32 h-32 flex items-center justify-center">
+          <svg className="w-full h-full -rotate-90" aria-hidden="true" viewBox={viewBox}>
+            <circle cx={center} cy={center} r={radius} fill="none" stroke={cssVarRef('progress-track')} strokeWidth={strokeWidth} />
+            <circle
+              cx={center}
+              cy={center}
+              r={radius}
+              fill="none"
+              stroke={ringStroke}
+              strokeWidth={strokeWidth}
+              strokeLinecap="round"
+              strokeDasharray={circumference}
+              className="animate-ring-draw"
+              style={{
+                '--ring-circumference': String(circumference),
+                '--ring-target': String(circumference * (1 - rate / 100)),
+              } as CSSProperties & Record<'--ring-circumference' | '--ring-target', string>}
+            />
+          </svg>
+          <div className="absolute inset-0 flex flex-col items-center justify-center">
+            <span className={`tabular-nums text-3xl font-bold leading-none ${rate < passRate ? 'text-wrong-ink' : 'text-ink-primary'}`}>{score}</span>
+            <span className="tabular-nums text-xs text-ink-muted mt-1">/ {count}</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-3 gap-2.5">
+        <StatTile align="center" className="animate-option-in stagger-0" label={messages.common.accuracyStat} value={`${rate}%`} />
+        <StatTile align="center" className="animate-option-in stagger-1" label={messages.common.durationStat} value={clock(elapsedSeconds(exam))} />
+        <StatTile align="center" className="animate-option-in stagger-2" label={messages.common.wrongStat} value={count - score} valueClassName="text-wrong-ink" />
+      </div>
+
+      {local && unsubmitted.size > 0 && (
+        <details className="p-4 rounded-option bg-missed-fill text-missed-ink text-xs">
+          <summary className="cursor-pointer font-medium">{messages.exam.unsubmittedSummary(unsubmitted.size)}</summary>
+          <ul className="m-0 mt-2 pl-4 flex flex-col gap-1">
+            {exam.items.map((question, index) => unsubmitted.has(question.id) && (
+              <li key={question.id}>{messages.exam.questionNumber(index)} {answerLetters(question.options, local.draft.answers[question.id]) || messages.common.unanswered}</li>
+            ))}
+          </ul>
+        </details>
+      )}
+
+      <div className="flex gap-2 flex-wrap">
+        {filters.map(({ id, label }) => (
+          <button
+            key={id}
+            type="button"
+            className={`tactile h-9 px-3.5 rounded-micro text-meta font-medium ${filter === id ? 'bg-cta text-cta-ink' : 'bg-surface text-ink-primary hover:bg-surface-hover'}`}
+            aria-pressed={filter === id}
+            onClick={() => setFilter(id)}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+
+      <div className="flex flex-col gap-3.5">
+        {exam.items.map((question, index) => {
+          const isMarked = marked.has(question.id)
+          if ((filter === 'wrong' && exam.correctness?.[question.id]) || (filter === 'marked' && !isMarked)) return null
+          return <ResultItem key={question.id} exam={exam} question={question} index={index} marked={isMarked} />
+        })}
+      </div>
     </div>
-    <div className="exam-score-visual">
-      <svg className="exam-score-ring" aria-hidden="true" viewBox="0 0 120 120">
-        <circle className="ring-bg" cx="60" cy="60" r="52" />
-        <circle className={`ring-fill ${rate >= 90 ? 'perfect' : rate >= 60 ? 'good' : 'fail'}`} cx="60" cy="60" r="52" strokeDasharray={circumference} strokeDashoffset={circumference * (1 - rate / 100)} />
-      </svg>
-      <div className="exam-score-inner"><span className={`exam-score-num ${rate < 60 ? 'fail-color' : ''}`}>{score}</span><span className="exam-score-total">/ {count}</span></div>
-    </div>
-    <div className="exam-stats-row">
-      <div className="exam-stat-card"><span className="exam-stat-value">{rate}%</span><span className="exam-stat-label">正确率</span></div>
-      <div className="exam-stat-card"><span className="exam-stat-value">{clock(elapsedSeconds(exam))}</span><span className="exam-stat-label">用时</span></div>
-      <div className="exam-stat-card"><span className="exam-stat-value">{count - score}</span><span className="exam-stat-label">错题</span></div>
-    </div>
-    {local && unsubmitted.size > 0 && <details className="exam-unsubmitted">
-      <summary>本机有 {unsubmitted.size} 道题的未同步答案，未计入成绩</summary>
-      <ul>{exam.items.map((question, index) => unsubmitted.has(question.id) &&
-        <li key={question.id}>第 {index + 1} 题 · {answerLetters(question.options, local.draft.answers[question.id]) || '未作答'}</li>
-      )}</ul>
-    </details>}
-    <div className="exam-result-filter">
-      {filters.map(({ id, label }) => <button key={id} type="button" className={`filter-chip ${filter === id ? 'active' : ''}`}
-        aria-pressed={filter === id} onClick={() => setFilter(id)}>{label}</button>)}
-    </div>
-    {exam.items.map((question, index) => {
-      const isMarked = marked.has(question.id)
-      if ((filter === 'wrong' && exam.correctness?.[question.id]) || (filter === 'marked' && !isMarked)) return null
-      return <ResultItem key={question.id} exam={exam} question={question} index={index} marked={isMarked} />
-    })}
-    <div className="exam-result-actions">
-      {replayButton}
-      <button type="button" className="btn nav-step" onClick={onBack} disabled={busy}>返回</button>
-    </div>
-  </div>
+  )
 }
 
-function ExamContent({ initialHistory }: { initialHistory?: Promise<ExamHistory | null> }) {
+function ExamContent({ initialHistory }: { initialHistory?: ExamHistory | null }) {
   const { userId, refreshMe, personalReads, preferences, revision } = useStudySessionContext()
   const view = readExamView(preferences.values.exam)
   const selectedId = view.screen === 'exam' ? view.id : null
@@ -326,7 +579,7 @@ function ExamContent({ initialHistory }: { initialHistory?: Promise<ExamHistory 
   const loadingNow = useRef(false)
   const [restoreAttempt, setRestoreAttempt] = useState(0)
   const [restoreError, setRestoreError] = useState<{ id: string; message: string }>()
-  const list = useStudyData<ExamHistory>(exam ? null : '/api/exams', revision, { ...personalReads, initial: initialHistory })
+  const list = useStudyData<ExamHistory>(exam ? null : siteConfig.api.exams, revision, { ...personalReads, initial: initialHistory })
   const activeDraft = foundDraft ?? list.data?.exams.find((entry) => entry.status === 'draft')
   const historyItems = list.data?.exams.filter((entry) => entry.status === 'submitted') ?? []
 
@@ -337,10 +590,10 @@ function ExamContent({ initialHistory }: { initialHistory?: Promise<ExamHistory 
   useEffect(() => {
     if (!selectedId || exam) return
     let active = true
-    void requestJson<{ exam: ExamData }>(`/api/exams/${selectedId}`, { headers: { 'X-Study-Account': userId } }).then(({ exam: restored }) => {
+    void requestJson<{ exam: ExamData }>(siteConfig.api.examById(selectedId), { headers: { [siteConfig.api.accountHeader]: userId } }).then(({ exam: restored }) => {
       if (active) setLoaded(restored)
     }, (cause: unknown) => {
-      if (active) setRestoreError({ id: selectedId, message: cause instanceof StudyRequestError ? cause.message : '试卷暂时无法恢复，请重试。' })
+      if (active) setRestoreError({ id: selectedId, message: cause instanceof StudyRequestError ? cause.message : messages.exam.restoreFailed })
     })
     return () => { active = false }
   }, [exam, restoreAttempt, selectedId, userId])
@@ -353,19 +606,19 @@ function ExamContent({ initialHistory }: { initialHistory?: Promise<ExamHistory 
     try {
       const requestedCount = Number(questionCount)
       const response: { exam: ExamData; reusedDraft?: boolean } = kind === 'open'
-        ? await requestJson(`/api/exams/${id}`, { headers: { 'X-Study-Account': userId } })
-        : await writeJson(kind === 'replay' ? `/api/exams/${id}/replay` : '/api/exams', userId, 'POST',
+        ? await requestJson(siteConfig.api.examById(id!), { headers: { [siteConfig.api.accountHeader]: userId } })
+        : await writeJson(kind === 'replay' ? siteConfig.api.examReplay(id!) : siteConfig.api.exams, userId, 'POST',
           kind === 'new' ? { questionCount: requestedCount } : undefined)
       if (kind === 'new' && (response.reusedDraft || response.exam.items.length !== requestedCount)) {
         setFoundDraft({ ...response.exam, total: response.exam.items.length })
-        setError('已有一份未交卷的试卷，请选择继续上次考试。')
+        setError(messages.exam.existingDraftError)
         refreshMe()
         return
       }
       setFoundDraft(undefined)
       setSubmittedElsewhere(false)
       setReplayNotice(kind === 'replay' && exam && response.exam.items.length < exam.items.length
-        ? `原卷中有题目已下架，本次重考共 ${response.exam.items.length} 题。` : '')
+        ? messages.exam.removedQuestionsNotice(response.exam.items.length) : '')
       setLoaded(response.exam)
       if (selectedId !== response.exam.id) saveView({
         screen: 'exam', id: response.exam.id, filter: 'all', fromHistory: kind === 'open' && view.screen === 'history',
@@ -373,7 +626,7 @@ function ExamContent({ initialHistory }: { initialHistory?: Promise<ExamHistory 
       if (kind !== 'open') refreshMe()
       window.scrollTo(0, 0)
     } catch (cause) {
-      setError(cause instanceof StudyRequestError ? cause.message : '试卷暂时无法读取，请重试。')
+      setError(cause instanceof StudyRequestError ? cause.message : messages.exam.loadPaperFailed)
     } finally { loadingNow.current = false; setBusy(false) }
   }
 
@@ -384,77 +637,207 @@ function ExamContent({ initialHistory }: { initialHistory?: Promise<ExamHistory 
     window.scrollTo(0, 0)
   }
 
-  if (exam?.status === 'draft') return <>
-    {error && <p className="study-message error" role="alert">{error}</p>}
-    {replayNotice && <p className="study-message" role="status">{replayNotice}</p>}
-    <ExamTaking key={`${exam.id}:${exam.revision}`} exam={exam} onReload={() => void load('open', exam.id)}
-    onResult={(result, elsewhere) => {
-      setSubmittedElsewhere(elsewhere)
-      setLoaded(result)
-      saveView({ screen: 'exam', id: result.id, filter: 'all' })
-      refreshMe()
-      window.scrollTo(0, 0)
-    }} />
-  </>
-  if (exam?.status === 'submitted') return <>
-    {error && <p className="study-message error" role="alert">{error}</p>}
-    {submittedElsewhere && <p className="study-message" role="status">这份试卷已交卷，以下是云端结果。</p>}
-    <ExamResult key={exam.id} exam={exam} onBack={returnFromExam} onRetry={() => void load('replay', exam.id)} busy={busy}
-      filter={view.filter} setFilter={(filter) => saveView({ filter })} />
-  </>
+  if (exam?.status === 'draft') {
+    return (
+      <>
+        {error && <p className="mb-3 text-meta text-wrong-ink" role="alert">{error}</p>}
+        <ExamTaking
+          key={`${exam.id}:${exam.revision}`}
+          exam={exam}
+          onReload={() => void load('open', exam.id)}
+          onResult={(result, elsewhere) => {
+            setSubmittedElsewhere(elsewhere)
+            setLoaded(result)
+            saveView({ screen: 'exam', id: result.id, filter: 'all' })
+            refreshMe()
+            window.scrollTo(0, 0)
+          }}
+        />
+      </>
+    )
+  }
 
-  if (selectedId) return <section>
-    <button type="button" className="btn nav-step" onClick={returnFromExam}>← 返回</button>
-    <LoadMessage loading={restoreError?.id !== selectedId} error={restoreError?.id === selectedId ? restoreError.message : null}
-      retry={() => { setRestoreError(undefined); setRestoreAttempt((count) => count + 1) }} />
-  </section>
+  if (exam?.status === 'submitted') {
+    return (
+      <>
+        {error && <p className="mb-3 text-meta text-wrong-ink" role="alert">{error}</p>}
+        {submittedElsewhere && <p className="mb-3 text-meta text-ink-secondary" role="status">{messages.exam.submittedElsewhereNotice}</p>}
+        <ExamResult
+          key={exam.id}
+          exam={exam}
+          onBack={returnFromExam}
+          onRetry={() => void load('replay', exam.id)}
+          busy={busy}
+          filter={view.filter}
+          setFilter={(filter) => saveView({ filter })}
+        />
+      </>
+    )
+  }
 
-  if (view.screen === 'history') return <section className="exam-history-page" aria-labelledby="exam-history">
-    <div className="exam-history-header">
-      <button type="button" className="btn btn-sm nav-step" onClick={returnFromExam}>← 返回</button>
-      <h3 id="exam-history">考试历史</h3>
-    </div>
-    {error && <p className="study-message error" role="alert">{error}</p>}
-    {historyItems.length === 0 ? <LoadMessage loading={list.loading} error={list.error} retry={list.retry} empty="暂无考试记录" /> : historyItems.map((item) => (
-      <button key={item.id} type="button" className="exam-history-item" disabled={busy} onClick={() => void load('open', item.id)}>
-        <span className="exam-history-main"><span className="exam-history-date">{examDate(item)}</span><span className="exam-history-score">{item.score}/{item.total ?? DEFAULT_EXAM_QUESTIONS}</span></span>
-        <span className="exam-history-meta">用时 {clock(elapsedSeconds(item))}</span>
-      </button>
-    ))}
-  </section>
+  if (selectedId) {
+    return (
+      <section className="max-w-exam mx-auto">
+        <Button variant="surface" size="sm" className="mb-4" onClick={returnFromExam}>{messages.common.back}</Button>
+        <LoadMessage
+          loading={restoreError?.id !== selectedId}
+          error={restoreError?.id === selectedId ? restoreError.message : null}
+          retry={() => { setRestoreError(undefined); setRestoreAttempt((count) => count + 1) }}
+        />
+      </section>
+    )
+  }
 
-  return <section className="exam-start" aria-labelledby="exam-title">
-    <h2 id="exam-title">模拟考试</h2>
-    <p className="exam-start-subtitle">从题库随机组卷</p>
-    <div className="exam-info-chips"><span className="exam-info-chip">单选+多选</span><span className="exam-info-chip">⏱ 不限时</span></div>
-    {activeDraft ? <p className="exam-resume"><button type="button" className="btn primary btn-start-exam" disabled={busy} aria-busy={busy || undefined} onClick={() => void load('open', activeDraft.id)}>
-      {busy ? '正在读取试卷…' : `继续上次考试（${activeDraft.total ?? DEFAULT_EXAM_QUESTIONS} 题） →`}
-    </button></p> : list.data ? <form className="exam-size-form" onSubmit={(event) => {
-      event.preventDefault()
-      if (isExamQuestionCount(Number(questionCount))) void load('new')
-    }}>
-      <div className="exam-size-field">
-        <label htmlFor="exam-question-count">题数</label>
-        <input id="exam-question-count" type="number" inputMode="numeric" min={MIN_EXAM_QUESTIONS} max={MAX_EXAM_QUESTIONS}
-          step={1} required value={questionCount} disabled={busy} aria-describedby="exam-size-range"
-          onChange={(event) => {
-            setCountEdit(event.target.value)
-            const count = Number(event.target.value)
-            if (isExamQuestionCount(count)) saveView({ count })
-          }} />
-        <span id="exam-size-range">{MIN_EXAM_QUESTIONS}–{MAX_EXAM_QUESTIONS} 题</span>
+  if (view.screen === 'history') {
+    return (
+      <section className="max-w-history mx-auto flex flex-col gap-4 animate-view-enter" aria-labelledby="exam-history">
+        <div className="flex items-center gap-3">
+          <Button variant="surface" size="sm" onClick={returnFromExam}>{messages.common.back}</Button>
+          <h1 id="exam-history" className="font-serif m-0 text-sub-title font-bold">{messages.exam.historyTitle}</h1>
+        </div>
+        {error && <p className="m-0 text-meta text-wrong-ink" role="alert">{error}</p>}
+        {historyItems.length === 0 ? (
+          <LoadMessage loading={list.loading} error={list.error} retry={list.retry} empty={messages.exam.noHistory} />
+        ) : (
+          <div className="flex flex-col gap-2.5">
+            {historyItems.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                className="btn-surface p-4 rounded-option flex items-center justify-between gap-3 text-left"
+                disabled={busy}
+                onClick={() => void load('open', item.id)}
+              >
+                <div>
+                  <div className="text-body font-semibold tabular-nums">{examDate(item)}</div>
+                  <div className="mt-1 text-xs text-ink-secondary tabular-nums">{messages.exam.durationLabel(clock(elapsedSeconds(item)))}</div>
+                </div>
+                <span className="tabular-nums px-3 py-1.5 rounded-micro text-sm font-semibold bg-correct-fill text-correct-ink shrink-0">
+                  {messages.exam.scoreFraction(item.score, item.total ?? DEFAULT_EXAM_QUESTIONS)}
+                </span>
+              </button>
+            ))}
+          </div>
+        )}
+      </section>
+    )
+  }
+
+  return (
+    <section className="max-w-exam mx-auto flex flex-col gap-6 animate-view-enter" aria-labelledby="exam-title">
+      <div>
+        <div className="flex items-center gap-2.5 mb-3">
+          <Image src={siteConfig.assets.crest} alt="" width={siteConfig.imageDimensions.examBadgeCrest} height={siteConfig.imageDimensions.examBadgeCrest} className="rounded-full bg-white object-contain" unoptimized />
+          {messages.exam.badges.map((badge) => (
+            <Badge key={badge}>{badge}</Badge>
+          ))}
+        </div>
+        <h1 id="exam-title" className="font-serif m-0 text-hero-title font-bold">{messages.exam.heroTitle}</h1>
+        <p className="m-0 mt-1.5 text-body text-ink-secondary">{messages.exam.heroSubtitle}</p>
       </div>
-      <button type="submit" className="btn primary btn-start-exam" aria-busy={busy || undefined} disabled={busy || !isExamQuestionCount(Number(questionCount))}>
-        {busy ? '正在生成试卷…' : '开始考试'}<span className="btn-arrow"> →</span>
-      </button>
-    </form> : list.loading ? <p className="study-message" role="status">正在检查考试草稿…</p> : null}
-    <p><button type="button" className="btn btn-exam-history nav-step" onClick={() => saveView({ screen: 'history' })}>历史记录{historyItems.length > 0 ? `（${historyItems.length}）` : ''}</button></p>
-    {list.error && <div className="study-message error" role="alert">无法读取草稿和历史。 <button type="button" className="btn btn-sm" onClick={list.retry}>重试</button></div>}
-    {error && <p className="study-message error" role="alert">{error}</p>}
-  </section>
+
+      {activeDraft ? (
+        <div className="p-5 rounded-option bg-surface flex flex-col gap-3">
+          <p className="m-0 text-sm text-ink-secondary">{messages.exam.existingDraftPrompt}</p>
+          <Button
+            variant="cta"
+            size="lg"
+            className="px-6 self-start"
+            disabled={busy}
+            aria-busy={busy || undefined}
+            onClick={() => void load('open', activeDraft.id)}
+          >
+            {busy ? messages.exam.loadingPaper : messages.exam.resumeDraftButton(activeDraft.total ?? DEFAULT_EXAM_QUESTIONS)}
+          </Button>
+        </div>
+      ) : list.data ? (
+        <form
+          className="flex flex-col gap-5"
+          onSubmit={(event) => {
+            event.preventDefault()
+            if (isExamQuestionCount(Number(questionCount))) void load('new')
+          }}
+        >
+          <div>
+            <label htmlFor="exam-question-count" className="block text-xs font-medium text-ink-muted mb-2.5">
+              {messages.exam.questionCountLabel(MIN_EXAM_QUESTIONS, MAX_EXAM_QUESTIONS)}
+            </label>
+            <div className="flex items-center gap-2 flex-wrap mb-3">
+              {siteConfig.examQuickCounts.map((preset) => {
+                const active = Number(questionCount) === preset
+                return (
+                  <Button
+                    key={preset}
+                    variant={active ? 'selected' : 'surface'}
+                    size="md"
+                    className="h-10 text-sm tabular-nums"
+                    onClick={() => {
+                      setCountEdit(String(preset))
+                      saveView({ count: preset })
+                    }}
+                  >
+                    {messages.common.questionCount(preset)}
+                  </Button>
+                )
+              })}
+              <TextInput
+                id="exam-question-count"
+                type="number"
+                inputMode="numeric"
+                className="w-24 h-10 tabular-nums text-center"
+                min={MIN_EXAM_QUESTIONS}
+                max={MAX_EXAM_QUESTIONS}
+                step={1}
+                required
+                value={questionCount}
+                disabled={busy}
+                onChange={(event) => {
+                  setCountEdit(event.target.value)
+                  const count = Number(event.target.value)
+                  if (isExamQuestionCount(count)) saveView({ count })
+                }}
+              />
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3 flex-wrap">
+            <Button
+              type="submit"
+              variant="cta"
+              size="lg"
+              className="px-7"
+              aria-busy={busy || undefined}
+              disabled={busy || !isExamQuestionCount(Number(questionCount))}
+            >
+              {busy ? messages.exam.generatingPaper : messages.exam.startExamButton}
+            </Button>
+            <Button
+              variant="surface"
+              size="lg"
+              className="px-5 text-sm"
+              onClick={() => saveView({ screen: 'history' })}
+            >
+              {messages.exam.historyButton(historyItems.length)}
+            </Button>
+          </div>
+        </form>
+      ) : list.loading ? (
+        <p className="m-0 text-sm text-ink-muted" role="status">{messages.common.loading}</p>
+      ) : null}
+
+      {list.error && (
+        <div className="text-meta text-wrong-ink flex items-center gap-2" role="alert">
+          <span>{messages.exam.draftLoadError}</span>
+          <Button variant="surface" size="xs" onClick={list.retry}>{messages.common.retry}</Button>
+        </div>
+      )}
+      {error && <p className="m-0 text-meta text-wrong-ink" role="alert">{error}</p>}
+      {replayNotice && <p className="m-0 text-meta text-ink-secondary" role="status">{replayNotice}</p>}
+    </section>
+  )
 }
 
-export function Exam({ initialHistory }: { initialHistory?: Promise<ExamHistory | null> }) {
+export function Exam({ initialHistory }: { initialHistory?: ExamHistory | null }) {
   const { preferences } = useStudySessionContext()
   return preferences.ready ? <ExamContent initialHistory={initialHistory} /> : <LoadMessage loading />
 }

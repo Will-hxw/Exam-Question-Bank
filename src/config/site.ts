@@ -1,0 +1,135 @@
+import { authWordmarkImage, publicAuthorAvatar, sponsorQrImage } from '@/ui-images'
+import { brandAuthor } from './brand'
+
+/**
+ * 全站唯一类型化配置中心（消除一切硬编码）
+ */
+const routes = {
+  practice: '/',
+  exam: '/exam',
+  questions: '/questions',
+  wrong: '/wrong',
+  favorites: '/favorites',
+  account: '/account',
+  login: '/login',
+} as const
+
+export const siteConfig = {
+  appName: 'cqu-rudang',
+  title: '重庆大学入党积极分子练习',
+  shortTitle: '重庆大学',
+  subTitle: '入党积极分子练习',
+  description: '重庆大学入党积极分子专题练习、模拟考试与复盘。',
+  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://cqu.xiaoweihua.cn',
+  visibleCredit: 'Hua Xiaowei — ZJU',
+  authorName: 'Hua Xiaowei',
+  designCreditPrefix: 'UI & UX Designed by',
+  shortcutsHint: '快捷键 1-4 / Enter / ← →',
+  routes,
+  api: {
+    publicPrefix: '/api/public/',
+    mePrefix: '/api/me/',
+    accountHeader: 'X-Study-Account',
+    topics: '/api/public/topics',
+    stats: '/api/me/stats',
+    session: '/api/me/session',
+    exams: '/api/exams',
+    examById: (id: string) => `/api/exams/${id}`,
+    examReplay: (id: string) => `/api/exams/${id}/replay`,
+    feedback: '/api/feedback',
+    explanation: (id: string) => `/api/public/questions/${id}/explanation`,
+    authorChat: '/api/author-chat',
+    chatAvatar: (id: string) => `/api/chat/avatar?id=${id}`,
+    chatAvatarFallback: (avatar: string | number) => `/chat-avatars/${avatar}.webp`,
+  },
+  serviceWorker: {
+    path: '/sw.js',
+  },
+  timings: {
+    examAutoAdvanceMs: 180,
+    searchDebounceMs: 250,
+    libraryPrefetchMs: 400,
+    mentionHoldMs: 440,
+    chatReadRetryMs: 5000,
+    authorInboxTimeoutMs: 9000,
+    authorInboxRefreshMs: 12_000,
+    feedbackTimeoutMs: 20_000,
+    resendCooldownMs: 60_000,
+  },
+  chatEmojis: ['😀', '😂', '🥹', '🤣', '😎', '🤔', '🙃', '👀', '👍', '👏', '🙌', '🤝', '❤️', '✨', '🎉', '💪'] as const,
+  links: {
+    partyStudyHome: 'https://www.12371.cn/special/zxzc/',
+  },
+  hashes: {
+    chat: '#chat',
+    feedback: '#feedback',
+    sponsor: '#sponsor',
+    authorChat: '#author-chat',
+  },
+  storageKeys: {
+    authFlow: 'cqu-auth-flow',
+    practiceHistory: (userId: string, scope: string) => `cqu-practice-history:${userId}:${scope}`,
+    feedbackDraft: (userId: string) => `cqu-feedback-draft:${userId}`,
+    chatDraft: (userId: string, scope: string) => `cqu-chat-draft:${userId}:${scope}`,
+  },
+  assets: {
+    crest: '/cqu-crest.png',
+    crestAlt: '重庆大学',
+    wordmark: authWordmarkImage,
+    sponsorQr: sponsorQrImage,
+    sponsorQrAlt: '微信收款码',
+    aiAvatar: publicAuthorAvatar,
+  },
+  imageDimensions: {
+    headerCrest: 30,
+    mobileCrest: 24,
+    drawerCrest: 34,
+    examBadgeCrest: 28,
+    sponsorCrest: 40,
+    sponsorQr: 280,
+    wordmarkWidth: 194,
+    wordmarkHeight: 61,
+  },
+  limits: {
+    searchInputMax: 100,
+    emailMax: 254,
+    otpMax: 6,
+    passwordMin: 8,
+    passwordMax: 128,
+    mailboxHeaderSize: 24,
+    mailboxOverviewSize: 16,
+  },
+  nav: [
+    { href: routes.practice, label: '刷题' },
+    { href: routes.exam, label: '模拟考试' },
+    { href: routes.questions, label: '总题库' },
+    { href: routes.wrong, label: '错题集' },
+    { href: routes.favorites, label: '收藏夹' },
+  ] as const,
+  practiceModes: [
+    { id: 'topic', label: '专题' },
+    { id: 'random', label: '随机' },
+    { id: 'sequence', label: '顺序' },
+    { id: 'wrong', label: '错题' },
+    { id: 'favorite', label: '收藏' },
+  ] as const,
+  practiceSheetWindowSize: 35,
+  examQuickCounts: [20, 50, 80, 100] as const,
+  examRing: {
+    viewBox: '0 0 120 120',
+    center: 60,
+    strokeWidth: 8,
+    radius: 52,
+    circumference: 326.73,
+    excellentRate: 90,
+    passRate: 60,
+    minProgressPct: 4,
+  },
+  codeAuthor: brandAuthor,
+} as const
+
+export const __TFAULTXIOS_WATERMARK__ = Object.freeze({
+  sig: siteConfig.codeAuthor.handle,
+  repo: siteConfig.codeAuthor.github,
+  contact: siteConfig.codeAuthor.email,
+})
