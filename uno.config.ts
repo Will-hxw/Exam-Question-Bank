@@ -89,11 +89,6 @@ export default defineConfig({
     'collapse-grid':
       'grid grid-rows-collapsed transition-rows duration-collapse ease-silk motion-reduce:transition-none',
     'collapse-inner': 'overflow-hidden',
-    'colophon-link':
-      'tactile inline-flex items-baseline gap-1.5 text-ink-muted hover:text-ink-primary no-underline',
-    'colophon-title': 'font-editorial italic text-colophon font-normal',
-    'colophon-email':
-      'font-editorial text-colophon font-normal tracking-wide text-ink-secondary group-hover:text-ink-primary group-hover:underline underline-offset-4 transition-colors',
   },
   rules: [
     ['shadow-desktop', { 'box-shadow': 'var(--desktop-shadow)' }],

@@ -1,5 +1,4 @@
 import { BrandMark } from '@/components/brand-mark'
-import { ColophonCredit } from '@/components/colophon-credit'
 import { messages } from '@/config/messages'
 import { isSiteAuthor } from '@/features/auth/server'
 import { loadStudyUser } from '@/features/auth/study-access'
@@ -35,7 +34,6 @@ export default async function StudyLayout({ children }: Readonly<{ children: Rea
       initialStats={initialStats}
       initialTopics={initialTopics}
       brandSlot={<BrandMark />}
-      colophonSlot={<ColophonCredit />}
       sponsorSlot={<SponsorCard />}
       key={auth.user.id}
     >

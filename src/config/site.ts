@@ -1,5 +1,4 @@
 import { authWordmarkImage, publicAuthorAvatar, sponsorQrImage } from '@/ui-images'
-import { brandAuthor } from './brand'
 
 /**
  * 全站唯一类型化配置中心（消除一切硬编码）
@@ -23,7 +22,7 @@ export const siteConfig = {
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://cqu.xiaoweihua.cn',
   visibleCredit: 'Hua Xiaowei — ZJU',
   authorName: 'Hua Xiaowei',
-  designCreditPrefix: 'UI & UX Designed by',
+  feedbackEmail: '1176843521@qq.com',
   shortcutsHint: '快捷键 1-4 / Enter / ← →',
   routes,
   api: {
@@ -125,11 +124,4 @@ export const siteConfig = {
     passRate: 60,
     minProgressPct: 4,
   },
-  codeAuthor: brandAuthor,
 } as const
-
-export const __TFAULTXIOS_WATERMARK__ = Object.freeze({
-  sig: siteConfig.codeAuthor.handle,
-  repo: siteConfig.codeAuthor.github,
-  contact: siteConfig.codeAuthor.email,
-})

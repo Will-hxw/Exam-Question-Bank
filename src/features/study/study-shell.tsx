@@ -270,10 +270,10 @@ export function useQuestionFavorite(id: string, serverFavorite?: boolean) {
   }
 }
 
-export function StudyShell({ userId, author, initialPreferences, initialStats, initialTopics, brandSlot, colophonSlot, sponsorSlot, children }: {
+export function StudyShell({ userId, author, initialPreferences, initialStats, initialTopics, brandSlot, sponsorSlot, children }: {
   userId: string; author: boolean; initialPreferences: StudyPreferences | null
   initialStats: StudyStats | null; initialTopics: { topics: Topic[] } | null
-  brandSlot: ReactNode; colophonSlot: ReactNode; sponsorSlot: ReactNode; children: ReactNode
+  brandSlot: ReactNode; sponsorSlot: ReactNode; children: ReactNode
 }) {
   const pathname = usePathname()
   const router = useRouter()
@@ -581,7 +581,6 @@ export function StudyShell({ userId, author, initialPreferences, initialStats, i
             </a>
             <span lang="en">{siteConfig.visibleCredit}</span>
           </div>
-          {colophonSlot}
         </footer>
 
         {/* Mobile Drawer 1: Practice settings & navigation */}
@@ -710,7 +709,6 @@ export function StudyShell({ userId, author, initialPreferences, initialStats, i
           </div>
           <div className="flex flex-col items-center gap-1.5 text-center" lang="en">
             <span className="text-xs text-ink-muted">{siteConfig.visibleCredit}</span>
-            {colophonSlot}
           </div>
         </BottomDrawer>
       </div>

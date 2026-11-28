@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import type { ReactNode } from 'react'
-import { ColophonCredit } from '@/components/colophon-credit'
 import { siteConfig } from '@/config/site'
 
 export function AuthScreen({ children }: { children: ReactNode }) {
@@ -22,7 +21,6 @@ export function AuthScreen({ children }: { children: ReactNode }) {
       </div>
       <footer className="mt-10 text-ink-muted text-center flex flex-col items-center gap-1.5" lang="en">
         <span className="text-xs">{siteConfig.visibleCredit}</span>
-        <ColophonCredit />
       </footer>
     </main>
   )

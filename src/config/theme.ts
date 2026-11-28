@@ -1,4 +1,3 @@
-import { brandAuthor } from './brand.ts'
 
 /**
  * 全站单一视觉令牌与动效定义（供 UnoCSS 引擎按需编译与 Preflight 注入）
@@ -199,7 +198,6 @@ export const typographyTheme = {
     body: ['14.5px', { 'line-height': '1.55' }],
     control: ['13.5px', { 'line-height': '1.35' }],
     meta: ['13px', { 'line-height': '1.3' }],
-    colophon: ['15px', { 'line-height': '1.2', 'letter-spacing': '0.015em' }],
     label: ['12px', { 'line-height': '1.2' }],
     micro: ['11px', { 'line-height': '1.2' }],
     nano: ['10px', { 'line-height': '1.2' }],
@@ -230,7 +228,6 @@ export const typographyTheme = {
   },
   fontFamily: {
     serif: 'var(--font-serif), "Noto Serif SC", "Songti SC", "STSong", serif',
-    editorial: 'var(--font-editorial), "Instrument Serif", Georgia, serif',
     sans: 'var(--font-sans), "Inter", -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif',
   },
 }
@@ -244,8 +241,7 @@ export function buildThemePreflight(): string {
     .join('')
 
   return [
-    `/*! ${brandAuthor.handle} | ${brandAuthor.github} | ${brandAuthor.email} | ${brandAuthor.designSystemTitle} */`,
-    `:root{color-scheme:light;--tfaultxios-sig:"${brandAuthor.sigTag}";--tfaultxios-contact:"${brandAuthor.email}";${lightVars}--desktop-shadow:${layoutVars.desktopShadowLight};--nav-pill-shadow:${layoutVars.navPillShadowLight};--study-main-max:${layoutVars.studyMainMax};--study-rail-width:${layoutVars.studyRailWidth};--ease-silk:${motionVars.easeSilk};--ease-spring:${motionVars.easeSpring};--ease-bounce:${motionVars.easeBounce};--motion-tactile:${motionVars.tactile};--motion-popover:${motionVars.popover};--motion-msg:${motionVars.msg};--motion-option:${motionVars.option};--motion-question:${motionVars.question};--motion-collapse:${motionVars.collapse};--motion-view:${motionVars.view};--motion-feedback:${motionVars.feedback};--motion-drawer:${motionVars.drawer};--motion-scrim:${motionVars.scrim};--motion-progress:${motionVars.progress};--motion-ring:${motionVars.ring};--motion-pop:${motionVars.pop};--motion-shake:${motionVars.shake};--motion-check:${motionVars.check};--motion-check-delay:${motionVars.checkDelay};--motion-ring-delay:${motionVars.ringDelay};--motion-theme:${motionVars.themeTransition};--motion-icon-swap:${motionVars.iconSwap};--motion-stagger-step:${motionVars.staggerStep};--check-stroke-len:${motionVars.checkStrokeLen};--chat-viewport-offset:${layoutVars.chatViewportOffsetMobile};--chat-shell-min:${layoutVars.chatShellMin};}`,
+    `:root{color-scheme:light;${lightVars}--desktop-shadow:${layoutVars.desktopShadowLight};--nav-pill-shadow:${layoutVars.navPillShadowLight};--study-main-max:${layoutVars.studyMainMax};--study-rail-width:${layoutVars.studyRailWidth};--ease-silk:${motionVars.easeSilk};--ease-spring:${motionVars.easeSpring};--ease-bounce:${motionVars.easeBounce};--motion-tactile:${motionVars.tactile};--motion-popover:${motionVars.popover};--motion-msg:${motionVars.msg};--motion-option:${motionVars.option};--motion-question:${motionVars.question};--motion-collapse:${motionVars.collapse};--motion-view:${motionVars.view};--motion-feedback:${motionVars.feedback};--motion-drawer:${motionVars.drawer};--motion-scrim:${motionVars.scrim};--motion-progress:${motionVars.progress};--motion-ring:${motionVars.ring};--motion-pop:${motionVars.pop};--motion-shake:${motionVars.shake};--motion-check:${motionVars.check};--motion-check-delay:${motionVars.checkDelay};--motion-ring-delay:${motionVars.ringDelay};--motion-theme:${motionVars.themeTransition};--motion-icon-swap:${motionVars.iconSwap};--motion-stagger-step:${motionVars.staggerStep};--check-stroke-len:${motionVars.checkStrokeLen};--chat-viewport-offset:${layoutVars.chatViewportOffsetMobile};--chat-shell-min:${layoutVars.chatShellMin};}`,
     `@media (min-width:1024px){:root{--chat-viewport-offset:${layoutVars.chatViewportOffsetDesktop};}}`,
     `:root[data-theme="dark"]{color-scheme:dark;${darkVars}--desktop-shadow:${layoutVars.desktopShadowDark};--nav-pill-shadow:${layoutVars.navPillShadowDark};}`,
     '*,*::before,*::after{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}',

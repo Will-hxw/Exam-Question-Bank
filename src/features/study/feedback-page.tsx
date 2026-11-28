@@ -99,6 +99,10 @@ export function FeedbackPage({ pathname, userId, active, unread, onBack, warmAut
         </ActionLink>
       </div>
 
+      <p className="text-control text-ink-secondary">
+        紧急情况请联系 QQ 邮箱：<a className="underline" href={`mailto:${siteConfig.feedbackEmail}`}>{siteConfig.feedbackEmail}</a>
+      </p>
+
       {status === 'sent' ? (
         <div className="p-6 rounded-option bg-correct-fill text-correct-ink" role="status">
           <p className="m-0 text-action font-semibold">{messages.feedback.sentTitle}</p>
