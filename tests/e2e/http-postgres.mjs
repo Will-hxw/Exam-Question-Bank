@@ -858,6 +858,23 @@ async function runApiChecks(origin, db, items, secret) {
     FROM chat_ai_requests WHERE message_id=$1
   `, [bystander.id])
   assert.deepEqual(bystanderClaim, { proactive: true, answered: false })
+
+  await db.query("UPDATE chat_ai_requests SET claimed_at = clock_timestamp() - interval '2 minutes' WHERE proactive")
+  await db.query("UPDATE chat_messages SET sent_at = sent_at - interval '5 seconds' WHERE id = $1", [ownerPost.id])
+  const ownerPlain = (await write(chatPath, author, '管理员普通发言')).data.message
+  await db.query("UPDATE chat_messages SET sent_at = sent_at - interval '5 seconds' WHERE id = $1", [ownerPlain.id])
+  const ownerPrompt = '管理员提问：真ai吗？'
+  const ownerWrite = { ...author, method: 'POST', body: { clientId: randomUUID(), message: `@AI ${ownerPrompt}` } }
+  const [ownerAsk, ownerRetry] = await Promise.all([call(chatPath, ownerWrite), call(chatPath, ownerWrite)])
+  assert.equal(ownerAsk.data.message.id, ownerRetry.data.message.id)
+  const ownerAiReply = await waitForChat(chatPath, author, (message) => message.aiReplyTo === ownerAsk.data.message.id)
+  assert.equal(ownerAiReply.body, simulatedIdentity)
+  assert.equal(modelCalls.filter((input) => modelInput(input).latest === ownerPrompt).length, 1)
+  const { rows: ownerClaims } = await db.query(`
+    SELECT message_id::text, proactive FROM chat_ai_requests WHERE user_id = $1
+  `, [author.owner])
+  assert.deepEqual(ownerClaims, [{ message_id: ownerAsk.data.message.id, proactive: false }])
+
   await db.query('DELETE FROM chat_messages; DELETE FROM author_conversations')
 
   return {
