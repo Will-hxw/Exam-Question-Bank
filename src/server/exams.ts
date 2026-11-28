@@ -51,11 +51,18 @@ const summaryFields = `
   s.revision, s.position, s.score, s.question_count AS total
 `
 
-export async function examHistory(user: string): Promise<ExamHistory> {
-  return { exams: await query<ExamHistory['exams'][number]>(`
+export async function examHistory(user: string, before: string | null = null): Promise<ExamHistory> {
+  const pageSize = 30
+  const rows = await query<ExamHistory['exams'][number]>(`
     SELECT ${summaryFields} FROM exam_sessions s WHERE s.user_id = $1
-    ORDER BY (status = 'draft') DESC, started_at DESC LIMIT 30
-  `, [user]) }
+      AND ($2::uuid IS NULL OR (s.status = 'submitted' AND (s.started_at, s.id) < (
+        SELECT a.started_at, a.id FROM exam_sessions a
+        WHERE a.user_id = $1 AND a.id = $2 AND a.status = 'submitted'
+      )))
+    ORDER BY (status = 'draft') DESC, started_at DESC, id DESC LIMIT $3
+  `, [user, before, pageSize + 1])
+  const exams = rows.slice(0, pageSize)
+  return { exams, nextCursor: rows.length > pageSize ? exams[pageSize - 1].id : null }
 }
 
 export async function examDetails(user: string, id: string) {

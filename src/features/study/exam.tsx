@@ -14,10 +14,11 @@ import { type Exam as ExamData, readLocalExamDraft, useExamDraft } from './exam-
 import { type ExamAnswerConflict, unsubmittedAnswerIds } from './exam-draft-merge'
 import { DEFAULT_EXAM_QUESTIONS, isExamQuestionCount, MAX_EXAM_QUESTIONS, MIN_EXAM_QUESTIONS } from './exam-size'
 import { useQuestionFavorite, useQuestionStates, useStudySessionContext } from './study-shell'
+import { useQuestionShortcuts } from './use-question-shortcuts'
 import { useStudyData } from './use-study-data'
 
 type ExamSummary = Pick<ExamData, 'id' | 'status' | 'startedAt' | 'submittedAt' | 'score'> & { total?: number }
-export type ExamHistory = { exams: ExamSummary[] }
+export type ExamHistory = { exams: ExamSummary[]; nextCursor?: string | null }
 type ExamFilter = 'all' | 'wrong' | 'marked'
 type ExamView = { screen: 'entrance' | 'history' | 'exam'; id: string | null; count: number; filter: ExamFilter; fromHistory: boolean }
 
@@ -128,6 +129,7 @@ function ExamTaking({ exam, onResult, onReload }: {
   const [sheetOpen, setSheetOpen] = useState(false)
   const [navDirection, setNavDirection] = useState<'forward' | 'backward' | 'jump'>('jump')
   const submittingNow = useRef(false)
+  const paper = useRef<HTMLDivElement>(null)
   const confirmation = useRef<HTMLDialogElement>(null)
   const [error, setError] = useState('')
   const [reviewNotice, setReviewNotice] = useState(false)
@@ -198,6 +200,22 @@ function ExamTaking({ exam, onResult, onReload }: {
     } finally { submittingNow.current = false; setSubmitting(false) }
   }
 
+  function advance() {
+    if (position === count - 1) confirmHandIn()
+    else move(position + 1)
+  }
+
+  useQuestionShortcuts(paper, (key) => {
+    if (!item || blocked || sheetOpen) return false
+    const option = /^[1-6]$/.test(key) ? item.options[Number(key) - 1] : undefined
+    if (option) choose(option.id)
+    else if (key === 'ArrowLeft' && position > 0) move(position - 1)
+    else if (key === 'ArrowRight' && position + 1 < count) move(position + 1)
+    else if (key === 'Enter' && (item.type !== 'multiple' || selected.length)) advance()
+    else return false
+    return true
+  })
+
   if (!item) return <LoadMessage error={messages.exam.paperUnavailable} retry={() => onReload()} />
 
   const isMarked = draft.marked.includes(item.id)
@@ -231,7 +249,7 @@ function ExamTaking({ exam, onResult, onReload }: {
 
   return (
     <>
-      <div className="lg:grid study-two-col">
+      <div ref={paper} className="lg:grid study-two-col">
         <div>
           {/* Mobile top exam status bar */}
           <div className="flex items-center justify-between gap-3 mb-5 lg:hidden">
@@ -307,12 +325,12 @@ function ExamTaking({ exam, onResult, onReload }: {
             </Button>
             {item.type === 'multiple' && (
               <Button className="flex-1 min-h-11 px-2" variant="cta" size="md" disabled={!selected.length || blocked}
-                onClick={() => position === count - 1 ? confirmHandIn() : move(position + 1)}>
+                onClick={advance}>
                 确定
               </Button>
             )}
             <Button className="flex-1 min-h-11 px-2" variant={item.type === 'multiple' ? 'surface' : 'cta'} size="md"
-              disabled={(position === count - 1 && item.type === 'multiple') || blocked} onClick={() => position === count - 1 ? confirmHandIn() : move(position + 1)}>
+              disabled={(position === count - 1 && item.type === 'multiple') || blocked} onClick={advance}>
               {position === count - 1 && item.type === 'single' ? messages.exam.submitAndViewResult : messages.common.nextQuestion}
             </Button>
             <Button className="lg:hidden flex-1 min-h-11 px-2" size="md" aria-haspopup="dialog" onClick={(event) => {
@@ -322,6 +340,7 @@ function ExamTaking({ exam, onResult, onReload }: {
               {messages.practice.answerSheet}
             </Button>
           </nav>
+          <p className="mt-3 text-xs text-ink-secondary hidden lg:block">{siteConfig.shortcutsHint}</p>
         </div>
 
         {/* Desktop sticky right exam rail */}
@@ -503,7 +522,27 @@ function ExamContent({ initialHistory }: { initialHistory?: ExamHistory | null }
   const [restoreError, setRestoreError] = useState<{ id: string; message: string }>()
   const list = useStudyData<ExamHistory>(exam ? null : siteConfig.api.exams, revision, { ...personalReads, initial: initialHistory })
   const activeDraft = foundDraft ?? list.data?.exams.find((entry) => entry.status === 'draft')
-  const historyItems = list.data?.exams.filter((entry) => entry.status === 'submitted') ?? []
+  const [olderHistory, setOlderHistory] = useState<ExamHistory>()
+  const [historyLoading, setHistoryLoading] = useState(false)
+  const [historyError, setHistoryError] = useState(false)
+  const recentHistory = list.data?.exams.filter((entry) => entry.status === 'submitted') ?? []
+  const recentIds = new Set(recentHistory.map((entry) => entry.id))
+  const historyItems = [...recentHistory, ...(olderHistory?.exams ?? []).filter((entry) => !recentIds.has(entry.id))]
+  const historyCursor = olderHistory ? olderHistory.nextCursor : list.data?.nextCursor
+
+  async function loadOlderHistory() {
+    if (!historyCursor || historyLoading) return
+    setHistoryError(false)
+    setHistoryLoading(true)
+    try {
+      const page = await personalReads.load<ExamHistory>(`${siteConfig.api.exams}?${new URLSearchParams({ before: historyCursor })}`)
+      setOlderHistory((previous) => ({ ...page, exams: [...(previous?.exams ?? []), ...page.exams] }))
+    } catch {
+      setHistoryError(true)
+    } finally {
+      setHistoryLoading(false)
+    }
+  }
 
   function saveView(change: Partial<ExamView>) {
     preferences.save({ exam: { ...view, ...change } })
@@ -641,6 +680,12 @@ function ExamContent({ initialHistory }: { initialHistory?: ExamHistory | null }
               </button>
             ))}
           </div>
+        )}
+        {historyError && <p className="m-0 text-meta text-wrong-ink" role="alert">历史记录暂时无法加载，请重试。</p>}
+        {historyCursor && (
+          <Button className="self-center" disabled={historyLoading} aria-busy={historyLoading || undefined} onClick={() => void loadOlderHistory()}>
+            {historyLoading ? messages.common.loading : '加载更早的考试记录'}
+          </Button>
         )}
       </section>
     )

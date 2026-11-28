@@ -29,9 +29,10 @@ function QuestionRow({ question, state, list, index = 0 }: { question: Question;
   const [expanded, setExpanded] = useState(false)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
-  const cached = showAnswer ? cachedQuestionExplanation(question) : undefined
-  const explanation = useStudyData<Explanation>(showAnswer && !cached ? explanationPath(question.id) : null)
-  const explanationData = cached ?? explanation.data
+  const answerVisible = showAnswer || expanded
+  const cached = answerVisible ? cachedQuestionExplanation(question) : undefined
+  const explanation = useStudyData<Explanation>(answerVisible && !cached ? explanationPath(question.id) : null)
+  const explanationData = answerVisible ? cached ?? explanation.data : null
   const attempted = state?.attempted ?? question.attempted ?? false
 
   async function clearWrong() {
@@ -76,14 +77,14 @@ function QuestionRow({ question, state, list, index = 0 }: { question: Question;
         <button
           type="button"
           className="tactile h-8.5 px-3.5 rounded-micro text-meta font-medium bg-canvas text-ink-primary hover:bg-surface-hover"
-          aria-expanded={showAnswer}
+          aria-expanded={answerVisible}
           data-explanation-id={question.id}
           onPointerEnter={(event) => { if (event.pointerType === 'mouse') warmExplanation(question) }}
           onFocus={() => warmExplanation(question)}
           onPointerDown={() => warmExplanation(question)}
-          onClick={() => { setShowAnswer(!showAnswer); setExpanded(false) }}
+          onClick={() => { setShowAnswer(!answerVisible); setExpanded(false) }}
         >
-          {showAnswer ? messages.library.hideAnswer : messages.library.showAnswer}
+          {answerVisible ? messages.library.hideAnswer : messages.library.showAnswer}
         </button>
 
         <button
@@ -111,7 +112,7 @@ function QuestionRow({ question, state, list, index = 0 }: { question: Question;
           type="button"
           className="tactile h-8.5 px-3.5 rounded-micro text-meta font-medium bg-canvas text-ink-secondary"
           aria-expanded={expanded}
-          onClick={() => { setExpanded(!expanded); setShowAnswer(true) }}
+          onClick={() => setExpanded(!expanded)}
         >
           {expanded ? messages.common.collapseExplanation : messages.common.expandExplanation}
         </button>
