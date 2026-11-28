@@ -43,9 +43,11 @@
     "@types/pg": "^8.15.0",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
+    "@unocss/postcss": "^66.13.0",
     "eslint": "^9.0.0",
     "eslint-config-next": "16.4.6",
     "typescript": "5.9.3",
+    "unocss": "^66.13.0",
     "zod": "4.6.7"
   }
 }

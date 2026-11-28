@@ -2,43 +2,20 @@
 
 import { useEffect, useRef, useState, useSyncExternalStore, useTransition, type FormEvent } from "react"
 import { useRouter } from "next/navigation"
+import { EyeIcon } from "@/components/icons"
+import { Button, TextInput } from "@/components/ui"
+import { messages } from "@/config/messages"
 import { useTabDraft } from "@/use-tab-draft"
 import { authConstraintError, authErrorMessage, authFieldError, authIssue, type AuthField, type AuthStep } from "./client-errors"
-import { AuthScreen } from "./auth-screen"
 import type { StudyDestination } from "./study-destination"
-import styles from "./auth-panel.module.css"
+import { siteConfig } from "@/config/site"
 
 type FormError = { text: string; field?: AuthField }
 type AuthFlow = { step: AuthStep; email: string; resendAt: number }
 
-const views: Record<AuthStep, { title?: string; description?: string; action: string; failure: string }> = {
-  login: { action: "继续", failure: "邮箱或密码有误，请检查后重试。" },
-  register: {
-    title: "创建账号",
-    action: "注册并验证邮箱",
-    failure: "注册请求未完成。可检查邮箱后重试，或尝试登录。",
-  },
-  verify: {
-    title: "验证邮箱",
-    description: "输入发至邮箱的 6 位验证码。",
-    action: "验证邮箱",
-    failure: "邮箱验证未完成，请检查验证码后重试。",
-  },
-  forgot: {
-    title: "找回密码",
-    description: "输入注册时使用的邮箱，获取密码重置验证码。",
-    action: "发送重置验证码",
-    failure: "重置请求未完成，请稍后重试。",
-  },
-  reset: {
-    title: "重置密码",
-    description: "输入邮箱验证码，并设置新密码。",
-    action: "保存新密码",
-    failure: "密码重置未完成，请检查验证码后重试。",
-  },
-}
+const views: Record<AuthStep, { title?: string; description?: string; action: string; failure: string }> = messages.auth.steps
 
-const requireVerification = "请先完成邮箱验证。需要时可重新发送验证码。"
+const requireVerification = messages.auth.requireVerification
 const loadAuthClient = () => import("./client").then(({ authClient }) => authClient)
 const subscribeReady = () => () => {}
 const browserReady = () => true
@@ -55,14 +32,14 @@ function readAuthFlow(value: unknown): AuthFlow | null {
 
 function warmPractice() {
   void import("@/features/study/api").then(async ({ readPublic, questionUrl }) => {
-    const { topics } = await readPublic<{ topics: { id: string; count: number }[] }>("/api/public/topics")
+    const { topics } = await readPublic<{ topics: { id: string; count: number }[] }>(siteConfig.api.topics)
     const first = topics.find(({ count }) => count > 0)
     if (first) await readPublic(questionUrl({ topic: first.id, offset: 0, limit: 15, practice: true }))
   }).catch(() => {})
 }
 
 async function sessionIsVerified() {
-  const response = await fetch("/api/me/session", { cache: "no-store" })
+  const response = await fetch(siteConfig.api.session, { cache: "no-store" })
   if (!response.ok) throw new Error("session lookup failed")
   const { user } = await response.json()
   return Boolean(user?.id)
@@ -72,7 +49,7 @@ export function AuthPanel({ destination }: { destination: StudyDestination }) {
   const router = useRouter()
   const ready = useSyncExternalStore(subscribeReady, browserReady, serverReady)
   const [redirecting, navigate] = useTransition()
-  const { value, save } = useTabDraft("cqu-auth-flow", readAuthFlow)
+  const { value, save } = useTabDraft(siteConfig.storageKeys.authFlow, readAuthFlow)
   const [completed, setCompleted] = useState<AuthFlow | null>(null)
   const flow = completed ?? value ?? initialFlow
   const { step, email, resendAt } = flow
@@ -170,7 +147,7 @@ export function AuthPanel({ destination }: { destination: StudyDestination }) {
     save({ ...flow, email: address, resendAt: address === email.trim().toLowerCase() ? resendAt : 0 })
 
     try {
-      if (destination === "/" && (step === "login" || step === "verify")) warmPractice()
+      if (destination === siteConfig.routes.practice && (step === "login" || step === "verify")) warmPractice()
       const authClient = await loadAuthClient()
       switch (step) {
         case "login": {
@@ -187,10 +164,10 @@ export function AuthPanel({ destination }: { destination: StudyDestination }) {
           const { error } = await authClient.signUp.email({
             email: address,
             password: submittedPassword,
-            name: "同学",
+            name: messages.auth.defaultStudentName,
           })
           if (error) throw error
-          changeStep("verify", "已有验证码即可验证。如未收到，请点击重新发送。", address)
+          changeStep("verify", messages.auth.verifyExistingOtpNotice, address)
           break
         }
         case "verify": {
@@ -199,14 +176,14 @@ export function AuthPanel({ destination }: { destination: StudyDestination }) {
           if ((data?.token && data.user?.emailVerified) || await sessionIsVerified()) {
             finishSignIn(address)
           } else {
-            changeStep("login", "邮箱已验证，请登录。", address)
+            changeStep("login", messages.auth.emailVerifiedNotice, address)
           }
           break
         }
         case "forgot": {
           const { error } = await authClient.forgetPassword.emailOtp({ email: address })
           if (error) throw error
-          changeStep("reset", "如果该邮箱已注册，请查收密码重置验证码。", address, 60_000)
+          changeStep("reset", messages.auth.resetOtpSentNotice, address, 60_000)
           break
         }
         case "reset": {
@@ -216,7 +193,7 @@ export function AuthPanel({ destination }: { destination: StudyDestination }) {
             password: submittedPassword,
           })
           if (error) throw error
-          changeStep("login", "密码已更新，请用新密码登录。", address)
+          changeStep("login", messages.auth.passwordUpdatedNotice, address)
           break
         }
       }
@@ -227,7 +204,7 @@ export function AuthPanel({ destination }: { destination: StudyDestination }) {
       } else {
         const fieldError = issue && authFieldError(step, issue)
         setFormError(fieldError ?? {
-          text: issue ? authErrorMessage(issue, view.failure) : "暂时无法完成请求，请检查网络后重试。",
+          text: issue ? authErrorMessage(issue, view.failure) : messages.auth.networkError,
         })
       }
     } finally {
@@ -246,12 +223,12 @@ export function AuthPanel({ destination }: { destination: StudyDestination }) {
       if (error) throw error
       const time = Date.now()
       setNow(time)
-      save({ ...flow, resendAt: time + 60_000 })
-      setNotice("如果该邮箱符合发送条件，请查收邮件。")
+      save({ ...flow, resendAt: time + siteConfig.timings.resendCooldownMs })
+      setNotice(messages.auth.resendSuccessNotice)
     } catch (error) {
       const issue = authIssue(error)
       setFormError({
-        text: issue ? authErrorMessage(issue, "验证码请求未完成，请稍后重试。") : "暂时无法发送验证码，请检查网络后重试。",
+        text: issue ? authErrorMessage(issue, messages.auth.resendFallbackError) : messages.auth.resendNetworkError,
       })
     } finally {
       end()
@@ -259,89 +236,97 @@ export function AuthPanel({ destination }: { destination: StudyDestination }) {
   }
 
   return (
-    <AuthScreen>
-      <header className={styles.heading}>
-        <h1 className={styles.brand} ref={step === "login" ? heading : undefined}
-          tabIndex={step === "login" ? -1 : undefined}>
-          <span className={styles.siteName}><span className={styles.heiti}>入党积极分子</span>练习</span>
+    <div key={step} className="animate-view-enter">
+        <header className="text-center mb-6">
+        <h1
+          className="font-serif m-0 mb-1.5 text-page-title font-bold text-ink-primary outline-none"
+          ref={step === "login" ? heading : undefined}
+          tabIndex={step === "login" ? -1 : undefined}
+        >
+          {siteConfig.subTitle}
         </h1>
-        {view.title && <h2 ref={heading} tabIndex={-1}>{view.title}</h2>}
-        {view.description && <p>{view.description}</p>}
-        {hasOtp && <p className={styles.address}>{email}</p>}
+        {view.title && <h2 className="font-serif m-0 mt-2 text-base font-semibold text-ink-primary outline-none" ref={heading} tabIndex={-1}>{view.title}</h2>}
+        {view.description && <p className="m-0 mt-1.5 text-control text-ink-secondary">{view.description}</p>}
+        {hasOtp && <p className="m-0 mt-2 text-sm font-medium text-ink-primary break-all">{email}</p>}
       </header>
 
-      <form method="post" onSubmit={onSubmit} onInvalid={onInvalid}
-        onFocus={() => { void loadAuthClient().catch(() => {}) }} className={styles.form}>
+      <form
+        method="post"
+        onSubmit={onSubmit}
+        onInvalid={onInvalid}
+        onFocus={() => { void loadAuthClient().catch(() => {}) }}
+        className="flex flex-col gap-3.5"
+      >
         {!hasOtp && (
-          <div className={styles.field}>
-            <div className={styles.control}>
-              <input
-                id="auth-email"
-                name="email"
-                type="email"
-                placeholder=" "
-                autoComplete="email"
-                autoCapitalize="none"
-                spellCheck={false}
-                value={email}
-                readOnly={pending !== null}
-                aria-invalid={emailError ? true : undefined}
-                aria-describedby={emailError ? "auth-email-error" : undefined}
-                onChange={(event) => {
-                  const address = event.target.value
-                  save({ ...flow, email: address, resendAt: address.trim().toLowerCase() === email.trim().toLowerCase() ? resendAt : 0 })
-                  clearFieldError("email")
-                }}
-                maxLength={254}
-                required
-              />
-              <label htmlFor="auth-email">邮箱</label>
-            </div>
-            {emailError && <p id="auth-email-error" className={styles.fieldError} role="alert">{emailError}</p>}
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="auth-email" className="text-sm font-medium text-ink-secondary">{messages.auth.emailLabel}</label>
+            <TextInput
+              id="auth-email"
+              name="email"
+              type="email"
+              placeholder={messages.auth.emailPlaceholder}
+              autoComplete="email"
+              autoCapitalize="none"
+              spellCheck={false}
+              value={email}
+              readOnly={pending !== null}
+              aria-invalid={emailError ? true : undefined}
+              aria-describedby={emailError ? "auth-email-error" : undefined}
+              onChange={(event) => {
+                const address = event.target.value
+                save({ ...flow, email: address, resendAt: address.trim().toLowerCase() === email.trim().toLowerCase() ? resendAt : 0 })
+                clearFieldError("email")
+              }}
+              maxLength={siteConfig.limits.emailMax}
+              required
+            />
+            {emailError && <p id="auth-email-error" className="m-0 text-xs text-wrong-ink" role="alert">{emailError}</p>}
           </div>
         )}
 
         {hasOtp && (
-          <div className={styles.field}>
-            <div className={styles.control}>
-              <input
-                id="auth-code"
-                name="otp"
-                className={styles.code}
-                placeholder=" "
-                inputMode="numeric"
-                autoComplete="one-time-code"
-                pattern="[0-9]{6}"
-                maxLength={6}
-                value={otp}
-                readOnly={pending !== null}
-                aria-invalid={otpError ? true : undefined}
-                aria-describedby={otpError ? "auth-code-error" : undefined}
-                onChange={(event) => {
-                  setOtp(event.target.value.replace(/[^0-9]/g, ""))
-                  clearFieldError("otp")
-                }}
-                required
-              />
-              <label htmlFor="auth-code">验证码</label>
-            </div>
-            {otpError && <p id="auth-code-error" className={styles.fieldError} role="alert">{otpError}</p>}
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="auth-code" className="text-sm font-medium text-ink-secondary">{messages.auth.otpLabel}</label>
+            <TextInput
+              id="auth-code"
+              name="otp"
+              variant="otp"
+              placeholder={messages.auth.otpPlaceholder}
+              inputMode="numeric"
+              autoComplete="one-time-code"
+              pattern="[0-9]{6}"
+              maxLength={siteConfig.limits.otpMax}
+              value={otp}
+              readOnly={pending !== null}
+              aria-invalid={otpError ? true : undefined}
+              aria-describedby={otpError ? "auth-code-error" : undefined}
+              onChange={(event) => {
+                setOtp(event.target.value.replace(/[^0-9]/g, ""))
+                clearFieldError("otp")
+              }}
+              required
+            />
+            {otpError && <p id="auth-code-error" className="m-0 text-xs text-wrong-ink" role="alert">{otpError}</p>}
           </div>
         )}
 
         {hasPassword && (
-          <div className={styles.field}>
-            <div className={`${styles.control} ${styles.password}`}>
-              <input
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="auth-password" className="text-sm font-medium text-ink-secondary">
+              {step === "reset" ? messages.auth.newPasswordLabel : messages.auth.passwordLabel}
+            </label>
+            <div className="relative">
+              <TextInput
                 id="auth-password"
                 name="password"
                 type={showPassword ? "text" : "password"}
-                placeholder=" "
+                className="pr-11"
+                placeholder={step === "login" ? messages.auth.loginPasswordPlaceholder : messages.auth.setPasswordPlaceholder}
                 autoComplete={step === "login" ? "current-password" : "new-password"}
                 aria-invalid={passwordError ? true : undefined}
                 aria-describedby={passwordDescription}
-                minLength={step === "login" ? undefined : 8}
-                maxLength={128}
+                minLength={step === "login" ? undefined : siteConfig.limits.passwordMin}
+                maxLength={siteConfig.limits.passwordMax}
                 value={password}
                 readOnly={pending !== null}
                 onChange={(event) => {
@@ -350,63 +335,61 @@ export function AuthPanel({ destination }: { destination: StudyDestination }) {
                 }}
                 required
               />
-              <label htmlFor="auth-password">{step === "reset" ? "新密码" : "密码"}</label>
-              <button type="button" className={styles.toggle} aria-controls="auth-password"
-                aria-label={showPassword ? "隐藏密码" : "显示密码"}
-                onClick={() => setShowPassword(!showPassword)}>
-                <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24"
-                  fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M2 12s3.64-6 10-6 10 6 10 6-3.64 6-10 6S2 12 2 12Z" />
-                  <circle cx="12" cy="12" r="2.5" />
-                  {showPassword && <path d="M4 4l16 16" />}
-                </svg>
+              <button
+                type="button"
+                className="absolute right-1 top-1/2 -translate-y-1/2 w-11 h-11 appearance-none border-0 bg-transparent p-0 text-selected-ink flex items-center justify-center"
+                aria-controls="auth-password"
+                aria-label={showPassword ? messages.auth.hidePasswordAria : messages.auth.showPasswordAria}
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                <EyeIcon visible={showPassword} />
               </button>
             </div>
-            {passwordError && <p id="auth-password-error" className={styles.fieldError} role="alert">{passwordError}</p>}
-            {step !== "login" && <small id="auth-password-note">至少使用 8 个字符。</small>}
+            {passwordError && <p id="auth-password-error" className="m-0 text-xs text-wrong-ink" role="alert">{passwordError}</p>}
+            {step !== "login" && <small id="auth-password-note" className="text-xs text-ink-muted">{messages.auth.passwordLengthNote}</small>}
           </div>
         )}
 
-        {formError && !formError.field && <p className={styles.error} role="alert">{formError.text}</p>}
-        {notice && <p className={styles.notice} role="status">{notice}</p>}
+        {formError && !formError.field && <p className="m-0 text-xs text-wrong-ink text-center" role="alert">{formError.text}</p>}
+        {notice && <p className="m-0 text-xs text-correct-ink text-center" role="status">{notice}</p>}
 
-        <button type="submit" className={styles.submit} disabled={!ready || !!pending || redirecting}>
-          {pending === "submit" || redirecting ? "正在处理…" : view.action}
-        </button>
+        <Button type="submit" variant="cta" size="lg" className="w-full mt-1" disabled={!ready || !!pending || redirecting}>
+          {pending === "submit" || redirecting ? messages.auth.processing : view.action}
+        </Button>
       </form>
 
       {hasOtp && (
-        <div className={styles.resend}>
-          <button type="button" className={styles.link} disabled={!!pending || remaining > 0}
+        <div className="mt-4 text-center">
+          <button type="button" className="tactile text-meta text-selected-ink font-medium disabled:opacity-45" disabled={!!pending || remaining > 0}
             onClick={resend}>
-            {pending === "resend" ? "正在请求…"
-              : remaining > 0 ? `${remaining} 秒后可重发` : "重新发送验证码"}
+            {pending === "resend" ? messages.auth.requesting
+              : remaining > 0 ? messages.auth.resendCooldown(remaining) : messages.auth.resendOtp}
           </button>
         </div>
       )}
 
-      <div className={step === "login" ? `${styles.footer} ${styles.loginFooter}` : styles.footer}>
+      <div className={`mt-5 flex items-center text-meta text-ink-secondary ${step === "login" ? "justify-between" : "justify-center"}`}>
         {step === "login" ? (
           <>
-            <button type="button" className={styles.link} disabled={!!pending}
+            <button type="button" className="auth-footer-link text-ink-secondary hover:text-ink-primary" disabled={!!pending}
               onClick={() => changeStep("forgot")}>
-              忘记密码
+              {messages.auth.forgotPassword}
             </button>
-            <span className={styles.registerPrompt}>
-              <span>第一次使用？</span>
-              <button type="button" className={styles.link} disabled={!!pending}
+            <span className="flex items-center gap-1.5">
+              <span>{messages.auth.firstTimePrefix}</span>
+              <button type="button" className="auth-footer-link text-selected-ink font-medium" disabled={!!pending}
                 onClick={() => changeStep("register")}>
-                注册
+                {messages.auth.registerLink}
               </button>
             </span>
           </>
         ) : (
-          <button type="button" className={styles.link} disabled={!!pending}
+          <button type="button" className="auth-footer-link text-ink-secondary hover:text-ink-primary" disabled={!!pending}
             onClick={() => changeStep("login")}>
-            返回登录
+            {messages.auth.backToLogin}
           </button>
         )}
       </div>
-    </AuthScreen>
+    </div>
   )
 }

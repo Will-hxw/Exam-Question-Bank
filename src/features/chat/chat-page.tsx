@@ -2,28 +2,40 @@
 
 import Image from 'next/image'
 import { type FormEvent, type MouseEventHandler, type PointerEvent, type ReactNode, type RefObject, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { BackArrowIcon, EditPencilIcon, EmojiIcon, MentionIcon } from '@/components/icons'
+import { Button, TextInput } from '@/components/ui'
+import { messages } from '@/config/messages'
+import { siteConfig } from '@/config/site'
 import { useTabDraft } from '@/use-tab-draft'
 import { authorMention, messageLimit, nicknameLimit, publicAuthorMention, type ChatMessage, type ChatProfile } from './types'
 import { chatError, useChatRoom } from './use-chat-room'
-import './chat.css'
 
-const emojis = ['😀', '😂', '🥹', '🤣', '😎', '🤔', '🙃', '👀', '👍', '👏', '🙌', '🤝', '❤️', '✨', '🎉', '💪']
+const emojis = siteConfig.chatEmojis
 const time = new Intl.DateTimeFormat('zh-CN', { hour: '2-digit', minute: '2-digit', hourCycle: 'h23' })
 const date = new Intl.DateTimeFormat('zh-CN', { month: 'long', day: 'numeric' })
 
 export function messageTime(value: string) {
   const sent = new Date(value)
-  return `${sent.toDateString() === new Date().toDateString() ? '今天' : date.format(sent)} ${time.format(sent)}`
+  return `${sent.toDateString() === new Date().toDateString() ? messages.chat.today : date.format(sent)} ${time.format(sent)}`
 }
 
 export function Avatar({ profile, size, authorAvatar }: { profile: ChatProfile; size: number; authorAvatar?: string }) {
-  const fallback = `/chat-avatars/${profile.avatar}.webp`
+  const fallback = siteConfig.api.chatAvatarFallback(profile.avatar)
   const src = profile.avatarUrl ?? (profile.author && authorAvatar ? `data:image/webp;base64,${authorAvatar.replace(/\s/g, '')}`
-    : profile.avatarImageId ? `/api/chat/avatar?id=${profile.avatarImageId}` : fallback)
-  return <Image className="chat-avatar" src={src} alt="" width={size} height={size} unoptimized
-    onError={(event) => {
-      if (event.currentTarget.getAttribute('src') !== fallback) event.currentTarget.src = fallback
-    }} />
+    : profile.avatarImageId ? siteConfig.api.chatAvatar(profile.avatarImageId) : fallback)
+  return (
+    <Image
+      className="rounded-full object-cover shrink-0 bg-surface"
+      src={src}
+      alt=""
+      width={size}
+      height={size}
+      unoptimized
+      onError={(event) => {
+        if (event.currentTarget.getAttribute('src') !== fallback) event.currentTarget.src = fallback
+      }}
+    />
+  )
 }
 
 function MentionAvatar({ message, nickname, authorAvatar, onMention }: {
@@ -47,22 +59,32 @@ function MentionAvatar({ message, nickname, authorAvatar, onMention }: {
     press.current = { x: event.clientX, y: event.clientY, timer: setTimeout(() => {
       held.current = true
       onMention()
-    }, 440) }
+    }, siteConfig.timings.mentionHoldMs) }
   }
 
-  return <button className="chat-avatar-button" type="button" aria-label={`提及 ${nickname}`} title={`长按或点击提及 ${nickname}`}
-    onPointerDown={start} onPointerUp={clear} onPointerCancel={clear} onPointerLeave={clear}
-    onPointerMove={(event) => {
-      const origin = press.current
-      if (origin && Math.hypot(event.clientX - origin.x, event.clientY - origin.y) > 9) clear()
-    }}
-    onContextMenu={(event) => event.preventDefault()}
-    onClick={(event) => {
-      if (!held.current && (event.detail === 0 || window.matchMedia('(pointer: fine)').matches)) onMention()
-      held.current = false
-    }}>
-    <Avatar profile={message} size={36} authorAvatar={authorAvatar} />
-  </button>
+  return (
+    <button
+      className="tactile p-0 bg-transparent shrink-0 rounded-full"
+      type="button"
+      aria-label={messages.chat.mentionAria(nickname)}
+      title={messages.chat.mentionTitle(nickname)}
+      onPointerDown={start}
+      onPointerUp={clear}
+      onPointerCancel={clear}
+      onPointerLeave={clear}
+      onPointerMove={(event) => {
+        const origin = press.current
+        if (origin && Math.hypot(event.clientX - origin.x, event.clientY - origin.y) > 9) clear()
+      }}
+      onContextMenu={(event) => event.preventDefault()}
+      onClick={(event) => {
+        if (!held.current && (event.detail === 0 || window.matchMedia('(pointer: fine)').matches)) onMention()
+        held.current = false
+      }}
+    >
+      <Avatar profile={message} size={36} authorAvatar={authorAvatar} />
+    </button>
+  )
 }
 
 type OutgoingMessage = { id: string; body: string; sentAt: string; error?: string }
@@ -76,21 +98,40 @@ function Message({ message, nickname, previous, authorAvatar, onMention, deliver
   delivery?: ReactNode
 }) {
   const gap = previous ? Date.parse(message.sentAt) - Date.parse(previous.sentAt) : Infinity
-  return <li className="chat-message" data-message-id={message.id}>
-    {gap >= 5 * 60 * 1000 && <time className="chat-timestamp" dateTime={message.sentAt}>{messageTime(message.sentAt)}</time>}
-    <div className={`chat-message-row${message.mine ? ' is-mine' : ''}`}>
-      {message.mine ? <Avatar profile={message} size={36} authorAvatar={authorAvatar} />
-        : <MentionAvatar message={message} nickname={nickname} authorAvatar={authorAvatar} onMention={onMention} />}
-      <div className="chat-message-content">
-        <span className="chat-nickname">{nickname}</span>
-        <p className={`chat-bubble${message.aiReplyTo ? ' chat-bubble-ai' : ''}`} dir="auto">
-          {message.aiReplyTo && <span className="chat-ai-label">AI 自动</span>}
-          {message.body}
-        </p>
-        {delivery}
+  const bubbleCls = message.mine
+    ? 'bg-cta text-cta-ink'
+    : message.aiReplyTo
+      ? 'bg-selected-fill text-ink-primary'
+      : 'bg-surface text-ink-primary'
+
+  return (
+    <li className="flex flex-col gap-2 animate-msg-in" data-message-id={message.id} data-mine={message.mine}>
+      {gap >= 5 * 60 * 1000 && (
+        <time className="text-center text-micro text-ink-muted my-1" dateTime={message.sentAt}>
+          {messageTime(message.sentAt)}
+        </time>
+      )}
+      <div className={`flex items-start gap-2.5 ${message.mine ? 'flex-row-reverse' : ''}`}>
+        {message.mine ? (
+          <Avatar profile={message} size={36} authorAvatar={authorAvatar} />
+        ) : (
+          <MentionAvatar message={message} nickname={nickname} authorAvatar={authorAvatar} onMention={onMention} />
+        )}
+        <div className={`flex min-w-0 flex-col gap-1 max-w-bubble ${message.mine ? 'items-end' : 'items-start'}`}>
+          <span data-nickname="" className="max-w-full [overflow-wrap:anywhere] text-xs font-medium text-ink-secondary px-1">{nickname}</span>
+          <p className={`m-0 px-3.75 py-2.75 rounded-option text-body max-w-full [overflow-wrap:anywhere] whitespace-pre-wrap ${bubbleCls}`} dir="auto">
+            {message.aiReplyTo && (
+              <span className="inline-flex mr-1.5 px-1.5 py-0.5 rounded-tag bg-selected-badge text-white text-nano font-semibold align-middle">
+                {messages.chat.aiAutoTag}
+              </span>
+            )}
+            {message.body}
+          </p>
+          {delivery}
+        </div>
       </div>
-    </div>
-  </li>
+    </li>
+  )
 }
 
 export function ChatHeader({ title, backHref, backLabel, onBack, heading, children }: {
@@ -101,13 +142,25 @@ export function ChatHeader({ title, backHref, backLabel, onBack, heading, childr
   heading: RefObject<HTMLHeadingElement | null>
   children?: ReactNode
 }) {
-  return <header className="chat-header">
-    <a className="chat-icon-button chat-back" href={backHref} onClick={onBack} aria-label={backLabel} title={backLabel}>
-      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="m14 6-6 6 6 6" /></svg>
-    </a>
-    <h1 id="chat-title" ref={heading} tabIndex={-1}>{title}</h1>
-    {children}
-  </header>
+  return (
+    <header className="flex items-center justify-between gap-3 flex-wrap pb-2">
+      <div className="flex items-center gap-2.5">
+        <a
+          className="icon-btn no-underline"
+          href={backHref}
+          onClick={onBack}
+          aria-label={backLabel}
+          title={backLabel}
+        >
+          <BackArrowIcon />
+        </a>
+        <h1 id="chat-title" ref={heading} tabIndex={-1} className="font-serif m-0 text-sub-title font-bold outline-none">
+          {title}
+        </h1>
+      </div>
+      {children}
+    </header>
+  )
 }
 
 type ChatDraft = { text: string; clientId?: string }
@@ -136,10 +189,10 @@ export function PublicChat({ userId, backHref, onBack, onRead }: {
   onRead: (unread: boolean) => void
 }) {
   const room = useChatRoom(userId)
-  return <ChatPage room={room} draftKey={`cqu-chat-draft:${userId}:public`} backHref={backHref} onBack={onBack} onRead={onRead} />
+  return <ChatPage room={room} draftKey={siteConfig.storageKeys.chatDraft(userId, 'public')} backHref={backHref} onBack={onBack} onRead={onRead} />
 }
 
-export default function ChatPage({ backHref, backLabel = '返回练习', direct = false, room, draftKey, onBack, onRead }: {
+export default function ChatPage({ backHref, backLabel = messages.common.backToPractice, direct = false, room, draftKey, onBack, onRead }: {
   backHref: string
   backLabel?: string
   direct?: boolean
@@ -207,7 +260,6 @@ export default function ChatPage({ backHref, backLabel = '返回练习', direct 
       log.scrollTop = log.scrollHeight
     }
     if (last && last !== newestSeen.current && !nearBottom.current) {
-      // Keep the reader's scroll position while older messages are in view.
       setNewMessages(true)
     }
     newestSeen.current = last
@@ -230,7 +282,7 @@ export default function ChatPage({ backHref, backLabel = '返回练习', direct 
           onRead?.(result.unread)
         }
       } catch {
-        if (active) retry = setTimeout(confirmRead, 5000)
+        if (active) retry = setTimeout(confirmRead, siteConfig.timings.chatReadRetryMs)
       } finally {
         inFlight = false
       }
@@ -269,7 +321,7 @@ export default function ChatPage({ backHref, backLabel = '返回练习', direct 
       await room.rename(nickname)
       closeNickname()
     } catch (error) {
-      setNameError(chatError(error, '昵称未保存，请重试。'))
+      setNameError(chatError(error, messages.chat.saveNicknameError))
     } finally {
       setSavingName(false)
     }
@@ -292,7 +344,7 @@ export default function ChatPage({ backHref, backLabel = '返回练习', direct 
       updateOutbox((previous) => previous?.filter(({ id }) => id !== message.id) ?? null)
     } catch (error) {
       updateOutbox((previous) => previous?.map((item) => item.id === message.id
-        ? { ...item, error: chatError(error, '发送未获确认。') } : item) ?? null)
+        ? { ...item, error: chatError(error, messages.chat.sendFallbackError) } : item) ?? null)
     } finally {
       sendingNow.current = false
       setSendingId(undefined)
@@ -333,110 +385,237 @@ export default function ChatPage({ backHref, backLabel = '返回练习', direct 
 
   const profile = room.profile
   const unconfirmed = outgoing?.filter((item) => !room.messages.some((message) => message.clientId === item.id)) ?? []
-  return <section className="chat-room" ref={section} aria-labelledby="chat-title">
-    <ChatHeader title={direct ? '作者对话' : '聊天区'} backHref={backHref} backLabel={backLabel} onBack={onBack} heading={heading}>
-      {direct && room.peer && <div className="chat-counterpart">
-        <Avatar profile={room.peer} size={30} authorAvatar={room.authorAvatar} />
-        <div className="chat-counterpart-details">
-          <span title={room.peer.nickname}>{room.peer.nickname}</span>
-          {room.peer.email && <small title={room.peer.email}>{room.peer.email}</small>}
+
+  return (
+    <section className="chat-shell animate-view-enter" ref={section} aria-labelledby="chat-title">
+      <ChatHeader title={direct ? messages.chat.authorTitle : messages.chat.publicTitle} backHref={backHref} backLabel={backLabel} onBack={onBack} heading={heading}>
+        {direct && room.peer && (
+          <div role="group" aria-label="对话对象" className="flex max-w-full min-w-0 items-center gap-2.5 bg-surface px-3 py-1.5 rounded-control">
+            <Avatar profile={room.peer} size={28} authorAvatar={room.authorAvatar} />
+            <div className="min-w-0 flex flex-col leading-tight">
+              <span className="truncate text-meta font-medium" title={room.peer.nickname}>{room.peer.nickname}</span>
+              {room.peer.email && <small className="truncate text-micro text-ink-muted" title={room.peer.email}>{room.peer.email}</small>}
+            </div>
+          </div>
+        )}
+        {!direct && room.profile?.author && (
+          <div className="flex items-center gap-2 bg-surface px-3 py-1.5 rounded-control text-meta font-medium" title={room.profile.nickname}>
+            <Avatar profile={room.profile} size={28} authorAvatar={room.authorAvatar} />
+            <span>{room.profile.nickname}</span>
+          </div>
+        )}
+        {!direct && room.profile && !room.profile.author && (
+          <button
+            type="button"
+            className="btn-surface h-9.5 px-3 rounded-compact inline-flex items-center gap-2 text-meta font-medium"
+            ref={nicknameButton}
+            aria-label={messages.chat.editNicknameAria}
+            aria-controls="chat-edit-name"
+            aria-expanded={editingName}
+            onClick={() => {
+              if (editingName) {
+                if (!savingName) closeNickname()
+                return
+              }
+              setNickname(room.profile!.nickname)
+              setNameError('')
+              setEditingName(true)
+            }}
+          >
+            <Avatar profile={room.profile} size={26} authorAvatar={room.authorAvatar} />
+            <span className="max-w-nickname truncate">{room.profile.nickname}</span>
+            <EditPencilIcon />
+          </button>
+        )}
+      </ChatHeader>
+
+      {editingName && (
+        <form
+          id="chat-edit-name"
+          className="p-3.5 rounded-option bg-surface flex items-center gap-2 flex-wrap"
+          onSubmit={saveNickname}
+          onKeyDown={(event) => { if (event.key === 'Escape' && !savingName && !event.nativeEvent.isComposing) closeNickname() }}
+        >
+          <label htmlFor="chat-nickname" className="text-xs font-medium text-ink-secondary">{messages.chat.nicknameLabel}</label>
+          <TextInput
+            id="chat-nickname"
+            ref={nicknameInput}
+            className="h-9.5 flex-1 min-w-40 bg-canvas"
+            value={nickname}
+            onChange={(event) => setNickname(event.target.value)}
+            maxLength={nicknameLimit}
+            readOnly={savingName}
+            required
+          />
+          <Button variant="surface" size="sm" className="h-9.5 px-3 bg-canvas text-xs" disabled={savingName} onClick={closeNickname}>
+            {messages.common.cancel}
+          </Button>
+          <Button variant="cta" size="sm" type="submit" className="h-9.5 px-3.5 text-xs" disabled={savingName || !nickname.trim()}>
+            {messages.common.save}
+          </Button>
+          {nameError && <p className="m-0 w-full text-xs text-wrong-ink" role="alert">{nameError}</p>}
+        </form>
+      )}
+
+      {room.readError && (
+        <div className="px-4 py-2.5 rounded-control bg-wrong-fill text-wrong-ink text-xs flex items-center justify-between" role="status">
+          <span>{room.readError}</span>
+          <Button variant="surface" size="xs" className="bg-canvas text-ink-primary" onClick={room.retry}>{messages.common.retry}</Button>
         </div>
-      </div>}
-      {!direct && room.profile?.author && <div className="chat-profile chat-author-profile" title={room.profile.nickname}>
-        <Avatar profile={room.profile} size={30} authorAvatar={room.authorAvatar} /><span>{room.profile.nickname}</span>
-      </div>}
-      {!direct && room.profile && !room.profile.author && <button type="button" className="chat-profile" ref={nicknameButton} aria-label="修改昵称"
-        aria-controls="chat-edit-name" aria-expanded={editingName} onClick={() => {
-          if (editingName) {
-            if (!savingName) closeNickname()
-            return
-          }
-          setNickname(room.profile!.nickname)
-          setNameError('')
-          setEditingName(true)
-        }}>
-        <Avatar profile={room.profile} size={30} authorAvatar={room.authorAvatar} />
-        <span>{room.profile.nickname}</span>
-        <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="m15 5 4 4M4 20l4-.8L20 7a2.8 2.8 0 0 0-4-4L4.8 15Z" /></svg>
-      </button>}
-    </ChatHeader>
-    {editingName && <form id="chat-edit-name" className="chat-name-form" onSubmit={saveNickname}
-      onKeyDown={(event) => { if (event.key === 'Escape' && !savingName && !event.nativeEvent.isComposing) closeNickname() }}>
-      <label htmlFor="chat-nickname">聊天昵称</label>
-      <input id="chat-nickname" ref={nicknameInput} value={nickname} onChange={(event) => setNickname(event.target.value)}
-        maxLength={nicknameLimit} readOnly={savingName} required />
-      <button className="btn btn-sm" type="button" disabled={savingName} onClick={closeNickname}>取消</button>
-      <button className="btn btn-sm primary" type="submit" disabled={savingName || !nickname.trim()}>保存</button>
-      {nameError && <p className="chat-error" role="alert">{nameError}</p>}
-    </form>}
-    {room.readError && <div className="chat-sync" role="status">
-      {room.readError} <button className="chat-text-button" type="button" onClick={room.retry}>重试</button>
-    </div>}
-    <div className="chat-timeline">
-      <div className="chat-log" ref={list} role="region" aria-label="聊天记录" tabIndex={0} onScroll={() => {
-        const log = list.current
-        if (!log) return
-        nearBottom.current = log.scrollHeight - log.clientHeight - log.scrollTop < 64
-        if (nearBottom.current) setNewMessages(false)
-      }}>
-        {room.hasOlder && <div className="chat-history">
-          <button className="chat-text-button" type="button" onClick={() => void room.loadOlder(rememberHistoryPosition)}
-            disabled={room.loadingOlder}>{room.loadingOlder ? '正在加载…' : '查看更早消息'}</button>
-          {room.historyError && <p className="chat-error" role="alert">{room.historyError}</p>}
-        </div>}
-        {room.messages.length > 0 || unconfirmed.length > 0 ? <ol className="chat-message-list">
-          {room.messages.map((message, index) => <Message key={message.clientId ?? message.id} message={message}
-            nickname={room.displayNickname(message)} previous={room.messages[index - 1]}
-            authorAvatar={room.authorAvatar} onMention={() => mention(message)} />)}
-          {profile && unconfirmed.map((item) => <Message key={item.id}
-            message={{ ...profile, ...item, mine: true }} nickname={profile.nickname} previous={room.messages.at(-1)}
-            authorAvatar={room.authorAvatar} onMention={() => {}} delivery={sendingId !== item.id ? (
-              <div className="chat-delivery chat-error" role="alert">
-                <span>{item.error ?? '发送未获确认。'}</span>
-                <button type="button" className="chat-text-button" disabled={sending} onClick={() => void deliver(item)}>重发</button>
-                <button type="button" className="chat-text-button" onClick={() => updateOutbox((before) => before?.filter(({ id }) => id !== item.id) ?? null)}>移除</button>
-              </div>
-            ) : <p className="chat-delivery" role="status">发送中…</p>} />)}
-        </ol> : !room.profile && !room.readError && <p className="chat-loading" role="status">正在加载聊天记录…</p>}
+      )}
+
+      <div className="relative flex-1 min-h-0 flex flex-col">
+        <div
+          className="chat-log-viewport"
+          ref={list}
+          role="region"
+          aria-label={messages.chat.messagesAria}
+          tabIndex={0}
+          onScroll={() => {
+            const log = list.current
+            if (!log) return
+            nearBottom.current = log.scrollHeight - log.clientHeight - log.scrollTop < 64
+            if (nearBottom.current) setNewMessages(false)
+          }}
+        >
+          {room.hasOlder && (
+            <div className="text-center py-1">
+              <Button
+                variant="surface"
+                size="xs"
+                className="h-8.5 px-3.5 rounded-micro"
+                onClick={() => void room.loadOlder(rememberHistoryPosition)}
+                disabled={room.loadingOlder}
+              >
+                {room.loadingOlder ? messages.common.loading : messages.chat.loadOlder}
+              </Button>
+              {room.historyError && <p className="m-0 mt-1 text-xs text-wrong-ink" role="alert">{room.historyError}</p>}
+            </div>
+          )}
+
+          {room.messages.length > 0 || unconfirmed.length > 0 ? (
+            <ol className="m-0 p-0 list-none flex flex-col gap-3">
+              {room.messages.map((message, index) => (
+                <Message
+                  key={message.clientId ?? message.id}
+                  message={message}
+                  nickname={room.displayNickname(message)}
+                  previous={room.messages[index - 1]}
+                  authorAvatar={room.authorAvatar}
+                  onMention={() => mention(message)}
+                />
+              ))}
+              {profile && unconfirmed.map((item) => (
+                <Message
+                  key={item.id}
+                  message={{ ...profile, ...item, mine: true }}
+                  nickname={profile.nickname}
+                  previous={room.messages.at(-1)}
+                  authorAvatar={room.authorAvatar}
+                  onMention={() => {}}
+                  delivery={sendingId !== item.id ? (
+                    <div className="flex items-center gap-2 text-xs text-wrong-ink mt-1" role="alert">
+                      <span>{item.error ?? messages.chat.sendFallbackError}</span>
+                      <button type="button" className="tactile underline" disabled={sending} onClick={() => void deliver(item)}>{messages.chat.resend}</button>
+                      <button type="button" className="tactile underline" onClick={() => updateOutbox((before) => before?.filter(({ id }) => id !== item.id) ?? null)}>{messages.chat.remove}</button>
+                    </div>
+                  ) : (
+                    <p className="m-0 text-xs text-ink-muted" role="status">{messages.chat.sendingStatus}</p>
+                  )}
+                />
+              ))}
+            </ol>
+          ) : (
+            !room.profile && !room.readError && (
+              <p className="py-12 text-center text-sm text-ink-muted" role="status">{messages.chat.loadingMessages}</p>
+            )
+          )}
+        </div>
+
+        {newMessages && (
+          <Button
+            variant="cta"
+            size="xs"
+            className="animate-badge-pop absolute bottom-3 left-1/2 -translate-x-1/2 h-8.5 px-3.5 rounded-full shadow-desktop"
+            onClick={scrollToLatest}
+          >
+            {messages.chat.jumpToLatest}
+          </Button>
+        )}
       </div>
-      {newMessages && <button type="button" className="chat-latest" onClick={scrollToLatest}>↓ 查看新消息</button>}
-    </div>
-    <form className="chat-composer" onSubmit={sendMessage} onKeyDown={(event) => {
-      if (event.key === 'Escape' && showEmoji) {
-        setShowEmoji(false)
-        emojiButton.current?.focus()
-      }
-    }}>
-      <textarea ref={composer} aria-label="聊天消息" rows={2} maxLength={messageLimit}
-        value={draft} disabled={!room.profile} onChange={(event) => setDraft(event.target.value)}
+
+      <form
+        className="chat-composer-form"
+        onSubmit={sendMessage}
         onKeyDown={(event) => {
-          if (event.key === 'Enter' && !event.shiftKey && !event.nativeEvent.isComposing
-            && window.matchMedia('(pointer: fine)').matches) {
-            event.preventDefault()
-            event.currentTarget.form?.requestSubmit()
+          if (event.key === 'Escape' && showEmoji) {
+            setShowEmoji(false)
+            emojiButton.current?.focus()
           }
-        }} />
-      <div className="chat-composer-actions">
-        <button type="button" className="chat-icon-button chat-emoji" ref={emojiButton} title="插入表情"
-          aria-label="插入表情" aria-expanded={showEmoji} aria-controls="chat-emoji-panel"
-          disabled={!room.profile} onClick={() => setShowEmoji((open) => !open)}>
-          <svg aria-hidden="true" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.65" strokeLinecap="round"><circle cx="12" cy="12" r="8.8" /><path d="M8.3 14.2a4 4 0 0 0 7.4 0M9 9.1h.1m5.8 0h.1" /></svg>
-        </button>
-        {showEmoji && <div className="chat-emoji-panel" ref={emojiPanel} id="chat-emoji-panel" aria-label="常用表情">
-          {emojis.map((emoji) => <button key={emoji} type="button" onClick={() => insertText(emoji)}>{emoji}</button>)}
-        </div>}
-        <button className="chat-icon-button chat-mention" type="button" aria-label={direct && room.peer && !room.peer.author ? '提及对方' : '提及作者'}
-          disabled={!room.profile} onClick={() => mention(room.peer)}>
-          <svg aria-hidden="true" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.65" strokeLinecap="round">
-            <circle cx="12" cy="12" r="3.5" />
-            <path d="M15.5 8.5v4.85a2.65 2.65 0 0 0 5.3 0V12a8.8 8.8 0 1 0-3.52 7.04" />
-          </svg>
-        </button>
-        {draft.length >= messageLimit - 50 && <span className="chat-length">{draft.length}/{messageLimit}</span>}
-        <button className="btn btn-sm primary chat-send" type="submit" disabled={!room.profile || !draft.trim() || sending}>
-          发送
-        </button>
-      </div>
-    </form>
-  </section>
+        }}
+      >
+        <textarea
+          ref={composer}
+          className="chat-composer-input"
+          aria-label={messages.chat.composerAria}
+          placeholder={direct ? (room.profile?.author ? messages.chat.composerReplyPlaceholder : messages.chat.composerDirectPlaceholder) : messages.chat.composerPublicPlaceholder}
+          rows={2}
+          maxLength={messageLimit}
+          value={draft}
+          disabled={!room.profile}
+          onChange={(event) => setDraft(event.target.value)}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter' && !event.shiftKey && !event.nativeEvent.isComposing
+              && window.matchMedia('(pointer: fine)').matches) {
+              event.preventDefault()
+              event.currentTarget.form?.requestSubmit()
+            }
+          }}
+        />
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-1.5">
+            <button
+              type="button"
+              className="tactile w-9 h-9 rounded-micro bg-canvas text-ink-secondary hover:bg-surface-hover flex items-center justify-center"
+              ref={emojiButton}
+              title={messages.chat.insertEmoji}
+              aria-label={messages.chat.insertEmoji}
+              aria-expanded={showEmoji}
+              aria-controls="chat-emoji-panel"
+              disabled={!room.profile}
+              onClick={() => setShowEmoji((open) => !open)}
+            >
+              <EmojiIcon />
+            </button>
+            <button
+              className="tactile w-9 h-9 rounded-micro bg-canvas text-ink-secondary hover:bg-surface-hover flex items-center justify-center"
+              type="button"
+              aria-label={direct ? (room.peer && !room.peer.author ? messages.chat.mentionPeer : messages.chat.mentionAuthor) : messages.chat.mentionAi}
+              disabled={!room.profile}
+              onClick={() => mention(room.peer)}
+            >
+              <MentionIcon />
+            </button>
+            {draft.length >= messageLimit - 50 && (
+              <span className="text-xs text-ink-muted tabular-nums ml-1">{draft.length}/{messageLimit}</span>
+            )}
+          </div>
+
+          <Button variant="cta" size="md" className="px-4.5 rounded-micro text-control" type="submit" disabled={!room.profile || !draft.trim() || sending}>
+            {messages.chat.send}
+          </Button>
+        </div>
+
+        {showEmoji && (
+          <div className="emoji-popover" ref={emojiPanel} id="chat-emoji-panel" aria-label={messages.chat.emojiPanelAria}>
+            {emojis.map((emoji) => (
+              <button key={emoji} type="button" className="tactile w-9 h-9 rounded-tag hover:bg-surface hover:scale-115 text-lg flex items-center justify-center" onClick={() => insertText(emoji)}>
+                {emoji}
+              </button>
+            ))}
+          </div>
+        )}
+      </form>
+    </section>
+  )
 }

@@ -1,0 +1,34 @@
+@unocss;
+
+html:has(#site-header) {
+  scrollbar-gutter: stable both-edges;
+}
+
+.drawer-overlay[open] {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.drawer-panel {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+html:has(.drawer-overlay[open]) {
+  overflow: hidden;
+}
+
+#site-header a:has(.study-navigation-pending)::after {
+  content: '';
+  position: absolute;
+  inset: auto 18% 2px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--selected-badge);
+}
+
+@media (max-width: 1023px) {
+  .community-footer {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+}

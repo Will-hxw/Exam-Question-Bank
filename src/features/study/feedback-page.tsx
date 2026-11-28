@@ -1,10 +1,16 @@
 'use client'
 
 import { type FormEvent, type MouseEventHandler, useEffect, useRef, useState } from 'react'
+import { MailboxIcon } from '@/components/icons'
+import { ActionLink, Button, TextArea, UnreadDot } from '@/components/ui'
+import { messages } from '@/config/messages'
+import { siteConfig } from '@/config/site'
 import { authorChatHash, unreadDescriptionId } from '@/features/chat/types'
 import { useTabDraft } from '@/use-tab-draft'
 import { requestJson, StudyRequestError } from './api'
 import { feedbackMaxLength, feedbackRatings } from './feedback'
+
+export { MailboxIcon }
 
 type FeedbackDraft = { rating: typeof feedbackRatings[number] | ''; message: string }
 const emptyDraft: FeedbackDraft = { rating: '', message: '' }
@@ -13,14 +19,6 @@ function readFeedbackDraft(value: unknown): FeedbackDraft | null {
   const draft = value as Partial<FeedbackDraft> | null
   if (typeof draft?.message !== 'string') return null
   return { rating: feedbackRatings.find((rating) => rating === draft.rating) ?? '', message: draft.message.slice(0, feedbackMaxLength) }
-}
-
-export function MailboxIcon({ size = 20 }: { size?: number }) {
-  return <svg aria-hidden="true" width={size} height={size} viewBox="0 0 24 24"
-    fill="none" stroke="currentColor" strokeWidth="1.65" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M3 20v-7a6 6 0 0 1 6-6h6a6 6 0 0 1 6 6v7H3Z" />
-    <path d="M9 7a6 6 0 0 1 6 6v7M6.5 14h5M17 7V3h4" />
-  </svg>
 }
 
 export function FeedbackPage({ pathname, userId, active, unread, onBack, warmAuthorChat, onOpenAuthorChat }: {
@@ -34,7 +32,7 @@ export function FeedbackPage({ pathname, userId, active, unread, onBack, warmAut
 }) {
   const page = useRef<HTMLElement>(null)
   const heading = useRef<HTMLHeadingElement>(null)
-  const { value, snapshot, save, clear } = useTabDraft(`cqu-feedback-draft:${userId}`, readFeedbackDraft)
+  const { value, snapshot, save, clear } = useTabDraft(siteConfig.storageKeys.feedbackDraft(userId), readFeedbackDraft)
   const draft = value ?? emptyDraft
   const { rating, message } = draft
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent'>('idle')
@@ -51,83 +49,104 @@ export function FeedbackPage({ pathname, userId, active, unread, onBack, warmAut
     if (status !== 'idle') return
     const content = message.trim()
     if (!rating) {
-      setError('请选择一档评价。')
+      setError(messages.feedback.pickRatingError)
       return
     }
 
     setError('')
     setStatus('sending')
     try {
-      await requestJson('/api/feedback', {
+      await requestJson(siteConfig.api.feedback, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'X-Study-Account': userId },
+        headers: { 'Content-Type': 'application/json', [siteConfig.api.accountHeader]: userId },
         body: JSON.stringify({ rating, message: content }),
-        signal: AbortSignal.timeout(20_000),
+        signal: AbortSignal.timeout(siteConfig.timings.feedbackTimeoutMs),
       })
       clear(snapshot)
       setStatus('sent')
     } catch (failure) {
-      setError(failure instanceof StudyRequestError ? failure.message : '提交未获确认，请检查网络后再试。')
+      setError(failure instanceof StudyRequestError ? failure.message : messages.feedback.submitFallbackError)
       setStatus('idle')
     }
   }
 
-  return <section ref={page} className="feedback-page" aria-labelledby="feedback-title">
-    <a className="feedback-back" href={pathname} onClick={onBack}>← 返回练习</a>
-    <div className="feedback-content">
-      <header className="feedback-heading">
-        <div className="feedback-title-row">
-          <MailboxIcon size={24} />
-          <h1 ref={heading} id="feedback-title" tabIndex={-1}>意见反馈</h1>
-          <a className="feedback-chat-link" href={authorChatHash} aria-label="作者对话" title="作者对话"
-            aria-describedby={unread ? unreadDescriptionId : undefined}
-            onPointerEnter={warmAuthorChat} onPointerDown={warmAuthorChat} onFocus={warmAuthorChat}
-            onClick={onOpenAuthorChat}>
-            <svg aria-hidden="true" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-              strokeWidth="1.65" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M20.5 11.5a7.5 7.5 0 0 1-7.5 7.5H9l-4 2 .7-3.3a7.5 7.5 0 0 1 4.8-13.7H13a7.5 7.5 0 0 1 7.5 7.5Z" />
-              <path d="M8.5 10h7m-7 3.3h4.7" />
-            </svg>
-            {unread && <span className="message-unread-dot" aria-hidden="true" />}
-          </a>
+  return (
+    <section ref={page} className="max-w-feedback w-full mx-auto py-2 flex flex-1 flex-col animate-view-enter" aria-labelledby="feedback-title">
+      <ActionLink variant="surface" size="sm" className="mb-5 self-start" href={pathname} onClick={onBack}>
+        {messages.common.backToPractice}
+      </ActionLink>
+
+      <div className="flex items-start justify-between gap-3 flex-wrap mb-6">
+        <div className="flex items-center gap-2.5">
+          <MailboxIcon size={siteConfig.limits.mailboxHeaderSize} />
+          <h1 id="feedback-title" ref={heading} tabIndex={-1} className="font-serif m-0 text-page-title font-bold outline-none">
+            {messages.feedback.title}
+          </h1>
         </div>
-        <p className="feedback-contact">
-          紧急情况请联系 <span lang="en">QQ</span> 邮箱：<a href="mailto:1176843521@qq.com">1176843521@qq.com</a>
-        </p>
-      </header>
-      {status !== 'sent' && (
-        <form className="feedback-form" onSubmit={submit}>
-          <fieldset className="feedback-rating" disabled={status === 'sending'}>
-            <legend>你觉得练习站怎么样？</legend>
-            <div className="feedback-scale">
-              {feedbackRatings.map((rating) => (
-                <label key={rating}>
-                  <input type="radio" name="rating" value={rating} checked={draft.rating === rating}
-                    onChange={() => save({ ...draft, rating })} required />
-                  <span lang={rating === 'NPC' ? 'en' : undefined}>{rating}</span>
+        <ActionLink
+          variant="surface"
+          size="md"
+          className="relative"
+          href={authorChatHash}
+          aria-describedby={unread ? unreadDescriptionId : undefined}
+          onPointerEnter={warmAuthorChat}
+          onPointerDown={warmAuthorChat}
+          onFocus={warmAuthorChat}
+          onClick={onOpenAuthorChat}
+        >
+          {messages.feedback.authorChat}
+          {unread && <UnreadDot />}
+        </ActionLink>
+      </div>
+
+      <p className="m-0 mb-7 text-control text-ink-secondary">
+        紧急情况请联系 QQ 邮箱：<a className="text-ink-secondary underline underline-offset-2 hover:text-ink-primary" href={`mailto:${siteConfig.feedbackEmail}`}>{siteConfig.feedbackEmail}</a>
+      </p>
+
+      {status === 'sent' ? (
+        <div className="p-6 rounded-option bg-correct-fill text-correct-ink" role="status">
+          <p className="m-0 text-action font-semibold">{messages.feedback.sentTitle}</p>
+          <p className="m-0 mt-1.5 text-control">{messages.feedback.sentSubtitle}</p>
+          <Button variant="surface" size="sm" className="mt-4" onClick={() => setStatus('idle')}>
+            {messages.feedback.writeAnother}
+          </Button>
+        </div>
+      ) : (
+        <form className="flex flex-1 flex-col gap-5" onSubmit={(event) => void submit(event)}>
+          <fieldset className="m-0 min-w-0 p-0 border-0" disabled={status === 'sending'}>
+            <legend className="text-body font-medium text-ink-primary">{messages.feedback.ratingLabel}</legend>
+            <div className="relative isolate mt-3 grid grid-cols-5">
+              <span aria-hidden="true" className="absolute top-4 left-1/10 right-1/10 h-px bg-progress-track" />
+              {feedbackRatings.map((option) => (
+                <label key={option} className="relative flex min-h-12 cursor-pointer flex-col items-center gap-1.5 py-2 text-meta text-ink-secondary">
+                  <input type="radio" name="rating" value={option} checked={rating === option} required
+                    className="m-0 h-4 w-4 accent-[var(--selected-badge)]"
+                    onChange={() => { setError(''); save({ ...draft, rating: option }) }} />
+                  <span lang={option === 'NPC' ? 'en' : undefined} className={rating === option ? 'font-semibold text-ink-primary' : ''}>{option}</span>
                 </label>
               ))}
             </div>
           </fieldset>
-          <div className="feedback-message">
-            <label htmlFor="feedback-message">你希望我们改进什么？<span>选填</span></label>
-            <textarea id="feedback-message" name="message" rows={4} value={message} maxLength={feedbackMaxLength}
-              onChange={(event) => save({ ...draft, message: event.target.value })} readOnly={status === 'sending'}
-              placeholder="遇到的问题、想增加的功能，都可以写在这里。" />
+
+          <div className="flex flex-1 flex-col">
+            <label htmlFor="feedback-message" className="block mb-2.5 text-body font-medium text-ink-primary">
+              {messages.feedback.messageLabel}<span className="ml-2 text-xs font-normal text-ink-secondary">选填</span>
+            </label>
+            <TextArea id="feedback-message" name="message" rows={8} className="block flex-1" maxLength={feedbackMaxLength}
+              placeholder={messages.feedback.messagePlaceholder} value={message} readOnly={status === 'sending'}
+              onChange={(event) => save({ ...draft, message: event.target.value })} />
           </div>
-          {error && <p className="study-message error" role="alert">{error}</p>}
-          <div className="feedback-actions">
-            <span className="feedback-count">{message.length} / {feedbackMaxLength}</span>
-            <button className="btn primary feedback-submit" type="submit" disabled={status === 'sending'}
-              aria-busy={status === 'sending'}>
-              {status === 'sending' ? '正在提交…' : '提交反馈'}
-            </button>
+
+          {error && <p className="m-0 text-meta text-wrong-ink" role="alert">{error}</p>}
+
+          <div className="mt-auto flex items-center justify-between gap-3">
+            <span className="text-meta tabular-nums text-ink-secondary">{message.length} / {feedbackMaxLength}</span>
+            <Button type="submit" variant="cta" size="lg" className="px-7" disabled={status === 'sending'} aria-busy={status === 'sending'}>
+              {status === 'sending' ? messages.feedback.submitting : messages.feedback.submitButton}
+            </Button>
           </div>
         </form>
       )}
-      <div className={status === 'sent' ? 'feedback-success' : undefined} role="status">
-        {status === 'sent' && <p>反馈已提交，感谢你的建议！</p>}
-      </div>
-    </div>
-  </section>
+    </section>
+  )
 }

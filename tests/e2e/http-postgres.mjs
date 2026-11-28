@@ -27,6 +27,9 @@ const users = new Map([
   ['personal-library', { id: 'e2e-personal-library', email: 'personal-library@example.test', emailVerified: true }],
   ['conflict', { id: 'e2e-conflict', email: 'conflict@example.test', emailVerified: true }],
   ['rejection', { id: 'e2e-rejection', email: 'rejection@example.test', emailVerified: true }],
+  ...['recovery', 'touch', 'mobile-actions', 'source-links'].map(token => [
+    token, { id: `e2e-${token}`, email: `${token}@example.test`, emailVerified: true },
+  ]),
   ['receipt', { id: 'e2e-receipt', email: 'receipt@example.test', emailVerified: true }],
   ['author', { id: 'e2e-author', email: 'xiaoweihuacqu@gmail.com', emailVerified: true }],
   ['unverified', { id: 'e2e-unverified', email: 'unverified@example.test', emailVerified: false }],
@@ -888,7 +891,7 @@ try {
 
   await mkdir(tmp, { recursive: true })
   buildDir = await mkdtemp(join(tmp, 'eqb-http-'))
-  const projectFiles = ['src', 'next.config.ts', 'tsconfig.json', 'package.json', 'package-lock.json', 'public']
+  const projectFiles = ['src', 'next.config.ts', 'postcss.config.mjs', 'postcss-unocss.cjs', 'uno.config.ts', 'tsconfig.json', 'package.json', 'package-lock.json', 'public']
   await Promise.all(projectFiles.map((file) => cp(join(root, file), join(buildDir, file), {
     recursive: true,
     filter: (source) => source !== join(root, 'public', 'bank'),
@@ -931,7 +934,8 @@ try {
     }
     await seedUnreadInbox(db)
     const libraryUser = users.get('personal-library').id
-    const libraryItems = items.slice(0, 21).map(({ id }) => id)
+    const libraryItems = (await db.query("SELECT id FROM questions WHERE status = 'published' ORDER BY id LIMIT 21")).rows.map(({ id }) => id)
+    assert.equal(libraryItems.length, 21)
     await db.query('INSERT INTO profiles (user_id) VALUES ($1)', [libraryUser])
     await db.query('INSERT INTO favorites (user_id, question_id) SELECT $1, unnest($2::uuid[])', [libraryUser, libraryItems])
     await db.query(`INSERT INTO question_progress (user_id, question_id, attempt_count, is_wrong)

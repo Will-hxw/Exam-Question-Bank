@@ -50,14 +50,14 @@ export function writeStudyPreference(key: string, value: unknown) {
 
 export function useAccountStudyPreferences(userId: string, remote: StudyPreferences | undefined, loading: boolean) {
   const key = `cqu-account-preferences:${userId}`
-  const [stored] = useState(() => readStudyPreference(key) as { values?: StudyPreferences; pending?: StudyPreferences } | undefined)
   const hydrated = useStudyPreferencesReady()
+  const [stored] = useState(() => readStudyPreference(key) as { values?: StudyPreferences; pending?: StudyPreferences } | undefined)
   const [confirmed, setConfirmed] = useState<StudyPreferences>({})
   const [lastRemote, setLastRemote] = useState(remote)
   const [pending, setPending] = useState<StudyPreferences>(stored?.pending ?? {})
   const [syncFailed, setSyncFailed] = useState(false)
   const queue = useRef<StudyPreferences>(stored?.pending ?? {})
-  const cache = useRef<StudyPreferences>(stored?.values ?? {})
+  const cache = useRef<StudyPreferences>(stored?.values ?? remote ?? {})
   const active = useRef(false)
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
@@ -132,8 +132,8 @@ export function useAccountStudyPreferences(userId: string, remote: StudyPreferen
   }, [flush, persist])
 
   return {
-    values: mergePreferences(mergePreferences(remote ?? stored?.values ?? {}, confirmed), pending),
-    ready: hydrated && (stored?.values !== undefined || remote !== undefined || !loading),
+    values: hydrated ? mergePreferences(mergePreferences(remote ?? stored?.values ?? {}, confirmed), pending) : (remote ?? {}),
+    ready: remote !== undefined || (hydrated && (stored?.values !== undefined || !loading)),
     save, syncFailed, retry: flush,
   }
 }

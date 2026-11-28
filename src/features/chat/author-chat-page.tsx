@@ -1,6 +1,9 @@
 'use client'
 
 import { type MouseEventHandler, useEffect, useRef, useState } from 'react'
+import { Button, TextInput, UnreadDot } from '@/components/ui'
+import { messages } from '@/config/messages'
+import { siteConfig } from '@/config/site'
 import { requestJson } from '@/features/study/api'
 import ChatPage, { Avatar, ChatHeader, messageTime } from './chat-page'
 import { authorChatHash, authorChatPath, unreadDescriptionId, type AuthorInbox } from './types'
@@ -25,8 +28,8 @@ function InboxList({ userId, onlyUnread, search, onOpenThread }: {
     let loading = false
     const readPage = (cursor?: string) => requestJson<AuthorInbox>(
       cursor ? `${path}&before=${encodeURIComponent(cursor)}` : path, {
-        headers: { 'X-Study-Account': userId },
-        signal: AbortSignal.any([stop.signal, AbortSignal.timeout(9000)]),
+        headers: { [siteConfig.api.accountHeader]: userId },
+        signal: AbortSignal.any([stop.signal, AbortSignal.timeout(siteConfig.timings.authorInboxTimeoutMs)]),
       },
     )
     async function refresh() {
@@ -47,12 +50,12 @@ function InboxList({ userId, onlyUnread, search, onOpenThread }: {
           setError('')
         }
       } catch (failure) {
-        if (!stop.signal.aborted) setError(chatError(failure, '暂时无法读取会话。'))
+        if (!stop.signal.aborted) setError(chatError(failure, messages.authorChat.inboxLoadError))
       } finally {
         loading = false
         if (!stop.signal.aborted) {
           setLoadingMore(false)
-          if (!document.hidden) timer = setTimeout(refresh, 12_000)
+          if (!document.hidden) timer = setTimeout(refresh, siteConfig.timings.authorInboxRefreshMs)
         }
       }
     }
@@ -75,37 +78,62 @@ function InboxList({ userId, onlyUnread, search, onOpenThread }: {
   }
 
   const conversations = inbox?.conversations ?? []
-  return <>
-    {error && <p className="chat-sync" role="status">{error}{' '}
-      <button className="chat-text-button" type="button" onClick={() => setRetry((value) => value + 1)}>重试</button>
-    </p>}
-    <div className="author-inbox-log" role="region" aria-label="作者会话列表">
-      {conversations.length > 0 ? <ul className="author-inbox-list">
-        {conversations.map((row) => <li key={row.userId}>
-          <a href={`${authorChatHash}/${row.id ?? `contact/${encodeURIComponent(row.userId)}`}`} className="author-inbox-row" onClick={onOpenThread}
-            aria-describedby={row.unread ? unreadDescriptionId : undefined}>
-            <div className="author-inbox-avatar">
-              <Avatar profile={row.peer} size={44} />
-              {row.unread && <span className="message-unread-dot" aria-hidden="true" />}
-            </div>
-            <div className="author-inbox-details">
-              <strong title={row.peer.nickname}>{row.peer.nickname}</strong>
-              <small title={row.peer.email}>{row.peer.email}</small>
-              <p>{row.mine && '你：'}{row.preview ?? '暂无消息'}</p>
-            </div>
-            {row.sentAt && <time dateTime={row.sentAt}>{messageTime(row.sentAt)}</time>}
-          </a>
-        </li>)}
-      </ul> : !error && <p className="chat-loading" role="status">
-        {!inbox ? '正在加载会话…' : search ? '没有匹配的联系人' : onlyUnread ? '没有未读会话' : '暂无注册用户'}
-      </p>}
-      {inbox?.nextCursor && <div className="chat-history">
-        <button className="chat-text-button" type="button" disabled={loadingMore} onClick={loadMore}>
-          {loadingMore ? '正在加载…' : '更多会话'}
-        </button>
-      </div>}
+  return (
+    <div className="flex flex-col gap-3">
+      {error && (
+        <p className="m-0 text-xs text-wrong-ink flex items-center gap-2" role="status">
+          <span>{error}</span>
+          <Button variant="surface" size="xs" onClick={() => setRetry((value) => value + 1)}>{messages.common.retry}</Button>
+        </p>
+      )}
+      <div className="flex flex-col gap-2" role="region" aria-label={messages.authorChat.regionAria}>
+        {conversations.length > 0 ? (
+          <ul className="m-0 p-0 list-none flex flex-col gap-2">
+            {conversations.map((row) => (
+              <li key={row.userId}>
+                <a
+                  href={`${authorChatHash}/${row.id ?? `contact/${encodeURIComponent(row.userId)}`}`}
+                  className="btn-surface p-3.5 rounded-option flex items-center gap-3 no-underline text-left"
+                  onClick={onOpenThread}
+                  aria-describedby={row.unread ? unreadDescriptionId : undefined}
+                >
+                  <div className="relative shrink-0">
+                    <Avatar profile={row.peer} size={42} />
+                    {row.unread && <UnreadDot className="absolute top-0 right-0 w-2.5 h-2.5" />}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-baseline justify-between gap-2">
+                      <strong className="text-sm font-semibold truncate text-ink-primary" title={row.peer.nickname}>{row.peer.nickname}</strong>
+                      {row.sentAt && <time className="text-micro text-ink-muted shrink-0" dateTime={row.sentAt}>{messageTime(row.sentAt)}</time>}
+                    </div>
+                    {row.peer.email && <small className="block text-micro text-ink-muted truncate" title={row.peer.email}>{row.peer.email}</small>}
+                    <p className="m-0 mt-0.5 text-xs text-ink-secondary truncate">
+                      {row.mine && messages.authorChat.youPrefix}
+                      {row.preview ?? messages.authorChat.noMessagesPreview}
+                    </p>
+                  </div>
+                </a>
+              </li>
+            ))}
+          </ul>
+        ) : !error && (
+          <p className="py-10 text-center text-sm text-ink-muted" role="status">
+            {!inbox ? messages.authorChat.loadingInbox
+              : search ? messages.authorChat.noMatchingContacts
+              : onlyUnread ? messages.authorChat.noUnreadThreads
+              : messages.authorChat.noRegisteredUsers}
+          </p>
+        )}
+        {inbox?.nextCursor && (
+          <div className="text-center pt-2">
+            <Button variant="surface" size="sm" disabled={loadingMore} onClick={loadMore}>
+              {loadingMore ? messages.common.loading : messages.authorChat.loadMoreThreads}
+            </Button>
+          </div>
+        )}
+      </div>
     </div>
-  </>
+  )
 }
 
 function Inbox({ userId, onlyUnread, setOnlyUnread, search, setSearch, onBack, onOpenThread }: {
@@ -125,25 +153,34 @@ function Inbox({ userId, onlyUnread, setOnlyUnread, search, setSearch, onBack, o
     section.current?.scrollIntoView({ block: 'start' })
   }, [])
   useEffect(() => {
-    const timer = setTimeout(() => setQuery(search.trim()), 250)
+    const timer = setTimeout(() => setQuery(search.trim()), siteConfig.timings.searchDebounceMs)
     return () => clearTimeout(timer)
   }, [search])
-  return <section ref={section} className="chat-room" aria-labelledby="chat-title">
-    <ChatHeader title="作者对话" heading={heading} backHref="#feedback" backLabel="返回意见反馈" onBack={onBack} />
-    <div className="author-inbox-controls">
-      <div className="author-inbox-filter" role="group" aria-label="筛选会话">
-        <button type="button" aria-pressed={!onlyUnread} onClick={() => setOnlyUnread(false)}>全部</button>
-        <button type="button" aria-pressed={onlyUnread} onClick={() => setOnlyUnread(true)}>仅看未读</button>
+  return (
+    <section ref={section} className="max-w-chat mx-auto flex flex-col gap-4 animate-view-enter" aria-labelledby="chat-title">
+      <ChatHeader title={messages.chat.authorTitle} heading={heading} backHref={siteConfig.hashes.feedback} backLabel={messages.authorChat.backToFeedback} onBack={onBack} />
+      <div className="flex items-center gap-2.5 flex-wrap">
+        <div className="flex items-center gap-1.5" role="group" aria-label={messages.authorChat.filterThreadsAria}>
+          <Button variant={!onlyUnread ? 'cta' : 'surface'} size="md" aria-pressed={!onlyUnread} onClick={() => setOnlyUnread(false)}>
+            {messages.common.all}
+          </Button>
+          <Button variant={onlyUnread ? 'cta' : 'surface'} size="md" aria-pressed={onlyUnread} onClick={() => setOnlyUnread(true)}>
+            {messages.authorChat.onlyUnread}
+          </Button>
+        </div>
+        <TextInput
+          type="search"
+          className="h-9.5 flex-1 min-w-44"
+          aria-label={messages.authorChat.searchThreadsAria}
+          placeholder={messages.authorChat.searchThreadsPlaceholder}
+          maxLength={siteConfig.limits.searchInputMax}
+          value={search}
+          onChange={(event) => setSearch(event.target.value)}
+        />
       </div>
-      <label className="author-inbox-search">
-        <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"
-          strokeLinecap="round"><circle cx="10.5" cy="10.5" r="5.5" /><path d="m15 15 4.5 4.5" /></svg>
-        <input type="search" aria-label="搜索会话" placeholder="昵称或邮箱" maxLength={100}
-          value={search} onChange={(event) => setSearch(event.target.value)} />
-      </label>
-    </div>
-    <InboxList key={`${onlyUnread}:${query}`} userId={userId} onlyUnread={onlyUnread} search={query} onOpenThread={onOpenThread} />
-  </section>
+      <InboxList key={`${onlyUnread}:${query}`} userId={userId} onlyUnread={onlyUnread} search={query} onOpenThread={onOpenThread} />
+    </section>
+  )
 }
 
 function Thread({ userId, author, threadId, allowCreate, onRead, onBack }: {
@@ -157,9 +194,18 @@ function Thread({ userId, author, threadId, allowCreate, onRead, onBack }: {
   const contact = threadId?.startsWith('contact/') ? threadId.slice('contact/'.length) : undefined
   const room = useChatRoom(userId, { threadId: contact === undefined ? threadId : undefined, contact, allowCreate })
   const participant = author ? room.peer?.authorKey ?? threadId : 'own'
-  const draftKey = `cqu-chat-draft:${userId}:author:${participant}`
-  return <ChatPage room={room} draftKey={draftKey} direct backHref={author ? authorChatHash : '#feedback'}
-    backLabel={author ? '返回会话列表' : '返回意见反馈'} onRead={onRead} onBack={onBack} />
+  const draftKey = siteConfig.storageKeys.chatDraft(userId, `author:${participant}`)
+  return (
+    <ChatPage
+      room={room}
+      draftKey={draftKey}
+      direct
+      backHref={author ? authorChatHash : siteConfig.hashes.feedback}
+      backLabel={author ? messages.authorChat.backToThreadList : messages.authorChat.backToFeedback}
+      onRead={onRead}
+      onBack={onBack}
+    />
+  )
 }
 
 export default function AuthorChatPage({ userId, author, threadId, allowCreate, onRead, onBack, onOpenThread }: {
