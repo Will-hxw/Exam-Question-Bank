@@ -21,6 +21,7 @@ const subscribeReady = () => () => {}
 const browserReady = () => true
 const serverReady = () => false
 const initialFlow: AuthFlow = { step: "login", email: "", resendAt: 0 }
+const neutralFooterLink = "auth-footer-link text-ink-secondary hover:text-ink-primary"
 
 function readAuthFlow(value: unknown): AuthFlow | null {
   const flow = value as Partial<AuthFlow> | null
@@ -236,8 +237,8 @@ export function AuthPanel({ destination }: { destination: StudyDestination }) {
   }
 
   return (
-    <div key={step} className="animate-view-enter">
-        <header className="text-center mb-6">
+    <div key={step} className="animate-view-enter" data-auth-otp={hasOtp || undefined}>
+      <header className="text-center mb-6">
         <h1
           className="font-serif m-0 mb-1.5 text-page-title font-bold text-ink-primary outline-none"
           ref={step === "login" ? heading : undefined}
@@ -286,6 +287,11 @@ export function AuthPanel({ destination }: { destination: StudyDestination }) {
 
         {hasOtp && (
           <div className="flex flex-col gap-1.5">
+            {notice && (
+              <p className="m-0 mb-3 px-4 py-3 rounded-control bg-surface text-control leading-relaxed text-ink-secondary" role="status">
+                {notice}
+              </p>
+            )}
             <label htmlFor="auth-code" className="text-sm font-medium text-ink-secondary">{messages.auth.otpLabel}</label>
             <TextInput
               id="auth-code"
@@ -337,7 +343,7 @@ export function AuthPanel({ destination }: { destination: StudyDestination }) {
               />
               <button
                 type="button"
-                className="absolute right-1 top-1/2 -translate-y-1/2 w-11 h-11 appearance-none border-0 bg-transparent p-0 text-selected-ink flex items-center justify-center"
+                className={`absolute right-1 top-1/2 -translate-y-1/2 w-11 h-11 appearance-none border-0 bg-transparent p-0 flex items-center justify-center ${hasOtp ? "text-ink-secondary" : "text-selected-ink"}`}
                 aria-controls="auth-password"
                 aria-label={showPassword ? messages.auth.hidePasswordAria : messages.auth.showPasswordAria}
                 onClick={() => setShowPassword(!showPassword)}
@@ -351,27 +357,17 @@ export function AuthPanel({ destination }: { destination: StudyDestination }) {
         )}
 
         {formError && !formError.field && <p className="m-0 text-xs text-wrong-ink text-center" role="alert">{formError.text}</p>}
-        {notice && <p className="m-0 text-xs text-correct-ink text-center" role="status">{notice}</p>}
+        {!hasOtp && notice && <p className="m-0 text-meta text-ink-secondary text-center" role="status">{notice}</p>}
 
         <Button type="submit" variant="cta" size="lg" className="w-full mt-1" disabled={!ready || !!pending || redirecting}>
           {pending === "submit" || redirecting ? messages.auth.processing : view.action}
         </Button>
       </form>
 
-      {hasOtp && (
-        <div className="mt-4 text-center">
-          <button type="button" className="tactile text-meta text-selected-ink font-medium disabled:opacity-45" disabled={!!pending || remaining > 0}
-            onClick={resend}>
-            {pending === "resend" ? messages.auth.requesting
-              : remaining > 0 ? messages.auth.resendCooldown(remaining) : messages.auth.resendOtp}
-          </button>
-        </div>
-      )}
-
-      <div className={`mt-5 flex items-center text-meta text-ink-secondary ${step === "login" ? "justify-between" : "justify-center"}`}>
+      <div className={`mt-5 flex items-center text-meta text-ink-secondary ${step === "login" || hasOtp ? "justify-between" : "justify-center"}`}>
         {step === "login" ? (
           <>
-            <button type="button" className="auth-footer-link text-ink-secondary hover:text-ink-primary" disabled={!!pending}
+            <button type="button" className={neutralFooterLink} disabled={!!pending}
               onClick={() => changeStep("forgot")}>
               {messages.auth.forgotPassword}
             </button>
@@ -384,9 +380,20 @@ export function AuthPanel({ destination }: { destination: StudyDestination }) {
             </span>
           </>
         ) : (
-          <button type="button" className="auth-footer-link text-ink-secondary hover:text-ink-primary" disabled={!!pending}
+          <button type="button" className={neutralFooterLink} disabled={!!pending}
             onClick={() => changeStep("login")}>
             {messages.auth.backToLogin}
+          </button>
+        )}
+        {hasOtp && (
+          <button
+            type="button"
+            className={`${neutralFooterLink} disabled:no-underline disabled:hover:text-ink-secondary`}
+            disabled={!!pending || remaining > 0}
+            onClick={resend}
+          >
+            {pending === "resend" ? messages.auth.requesting
+              : remaining > 0 ? messages.auth.resendCooldown(remaining) : messages.auth.resendOtp}
           </button>
         )}
       </div>

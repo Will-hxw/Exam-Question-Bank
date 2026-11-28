@@ -1,5 +1,9 @@
 @unocss;
 
+[data-auth-otp] :focus-visible {
+  outline-color: var(--ink-primary);
+}
+
 html:has(#site-header) {
   scrollbar-gutter: stable both-edges;
 }

@@ -76,7 +76,7 @@ export default defineConfig({
       'w-full min-h-15 p-1 bg-transparent text-ink-primary text-body border-0 resize-none',
     'emoji-popover':
       'animate-popover-up origin-bottom-left absolute bottom-full mb-2 left-0 p-2 rounded-option bg-canvas shadow-desktop grid grid-cols-8 gap-1 z-30',
-    'otp-input': 'input-flat tabular-nums tracking-widest text-center text-base font-semibold',
+    'otp-input': 'input-flat tabular-nums tracking-widest text-base font-semibold placeholder:tracking-normal placeholder:font-normal',
     'progress-pill': 'w-11 h-1.25 rounded-full overflow-hidden bg-progress-track',
     'progress-fill-bar': 'h-full rounded-full bg-progress-fill transition-all duration-progress ease-silk',
     'nav-indicator':
